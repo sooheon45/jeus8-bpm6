@@ -11,7 +11,7 @@
 # 기타 불필요한 파일
 *.log
 *.tmp
-/jeus8001_unix_generic_ko.bin
+jeus8001_unix_generic_ko.bin
 
 
 docs/app/process-service.war
