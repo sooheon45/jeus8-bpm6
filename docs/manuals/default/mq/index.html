@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>JEUS MQ 안내서</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS MQ 안내서"/><link rel="next" href="about.html" title="안내서에 대하여"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">JEUS MQ 안내서</td></tr><tr><td width="20%" align="left"> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="about.html">다음</a></td></tr></table><hr/></div><div class="book" lang="ko-KR"><div class="titlepage"><div><p xmlns=""><b><h1>JEUS MQ 안내서   </h1></b></p><p xmlns=""><b><h3>JEUS 8</h3></b></p><div><p class="copyright">저작권 ©  2019 TmaxSoft Co., Ltd. All Rights Reserved.</p></div><div><div class="legalnotice"><a id="d4e12"></a>
+    <p class="legalnotice-title"><b>Restricted Rights Legend</b></p>
+
+    <p>All TmaxSoft Software(JEUS<sup>®</sup>) and
+    documents are protected by copyright laws and international convention.
+    TmaxSoft software and documents are made available under the terms of the
+    TmaxSoft License Agreement and this document may only be distributed or
+    copied in accordance with the terms of this agreement. No part of this
+    document may be transmitted, copied, deployed, or reproduced in any form
+    or by any means, electronic, mechanical, or optical, without the prior
+    written consent of TmaxSoft Co., Ltd. Nothing in this software document
+    and agreement constitutes a transfer of intellectual property rights
+    regardless of whether or not such rights are registered) or any rights to
+    TmaxSoft trademarks, logos, or any other brand features.</p>
+
+    <p/>
+
+    <p>This document is for information purposes only. The company assumes
+    no direct or indirect responsibilities for the contents of this document,
+    and does not guarantee that the information contained in this document
+    satisfies certain legal or commercial conditions. The information
+    contained in this document is subject to change without prior notice due
+    to product upgrades or updates. The company assumes no liability for any
+    errors in this document.</p>
+
+    <p>이 소프트웨어(JEUS<sup>®</sup>) 사용설명서의 내용과 프로그램은 저작권법과 국제
+    조약에 의해서 보호받고 있습니다. 사용설명서의 내용과 여기에 설명된 프로그램은 TmaxSoft Co., Ltd.와의 사용권 계약
+    하에서만 사용이 가능하며, 사용설명서는 사용권 계약의 범위 내에서만 배포 또는 복제할 수 있습니다. 이 사용설명서의 전부 또는
+    일부분을 TmaxSoft의 사전 서면 동의 없이 전자, 기계, 녹음 등의 수단을 사용하여 전송, 복제, 배포, 2차적 저작물작성 등의
+    행위를 하여서는 안 됩니다.</p>
+
+    <p>이 소프트웨어 사용설명서와 프로그램의 사용권 계약은 어떠한 경우에도 사용설명서 및 프로그램과 관련된 지적재산권(등록 여부를
+    불문)을 양도하는 것으로 해석되지 아니하며, 브랜드나 로고, 상표 등을 사용할 권한을 부여하지 않습니다. 사용설명서는 오로지 정보의
+    제공만을 목적으로 하고, 이로 인한 계약상의 직접적 또는 간접적 책임을 지지 아니하며, 사용설명서 상의 내용은 법적 또는 상업적인
+    특정한 조건을 만족시키는 것을 보장하지는 않습니다. 사용설명서의 내용은 제품의 업그레이드나 수정에 따라 그 내용이 예고 없이 변경될
+    수 있으며, 내용상의 오류가 없음을 보장하지 아니합니다.</p>
+  </div></div><div><div class="legalnotice"><a id="d4e21"></a>
+    <p class="legalnotice-title"><b>Trademarks</b></p>
+
+    <p>JEUS<sup>®</sup> is registered trademark of TmaxSoft
+    Co., Ltd.</p>
+
+    <p>JEUS<sup>®</sup>는 TmaxSoft Co., Ltd.의 등록
+    상표입니다.</p>
+
+    <p>Java and Solaris are registered trademarks of Oracle Corporation and
+    its subsidiaries and affiliates.</p>
+
+    <p>Java, Solaris는 Oracle Corporation 및 그 자회사, 관계회사의 등록 상표입니다.</p>
+
+    <p>Microsoft, Windows, and Windows NT are registered trademarks or
+    trademarks of Microsoft Corporation.</p>
+
+    <p>Microsoft, Windows, Windows NT는 Microsoft Corporation의 등록 상표 또는
+    상표입니다.</p>
+
+    <p>HP-UX is a registered trademark of Hewlett Packard Enterprise
+    Company.</p>
+
+    <p>HP-UX는 Hewlett Packard Enterprise Company의 등록 상표입니다.</p>
+
+    <p>AIX is a registered trademark of International Business Machines
+    Corporation.</p>
+
+    <p>AIX는 International Business Machines Corporation의 등록 상표입니다.</p>
+
+    <p>UNIX is a registered trademark of X/Open Company, Ltd.</p>
+
+    <p>UNIX는 X/Open Company, Ltd.의 등록 상표입니다.</p>
+
+    <p>Linux is a registered trademark of Linus Torvalds.</p>
+
+    <p>Linux는 Linus Torvalds의 등록 상표입니다.</p>
+
+    <p>Other products and company names are trademarks or registered
+    trademarks of their respective owners.</p>
+
+    <p>기타 모든 제품들과 회사 이름은 각각 해당 소유주의 상호, 상표, 또는 등록 상표입니다.</p>
+
+    <p>The names of companies, systems, and products mentioned in this
+    manual may not necessarily be indicated with a trademark symbol
+    (<sup>TM</sup>, <sup>®</sup>).</p>
+
+    <p>본 사용설명서에 기재된 회사, 시스템, 제품 이름 등에 반드시 상표 표시
+    (<sup>TM</sup>, <sup>®</sup>)를 하지는
+    않습니다.</p>
+  </div></div><div><div class="legalnotice"><a id="d4e47"></a>
+    <p class="legalnotice-title"><b>Open Source Software Notice</b></p>
+
+    <p>Some modules or files of this product are subject to the terms of
+    the following licenses. : APACHE2.0, CDDL1.0, EDL1.0, OPEN SYMPHONY
+    SOFTWARE1.1, TRILEAD-SSH2, Bouncy Castle, BSD, MIT, SIL OPEN
+    FONT1.1</p>
+
+    <p>Detailed Information related to the license can be found in the
+    following directory : ${INSTALL_PATH}/lib/licenses</p>
+
+    <p>본 제품의 일부 파일 또는 모듈은 다음의 라이선스를 준수합니다. : APACHE2.0, CDDL1.0, EDL1.0,
+    OPEN SYMPHONY SOFTWARE1.1, TRILEAD-SSH2, Bouncy Castle, BSD, MIT, SIL OPEN
+    FONT1.1</p>
+
+    <p>관련 상세한 정보는 제품의 다음의 디렉터리에 기재된 사항을 참고해 주십시오. :
+    ${INSTALL_PATH}/lib/licenses</p>
+  </div></div><p xmlns=""><b>안내서 정보</b></p><p xmlns="">
+                    안내서 제목:
+                    JEUS MQ 안내서   </p><p xmlns="">
+                    발행일:
+                    2019-02-28</p><p xmlns="">
+                    소프트웨어 버전:
+                    JEUS 8</p><p xmlns="">
+                    안내서 버전:
+                    v2.1.1</p></div><hr/></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="preface"><a href="about.html">안내서에 대하여</a></span></dt><dt><span class="chapter"><a href="chapter_introduction.html">1. 소개</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_introduction.html#sect_what-is-jms">1.1. Java Message Service(JMS)</a></span></dt><dt><span class="section"><a href="chapter_introduction.html#sect_mq-features">1.2. JEUS MQ의 특징</a></span></dt></dl></dd><dt><span class="chapter"><a href="chapter_clients.html">2. JEUS MQ 클라이언트 프로그래밍</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_clients.html#d4e481">2.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_clients.html#d4e581">2.2. JMS 관리 객체</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_clients.html#sect_defining-jndi-service">2.2.1. JNDI 서비스 정의</a></span></dt><dt><span class="section"><a href="chapter_clients.html#sect_connection-factory">2.2.2. Connection Factory</a></span></dt><dt><span class="section"><a href="chapter_clients.html#sect_destination">2.2.3. Destination</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_clients.html#sect_connection-and-session">2.3. 커넥션과 세션</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_clients.html#sect_connection-creation">2.3.1. 커넥션 생성</a></span></dt><dt><span class="section"><a href="chapter_clients.html#sect_physical-connection-sharing">2.3.2. 물리적 연결 공유</a></span></dt><dt><span class="section"><a href="chapter_clients.html#sect_session-creation">2.3.3. 세션 생성</a></span></dt><dt><span class="section"><a href="chapter_clients.html#sect_facilities-pooling">2.3.4. Client Facility Pooling</a></span></dt><dt><span class="section"><a href="chapter_clients.html#sect_none-acknowledge-mode">2.3.5. NONE_ACKNOWLEDGE 모드</a></span></dt><dt><span class="section"><a href="chapter_clients.html#d4e934">2.3.6. JMSContext</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_clients.html#d4e943">2.4. 메시지</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_clients.html#sect_message-header-fields">2.4.1. 메시지 헤더 필드</a></span></dt><dt><span class="section"><a href="chapter_clients.html#sect_message-properties">2.4.2. 메시지 프로퍼티</a></span></dt><dt><span class="section"><a href="chapter_clients.html#d4e1043">2.4.3. 메시지 바디</a></span></dt><dt><span class="section"><a href="chapter_clients.html#sect_filemessage">2.4.4. FileMessage</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_clients.html#d4e1153">2.5. 트랜잭션</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_clients.html#sect_local-transaction">2.5.1. 로컬 트랜잭션</a></span></dt><dt><span class="section"><a href="chapter_clients.html#d4e1177">2.5.2. 분산 트랜잭션</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="chapter_server-configuration.html">3. JEUS MQ 서버 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server-configuration.html#sect_mq-composition">3.1. 개요</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server-configuration.html#sect_jms-directory-structure">3.1.1. 디렉터리 구조</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sect_domain-jms-configureation">3.1.2. WebAdmin</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_server-configuration.html#sect_jms-resource-configuration">3.2. JMS 리소스 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server-configuration.html#sect_destination-configuration">3.2.1. Destination 설정</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sect_durable-subscriber-configuration">3.2.2. Durable Subscriber 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_server-configuration.html#sect_jms-engine-configuration">3.3. JMS 엔진 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server-configuration.html#sect_jms-engine-advanced-configuration">3.3.1. 기본 정보 설정</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sect_service-channel-configuration">3.3.2. 서비스 채널 설정</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sect_connection-factory-configuration">3.3.3. Connection Factory 설정</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sect_persistence-store-configuration">3.3.4. Persistence Store 설정</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sorting_conf">3.3.5. Message Sort 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_server-configuration.html#d4e1563">3.4. 서버 관리 및 모니터링</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server-configuration.html#d4e1589">3.4.1. 서버 관리</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sect_mq-monitor">3.4.2. 서버 모니터링</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="chapter_clustering.html">4. JEUS MQ 클러스터링</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_clustering.html#sect_what-is-jms-clustering">4.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_clustering.html#sect_categories-of-jms-clustering">4.2. 클러스터링 종류</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_clustering.html#d4e1891">4.2.1. Connection Factory 클러스터링</a></span></dt><dt><span class="section"><a href="chapter_clustering.html#d4e1909">4.2.2. Destination 클러스터링</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_clustering.html#sect_configure">4.3. 클러스터링 사용</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_clustering.html#sect_configuration-of-jms-clustering">4.3.1. 서버 설정</a></span></dt><dt><span class="section"><a href="chapter_clustering.html#sect_config-connection-factory-clustering">4.3.2. 클라이언트 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_clustering.html#sect_common-use-case">4.4. 예제</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_clustering.html#d4e2001">4.4.1. 일반적인 사용 예제</a></span></dt><dt><span class="section"><a href="chapter_clustering.html#sect_bad-use-case">4.4.2. 잘못된 사용 예제</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="chapter_failover.html">5. JEUS MQ 장애 극복</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_failover.html#sect_mq-failover-introduction">5.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_failover.html#mq-server-failover">5.2. 서버 장애 극복</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_failover.html#mq-server-failover-network">5.2.1. 네트워크 구성</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-server-failover-connection-factory">5.2.2. Connection Factory 설정</a></span></dt><dt><span class="section"><a href="chapter_failover.html#mq-server-failover-persistence-store">5.2.3. Persistence Store 설정</a></span></dt><dt><span class="section"><a href="chapter_failover.html#mq-server-failover-failback">5.2.4. 자동 복원(Fail-Back)</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_failover.html#mq-client-failover">5.3. 클라이언트 장애 극복</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_failover.html#mq-client-failover-reconnect">5.3.1. 재연결</a></span></dt><dt><span class="section"><a href="chapter_failover.html#mq-client-failover-connection-factory-reuse">5.3.2. Connection Factory 재사용</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-destination-reuse">5.3.3. Destination 재사용</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-request-blocking-time">5.3.4. 응답 대기시간</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-connection">5.3.5. 커넥션 복구</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-session">5.3.6. 세션 복구</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-production">5.3.7. 메시지 전송 복구</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-consumption">5.3.8. 메시지 수신 복구</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-transaction">5.3.9. 메시지 유실 방지와 트랜잭션</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="chapter_jeus-mq-special-func.html">6. JEUS MQ 특수 기능</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_bridging">6.1. JEUS MQ Message Bridge</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_bridge_configure">6.1.1. 서버 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_sorting">6.2. JEUS MQ Message Sort</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#d4e2494">6.2.1. 서버 설정</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#d4e2514">6.2.2. 클라이언트 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_global_order">6.3. JEUS MQ Global Order</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_global_order_configure">6.3.1. 클라이언트 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_message_group">6.4. JEUS MQ Message Group</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_message_group_server_configure">6.4.1. 서버 설정</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_message_group_client_configure">6.4.2. 클라이언트 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_message_management">6.5. JEUS MQ Message Management 기능</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_message_monitoring">6.5.1. 메시지 모니터링</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_message_control">6.5.2. 메시지 제어</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_destination_control">6.5.3. Destination 제어</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#reliable_message_produce">6.6. 신뢰도 높은 메시지 송신</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_lpq_initialization">6.6.1. LPQ 활성화</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_lpq_usage">6.6.2. LPQ 사용 설정</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_lpq_listener_setting">6.6.3. LPQ 리스너 설정</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_lpq_configuration">6.6.4. LPQ 설정</a></span></dt></dl></dd></dl></dd><dt><span class="appendix"><a href="appendix_journal-store-properties.html">A. Journal Store 추가 속성</a></span></dt><dd><dl><dt><span class="section"><a href="appendix_journal-store-properties.html#d4e3176">A.1. 프로퍼티 레퍼런스</a></span></dt></dl></dd><dt><span class="appendix"><a href="appendix_jdbc-store-columns.html">B. JDBC Persistence Store 컬럼</a></span></dt><dd><dl><dt><span class="section"><a href="appendix_jdbc-store-columns.html#d4e3344">B.1. MetaInfo Table</a></span></dt><dt><span class="section"><a href="appendix_jdbc-store-columns.html#d4e3366">B.2. Destination Table</a></span></dt><dt><span class="section"><a href="appendix_jdbc-store-columns.html#d4e3414">B.3. Durable subscriber Table</a></span></dt><dt><span class="section"><a href="appendix_jdbc-store-columns.html#d4e3460">B.4. Message Table</a></span></dt><dt><span class="section"><a href="appendix_jdbc-store-columns.html#d4e3518">B.5. Subscription Message Table</a></span></dt><dt><span class="section"><a href="appendix_jdbc-store-columns.html#d4e3552">B.6. Transaction Table</a></span></dt></dl></dd><dt><span class="index"><a href="idx.html">색인</a></span></dt></dl></div><div class="list-of-figures"><p><b>그림 목차</b></p><dl><dt xmlns="">[그림 1.1] <a href="chapter_introduction.html#figure_jms-messaging">JMS Messaging</a></dt><dt xmlns="">[그림 2.1] <a href="chapter_clients.html#figure_none-acknowledge-produce">일반적인 경우와 NONE_ACKNOWLEDGE 모드에서의 메시지 송신</a></dt><dt xmlns="">[그림 2.2] <a href="chapter_clients.html#figure_none-acknowledge-consume">AUTO_ACKNOWLEDGE 모드와 NONE_ACKNOWLEDGE 모드에서의 메시지 수신</a></dt><dt xmlns="">[그림 2.3] <a href="chapter_clients.html#figure_filemessage-example">FileMessage 전송 예</a></dt><dt xmlns="">[그림 2.4] <a href="chapter_clients.html#figure_jms-transaction">JMS 트랜잭션 범위</a></dt><dt xmlns="">[그림 3.1] <a href="chapter_server-configuration.html#figure_directory-structure">JEUS MQ 서버 관련 파일들</a></dt><dt xmlns="">[그림 3.2] <a href="chapter_server-configuration.html#figure_jms-resource-configuration-1">Jms Resource 설정 화면</a></dt><dt xmlns="">[그림 3.3] <a href="chapter_server-configuration.html#figure_jms-engine-configuration">Jms Engine 설정 화면</a></dt><dt xmlns="">[그림 3.4] <a href="chapter_server-configuration.html#figure_jms-resource-configuration-2">Jms Resource 설정 화면</a></dt><dt xmlns="">[그림 3.5] <a href="chapter_server-configuration.html#figure_destination-configuration">Destination 설정 화면</a></dt><dt xmlns="">[그림 3.6] <a href="chapter_server-configuration.html#figure_durable-subsriber-configuration">Durable Subscriber 설정 화면</a></dt><dt xmlns="">[그림 3.7] <a href="chapter_server-configuration.html#figure_jms-engine-configuration">Jms Engine 설정 화면</a></dt><dt xmlns="">[그림 3.8] <a href="chapter_server-configuration.html#figure_jms-engine-advanced-configuration">JMS 엔진 고급 선택사항 설정 화면</a></dt><dt xmlns="">[그림 3.9] <a href="chapter_server-configuration.html#figure_service-channel-configuration">서비스 채널 설정 화면</a></dt><dt xmlns="">[그림 3.10] <a href="chapter_server-configuration.html#figure_connection-factory-configuration">Connection Factory 설정 화면</a></dt><dt xmlns="">[그림 3.11] <a href="chapter_server-configuration.html#figure_persistence-store-configuration">Persistence Store 설정 화면</a></dt><dt xmlns="">[그림 3.12] <a href="chapter_server-configuration.html#figure_persistence-store-journal-configuration">Persistence Store 설정 - Journal</a></dt><dt xmlns="">[그림 3.13] <a href="chapter_server-configuration.html#figure_persistence-store-jdbc-configuration">Persistence Store 설정 - Jdbc</a></dt><dt xmlns="">[그림 3.14] <a href="chapter_server-configuration.html#figure_connection-factory-management">Connection Factory 관리</a></dt><dt xmlns="">[그림 3.15] <a href="chapter_server-configuration.html#figure_destination-management">Destination 관리</a></dt><dt xmlns="">[그림 3.16] <a href="chapter_server-configuration.html#figure_durable-subscriber-management">Durable Subscriber 관리</a></dt><dt xmlns="">[그림 3.17] <a href="chapter_server-configuration.html#figure_destination-monitoring">Destination 모니터링</a></dt><dt xmlns="">[그림 3.18] <a href="chapter_server-configuration.html#figure_durable-subscriber-monitoring">Durable Subscriptions 모니터링</a></dt><dt xmlns="">[그림 3.19] <a href="chapter_server-configuration.html#figure_client-monitoring">클라이언트 모니터링</a></dt><dt xmlns="">[그림 3.20] <a href="chapter_server-configuration.html#figure_transaction-monitoring">JMS Pending Transaction 모니터링</a></dt><dt xmlns="">[그림 4.1] <a href="chapter_clustering.html#figure_connection-factory-clustering">Connection Factory 클러스터링</a></dt><dt xmlns="">[그림 4.2] <a href="chapter_clustering.html#figure_destination-clustering">Destination 클러스터링</a></dt><dt xmlns="">[그림 4.3] <a href="chapter_clustering.html#figure_cluster-config-destination">클러스터 내의 Destination 설정 예</a></dt><dt xmlns="">[그림 4.4] <a href="chapter_clustering.html#figure_good-example">JEUS MQ 클러스터링 구성의 좋은 예</a></dt><dt xmlns="">[그림 4.5] <a href="chapter_clustering.html#figure_bad-example">JEUS MQ 클러스터링 구성의 나쁜 예</a></dt><dt xmlns="">[그림 5.1] <a href="chapter_failover.html#figure_of-mq-server-failover-network">3대의 Active 서버와 2대의 Standby 서버를 이용한 JEUS MQ 클러스터링 구성</a></dt><dt xmlns="">[그림 5.2] <a href="chapter_failover.html#figure_jms-engine-configuration">Jms Failover 설정 화면</a></dt><dt xmlns="">[그림 5.3] <a href="chapter_failover.html#failover-config-active-alter">장애 극복 설정 - Active 서버 설정</a></dt><dt xmlns="">[그림 5.4] <a href="chapter_failover.html#failover-config-standby">장애 극복 설정 - Standby 서버 설정</a></dt><dt xmlns="">[그림 5.5] <a href="chapter_failover.html#failover-config-connection-factory">Connection Factory 설정</a></dt><dt xmlns="">[그림 5.6] <a href="chapter_failover.html#failover-config-request-block">장애 극복 설정 - Request Blocking Time</a></dt><dt xmlns="">[그림 6.1] <a href="chapter_jeus-mq-special-func.html#bridge-configuration">Message Bridge 설정</a></dt><dt xmlns="">[그림 6.2] <a href="chapter_jeus-mq-special-func.html#bridge-configuration">JEUS에 연결하기 위한 Bridge Connection 설정</a></dt><dt xmlns="">[그림 6.3] <a href="chapter_jeus-mq-special-func.html#bridge-configuration">WebLogic 10.3에 연결하기 위한 Bridge Connection 설정</a></dt><dt xmlns="">[그림 6.4] <a href="chapter_jeus-mq-special-func.html#bridge-configuration">두 개의 Bridge Connection을 연결하는 Bridge Entry 설정</a></dt><dt xmlns="">[그림 6.5] <a href="chapter_jeus-mq-special-func.html#cluster-config-destination">Message Sort 설정</a></dt><dt xmlns="">[그림 6.6] <a href="chapter_jeus-mq-special-func.html#cluster-config-destination">Destination에 Message Sort 적용</a></dt><dt xmlns="">[그림 6.7] <a href="chapter_jeus-mq-special-func.html#message-group-configuration">Message Group 설정</a></dt><dt xmlns="">[그림 6.8] <a href="chapter_jeus-mq-special-func.html#figure_browse-destination-message">Destination에서의 메시지 목록 조회</a></dt><dt xmlns="">[그림 6.9] <a href="chapter_jeus-mq-special-func.html#figure_browse-durable-subcription-message">Durable subscription에서의 메시지 목록 조회</a></dt><dt xmlns="">[그림 6.10] <a href="chapter_jeus-mq-special-func.html#figure_browse-message-popup">조회할 메시지 목록 설정</a></dt><dt xmlns="">[그림 6.11] <a href="chapter_jeus-mq-special-func.html#figure_list-messages">조회된 메시지 목록</a></dt><dt xmlns="">[그림 6.12] <a href="chapter_jeus-mq-special-func.html#figure_view-message">조회된 메시지 목록에서 특정 메시지의 상세 정보 조회</a></dt><dt xmlns="">[그림 6.13] <a href="chapter_jeus-mq-special-func.html#figure_view-and-edit-message">메시지 상세 정보 조회</a></dt><dt xmlns="">[그림 6.14] <a href="chapter_jeus-mq-special-func.html#figure_move-messages">메시지 이동</a></dt><dt xmlns="">[그림 6.15] <a href="chapter_jeus-mq-special-func.html#figure_move-messages-popup">메시지 이동 설정</a></dt><dt xmlns="">[그림 6.16] <a href="chapter_jeus-mq-special-func.html#figure_remove-messages">메시지 삭제</a></dt><dt xmlns="">[그림 6.17] <a href="chapter_jeus-mq-special-func.html#figure_remove-messages-popup">메시지 삭제 설정</a></dt><dt xmlns="">[그림 6.18] <a href="chapter_jeus-mq-special-func.html#figure_export-messages">메시지 내보내기</a></dt><dt xmlns="">[그림 6.19] <a href="chapter_jeus-mq-special-func.html#figure_export-messages-popup">메시지 내보내기 설정</a></dt><dt xmlns="">[그림 6.20] <a href="chapter_jeus-mq-special-func.html#figure_import-messages">메시지 가져오기</a></dt><dt xmlns="">[그림 6.21] <a href="chapter_jeus-mq-special-func.html#figure_import-messages-popup">메시지 가져오기 설정</a></dt><dt xmlns="">[그림 6.22] <a href="chapter_jeus-mq-special-func.html#figure_control-produce">메시지 생산 제어</a></dt><dt xmlns="">[그림 6.23] <a href="chapter_jeus-mq-special-func.html#figure_control-consume">메시지 소비 제어</a></dt></dl></div><div class="list-of-examples"><p><b>예 목차</b></p><dl><dt xmlns="">[예 2.1] <a href="chapter_clients.html#d4e610">&lt;&lt;jndi.properties&gt;&gt;</a></dt><dt xmlns="">[예 2.2] <a href="chapter_clients.html#d4e1143">FileMessage 송신</a></dt><dt xmlns="">[예 2.3] <a href="chapter_clients.html#d4e1148">FileMessage 수신</a></dt></dl></div>
+  
+    
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+
+  
+  
+  
+  
+  
+  
+   
+   
+  
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="about.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"> </td><td width="40%" align="right" valign="top"> 안내서에 대하여</td></tr></table></div><div xmlns="" align="center"><p xmlns="http://www.w3.org/1999/xhtml" class="copyright">저작권 ©  2019 TmaxSoft Co., Ltd. All Rights Reserved.</p></div></body></html>

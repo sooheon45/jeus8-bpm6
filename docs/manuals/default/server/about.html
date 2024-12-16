@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>안내서에 대하여</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Server 안내서"/><link rel="up" href="index.html" title="JEUS Server 안내서"/><link rel="prev" href="index.html" title="JEUS Server 안내서"/><link rel="next" href="chapter_server_structure.html" title="제1장 소개"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">안내서에 대하여</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="index.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_server_structure.html">다음</a></td></tr></table><hr/></div><div class="preface" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="about"></a>안내서에 대하여</h2></div></div></div>
+  
+
+  <h2><a id="d4e60"></a>안내서의 대상</h2>
+
+  <p>본 안내서는 JEUS<sup>®</sup>(이하 JEUS)의 구조 및 서비스에 대해서 전반적으로
+  다룬다. 따라서 JEUS에 대한 이해를 필요로 하는 대부분의 사람들을 대상으로 한다.</p>
+
+  <p/>
+
+  <h2><a id="d4e65"></a>안내서의 전제 조건</h2>
+
+  <p>본 안내서는 JEUS의 구조를 이해하기 위한 기본적인 내용과 JEUS가 제공하는 서비스들에 대해서 설명한다. JEUS의 구조를
+  먼저 이해하지 않으면 JEUS를 설정하거나 제어하는 데 어려움이 따른다. 그러나 모든 내용을 포함하는 데는 한계가 있으므로 구체적인
+  내용은 주제에 따라 별도의 안내서를 참고하길 권장한다.</p>
+
+  <p> JEUS의 기본적인 사용법과 제품을 이해하기 위해서는 다음의 안내서를 미리 숙지할 것을 권장한다. </p>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+        <p><a xmlns="" href="../introduction/index.html" class="olink">JEUS
+        소개</a></p>
+      </li><li>
+        <p><a xmlns="" href="../getting-started/index.html" class="olink">JEUS 설치 및
+        시작하기</a></p>
+      </li></ul></div>
+
+  <div class="literallayout"><p/></div>
+
+  <p>본 안내서의 초반부에 설명된 <a href="chapter_server_structure.html" title="제1장 소개">“제1장 소개”</a>는 JEUS를
+  이해하는 데 가장 중요한 부분이라고 할 수 있다. 이 후 장에서는 각 서비스별로 필요한 내용 및 설정 방법을 다루게 되므로 필요할 때마다
+  참고한다.</p>
+
+  <p>또한 콘솔 툴을 통한 방법을 설명할 때는 편의상 축약된 커맨드 및 옵션의 이름을 사용한다. 축약된 커맨드 및 옵션의 이름과
+  커맨드의 세부 사용 방법은 콘솔 툴에서 커맨드 이름을 인자로 help를 수행하거나 <a xmlns="" href="../reference-book/ch04.html#reference_jeusadmin" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2. jeusadmin”</a>을 참고하면
+  확인할 수 있다.</p>
+
+  <div class="literallayout"><p/></div>
+
+  <p>본 안내서의 모든 예제와 환경 구성은 UNIX의 스타일에 준하여 작성되어 Microsoft Windows™(이하
+  Windows)와 같이 다른 환경에서 작업하는 경우 몇 가지 사항을 고려해야 한다.</p>
+
+  <p>예를 들어 경로 구분자의 경우 UNIX 스타일인 “/”를 Windows 스타일인 “\”로 바꿔서 사용한다. 또한 환경변수도
+  Windows 스타일(%%)로 변경해서 사용한다. 본 안내서에 명시된 JEUS_HOME은 JEUS가 설치된 디렉터리이다.</p>
+
+  <p/>
+
+  <p/>
+
+  <p/>
+
+  <h2><a id="d4e89"></a>안내서의 제한 조건</h2>
+
+  <p>본 안내서의 내용은 Java 표준에 준해서 작성되었으나 Java EE에 관한 내용은 설명하지 않고 JEUS 관련 내용만
+  설명한다. 예를 들어 JNDI, JMX, JCA 등에 대한 문서를 보기 위해서는 이들 표준에 대한 배경 지식이 있어야 한다. 이런
+  경우에는 표준 문서나 관련 문서를 먼저 읽어보길 바란다.</p>
+
+  <p/>
+
+  <p/>
+
+  
+
+  <h2><a id="d4e93"></a>안내서 구성</h2>
+
+  <p>다음과 같이 총 8개의 장과 2개의 Appendix로 구성되어 있다. </p>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+        <p><a href="chapter_server_structure.html" title="제1장 소개">“제1장 소개”</a></p>
+
+        <p>JEUS의 구성 요소 및 구성 요소가 제공하는 서비스에 대해서 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_server_conf.html" title="제2장 JEUS 설정">“제2장 JEUS 설정”</a></p>
+
+        <p>JEUS 구성 요소들의 설정 방법에 대해서 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_server_control.html" title="제3장 JEUS 서버 제어 및 모니터링">“제3장 JEUS 서버 제어 및 모니터링”</a></p>
+
+        <p>JEUS를 제어하고 모니터링하는 방법에 대해서 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jndi.html" title="제4장 JNDI Naming Server">“제4장 JNDI Naming Server”</a></p>
+
+        <p>JEUS JNDI의 기본적인 사항과 애플리케이션 개발 방법에 대해서 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_external_resource.html" title="제5장 External Resource">“제5장 External Resource”</a></p>
+
+        <p>JEUS와 연동하여 사용이 가능한 외부 리소스에 대해서 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_datasource.html" title="제6장 DB Connection Pool과 JDBC">“제6장 DB Connection Pool과 JDBC”</a></p>
+
+        <p>JEUS에서 제공하는 Connection Pool 및 부가 기능, 사용법에 대해서 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_tx_manager.html" title="제7장 트랜잭션 매니저">“제7장 트랜잭션 매니저”</a></p>
+
+        <p>JEUS의 트랜잭션 매니저와 그 주변 요소들에 대해서 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jeus_logging.html" title="제8장 Logging">“제8장 Logging”</a></p>
+
+        <p>JEUS의 Logging 시스템에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="appendix_jeus_port.html" title="Appendix A. JEUS에서 사용하는 Port">“Appendix A. JEUS에서 사용하는 Port”</a></p>
+
+        <p>JEUS에서 사용하는 Port를 정리한다.</p>
+      </li><li>
+        <p><a href="appendix_datasource_examples.html" title="Appendix B. JDBC 데이터소스 구성 예제">“Appendix B. JDBC 데이터소스 구성 예제”</a></p>
+
+        <p>주요 JDBC 드라이버에 대한 Connection Pool 설정 예제에 대해서 설명한다.</p>
+      </li></ul></div>
+
+  <p/>
+
+  
+
+  
+
+  <h2><a id="d4e139"></a>안내서 규약</h2><p>
+    </p><div class="informaltable">
+      <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">표기</th><th>의미</th></tr></thead><tbody><tr><td align="left">&lt;&lt;AaBbCc123&gt;&gt;</td><td>프로그램 소스 코드의 파일명</td></tr><tr><td align="left">&lt;Ctrl&gt;+C</td><td>Ctrl과 C를 동시에 누름</td></tr><tr><td align="left">
+              <span><strong class="guimenuitem">[Button]</strong></span>
+            </td><td>GUI의 버튼 또는 메뉴 이름</td></tr><tr><td align="left">
+              <span><strong class="guimenuitem">진하게</strong></span>
+            </td><td>강조</td></tr><tr><td align="left">" "(따옴표)</td><td>다른 관련 안내서 또는 안내서 내의 다른 장 및 절 언급</td></tr><tr><td align="left">
+              <span><strong class="guimenuitem">'입력항목'</strong></span>
+            </td><td>화면 UI에서 입력 항목에 대한 설명</td></tr><tr><td align="left">
+              <code class="email"><a href="mailto:하이퍼링크">하이퍼링크</a></code>
+            </td><td>메일 계정, 웹 사이트</td></tr><tr><td align="left">&gt;</td><td>메뉴의 진행 순서</td></tr><tr><td align="left">+----</td><td>하위 디렉터리 또는 파일 있음</td></tr><tr><td align="left">|----</td><td>하위 디렉터리 또는 파일 없음</td></tr><tr><td align="left">
+              <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+                <p/>
+              </div>
+            </td><td>참고 또는 주의사항</td></tr><tr><td align="left">
+              <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+                <p/>
+              </div>
+            </td><td>주의할 사항</td></tr><tr><td align="left">
+              <span><strong class="guimenuitem">[그림 1.1]</strong></span>
+            </td><td>그림 이름</td></tr><tr><td align="left">
+              <span><strong class="guimenuitem">[표 1.1]</strong></span>
+            </td><td>표 이름</td></tr><tr><td align="left">
+              <pre class="programlisting">AaBbCc123</pre>
+            </td><td>Java 코드, XML 문서</td></tr><tr><td align="left">
+              <em class="parameter"><code>[ command argument ]</code></em>
+            </td><td>옵션 파라미터</td></tr><tr><td align="left">&lt; xyz &gt;</td><td>‘&lt;’와 ‘&gt;’ 사이의 내용이 실제 값으로 변경됨</td></tr><tr><td align="left">|</td><td>선택 사항. 예) A|B: A나 B 중 하나</td></tr><tr><td align="left">…</td><td>파라미터 등이 반복되어서 나옴</td></tr><tr><td align="left">${ }</td><td>환경변수</td></tr></tbody></table>
+    </div><p>
+  </p><p/>
+
+  <p/>
+
+  
+
+  
+
+  <h2><a id="d4e224"></a>시스템 사용환경</h2><p>
+ </p><div class="informaltable">
+    <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left"> </th><th align="left">요구 사항</th></tr></thead><tbody><tr><td rowspan="4" align="left">Platform</td><td>Solaris 9, 10, 11</td></tr><tr><td>HP-UX 11.x, 11i, 11iV2</td></tr><tr><td>IBM AIX 5L, 6L, AIX 7L</td></tr><tr><td>MS Windows 2008, 2012, Vista, 7, 8</td></tr><tr><td rowspan="2" align="left">Hardware</td><td>최소 2GB 이상 20GB 하드디스크 여유 공간 권장</td></tr><tr><td>1GB 이상 메모리 공간 권장</td></tr><tr><td align="left">JDK</td><td>JDK 7, JDK 8</td></tr></tbody></table>
+  </div><p/>
+
+  
+
+  <h2><a id="d4e251"></a>관련 안내서</h2>
+
+  <p/>
+
+  <div class="informaltable">
+    <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">안내서</th><th>설명</th></tr></thead><tbody><tr><td align="left"><a xmlns="" href="../introduction/index.html" class="olink">JEUS
+          소개</a></td><td>JEUS 서버에 대한 전반적인 소개와 JEUS의 아키텍처를 포함하여 각 구성 요소들에 대해 설명한
+          안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../getting-started/index.html" class="olink">JEUS 설치 및
+          시작하기</a></td><td>JEUS에 대한 소개와 설치 및 시작 방법에 대해 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../web-engine/index.html" class="olink">JEUS Web Engine
+          안내서</a></td><td>JEUS 웹 컨테이너의 관리에 대해 내용과 Java EE WAR Archive, 서블릿/JSP의 관리 및
+          Deploy하는 방법에 대해 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../session/index.html" class="olink">JEUS Session 안내서</a></td><td>JEUS에서 사용되는 Session Tracking, Session Server에 대한 관리 설정 방법 등에
+          관해 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../ejb/index.html" class="olink">JEUS EJB 안내서</a></td><td>JEUS EJB 엔진과 EJB 모듈의 Deploy에 대해 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../mq/index.html" class="olink">JEUS MQ 안내서</a></td><td>JEUS 메시지 기반 시스템(JMS)에 대해 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../client-application/index.html" class="olink">JEUS Application Client
+          안내서</a></td><td>Java EE 클라이언트와 JEUS 사이의 상호 운용에 대해 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../deployment/index.html" class="olink">JEUS Applications &amp;
+          Deployment 안내서</a></td><td>Java EE 애플리케이션이 JEUS에서 서비스되기 위해 어떻게 Deploy되고 관리되는지에 대해 기술한
+          안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../jca/index.html" class="olink">JEUS JCA 안내서</a></td><td>JEUS와 Legacy 시스템과의 연결을 위한 Connector에 대해 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../security/index.html" class="olink">JEUS Security 안내서</a></td><td>JEUS에서 Security 시스템의 설정 및 운용 방법과 Security 관련 프로그래밍에 대해 기술한
+          안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../jmx/index.html" class="olink">JEUS JMX 안내서</a></td><td>JMX를 사용하여 JEUS를 관리하기 위한 내용을 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../scheduler/index.html" class="olink">JEUS Scheduler
+          안내서</a></td><td>JEUS의 Scheduler 기능에 대해 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../web-manager/index.html" class="olink">JEUS WebAdmin
+          안내서</a></td><td>JEUS의 웹 관리 툴인 WebAdmin을 사용법에 대해서 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../reference-book/index.html" class="olink">JEUS Reference
+          Book</a></td><td>JEUS를 사용할 때 도움이 되는 Reference를 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../node-manager/index.html" class="olink">JEUS Node
+          Manager 안내서</a></td><td>JEUS Node Manager의 사용법에 대해 기술한 안내서이다.</td></tr></tbody></table>
+  </div>
+
+  <p/>
+
+  <p/>
+
+  <h2><a id="d4e323"></a>참고 자료</h2>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>domain.xml 설정에 대한 XML Reference :
+      JEUS_HOME/docs/manuals/xml-reference/index.html</p>
+    </li></ul></div>
+
+  <p/>
+
+  
+
+  
+
+  <p>
+    </p><h2><a id="d4e330"></a>연락처</h2><p>
+
+    </p><p>
+      </p><h2><a id="d4e332"></a>Korea</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Co., Ltd.</span><br/>
+9th Floor, BS Tower Building, 29, <br/>
+Hwangsaeul-ro 258 beon-gil, Bundang-gu, <br/>
+Seongnam-si, Gyeonggi-do, 13595<br/>
+<span class="country">South Korea</span><br/>
+Tel: <span class="phone">+82-31-8018-1000</span><br/>
+Fax: <span class="fax">+82-31-8018-1115</span><br/>
+기술서비스센터 : +82-1544-8629<br/>
+Email: <code class="email"><a href="mailto:info@tmax.com">info@tmax.com</a></code><br/>
+Web (Korean): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com" target="_top">http://www.tmaxsoft.com</a> <br/>
+TechNet: <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://technet.tmaxsoft.com" target="_top">http://technet.tmaxsoft.com</a></p></div><p>
+    </p><p>
+
+    </p><p>
+      </p><h2><a id="d4e342"></a>USA</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Inc.</span><br/>
+230 West Monroe Street Suite 1950<br/>
+Chicago, IL 60606<br/>
+<span class="country">U.S.A</span><br/>
+Tel: +1-312-525-8330<br/>
+Fax: <span class="fax">+1-312-525-8340</span><br/>
+Email: <code class="email"><a href="mailto:info@tmaxsoft.com">info@tmaxsoft.com</a></code><br/>
+Web (English): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/us_en/home" target="_top">http://www.tmaxsoft.com/us_en/home</a></p></div><p>
+    </p><p>
+
+    </p><p>
+      </p><h2><a id="d4e350"></a>Japan</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Japan Co., Ltd.</span><br/>
+<span class="otheraddr">5F Sanko Bldg, 3-12-16 Mita, Minato-Ku, Tokyo, 108-0073</span><br/>
+<span class="country">Japan</span><br/>
+Tel: <span class="phone">+81-3-5765-2550</span><br/>
+Fax: <span class="fax">+81-3-5765-2567</span><br/>
+Email: <code class="email"><a href="mailto:info@tmaxsoft.co.jp">info@tmaxsoft.co.jp</a></code><br/>
+Web (Japanese): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.co.jp" target="_top">http://www.tmaxsoft.co.jp</a> </p></div><p>
+    </p><p>
+
+    
+
+    </p><p>
+      </p><h2><a id="d4e360"></a>China</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">Beijing TmaxSoft System Software Co., Ltd.</span><span class="otheraddr"><br/>
+Room103, No.2 Huizhong Building, Seven Street Shangdi,</span><br/>
+<span class="otheraddr">Haidian District, Beijing, 100085</span><br/>
+<span class="country">P.R.China</span><br/>
+Tel: <span class="phone">+86-10-6298-8827</span><br/>
+Email: <code class="email"><a href="mailto:info@tmaxsoft.com.cn">info@tmaxsoft.com.cn</a></code><br/>
+Web (Chinese): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/cn_en/home_cn_en" target="_top">http://www.tmaxsoft.com/cn_en/home_cn_en</a>  </p></div><p>
+    </p><p>
+
+    </p><p/><p>
+
+    </p><p/><p>
+
+    </p><p>
+      </p><h2><a id="d4e372"></a>Brazil</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">Tmax Brasil Sistemas E Serviços Ltda.</span><span class="otheraddr"><br/>
+Av. Copacabana, 177, sala 32~35 Empresarial 18 do Forte</span><br/>
+<span class="otheraddr">Alphaville Barueri, Sao Paulo, 06472-001</span> <br/>
+<span class="country">Brazil</span><br/>
+Tel: <span class="phone">+55-11-4191-3100</span><br/>
+Fax: <span class="fax">+55(11) 4191-3705 (extension#112)</span><br/>
+Email: <code class="email"><a href="mailto:info.bra@tmaxsoft.com">info.bra@tmaxsoft.com</a></code><br/>
+Web (Portuguese): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/br_en/home_br_en" target="_top">http://www.tmaxsoft.com/br_en/home_br_en</a><br/>
+</p></div><p>
+    </p><p>
+
+    </p><p>
+      </p><h2><a id="d4e383"></a>Russia</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">Tmax Rus L.L.C.<br/>
+</span><span class="otheraddr">Leninsky prospekt, 113/1 (Park Place Moscow),</span><br/>
+<span class="otheraddr">Office 318e, Moscow, 117198</span><br/>
+<span class="country">Russia</span><br/>
+Tel: <span class="phone">+7(495)970-0135</span><br/>
+Email: <code class="email"><a href="mailto:info.rus@tmaxsoft.com">info.rus@tmaxsoft.com</a></code><br/>
+Web (Russian): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/ru_ru/home_ru_ru" target="_top">http://www.tmaxsoft.com/ru_ru/home_ru_ru</a> </p></div><p>
+    </p><p>
+
+    </p><p/><p>
+
+    
+
+    </p><p/><p>
+
+    </p><p/><p>
+
+    </p><p>
+      </p><h2><a id="d4e396"></a>Singapore</h2><p>
+
+      </p><div class="address"><p>Tmax Singapore Pte. Ltd.<br/>
+430 Lorong 6, Toa Payoh #10-02, <br/>
+OrangeTee Building, 319402<br/>
+Singapore<br/>
+Tel: <span class="phone">+65-6259-7223</span><br/>
+Fax: <span class="fax">+65-6258-7112</span><br/>
+Email: <code class="email"><a href="mailto:info.sg@tmaxsoft.com">info.sg@tmaxsoft.com</a></code> <br/>
+Web (English): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/sg_en/home_sg_en" target="_top">http://www.tmaxsoft.com/sg_en/home_sg_en</a></p></div><p>
+    </p><p>
+
+    </p><p/><p>
+
+    </p><p/><p>
+
+    </p><p/><p>
+
+    </p><p>
+      </p><h2><a id="d4e406"></a>United Kingdom</h2><p>
+
+      </p><div class="address"><p>TmaxSoft UK Ltd.<br/>
+215 Knyvett House, Watermans Business Park,<br/>
+The Causeway, Staines TW18 3BA<br/>
+United Kingdom<br/>
+Tel: +44-1784-895005<br/>
+Email: <code class="email"><a href="mailto:info.uk@tmaxsoft.com ">info.uk@tmaxsoft.com </a></code> <br/>
+Web (English): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/gb_en/home_gb_en" target="_top">http://www.tmaxsoft.com/gb_en/home_gb_en</a></p></div><p>
+    </p><p>
+
+    </p><p>
+      </p><h2><a id="d4e411"></a>Canada</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Canada, Inc.<br/>
+</span><span class="otheraddr">2425 Matheson Blvd East, 8th floor, </span><br/>
+<span class="otheraddr">Unit 824 Mississauga, ON, L4W 5K4 </span><br/>
+<span class="country">Canada</span><br/>
+Tel: <span class="phone">+1-905-361-2888</span><br/>
+Email: <code class="email"><a href="mailto:info.canada@tmaxsoft.com">info.canada@tmaxsoft.com</a></code><br/>
+Web (English): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/ca_en/home_ca_en" target="_top">http://www.tmaxsoft.com/ca_en/home_ca_en</a> </p></div><p>
+    </p><p>
+
+    
+
+    </p><p>
+      </p><h2><a id="d4e421"></a>Australia</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Proprietary Limited<br/>
+</span><span class="otheraddr">L32, 101 Miller Street, North Sydney 2060 </span><br/>
+<span class="country">Australia</span><br/>
+Tel: <span class="phone">+61-2-8019-7054</span><br/>
+Email: <code class="email"><a href="mailto:info.aus@tmaxsoft.com">info.aus@tmaxsoft.com</a></code><br/>
+Web (English): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/au_en/home_au_en" target="_top">http://www.tmaxsoft.com/au_en/home_au_en</a> </p></div><p>
+    </p><p>
+
+    </p><p>
+      </p><h2><a id="d4e430"></a>India</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Technologies Private Limited<br/>
+</span><span class="otheraddr">Sobha Alexander Plaza, 3rd Floor, </span><br/>
+<span class="otheraddr">16/2 Commissariat Road, Bangalore-560025</span><br/>
+<span class="country">India</span><br/>
+Tel: <span class="phone">+91-7619-482-582</span><br/>
+Email: <code class="email"><a href="mailto:info.india@tmaxsoft.com">info.india@tmaxsoft.com</a></code><br/>
+Web (English): http://www.tmaxsoft.com/in_en/home_in_en </p></div><p>
+    </p><p>
+
+    </p><p>
+      </p><h2><a id="d4e440"></a>Turkey</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Co., Ltd. Turkey Liaison Office<br/>
+</span><span class="otheraddr">Windowist Tower. Eski Buyukdere Cad. No:26, </span><br/>
+<span class="otheraddr">Maslak 34467 Istanbul</span><br/>
+<span class="country">Turkey</span><br/>
+Tel: <span class="phone">+90-212-214-7345</span><br/>
+Email:<code class="email"><a href="mailto:info.tr@tmaxsoft.com">info.tr@tmaxsoft.com</a></code><br/>
+Web (English): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/tr_en/home_tr_en" target="_top">http://www.tmaxsoft.com/tr_en/home_tr_en</a> </p></div><p>
+    </p><p>
+  </p>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="index.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_server_structure.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">JEUS Server 안내서 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제1장 소개</td></tr></table></div><div xmlns="" align="center"/></body></html>

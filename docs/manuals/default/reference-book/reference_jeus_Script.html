@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제3장 JEUS 서버 실행</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Reference Book"/><link rel="up" href="console-tools.html" title="Part II. 콘솔 명령어와 툴"/><link rel="prev" href="jeusadmin-conventions.html" title="제2장 명령어 설명 규칙"/><link rel="next" href="ch04.html" title="제4장 콘솔 툴"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제3장 JEUS 서버 실행</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="jeusadmin-conventions.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part II. 콘솔 명령어와 툴</td><td width="20%" align="right"> <a accesskey="n" href="ch04.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="reference_jeus_Script"></a>제3장 JEUS 서버 실행</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="reference_jeus_Script.html#d4e4536">3.1. 개요</a></span></dt><dt><span class="section"><a href="reference_jeus_Script.html#sect_jeus_script_usages">3.2. 사용법</a></span></dt><dt><span class="section"><a href="reference_jeus_Script.html#d4e4735">3.3. 마스터 패스워드 입력</a></span></dt><dt><span class="section"><a href="reference_jeus_Script.html#debug_mode_jeus_manager">3.4. 디버그 모드의 JEUS 서버 실행</a></span></dt></dl></div>
+  
+
+  <p>본 절에서는 JEUS 서버를 실행하는 명령어에 대해 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4536"></a>3.1. 개요</h2></div></div></div>
+    
+
+    <p>JEUS 서버를 실행하는 명령어는 다음의 2가지로 나뉜다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>DAS(Domain Administration Server)를 실행하는
+        <span><strong class="guibutton">startDomainAdminServer</strong></span> 명령</p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>MS(Managed Server)를 실행하는
+        <span><strong class="guibutton">startManagedServer</strong></span> 명령</p>
+      </li></ul></div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>서버 실행 명령들은 해당 서버의 Launcher를 실행한다. Launcher는 서버를 실행시키기 위한 준비작업을 완료한 뒤
+    실제 서버 JVM을 기동한다. DAS는 실제 서비스가 되는 MS를 관리하는 서버로 관리자의 명령을 MS로 전달하는 Agent 역할을
+    한다.</p>
+
+    <p>실행 명령어는 다음의 디렉터리에 위치한다.</p>
+
+    <pre class="programlisting">JEUS_HOME/bin/</pre>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_jeus_script_usages"></a>3.2. 사용법</h2></div></div></div>
+    
+
+    <p>본 절에서는 DAS와 MS를 기동하는 방법에 대해서 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>jeusadmin이나 WebAdmin과 같은 툴을 통해 MS를 관리하기 위해서는 먼저 DAS를 기동해야 한다.</p>
+
+    <p>DAS는 각 MS와 통신하고 각 MS는 각 HOST 머신에서 동작한다. 도메인에 속한 모든 서버는 하나의 설정 파일인
+    다음의 파일을 공유한다. 해당 설정 파일에서 자신의 동작에 필요한 설정들을 읽어 동작한다.</p>
+
+    <pre class="programlisting">JEUS_HOME/domains/DOMAIN_NAME/config/domain.xml</pre>
+
+    <div class="literallayout"><p/></div>
+
+    <h3><a id="d4e4562"></a>DAS 기동 </h3>
+
+    <p>다음은 DAS를 기동하기 위해 startDomainAdminServer 명령을 실행하는 과정이다.</p>
+
+    <div class="orderedlist"><ol type="1"><li>
+          <p>DAS를 기동하려면 각 OS별로 다음의 명령을 실행한다.</p>
+
+          <div class="itemizedlist"><ul type="circle"><li style="list-style-type: circle">
+              <p>UNIX나 Linux</p>
+
+              <pre class="screen">startDomainAdminServer</pre>
+            </li><li style="list-style-type: circle">
+              <p>Windows</p>
+
+              <pre class="screen">startDomainAdminServer.cmd</pre>
+            </li></ul></div>
+        </li><li>
+          <p>명령 프롬프트에 <span><strong class="guibutton">startDomainAdminServer</strong></span>를 입력한 뒤
+          아래의 설정들을 추가한다.</p>
+
+          <p>domain.xml을 수정하면 서버를 디버그 모드로 운영할 수 있다. 이 설정 방법은 <a href="reference_jeus_Script.html#debug_mode_jeus_manager" title="3.4. 디버그 모드의 JEUS 서버 실행">“3.4. 디버그 모드의 JEUS 서버 실행”</a>을 참고한다.</p>
+
+          <pre class="screen"><span><strong class="guibutton">startDomainAdminServer</strong></span> [-h] 
+                       [-domain &lt;<span class="emphasis"><em>domain-name</em></span>&gt; -server &lt;<span class="emphasis"><em>das-name</em></span>&gt;]
+                       [-u &lt;<span class="emphasis"><em>username</em></span>&gt; -p &lt;<span class="emphasis"><em>password</em></span>&gt;] 
+                       [-cachelogin]
+                       [-f &lt;<span class="emphasis"><em>filename</em></span>&gt;] 
+                       [-force]
+                       [-standby]
+                       [-rolling]
+                       [-verbose]</pre>
+
+          <p/>
+
+          <p>다음은 명령어 옵션에 대한 설명이다.</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">옵션</th><th>설명</th></tr></thead><tbody><tr><td align="left">[-h]</td><td>명령의 도움말을 출력한다.</td></tr><tr><td align="left">[-domain
+                    &lt;<span class="emphasis"><em>domain-name</em></span>&gt;]</td><td>기동할 DAS가 속한 도메인의 이름을 설정한다.</td></tr><tr><td align="left">[-server
+                    &lt;<span class="emphasis"><em>das-name</em></span>&gt;]</td><td>기동할 DAS의 이름을 설정한다.</td></tr><tr><td align="left"><p>[-u
+                    &lt;<span class="emphasis"><em>username</em></span>&gt;]</p><p>[-p
+                    &lt;<span class="emphasis"><em>password</em></span>&gt;]</p></td><td><p>서버를 기동하는 주체를 의미한다.</p><p>[-u] 및 [-p]는
+                    관리자 ID와 패스워드를 의미하며, 서버 실행을 위한 필수 입력사항이다.</p></td></tr><tr><td align="left">[-cachelogin]</td><td><p>[-u], [-p] 옵션으로 입력한 로그인 정보를 캐시한다.
+                    </p><p>캐시한 로그인 정보가 존재할 경우 별도의 옵션이 없어도 자동으로 사용자 정보가
+                    채워진다. 권장하지 않는 기능으로 자세한 내용은 <a xmlns="" href="../security/index.html" class="olink">"JEUS Security 안내서"</a>를
+                    참고한다.</p></td></tr><tr><td align="left">[-f &lt;<span class="emphasis"><em>filename</em></span>&gt;]</td><td><p>관리자의 로그인 정보를 가진 파일의 경로를 지정한다.</p><p>
+                    [-u], [-p] 옵션을 대체한다.</p></td></tr><tr><td align="left">[-force]</td><td>등록된 애플리케이션이 모두 RUNNING 상태가 아니더라도, 서버의 상태를 강제로
+                    RUNNING으로 만든다.</td></tr><tr><td align="left">[-standby]</td><td>서버를 STANDBY 상태로 기동시킨다.</td></tr><tr><td align="left">[-rolling]</td><td>Rolling Patch를 위한 옵션으로 내부적으로 사용하는 옵션이다. 부팅할 때 사용자가
+                    설정하면 안된다.</td></tr><tr><td align="left">[-verbose]</td><td>Launcher를 종료하지 않고 서버에서 발생하는 로그를 Launcher 화면에 출력할지
+                    여부를 지정한다.</td></tr></tbody></table>
+            </div>
+        </li></ol></div>
+
+    <p>MS를 기동할 때 옵션은 DAS를 기동할 때의 옵션과 대부분이 동일하다. MS에서는 특별히 dasurl 옵션이 추가로
+    존재하며, 이는 MS를 기동할 때 DAS로부터 설정 파일을 받아오는 데 사용된다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <h3><a id="d4e4648"></a>MS 기동</h3>
+
+    <p>다음은 MS를 기동하기 위해 startManagedServer 명령을 실행하는 과정이다.</p>
+
+    <div class="orderedlist"><ol type="1"><li>
+          <p>MS를 기동하려면 다음의 명령을 실행한다.</p>
+
+          <div class="itemizedlist"><ul type="circle"><li style="list-style-type: circle">
+              <p>UNIX나 Linux</p>
+
+              <pre class="screen">startManagedServer</pre>
+            </li><li style="list-style-type: circle">
+              <p>Windows</p>
+
+              <pre class="screen">startManagedServer.cmd</pre>
+            </li></ul></div>
+        </li><li>
+          <p>명령 프롬프트에 <span><strong class="guibutton">startManagedServer</strong></span>를 입력한 뒤 아래의
+          설정들을 추가한다.</p>
+
+          <pre class="screen"><span><strong class="guibutton">startManagedServer</strong></span> [-h]
+                   [-domain &lt;<span class="emphasis"><em>domain-name</em></span>&gt; -server &lt;<span class="emphasis"><em>das-name</em></span>&gt;]
+                   [-u &lt;<span class="emphasis"><em>username</em></span>&gt; -p &lt;<span class="emphasis"><em>password</em></span>&gt;] 
+                   [-cachelogin]
+                   [-f &lt;<span class="emphasis"><em>filename</em></span>&gt;]
+                   [-force]
+                   [-standby]
+                   [-rolling]
+                   [-verbose]
+                   [-dasurl &lt;<span class="emphasis"><em>das-url</em></span>&gt;]</pre>
+
+          <p/>
+
+          <p>다음은 명령어 옵션에 대한 설명이다.</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">옵션</th><th>설명</th></tr></thead><tbody><tr><td align="left">[-h]</td><td>명령의 도움말을 출력한다.</td></tr><tr><td align="left">[-domain
+                    &lt;<span class="emphasis"><em>domain-name</em></span>&gt;]</td><td>기동할 MS가 속한 도메인의 이름을 설정한다.</td></tr><tr><td align="left">[-server
+                    &lt;<span class="emphasis"><em>das-name</em></span>&gt;]</td><td>기동할 MS의 이름을 설정한다. 필수 입력사항이다.</td></tr><tr><td align="left"><p>[-u
+                    &lt;<span class="emphasis"><em>username</em></span>&gt;]</p><p>[-p
+                    &lt;<span class="emphasis"><em>password</em></span>&gt;]</p></td><td><p>서버를 기동하는 주체를 의미한다.</p><p>[-u] 및 [-p]는
+                    관리자 ID와 패스워드를 의미하며, 서버 실행을 위한 필수 입력사항이다.</p></td></tr><tr><td align="left">[-cachelogin]</td><td><p>[-u], [-p] 옵션으로 입력한 로그인 정보를
+                    캐시한다.</p><p> 캐시한 로그인 정보가 존재할 경우 별도의 옵션이 없어도 자동으로 사용자
+                    정보가 채워진다. 권장하지 않는 기능으로 자세한 내용은 <a xmlns="" href="../security/index.html" class="olink">"JEUS Security 안내서"</a>를
+                    참고한다.</p></td></tr><tr><td align="left">[-f &lt;<span class="emphasis"><em>filename</em></span>&gt;]</td><td><p>관리자의 로그인 정보를 가진 파일의 경로를 지정한다.</p><p>
+                    [-u], [-p] 옵션을 대체한다.</p></td></tr><tr><td align="left">[-force]</td><td>등록된 애플리케이션이 모두 RUNNING 상태가 아니더라도, 서버의 상태를 강제로
+                    RUNNING으로 만든다.</td></tr><tr><td align="left">[-standby]</td><td>서버를 STANDBY 상태로 기동시킨다.</td></tr><tr><td align="left">[-rolling]</td><td>Rolling Patch를 위한 옵션으로 내부적으로 사용하는 옵션이다. 부팅할 때 사용자가
+                    설정하면 안된다.</td></tr><tr><td align="left">[-verbose]</td><td>Launcher를 종료하지 않고 서버에서 발생하는 로그를 Launcher 화면에 출력할지
+                    여부를 지정한다.</td></tr><tr><td align="left">[-dasurl
+                    &lt;<span class="emphasis"><em>das-url</em></span>&gt;]</td><td>자신이 속한 도메인을 관리하는 DAS의 URL 주소를 지정한다. DAS로부터 새로운 설정
+                    파일을 받아올 수 있도록 URL 주소를 설정할 것을 권장한다.</td></tr></tbody></table>
+            </div>
+        </li></ol></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4735"></a>3.3. 마스터 패스워드 입력</h2></div></div></div>
+    
+
+    <p>암호화 툴을 이용하여 security.key 파일을 마스터 패스워드로 암호화한 경우 서버를 기동할 때 마스터 패스워드를
+    입력해야 한다. security.key 파일에는 대칭키 암호화 알고리즘의 키가 저장된다. 암호화 툴에 관한 자세한 사항은 <a xmlns="" href="ch04.html#security_appendix_password_encryption_utilization" class="olink">“4.6. encryption”</a>을
+    참조한다.</p>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>서버를 기동할 때 security.key 파일이 암호화되어 있는 경우 다음과 같은 콘솔 입력 화면이 나타나면서 마스터
+    패스워드의 입력을 기다린다. 마스터 패스워드가 맞지 않는다면 서버 실행이 불가능하다.</p>
+
+    <pre class="screen">The encryption key file is encrypted. Enter the master password.
+Password&gt;  </pre>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="debug_mode_jeus_manager"></a>3.4. 디버그 모드의 JEUS 서버 실행</h2></div></div></div>
+    
+
+    <p><a id="d4e4748" class="indexterm"></a>디버그 모드로 JEUS 서버를 실행할 경우, JPDA 지원 디버거를 사용하여 서블릿과 EJB 애플리케이션을
+    디버그할 수 있다. JEUS 서버를 디버그 모드로 시작하기 위해서는 각 서버의 jvm-option 설정에 다음과 같이 디버그 옵션을
+    추가한다.</p>
+
+    <pre class="programlisting">-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8888</pre>
+
+    <p>“8888”의 디버그 Port(디버그 Port는 JPDA 디버거가 JVM에 접근할 때 사용된다)를 사용하여 JEUS 서버를
+    디버그 모드에서 동작하도록 한다.</p>
+
+    <p>수정된 설정으로 JEUS 서버를 기동한다. 그런 다음 JPDA를 지원하는 IDE(Integrated Development
+    Environment)를 사용하여 EJB와 서블릿 애플리케이션을 디버그한다.</p>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>각 서버의 jvm-option 설정을 통해 시스템 환경변수 등도 설정이 가능하다. JEUS에서 사용하는 시스템 환경변수에
+    대해서는 <a href="system-properties.html" title="Part I. 시스템 프로퍼티">“Part I, 시스템 프로퍼티”</a>를 참조한다. <a href="ch01.html#system_properties_intro" title="1.1. 개요">“1.1. 개요”</a>에서는 JVM에서 사용하는 “-D” 옵션에 대하여 설명하고
+    있다.</p><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>jvm-option 설정은 해당 서버에만 적용된다는 것을 유의한다.</p>
+      </div>
+
+    <p/>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="jeusadmin-conventions.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="console-tools.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제2장 명령어 설명 규칙 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제4장 콘솔 툴</td></tr></table></div><div xmlns="" align="center"/></body></html>

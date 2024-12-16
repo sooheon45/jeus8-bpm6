@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제2장 JEUS 8</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Release Note"/><link rel="up" href="index.html" title="JEUS Release Note"/><link rel="prev" href="chapter_intro.html" title="제1장 소개"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제2장 JEUS 8</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_intro.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> </td></tr></table><hr/></div><div class="chapter" lang="ko-KR"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jeus_8_0"></a>제2장 JEUS 8</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e409">2.1. 신규 기능</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus_8_0.html#sect_Specification_Change">2.1.1. Specification 변경</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e781">2.1.2. Servlet</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e852">2.1.3. Session Server</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e912">2.1.4. WebService</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e951">2.1.5. Security</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e964">2.1.6. Deployment</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e975">2.1.7. JMX</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e984">2.1.8. Server</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e995">2.1.9. Tool</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1004">2.1.10. Manual</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1013">2.2. 변경 기능</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1016">2.2.1. Server</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1085">2.2.2. Servlet</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1130">2.2.3. Session Server</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1191">2.2.4. EJB</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1218">2.2.5. Security</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1239">2.2.6. JMS</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1262">2.2.7. WebService</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1279">2.2.8. JNDI</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1294">2.2.9. Network</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1319">2.2.10. JMX</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1354">2.2.11. Logging</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1365">2.2.12. NodeManager</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1376">2.2.13. Transaction</a></span></dt><dt><span class="section"><a href="chapter_jeus_8_0.html#d4e1387">2.2.14. JSF</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 JEUS 8 릴리즈에서 추가된 새로운 기능에 대해 간략히 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e409"></a>2.1. 신규 기능</h2></div></div></div>
+    
+
+    <p>JEUS 8에서는 Java EE 7의 주요 기능을 완벽히 지원함으로써, 개발 생산성을 획기적으로 향상 시켰다. 또한
+    Java EE 7에서 향상된 여러 기술을 사용하여, 보다 안정적인 환경을 제공한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Specification_Change"></a>2.1.1. Specification 변경</h3></div></div></div>
+      
+
+      <p>JEUS는 최신 버전 JEUS 8로 발전하면서 많은 신기술과 새로운 스펙이 적용되었다.</p>
+
+      <p>다음은 JEUS 6에서부터 JEUS 8에 이르기까지의 적용되는 J2EE 스펙을 간단하게 보여준다. 스펙의 내용에 따른
+      변경 사항에 대해서는 각각의 명시된 스펙을 참고한다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="240" align="left"/><col width="120" align="left"/><col width="120" align="left"/><col width="120" align="left"/></colgroup><thead><tr><th align="left">Spec</th><th align="left">JEUS 6</th><th align="left">JEUS 7</th><th align="left">JEUS 8</th></tr></thead><tbody><tr><td align="left">J2EE</td><td align="left">Java EE 5</td><td align="left">Java EE 6</td><td align="left">Java EE 7</td></tr><tr><td align="left">WebServer</td><td align="left">WebtoB 4.1</td><td align="left">WebtoB 4.1</td><td align="left">WebtoB 5.0</td></tr><tr><td align="left">HTTP</td><td align="left">1.0/1.1</td><td align="left">1.0/1.1</td><td align="left">1.0/1.1/2.0</td></tr><tr><td align="left">CGI</td><td align="left">1.1</td><td align="left">1.1</td><td align="left">1.1</td></tr><tr><td align="left">PHP</td><td align="left">3.x/4.x/5.x</td><td align="left">3.x/4.x/5.x</td><td align="left">3.x/4.x/5.x</td></tr><tr><td align="left">SSL</td><td align="left">ssl2/ssl3/tls1</td><td align="left">ssl2/ssl3/tls1</td><td align="left">ssl2/ssl3/tls1</td></tr><tr><td align="left">WebSocket</td><td align="left">-</td><td align="left">-</td><td align="left">1.0</td></tr><tr><td align="left">Java API for JSON Processing</td><td align="left">-</td><td align="left">-</td><td align="left">지원</td></tr><tr><td align="left">Batch Applications for the Java Platform</td><td align="left">-</td><td align="left">-</td><td align="left">지원</td></tr><tr><td align="left">Concurrency Utilities for Java EE</td><td align="left">-</td><td align="left">-</td><td align="left">1.0</td></tr><tr><td align="left">EJB</td><td align="left">2.x/3.0</td><td align="left">3.1</td><td align="left">3.2</td></tr><tr><td align="left">RMI-IIOP</td><td align="left">지원</td><td align="left">지원</td><td align="left">지원</td></tr><tr><td align="left">JAF</td><td align="left">1.0.2</td><td align="left">1.1</td><td align="left">1.1</td></tr><tr><td align="left">EJB to CORBA Mapping</td><td align="left">1.1</td><td align="left">1.1</td><td align="left">1.1</td></tr><tr><td align="left">JCA</td><td align="left">1.5</td><td align="left">1.6</td><td align="left">1.7</td></tr><tr><td align="left">JMS</td><td align="left">1.1</td><td align="left">1.1</td><td align="left">2.0</td></tr><tr><td align="left">Common Annotations for the Java Platform</td><td align="left">1.0</td><td align="left">1.1</td><td align="left">1.2</td></tr><tr><td align="left">JPA</td><td align="left">1.0</td><td align="left">2.0</td><td align="left">2.1</td></tr><tr><td align="left">JavaMail API</td><td align="left">1.4</td><td align="left">1.4</td><td align="left">1.5</td></tr><tr><td align="left">JTA</td><td align="left">1.1</td><td align="left">1.1</td><td align="left">1.2</td></tr><tr><td align="left">JTS</td><td align="left">1.0</td><td align="left">1.0</td><td align="left">1.0</td></tr><tr><td align="left">JNDI</td><td align="left">1.2.1</td><td align="left">1.2.1</td><td align="left">1.2.1</td></tr><tr><td align="left">CDI</td><td align="left">-</td><td align="left">1.0</td><td align="left">1.1</td></tr><tr><td align="left">Bean Validation</td><td align="left">-</td><td align="left">1.0</td><td align="left">1.1</td></tr><tr><td align="left">Managed Beans</td><td align="left">-</td><td align="left">1.0</td><td align="left">1.0</td></tr><tr><td align="left">Interceptors</td><td align="left">-</td><td align="left">1.1</td><td align="left">1.2</td></tr><tr><td align="left">JSP</td><td align="left">2.1</td><td align="left">2.2</td><td align="left">2.3</td></tr><tr><td align="left">Servlet</td><td align="left">2.5</td><td align="left">3.0</td><td align="left">3.1</td></tr><tr><td align="left">JSF</td><td align="left">1.2</td><td align="left">2.0</td><td align="left">2.2</td></tr><tr><td align="left">JSTL</td><td align="left">1.2</td><td align="left">1.2</td><td align="left">1.2</td></tr><tr><td align="left">XSLT</td><td align="left">1.0</td><td align="left">1.0</td><td align="left">1.0</td></tr><tr><td align="left">JDBC</td><td align="left">3.0</td><td align="left">4.0</td><td align="left">4.0</td></tr><tr><td align="left">IBM MQ</td><td align="left">지원</td><td align="left">지원</td><td align="left">지원</td></tr><tr><td align="left">Sonic MQ</td><td align="left">지원</td><td align="left">지원</td><td align="left">지원</td></tr><tr><td align="left">J2EE Management</td><td align="left">1.1</td><td align="left">1.1</td><td align="left">1.1</td></tr><tr><td align="left">J2EE Deployment API</td><td align="left">1.2</td><td align="left">1.2</td><td align="left">1.2</td></tr><tr><td align="left">JAAS</td><td align="left">1.0.1</td><td align="left">1.0.1</td><td align="left">1.0.1</td></tr><tr><td align="left">JACC</td><td align="left">1.1</td><td align="left">1.3</td><td align="left">1.5</td></tr><tr><td align="left">JASPIC</td><td align="left">-</td><td align="left">1.0</td><td align="left">1.1</td></tr><tr><td align="left">JAXP</td><td align="left">1.3</td><td align="left">(JavaSE 6에 포함)</td><td align="left">(JavaSE 7에 포함)</td></tr><tr><td align="left">StAX</td><td align="left">1.0</td><td align="left">(JavaSE 6에 포함)</td><td align="left">(JavaSE 7에 포함)</td></tr><tr><td align="left">JAXB</td><td align="left">2.1</td><td align="left">2.2</td><td align="left">2.2</td></tr><tr><td align="left">SAAJ</td><td align="left">1.3</td><td align="left">1.3</td><td align="left">1.3</td></tr><tr><td align="left">Implementing Enterprise Web Services</td><td align="left">1.2</td><td align="left">1.3</td><td align="left">1.3</td></tr><tr><td align="left">Web Service Metadata</td><td align="left">2.0</td><td align="left">2.1</td><td align="left">2.1</td></tr><tr><td align="left">JAX-RPC</td><td align="left">1.1</td><td align="left">1.1</td><td align="left">1.1</td></tr><tr><td align="left">JAX-WS</td><td align="left">2.1</td><td align="left">2.2</td><td align="left">2.2</td></tr><tr><td align="left">JAX-RS</td><td align="left">-</td><td align="left">1.1</td><td align="left">2.1</td></tr><tr><td align="left">JAXR</td><td align="left">1.0</td><td align="left">1.0</td><td align="left">1.0</td></tr><tr><td align="left">UDDI</td><td align="left">2.0/3.0</td><td align="left">2.0/3.0</td><td align="left">2.0/3.0</td></tr><tr><td align="left">SOAP</td><td align="left">1.2</td><td align="left">1.1/1.2</td><td align="left">1.1/1.2</td></tr><tr><td align="left">WSDL</td><td align="left">1.1</td><td align="left">1.1</td><td align="left">1.1</td></tr><tr><td align="left">WS-I Basic Profile</td><td align="left">1.1</td><td align="left">1.1</td><td align="left">1.1</td></tr><tr><td align="left">WS-Policy</td><td align="left">1.0</td><td align="left">1.0</td><td align="left">1.5</td></tr><tr><td align="left">WS-Policy Attachment</td><td align="left">1.0</td><td align="left">1.0</td><td align="left">1.5</td></tr><tr><td align="left">WS-Addressing</td><td align="left">-</td><td align="left">1.0</td><td align="left">1.0</td></tr><tr><td align="left">WS-Security</td><td align="left">1.0/1.1</td><td align="left">1.1</td><td align="left">1.1</td></tr><tr><td align="left">WS-Security Policy</td><td align="left">1.2</td><td align="left">1.2</td><td align="left">1.2</td></tr><tr><td align="left">WS-Trust</td><td align="left">1.3</td><td align="left">1.3</td><td align="left">1.4</td></tr><tr><td align="left">WS-Secure Conversation</td><td align="left">1.3</td><td align="left">1.3</td><td align="left">1.4</td></tr><tr><td align="left">WS-Reliable Messaging</td><td align="left">1.0</td><td align="left">1.1</td><td align="left">1.2</td></tr><tr><td align="left">WS-AtomicTransaction</td><td align="left">-</td><td align="left">1.0</td><td align="left">1.2</td></tr><tr><td align="left">WS-Coordination</td><td align="left">-</td><td align="left">1.0</td><td align="left">1.2</td></tr><tr><td align="left">OTS</td><td align="left">지원</td><td align="left">지원</td><td align="left">지원</td></tr><tr><td align="left">Java IDL API</td><td align="left">지원</td><td align="left">지원</td><td align="left">지원</td></tr><tr><td align="left">IDE Tool</td><td align="left">지원</td><td align="left">미지원</td><td align="left">미지원</td></tr><tr><td align="left">GUI Tool</td><td align="left">미지원</td><td align="left">미지원</td><td align="left">미지원</td></tr><tr><td align="left">Web Tool</td><td align="left">WebAdmin</td><td align="left">WebAdmin</td><td align="left">WebAdmin</td></tr><tr><td align="left">Monitoring Tool</td><td align="left">Console Tool, WebAdmin</td><td align="left">Console Tool, WebAdmin</td><td align="left">Console Tool, WebAdmin</td></tr><tr><td align="left">JDK</td><td align="left">5 / 6</td><td align="left">6 (인증)</td><td align="left">7 (인증)</td></tr></tbody></table>
+        </div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e781"></a>2.1.2. Servlet</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">CORS(Cross Origin Resource Sharing)
+          지원</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>외부 리소스를 가져다 쓰는 경우의 보안문제를 해결하기 위하여 CORS를 지원한다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">HTTP/2(HTTP 2.0) 프로토콜 지원</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>HTTP/2(HTTP 2.0) 프로토콜을 지원한다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">Servlet 4.0 스펙의 일부 지원</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>Servlet 4.0 스펙 중 Server Push 기능만을 지원한다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">jeusadmin 명령어 추가</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>jeusadmin의 Web Listener command에 auto tuning 관련 옵션이
+              추가되었다.</p>
+
+              <div class="itemizedlist"><ul type="square"><li>
+                  <p>add-web-listener, modify-web-listener에 -tauto, -tlimit
+                  옵션이 추가되었다.</p>
+                </li><li>
+                  <p>http-connection이 아닌 경우 적용되지 않는다.</p>
+                </li></ul></div>
+            </li><li>
+              <p>HTTP/2 옵션 추가</p>
+
+              <div class="itemizedlist"><ul type="square"><li>
+                  <p>HTTP/2 프로토콜 지원과 관련하여 jeusadmin에 관련 옵션이 추가되었다.</p>
+                </li><li>
+                  <p>add-web-listener, modify-web-listener,
+                  show-web-engine-configuration과 같은 리스너 관련 명령어들에 HTTP/2 옵션이
+                  추가되었다.</p>
+                </li></ul></div>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">대소문자를 구분하지 않는 File System을 위한 옵션
+          제공</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>Windows Server와 Linux Server를 함께 구성한 경우 대소문자가 다른 경우에도 같은
+              파일로 인식하는 경우가 발생하는 문제를 방지하기 위하여 기능이 추가되었다.</p>
+            </li><li>
+              <p>파일의 존재 여부 외에 대소문자를 구분하여 확인할 수 있도록 하는 옵션을 추가하였다.</p>
+
+              <pre class="programlisting">-Djeus.servlet.useCaseInsensitiveFileSystem</pre>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">jarscan.properties 파일 추가</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JSP가 동작할 때 classpath의 모든 .jar에서 .tld 파일을 스캔하는데, 대부분의
+              .jar에는 .tld이 포함되어 있지 않다.</p>
+            </li><li>
+              <p>이렇게 불필요한 스캔 작업을 줄이기 위하여 .tld 스캔에서 제외할 라이브러리 목록을 지정할 수 있는
+              기능이 있는데, 기존에는 하드코딩되어 있던 것을 외부
+              파일(JEUS_HOME/domains/jarscan.properties)로 분리하여 쉽게 업데이트 할 수 있도록
+              하였다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">JSESSIONID에 붙는 sticky session을 url 인코딩하지 않도록 하는 옵션
+          추가</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JSESSIONID에 붙는 sticky session을 url 인코딩할 경우 엔진 이름을 base64
+              인코딩할 때 생기는 "="를 "%3D"로 인코딩하면서 WebtoB에서 Session Routing 기능이 동작하지
+              않는 문제가 생길 수 있다.</p>
+            </li><li>
+              <p>이 문제를 방지하기 위하여 "="를 인코딩하지 않도록 변경되었으며, 이전 버전과 동일한 동작을 위하여
+              jeus.servlet.allowUrlEncodeJesssionId 옵션을 추가하여, 설정이 true인 경우에만
+              JSESSIONID를 인코딩하도록 하였다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">Node Java 기능 추가</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>외부 서비스를 동작할 수 있도록 해주는 Service Servlet를 등록하고 관리하는 기능을
+              제공한다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e852"></a>2.1.3. Session Server</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Session을 access한 Attribute별로 update할 수 있는 기능
+          추가</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>Backup Level 설정에서 access 옵션이 추가되었고 해당 설정이 default 설정이
+              되었다.</p>
+            </li><li>
+              <p>Attribute 단위 업데이트를 수행하며, setAttribute, getAttribute의
+              Target이 업데이트된다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">Idle Time 기준으로 가지고 있는 세션 정보를 보여주는 명령 관련 옵션 추가 및
+          WebAdmin 모니터링 기능 추가</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>list-session 명령에서 target Manager의 정보만을 볼수 있는 옵션(-t)이
+              추가되었다.</p>
+            </li><li>
+              <p>list-session 정보를 WebAdmin에서 모니터링할 수 있는 화면이 추가되었다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">Sticky encoding의 encoding rule을
+          지원</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>BASE64(default), RAW 중 선택 가능하며 WebAdmin 및 jeusadmin에서 설정할
+              수 있다.</p>
+            </li><li>
+              <p>BASE64 모드는 Base64 암호화 알고리즘을 사용하며, RAW 모드는 인코딩 없이 doamin
+              name, server name을 사용한다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">File passivation을 수행하는 옵션 및 trigger
+          추가</strong></span></p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">옵션</th><th>설명</th></tr></thead><tbody><tr><td align="left">Single Folder File Limit</td><td>하나의 폴더에 저장된 세션 파일의 갯수를 제한한다.</td></tr><tr><td align="left">Ratio</td><td>세션 개수 및 세션의 메모리로 passivation을 진행할 때 얼마나 많은 세션을
+                    passivation할지의 비율을 설정한다.</td></tr><tr><td align="left">Count Threshold</td><td>세션이 일정 갯수 이상 메모리에 존재할 경우 세션의 일부를 파일에 내리는 작업을
+                    수행한다.</td></tr><tr><td align="left">Memory Threshold</td><td>세션이 일정 메모리를 차지할 경우 세션의 일부를 파일에 내리는 작업을
+                    수행한다.</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p><span><strong class="guibutton">DOMAIN_WIDE 세션 클러스터 모드일 경우 애플리케이션을 디플로이하지 않더라도
+          리모트로부터 백업을 받을 수 있는 기능 추가</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>DOMAIN_WIDE 모드일 경우 아래 시스템 프로퍼티를 추가하면 더미 애플리케이션이 디플로이되어 백업
+              받을 수 있다.</p>
+
+              <pre class="programlisting">-Djeus.sessionmanager.receive.backup.despite.no.deploy=true</pre>
+
+              <p/>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e912"></a>2.1.4. WebService</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">JAX-RS 관련 기능추가</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JAX-RS Server-Sent Events 지원</p>
+
+              <p>웹 환경에서 Server Push를 구현하기 위해 제안된 HTML 5의 Server-Sent Events(SSE)를
+              지원한다.</p>
+            </li><li>
+              <p>JAX-RS HTTP Basic Authentication 지원</p>
+
+              <p>JAX-RS 클라이언트가 HTTP Basic Authentication를 요구하는 서버에 인증할 수
+              있도록 지원한다.</p>
+            </li><li>
+              <p>JAX-RS Asynchronous Processing 지원</p>
+            </li><li>
+              <p>JAX-RS JSON Processing 지원</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">JMS Transport에서 SAF 지원</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JAX-WS JMS Transport에서 JMS Bridge를 통하여
+              SAF(Store-And-Forward)를 지원한다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">Server-Sent Events 기능 지원</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>HTML 5의 Server-Sent Events(SSE) 스펙을 지원한다.</p>
+
+              <p>Server-Sent Events(SSE)는 웹 환경에서 Server Push를 구현하기 위해 제안된 표준 기술로,
+              의사 Server Push 기술인 Comet을 표준화한 기술이라고도 한다(Server-Sent Events, W3C
+              Candidate Recommendation 11 December 2012). 자세한 내용은 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="https://www.w3.org/TR/eventsource/" target="_top">https://www.w3.org/TR/eventsource/</a>를
+              참고한다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">HTTP Basic Authentication 지원</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JAX-RS 클라이언트가 HTTP Basic Authentication을 요구하는 서버에 인증할 수
+              있도록 한다.</p>
+            </li><li>
+              <p>javax.ws.rs.client.ClientRequestFilter를 구현하여
+              authentication header를 생성한다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e951"></a>2.1.5. Security</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Password validator 기능 추가</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JEUS의 Password를 입력/수정하는 경우 일반적인 수준의 제약사항을 설정 가능하게 하여
+              Password 설정 관련 보안을 강화하였다.</p>
+            </li><li>
+              <p>Default Password Validator에는
+              특수문자/숫자/대(소)문자/최소글자수/최대글자수/ID포함불가 등의 기능이 있다.</p>
+            </li><li>
+              <p>사용자 임의의 Password validator 추가를 위한 Custom Password
+              Validator 기능도 함께 추가되었다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e964"></a>2.1.6. Deployment</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Library Deployment 기능 추가</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>DAS를 통해 Library Deployment 기능을 제공한다.</p>
+            </li><li>
+              <p>기존에는 lib/shared/libraries.xml을 통해 같은 라이브러리라 하더라도 각자 서버에
+              lib을 위치시켰으나, Library Deployment 기능이 추가되어 parent-child 관계에서 발생하는
+              라이브러리 사용상의 문제 및 단일 classloader를 referencing하는 방법으로 리소스 사용을
+              최소화하였다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e975"></a>2.1.7. JMX</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Spring JMX 지원</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>Spring JMX에서 사용하는 기본 MBeanServerFactoryBean 동작에 맞춰서 JEUS
+              MBeanServer를 정확하게 찾아서 사용할 수 있도록 MBeanServerFactoryBean 구현체를 작성하여
+              제공한다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e984"></a>2.1.8. Server</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">server-log command에 검색 옵션으로 base time + end time
+          추가</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>server-log command를 이용하여 정해진 시간 동안 로그를 가져올 수 있는 방법이
+              추가되었다.</p>
+            </li><li>
+              <p>기존에 JEUS 7에서 지원하는 server-log command는 현재는 검색하는 방법으로 start
+              time부터 line 만큼 가져오는 것 만을 지원하였으나, base time + end time 형태로 일정 시간
+              안에 발생한 로그를 가져오는 기능이 추가되었다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e995"></a>2.1.9. Tool</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">jeusadmin Script 모드에 -verbose 옵션
+          추가</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>jeusadmin을 script 모드로 사용하는 경우 script에서 출력한 값 이외에 기본
+              jeusadmin 결과 값이 함께 출력되어, 커맨드 창의 결과만을 사용해야 하는 경우 원하는 내용을 확인하기
+              어려웠다. 이러한 상황에서 사용할 수 있도록 -verbose 옵션을 추가하였다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1004"></a>2.1.10. Manual</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">JEUS Network Library 매뉴얼 제공</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JEUS Network Library 매뉴얼을 Java DOC 형태로 제공한다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e1013"></a>2.2. 변경 기능</h2></div></div></div>
+    
+
+    <p>본 절에서는 JEUS의 모듈별 설정의 변경 사항을 정리한다.</p>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1016"></a>2.2.1. Server</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Native Library 관련 변경 사항</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>jeusadmin -licenseinfo 명령어를 수행할 때 seqno가 출력되도록
+              수정되었다.</p>
+            </li><li>
+              <p>expire date가 설정된 license를 체크할 수 있도록 수정되었다.</p>
+            </li><li>
+              <p>Cloud License가 추가되었다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">NIO 사용 구현체 및 AsyncServlet 제거</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JEUS 5 및 6에서 구현한 NIO 사용 구현체(jeus.servlet.connector 이하) 및
+              AsyncServlet 을 제거하였다. 이와 관련되어 각 모듈에 포함되어 있던 NIO 관련 설정도 함께
+              제거되었다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">Boot-time 도메인 백업 기능과 pack-domain 명령어의 동작을 동일하게
+          변경</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>도메인을 백업하는 2가지 방법에 약간의 차이가 있던 것을 동일하게 동작하도록
+              변경하였다(pack-domain 명령어 기준으로 통일).</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">라이프 사이클 관련 스키마(library-ref) 변경</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>domain.xml의 라이프 사이클 관련 스키마(library-ref) 구조를 일반적인 형태인
+              element 추가로 변경하였다.</p>
+            </li><li>
+              <p>library-ref의 스키마 중 failon-error와 exact-match 항목이
+              attribute에서 element로 변경되었으며, 이와 관련되어 dependency가 있는 xml 설정들도 함께
+              수정되었다.</p>
+            </li><li>
+              <p>변경 전 설정</p><pre class="programlisting">&lt;library-ref failon-error="true"&gt;
+    &lt;library-name&gt;test&lt;/library-name&gt;
+    &lt;specification-version exact-match="true"&gt;11&lt;/specification-version&gt;
+    &lt;implementation-version exact-match="true"&gt;22&lt;/implementation-version&gt;
+&lt;/library-ref&gt;</pre>
+            </li><li>
+              <p>변경 후 설정</p><pre class="programlisting">&lt;library-ref&gt;
+    &lt;library-name&gt;test&lt;/library-name&gt;
+     &lt;failon-error&gt;true&lt;/failon-error&gt;
+     &lt;specification-version&gt;
+         &lt;value&gt;11&lt;/value&gt;
+         &lt;exact-match&gt;true&lt;/exact-match&gt;
+     &lt;/specification-version&gt;
+     &lt;implementation-version&gt;
+         &lt;value&gt;22&lt;/value&gt;
+         &lt;exact-match&gt;true&lt;/exact-match&gt;
+     &lt;/implementation-version&gt;
+&lt;/library-ref&gt;</pre>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">설정 파일 Lock 처리 개선</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JEUS를 기동할 때 domain.xml 파일이 깨지는 문제를 방지하기 위하여 한 쪽 서버에서 파일을
+              읽는 동안 다른 서버에서 파일에 쓰지 못하도록 Lock을 공유한다.</p>
+            </li><li>
+              <p>기존에는 Lock의 범위가 너무 넓어서 NodeManager를 이용하여 서버를 동시에 기동시킬 경우 전체
+              서버가 동시에 기동되지 못하는 경우가 있었는데, Lock의 범위 및 시점을 조절하여 이러한 문제점이 발생하지 않도록
+              개선하였다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">JSTL 라이브러리 버전업</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JSTL 라이브러리를 기존의 1.2에서 1.2.5로 버전업하였다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">server-info 명령어에 표시되는 서버 가동시간 정확도
+          개선</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>server-info 명령어를 사용하는 경우 Status 항목에 서버 상태와 함께 표시되는 가동 시간을
+              좀 더 정확하게 보여줄 수 있도록 개선하였다.</p>
+            </li><li>
+              <p>기존에는 서버 상태를 갖고 있는 ServerStateInfo 객체를 생성할 때 시간을 기준으로 가동
+              시간을 계산하여 DAS를 재기동하면 시간이 초기화되었으나, SCF(GMS)로부터 시작 시간을 얻어온 후 좀 더
+              정확한 가동 시간을 계산하여 출력하도록 개선하였다.</p>
+            </li><li>
+              <p>시작 시간을 얻을 수 없는 경우에는 상태만 출력한다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">ASM ClassVisitor를 ASM 5로 버전업</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JDK 8에서 ASM을 사용하기 위하여 ASM 버전을 ASM 5로 버전업하였다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1085"></a>2.2.2. Servlet</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">listener 및 connector의 use-nio 설정
+          제거</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>리스너의 NIO는 JEUS 7까지만 지원하고 JEUS 8부터는 지원하지 않기 때문에 이에 맞춰
+              제거되었다.</p>
+            </li><li>
+              <p>webtob-connector의 use-nio 및 관련 thread-pool 설정,
+              tmax-listener의 use-nio 및 selector-count 설정이 제거되었다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">webtob-connector의 wjp-version 기본값을 2로
+          변경</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JEUS 8부터는 WebtoB 연결을 생성하는 경우 기본값이 WJP Version 2로
+              변경되었다.</p>
+            </li><li>
+              <p>WebtoB 4.1.6 이하 버전은 WJP Version 2를 지원하지 않기 때문에
+              wjp-version을 반드시 1로 설정해야 한다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">WebSocket 기본 지원</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>특별한 설정 없이 WebSocket을 사용할 수 있도록 변경되었다(기존에는 jeus-web-dd.xml에
+              설정). 따라서, jeus-web-dd.xml을 생성해 주는 webddgen 명령의 websocket 옵션도
+              삭제되었다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">webinf-first 스키마 변경</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JEUS 7까지는 하위 호환을 위하여 mixed 속성을 사용하여 webinf-first를 변경하였으나,
+              JEUS 8부터는 element를 추가하는 방식으로 변경되었다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">distributed websocket session을 distributed user
+          properties로 변경</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>distributed websocket session 기능은 jsessionid가 같은 서로 다른
+              websocket session이 같은 userproperties 맵을 공유할 수 있도록 하는 기능이다. 따라서
+              해당 기능에 맞게 명칭을 변경하고 설정의 형태도 attribute에서 child element를 가지는 형태로
+              변경한다</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">HTTP Parameter의 empty string 처리
+          개선</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>HttpServletRequest.getParameter()에서 value가 empty string일
+              경우 empty string을 리턴하도록 통일하였다.</p>
+            </li><li>
+              <p>기존에는 Query String과 x-www-form-urlencoded에서는 empty string을
+              리턴하고 multipart/form-data에서는 'new String()'하여 리턴하였으나, 3가지 유형 모두
+              empty string을 리턴하도록 변경하였다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1130"></a>2.2.3. Session Server</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">기존 시스템 프로퍼터로 설정하였던 기능이 WebAdmin 및 jeusadmin 명령어
+          옵션으로 변경</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>다음의 프로퍼티가 옵션으로 변경되었으며, 기존의 시스템 프로퍼티 설정은 사용할 수 없다.</p>
+
+              <pre class="programlisting">jeus.sessionserver.backupqueue.max    ⇒ Backup Queue Size
+jeus.sessionserver.backupunit         ⇒ Backup Unit Size
+jeus.session.exclude.das.in.cluster   ⇒ Exclude Das In Cluster
+jeus.sessionserver.ignore.flowcontrol ⇒ Ignore Flow Control
+jeus.sessionmanager.failback.allow    ⇒ Allow Fail Back
+jeus.sessionmanager.prevent.migration ⇒ Prevent Migration </pre>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">Session Cluster Config를 수정 및 통합</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>WebAdmin에서 세션 클러스터 설정하는 방법이 변경되었다.</p>
+            </li><li>
+              <p>환경설정 파일에서 세션 클러스터 설정 부분이 통합되었다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">세션 클러스터 관련 용어 변경</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>다음의 용어들이 변경되었다.</p>
+
+              <pre class="programlisting">애플리케이션 스코프 세션 클러스터 ⇒ Defualt 세션 클러스터 
+도메인 스코프 세션 클러스터      ⇒ 도메인 와이드 세션 클러스터
+사용자 정의 스코프 세션 클러스터  ⇒ 특별 정의 스코프(SPECIFIC SCOPE) 세션 클러스터
+</pre>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">일부 콘솔 명령어 옵션 추가 및 사용법 변경</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>show-session-configuration 옵션이 추가되었고 사용법이 변경되었다.</p>
+            </li><li>
+              <p>modify-session-configuration 옵션이 추가되었고 사용법이 변경되었다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">DistributedSessionManager의 세션 객체 관리 구조 개선을 통한
+          Passivation 성능 개선</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>Passivation Global Lock을 제거하여 worker 간 경쟁을 제거하였다.</p>
+            </li><li>
+              <p>기존 파일을 세션별로 관리하도록 변경하였고 Passivation 관련 스키마를 변경하였다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">Session 처리의 안정성 향상</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>ServletRequestListener로 생성된 Access Session이 2회 호출될 경우의 세션
+              관리 부분이 개선되었다.</p>
+            </li><li>
+              <p>동일한 Attribute를 SetAttribute할 경우의 Bound 및 UnBound 관련 처리가
+              개선되었다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">기타 </strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>불필요한 세션 클래스 구조를 제거하여 세션 기능을 최적화하도록 개선되었다.</p>
+            </li><li>
+              <p>도메인 와이드 세션 클러스터 모드에서 Failback을 사용하는 경우 monitorning 및
+              migration 작업 안정성이 향상되었다.</p>
+            </li><li>
+              <p>다수의 서버에서 Multi thread로 동일 서버로 Failback을 수행할 경우의 동작의 안정성이
+              개선되었다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1191"></a>2.2.4. EJB</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">EJB 클러스터링 개선 및 변경사항</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>DLR(Dynamic Link Ref) 제거 및 LiveRef 구현을 통해 EJB 클러스터링 성능을
+              개선하였다.</p>
+
+              <div class="itemizedlist"><ul type="square"><li>
+                  <p>JEUS 7의 EJB 클러스터링은 JNDI와 DLR(Dynamic Link Ref)를 이용하여
+                  지원되고 있는데, 이 방법은 구조적으로 Clustered EJB를 처음 사용할 때부터 다수의 JNDI
+                  Operation이 필요하고, failover될 때 이를 감지하여 stub을 교체하는 방식으로 동작하므로
+                  불필요한 오버헤드가 많아서 성능상의 문제가 있다. 이 문제를 해결하기 위하여 DLR 제거 및 LiveRef
+                  구현을 통해 EJB 클러스터링 성능을 개선하였다.</p>
+                </li><li>
+                  <p>EJB Clustering 개선은 EJB3.x Stateless Session Bean에 대해서만
+                  적용되는 것으로, 하위 버전에 대한 호환을 위해서는 jeus-ejb-dd.xml의 use-dlr을
+                  true으로 설정하거나 @Clustered(useDlr=true)를 사용한다.</p>
+                </li></ul></div>
+            </li><li>
+              <p>EJB 3.x의 Stateless Session Bean에서는 method invoke 레벨에서의 로드
+              밸런싱이 가능하도록 개선하였다.</p>
+
+              <div class="itemizedlist"><ul type="square"><li>
+                  <p>jeus.ejb.cluster.selection-policy 옵션을 통해 설정할 수
+                  있다.</p>
+                </li></ul></div>
+            </li><li>
+              <p>클러스터링 상황에서 JNDI Context를 선택하는 경우 JEUS 7에서는 랜덤으로 선택하였지만
+              Local Optimization하도록 개선하였다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">EJB Home을 클라이언트에 노출하지 않도록 변경</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>EJB 3.x의 경우에도 EJB home이 노출되어 있었지만 해당 부분을 노출하지 않도록
+              변경한다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1218"></a>2.2.5. Security</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Security Domain 관련 변경사항</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>Security Domain을 추가한 후 Activate하지 않았을 경우 user 생성 메뉴가 나오지
+              않도록 변경되었다.</p>
+            </li><li>
+              <p>Security Domain을 추가할 때 도메인이 추가되었는지 확인하는 방법을 변경하여 오동작 발생
+              가능성을 배제하였다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">SSL 사용할 때 프로토콜을 지정할 수 있도록 기능 개선</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>최근 SSLv3 프로토콜에서 보안 이슈가 발생하여 특정 프로토콜을 사용하지 않도록 하는 보안권고 사항이
+              나오고 있다.</p>
+
+              <p>다음의 형식으로 SSL 프로토콜 버전을 설정할 수 있도록 하는 기능이 스키마의
+              &lt;ssl&gt;&lt;ssl-protocol&gt;에서 설정할 수 있도록 변경되었다.</p>
+
+              <pre class="programlisting">-Djeus.net.ssl.protocolVersions=TLSv1,SSLv3 </pre>
+
+              <p/>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1239"></a>2.2.6. JMS</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">DELETE_TABLES_ON_START를 Journal File에도 적용되도록
+          변경</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>기존에 디렉터리를 삭제해야 만 초기화할 수 있던 Journal File도 JEUS가 기동될 때 초기화할
+              수 있는 기능을 추가하였다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">Message Bridge 설정할 때 다수의 jar 파일을 로드하도록
+          수정</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>기존에는 Message Bridge를 설정할 때 Class Loader에서 Load할 jar를 한 개
+              밖에 설정하지 못하도록 되어있다. 이를 콤마(,)로 구분하여 Load할 jar 파일을 다수 설정할 수 있도록
+              변경하였다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">하위 버전 Store 연결할 때 메시지 변경</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JEUS 7과 JEUS 8 간의 메시지 호환성은 보장되지 않기 때문에, 다른 버전의 Store에 연결
+              즉시 메시지를 출력하고 JMS 엔진이 기동되지 않도록 한다.</p>
+            </li><li>
+              <p>Journal의 경우도 동일하게 동작하도록 변경되었다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1262"></a>2.2.7. WebService</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Web Service Library 저장 위치 변경</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>webservices-rt.jar, webservices-tools.jar 파일의 위치가 기존의
+              lib/system에서 lib/shared로 변경되었다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">기본 JAX-RS 구현체 동작 정지(disable) 지원</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>라이브러리 충돌 등의 이유로 기본 JAX-RS 구현체를 사용하지 않을 경우 쉽게 정지시킬 수 있는
+              방법을 지원한다.</p>
+            </li><li>
+              <p>JEUS에 포함된 jar 파일 변경 없이
+              ${JEUS_HOME}/lib/shared/libraries.xml의 해당 구현체 설정을 삭제하는 것으로 기본
+              JAX-RS 구현체 사용을 정지시킬 수 있다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1279"></a>2.2.8. JNDI</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">DirService 안의 isGracefulRedeploymentSupported 시에
+          ClassLoader가 변경되지 않도록 개선</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>Graceful Redeploy 체크 중 ClassLoader가 변경되지 않도록 개선하였다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">InitialContext 생성 시 hostname 처리방법
+          개선</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>간혹 ""와 같이 빈 문자열이 넘어오는 경우, ":9736"에 접속하는 문제가 발생하지 않도록
+              localhost로 치환을 하여 처리하도록 개선하였다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1294"></a>2.2.9. Network</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">리스너의 SSL 관련 설정 정리</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>리스너의 SSL 설정 중 비정상적인 부분을 수정하였다.</p>
+            </li><li>
+              <p>Keystore 및 Truststore의 password 기본값이 삭제되었다.</p>
+            </li><li>
+              <p>Keystore 및 Truststore의 파일 경로명 기본값이 삭제되었다.</p>
+            </li><li>
+              <p>Keystore 및 Truststore 파일의 경로명에 상대 경로를 사용할 수 있게 한다(시작 경로는 각
+              domain의 config 폴더).</p>
+            </li><li>
+              <p>서버에서 클라이언트의 SSL을 처리하기 위한 SSLContext는 SSL 설정 태그를 통해서만 설정
+              가능하게 한다. System Property는 클라이언트를 위한 값이다.</p>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">NIO 성능 향상</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>Read 및 Buffer의 관리를 모두 Selector가 처리하도록 변경하여 불필요한 Read 횟수를
+              줄이면서 로직을 단순화하여 성능을 개선하였다.</p>
+            </li><li>
+              <p>SSLSocketChannel 클래스의 inNetBuffer를 JeusSocketChannel의 read
+              buffer와 통합하여 SSL 처리를 최적화하였다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1319"></a>2.2.10. JMX</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">jmx-manager 관련 스키마 정리</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>불필요하게 복잡하고 depth가 깊은 jmx-manager 스키마를 단순하게 정리하고, 필요한 스키마를
+              추가한다.</p>
+            </li><li>
+              <p>삭제된 설정</p>
+
+              <div class="itemizedlist"><ul type="square"><li>
+                  <p>jmxmp-connector</p>
+                </li><li>
+                  <p>rmi-connector</p>
+                </li><li>
+                  <p>jmx-connector</p>
+                </li><li>
+                  <p>html-adaptor</p>
+                </li></ul></div>
+            </li><li>
+              <p>추가된 설정</p>
+
+              <div class="itemizedlist"><ul type="square"><li>
+                  <p>use-rmi-connector</p>
+                </li><li>
+                  <p>use-html-adaptor</p>
+                </li><li>
+                  <p>html-adaptor-port</p>
+                </li></ul></div>
+            </li></ul></div>
+        </li><li>
+          <p><span><strong class="guibutton">SNMP 클라이언트를 통해 JEUS가 모니터링되지 않던 문제
+          개선</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>SNMP 클라이언트를 개발하여 JEUS 모니터링을 할 경우 SNMPAgent와 MBeanServer의
+              연동이 원활하지 않아 모니터링이 되지 않던 문제를 개선하였다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1354"></a>2.2.11. Logging</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">JEUS Log 파일명 표시방법 개선</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>log rotation, valid-hour, append:false인 경우 rotation name에서
+              로그 생성 시간대를 확인하기 쉽도록 파일명에 시간(24시간 기준)을 표시하도록 개선하였다.</p>
+            </li><li>
+              <p>로그 파일명은 JeusServer_yyyyMMdd_HH.log[0000] 형태로 변경되었다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1365"></a>2.2.12. NodeManager</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">NodeManager에서 ssh node에 연결이 잘 되었는지를 판단하는 방법
+          개선</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>ssh node에 원격으로 명령을 내리기 전에 ssh node가 정상 동작을 하는지 알아보기 위해서
+              실행하는 Java 명령과 정상동작 여부를 확인하는 방법을 개선하였다.</p>
+            </li><li>
+              <p>동작 여부를 확인하는 명령은 "java -version"으로 변경하고, 결과의 시작 문자열이 "java
+              version"일 경우 정상적으로 실행된 것으로 판단하도록 하였다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1376"></a>2.2.13. Transaction</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">스키마 변경</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>Uncompleted가 Incomplete로 변경됨에 따라 스키마의
+              &lt;tm-config&gt;&lt;uncompleted-timeout&gt;이
+              &lt;tm-config&gt;&lt;incomplete-timeout&gt;으로 변경되었다.</p>
+            </li><li>
+              <p>이와 관련하여 jeusadmin의 modify-transaction-manager 명령의 -ut 옵션도
+              -it로 변경되었다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko-KR"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1387"></a>2.2.14. JSF</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">JSF 2.2 RI 업그레이드</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JSF 버전을 2.1.3에서 최신 버전인 2.2.13으로 업그레이드하였다.</p>
+            </li></ul></div>
+        </li></ul></div>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_intro.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">제1장 소개 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div><div xmlns="" align="center"/></body></html>

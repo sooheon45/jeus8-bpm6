@@ -1,0 +1,2595 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제1장 시스템 프로퍼티</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Reference Book"/><link rel="up" href="system-properties.html" title="Part I. 시스템 프로퍼티"/><link rel="prev" href="system-properties.html" title="Part I. 시스템 프로퍼티"/><link rel="next" href="console-tools.html" title="Part II. 콘솔 명령어와 툴"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제1장 시스템 프로퍼티</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="system-properties.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part I. 시스템 프로퍼티</td><td width="20%" align="right"> <a accesskey="n" href="console-tools.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="d4e383"></a>제1장 시스템 프로퍼티</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="ch01.html#system_properties_intro">1.1. 개요</a></span></dt><dt><span class="section"><a href="ch01.html#chapter_JEUS_Server_Properties">1.2. 서버 시스템 프로퍼티</a></span></dt><dt><span class="section"><a href="ch01.html#chapter_JEUS_NET_Properties">1.3. 네트워크 시스템 프로퍼티</a></span></dt><dt><span class="section"><a href="ch01.html#jndi_system_properties">1.4. JNDI 시스템 프로퍼티</a></span></dt><dt><span class="section"><a href="ch01.html#transaction_system_properties">1.5. 트랜잭션 시스템 프로퍼티</a></span></dt><dd><dl><dt><span class="section"><a href="ch01.html#d4e1944">1.5.1. TM Client를 위한 시스템 프로퍼티</a></span></dt><dt><span class="section"><a href="ch01.html#d4e2158">1.5.2. 하위 호환성을 위한 시스템 프로퍼티</a></span></dt></dl></dd><dt><span class="section"><a href="ch01.html#web_engine_properties">1.6. 웹 엔진 프로퍼티</a></span></dt><dd><dl><dt><span class="section"><a href="ch01.html#d4e2189">1.6.1. 웹 엔진 레벨 프로퍼티</a></span></dt><dt><span class="section"><a href="ch01.html#d4e2292">1.6.2. 가상 호스트 레벨 프로퍼티</a></span></dt><dt><span class="section"><a href="ch01.html#d4e2301">1.6.3. 웹 애플리케이션 레벨 프로퍼티</a></span></dt></dl></dd><dt><span class="section"><a href="ch01.html#chapter_JEUS_SessionServer_Properties">1.7. 세션 서버 시스템 프로퍼티</a></span></dt><dt><span class="section"><a href="ch01.html#ejb_engine_properties">1.8. EJB 시스템 프로퍼티</a></span></dt><dd><dl><dt><span class="section"><a href="ch01.html#d4e2976">1.8.1. EJB 시스템 프로퍼티</a></span></dt><dt><span class="section"><a href="ch01.html#d4e3385">1.8.2. JPA 시스템 프로퍼티</a></span></dt><dt><span class="section"><a href="ch01.html#d4e3400">1.8.3. RMI 시스템 프로퍼티</a></span></dt></dl></dd><dt><span class="section"><a href="ch01.html#security_system_properties">1.9. 보안 시스템 프로퍼티</a></span></dt><dd><dl><dt><span class="section"><a href="ch01.html#d4e3871">1.9.1. Standard Java SE &amp; Java EE 보안 시스템 프로퍼티</a></span></dt><dt><span class="section"><a href="ch01.html#d4e3954">1.9.2. JEUS 보안 시스템 프로퍼티</a></span></dt></dl></dd><dt><span class="section"><a href="ch01.html#jms-properties">1.10. JEUS MQ 시스템 프로퍼티</a></span></dt><dd><dl><dt><span class="section"><a href="ch01.html#d4e4177">1.10.1. JEUS MQ 클라이언트</a></span></dt><dt><span class="section"><a href="ch01.html#d4e4410">1.10.2. JEUS MQ 서버</a></span></dt></dl></dd></dl></div>
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="system_properties_intro"></a>1.1. 개요</h2></div></div></div>
+  
+
+  <p>시스템 프로퍼티는 JVM에 -D 옵션으로 설정하는 환경변수이다. JEUS는 기본적으로 Launch JVM을 이용해서 서버
+  JVM을 구동하기 때문에 domain.xml의 각 서버별 설정에 시스템 프로퍼티를 설정해야 한다.</p>
+
+  <p/>
+
+  <div class="literallayout"><p/></div>
+
+  <p>시스템 프로퍼티를 설정하는 방법은 아래와 같다.</p>
+
+  <pre class="programlisting">&lt;domain&gt;
+    &lt;servers&gt;
+        &lt;server&gt;
+            &lt;name&gt;server1&lt;/name&gt;
+            &lt;jvm-config&gt;
+                &lt;jvm-option&gt;-Xmx512m -XX:MaxPermSize=250m&lt;/jvm-option&gt;
+            &lt;/jvm-config&gt;
+        ...</pre>
+
+  <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+    <p>1. 도메인 Admin 서버 또는 서버 스크립트에 설정하는 것은 Launch JVM에만 적용되므로 주의한다.</p>
+
+    <p>2. 시스템 프로퍼티는 JEUS 전반적인 동작과 모든 애플리케이션에 영향을 미치므로 설정에 주의한다. 시스템 프로퍼티보다는
+    XML 설정을 사용하길 권장한다.</p>
+  </div>
+</div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="chapter_JEUS_Server_Properties"></a>1.2. 서버 시스템 프로퍼티</h2></div></div></div>
+  
+
+  <p>본 절에서는 서버 시스템 프로퍼티에 대해 설명한다.</p>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.home</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>XML이나 코드 등을 생략한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>JEUS가 설치된 디렉터리</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.launcher.log.home</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Jeus Launcher Log가 생성되는 위치를 지정한다. 지정하지 않을 경우
+                JEUS_SERVER_HOME/logs에 남게 된다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>null</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.boot.printclasspath</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>시스템 클래스 로더의 클래스 패스에 대한 출력 여부를 결정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.server.autorestart</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>SCF에 의해 MS(Managed Server)가 장애로 감지되었을 때 자동으로 재시작시킬지의
+                여부이다. 예외적으로 JAVA 노드 매니저를 쓸 경우는 장애 감지를 SCF에 의존하지 않기 때문에 해당
+                프로퍼티와 상관없이 노드 매니저의 auto restart 설정 값에 의존한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.jdk.home</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JDK Home 디렉터리 경로로 javac, tools.jar 경로를 설정할 때
+                사용한다.</td></tr><tr><td align="left"><span class="bold"><strong>기본값</strong></span></td><td>지정되어 있지 않으면 java.home을 사용</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.properties.replicate</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>Luncher에서 서버를 띄울 때 전달할 시스템 프로퍼티의 prefix이다.
+                </p><p>domain.xml의 server/jvm-config/jvm-option이
+                우선한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>jeus</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.server.check-interrupted-status</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>JEUS에서 EJB, JDBC operation을 수행하는 Thread가 인터럽트
+                시그널을 받으면 Exception의 발생 여부를 설정한다.</p><p>JEUS에서는 특정 작업하는
+                경우 Thread가 인터럽트가 걸려있으면 Exception이 발생하므로 해당 Exception에 대해서는 사용자
+                애플리케이션에서 처리해 주어야 한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.threadpool.queuesize</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>JEUS 시스템의 Threrad Pool에서 사용하는 Thread Pool의 내부
+                Queue size를 설정한다. Thread Pool에서는 Task 수행을 위해 내부 Queue를 사용하는데 이
+                Queue의 크기를 설정한다. 만약 시스템의 부하가 많으나 설정 Thread의 개수가 작을 경우
+                Queueing되는 Task들이 증가할 것이고, 이때 최대 설정한 Queue 크기만큼만 Queueing을
+                허용한다. </p><p>이 시스템 프로퍼티보다 domain.xml의
+                server/system-thread-pool/queue-size 값이 우선한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>4096</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.threadpool.keepalive</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>JEUS 시스템의 Threrad Pool에서 사용하는 Thread Pool에 적용될
+                Keep alive time을 설정한다. 만약 min 이하의 Thread에 대해서 설정된 시간 동안 사용되지
+                않는다면, 해당 Thread는 Thread Pool에서 제거된다. </p><p>이 시스템 프로퍼티보다
+                domain.xml의 server/system-thread-pool/keep-alive-time 값이
+                우선한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>300000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.rmi.defaultPort</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>RMI의 default export port이다. export-port가 지정되지 않은 모든
+                EJB에도 적용된다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>- base port + 7</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.rmi.jeusrmi.defaultPort</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JEUS가 제공하는 JEUS RMI를 사용하는 경우 RMI의 default export
+                port이다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>- base port + 11</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.vm.bits</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>JVM의 bit 수이다.</p><p>서버가 기동할 때 64bit JVM인 경우
+                64를 설정하면 -d64가 추가된다. </p><p>IBM의 경우에는 -d64가
+                필요없다.</p></td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.interop.ssl.keystore</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>CORBA CSIv2에서 사용할 SSL Keystore를 지정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>jeus.net.ssl.keystore의 값</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.interop.ssl.keypass</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>CORBA CSIv2에서 사용할 SSL Keystore의 패스워드를 지정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>jeus.net.ssl.keypass의 값</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.interop.ssl.truststore</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>CORBA CSIv2에서 사용할 SSL Truststore를 지정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>jeus.net.ssl.truststore의 값</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.interop.ssl.trustpass</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>CORBA CSIv2에서 사용할 SSL Truststore의 패스워드를 지정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>jeus.net.ssl.trustpass의 값</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.jvm.version</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JEUS가 사용하는 JVM의 버전에 대한 정보이다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>hotspot (-server를 사용함)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.server.cpumonitor.enabled</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>HOST CPU 사용률을 측정하기 위한 모니터링 기능을 활성화한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.server.cpumonitor.interval</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>HOST CPU 사용률을 모니터링하는 기능을 사용하는 경우 CPU 사용률을 측정할
+                주기이다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>60000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.server.process.cpumonitor.enabled</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Process CPU 사용률을 측정하기 위한 모니터링 기능을 활성화한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.server.process.cpumonitor.interval</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Process CPU 사용률을 모니터링하는 기능을 사용하는 경우 CPU 사용률을 측정할
+                주기이다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>2000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.server.cpumonitor.ratio</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Process CPU 사용률을 모니터링하는 기능을 사용하는 경우 CPU 오버플로우의 기준치를
+                설정한다. 소숫점으로 설정하며 CPU 사용량을 최대 100으로 볼 때 최대 몇 퍼센트의 CPU를 사용하고 있는
+                경우 오버플로우로 가정할지를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>0.8</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.server.enable.restart.in.memory.shortage</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>메모리가 오버플로우될 때 서버의 재기동 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.server.memorymonitor.enabled</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>서버의 메모리 사용률을 측정하기 위한 모니터링 기능을 활성화한다. 모니터링할 때 Thread
+                Dump가 로그에 남게 된다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.server.memorymonitor.interval</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>메모리 사용률을 모니터링하는 기능을 사용하는 경우 메모리 사용률을 측정하고자 하는
+                주기이다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>2000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.server.memorymonitor.duration</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>메모리 사용률을 모니터링하는 기능을 사용하는 경우 메모리 오버플로우 현상의 지속 시간을 설정한다.
+                설정한 시간동안 메모리 오버플로우 시간이 지속되면 서버가 종료된다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>60000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.server.memorymonitor.ratio</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>메모리 사용률을 모니터링하는 기능을 사용하는 경우 메모리 오버플로우의 기준치를 설정한다. 소숫점으로
+                설정하며 메모리 사용량을 최대 100으로 볼 때 최대 몇 퍼센트의 메모리를 사용하고 있는 경우 오버플로우로
+                가정할지를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>0.8</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.server.maxdowntime</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>메모리 사용률을 모니터링하는 기능을 사용하는 경우 메모리 오버플로우가 발생하여 서버를
+                종료할 때 서버가 종료될 때까지 대기하는 시간을 설정한다.</p><p>설정한 시간이 지나도 서버가
+                종료되지 않으면 서버는 강제종료된다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>0 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.server.configfile.backup.size</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>동적 변경할 때 저장되는 backup domain.xml의 갯수를 지정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>50</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.print-system-properties</p>
+
+      
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>설정된 시스템 프로퍼티를 출력할지를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.management.snmp.dynamic</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>SNMP를 서버에 사용하는 경우 Dynamic OID 생성 여부를
+                설정한다.</p><p>SNMP를 서버에 사용하는 경우 OID를 Static으로 할지 Dynamic으로
+                할지 결정할 수 있다. </p><div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                      <p>true : Static일 경우로 MIB 파일 기반의 OID를 생성한다.</p>
+                    </li><li>
+                      <p>false : Dynamic일 경우로 객체에 따라서 동적으로 생성된 OID가 Static
+                      OID의 접미사로 추가된다.</p>
+                    </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.management.snmp.dynamic.shortoid</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>Dynamic OID의 길이를 선택한다. </p><p>MIB 기반의 OID에
+                추가적으로 더해지는 OID의 구성요소의 자리 수를 결정한다. </p><div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                      <p>true : Short OID일 경우로 8자리의 ID가 추가된다.</p>
+                    </li><li>
+                      <p>false : Short OID가 아닐 경우로 32자리의 ID가 추가된다.</p>
+                    </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.domainadminserver.deploy.socket</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>DAS(Domain Administration Server)가 유지하는 deploy 용도
+                소켓 커넥션 갯수의 최댓값이다. </p><p>MS(Managed Server)에서는 부팅 시간을
+                단축시키기 위해 DAS로부터 애플리케이션를 받아올 때 커넥션을 여러 개 맺고 병렬로 받아올 수 있다. 이때
+                DAS는 한순간에 여러 MS로부터 많은 커넥션을 맺게 되므로 이 최댓값를 설정할 수 있도록 한다.
+                </p><p>DAS의 deploy 커넥션이 최댓값이 된 상태에서 다른 MS로부터 애플리케이션 전송
+                요청이 올 경우에는 해당 MS는 1개의 커넥션만을 사용하여 순차적으로 애플리케이션를 받아오도록
+                한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>100</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.managedserver.deploy.socket</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>DAS로부터 애플리케이션를 받아올 때 MS가 사용하는 boot time deploy
+                connection의 최댓값이다. </p><p>MS가 boot하면서 DAS로부터 애플리케이션를
+                받아오게 되는데 이때 병렬적으로 받아오기 위해 사용하는 MS boot time deploy connection
+                갯수의 최댓값을 설정한다. </p><p>한 MS가 너무 많은 커넥션을 설정해서 DAS에서의 커넥션
+                갯수가 full이 되버릴 경우 다른 MS가 영향을 받을 수 있으므로 주의하여 사용한다.
+                </p><p>애플리케이션 전송이 끝나면 해당 커넥션은 바로 해제가 되어 DAS의 가용한 커넥션의
+                갯수를 다시 늘려준다. 또한 해당 설정의 커넥션 갯수를 크게 설정하더라도 받아올 애플리케이션의 갯수가 작다면
+                내부적으로 유지하는 커넥션의 갯수는 애플리케이션의 갯수로 자동으로 설정된다. </p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>5</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.logging.useAsync</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>프로퍼티에 대한 자세한 내용은 <a xmlns="" href="../server/chapter_jeus_logging.html#sect_Jeus_Logging_Overview" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “8.1. 개요”</a>를 참고한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.access.logging.skip.when.busy</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>jeus.logging.useAsync가 true일 때에 한해 적용되는 옵션이다. 프로퍼티에 대한
+                자세한 내용은 <a xmlns="" href="../server/chapter_jeus_logging.html#sect_Jeus_Logging_Overview" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “8.1. 개요”</a>를 참고한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.jmx.ping.period</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JMX 커넥션에서 연결 상태를 체크하기 위해 사용하는 Ping의 주기를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>15000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.jmx.ping.timeout</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JMX 커넥션에서 연결 상태를 체크하기 위해 사용하는 Ping의 타임아웃을 설정한다. Ping을
+                보낸 후 응답이 타임아웃 시간만큼 오지 않으면 연결에 문제가 있다고 판단하여 IOException을
+                발생시킨다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>15000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>jeus.server.memorymonitor.enabled,
+      jeus.server.memorymonitor.ratio, jeus.server.memorymonitor.interval,
+      jeus.server.memorymonitor.duration,
+      jeus.server.enable.restart.in.memory.shortage 프로퍼티에 대한 자세한 내용은 <a xmlns="" href="../server/chapter_server_control.html#jeus_memory_control" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “3.4.2. 메모리 사용량에 따른 제어”</a>를
+      참고한다.</p>
+    </div>
+
+  <p/>
+</div>
+
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="chapter_JEUS_NET_Properties"></a>1.3. 네트워크 시스템 프로퍼티</h2></div></div></div>
+  
+
+  <p>본 절에서는 네트워크 시스템 프로퍼티에 대해 설명한다.</p>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.server.checktmout</p>
+
+      
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JEUS를 관리하는 RMI 커넥션이나 JMX 커넥터에 대해 적용할 타임아웃을
+                설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>60 * 1000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.crosswait</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>두 JEUS 서버가 서로 커넥션을 맺으려고 시도하는 Cross Connection 상황일 때
+                커넥션이 거부당한 프로세스에서 상대방이 접속요청을 하여 커넥션이 맺어지길 기다리는 시간을
+                지정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>10000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.timewait</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>CLOSE 메시지가 전달되기를 기다리는 시간이다. 이 시간이 짧으면 정상적인 종료임에도
+                IOException이 발생했다는 trace가 출력될 수 있다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>10000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.tcpbuffer</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>JEUS가 운영되는 환경의 TCP Buffer Size를
+                설정한다.</p><p>이 값은 JEUS 서버 내부의 Read Buffer의 크기로 사용되기 때문에 이
+                값이 정확해야 최대의 I/O 성능을 낼수 있다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>8*1024 (단위: byte)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.recvbuffer</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JEUS 서버 환경의 TCP Receive Buffer의 크기를 설정한다.</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.sendbuffer</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JEUS 클라이언트 환경의 TCP Send Buffer의 크기를 설정한다.</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.busywrite</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>non-blocking으로 동작하는 경우 write를 할 때 Selector에게 맡기지 않고 계속
+                시도하는 횟수를 설정한다. 받는 쪽에서 read를 하지 않는 경우를 제외하고는 이 횟수 내에서는
+                select()를 다시 호출하는 일이 없으므로 빠르다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>2</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.msg.max</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>JEUS 프로토콜을 통해서 전달될 수 있는 한 메시지의 최대 크기를
+                설정한다.</p><p>이 크기를 초과하는 메시지를 보낼 경우 수신측에서 Exception이 발생하고
+                연결이 끊어질 수 있다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>5 * 1000 * 1000 (단위: byte)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.ping.enable</p>
+
+      
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>양방향 Ping 기능의 사용 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.ping.timeout</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Ping 메시지의 응답을 기다리는 시간을 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>60*1000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.ping.period</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>Ping 메시지를 보내는 주기를 설정한다 .</p><p>값이 0이면 Ping을
+                보내어 상대 노드가 살아 있는지 체크하지 않는다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>10*60*1000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.nio.select.limit</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>non-blocking으로 동작할 때 select()의 호출이 이 횟수 이상 실패하면 새로운
+                Selector를 만들어서 대체시킨다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>5</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.nio.write.limit</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>non-blocking으로 동작하는 경우 Write Thread가 블록되기까지 Write
+                Queue에 쌓이는 메시지 크기를 설정한다. 현재 write를 할 수 없는 상황이면 Write Queue에 넣게
+                된다.</p><p>지정한 byte 수를 초과하면 Write Thread를
+                블록시킨다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>10* 1024 (단위: byte)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.nio.write.restart</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>non-blocking으로 동작하는 경우 Write Thread가 다시 시작할 때 Write
+                Queue에 쌓인 메시지 크기를 설정한다. Write Event로 Write Queue의 byte 수가 지정한
+                byte보다 적어지면 블록되어 있는 Write Thread들이 모두 깨어난다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>3*1024 (단위: byte)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.nio.write.repeat.count</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>한 메시지를 끝까지 쓰기 위해 write를 시도하는 횟수를
+                설정한다.</p><p>Selector Thread가 한 소켓에 큰 메시지가 있어서 그것을
+                write하느라 다른 소켓의 메시지를 write 못하는 경우에 사용한다. 여러 소켓에 사용되는 메시지의 크기가
+                모두 큰 경우에는 이 옵션을 적용하면 response가 오히려 느려질 수 있으니
+                주의한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>-1(무한대)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.reuseAddress</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>서버 소켓의 SO_REUSEADDR이다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ssl.enabledProtocols</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>SSL 인증에 사용할 SSL 프로토콜 버전들을 설정한다. 각 프로토콜 버전들은 콤마(,)로 구분하여
+                나열한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>null</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.client.use-ssl</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JEUS에 접속하는 클라이언트가 SSL을 사용할 지의 여부를 설정한다. 다른 설정들은 별도의 시스템
+                프로퍼티로 설정해야 한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.net.client.ssl-properties-file</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JEUS에 접속하는 클라이언트가 사용할 설정이 담긴 프로퍼티 파일(Properties File)을
+                설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>null</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ssl.keystore 혹은 javax.net.ssl.keyStore</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>SSL 인증에 사용할 Keystore의 경로를 설정한다.</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ssl.keypass 혹은 javax.net.ssl.keyStorePassword</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>SSL 인증에 사용할 Keystore의 Password를 설정한다.</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ssl.keystorepass</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>SSL 인증에 사용할 Keystore의 Key Password를 설정한다.</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ssl.truststore 혹은 javax.net.ssl.TrustStore</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>SSL 인증에 사용할 Truststore의 경로를 설정한다.</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ssl.trustpass 혹은 javax.net.ssl.TrustStorePassword</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>SSL 인증에 사용할 Truststore의 Password를 설정한다.</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <p/>
+</div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jndi_system_properties"></a>1.4. JNDI 시스템 프로퍼티</h2></div></div></div>
+  
+
+  <p>본 절에서는 JNDI 시스템 프로퍼티에 대해 설명한다.</p>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>java.naming.factory.initial (필수)</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td><p>JNDI 서비스 프로바이더에 대한 InitialContext Factory 클래스 이름을
+                설정한다. </p><p>이 Factory 클래스를 통해 InitialContext를 생성한다. 이
+                프로퍼티에 jeus.jndi.JNSContextFactory를 넣어서 JEUS의 InitialContext를
+                생성한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>jeus.jndi.JNSContextFactory</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>java.naming.factory.url.pkgs</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td>JEUS의 InitialContext에서 URL scheme을 사용해서 lookup하기 위해
+                설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>jeus.jndi.jns.url</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>java.naming.provider.url</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td><p>JNDI 서비스를 제공하는 MS의 DNS 호스트 이름과 Port를 정의한다. 즉,
+                JEUS의 JNSServer의 IP 주소를 설정한다. 클러스터링으로 묶인 MS에 JNDI 요청을 할 때에는
+                클러스터링된 모든 서버의 주소를 콤마(,)로 구분해야 한다.</p><p>(예: yohan:9736,
+                yohan1:9836)</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>127.0.0.1:9736</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>java.naming.security.principal</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td><p>JEUS Naming Server에서 인증받기 위한 사용자명을 입력한다. 사용자명이
+                설정되지 않으면 “anonymous”로 처리된다.</p><p>사용자명은 JEUS Security
+                도메인에 정의되어 있어야 한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>anonymous</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>java.naming.security.credentials</p>
+
+      <p/>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td>JEUS Naming Server에서 인증받기 위한 패스워드를 입력한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>N/A</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.jndi.jns.resolution</p>
+
+      
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td>JNSClient가 리소스를 관리하는 체크 시간의 간격을 지정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>30 * 1000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.jndi.jns.connecttimeout</p>
+
+      
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td><p>JNSClient가 JNSServer로 접속하는 데 사용하는 타임아웃을
+                지정한다.</p><p>이 시간 동안 접속을 시도하다가 시간이 초과되면
+                jeus.net.ConnectException이 발생한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>0 (무한대를 의미, OS에 따라 다를 수 있음) (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.jndi.jns.connectionduration</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td><p>JNSClient가 JNSServer로 접속한 커넥션을 얼마나 유지할지 설정한다. 지정한
+                시간 동안 커넥션을 사용하지 않으면 커넥션이 자동으로 종료된다. </p><p>기본값은 0으로 커넥션이
+                계속 유지된다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>0 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.jndi.local.tmout</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td>JNDI 서비스에서 클라이언트 역할을 하는 JNSClient에서 요청을 보낸 후 응답이 올 때까지
+                기다리는 시간을 지정한다. 이 시간이 지나도 JNSServer로부터 응답이 오지 않으면
+                jeus.util.WaitTimeoutException이 발생한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>20 * 1000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.jndi.cluster.recheckto</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td>JEUSClusterContext를 사용할 때 fail된 서버가 다시 살아났는지 확인할 주기를
+                지정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>300 * 1000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.jndi.clusterlink.selection-policy</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td><p>클러스터링된 서버에 바인드된 어떤 객체를 lookup해서 사용하는 경우 어떤 서버에서
+                객체를 가져올 것인지에 대한 정책을 설정한다. EJB 2.x를 사용하는 경우에는 사용할 EJB 엔진을 선택하는
+                데에도 사용된다. 직접 Hashtable을 이용하여 환경값을 준 경우에는 system property보다는
+                주어진 환경 값을 우선한다.</p><p>다음 중 하나를 선택할 수 있다.
+                </p><div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                      <p>locallinkPreference : 로컬 MS에 있는 객체를 사용하도록
+                      한다.</p>
+                    </li><li>
+                      <p>roundrobin : 처음 요청에서는 랜덤하게 선택한 MS의 객체를 사용하고, 그 후
+                      요청부터는 하나씩 증가하면서 서버를 선택한다.</p>
+                    </li><li>
+                      <p>random : 클러스터링된 MS들 중에서 랜덤하게 하나를 선택하여 사용한다.</p>
+                    </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>locallinkPreference</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.jndi.enable.cache</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td><p>JNDI 클라이언트(JNSClient)에서 Cache를 사용할 것인지를 여부를 설정한다.
+                </p><div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                      <p>true : Cache를 사용한다. (기본값)</p>
+                    </li><li>
+                      <p>false : Cache를 사용하지 않는다.</p>
+                    </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>true</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.jndi.jns.replicatebindings</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td><p>바인드하는 객체를 클러스터링으로 묶인 MS 전체에서 공유할 것인지 여부를 설정한다.
+                </p><div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                      <p>true : 객체를 공유한다. (기본값)</p>
+                    </li><li>
+                      <p>false : 객체를 공유하지 않는다.</p>
+                    </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>true</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.jndi.jns.cachebindings</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td><p>객체를 바인드할 때 이 옵션을 설정하면 JNSServer에서 바인드를 완료한 후
+                JNSClient에 그 객체를 caching한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                      <p>true : 객체를 caching한다. (기본값)</p>
+                    </li><li>
+                      <p>false : 객체를 caching하지 않는다.</p>
+                    </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>true</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.jndi.jns.localbindings</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td><p>객체를 자신의 JVM에 있는 JNSClient에만 바인드한다.
+                </p><div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                      <p>true : 객체를 JEUS Naming Client에만 바인드한다. 이렇게 바인드한
+                      객체는 JNDI 요청을 하는 클라이언트에서만 사용할 수 있다.</p>
+                    </li><li>
+                      <p>false : 객체를 JEUS Naming Server에 바인드한다.
+                      (기본값)</p>
+                    </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.jndi.compat</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td><p>JNDI compatibility를 위한 설정이다. JEUS 7 Fix#2 이후
+                버전과 이전 버전 사이에 JNDI 서비스를 제공하려면 해당 property를 true로 설정해야
+                한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                      <p>true : JNDI 서버가 JEUS 7 Fix#2 이전 버전이고, JNDI
+                      클라이언트가 JEUS 7 Fix#2를 포함한 이후 버전일 때 JNDI compatibility를
+                      위해 해당 property를 true로 설정해야 한다.</p>
+                    </li><li>
+                      <p>false : JEUS 7 Fix#2 이후 버전과 이전 버전 사이에 JNDI
+                      compatibility를 유지하지 않는다.</p>
+                    </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+</div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="transaction_system_properties"></a>1.5. 트랜잭션 시스템 프로퍼티</h2></div></div></div>
+  
+
+  <p>본 절에서는 트랜잭션 시스템 프로퍼티에 대해 설명한다.</p>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.forcedReg</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>서브 코디네이터가 루트 코디네이터에 등록하는 방식을
+                결정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                      <p>true : 트랜잭션이 연동되면 바로 등록한다.</p>
+                    </li><li style="list-style-type: circle">
+                      <p>false : RM이 있어야만 등록한다.</p>
+                    </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.checkReg</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>서브 코디네이터가 루트 코디네이터에 제대로 등록되었는지를 확인하고 진행할지 확인하지 않고 진행할지
+                여부를 결정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.disableJoin</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>동일한 RM에서 나온 리소스들을 Join할 것인지 여부를 결정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.noLogging</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>트랜잭션 매니저가 복구를 위해 트랜잭션 정보를 로그로 남기게 되는데 이를 남길지 여부를
+                설정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                      <p>true : 로그를 남기지 않는다.</p>
+                    </li><li style="list-style-type: circle">
+                      <p>false : 로그를 남긴다.</p>
+                    </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.ignore.broken.log.file</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>TM 로그 파일이 깨져서 복구가 불가능한 상황일 때 해당 옵션이 true일 경우 JEUS에서 미리
+                파일이 깨진 것을 detect하고 전부 지워버린다. 파일이 깨진 채로 복구를 시도하게 될 경우 boot가
+                실패하기 때문에 깨진 파일로 인해 복구가 필요없다. boot는 성공해야 할 때 쓰도록 한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.removeIncompleteTx</p>
+
+      
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>복구 대상이 되는 XA 리소스에 대해 복구가 끝나면 복구 리스트에서 삭제할지 여부를 결정한다. 수동으로
+              복구해야 할 상황을 대비할 경우에는 false로 지정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+      </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.recoveryTrial</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>복구 실패한 리소스에 대한 복구 재시도 횟수를 설정한다.</p><p>복구
+                재시도는 백그라운드로 구동된다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>30</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.recoveryInterval</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>복구 실패한 리소스에 대해 복구를 재시도하는 시간 간격을 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>120000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.destroy-timeout</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>트랜잭션이 timeout(active timeout)이 되었으나 명시적인 commit,
+                rollback을 받지 못하면 트랜잭션 매니저는 timeout된 해당 리소스를 계속 유지하게 된다.
+                </p><p>이에 대해 cleanup 작업을 해주는 타임아웃을 지정한다. 즉, 타임아웃된 트랜잭션에
+                대해 이 설정된 값 이상의 시간이 흐르면 내부적으로 destroy 작업을 수행한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>1800000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.destroy-timeout-check-interval</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>destroy timeout을 검사하기 위한 주기를 설정한다. </p><p>
+                설정된 주기를 통해 jeus.tm.destroy-timeout의 동작 여부를
+                확인한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>1800000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.ots.recoveryInterval</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>OTS를 복구할 때 코디네이터가 준비되어 있지 않을 경우 재시도를 하는 시간 간격을
+                설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>10000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.ots.decisionTO</p>
+
+      
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>전파되고 prepare가 호출된 후에 이 값에 지정된 시간 내에 commit/rollback이 오지
+              않으면 recovery 코디네이터의 replay_completion을 사용해서 commit/rollback을
+              한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>60000 (단위: ms)</td></tr></tbody></table>
+      </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.net.address-mapping-properties</p>
+
+      
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JEUS TM 간에 통신할 때 사용할 IP 주소를 맵핑시키는 프로퍼티 파일을 지정한다. 이에 대한
+              자세한 설명은 <a xmlns="" href="../server/chapter_tx_manager.html#sect_trouble_shooting" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “7.7. IP 대역이 다른 서버 간에 트랜잭션 통신 문제”</a>를 참조한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>프로퍼티 파일의 위치를 지정하지 않으면 이 기능을 사용하지 않는다.</td></tr></tbody></table>
+      </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.tm.profile.classes</p>
+
+      
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>TM Profile을 위해 사용되는 ProfileListener 클래스들을
+              지정한다.</p><p>프로파일 기능에 대한 자세한 설명은 <a xmlns="" href="../server/chapter_tx_manager.html#sect_transaction_profile" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “7.6. 트랜잭션 프로파일 기능”</a>을
+              참조한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>없음</td></tr></tbody></table>
+      </div>
+    </li></ul></div>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1944"></a>1.5.1. TM Client를 위한 시스템 프로퍼티</h3></div></div></div>
+    
+
+    <p/>
+
+    <p>클라이언트에서 TM을 사용할 때에는 XML 설정을 사용할 수 없으므로 시스템 프로퍼티로 설정해야 한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.tm.not_use</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>트랜잭션 매니저의 사용 여부를 결정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                        <p>true : 클라이언트의 경우 JNDI를 사용하긴 하나 트랜잭션은 사용 하지 않을
+                        경우를 뜻한다.</p>
+                      </li><li style="list-style-type: circle">
+                        <p>false : 클라이언트의 경우 JNDI와 트랜잭션을 사용 하는 경우를
+                        뜻한다.</p>
+                      </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.tm.version</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>사용할 TM 런타임 버전을 설정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                        <p>client : 클라이언트 TM 사용</p>
+                      </li><li style="list-style-type: circle">
+                        <p>server : 서버 TM 사용</p>
+                      </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>client</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.tm.port</p>
+
+        
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JEUS 트랜잭션 매니저가 사용할 TCP/IP 포트 번호를 설정한다.</td></tr></tbody></table>
+        </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.tm.usenio</p>
+
+        
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>트랜잭션 매니저 간의 I/O 방식을 결정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                      <p>true : NIO</p>
+                    </li><li style="list-style-type: circle">
+                      <p>false : 블로킹 I/O</p>
+                    </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+        </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.tm.tmMin</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>트랜잭션에서 사용하는 Thread Pool의 최소 크기를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>2</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.tm.tmMax</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>트랜잭션에서 사용하는 Thread Pool의 최대 크기를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>30</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.tm.activeto</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>트랜잭션이 시작되고, commit이나 rollback을 하는 데까지의 제한시간을
+                  설정한다.</p><p>설정한 시간 내에 결정이 내려지지 않을 경우 강제로
+                  rollback시킨다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>600000 (단위: ms)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.tm.prepareto</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>루트 코디네이터가 서브 코디네이터로부터 prepare 완료 신호를 받는 데까지의
+                  제한시간을 설정한다. </p><p>이 시간 안에 어떤식으로든 결정이 내려지지 않을 경우 강제로
+                  rollback시킨다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>120000 (단위: ms)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.tm.preparedto</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>서브 코디네이터가 루트 코디네이터에게 prepare 완료 신호를 보낸 후 결정을
+                  기다리는 제한시간을 설정한다. </p><p>시간이 지날 경우 반복하여 결정 대기 신호를 루트
+                  코디네이터로 보낸다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>60000 (단위: ms)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.tm.committo</p>
+
+        
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>루트 코디네이터가 서브 코디네이터에게 commit 신호를 보낸 후, 결과를 받아야 하는
+                  제한시간을 설정한다. 시간이 경과하면, 부결 트랜잭션으로 기록한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>240000 (단위: ms)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.tm.recoveryto</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>루트 코디네이터가 서브 코디네이터로부터 복구 정보를 받아야 하는 제한시간을 설정한다. 시간이
+                  지나면 더 이상 진행하지 않는다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>120000 (단위: ms)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.tm.incomplete.to</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>부결된 트랜잭션이 보관되는 시간을 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>86400000 (단위: ms)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2158"></a>1.5.2. 하위 호환성을 위한 시스템 프로퍼티</h3></div></div></div>
+    
+
+    <p/>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.tm.propagation.recalculated-timeout</p>
+
+        
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>트랜잭션이 다른 컨테이너로 전파될 때 전파되기 전에 소모한 시간을 Active
+                  Timeout에서 감소시키는 설정이다.</p><p>JEUS 6 Fix#9부터 제공되는
+                  설정으로 하위 호환성을 위해서는 false로 지정한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+  </div>
+</div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="web_engine_properties"></a>1.6. 웹 엔진 프로퍼티</h2></div></div></div>
+  
+
+  <p>웹 엔진에서 제공하는 모든 프로퍼티는 JVM 시스템 프로퍼티뿐만 아니라 가상 호스트별, 웹 애플리케이션별로 적용할 수 있다.
+  이를 적용하는 방법은 <a xmlns="" href="../web-engine/chapter_virtual_hosts.html#sect_configuring_virtual_hosts" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Web Engine 안내서</span>”의 “5.4. 가상 호스트 설정”</a>, <a xmlns="" href="../web-engine/chapter_virtual_hosts.html#sect_configuring_virtual_hosts" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Web Engine 안내서</span>”의 “5.4. 가상 호스트 설정”</a>,
+  <a xmlns="" href="../web-engine/chapter_context_web_application.html#sect_basic_context_settings_of_web_dd" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Web Engine 안내서</span>”의 “3.3.1. jeus-web-dd.xml 설정”</a>을 참고한다.</p>
+
+  <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>JVM 시스템 프로퍼티나 웹 엔진 레벨에서 설정하기 보다는 되도록 가상 호스트 또는 웹 애플리케이션 레벨에서 설정하는
+      것을 권장한다.</p>
+    </div>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2189"></a>1.6.1. 웹 엔진 레벨 프로퍼티</h3></div></div></div>
+    
+
+    <p>domain.xml의 웹 엔진 레벨로 설정할 수 있는 프로퍼티이다. 가상 호스트, jeus-web-dd.xml에 설정해도
+    무시한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.servlet.prevent-forcibly-threadlocal-memoryleak</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>웹 애플리케이션에서 ThreadLocal 변수를 사용 후 이를 정확하게 해제하지 않을 경우
+                  발생하는 메모리 누수를 웹 엔진에서 해당 웹 애플리케이션이 리로드되거나 redeploy, undeploy 될
+                  때 강제적으로 ThreadLocal 변수를 초기화한다. 그러나 이 옵션을 사용할 경우 다른 웹
+                  애플리케이션에서 설정한 ThreadLocal 변수도 초기화하므로 주의한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li><li>
+        <p>jeus.servlet.webadmin.suspendCmd.tmout</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>WebtoB에 suspend 신호를 보낸 후, 모든 WebtoB request
+                  processor들이 다시 WebtoB로부터 suspend 신호를 받고 suspend wait을 하게 될
+                  때까지 기다리는 최대 시간이다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>120000L</td></tr></tbody></table>
+          </div>
+      </li><li>
+        <p>jeus.servlet.request.enableDns</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>ServletReqeust.getRemoteHost()를 호출할 때 DNS를 통해서 호스트명을
+                  얻어올지 여부를 설정한다. 웹 엔진이 있는 서버의 DNS 접근 여부를 설정하는 것이므로 웹 엔진 레벨
+                  프로퍼티로 제공한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+          </div>
+      </li><li>
+        <p>jeus.servlet.loader.jspcount</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>웹 엔진에서 동시에 로딩할 수 있는 있는 JSP 개수이다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>0</td></tr></tbody></table>
+          </div>
+      </li><li>
+        <p>jeus.servlet.useCaseInsensitiveFileSystem</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>Linux OS + Windows file server처럼 대소문자 구분 OS에
+                  대소문자 비구분 파일서버를 사용하는 조합의 경우 요청 주소의 대소문자 구분을 하지 않게되어 원하는 동작을
+                  하지 않을 수 있다. 이 프로퍼티를 사용하면 이런 조합에서도 대소문자를 구분하여 처리하며, 추가적으로
+                  Windows에서만 동작하는 다음 프로퍼티도 사용할 수 있게 된다. </p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                        <p>jeus.servlet.resource.ignore-filename-case</p>
+                      </li><li style="list-style-type: circle">
+                        <p>jeus.servlet.jsp.ignore-filename-case</p>
+                      </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <p/>
+
+    <p>다음은 JVM 시스템 프로퍼티만으로 설정해야 하는 옵션이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>org.glassfish.web.rfc2109_cookie_names_enforced</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Cookie 이름에 RFC2109에서 허용하지 않는 문자가 들어간 경우
+                  IllegalArgumentException이 발생한다. javax.servlet.http.Cookie에
+                  정의된 내용인데 JEUS 6까지는 API 구현에서 제대로 처리하지 않았다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2292"></a>1.6.2. 가상 호스트 레벨 프로퍼티</h3></div></div></div>
+    
+
+    <p>domain.xml 웹 엔진 설정에서 가상 호스트에 설정할 수 있는 프로퍼티이다. jeus-web-dd.xml에 설정해도
+    무시한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>현재 이 레벨의 프로퍼티는 존재하지 않는다.</p>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2301"></a>1.6.3. 웹 애플리케이션 레벨 프로퍼티</h3></div></div></div>
+    
+
+    <p>jeus-web-dd.xml에 설정해서 각 웹 애플리케이션별로 적용할 수 있는 프로퍼티이다. 이 프로퍼티는 웹 엔진 또는
+    가상 호스트 레벨 프로퍼티로 사용 가능하다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.application.login.key</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Jeus Login Manager를 사용하는 경우 로그인으로 사용할 Attribute Key를
+                  설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>JEUS_LOGIN_KEY</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e2321"></a>1.6.3.1. 공통 또는 Servlet 엔진 관련 프로퍼티</h4></div></div></div>
+      
+
+      <p>Servlet 또는 JSP 엔진에 적용되는 프로퍼티들이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>jeus.servlet.response.cookie.version0Style</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>version0 스타일의 쿠키 헤더 사용 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.welcomefile.sendRedirect</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>HttpServletResponse.sendRedirect()를 통해서
+                    welcome 파일 전송 여부를 설정한다. </p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                          <p>true : HttpServletResponse.sendRedirect()를
+                          사용한다.</p>
+                        </li><li style="list-style-type: circle">
+                          <p>false : RequestDispatcher.foward()를
+                          사용한다.</p>
+                        </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.filter.applyOnWelcomeFileRequest</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Context root 요청에 대한 welcome 파일 처리할 때 filter 적용 여부를
+                    설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.response.header.serverInfo</p>
+
+          
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>헤더에 JEUS 버전 정보 포함 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.keep-original-request-on-forward</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Tomcat과 동일하게 Original Request에 설정된 Request URI 등과
+                    같은 path 정보를 변경하지 않는다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.keep-original-query-string-on-forward</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Forward될 때 original query string을 Request 객체에 그대로
+                    둘지 아니면 forward할 때 넘겨준 query string으로 overwrite할지 여부를
+                    설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.keep-original-query-string-on-include</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>include될 때 original query string을 Request 객체에 그대로
+                    둘지 아니면 include할 때 넘겨준 query string으로 overwrite할지 여부를
+                    설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.out.ensureContentOrder</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>response.getOutputStream(), response.getWriter(),
+                    JspWriter(jsp out)을 섞어서 사용할 때의 출력 순서를 유지할지 여부를 설정한다.
+                    기본적으로는 세 가지 방법을 섞어서 사용하면 안 되고 하나로 통일해서 써야 한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.classloader.allowServletAPI</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>애플리케이션의 클래스 중에서 서블릿 API 관련 클래스를 로딩할지 여부를
+                    설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.response.useRequestHttpVersion</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>HTTP 응답 헤더의 HTTP 버전을 HTTP 클라이언트 버전으로 설정한다. 기존에 제공하던
+                    jeus.servlet.response.force-response-10은 이 설정으로 변경해주기
+                    바란다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.context.attribute.serialize</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Context Auto reload할 때 ServletContext attribute를
+                    serialize하여 유지할지 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.resource.ignore-filename-case</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>ResourceServlet에서 리소스 파일 이름의 대소문자 구별 여부를
+                    설정한다. </p><p>Windows OS 혹은
+                    jeus.servlet.useCaseInsensitiveFileSystem이 true인 경우 유효하다.
+                    </p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.response.header.encoding</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>응답 헤더에 사용할 캐릭터 인코딩을 설정한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>null</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.scan-servlet-container-initializers</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>Servlet 3.0부터 추가된 ServletContainerInitializer
+                    메커니즘 사용 여부를 결정한다.</p><p> Servlet 표준을 준수하기 위하여 기본적으로
+                    scan 작업을 수행하지만 이로 인해서 디플로이 시간이 늘어날 수 있다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.sortWebinfLibraries</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>WEB-INF/lib 에 포함된 jar 파일들을 로딩할 때 정렬을 하는
+                    옵션이다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                          <p>name_asc : 파일 이름으로 오름차순 정렬</p>
+                        </li><li>
+                          <p>name_dsc : 파일 이름으로 내림차순 정렬</p>
+                        </li><li>
+                          <p>time_asc : 파일의 LMF로 오름차순 정렬</p>
+                        </li><li>
+                          <p>time_dsc : 파일의 LMF로 내림차순 정렬</p>
+                        </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>null</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.useMetadataCompleteDeploy</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>Java EE 5부터는 웹 애플리케이션 디플로이 시점에 반드시 Java EE
+                    표준에서 정의한 어노테이션들이 정의된 클래스를 찾도록 되어 있다.
+                    </p><p>WEB-INF/classes의 클래스 파일들 뿐만 아니라 WEB-INF/lib에
+                    포함된 것들도 찾아야 하기 때문에 디플로이 시간이 오래 걸릴 수 있다. 찾는 동작을 하지 않기 위해서는
+                    web.xml의 metadata-complete 설정을 true로 지정해야 한다. 애플리케이션에 포함된
+                    web.xml을 수정하지 않고 jeus-web-dd.xml을 추가해서 metadata-complete
+                    설정을 true로 할 수 있다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.jsp.allowOnlyStandardizedMethod</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JSP 또는 리소스 요청에 대해서 GET, HEAD, POST, OPTIONS, PUT,
+                    DELETE, TRACE, CONNECT의 8개의 HTTP method만 허용한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e2606"></a>1.6.3.2. JSP 엔진 관련 프로퍼티</h4></div></div></div>
+      
+
+      <p>JSP 엔진에서만 사용하는 프로퍼티들이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>jeus.servlet.jsp.reload</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JSP 리로딩 지원 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.jsp.precompile</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JSP precompile 지원 여부를 설정한다. (precompile 요청 파라미터에 따라
+                    JSP를 호출할 때 compile만 하는 기능)</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.jsp.print.null.as.emptystring</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JSP에서 null로 출력할 때 공백 문자의 사용 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.jsp.jspwriter.null</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JSP에서 null로 출력할 때 대체할 문자열을 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>"null"</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.jsp.compile.retrycount</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JSP에서 생성된 서블릿을 로딩할 수 없을 때 재컴파일을 시도하는 횟수를
+                    설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>2</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.jsp.compile.delay</p>
+
+          
+
+          <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>FTP 업로드할 때 JSP 지연 컴파일 시간을 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>0L (단위: ms)</td></tr></tbody></table>
+          </div>
+        </li><li>
+          <p>jeus.servlet.jsp.helpReloadNativeLibrariesByCallingSystemGC</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>JSP를 reload할 때 JSP class loader가 사용한 Native
+                    Library가 제대로 cleanup되지 않는 JVM 문제를 해결하기 위한 방편이다.
+                    </p><p>JSP class loader가 GC(Garbage Collection)될 때
+                    Native Library가 정리되기 때문에 JEUS에서는 System.gc()를 호출해 줄 수 있을
+                    뿐이며, 100% GC된다는 보장이 없다. 따라서 해당 JSP 내에서
+                    System.loadLibrary() 등을 사용하는 경우 reload가 실패할 수
+                    있다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div><div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+              <p>System.gc()와 System.runFinalization()을 호출하므로 시스템 성능을 저하시킬
+              수 있다. 따라서 Native Library를 사용하는 JSP를 실제 서비스 운영 중에 수정하지 않기를 권장한다.
+              가장 좋은 방법은 Native Library를 사용하는 웹 애플리케이션을 별도로 작성해서 그쪽으로 dispatch를
+              하는 방법이 있다. 그 웹 애플리케이션은 Context Auto Reload나 redeploy하지 않아야
+              한다.</p>
+            </div>
+        </li><li>
+          <p>jeus.servlet.jsp.ignore-filename-case</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JSP 파일 이름의 대소문자 구별 여부를 설정한다. Windows OS 혹은
+                    jeus.servlet.useCaseInsensitiveFileSystem이 true인 경우
+                    유효하다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.jsp.assure-utf8-file-encoding-detection</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Jasper에서 JSP 파일 Encoding이 UTF-8이라고 확신할 수 없더라도 이를
+                    UTF-8으로 취급한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+
+          <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+            <p>included JSP 파일에도 pageEncoding tag를 기술하기 바란다.</p>
+          </div>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="sect_web_engine_compat_properties"></a>1.6.3.3. 호환성 제공 프로퍼티</h4></div></div></div>
+      
+
+      <p>JEUS는 기본적으로 Servlet 및 JSP 표준을 준수해야 한다. 하지만 표준 해석 오류, 요구 사항에 대한 구현
+      누락 등과 같은 개발자의 실수 또는 불분명한 설명, 표준 기술 문서와 API 문서 간의 설명 불일치 등으로 인한 표준 문서의
+      오류로 인해 API 동작이 달라질 수 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>jeus.servlet.jsp.modern</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>false로 설정하는 경우 JEUS 4 호환 JSP 엔진을 사용한다. 이 경우
+                    JSP 1.2 버전만 지원된다.</p><p>해당 JSP 엔진은 deprecated되었으므로
+                    더이상 사용하지 않기를 권장하며 본 호환성 프로퍼티도 차기 버전 또는 차기 Fix에서 삭제될
+                    예정이다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.request.url.allowNonStandardPercentCharacterUsage</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>URL에 단독으로 '%' 문자 사용을 허용한다. 하지만 이는 RFC 2396, 2.4.3.
+                    Excluded US-ASCII Characters에 따르면 '%' 문자는 URL escape를 위한
+                    예약어이며, 결코 단독 문자로 사용할 수 없고 정해진 형식으로만 사용 가능하다. 따라서 클라이언트에서
+                    이를 '%25'로 escape해서 보내야 한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.request.6CompatibleSetCharacterEncoding</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>ServletRequest.setCharacterEncoding()으로 세팅한
+                    인코딩은 반드시 Request Body에만 적용해야 한다. </p><p>그러나 JEUS 6에서
+                    이를 준수하지 않은 버그가 발견되어, Query String, Cookie와 같이 Request
+                    Header를 읽을 때도 사용한다. JEUS 6의 잘못된 동작에 기반하여 작성한 애플리케이션을 수정없이
+                    지원해야 하는 경우 이 옵션을 사용하기 바란다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.response.defaultContentType</p>
+
+          
+
+          <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>Content-Type 응답 헤더에 설정할 기본 값이다. </p><p>이
+                  값이 null이 아닐 경우 아래와 같은 상황에서 응답 헤더를 설정한다.
+                  ServletResponse.setCharacterEncoding()이나
+                  ServletResponse.setLocale() 호출할 때, Servlet이 명시적으로
+                  ServletResponse.setContentType()을 호출하지 않았다면 이 프로퍼티 값을
+                  Content-Type 헤더로 설정한다. 하지만 이러한 동작은 Content-Type 응답 헤더에 관한
+                  Servlet 표준을 어기는 것이다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>null</td></tr></tbody></table>
+          </div>
+
+          <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+            <p>Servlet이 명시적으로 ServletResponse.setContentType()을 호출하지 않았다면
+            응답 헤더에 Content-Type Header를 넣으면 안 된다고 Servlet 표준에서 규정하고 있다. 또한
+            ServletResponse.getContentType()를 호출할 때에는 null을 리턴하도록 하고 있다. 이는
+            Servlet 2.3에서도 명시된 내용으로 JEUS에서 오래 전부터 지키지 않고 있던 사항이다.</p>
+
+            <p>따라서 JEUS 7 Fix#1부터는 이를 준수하기 위해 기본값을 null로 변경하였다. 만약 여기에
+            의존해서 애플리케이션이 동작하고 있었다면 이 프로퍼티 값을 적절한 값으로 설정하기 바란다.</p>
+          </div>
+        </li><li>
+          <p>jeus.servlet.response.applyContentLanguageProperlyWithSetLocaleAPI</p>
+
+          
+
+          <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>ServletResponse.getWriter() 호출 이후에
+                  ServletResponse.setLocale()을 호출했을 때, Content-Language 응답 헤더는
+                  반드시 세팅되어야 한다. 물론 Character Encoding은 바뀌지 않는다. 만약 원하지 않게
+                  Content-Language 응답 헤더가 세팅되는 경우에는 이값을 false로 지정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+          </div>
+        </li><li>
+          <p>jeus.servlet.response.6CompatibleForcedEncoding</p>
+
+          
+
+          <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>xml 설정으로 적용하는
+                  &lt;response-encoding&gt;&lt;forced&gt;의 적용 우선 순위를 원래의 의미에
+                  맞지 않게 구현된 JEUS 6 방식으로 동작하게 한다. 원래 forced 옵션은 우선 순위가 가장 높다.
+                  애플리케이션 API를 통해서 세팅하거나 JSP 파일의 page 태그 contentType에 설정된 HTTP
+                  응답 인코딩에 우선한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+        </li><li>
+          <p>jeus.servlet.response.6CompatibleSetCharacterEncoding</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>ServletResponse.setCharacterEncoding()으로 세팅한
+                    인코딩은 forced 보다 우선 순위가 낮아야 한다. 그러나 JEUS 6 이전까지는 이를 준수하지 않은
+                    버그가 발견되어, 항상 forced 설정을 무시하는 문제가 있다. 만약 이러한 동작에 의존해서 구현된
+                    애플리케이션이 있고 이 동작을 유지하고자 한다면 이 옵션을 true로
+                    설정한다.</p><p>Request 쪽과 이름이 유사하므로 서로 헷갈리지 않도록
+                    한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.session.invalidateBySetMaxInactiveIntervalZero</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>HttpSession.setMaxInactiveInterval(int
+                    timeout)의 경우 Spec에 의해 0 이하의 값은 제거되지 않아야 하는 세션을
+                    의미한다.</p><p>그러나 이전 스펙에서 모호하게 타임아웃만큼 유지되는 시간으로 설명이 되어
+                    "0"을 invalidate로 사용하는 유저들이 있었다.</p><p>이러한 의미로 사용했던
+                    유저들의 호환성을 위해 설정을 제공한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.engine.disableRequestFinishCheck</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>Request 객체는 servlet의 service 메소드 내부 혹은 필터의
+                    doFilter 메소드 안에서만 유효하며 이미 처리가 끝난 Request객체를 사용하려고 하면
+                    IllegalStateException을 발생시키도록 스펙에 정의 되어 있다. 그러나 JEUS 7
+                    이전까지는 이를 확인하지 않고 있어서 처리가 끝난 Request 객체를 사용하는 애플리케이션이 정상적으로
+                    동작하였다.</p><p>이러한 애플리케이션을 사용하는 유저들의 호환성을 위해 설정을
+                    제공한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>jeus.servlet.ignoreWebComponentFailureWhenDeploying</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>디플로이 과정에서 load-on-startup으로 등록된 Serlvet의 init(),
+                    Filter.init(), ServletContextListener에서 Exception이 발생하더라도
+                    디플로이가 실패하지 않는다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+            </div>
+        </li></ul></div>
+    </div>
+  </div>
+</div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="chapter_JEUS_SessionServer_Properties"></a>1.7. 세션 서버 시스템 프로퍼티</h2></div></div></div>
+  
+
+  <p>본 절에서는 세션 서버 시스템 프로퍼티에 대해 설명한다.</p>
+
+  <p>아래의 프로퍼티들은 &lt;session-cluster&gt; 절 하부 &lt;properties&gt;에 설정하는 것을
+  기본으로 한다. </p>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.sessionmanager.receive.backup.despite.no.deploy</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>DOMAIN_WIDE 모드일 경우 애플리케이션을 디플로이하지 않더라도 리모트로부터 백업받을 수
+                있도록 더미 애플리케이션을 디플로이하도록 한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.sessionmanager.cluster.stable.waiting.sec</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>클러스터의 이벤트 처리를 보장하기 위해 일정 시간(초) 애플리케이션의 디플로이를
+                지연시킨다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>0 (초)</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.sessiomanager.dumpbackup.max</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>dumpbackup을 수행하는 count 단위를 설정한다.</p><p>자신이
+                백업할 서버가 재기동할 경우 dumpbackup을 수행한다. 이때 가지고 있는 세션이 너무 많을 경우에 일정
+                단위로 나눠서 백업을 수행하도록 한다.</p><p>Session Cluster의 Properties에
+                설정할 때는 모든 Cluster에 적용되며, Session Cluster Config의 properties에
+                적용할 해당 Cluster에만 적용된다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>100 (개)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+</div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ejb_engine_properties"></a>1.8. EJB 시스템 프로퍼티</h2></div></div></div>
+  
+
+  <p>본 절에서는 EJB 시스템 프로퍼티에 대해 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2976"></a>1.8.1. EJB 시스템 프로퍼티</h3></div></div></div>
+    
+
+    <p>다음은 EJB 시스템 프로퍼티에 대한 설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.transaction.attribute.default</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>Container-managed Transaction Bean의 메소드에
+                  Transaction 속성이 설정되어 있지 않는 경우 사용할 속성을 설정한다.</p><p>다음
+                  중에 하나를 설정한다. </p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                        <p>NotSupported</p>
+                      </li><li style="list-style-type: circle">
+                        <p>Supports</p>
+                      </li><li style="list-style-type: circle">
+                        <p>Required</p>
+                      </li><li style="list-style-type: circle">
+                        <p>RequiresNew</p>
+                      </li><li style="list-style-type: circle">
+                        <p>Mandatory</p>
+                      </li><li style="list-style-type: circle">
+                        <p>Nerver</p>
+                      </li></ul></div><p>속성의 우선순위는 다음과 같다. </p><div class="orderedlist"><ol type="1" compact="compact"><li>
+                        <p>ejb-jar/trans-attribute</p>
+                      </li><li>
+                        <p>jeus-ejb-dd/unspecified-container-transaction</p>
+                      </li><li>
+                        <p>시스템 프로퍼티</p>
+                      </li></ol></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                        <p>EJB 3.0 Bean 이상의 경우 : Required(스펙 기준)</p>
+                      </li><li style="list-style-type: circle">
+                        <p>EJB 3.0 미만의 Bean의 경우 : Supports(하위 호환성을
+                        위함)</p>
+                      </li><li style="list-style-type: circle">
+                        <p>Timer Service 메소드의 경우 : NotSupported</p>
+                      </li></ul></div></td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.sharedcolumn.modify</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>CMP Entity Bean에서 column sharing되어 있는 cmp, cmr field를
+                  하나의 트랜잭션에서 모두 수정하는 것을 허용할지 여부를 결정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.checkTable</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>CMP Entity Bean을 Deploy할 때 데이터베이스의 테이블이 존재하는지 컬럼이 제대로
+                  존재하는지를 확인할지 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.enable.configDeleteOption</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>CMP Entity Bean undeploy할 때 데이터베이스 테이블을 삭제하는 것을
+                  허용할지 여부를 설정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                        <p>true : &lt;deleting-table&gt;의 설정이 적용된다.</p>
+                      </li><li style="list-style-type: circle">
+                        <p>false : &lt;deleting-table&gt;의 설정이 무시된다.</p>
+                      </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.csi.trusthosts</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>CORBA CSIv2를 사용할 때의 Trust 호스트이다.</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.client.interop</p>
+
+        
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>클라이언트 JVM에서 CORBA interoperability를 사용할지 여부를
+                  설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.csi.defaultUser</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>CORBA CSIv2를 사용할 때 기본 사용자를 설정한다.</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.notreload</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>shared 클래스 로더를 사용하는 EJB가 deploy, undeploy,
+                  redeploy될 때 reload에서 제외될 웹 모듈 리스트이다. </p><p>다음 형식으로
+                  설정한다.</p><pre class="programlisting">context_name1;context_name2</pre></td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.corba.props</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>EJB에서 사용하는 ORB의
+                  프로퍼티이다.</p><pre class="programlisting">key=value[,key=value]*</pre></td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.cluster.useip</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>EJB에서 Active Stub을 사용하는 경우 서버로 접속하기 위한 주소를 IP
+                  주소로 할지 호스트명으로 할지 여부를 설정한다. 여기에서 사용하는 IP는 jeus.net.localip로
+                  지정된 IP를 사용한다.</p><p>이 옵션이 true가 되면 classftp의 주소도 IP
+                  주소를 사용하게 된다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.all.disconnect</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>모든 Bean 타입에 적용될 disconnect timeout을
+                  설정한다.</p><p>-1로 설정하면 disconnect 기능을 사용하지
+                  않는다.</p><p>[Deprecated] EJB 3.1 spec에서는
+                  @StatefulTimeout 또는 ejb-jar.xml의 &lt;stateful-timetout&gt;으로
+                  설정 가능하다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>3600000 (단위: ms)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.entity.disconnect</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>Entity Bean에 적용될 disconnect timeout을 설정한다. (단위
+                  : ms)</p><p>jeus.ejb.all.disconnect 설정에 우선한다.
+                  </p><p>-1로 설정하면 disconnect 기능을 사용하지
+                  않는다.</p></td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.stateful.disconnect</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>Stateful Session Bean에 적용될 disconnect timeout을
+                  설정한다. (단위: ms)</p><p>jeus.ejb.all.disconnect 설정에 우선한다.
+                  </p><p>-1로 설정하면 disconnect 기능을 사용하지
+                  않는다.</p><p>[Deprecated] EJB 3.1 spec에서는
+                  @StatefulTimeout 또는 ejb-jar.xml의 &lt;stateful-timetout&gt;으로
+                  설정 가능하다.</p></td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.all.passivate</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>모든 Bean type에 적용될 passivation timeout을
+                  설정한다.</p><p>-1로 설정하면 disconnect 기능을 사용하지
+                  않는다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>300000 (단위: ms)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.entity.passivate</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>Entity Bean에 적용될 passivation timeout을 설정한다. (단위
+                  : ms)</p><p>jeus.ejb.all.passivate 설정에 우선한다.
+                  </p><p>-1로 설정하면 disconnect 기능을 사용하지
+                  않는다.</p></td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.stateful.passivate</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>Stateful Session Bean에 적용될 passivation timeout을
+                  설정한다. (단위: ms)</p><p>jeus.ejb.all.passivate 설정에
+                  우선한다.</p><p> -1로 설정하면 disconnect 기능을 사용하지
+                  않는다.</p></td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.exportPort</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>EJB에서 사용할 default export port를
+                  설정한다.</p><p>jeus-ejb-dd.xml의 export port가 0인 EJB는 이 값을
+                  사용한다. </p><p>0이면 RMI가 제공하는 기본 포트를 사용한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>Managed Server base port + 7</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.jeusrmi.exportPort</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>JEUS RMI를 사용하는 EJB에서 사용할 default export port를
+                  지정한다. </p><p>이 값을 지정하면 jeus-ejb-dd.xml의 export port가
+                  0인 EJB는 이 값을 사용하게 된다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>Managed Server base port + 11</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.entity.lock-wait-timeout</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>같은 entity를 사용할 때 lock을 기다리는 timeout 값이다.
+                  </p><p>SINGLE 또는 EXCLUSIVE일 경우에만 적용된다. (단위:
+                  ms)</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>0 (무한 대기)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.timer.generate-table-ddl</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>EJB Timer Handle을 저장할 테이블을 생성하기 위한 DDL을 파일로
+                  생성한다. </p><p>내부적인 용도로만 사용해야 한다. JEUS를 실행한 디렉터리에
+                  createDDL.jdbc라는 이름으로 생성된다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.generate-no-interface-view-files</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>no-interface-view인 EJB의 Local business
+                  interface의 클래스 파일을 작성한다.</p><p>'_generated_' 폴더 하위에
+                  class 파일이 생성된다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.ejb.cluster.selection-policy</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td><p>클러스터링된 EJB 엔진에 속한 EJB를 호출할 경우 어떤 EJB 엔진의 Bean을
+                  선택할 것인지에 대한 정책을 설정한다(EJB 3 Stateless Bean 한정. 자세한 내용은 <a xmlns="" href="../ejb/chapter_ejb_clustering.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS EJB 안내서</span>”의 “제6장 EJB 클러스터링”</a>
+                  참조). </p><p>다음 중 하나를 선택할 수 있다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                        <p>locallinkPreference : 로컬 MS에 있는 객체를 사용하도록
+                        한다.</p>
+                      </li><li>
+                        <p>roundrobin : 처음 요청에서는 random하게 선택한 MS의 객체를 사용하고,
+                        그 후 요청부터는 하나씩 증가하면서 서버를 선택한다.</p>
+                      </li><li>
+                        <p>random : 클러스터링된 MS들 중에서 랜덤하게 하나를 선택하여
+                        사용한다.</p>
+                      </li></ul></div></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>locallinkPreference</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3385"></a>1.8.2. JPA 시스템 프로퍼티</h3></div></div></div>
+    
+
+    <p>다음은 JPA 시스템 프로퍼티에 대한 설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.persistence.defaultProvider</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>기본 Java Persistence API Provider 클래스이름이다.</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3400"></a>1.8.3. RMI 시스템 프로퍼티</h3></div></div></div>
+  
+
+  <p>다음은 RMI 시스템 프로퍼티에 대한 설명이다.</p>
+
+  <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>프로퍼티의 설명에서 [client]는 RMI 호출하고, [server]는 EJB가 deploy되어 있는 쪽에 설정해야
+      한다는 의미이다. RMI에 관련된 설정 및 좀 더 다양한 옵션에 대한 내용은 다음을 참고한다.</p>
+
+      <p><a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://docs.oracle.com/javase/7/docs/technotes/guides/rmi/javarmiproperties.html" target="_top">http://docs.oracle.com/javase/7/docs/technotes/guides/rmi/javarmiproperties.html</a></p>
+
+      <p><a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://docs.oracle.com/javase/7/docs/technotes/guides/rmi/sunrmiproperties.html" target="_top">http://docs.oracle.com/javase/7/docs/technotes/guides/rmi/sunrmiproperties.html</a></p>
+    </div>
+
+  <div class="literallayout"><p/></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>java.rmi.server.codebase</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>[server] RMI를 사용할 때 EJB Bean 클래스 이외에 다른 클래스를 전달해야 할 필요가
+                있을 경우 class annotation에 넣어주는 codebase이다.</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>java.rmi.server.useLocalHostName</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>[server] 클라이언트가 서버로 접속할 때 서버의 IP를 사용하지 않고 호스트명을 사용할 때
+                사용한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>java.rmi.server.hostname</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>[server] 클라이언트가 서버로 접속할 때 사용하는 호스트명이다.
+                </p><p>java.rmi.server.useLocalHostName보다 우선순위가 낮다.
+                </p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>ip</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ejb.rmi.jeus</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>[server] JEUS RMI를 사용할지 여부를
+                설정한다.</p><p>jeus-ejb-dd.xml/jeus-bean/jeus-rmi를 이용하면
+                Bean별로 적용 할 수 있고, 이 프로퍼티는 전체 EJB에 적용할 때 사용한다. DD의 값이
+                우선한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ejb.rmi.socketfactory</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>[client/server] JEUS가 사용하는 RMISocketFactory 클래스의
+                fully qualified name을 지정한다. 지정된 클래스는 EJB뿐만 아니라 모든 RMI 통신에
+                사용된다. </p><p>클라이언트도 같은 RMISocketFactory를 사용해야 통신이 가능하다.
+                이 클래스는 no argument의 생성자(constructor)를 반드시 제공해야 하며
+                JEUS_HOME/lib/application에 위치할 수 있다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>jeus.ejb.util.EJBRMISocketFactory</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ejb.operationTimeout</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>[client] 리모트 호출을 하고 나서 결과를 기다리는 최대
+                시간이다(SoTimeout).
+                </p><p>sun.rmi.transport.tcp.responseTimeout 값을 JEUS에서
+                overwirte한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>5 * 60 * 1000</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>sun.rmi.transport.connectionTimeout</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>[client] 클라이언트 쪽 RMI Connection이 Idle 상태로 남아 있는 최대 시간을
+                설정한다(KeepAliveTimeout).</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>15 * 1000</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>sun.rmi.transport.tcp.readTimeout</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>[server] 서버에서 클라이언트의 요청을 읽어들이는 데 걸릴 수 있는 최대 시간을
+                설정한다(SoTimeout). </p><p>클라이언트의 SoTimeout인
+                jeus.ejb.operationTimeout(sun.rmi.transport.tcp.responseTimeout)보다 큰 값을 지정해야 한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>2 * 60 * 60 * 1000</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>sun.rmi.transport.tcp.maxConnectionThreads</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>[server] 서버에서 요청을 처리하는 Thread 개수의 최댓값을 설정한다.
+                </p><p>관련 있는 JEUS 설정으로는 jeus-ejb-dd.xml에 각 Bean별로 설정하는
+                &lt;thread-max&gt; 값이 있다. &lt;thread-max&gt;는 각 Bean에 최대로 할당될
+                수 있는 Thread의 최댓값으로 maxConnectionThreads의 값을 아무리 크게 잡아도
+                &lt;thread-max&gt;가 작으면 Thread 수가 증가하지 않는다. </p><p>예를 들어
+                EJB A와 EJB B 두 Bean이 존재하고 &lt;thread-max&gt;를 따로 설정 하지 않고 기본값인
+                100을 사용하면 maxConnectionThreads가 Integer.MAX_VALUE이더라도 200까지 밖에
+                증가하지 않게 된다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>Integer.MAX_VALUE</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>sun.rmi.transport.tcp.threadKeepAliveTime</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>[server] Thread가 요청이 끝난 후(Idle 상태로) 다른 요청을 기다리는 최대 시간을
+                설정한다(KeepAliveTimeout).</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>1*60*1000</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ejb.compiler.rmic.fork</p>
+
+      
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>[server] IIOP 클래스들을 생성할 때 RMIC 컴파일러 프로세스를 fork할지 여부를
+                설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ejb.compiler.rmic.verbose</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>[server] IIOP 클래스들을 생성할 때 verbose 로그를 남길지 여부를
+                설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ejb.compiler.rmic.vcompat</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>IIOP을 컴파일할 때 RMI 1.1, 1.2 compatible protocol로
+                generate할지 여부를 결정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ejb.compiler.rmic.enable</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>IIOP Stub 파일을 만들지 말지를 결정한다. 일반적인 경우에는 IIOP Stub 파일이 필요
+                없다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.ejb.compiler.class.version</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td>[server] EJB 생성된 클래스를 컴파일할 때 source와 target version을
+                설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>1.4</td></tr></tbody></table>
+        </div>
+    </li><li>
+      <p>jeus.ejb.compiler.use-java-compiler-api</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명</strong></span></td><td><p>JDK 6부터 제공하는 Java Compiler API를 사용하도록 하는
+                옵션이다.</p><p>기본적으로 사용하도록 되어 있지만 기존처럼 JDK의 lib/tools.jar
+                내에 포함된 Sun 내부 클래스를 직접 이용해서 컴파일하는 방식을 원할 때는 이 옵션을 false로 설정한다.
+                </p><p>컴파일된 클래스 차이에 의해 호환성 문제 등이 발생했을 때 사용할 수 있을 것이다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값</strong></span></td><td>true</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <p/>
+
+  <p/>
+
+  <p/>
+
+  <div class="literallayout"><p/></div>
+
+  <h4><a id="d4e3683"></a>JEUS RMI를 사용할 경우</h4>
+
+  <p>다음은 JEUS RMI를 사용할 경우 시스템 프로퍼티에 대한 설명이다.</p>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.rmi.jeusnet</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>RMI 통신에 JEUS Network Layer를 사용할지 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.rmi.io.type</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>JEUS Network Layer를 사용할 때 IO 타입을
+                설정한다.</p><p>blocking 통신을 할지 non-blocking 통신을 할지
+                선택한다(blocking/non-blocking).</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>blocking</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.rmi.blocking</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>JEUS Network Layer의 blocking 통신을 사용할 때 blocking
+                타입을 설정한다.</p><p>소켓을 사용할지 소켓 채널을 사용할지
+                선택한다(socket/channel).</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>socket</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.rmi.blocking.client.num</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JEUS Network Layer의 blocking 통신을 사용할 때 클라이언트 수의 기대치를
+                설정한다. Thread Pool의 개수를 결정할 때 사용한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>50</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.rmi.channel.buffer.size</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>채널을 사용하는 경우 buffer 크기를 설정한다.</p><p>msg의 최대
+                크기를 buffer 크기로 정하면 buffer의 크기를 최적화할 수 있다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>jeus.net.tcpbuffer로 지정한 값</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.rmi.response.tmout</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>RMI에서 Request를 보낸 후 응답이 올 때까지 기다리는 시간을 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>600*1000 (단위: ms)</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.rmi.client.enableProcessPool</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>클라이언트에서 메시지 처리를 Read Thread와 별개로 처리할지 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.rmi.server.enableProcessPool</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>서버에서 메시지 처리를 Read Thread와 별개로 처리할지 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.rmi.client.threadPool</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>enableClientProcessPool을 true로 설정했을 때 Process Pool의 크기를
+                설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>50</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.rmi.server.threadPool</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>enableServerProcessPool을 true로 설정했을 때 Process Pool의 크기를
+                설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>50</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>jeus.rmi.usebaseport</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>MS의 기본 포트를 RMI 기본 포트로 사용한다(JEUS RMI는 예외).</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+    </li></ul></div>
+
+  <p/>
+</div>
+</div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="security_system_properties"></a>1.9. 보안 시스템 프로퍼티</h2></div></div></div>
+  
+
+  <p>본 절에서는 보안 시스템 프로퍼티에 대해 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3871"></a>1.9.1. Standard Java SE &amp; Java EE 보안 시스템 프로퍼티</h3></div></div></div>
+    
+
+    <p>다음은 Standard Java SE &amp; Java EE 보안 시스템 프로퍼티에 대한 설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>java.security.manager</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>코드 보호를 통해 JEUS 서버의 견고성을 향상하기 위해서 J2SE
+                  SecurityManager를 사용한다. 이는 퍼포먼스를 떨어뜨릴 수 있다. </p><p>기본으로
+                  SecurityManager는 JEUS에서 사용되지 않는다.</p></td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.enable.default.manager</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>System.exit 메소드가 호출되어도 JEUS JVM 프로세스가
+                  shutdown되지
+                  않는다.</p><p>-Djeus.security.enable.default.manager=true로
+                  설정하면 JDK의 Java Security Manager가 아닌 Java Security Manager를
+                  확장한 JEUS Security Manager가 적용되어서 애플리케이션 프로그램 코드에서
+                  System.exit 메소드가 호출되어도 JEUS JVM 프로세스가 shutdown되지
+                  않는다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>java.security.policy</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>SecurityManager에서 사용하는 J2SE 정책 파일의 경로를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>JAVA_HOME/lib/security/java.security</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>javax.security.jacc.policy.provider</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JACC Policy 구현 클래스 이름을 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>jeus.security.impl.jacc.JACCPolicyWrapper</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>javax.security.jacc.PolicyConfigurationFactory.provider</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JACC PolicyConfigurationFactory 구현 클래스 이름을
+                  설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>jeus.security.impl.jacc.JACCPolicyConfigurationFactoryImpl</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3954"></a>1.9.2. JEUS 보안 시스템 프로퍼티</h3></div></div></div>
+    
+
+    <p>다음은 JEUS 보안 시스템 프로퍼티에 대한 설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.enable</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JEUS를 기동할 때 보안 서버를 설치할지 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.default.configDir</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>보안 시스템이 사용하는 설정 루트 디렉터리를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>JEUS_HOME/domains/&lt;<span class="emphasis"><em>domain-name</em></span>&gt;/config/security</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.default.domainName</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>디폴트 도메인명을 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>SYSTEM_DOMAIN</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.installer.classname</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>SecurityInstaller의 구현 클래스 이름을 설정한다.<a id="d4e4018" class="indexterm"></a></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>jeus.security.impl.installer.JeusSecurityDomainInstaller</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.jacc.principalRoleMapper</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>jeus.security.impl.aznrep.JACCPrincipalRoleMapper
+                  인터페이스를 구현하는 클래스 이름을 설정한다. 이 클래스는 JACC Provider에서
+                  principal-role 매핑을 담당한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>jeus.security.impl.jacc.JACCDefaultPrincipalRoleMapper</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.net.ssl.security</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Security의 통신에 SSL를 사용할지 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.keypath</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>security.key 파일 위치를 지정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>JEUS 내부에서 기본적으로 설정된다.</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.master</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Master Password를 지정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>보안상의 안전을 위해 프롬프트로 입력받는 것을 권장한다.</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.net.logListenPort</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>서버 소켓을 만들 때 Port의 logging 여부를
+                  설정한다.</p><p>jeus.security.enable.default.manager=true를
+                  설정해야 작동한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.net.logConnectInfo</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>소켓을 만들 때 접속하는 호스트, Port의 logging 여부를
+                  설정한다.</p><p>jeus.security.enable.default.manager=true를
+                  설정해야 작동한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.net.logListenStack</p>
+
+        
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>서버 소켓을 생성할 때의 Thread Stack Trace의 logging 여부를
+                설정한다.</p><p>jeus.security.enable.default.manager=true를
+                설정해야 작동한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+        </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.net.logConnectStack</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>소켓을 만들고 접속할 때의 Thread Stack Trace의 logging 여부를
+                  설정한다.</p><p>jeus.security.enable.default.manager=true를
+                  설정해야 작동한다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.keylength</p>
+
+        
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>암호화 알고리즘(AES/DES/DESede/SEED/Blowfish 등)을 사용할 때 key 크기를
+                지정한다. jeus.security.keylength=256을 설정하면 시스템 전체에 256bit로 통일된
+                key 크기가 적용된다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>256</td></tr></tbody></table>
+        </div>
+      </li></ul></div>
+  </div>
+</div>
+
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jms-properties"></a>1.10. JEUS MQ 시스템 프로퍼티</h2></div></div></div>
+  
+
+  <p>본 절에서는 JEUS MQ 시스템 프로퍼티에 대해 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4177"></a>1.10.1. JEUS MQ 클라이언트</h3></div></div></div>
+    
+
+    <p>다음은 JEUS MQ 클라이언트 시스템 프로퍼티에 대한 설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.client.default-redelivery-limit</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>JMS_JEUS_RedeliveryLimit 메시지 프로퍼티의 기본값을
+                  설정한다.</p><p>메시지 송신자에서 별도로 지정하지 않은 경우 송신한 메시지는 최대 이
+                  횟수만큼만 복구되어 메시지 수신자에게 전달된다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>3</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.file.blocksize</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>FileMessage를 사용하여 서버로 파일을 블록 단위로 전송할 때의 블록 크기를
+                  설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>4096 (단위: <span class="token">byte</span>)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.client.connect.timeout</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>ConnectionFactory.createConnection() 메소드가 서버로부터 응답을
+                  기다리는 제한시간을 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>5000 (단위: <span class="token">ms</span>)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.client.workdir</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>FileMessage를 사용하여 서버로부터 수신한 파일이 저장되는 경로를
+                  설정한다.</p><p>JavaEE 클라이언트의 경우 이 설정은 무시되고
+                  JEUS_HOME/logs/jms/BROKER_NAME/client/ 경로가
+                  사용된다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>USER_HOME/.jeusmq_client_work/</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.client.maxThread</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>JEUS MQ 클라이언트 라이브러리에서 사용하는 Thread Pool의 크기를
+                  설정한다.</p><p>클라이언트 라이브러리가 메시지 송신과 수신 등 여러 가지 작업을 동시에
+                  수행하기 위해 필요하다. 서버와 맺는 커넥션마다 하나씩의 Thread Pool이
+                  생성된다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>100</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.client.optimizedProduce</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>메시지 송신 성능을 향상시키기 위해 서버로부터 Acknowledge를 받지 않을지
+                  여부를 설정한다. </p><p>true로 설정하면 세션의 승인 모드를
+                  JeusSession.NONE_ACKNOWLEDGE로 설정하지 않아도 메시지를 송신할 때 항상 서버로부터
+                  Acknowledge를 받지 않는다. 단, FileMessage를 송신할 때에는 이 설정에 관계없이
+                  Acknowledge를 받는다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.client.use-single-server-entry</p>
+
+        
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>커넥션 간에 물리적 연결을 공유하여 사용할지 여부를 설정한다.
+                  </p><p>한 ConnectionFactory당 하나의 물리적 연결을 가지게
+                  된다.</p></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.client.single-server-entry.shutdown-delay</p>
+
+        
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>커넥션 간에 공유하던 물리적 연결이 더 이상 사용되지 않을 경우 재사용을 위해 Shutdown이
+                  지연되는 시간을 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>600000 (단위: ms)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.client.use-pooled-connection-factory</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>한 번 사용했던 Client Facility들을 재사용하기 위해서 Pooling을 할지 여부를
+                  설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.client.pooled-connection.check-period</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Pooling된 Client Facility들 중 사용되지 않는 것들을 제거하기 위해서 검사하는
+                  주기를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>60000 (단위: ms)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.client.pooled-connection.unused-timeout</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Pooling된 Client Facility들 중 이 시간 동안 사용되지 않으면 Pool에서
+                  제거한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>120000 (단위: ms)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.client.send-by-lpq-only</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>메시지를 송신하는 경우 모든 메시지를 신뢰도를 높이기 위한 LPQ 서비스를 이용해
+                  보낸다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.client.lpq-configuration-path</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td><p>LPQ 서비스를 이용할 때 사용할 설정 파일의 세부 경로를
+                  설정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                        <p>절대 경로로 주어진 경우 : 그 경로의 파일을 읽는다.</p>
+                      </li><li style="list-style-type: circle">
+                        <p>상대 경로인 경우 : DEPLOYED_HOME/myApp/WEB-INF/,
+                        DEPLOYED_HOME/myApp/META-INF/, DEPLOYED_HOME/myApp/ 순으로 발견되는 파일을
+                        읽어온다.</p>
+                      </li></ul></div><p/></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>120000 (단위 : ms)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4410"></a>1.10.2. JEUS MQ 서버</h3></div></div></div>
+    
+
+    <p>다음은 JEUS MQ 서버 시스템 프로퍼티에 대한 설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.file.blocksize</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>FileMessage를 사용하여 클라이언트로 파일을 블록 단위로 전송할 때의 블록 크기를
+                  설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>4096 (단위: byte)</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.server.deleteFileMessage</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>FileMessage 전달을 완료한 뒤 해당 파일을 서버에서 삭제할지 여부를
+                  설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>true</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.server.discard-stored-on-start</p>
+
+        
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>JEUS MQ 서버를 시작할 때 설정된 스토리지에 존재하는 모든 데이터를 삭제할지
+                  여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.server.rowFetchSize</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>데이터베이스 스토리지부터 메시지를 쿼리할 때 한 번에 가져올 레코드 개수를
+                  설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>1000</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.jms.server.create-facility-mbeans</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>Connection, Session, Message Producer, Consumer와 같은
+                  Client Facility들에 대한 MBean을 생성할지 여부를 설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+  </div>
+</div>
+  </div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="system-properties.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="system-properties.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="console-tools.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">Part I. 시스템 프로퍼티 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> Part II. 콘솔 명령어와 툴</td></tr></table></div><div xmlns="" align="center"/></body></html>

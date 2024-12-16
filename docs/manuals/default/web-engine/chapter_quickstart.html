@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제10장 따라하기</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Engine 안내서"/><link rel="up" href="index.html" title="JEUS Web Engine 안내서"/><link rel="prev" href="chapter_jeus_autoreload.html" title="제9장 클래스 동적 반영"/><link rel="next" href="idx.html" title="색인"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제10장 따라하기</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jeus_autoreload.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="idx.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_quickstart"></a>제10장 따라하기</h2></div></div></div>
+  
+
+  <p>다음의 단계를 따라하면 JEUS를 간단하게 체험할 수 있다. 다음의 예에서는 JEUS의 서버명이 "server1"이라고
+  가정한다. 사용자는 이 서버명을 JEUS가 설치된 머신의 이름으로 변경해야 한다.</p><div class="orderedlist"><ol type="1"><li>
+        <p>시스템에 JEUS가 제대로 설치되었는지 여부와 경로 및 시스템 변수들이 적절히 설정되어 있는지 확인한다(특히,
+        시스템 경로에 "JEUS_HOME/bin/" 디렉터리가 포함되어 있는지 확인한다).</p>
+
+        <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>1. 본 안내서에서 언급하는 "JEUS_HOME"은 JEUS의 실제 설치 루트 디렉터리를 의미한다.</p>
+
+          <p>(예: “/home/user/jeus8”)</p>
+
+          <p>2. JEUS 설치에 대한 자세한 내용은 <a xmlns="" href="../getting-started/index.html" class="olink">"JEUS 설치 및 시작하기"</a>를 참고한다.</p>
+        </div>
+      </li><li>
+        <p>MS(Managed Server) 내의 웹 엔진(서블릿 엔진)에 적어도 1개의 웹 커넥션이 설정되어 있어야 한다.
+        웹 커넥션 설정은 <a href="chapter_webserver_connectivity_and_clustering.html" title="제2장 웹 커넥션 관리">“제2장 웹 커넥션 관리”</a>를
+        참고한다.</p>
+
+        <p>간단하게 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_http_listener" title="2.3.3. HTTP 리스너 설정">“2.3.3. HTTP 리스너 설정”</a>에서와 같이 포트가
+        '8088'로 설정된 동일한 HTTP 리스너를 추가하여 간단하게 실행해 볼 수 있다.</p>
+      </li><li>
+        <p>설정이 완료되면 COMMAND 화면을 실행하고 다음과 같이 명령을 입력하면 JEUS Launcher가 실행된다.
+        여기서 -u와 -p는 JEUS를 설치할 때 설정한 관리자 이름과 패스워드를 의미한다.</p>
+
+        <p>아래 예제에서는 관리자 이름과 패스워드를 'jeus'로 설정했다고 가정한다.</p>
+
+        <pre class="screen">startDomainAdminServer -domain domain1 -server server1 -u jeus -p jeus</pre>
+
+        <p/>
+      </li><li>
+        <p>다른 COMMAND 화면을 열고, 이번에는 <span><strong class="command">'jeusadmin -u jeus -p
+        jeus'</strong></span> 명령을 실행한다(여기서 -u, -p를 입력하지 않았다면 다시 한 번 'login'을
+        입력한다).</p>
+
+        <pre class="screen">$ jeusadmin
+JEUS8 Administration Tool
+To view help, use the 'help' command.
+offline&gt;login</pre>
+
+        <p/>
+      </li><li>
+        <p>접속할 서버의 주소, 관리자 이름과 패스워드를 입력하면 콘솔 툴이 시작된다. 이때 입력하는 정보는 JEUS를 설치할
+        때 설정한 정보와 동일해야 한다.</p>
+
+        <pre class="screen">offline&gt;login
+Enter the server address: localhost
+User name: jeus
+Password: 
+Attempting to connect to 127.0.0.1:9736.
+The connection has been established to Domain Administration Server adminServer in the domain domain1.
+[DAS]domain1.adminServer&gt;</pre>
+
+        <p/>
+      </li><li>
+        <p>다음과 같이 명령을 실행하면 웹 엔진을 모니터링하고 제어할 수 있는 명령어들의 목록이 출력된다.</p>
+
+        <pre class="screen">[DAS]domain1.adminServer&gt;help -g Web
+[ Web]______________________________________________________________________
+add-response-header             Add an HTTP response custom header.
+add-tmax-connector              Add Tmax Connector.
+add-virtual-host                A virtual host was dynamically added to
+                                domain.xml, but this was only applied to
+                                the XML file, not to a server.
+add-web-cookie-policy           Add the cookie policy configuration.
+add-web-encoding                Add web engine characterset encoding.
+add-web-listener                Add HTTP listener, AJP13 listener, or TCP
+                                listener. If the type is not specified,
+                                anHTTP Listener will be added by default.
+add-web-properties              Add web engine properties.
+add-webtob-connector            Add the WebtoB Connector.
+clear-web-statistics            Resets the web engine statistics.
+list-session                    Show session list sorted by idle time.
+modify-jsp-engine               Modify JSP engine configurations.
+modify-response-header          Modify the HTTP response custom header.
+modify-session-configuration    Modifies the session configuration.
+modify-tmax-connector           Modify the thread pool number of the
+                                tmax-connector.
+modify-virtual-host             Modify the access log format of a virtual
+                                host dynamically. The access log must be
+                                enabled.
+modify-web-cookie-policy        Modify the cookie policy configuration.
+modify-web-encoding             Modify the web engine characterset
+                                encoding configurations.
+modify-web-engine-configuration Modify some parts of the web engine
+                                configuration dynamically.
+modify-web-listener             Modify the thread pool number of the web
+                                listener (http-listener, tcp-listener, or
+                                ajp13-listener).
+modify-web-properties           Modify web engine properties.
+modify-webtob-connector         Modify the thread pool number of the
+                                webtob-connector.
+reload-web-context              Forcibly reloads the servlet context.
+remove-response-header          Remove the HTTP response custom header.
+remove-session                  Remove session.
+remove-tmax-connector           Remove the tmax-connector.
+remove-virtual-host             A virtual host was dynamically removed
+                                from domain.xml, but this was only
+                                appliedto the XML file, not to a server.
+remove-web-cookie-policy        Remove the HTTP cookie policy
+                                configuration.
+remove-web-encoding             Remove the web engine characterset
+                                encoding configurations.
+remove-web-listener             Remove a web listener (http-listener,
+                                tcp-listener, or ajp13-listener).
+remove-web-properties           Remove web engine properties.
+remove-webtob-connector         Remove webtob-connector.
+resume-web-component            Temporarily resumes the given component
+                                (servlet element of context or given
+                                web-connection name).
+show-request-processing-flow    Shows the request processing flow of
+                                mapped URL patterns and the specified
+                                hostname.
+show-session-configuration      Shows the session configuration.
+show-web-engine-configuration   Show web engine configurations, including
+                                the monitoring period and access-logs.
+show-web-statistics             Shows the web engine statistics.
+suspend-web-component           Temporarily suspends the servlet.
+precompile-jsp                  Precompile JSP files for a deployed web
+                                module. Connect to Domain Administration
+                                Server or a server.
+
+To show detailed information for a command, use 'help [COMMAND_NAME]'.
+ex) help connect</pre>
+
+        <p/>
+      </li><li>
+        <p>웹 엔진 제어 명령이나 모니터링 명령을 수행한다. 웹 엔진 명령은 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-servlet-engine-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.8. 웹 엔진 관련 명령어”</a>를 참고한다.</p>
+      </li><li>
+        <p>WebAdmin에서도 위와 동일한 작업을 수행할 수 있다. WebAdmin에서의 수행 방법에 대한 자세한 내용은
+        <a xmlns="" href="../web-manager/chapter_boot_down.html#sect_boot" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS WebAdmin 안내서</span>”의 “2.2. 로그인”</a>에 대한 설명을
+        참고한다.</p>
+      </li></ol></div>
+
+  <p/>
+
+  <div class="literallayout"><p/></div>
+
+  <p>위의 과정에서 문제가 발생했다면 JEUS 환경 설정을 확인하고 올바르게 재설정해야 한다. 문제점의 원인을 좀 더 자세히
+  알아보려면 JEUS 관리자 콘솔 윈도우 로그에 남겨진 정보를 참고하는 것도 좋은 방법이다.</p>
+
+  <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>JEUS 환경설정에 대한 자세한 내용은 <a xmlns="" href="../getting-started/index.html" class="olink">"JEUS 설치
+      및 시작하기"</a>와 <a xmlns="" href="../server/index.html" class="olink">"JEUS Server
+      안내서"</a>를 참고한다.</p>
+    </div>
+
+  <p/>
+
+  <p/>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jeus_autoreload.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="idx.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제9장 클래스 동적 반영 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 색인</td></tr></table></div><div xmlns="" align="center"/></body></html>

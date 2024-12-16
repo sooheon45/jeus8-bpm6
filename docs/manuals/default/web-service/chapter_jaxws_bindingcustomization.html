@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제6장 표준 바인딩 선언 및 사용자화</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Service 안내서"/><link rel="up" href="pt01.html" title="Part I. JEUS 8 웹 서비스"/><link rel="prev" href="chapter_jaxws_client.html" title="제5장 웹 서비스 호출"/><link rel="next" href="chapter_jaxws_handler.html" title="제7장 핸들러 프레임워크"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제6장 표준 바인딩 선언 및 사용자화</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jaxws_client.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part I. JEUS 8 웹 서비스</td><td width="20%" align="right"> <a accesskey="n" href="chapter_jaxws_handler.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jaxws_bindingcustomization"></a>제6장 표준 바인딩 선언 및 사용자화</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#d4e1625">6.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#d4e1640">6.2. 표준 바인딩 선언</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#sect_binding_case1">6.2.1. 외부 문서(파일)에서 직접 선언</a></span></dt><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#sect_binding_case2">6.2.2. WSDL 문서 내에서 직접 선언</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#d4e1698">6.3. 표준 바인딩의 사용자화</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case1">6.3.1. 전체적인 바인딩</a></span></dt><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case2">6.3.2. 패키지명의 사용자화</a></span></dt><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case3">6.3.3. Wrapped 스타일</a></span></dt><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case4">6.3.4. 비동기화</a></span></dt><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case5">6.3.5. 프로바이더 인터페이스</a></span></dt><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case6">6.3.6. 클래스명의 사용자화</a></span></dt><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case7">6.3.7. Java 메소드의 사용자화</a></span></dt><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case8">6.3.8. Java 파라미터의 사용자화</a></span></dt><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case9">6.3.9. XML 스키마의 사용자화</a></span></dt><dt><span class="section"><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case10">6.3.10. 핸들러 체인의 사용자화</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 WSDL 문서에서 Java 클래스를 사용한 표준 바인딩 선언 방법 및 사용자화에 대해 자세하게
+  설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e1625"></a>6.1. 개요</h2></div></div></div>
+    
+
+    <p>앞에서 살펴본 바와 같이 기본적인 JAX-WS 웹 서비스는 Java 클래스나 WSDL 문서로부터 구현할 수
+    있다.</p>
+
+    <p>보다 확장 가능하고 다양한 기능을 제공하는 웹 서비스를 구현하기 위해서 여러 가지 기능을 추가하거나 다양한 설정을 할 수
+    있다. 그 중 한 가지 방법은 그러한 기능이나 설정을 Java 클래스에 Annotation을 부여함으로써 wsgen 툴을 통해 얻을
+    수 있고, 또 다른 방법은 WSDL 문서에 직접 혹은 간접적으로 기능을 추가하거나 설정하여 wsimport 툴을 통해 얻을 수
+    있다.</p>
+
+    <p>본 장에서는 WSDL 문서를 가지고 wsimport 툴을 통해 웹 서비스를 구성하거나 클라이언트를 구성할 때 사용할 수
+    있는 바인딩 사용자화의 전체적인 모습에 대해 설명한다. 보다 자세한 기능에 대한 소개와 설정 사용법 및 Java 클래스로부터
+    wsgen 툴을 통해 원하는 웹 서비스를 구현하는 방법은 계속되는 다음 장에서 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JEUS 웹 서비스는 WSDL 문서에서 Java 클래스로의 바인딩 선언 및 사용자화(주로 wsimport 툴을 사용하여
+    작업하는 경우)를 JAX-WS에서 요구하는 표준화된 방식으로 지원한다. 기존 JAX-RPC 방식의 웹 서비스에서는 이러한 표준이
+    명세화되어 있지 않았기 때문에 서로 다른 벤더 사이에 Portable하지 않은 웹 서비스의 생성 문제를 야기시켰다.</p>
+
+    <p>이와 같은 JEUS 8 웹 서비스의 WSDL 문서에서 Java 클래스로의 표준화된 바인딩 선언 및 사용자화는 웹 서비스를
+    구현하는 데 있어서 2가지 역할을 하는데 이는 다음과 같다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>거의 모든 WSDL 컴포넌트들로부터 서비스 Endpoint 인터페이스 클래스, 메소드 이름, 파라미터 이름,
+        예외(Exception) 클래스 등과 같은 Java 언어로의 매핑을 사용자화할 수 있다.</p>
+      </li><li>
+        <p>비동기화, 프로바이더, 래퍼(Wrapper) 방식, 부가적인 Header들과 같은 기능을 사용자화할 수
+        있다.</p>
+      </li></ul></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e1640"></a>6.2. 표준 바인딩 선언</h2></div></div></div>
+    
+
+    <p>모든 바인딩에 관련된 element들은 "<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://java.sun.com/xml/ns/jaxws" target="_top">http://java.sun.com/xml/ns/jaxws"</a>
+    Namespace에 속하며 그 Namespace에 속하는 접두어인 jaxws를 붙여 jaxws:bindings라는 element로
+    바인딩을 선언하게 된다.</p>
+
+    <p>바인딩을 선언하는 장소에 따라 2가지로 나뉠 수 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><a href="chapter_jaxws_bindingcustomization.html#sect_binding_case1" title="6.2.1. 외부 문서(파일)에서 직접 선언">외부 문서를 통해 바인딩을 선언하는
+        방법</a></p>
+      </li><li>
+        <p><a href="chapter_jaxws_bindingcustomization.html#sect_binding_case2" title="6.2.2. WSDL 문서 내에서 직접 선언">바인딩할 WSDL 문서 내에 직접 바인딩 선언을
+        포함시키는 방법</a></p>
+      </li></ul></div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_binding_case1"></a>6.2.1. 외부 문서(파일)에서 직접 선언</h3></div></div></div>
+      
+
+      <p>외부 문서(파일)에서 직접 선언하는 방법은 주로 웹 서비스를 이용하는 클라이언트에 의해 wsimport 툴의 파라미터로
+      WSDL 문서의 위치와 함께 전달된다. 여기서 사용되는 WSDL 문서의 위치값은 다음과 같이 바인딩 선언 문서의
+      wsdlLocation이라는 element 값으로 추가한다.</p>
+
+      <div class="example"><a id="d4e1659"></a><p class="title"><b>[예 6.1] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jaxws:bindings
+<span class="bold"><strong>    wsdlLocation="http://localhost:8080/AddNumbers/addnumbers?WSDL"</strong></span>
+    jaxws:xmlns="http://java.sun.com/xml/ns/jaxws"&gt;
+...
+&lt;/jaxws:bindings&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>또한 WSDL 문서 컴포넌트의 바인딩 설정을 위해서는 위에서 선언한 최상위 element 아래에 자식 element로
+      추가한다. 선언할 바인딩에 해당하는 컴포넌트는 node라는 element 내에 XPath 문법으로 위치시킨다. 또한 그 컴포넌트에
+      대해 선언할 바인딩을 그 아래 자식 element로써 추가한다.</p>
+
+      <p>다음은 WSDL 문서 컴포넌트의 바인딩 설정을 위해 element를 추가한 예제이다.</p>
+
+      <div class="example"><a id="d4e1666"></a><p class="title"><b>[예 6.2] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jaxws:bindings
+    wsdlLocation="http://localhost:8088/AddNumbers/addnumbers?WSDL"
+    jaxws:xmlns="http://java.sun.com/xml/ns/jaxws"&gt;
+<span class="bold"><strong>    &lt;jaxws:bindings node="wsdl:definitions"
+        xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"&gt;
+        &lt;jaxws:package name="customize.client"/&gt;</strong></span>
+        ...
+&lt;/jaxws:bindings&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>위의 예제에서 이 바인딩 선언은 WSDL 문서 내의 'wsdl:definitions'에 대해 생성되는 Java
+      클래스들에 대해 그 패키지명을 customize.client로 사용자화하겠다는 의미이다.</p>
+
+      <p>이와 같이 생성된 외부 바인딩 선언 문서는 <span><strong class="guibutton">wsimport</strong></span> 툴에서 다음과 같이
+      실행할 수 있다.</p>
+
+      <pre class="screen">$ <span><strong class="guibutton">wsimport</strong></span> -b custom-client.xml http://localhost:8088/AddNumbers/addnumbers?WSDL</pre>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_binding_case2"></a>6.2.2. WSDL 문서 내에서 직접 선언</h3></div></div></div>
+      
+
+      <p>WSDL 문서 내에서 직접 선언하는 방법은 앞에서 설명한 외부 문서(파일)에서 직접 선언하는 방법과 다음과 같은 차이가
+      있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>WSDL 문서 내에 확장 element로 &lt;jaxws:bindings&gt; element를
+          사용한다.</p>
+        </li><li>
+          <p>WSDL 문서 내에서 선언할 경우 node 속성은 사용하지 않는다.</p>
+        </li><li>
+          <p>&lt;jaxws:bindings&gt; element 내에 자식 element로
+          &lt;jaxws:bindings&gt; element를 사용하지 않는다.</p>
+        </li><li>
+          <p>&lt;jaxws:bindings&gt; element는 그것을 감싸고 있는 WSDL 컴포넌트에만 영향을
+          준다.</p>
+        </li></ul></div>
+
+      <div class="example"><a id="d4e1690"></a><p class="title"><b>[예 6.3] &lt;&lt; AddNumbers.wsdl &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;<span class="bold"><strong>wsdl:portType</strong></span> name="AddNumbersImpl"&gt;
+    &lt;jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"&gt;
+<span class="bold"><strong>        &lt;jaxws:class name="MathUtil"/&gt;</strong></span>
+        ...
+    &lt;/jaxws:bindings&gt;
+    &lt;wsdl:operation name="addNumber"&gt;
+    ...
+&lt;/wsdl:portType&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>위의 예제는 WSDL 문서 내에서 wsdl:portType에 대한 사용자화를 나타낸다.</p>
+
+      <p>&lt;jaxws:bindings&gt;라는 확장 element는 이 wsdl:portType으로부터 생성되는 서비스
+      Endpoint 인터페이스 클래스의 이름에 대한 사용화를 나타내는데, 표준 기본값으로 생성되는 클래스 이름(여기에서는
+      AddNumbersImpl)을 MathUtil로 사용자화할 것을 나타내고 있다.</p>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e1698"></a>6.3. 표준 바인딩의 사용자화</h2></div></div></div>
+    
+
+    <p>본 절에서는 다음의 여러 가지 선언된 바인딩의 사용자화에 대해 자세히 설명한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case1" title="6.3.1. 전체적인 바인딩">전체적인
+        바인딩</a></p>
+      </li><li>
+        <p><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case2" title="6.3.2. 패키지명의 사용자화">패키지명의
+        사용자화</a></p>
+      </li><li>
+        <p><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case3" title="6.3.3. Wrapped 스타일">Wrapped
+        스타일</a></p>
+      </li><li>
+        <p><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case4" title="6.3.4. 비동기화">비동기화</a></p>
+      </li><li>
+        <p><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case5" title="6.3.5. 프로바이더 인터페이스">프로바이더
+        인터페이스</a></p>
+      </li><li>
+        <p><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case6" title="6.3.6. 클래스명의 사용자화">클래스명의
+        사용자화</a></p>
+      </li><li>
+        <p><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case7" title="6.3.7. Java 메소드의 사용자화">Java 메소드의
+        사용자화</a></p>
+      </li><li>
+        <p><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case8" title="6.3.8. Java 파라미터의 사용자화">Java 파라미터의
+        사용자화</a></p>
+      </li><li>
+        <p><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case9" title="6.3.9. XML 스키마의 사용자화">XML 스키마의
+        사용자화</a></p>
+      </li><li>
+        <p><a href="chapter_jaxws_bindingcustomization.html#sect_standard_binding_case10" title="6.3.10. 핸들러 체인의 사용자화">핸들러 체인의
+        사용자화</a></p>
+      </li></ul></div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_standard_binding_case1"></a>6.3.1. 전체적인 바인딩</h3></div></div></div>
+      
+
+      <p>전체적인 바인딩은 외부 문서 파일로 정의된 바인딩 선언에서 유효하며 jaxws:bindings@wsdlLocation에
+      명시한 WSDL 문서의 wsdl:definition 내 전체에 적용된다.</p>
+
+      <pre class="programlisting">&lt;jaxws:package name="..."/&gt; 
+&lt;jaxws:enableWrapperStyle/&gt; 
+&lt;jaxws:enableAsyncMapping/&gt;</pre>
+
+      <p>전체적인 바인딩에 해당하는 element들은 위와 같다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 실제로 사용되는 예이다.</p>
+
+      <div class="example"><a id="d4e1742"></a><p class="title"><b>[예 6.4] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jaxws:bindings
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    wsdlLocation="http://localhost:8080/AddNumbers/addnumbers?WSDL"
+    xmlns="http://java.sun.com/xml/ns/jaxws"&gt;
+<span class="bold"><strong>        &lt;package name="customize.client"/&gt;
+        &lt;enableWrapperStyle&gt;true&lt;/enableWrapperStyle&gt;
+        &lt;enableAsyncMapping&gt;false&lt;/enableAsyncMapping&gt;</strong></span>
+&lt;/jaxws:bindings&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_standard_binding_case2"></a>6.3.2. 패키지명의 사용자화</h3></div></div></div>
+      
+
+      <p>기본값으로 wsimport 툴을 사용하여 WSDL 문서로부터 Java 클래스를 생성하는 경우 클래스의 패키지명은 그
+      WSDL 파일 문서의 Namespace에 따라 정해진다.</p>
+
+      <p>이러한 클래스의 패키지명을 사용자화하여 다른값으로 설정하기 위해서는 jaxws:package element로 바인딩
+      사용자화 선언을 한다. wsimport 툴을 사용해서 생성하는 경우 -p 옵션으로 패키지명을 변경할 수 있는데 이는 앞에서
+      jaxws:package element로 바인딩 사용자화한 것을 overwrite한다.</p>
+
+      <div class="example"><a id="d4e1753"></a><p class="title"><b>[예 6.5] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jaxws:bindings
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    wsdlLocation="http://localhost:8080/AddNumbers/addnumbers?WSDL"
+    xmlns="http://java.sun.com/xml/ns/jaxws"&gt;
+<span class="bold"><strong>        &lt;package name="customize.client" /&gt;</strong></span>
+...
+&lt;/jaxws:bindings&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>이는 줄여서 다음과 같이 나타낼 수도 있다.</p>
+
+      <div class="example"><a id="d4e1759"></a><p class="title"><b>[예 6.6] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jaxws:bindings
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    wsdlLocation="http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"
+    xmlns="http://java.sun.com/xml/ns/jaxws"&gt;
+    &lt;bindings node="wsdl:definitions"&gt;
+<span class="bold"><strong>        &lt;package name="customize.client" /&gt;</strong></span>
+...
+&lt;/jaxws:bindings&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_standard_binding_case3"></a>6.3.3. Wrapped 스타일</h3></div></div></div>
+      
+
+      <p>wsimport 툴은 기본값으로 WSDL 문서 내의 wsdl:portType으로 정의된 추상 오퍼레이션에 대해
+      Wrapped 스타일의 규칙을 적용한다. 이러한 Wrapped 스타일은 바인딩 사용자화에 의해 가능하지 않도록 할 수
+      있다.</p>
+
+      <div class="example"><a id="d4e1767"></a><p class="title"><b>[예 6.7] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jaxws:bindings
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    wsdlLocation="http://localhost:8080/AddNumbers/addnumbers?WSDL"
+    xmlns="http://java.sun.com/xml/ns/jaxws"&gt;
+<span class="bold"><strong>        &lt;enableWrapperStyle&gt;true&lt;/enableWrapperStyle&gt;</strong></span>
+    &lt;bindings node="wsdl:definitions/
+        wsdl:portType[@name='AddNumbersImpl']/
+        wsdl:operation[@name='addNumbers']"&gt;
+<span class="bold"><strong>        &lt;enableWrapperStyle&gt;false&lt;/enableWrapperStyle&gt;</strong></span>
+    ...
+&lt;/jaxws:bindings&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>위와 같이 jaxws:enable WrapperStyle element로써 설정할 수 있으며
+      wsdl:definitions, wsdl:portType, wsdl:operation element 하위에서 각각 사용될 수
+      있다.</p>
+
+      <div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+          <p>wsdl:defitions 아래에서 사용될 경우 모든 wsdl:portType 속성의 모든
+          wsdl:oprtations element들에 적용된다.</p>
+        </li><li style="list-style-type: circle">
+          <p>wsdl:portType 하위에 사용될 경우 그 portType의 모든 wsdl:operations에
+          적용된다.</p>
+        </li><li style="list-style-type: circle">
+          <p>wsdl:operation 하위에 적용될 경우에는 해당 오퍼레이션에 대해서만 적용된다.</p>
+        </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_standard_binding_case4"></a>6.3.4. 비동기화</h3></div></div></div>
+      
+
+      <p>클라이언트 애플리케이션은 jaxws:enableAsyncMappingbinding element를 선언함으로써
+      wsimport하는 경우 비동기 Polling 또는 Callback 방식의 오퍼레이션들을 생성한다. 비동기 클라이언트
+      애플리케이션에 대해서는 <a href="chapter_jaxws_async_operation.html" title="제9장 비동기 웹 서비스">“제9장 비동기 웹 서비스”</a>에서 자세히
+      설명한다.</p>
+
+      <p>적용되는 WSDL 문서 내의 컴포넌트 및 적용 범위는 위에서 설명한 Wrapped 스타일의 규칙과
+      동일하다.</p>
+
+      <div class="example"><a id="d4e1787"></a><p class="title"><b>[예 6.8] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jaxws:bindings
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    wsdlLocation="http://localhost:8080/AddNumbers/addnumbers?WSDL"
+    xmlns="http://java.sun.com/xml/ns/jaxws"&gt;
+        &lt;enableAsyncMapping&gt;false&lt;/enableAsyncMapping&gt;
+    &lt;bindings node="wsdl:definitions/
+        wsdl:portType[@name='AddNumbersImpl']/
+        wsdl:operation[@name='addNumbers']"&gt;
+        &lt;enableAsyncMapping&gt;true&lt;/enableAsyncMapping&gt;
+    ...
+&lt;/jaxws:bindings&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_standard_binding_case5"></a>6.3.5. 프로바이더 인터페이스</h3></div></div></div>
+      
+
+      <p>본 절에서는 프로바이더(provider) 인터페이스를 바인딩 선언을 통해 설정하는 방법을 알아본다. 자세한 내용은
+      <a href="chapter_jaxws_provider_dispatch.html" title="제8장 프로바이더와 디스패치 인터페이스">“제8장 프로바이더와 디스패치 인터페이스”</a>를 참고한다.</p>
+
+      <p>WSDL 문서 내의 특정 포트 번호(port)를 프로바이더 인터페이스로 설정하고 싶을 경우에는 wsdl:port 노드를
+      XPath 표현법으로 나타내고 jaxws:provider 바인딩을 설정하면 된다. 기본값은 설정하지 않음으로 되어 있다. 이는 웹
+      서비스를 WSDL로부터 생성하는 경우 유효하다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_standard_binding_case6"></a>6.3.6. 클래스명의 사용자화</h3></div></div></div>
+      
+
+      <p>WSDL 문서 내의 wsdl:portType, wsdl:fault, soap:headerfault,
+      wsdl:server는 Java 클래스로 생성되는데 여기서 jaxws:class 바인딩 선언을 하면 원하는 클래스명으로 변경할 수
+      있다. 이러한 WSDL 문서 내의 컴포넌트들에 대한 각각의 Java 클래스에 대한 설명은 다음과 같다.</p>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>서비스 Endpoint 인터페이스 클래스</p>
+
+          <p>다음은 서비스 Endpoint 인터페이스 클래스명에 대한 바인딩 사용자화의 예이다.</p>
+
+          <div class="example"><a id="d4e1808"></a><p class="title"><b>[예 6.9] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">&lt;jaxws:bindings node="wsdl:definitions/wsdl:portType[@name='AddNumbersImpl']"&gt;
+    &lt;jaxws:class name="TmaxUtil" /&gt;
+&lt;/jaxws:bindings&gt;</pre>
+            </div></div><p><br class="example-break"/></p>
+
+          <p>위의 예에서 서비스 Endpoint 인터페이스 클래스명은 기본값인 'AddNumbersImpl'이 아닌
+          'TmaxUtil'이 된다.</p>
+        </li><li>
+          <p>예외(Exception) 클래스</p>
+
+          <p>다음은 예외 클래스명에 대한 바인딩 사용자화의 예이다.</p>
+
+          <div class="example"><a id="d4e1816"></a><p class="title"><b>[예 6.10] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">&lt;jaxws:bindings node="wsdl:definitions/
+    wsdl:portType[@name='AddNumbersImpl']/
+    wsdl:operation[@name='addNumbers']/
+    wsdl:fault[@name='AddNumbersException']"&gt;
+    &lt;jaxws:class name="TmaxException" /&gt;
+&lt;/jaxws:bindings&gt;</pre>
+            </div></div><p><br class="example-break"/></p>
+
+          <p>위의 예에서 예외(Exception) 클래스명은 기본값인 'AddNumbersExeption'이 아닌
+          'TmaxException'이 된다.</p>
+        </li><li>
+          <p>서비스 클래스</p>
+
+          <p>다음은 서비스 클래스명에 대한 바인딩 사용자화의 예이다.</p>
+
+          <div class="example"><a id="d4e1824"></a><p class="title"><b>[예 6.11] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">&lt;jaxws:bindings node="wsdl:definitions/
+    wsdl:service[@name='AddNumbersService']"&gt;
+    &lt;jaxws:class name="TmaxService" /&gt;
+&lt;/jaxws:bindings&gt;</pre>
+            </div></div><p><br class="example-break"/></p>
+
+          <p>위의 예에서 서비스 클래스명은 기본값인 'AddNumbersService'가 아닌 'TmaxService'가
+          된다.</p>
+        </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_standard_binding_case7"></a>6.3.7. Java 메소드의 사용자화</h3></div></div></div>
+      
+
+      <p>서비스 Endpoint의 메소드 이름 혹은 서비스 클래스의 포트를 가져오기 위한 메소드명을 사용자화하는 경우에는
+      jaxws:method 바인딩 선언을 이용한다.</p>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>서비스 Endpoint 인터페이스 메소드</p>
+
+          <p>다음은 서비스 Endpoint 인터페이스의 메소드 이름을 변경하는 바인딩 선언의 예이다.</p>
+
+          <div class="example"><a id="d4e1838"></a><p class="title"><b>[예 6.12] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">&lt;jaxws:bindings node="wsdl:definitions/
+    wsdl:portType[@name='AddNumbersImpl']/
+    wsdl:operation[@name='addNumbers']"&gt;
+    &lt;jaxws:method name="add" /&gt;
+&lt;/jaxws:bindings&gt;</pre>
+            </div></div><p><br class="example-break"/></p>
+
+          <p>wsimport 툴은 서비스 Endpoint 인터페이스의 메소드 이름으로 기본값인 'addNumbers' 메소드
+          이름 대신 'add'라는 메소드 이름을 취한다.</p>
+        </li><li>
+          <p>포트에 접근하기 위한 서비스 클래스의 메소드</p>
+
+          <p>다음은 포트에 접근하기 위한 서비스 클래스의 메소드 이름을 변경하는 바인딩 선언의 예이다.</p>
+
+          <div class="example"><a id="d4e1846"></a><p class="title"><b>[예 6.13] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">&lt;jaxws:bindings node="wsdl:definitions/
+    wsdl:service[@name='AddNumbersService']/
+    wsdl:port[@name='AddNumbersImplPort']"&gt;
+    &lt;jaxws:method name="getTmaxUtil" /&gt;
+&lt;/jaxws:bindings&gt;</pre>
+            </div></div><p><br class="example-break"/></p>
+
+          <p>wsimport 툴은 포트에 접근하기 위한 서비스 클래스의 메소드 이름으로 기본값인
+          'getAddNumbersImplPort' 대신 'getTmaxUtil'이라는 메소드 이름을 취한다.</p>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_standard_binding_case8"></a>6.3.8. Java 파라미터의 사용자화</h3></div></div></div>
+      
+
+      <p>jaxws:parameter 바인딩 선언은 생성되는 Java 메소드의 파라미터 이름을 원하는 것으로 변경할 때
+      사용된다. wsdl:operation 또는 wsdl:portType의 메소드 파라미터를 변경할 수 있다.</p>
+
+      <div class="example"><a id="d4e1857"></a><p class="title"><b>[예 6.14] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jaxws:bindings node="wsdl:definitions/
+    wsdl:portType[@name='AddNumbersImpl']/
+    wsdl:operation[@name='addNumbers']"&gt;
+    &lt;jaxws:parameter part="definitions/
+        message[@name='addNumbers']/
+        part[@name='parameters']"
+        element="tns:number1" name="num1"/&gt;
+&lt;/jaxws:bindings&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>위와 같이 Java 파라미터의 사용자화 선언은 wsdl:operation의 메소드 파라미터를 'number1'에서
+      'num1'으로 변경된 것을 알 수 있다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_standard_binding_case9"></a>6.3.9. XML 스키마의 사용자화</h3></div></div></div>
+      
+
+      <p>WSDL 문서 내에 선언된 XML 스키마는 jaxws:bindings element 하위에서 표준 JAXB 바인딩
+      element를 사용함으로써 변경할 수 있다.</p>
+
+      <div class="example"><a id="d4e1866"></a><p class="title"><b>[예 6.15] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jaxws:bindings node="wsdl:definitions/
+    wsdl:types/
+    xsd:schema[@targetNamespace='http://tmaxsoft.com']"&gt;
+    &lt;jaxb:schemaBindings&gt;
+        &lt;jaxb:package name="fromwsdl.server"/&gt;
+    &lt;/jaxb:schemaBindings&gt;
+&lt;/jaxws:bindings&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>또한 WSDL 문서에 의해 import되는 XML 스키마 파일 또한 바인딩 사용화를 할 수 있는데, 이때에는 JAXB
+      표준 확장 바인딩 선언 파일을 사용한다.</p>
+
+      <div class="example"><a id="d4e1871"></a><p class="title"><b>[예 6.16] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jxb:bindings
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+    version="1.0"&gt;
+    &lt;jxb:bindings
+        schemaLocation=
+            "http://localhost:8088/AddNumbers/schema1.xsd"
+        node="/xsd:schema"&gt;
+        &lt;jxb:schemaBindings&gt;
+            &lt;jxb:package name="fromjava.client"/&gt;
+        &lt;/jxb:schemaBindings&gt;
+    &lt;/jxb:bindings&gt;
+...</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>외부 표준 JAXB 바인딩 선언 파일은 wsimport 툴의 -b 스위치에 의해 전달된다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_standard_binding_case10"></a>6.3.10. 핸들러 체인의 사용자화</h3></div></div></div>
+      
+
+      <p>jaxws:bindings 바인딩 선언은 핸들러를 추가하거나 사용자화하는 데에도 사용된다. 핸들러에 대한 자세한 사항은
+      <a href="chapter_jaxws_handler.html" title="제7장 핸들러 프레임워크">“제7장 핸들러 프레임워크”</a>를 참고한다.</p>
+
+      <p>바인딩 사용자화 선언에 핸들러 사항을 추가하거나 변경할 때에는 핸들러 체인 설정에 관한 스키마(JAR 181)에 명시된
+      것과 같이 핸들러 체인 설정을 jaxws:bindings 안에 설정한다.</p>
+
+      <div class="example"><a id="d4e1882"></a><p class="title"><b>[예 6.17] &lt;&lt; custom-client.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jaxws:bindings
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    wsdlLocation="http://localhost:8080/jaxws-fromwsdlhandler/addnumbers?WSDL"
+    xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee"&gt;
+    &lt;jaxws:bindings node="wsdl:definitions"&gt;
+        &lt;javaee:handler-chain&gt;
+            &lt;javaee:handler-chain-name&gt;
+                LoggingHandlers
+            &lt;/javaee:handler-chain-name&gt;                    
+            &lt;javaee:handler&gt;
+                &lt;javaee:handler-name&gt;Logger&lt;/javaee:handler-name&gt;
+                &lt;javaee:handler-class&gt;
+                    fromwsdlhandler.common.LoggingHandler
+                &lt;/javaee:handler-class&gt;          
+            &lt;/javaee:handler&gt;                        
+        &lt;/javaee:handler-chain&gt;
+    &lt;/jaxws:bindings&gt;
+&lt;/jaxws:bindings&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>이와 같은 외부 바인딩 선언 문서와 WSDL 문서를 wsimport 툴을 통해 Portable Artifact들을
+      생성하면 핸들러 설정 파일이 또한 생성된다. 생성된 서비스 Endpoint 인터페이스 클래스에는 JAX-WS 런타임이 핸들러들을
+      찾기 위한 @javax.jws.HandlerChain Annotation이 추가된다.</p>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jaxws_client.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="pt01.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="chapter_jaxws_handler.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제5장 웹 서비스 호출 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제7장 핸들러 프레임워크</td></tr></table></div><div xmlns="" align="center"/></body></html>

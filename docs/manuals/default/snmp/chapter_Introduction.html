@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제1장 소개</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS SNMP 안내서"/><link rel="up" href="index.html" title="JEUS SNMP 안내서"/><link rel="prev" href="about.html" title="안내서에 대하여"/><link rel="next" href="chapter_JEUS_SNMP_Agent_Overview.html" title="제2장 SNMP Agent 설정"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제1장 소개</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_JEUS_SNMP_Agent_Overview.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_Introduction"></a>제1장 소개</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_Introduction.html#d4e407">1.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_Introduction.html#sect_JEUS_SNMP_Agent_Components">1.2. 컴포넌트</a></span></dt></dl></div>
+  
+
+  <p><a id="d4e404" class="indexterm"></a>본 장에서는 JEUS SNMP의 기본적인 개념과 구성에 대해서 알아보고, JEUS SNMP Agent와 JEUS
+  시스템과의 관계, JEUS JMX와의 관계 및 SNMP Agent에 메시지를 보내고 받는 SNMP Manager 애플리케이션에 대해서
+  간단하게 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e407"></a>1.1. 개요</h2></div></div></div>
+    
+
+    <p>SNMP(Simple Network Management Protocol)는 네트워크의 여러 하드웨어 및 소프트웨어를
+    모니터링하기 위한 표준 프로토콜이다.<a id="d4e410" class="indexterm"></a><a id="d4e412" class="indexterm"></a><a id="d4e414" class="indexterm"></a> JMX 1.2 스펙은 SNMP를 지원하는 프로토콜 어댑터를 제공한다. J2EE Management 1.1
+    스펙은 인터넷 통신에서 네트워크나 시스템 관리 프로토콜을 사용하기 위한 MIB(Management Information Base)를
+    정의하고 있다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_SNMP_Agent_Components"></a>1.2. 컴포넌트</h2></div></div></div>
+    
+
+    <p>JEUS SNMP Agent가 동작하기 위한 메인 컴포넌트는 다음과 같다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><span class="bold"><strong>JEUS SNMP Agent</strong></span><a id="d4e424" class="indexterm"></a></p>
+
+        <p><a id="d4e427" class="indexterm"></a>JMX MBean 서버와 통신을 하며 논리적으로 JEUS에 위치한다. JEUS SNMP Agent는
+        JEUS를 관리하기 위한 기반 구조를 제공하며, J2EE Management 1.1을 구현했다. JEUS 서버의 구조에
+        대해서는 <a xmlns="" href="../server/index.html" class="olink">"JEUS Server 안내서"</a>를 참조한다.</p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><span class="bold"><strong>MIB</strong></span>(Management Information
+        Base)<a id="d4e434" class="indexterm"></a></p>
+
+        <p>JEUS Management 정보 구조를 제공한다. MIB 파일명은
+        TMAX-JEUS8.0-MIB.mib이다.</p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><span class="bold"><strong>SNMP Manager</strong></span></p>
+
+        <p>SNMP Agent와 메시지를 주고받는다.</p>
+
+        <p>SNMP Manager 애플리케이션이 SNMP 메시지를 전송할 때 SNMP Agent는 설정한 포트 번호를
+        Listen하고 있다. 해당 포트 번호로 요청이 들어오면 먼저 MIB-tree에서 OID를 찾고, 그것의 Protocol
+        Data Unit(이하 PDU) 타입을 알아내서 JEUS JMX MBean 서버를 호출한다. 정보를 찾아내면 SNMP
+        Manager 애플리케이션에 그 값을 리턴한다.<a id="d4e443" class="indexterm"></a><a id="d4e445" class="indexterm"></a></p>
+      </li></ul></div>
+
+    <div class="literallayout"><p/></div>
+
+    <p/>
+
+    <h3><a id="d4e451"></a>SNMP Agent<a id="d4e452" class="indexterm"></a></h3>
+
+    <p>JEUS SNMP Agent 모듈은 SNMP를 통해 JEUS 시스템을 관리할 때 유용한 컴포넌트이다.</p>
+
+    <p>웹 애플리케이션 서버(Web Application Server, 이하 WAS)의 관리 프토토콜로 SNMP를 사용하기 위해
+    JEUS JMX MBean 서버와 통신하며 SNMP Manager 애플리케이션을 지원한다.</p>
+
+    <p>JEUS SNMP Agent는 다음과 같은 프로토콜을 제공한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>SNMPv1<a id="d4e461" class="indexterm"></a></p>
+        </li><li>
+          <p>SNMPv2<a id="d4e465" class="indexterm"></a></p>
+        </li><li>
+          <p>SNMPv3<a id="d4e469" class="indexterm"></a></p>
+        </li></ul></div>
+
+    <div class="literallayout"><p/></div>
+
+    <p><a id="d4e474" class="indexterm"></a><a id="d4e476" class="indexterm"></a>JEUS SNMP Agent는 JEUS JMX와 완전히 통합된다. JEUS SNMP Agent가 검색할 수
+    있는 모든 정보는 JEUS JMX API를 통해서 가능하다. JEUS JMX API를 JEUS Management System의
+    Second-Level 서비스 컴포넌트로 사용하여 각각의 JEUS SNMP Agent는 JEUS 시스템의 서버와 같은 JVM 중의
+    하나와 연관되어 있다.</p>
+
+    <p>예를 들어 JMX Mbean은 EJB 엔진에 deploy된 모든 모듈에 대한 정보를 관리하고, SNMP Manager는 이
+    정보(JEUS SNMP OID)를 EJB 엔진에 해당하는 SNMP Agent에 전송하여 deploy된 모듈을 알 수
+    있다.</p>
+
+    <p>SNMP Agent 인스턴스는 JEUS JMX의 프로토콜 어댑터로 운영되며, SNMP Manager 애플리케이션으로부터
+    SNMP 패킷을 받아 처리한다. 즉, 특정 포트 번호를 계속 Listen하고 있으면서 SNMP Manager의 요청을 기다린다.
+    Listen Port는 WebAdmin을 사용해 설정하고, 설정하지 않으면 동작하지 않는다.</p>
+
+    <p>모든 Agent 인스턴스들은 같은 방법으로 동작한다. 그러므로 각각의 Agent는 JEUS Management
+    System의 모든 정보를 얻을 수 있다. 만일 하나 이상의 Agent 인스턴스가 한 머신에서 기동하려면, 포트 번호가 달라야
+    한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>JEUS SNMP Agent를 운영하려면 SNMP Adaptor Port를 반드시 설정해야 한다.</p>
+    </div>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <h3><a id="d4e486"></a>SNMP Manager 애플리케이션</h3>
+
+    <p><a id="d4e488" class="indexterm"></a>일반적으로 SNMP Manager는 시스템, 특히 통신 장비를 관리하는 애플리케이션를 나타낸다. J2EE에서
+    SNMP Manager는 엔터프라이즈 애플리케이션, 특히 WAS와 같은 미들웨어를 관리한다.</p>
+
+    <p>SNMP Manager 애플리케이션은 MIB를 참조하여 SNMP Agent에서 관리 정보를 요청한다. 애플리케이션은 MIB
+    파일을 Parsing해서 정보의 구조를 분석하고, 관리자가 읽고 관리하기 쉽게 한다.</p>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_JEUS_SNMP_Agent_Overview.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">안내서에 대하여 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제2장 SNMP Agent 설정</td></tr></table></div><div xmlns="" align="center"/></body></html>

@@ -1,0 +1,267 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>TransportException</title>
+      <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="TransportException (JEUS UDDI 3.0 Client API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.uddi.client.transport</font><br>Class TransportException
+      </h2><pre>java.lang.Object<br>  <img src="../../../../resource/inherit.gif" alt="extended by">java.lang.Throwable<br>     <img src="../../../../resource/inherit.gif" alt="extended by">java.lang.Exception<br>        <img src="../../../../resource/inherit.gif" alt="extended by"><b>jeus.uddi.client.transport.TransportException</b></pre><dl>
+         <dt><b>All Implemented Interfaces:</b><dd>java.io.Serializable</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public class <b>TransportException</b><dt>extends java.lang.Exception</dt></pre></dl>SOAP transport에서 발생하는 exception을 나타내는 Exception Class.<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="TransportException.html#TransportException()">TransportException</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   기본 생성자.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="TransportException.html#TransportException(java.lang.Exception)">TransportException</a></b>(java.lang.Exception exception)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   상세 exception을 가지고 TransportException 객체를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="TransportException.html#TransportException(java.lang.String)">TransportException</a></b>(java.lang.String message)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   상세 message를 가지고 TransportException 객체를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="TransportException.html#TransportException(java.lang.String, java.lang.Exception)">TransportException</a></b>(java.lang.String message, java.lang.Exception exception)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   상세 message와 상세 exception을 가지고 TransportException 객체를 생성한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.Exception</code></font></td>
+               <td><code><b><a href="TransportException.html#getException()">getException</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   TransportException의  원인이 된 native exception을 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="TransportException.html#printStackTrace()">printStackTrace</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="TransportException.html#printStackTrace(java.io.PrintStream)">printStackTrace</a></b>(java.io.PrintStream s)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_java.lang.Throwable"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Throwable</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>addSuppressed, fillInStackTrace, getCause, getLocalizedMessage, getMessage, getStackTrace, getSuppressed, initCause, printStackTrace, setStackTrace, toString</code></td>
+            </tr>
+         </table>&nbsp;<a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></td>
+            </tr>
+         </table>&nbsp;
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="TransportException()"></a><h3>TransportException</h3><pre>public <b>TransportException</b>()<br></pre><dl>
+            <dd>기본 생성자.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="TransportException(java.lang.String)"></a><h3>TransportException</h3><pre>public <b>TransportException</b>(<code>java.lang.String</code> message)<br></pre><dl>
+            <dd>상세 message를 가지고 TransportException 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="TransportException(java.lang.String, java.lang.Exception)"></a><h3>TransportException</h3><pre>public <b>TransportException</b>(<code>java.lang.String</code> message,<br>                          <code>java.lang.Exception</code> exception)<br></pre><dl>
+            <dd>상세 message와 상세 exception을 가지고 TransportException 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="TransportException(java.lang.Exception)"></a><h3>TransportException</h3><pre>public <b>TransportException</b>(<code>java.lang.Exception</code> exception)<br></pre><dl>
+            <dd>상세 exception을 가지고 TransportException 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getException()"></a><h3>getException</h3><pre>public java.lang.Exception <b>getException</b>()<br></pre><dl>
+            <dd>TransportException의  원인이 된 native exception을 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>native exception</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="printStackTrace()"></a><h3>printStackTrace</h3><pre>public void <b>printStackTrace</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Overrides:</b><dd><code>printStackTrace</code> in class <code>Throwable</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="printStackTrace(java.io.PrintStream)"></a><h3>printStackTrace</h3><pre>public void <b>printStackTrace</b>(<code>java.io.PrintStream</code> s)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Overrides:</b><dd><code>printStackTrace</code> in class <code>Throwable</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

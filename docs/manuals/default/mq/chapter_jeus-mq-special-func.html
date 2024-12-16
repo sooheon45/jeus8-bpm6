@@ -1,0 +1,1089 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제6장 JEUS MQ 특수 기능</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS MQ 안내서"/><link rel="up" href="index.html" title="JEUS MQ 안내서"/><link rel="prev" href="chapter_failover.html" title="제5장 JEUS MQ 장애 극복"/><link rel="next" href="appendix_journal-store-properties.html" title="Appendix A. Journal Store 추가 속성"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제6장 JEUS MQ 특수 기능</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_failover.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="appendix_journal-store-properties.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jeus-mq-special-func"></a>제6장 JEUS MQ 특수 기능</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_bridging">6.1. JEUS MQ Message Bridge</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_bridge_configure">6.1.1. 서버 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_sorting">6.2. JEUS MQ Message Sort</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#d4e2494">6.2.1. 서버 설정</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#d4e2514">6.2.2. 클라이언트 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_global_order">6.3. JEUS MQ Global Order</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_global_order_configure">6.3.1. 클라이언트 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_message_group">6.4. JEUS MQ Message Group</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_message_group_server_configure">6.4.1. 서버 설정</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_message_group_client_configure">6.4.2. 클라이언트 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_message_management">6.5. JEUS MQ Message Management 기능</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_message_monitoring">6.5.1. 메시지 모니터링</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_message_control">6.5.2. 메시지 제어</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_destination_control">6.5.3. Destination 제어</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#reliable_message_produce">6.6. 신뢰도 높은 메시지 송신</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_lpq_initialization">6.6.1. LPQ 활성화</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_lpq_usage">6.6.2. LPQ 사용 설정</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_lpq_listener_setting">6.6.3. LPQ 리스너 설정</a></span></dt><dt><span class="section"><a href="chapter_jeus-mq-special-func.html#sect_lpq_configuration">6.6.4. LPQ 설정</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 JEUS MQ의 특수 기능인 Message Bridge, Message Sort, Global Order,
+  Message Group, Message Management 기능에 대해 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_bridging"></a>6.1. JEUS MQ Message Bridge<a id="d4e2415" class="indexterm"></a></h2></div></div></div>
+    
+
+    <p>Message Bridge는 두 개의 서로 다른 MQ를 연결해주는 기능으로 연결할 수 있는 서로 다른 MQ는 다음의 경우를
+    포함한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>동일한 MQ 서비스의 다른 버전(서로 호환되지 않는 다른 버전의 JEUS MQ 간의 연결)</p>
+        </li><li>
+          <p>각각 다른 MQ 서비스(WebLogic 등 타 벤더의 MQ와 JEUS MQ와의 연결)</p>
+        </li></ul></div>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p/>
+
+    <p><span><strong class="guibutton">[주의사항]</strong></span></p>
+
+    <p>연결할 수 있는 MQ 서비스에는 제한이 없기 때문에 JEUS MQ 서비스의 동일한 버전 간에도 Message Bridge를
+    설정할 수 있지만 그러한 설정을 하는 것은 추천하지 않는다.</p>
+
+    <p>JEUS MQ 서비스의 버전이 동일할 경우에는 클라이언트를 직접 원격 Destination에 붙여서 사용하는 것이 더
+    안전하고, 효율적이다. 굳이 동일한 버전의 JEUS MQ 서비스 간의 Bridge를 설정해야 한다면 두 JEUS MQ간의 일반적인
+    메시지 서비스와 구분을 위해 Bridge가 설정된 서버의 실행 스크립트에 다음의 옵션을 추가해야 한다.</p>
+
+    <pre class="programlisting">-Djeus.jms.client.use-single-server-entry=false</pre>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_bridge_configure"></a>6.1.1. 서버 설정</h3></div></div></div>
+      
+
+      <p>하나의 Message Bridge를 사용하려면 2가지 설정이 필요하다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Message Bridge의 양끝에서 각 MQ 서비스의 연결에 대한 설정을 나타내는 Bridge
+          Connection을 2개 설정</p>
+        </li><li>
+          <p>두 Bridge Connection을 연결하는 실제 Bridge를 나타내는 Bridge Entry
+          설정</p>
+        </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 WebAdmin의 MQ로부터 WebLogic 10.3의 MQ로의 Bridge를 설정한 예제
+      화면이다.</p>
+
+      <p>Message Bridge는 JEUS의 MQ와는 별도로 동작하기 때문에 해당 설정은 WebAdmin 왼쪽 메뉴에
+      <span><strong class="guibutton">[Resources] &gt; [Message Bridge]</strong></span>를 선택한다.</p>
+
+      <p><span><strong class="guibutton">Message Connections</strong></span> 영역에 MQ와 WebLogic 10.3의
+      MQ에 대한 설정을 하고, <span><strong class="guibutton">Message Entries</strong></span>에 이 둘 사이의 연결을 설정한다.
+      Message Connection이나 Message Entry의 세부 항목을 설정하려면 설정하려는 항목의 이름을 클릭한다. 다음과
+      같이 세부 항목 설정 화면으로 이동하면 각 항목의 정보를 설정하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을
+      클릭하면 설정한 정보가 저장된다. 항목을 다시 설정하려면 <span><strong class="guibutton">[재설정]</strong></span> 버튼을
+      클릭한다.</p>
+
+      <div class="figure"><a id="bridge-configuration"></a><p class="title"><b>[그림 6.1] Message Bridge 설정</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_bridge-configuration.png" align="top" width="711" alt="Message Bridge 설정"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <p>각 세부 항목 설정 화면은 다음과 같다.</p>
+
+      <div class="itemizedlist"><ul type="disc" compact="compact"><li>
+          <p><span><strong class="guibutton">JEUS에 연결하기 위한 Bridge Connection
+          설정</strong></span></p>
+
+          <div class="figure"><a id="bridge-configuration"></a><p class="title"><b>[그림 6.2] JEUS에 연결하기 위한 Bridge Connection 설정</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_bridge-connection1.png" align="top" width="663" alt="JEUS에 연결하기 위한 Bridge Connection 설정"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">WebLogic 10.3에 연결하기 위한 Bridge Connection
+          설정</strong></span></p>
+
+          <div class="figure"><a id="bridge-configuration"></a><p class="title"><b>[그림 6.3] WebLogic 10.3에 연결하기 위한 Bridge Connection 설정</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_bridge-connection2.png" align="top" width="663" alt="WebLogic 10.3에 연결하기 위한 Bridge Connection 설정"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">두 개의 Bridge Connection을 연결하는 Bridge Entry
+          설정</strong></span></p>
+
+          <div class="figure"><a id="bridge-configuration"></a><p class="title"><b>[그림 6.4] 두 개의 Bridge Connection을 연결하는 Bridge Entry 설정</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_bridge-entry.png" align="top" width="663" alt="두 개의 Bridge Connection을 연결하는 Bridge Entry 설정"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_bridge-entry_1.png" align="top" width="663"/></td></tr></table></div>
+        </li></ul></div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_sorting"></a>6.2. JEUS MQ Message Sort</h2></div></div></div>
+    
+
+    <p/>
+
+    <p><a id="d4e2489" class="indexterm"></a>어떤 큐에 메시지 송신자만 있고 수신자가 없거나 또는 수신자가 있지만 수신하는 속도가 상대적으로 느릴 때
+    해당 큐에는 메시지가 쌓일 수 있다. 이런 경우에 쌓이는 메시지를 사용자가 지정한 키값의 순서대로 정렬해주는 것이
+    <span><strong class="guibutton">Message Sort 기능</strong></span>이다. 큐와 마찬가지로 Durable Subscriber의
+    경우에도 메시지가 쌓일 수 있는데 이 경우에도 Message Sort 기능을 이용할 수 있다. 지정한 키값에는 JMS의 기본적인
+    프로퍼티값 또는 사용자가 지정한 프로퍼티(User Property) 값들이 포함된다.</p>
+
+    <p>Message Sort 설정은 서버 설정 방법과 클라이언트 설정 방법이 다르다. Message Sort와 관련된 서버
+    설정은 WebAdmin을 사용하고, 클라이언트 설정은 정렬 대상 메시지에 프로퍼티 값으로 설정한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2494"></a>6.2.1. 서버 설정</h3></div></div></div>
+      
+
+      <p>서버의 Message Sort 설정은 WebAdmin의 <span><strong class="guibutton">[Server] &gt; [서버 선택]
+      &gt; [Engine] &gt; [Jms Engine] &gt; [Message Sort]</strong></span> 메뉴를
+      선택한다. Message Sort 기능을 사용하려면 서버에 다음과 같이 기준을 설정해야 한다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="cluster-config-destination"></a><p class="title"><b>[그림 6.5] Message Sort 설정</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_message-sort-configuration.png" align="top" width="711" alt="Message Sort 설정"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p>이후에 다음과 같이 Destinaition이나 Durable Subscriber에서 위의 기준으로 만들어진
+      Message Sort 기능을 사용하도록 설정할 수 있다. 자세한 내용은 <a href="chapter_server-configuration.html#sect_destination-configuration" title="3.2.1. Destination 설정">“3.2.1. Destination 설정”</a>과 <a href="chapter_server-configuration.html#sect_durable-subscriber-configuration" title="3.2.2. Durable Subscriber 설정">“3.2.2. Durable Subscriber 설정”</a>을 참고한다.</p>
+
+      <p>지정한 키값에 해당하지 않는 메시지들은 정렬의 대상이 되지 않는다. 이 경우에는 최대한 원래의 순서가 보장된다. 즉,
+      키값에 해당하는 메시지와 그렇지 않은 메시지들이 혼합되어서 큐에 쌓일 경우 키값에 해당하는 메시지들은 설정에 따라 정렬이 되고
+      그렇지 않은 메시지들은 메시지들 간의 원래의 순서가 보장된다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="cluster-config-destination"></a><p class="title"><b>[그림 6.6] Destination에 Message Sort 적용</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/figure_message-sort-destination-configuration.png" align="top" width="692" alt="Destination에 Message Sort 적용"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2514"></a>6.2.2. 클라이언트 설정</h3></div></div></div>
+      
+
+      <p>클라이언트에서는 대상이 될 메시지에 정렬의 기준이 될 키값을 프로퍼티로 설정한다.</p>
+
+      <p>서버의 Message Sort 설정에서 Message Sort 키를 "TEST_KEY"로 설정했다는 가정을 하고 다음의
+      예제와 같이 설정하면 메시지들이 정렬된다.</p>
+
+      <pre class="programlisting">Message msg = session.createTextMessage("Test");
+msg.setIntProperty("TEST_KEY", 1);     </pre>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_global_order"></a>6.3. JEUS MQ Global Order<a id="d4e2522" class="indexterm"></a></h2></div></div></div>
+    
+
+    <p>Global Order는 Destination에 쌓인 메시지가 반드시 하나씩 클라이언트로 전달되도록 제한하여 엄격한 처리
+    순서를 보장하는 기능이다. 일반적인 경우에는 메시지가 여러 클라이언트에서 병렬로 처리될 가능성이 있고, 이 경우에 각각의 처리 순서는
+    제한할 방법이 없다. 즉, 보통의 경우 병렬로 여러 메시지 수신자를 붙이면 메시지의 처리 순서가 메시지를 송신한 순서와는 상관없이
+    처리된다. 이런 동작이 스펙 측면에서는 전혀 문제가 없지만, 이를 보완하여 처리 순서를 보장해야 할 필요가 있을 때 사용되는
+    기능이다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_global_order_configure"></a>6.3.1. 클라이언트 설정</h3></div></div></div>
+      
+
+      <p>Global Order 기능은 서버에 별다른 설정 없이 클라이언트에서 전용 API를 호출하여 사용할 수
+      있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>Global Order는 메시지 수신자가 하나일 경우에는 기존과 동작의 차이가 거의 없다. 따라서 Global
+        Order 기능을 사용할 때에는 Destination에 여러 메시지 수신자가 연결되도록 설정해야 한다.</p>
+      </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>메시지 송신자에서 Producer를 생성한 후 JeusMessageProducer로 casting하여 전용 API를
+      호출한다</p>
+
+      <pre class="programlisting">JeusMessageProducer producer = (JeusMessageProducer) session.createProducer(queue);
+<span class="bold"><strong>// Global Order 지정 및 이름 할당</strong></span>
+<span class="bold"><strong>producer.startGlobalOrder("<span class="emphasis"><em>GLOBAL-ORDER-NAME"</em></span>);</strong></span>
+<span class="bold"><strong>// 이름을 지정하지 않는 경우</strong></span>
+<span class="bold"><strong>//producer.startGlobalOrder();</strong></span></pre>
+
+      <p><span class="emphasis"><em>GLOBAL-ORDER-NAME</em></span>은 각 Global Order를 구별해주는 이름으로
+      할당하지 않는 경우 임의의 이름이 할당된다. 이후 메시지 송신은 기존과 같다. Global Order를 구별해주는 이름은 여러
+      클라이언트에 걸쳐서 공유하여 사용할 수 있다. <span><strong class="guibutton">이 기능을 클러스터링과 함께 사용하면 클러스터 전체에 대해서
+      처리 순서를 최대한 보장한다.</strong></span></p>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_message_group"></a>6.4. JEUS MQ Message Group</h2></div></div></div>
+    
+
+    <p><a id="d4e2547" class="indexterm"></a>Message Group은 특정한 목적을 가진 그룹을 설정해서 Destination에 해당 그룹에 속한
+    메시지가 모두 모였을 때 그 그룹의 메시지를 한 메시지 수신자에게 모두 전달하는 기능이다. 예를 들어 총 10 개짜리 크기의 그룹을
+    설정하면 해당 그룹에 10개의 메시지가 모두 모이기 전까지 그 메시지들은 묶인 상태로 서비스되지 않고, 10번째의 메시지가 도착하는
+    순간 한 메시지 수신자에게 묶음 메시지가 전달된다.</p>
+
+    <p>트랜잭션의 개념과 유사하며, 비슷한 용도로 사용될 수 있다. Message Group은 클러스터링과 병행하여 사용할 수
+    있으며, 이러한 경우에도 한 메시지 수신자에게 묶음 메시지를 전달할 수 있도록 처리해 준다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_message_group_server_configure"></a>6.4.1. 서버 설정</h3></div></div></div>
+      
+
+      <p>Message Group 기능을 사용하기 위해 필요한 <span><strong class="guibutton">Destination 설정
+      화면</strong></span>에서 서버 설정을 추가로 한다. Destination 설정 화면에 대한 자세한 내용은 <a href="chapter_server-configuration.html#sect_destination-configuration" title="3.2.1. Destination 설정">“3.2.1. Destination 설정”</a>을 참고한다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="message-group-configuration"></a><p class="title"><b>[그림 6.7] Message Group 설정</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_message-group.png" align="top" width="711" alt="Message Group 설정"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p><span><strong class="guibutton">'Expiration Time'</strong></span>을 설정하지 않고 사용하면 완성되지 않은
+        Message Group은 영원히 서버에서 사라지지 않고 보관된다. 메모리의 낭비가 발생할 수 있으므로 세심한 주의가
+        필요하다.</p>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_message_group_client_configure"></a>6.4.2. 클라이언트 설정</h3></div></div></div>
+      
+
+      <p>클라이언트 설정은 메시지 송신자와 메시지 수신자 각각의 정보를 설정해야 한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>메시지 송신자 설정</p>
+
+          <p>메시지의 User Property를 설정하는 방법을 통해서 기능을 활성화한다.</p>
+
+          <pre class="programlisting">Message msg = session.createMessage();
+<span class="bold"><strong>// Message Group 이름을 설정한다. Group을 대표하는 이름이다.</strong></span>
+<span class="bold"><strong>msg.setStringProperty("JMS_JEUS_MSG_GROUP_NAME", "MESSAGE-GROUP-NAME");</strong></span>
+<span class="bold"><strong>
+// 해당 Group 내에서의 순서를 나타낸다. 나중에 클라이언트로 전달될 때의 순서이기도 하다.</strong></span>
+<span class="bold"><strong>msg.setIntProperty("JMS_JEUS_MSG_GROUP_NUMBERING", 1);</strong></span>
+producer.send(msg);
+
+msg = session.createMessage();
+<span class="bold"><strong>msg.setStringProperty("JMS_JEUS_MSG_GROUP_NAME", "MESSAGE-GROUP-NAME");</strong></span>
+<span class="bold"><strong>msg.setIntProperty("JMS_JEUS_MSG_GROUP_NUMBERING", 2);</strong></span>
+producer.send(msg);
+. . .
+msg = session.createMessage();
+<span class="bold"><strong>msg.setStringProperty("JMS_JEUS_MSG_GROUP_NAME", "MESSAGE-GROUP-NAME");</strong></span>
+<span class="bold"><strong>msg.setIntProperty("JMS_JEUS_MSG_GROUP_NUMBERING", 10);</strong></span>
+
+<span class="bold"><strong>// 해당 메시지가 해당 Group의 마지막 메시지임을 나타낸다.</strong></span>
+<span class="bold"><strong>msg.setBooleanProperty("JMS_JEUS_MSG_GROUP_END", true);</strong></span>
+producer.send(msg);</pre>
+        </li><li>
+          <p>메시지 수신자 설정</p>
+
+          <p>완성된 Message Group을 받으면 모든 메시지가 하나로 묶여 목록으로 이루어진 ObjectMessage로
+          받게 된다.</p>
+
+          <pre class="programlisting"><span class="bold"><strong>// message group으로 받는 메시지들은 하나의 ObjectMessage이고, 이 ObjectMessage는 Message들의 List이다.</strong></span>
+<span class="bold"><strong>ObjectMessage result = (ObjectMessage) receiver.receive(TIME_OUT);</strong></span>
+<span class="bold"><strong>List list = (List) result.getObject();</strong></span>
+
+int cnt = 1;
+<span class="bold"><strong>// 다음과 같이 목록에서 하나씩 꺼내와 사용할 수 있다.</strong></span>
+<span class="bold"><strong>for(Object obj : list) {</strong></span>
+    <span class="bold"><strong>// 메시지 송신자에서 설정한 순서대로 메시지를 처리한다.</strong></span>
+    <span class="bold"><strong>TextMessage msg = (TextMessage) obj;</strong></span>
+    . . .   
+}</pre>
+        </li></ul></div>
+
+      
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_message_management"></a>6.5. JEUS MQ Message Management 기능</h2></div></div></div>
+    
+
+    <p><a id="d4e2596" class="indexterm"></a> Message Management 기능은 JEUS MQ를 이용해서 메시징 서비스를 사용하는 도중
+    Destination 내에 들어온 메시지들을 확인, 이동, 삭제 등 메시지 관리를 위해 제공되는 기능이다.</p>
+
+    <p>Message Management 기능은 다음과 같이 3가지로 구분된다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>메시지 모니터링</p>
+
+          <p>Destination 내의 메시지를 모니터링한다.</p>
+        </li><li>
+          <p>메시지 제어</p>
+
+          <p>메시지의 이동, 삭제, 내보내기, 가져오기를 통해 메시지를 제어한다.</p>
+        </li><li>
+          <p>Destination 제어</p>
+
+          <p>원활한 메시지 모니터링과 제어 작업을 위해 Destination을 제어한다.</p>
+        </li></ul></div>
+
+    <p>이때 메시지 모니터링과 메시지 제어 기능은 현재 서비스 중인 Queue나 Durable subscriber에 남아 있는
+    메시지를 그 대상으로 하고, Destination 제어 기능은 Queue와 Topic 모두를 그 대상으로 한다.</p>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_message_monitoring"></a>6.5.1. 메시지 모니터링</h3></div></div></div>
+      
+
+      <p>Queue 또는 Durable subscriber 내에 들어온 메시지를 모니터링하고 각 메시지 정보를
+      조회한다.</p>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2619"></a>메시지 목록 조회</h4>
+
+      <p>Queue 또는 Durable subscriber 내에 남아있는 모든 메시지들의 목록을 조회하는 기능이다. 각
+      메시지들의 ID, 타입, 생성 시각 등의 간단한 정보를 조회하고, 조회된 목록에서 메시지를 선택해서 상세 정보 조회, 삭제,
+      이동, 내보내기 등의 다른 기능을 수행할 수 있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>JMS는 메시지가 매우 빠른 속도로 생산되고 소비되기 때문에 Destination의 소비 일시중지 기능을
+          사용하지 않고 메시지 목록을 조회할 경우 현재 목록에는 조회된 메시지가 이미 소비되어 존재하지 않을 수 있다.</p>
+        </div><div class="literallayout"><p/></div>
+
+      <p>메시지 목록 조회 과정은 다음과 같다.</p>
+
+      <div class="orderedlist"><ol type="1" compact="compact"><li>
+            <p>조회할 메시지의 위치에 따라 WebAdmin에서의 메뉴가 다음과 같이 달라진다.</p>
+
+            <div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                <p>Queue 내의 메시지</p>
+
+                <p><span><strong class="guibutton">[Monitoring] &gt; [JMS]</strong></span> 메뉴를 선택하고
+                <span><strong class="guibutton">[Destinations]</strong></span> 탭의
+                <span><strong class="guibutton">[Server]</strong></span>를 선택한다. 메시지를 조회할 서버를 선택하면 해당 서버
+                내의 Destination 목록이 조회된다.</p>
+
+                <div class="figure"><a id="figure_browse-destination-message"></a><p class="title"><b>[그림 6.8] Destination에서의 메시지 목록 조회</b></p><div class="figure-contents">
+                  
+
+                  <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/figure_destination-monitoring.png" align="top" width="692" alt="Destination에서의 메시지 목록 조회"/></td></tr></table></div>
+                </div></div><br class="figure-break"/>
+              </li><li style="list-style-type: circle">
+                <p>Durable subscriber 내의 메시지</p>
+
+                <p><span><strong class="guibutton">[Monitoring] &gt; [JMS]</strong></span> 메뉴를 선택하고
+                <span><strong class="guibutton">[Durable Subscriptions]</strong></span> 탭의
+                <span><strong class="guibutton">[Server]</strong></span>를 선택한다. 메시지를 조회할 서버를 선택하면 해당 서버
+                내의 Durable Subscription 목록이 조회된다.</p>
+
+                <div class="figure"><a id="figure_browse-durable-subcription-message"></a><p class="title"><b>[그림 6.9] Durable subscription에서의 메시지 목록 조회</b></p><div class="figure-contents">
+                  
+
+                  <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/figure_durable-subscriber-monitoring.png" align="top" width="692" alt="Durable subscription에서의 메시지 목록 조회"/></td></tr></table></div>
+                </div></div><br class="figure-break"/>
+              </li></ul></div>
+          </li><li>
+            <p>조회할 Queue 또는 Durable subscription의
+            <span><strong class="guibutton">[browse]</strong></span> 버튼을 클릭하면 선택한 Queue 또는 Durable
+            subscriber 내의 메시지 목록을 조회하기 위한 <span><strong class="guibutton">Message List
+            화면</strong></span>이 나타난다.</p>
+
+            <p>메시지 목록 조회 기능을 이용할 때에는 메시지 ID나 타입, 생성 시각으로 필터링할 수도 있고, JMS
+            스펙에서 지정하는 Message Selector에 맞춰 특정 메시지만 선택해서 조회할 수도 있다. Queue 또는
+            Durable subscription 내의 모든 메시지를 조회하려면 각 항목을 설정하지 않은 상태로
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+            <div class="figure"><a id="figure_browse-message-popup"></a><p class="title"><b>[그림 6.10] 조회할 메시지 목록 설정</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="521"><tr><td align="left"><img src="resources/figure_browse-message-popup.png" align="top" width="521" alt="조회할 메시지 목록 설정"/></td></tr></table></div>
+            </div></div><br class="figure-break"/>
+          </li><li>
+            <p>다음은 Destination 내의 메시지 조회 목록이다. 이때 각 메시지 앞의 체크박스를 체크해서 원하는
+            메시지들을 삭제, 이동, 내보내기 등의 기능을 사용할 수 있으며, <span><strong class="guibutton">'Message
+            ID'</strong></span> 컬럼의 메시지 ID를 클릭해서 메시지의 상세 내용을 확인할 수 있다.</p>
+
+            <div class="figure"><a id="figure_list-messages"></a><p class="title"><b>[그림 6.11] 조회된 메시지 목록</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/figure_list-messages.png" align="top" width="692" alt="조회된 메시지 목록"/></td></tr></table></div>
+            </div></div><br class="figure-break"/>
+          </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2676"></a>메시지 상세 정보 조회</h4>
+
+      <p>메시지 상세 정보 조회는 Queue 또는 Durable subscriber로 들어온 메시지의 상세 정보를 조회하는
+      기능이다. JMS 스펙에서 지정하는 헤더들의 모든 내용을 확인할 수 있으며 메시지의 정보와 설정된 속성들을 확인할
+      수있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JMS는 메시지가 매우 빠른 속도로 생산되고 소비되기 때문에 Destination의 소비 일시중지 기능을 사용하지
+        않고, 메시지 상세 정보 조회 기능을 사용할 경우 현재 목록에는 조회된 메시지가 이미 소비되어 존재하지 않을 수 있다. 특히
+        메시지 정보를 수정할 때 일시중지 상태가 아니라면 메시지 정보 수정에 대해 보장할 수 없다.</p>
+      </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>메시지 상세 정보 조회 방법은 다음과 같다.</p>
+
+      <div class="orderedlist"><ol type="1" compact="compact"><li>
+            <p><span><strong class="guibutton">메시지 목록 조회 화면</strong></span>에서 특정 <span><strong class="guibutton">'Message
+            ID'</strong></span>를 클릭하면 메시지의 상세 정보를 확인할 수 있다.</p>
+
+            <div class="figure"><a id="figure_view-message"></a><p class="title"><b>[그림 6.12] 조회된 메시지 목록에서 특정 메시지의 상세 정보 조회</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_list-messages.png" align="top" width="663" alt="조회된 메시지 목록에서 특정 메시지의 상세 정보 조회"/></td></tr></table></div>
+            </div></div><br class="figure-break"/>
+          </li><li>
+            <p>다음은 조회된 메시지의 상세 정보 화면이다.</p>
+
+            <p>일부 헤더들과 메시지의 타입이 'Text'일 때의 메시지의 내용, 메시지 프로퍼티들은 수정할 수 있다.
+            수정할 항목을 변경하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 메시지 정보가 수정된다.
+            <span><strong class="guibutton">[재설정]</strong></span> 버튼을 클릭하면 수정되었던 내용이 원래 상태로
+            복구된다.</p>
+
+            <div class="figure"><a id="figure_view-and-edit-message"></a><p class="title"><b>[그림 6.13] 메시지 상세 정보 조회</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_view-and-edit-message.png" align="top" width="663" alt="메시지 상세 정보 조회"/></td></tr></table></div>
+            </div></div><br class="figure-break"/>
+          </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_message_control"></a>6.5.2. 메시지 제어</h3></div></div></div>
+      
+
+      <p>서버에 들어온 메시지들에 대해 다음과 같은 제어 기능을 제공한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>메시지 이동</p>
+
+            <p>메시지를 서버나 클러스터 내의 다른 Destination으로 이동시킨다.</p>
+          </li><li>
+            <p>메시지 삭제</p>
+
+            <p>메시지를 Queue 또는 Durable subscriber에서 삭제한다.</p>
+          </li><li>
+            <p>메시지 내보내기</p>
+
+            <p>서버 또는 클러스터 내의 특정 메시지들을 서로 다른 서버나 클러스터로 옮길 수 있는 형태로
+            내보낸다.</p>
+          </li><li>
+            <p>메시지 가져오기</p>
+
+            <p>메시지 내보내기로 보내진 메시지를 서버 또는 클러스터의 특정 Destination으로 가져온다.</p>
+          </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2726"></a>메시지 이동</h4>
+
+      <p>서버 또는 클러스터 내의 다른 Destination으로 메시지를 이동시킬 수 있다. 잘못된 Destination으로
+      메시지를 보내는 등의 실수 상황에 대처할 수 있는 유용한 기능이다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>1. JMS는 메시지가 매우 빠른 속도로 생산되고 소비되기 때문에 원본 메시지가 존재하는 Destination의
+        소비 일시중지 기능을 사용하지 않을 경우 이동시킬 메시지가 이미 해당 Destination에 존재하지 않을 수
+        있다.</p>
+
+        <p>2. 메시지 이동은 메시지를 그대로 다른 Destination에 옮기는 기능이다. 만약 대상 Destination에
+        이동시킬 메시지와 같은 ID를 가진 메시지가 이미 존재한다면 이동할 메시지가 이전 메시지를 덮어쓴다. 대상
+        Destination에서 같은 ID를 가진 메시지가 존재해서 덮어쓰려 할 때 해당 메시지가 이미 클라이언트로 전달되었다면
+        서버와 클라이언트 간에 메시지가 서로 맞지 않는 상황이 발생할 수 있다. 그러므로 메시지를 이동시킬 때에는 두
+        Destination이 모두 소비 일시중지 상태인 경우에 사용할 것을 권장한다.</p>
+      </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>메시지 이동 과정은 다음과 같다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p><span><strong class="guibutton">메시지 목록 조회 화면</strong></span>에서 이동할 메시지를 체크하고
+            <span><strong class="guibutton">[move]</strong></span> 버튼을 클릭한다.</p>
+
+            <div class="figure"><a id="figure_move-messages"></a><p class="title"><b>[그림 6.14] 메시지 이동</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_list-messages.png" align="top" width="663" alt="메시지 이동"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p><span><strong class="guibutton">Move Message 화면</strong></span>의
+            <span><strong class="guibutton">'Target'</strong></span> 항목에 대상이 되는 Destination을 선택할 수 있다.
+            또한 <span><strong class="guibutton">'All'</strong></span>을 체크하면 현재 선택된 Queue 또는 Durable
+            subscriber의 모든 메시지를 대상 Destination으로 이동시킨다. 각 항목을 설정하고
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 선택한 메시지가 설정에 따라 이동된다.</p>
+
+            <div class="figure"><a id="figure_move-messages-popup"></a><p class="title"><b>[그림 6.15] 메시지 이동 설정</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="474"><tr><td align="left"><img src="resources/figure_move-messages-popup.png" align="top" width="474" alt="메시지 이동 설정"/></td></tr></table></div>
+            </div></div><br class="figure-break"/>
+          </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2763"></a>메시지 삭제</h4>
+
+      <p>메시지 삭제는 서버 내의 메시지가 더 이상 필요하지 않게 된 경우에 사용하는 기능이다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>JMS는 메시지가 매우 빠른 속도로 생산되고 소비되기 때문에 Destination의 소비 일시중지 기능을
+          사용하지 않으면 메시지 목록 조회 화면에서 확인이 된 메시지여도 실제로는 이미 소비되어 삭제할 수 없는 경우가 발생할 수
+          있다. 따라서 정확한 메시지 삭제를 위해서는 해당 Destination이 소비 일시중지 상태에서 사용할 것을
+          권장한다.</p>
+        </div><div class="literallayout"><p/></div>
+
+      <p>메시지 삭제 과정은 다음과 같다.</p>
+
+      <div class="orderedlist"><ol type="1" compact="compact"><li>
+            <p><span><strong class="guibutton">메시지 목록 조회 화면</strong></span>에서 삭제할 메시지를 체크하고
+            <span><strong class="guibutton">[remove]</strong></span> 버튼을 클릭한다.</p>
+
+            <div class="figure"><a id="figure_remove-messages"></a><p class="title"><b>[그림 6.16] 메시지 삭제</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_list-messages.png" align="top" width="663" alt="메시지 삭제"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p><span><strong class="guibutton">Remove Message 화면</strong></span>에서
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 선택된 메시지를 서버에서 삭제한다. 현재
+            Destination 내의 모든 메시지를 삭제하려면 <span><strong class="guibutton">'All'</strong></span>을 체크하고
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+            <div class="figure"><a id="figure_remove-messages-popup"></a><p class="title"><b>[그림 6.17] 메시지 삭제 설정</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="474"><tr><td align="left"><img src="resources/figure_remove-messages-popup.png" align="top" width="474" alt="메시지 삭제 설정"/></td></tr></table></div>
+            </div></div><br class="figure-break"/>
+          </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2798"></a>메시지 내보내기</h4>
+
+      <p>Queue 또는 Durable subscriber 내의 메시지를 다른 서버나 클러스터로 옮길 수 있는 형태로 내보내는
+      기능이다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JMS는 메시지가 매우 빠른 속도로 생산되고 소비되기 때문에 목록에는 조회되어도 메시지가 이미 소비되었을 수도
+        있다. 그러므로 원하는 메시지들을 제대로 내보내기 위해서는 Destination이 소비 일시중지 상태일 때 사용해야
+        한다.</p>
+      </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>메시지 내보내기 과정은 다음과 같다.</p>
+
+      <div class="orderedlist"><ol type="1" compact="compact"><li>
+            <p><span><strong class="guibutton">메시지 목록 조회 화면</strong></span>에서 내보내려는 메시지를 체크하고
+            <span><strong class="guibutton">[export]</strong></span> 버튼을 클릭한다.</p>
+
+            <div class="figure"><a id="figure_export-messages"></a><p class="title"><b>[그림 6.18] 메시지 내보내기</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_list-messages.png" align="top" width="663" alt="메시지 내보내기"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p><span><strong class="guibutton">Message Export 화면</strong></span>에서
+            <span><strong class="guibutton">'All'</strong></span>을 체크하면 해당 Destination이나 Durable
+            subscriber 내의 모든 메시지를 내보낼 수 있다. <span><strong class="guibutton">[확인]</strong></span> 버튼을
+            클릭하면 메시지 내보내기가 수행되며 브라우저를 통해 "message.xml"이라는 파일을 다운로드 받는다.</p>
+
+            <div class="figure"><a id="figure_export-messages-popup"></a><p class="title"><b>[그림 6.19] 메시지 내보내기 설정</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="474"><tr><td align="left"><img src="resources/figure_export-messages-popup.png" align="top" width="474" alt="메시지 내보내기 설정"/></td></tr></table></div>
+            </div></div><br class="figure-break"/>
+          </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2832"></a>메시지 가져오기</h4>
+
+      <p>메시지 내보내기 기능을 수행하면 생성되는 XML 파일을 이용해서 서버 내의 특정 Destination으로 메시지를
+      가져올 수 있다. 메시지 이동과는 달리 전혀 새로운 메시지로 취급되며, 메시지가 Destination으로 들어오는 순간 새로운
+      Message ID가 발급된다.</p><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>메시지 가져오기에서 <span><strong class="guibutton">'Overwrite'</strong></span> 항목을 체크해서 기존 메시지를
+          대치할 때 메시지가 이미 클라이언트로 전달되었을 가능성이 있다. 이 경우에는 가져오기는 성공하지만 덮어쓰기는 제대로
+          수행되지 않는다. 따라서 이 기능을 사용할 때에는 해당 Destination이 소비 일시중지 상태일 때 사용할 것을
+          권장한다.</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>메시지 가져오기 과정은 다음과 같다.</p>
+
+      <div class="orderedlist"><ol type="1" compact="compact"><li>
+            <p>WebAdmin의 <span><strong class="guibutton">[Monitoring] &gt; [JMS]</strong></span> 메뉴를
+            선택하고 <span><strong class="guibutton">[Destinations]</strong></span> 탭의
+            <span><strong class="guibutton">[Server]</strong></span>를 선택한다. 대상이 되는 Destination의
+            <span><strong class="guibutton">[import]</strong></span> 버튼을 클릭한다.</p>
+
+            <div class="figure"><a id="figure_import-messages"></a><p class="title"><b>[그림 6.20] 메시지 가져오기</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_destination-monitoring.png" align="top" width="711" alt="메시지 가져오기"/></td></tr></table></div>
+            </div></div><br class="figure-break"/>
+          </li><li>
+            <p><span><strong class="guibutton">Message Import 화면</strong></span>에서 세부 항목을 설정한 후
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 메시지를 가져온다. 이때
+            <span><strong class="guibutton">'Overwrite'</strong></span>를 체크하면 이전에 있던 메시지의 ID를 그대로 사용하고,
+            만약 대상이 되는 Destination 내에 같은 ID를 가진 메시지가 이미 존재한다면 그 메시지를
+            덮어쓴다.</p>
+
+            <div class="figure"><a id="figure_import-messages-popup"></a><p class="title"><b>[그림 6.21] 메시지 가져오기 설정</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="521"><tr><td align="left"><img src="resources/figure_import-messages-popup.png" align="top" width="521" alt="메시지 가져오기 설정"/></td></tr></table></div>
+            </div></div><br class="figure-break"/>
+          </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_destination_control"></a>6.5.3. Destination 제어</h3></div></div></div>
+      
+
+      <p>서버 내의 Destination별로 생산 및 소비 서비스를 일시중지하거나 재개할 수 있다.</p>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2873"></a>Destination의 생산 일시중지 및 재개</h4>
+
+      <p>해당 Destination으로 메시지를 생산하는 것을 일시중지하거나 재개하는 기능이다. Destination이 생산
+      일시중지 상태가 되면 해당 Destination으로 메시지를 생산하는 것이 불가능해진다.</p>
+
+      <p>WebAdmin의 <span><strong class="guibutton">[Monitoring] &gt; [JMS]</strong></span> 메뉴를 선택하고
+      <span><strong class="guibutton">[Destinations]</strong></span> 탭의
+      <span><strong class="guibutton">[Server]</strong></span>를 선택한다. 해당 서버의 Destination 목록이
+      조회된다.</p>
+
+      <div class="figure"><a id="figure_control-produce"></a><p class="title"><b>[그림 6.22] 메시지 생산 제어</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_destination-monitoring.png" align="top" width="711" alt="메시지 생산 제어"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <p>각 Destination별로 <span><strong class="guibutton">'Produce suspended'</strong></span> 값을 통해
+      메시지 생산에 대한 Destination의 현재 상태를 확인할 수 있고 각 버튼을 클릭해서 Destination의 상태를 변경할
+      수 있다.</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="130" align="left"/><col/></colgroup><thead><tr><th align="left">설정값</th><th>설명</th></tr></thead><tbody><tr><td align="left">true</td><td>해당 Destination의 생산이 일시중지된 상태이다.</td></tr><tr><td align="left">false</td><td>해당 Destination이 정상적으로 서비스되고 있는 상태이다.</td></tr></tbody></table>
+      </div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>메시지 생산이 일시중지된 상태(<span><strong class="guibutton">'Produce suspended'</strong></span> 값이
+          true인 상태)의 Destination으로 메시지를 보낼 경우 일정 시간 기다리다가 ExceptionListener를
+          통해 jeus.jms.common.destination.InvalidDestinationStateException을
+          통보한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e2909"></a>Destination의 소비 일시중지 및 재개</h4>
+
+      <p>해당 Destination에서 메시지 소비를 일시중지하거나 재개하는 기능이다. Destination의 소비가 일시중지
+      상태가 되면 해당 Destination에서 메시지를 소비하는 것이 불가능해진다.</p>
+
+      <p>WebAdmin의 <span><strong class="guibutton">[Monitoring] &gt; [JMS]</strong></span> 메뉴를 선택하고
+      <span><strong class="guibutton">[Destinations]</strong></span> 탭의
+      <span><strong class="guibutton">[Server]</strong></span>를 선택한다. 해당 서버의 Destination 목록이
+      조회된다.</p>
+
+      <div class="figure"><a id="figure_control-consume"></a><p class="title"><b>[그림 6.23] 메시지 소비 제어</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_destination-monitoring.png" align="top" width="711" alt="메시지 소비 제어"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <p>각 Destination별로 <span><strong class="guibutton">'Consume suspended'</strong></span> 값을 통해
+      메시지 소비에 대한 Destination의 현재 상태를 확인할 수 있고 각 버튼을 클릭해서 Destination의 상태를 변경할
+      수 있다.</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">설정값</th><th>설명</th></tr></thead><tbody><tr><td align="left">true</td><td>해당 Destination의 소비가 일시중지된 상태이다.</td></tr><tr><td align="left">false</td><td>해당 Destination이 정상적으로 서비스되고 있는 상태이다.</td></tr></tbody></table>
+      </div>
+
+      <p/>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>메시지 소비가 일시중지된 상태(<span><strong class="guibutton">'Consumer suspended'</strong></span>
+          값이 true인 상태)의 Destination에서 메시지를 소비하려할 경우 해당 Destination에 메시지가 존재하지
+          않을 때와 동일하게 동작한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="reliable_message_produce"></a>6.6. 신뢰도 높은 메시지 송신</h2></div></div></div>
+    
+
+    <p><a id="d4e2948" class="indexterm"></a>JEUS MQ를 이용해 메시지를 전달할 때 Persistent Store를 사용하면, 서버의 장애가 발생
+    했을때에도 높은 신뢰도의 메시지 전달을 보장할 수 있다. 하지만 이것은 JEUS MQ 서버와 메시지 수신자간의 메시지 전달만을
+    보장하고 있으며, 메시지 송신자가 서버로 전달할 때, 서버 혹은 클라이언트의 장애가 발생했을 때의 메시지 전달은 보장하지 못하고
+    있다.</p>
+
+    <p>이를 보완하기 위해서 JEUS MQ에서는 Persistence Store와 유사한 기능을 하는 JEUS의 Local
+    Persistent Queue를 이용하여 메시지 송신자와 JEUS MQ 서버 간의 신뢰도를 높이는 기능을 제공하고 있다. Local
+    Persistent Queue(이하 LPQ)는 데이터를 로컬의 저장소에 저장한 후, 저장된 데이터는 반드시 주어진 작업대로 처리되는
+    것을 보장해주는 서비스이다. JEUS MQ에서는 LPQ를 이용하여 전송하고자 하는 메시지를 전송하기 전에 저장해놓고, 메시지가 서버에
+    전송될 때까지 전송을 시도하여 메시지 송신자에서 서버로의 전송에 대한 신뢰도를 높이고 있다.</p>
+
+    <p>LPQ를 이용한 신뢰도 높은 메시지 송신은 다음과 같은 특징이 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>서버 상태에 상관없이 메시지 전송에 성공할 때까지 메시지 재전송</p>
+      </li><li>
+        <p>클라이언트의 상태 이상으로 전송 실패한 메시지 복구</p>
+      </li><li>
+        <p>비동기 메시지 전송</p>
+      </li></ul></div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>JMS 클라이언트가 메시지를 보낼때, 해당 클라이언트가 Java EE 애플리케이션이고, 메시지를 받는 JMS 서버가
+      같은 해당 클라이언트가 deploy된 서버라면, 성능 향상을 위해 네트워크를 통하지 않고 메시지를 전달하기 때문에 LPQ에 관한
+      설정은 무시된다.</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_lpq_initialization"></a>6.6.1. LPQ 활성화</h3></div></div></div>
+      
+
+      <p>LPQ를 활용하여 신뢰도 높은 메시지 송신 기능을 사용하려면 먼저 LPQ를 활성화시켜야 한다. LPQ를 활성화시키는
+      과정은 메시지들을 저장할 저장소 생성, 메시지 처리를 위한 큐와 그리고 이들을 관리하기 위한 관리 객체 생성으로 이뤄져
+      있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>LPQ를 사용하려는 stand alone 클라이언트는 실행할 때 LPQ에 관한 라이브러리와 저장소에 관한
+        라이브러리가 추가로 필요하다. 이들은 각각 jeus-lpq-spi.jar, jeus-lpq.jar,
+        jms-extentsion.jar와 jeus-store.jar이며, JEUS_HOME/lib/system 폴더에
+        존재한다.</p>
+      </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p/>
+
+      <p>LPQ를 활성화시키는 방법은 크게 3가지로 나뉜다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>JVM 옵션을 통한 활성화</p>
+
+          <p>JEUS MQ 클라이언트를 실행시킬 때에 다음과 같은 JVM옵션을 적용하여 LPQ를 활성화시킬 수 있다. 이
+          옵션을 사용하면 클라이언트 내에서 JMS가 Connection을 생성할 때 LPQ가 활성화된다.</p>
+
+          <pre class="programlisting">-Djeus.jms.client.send-by-lpq-only=true</pre>
+        </li><li>
+          <p>LPQ 설정 파일을 통한 활성화</p>
+
+          <p>JEUS MQ 클라이언트를 실행시킬 때 LPQ를 위한 설정 파일이 지정된 위치에 있다면, 해당 파일을 읽어 그
+          설정대로 LPQ를 활성화한다. LPQ 설정 파일의 위치와 설정 방법에 관한 더 자세한 설명은 <a href="chapter_jeus-mq-special-func.html#sect_lpq_configuration" title="6.6.4. LPQ 설정">“6.6.4. LPQ 설정”</a>을 참고한다.</p>
+        </li><li>
+          <p>JEUS 전용 API를 통한 활성화</p>
+
+          <p>클라이언트 소스에서 JEUS 전용 세션 객체인 JeusSession으로부터 다음 API를 사용하여 LPQ를
+          활성화시킬 수 있다.</p>
+
+          <pre class="programlisting">public void startLPQ();</pre>
+        </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>1. JVM 옵션을 통한 경우나 JEUS 전용 API를 통한 경우에도 설정 파일이나 시스템 프로퍼티를 통해 LPQ의
+        동작을 설정할 수 있다. 설정되지 않은 항목에 대해서는 기본값이 적용된다. LPQ 설정에 관한 더 자세한 설명은 <a href="chapter_jeus-mq-special-func.html#sect_lpq_configuration" title="6.6.4. LPQ 설정">“6.6.4. LPQ 설정”</a>을 참고한다.</p>
+
+        <p>2. JEUS 전용 API를 통한 경우가 아니라면 LPQ가 활성화되는 시점이 명시되지 않는데, 이때는 해당
+        JVM에서 최초의 Connection이 생성될 때 LPQ가 활성화된다. 또한, LPQ가 동작을 멈추는 시점은 마지막
+        Connection이 close될 때이다. 단, 이때 LPQ 내부에 들어온 메시지가 있다면 이들이 처리될 때까지 기다리게
+        된다.</p>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_lpq_usage"></a>6.6.2. LPQ 사용 설정</h3></div></div></div>
+      
+
+      <p>LPQ가 활성화 되었다면 메시지를 보낼 때 이를 LPQ를 통해 전송되도록 하여 메시지 송신의 신뢰도를 높일 수 있다.
+      이 때, 메시지가 LPQ를 통해 전송되도록 설정하는 단위는 다음과 같이 네가지로 나눌 수 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>JVM 단위 설정</p>
+
+          <p>위 LPQ 활성화 방법 중 JVM 옵션을 통해 활성화한 경우, 해당 JVM에서 보내는 모든 메시지는 LPQ를
+          통해 전송된다.</p>
+        </li><li>
+          <p>ConnectionFactory 단위 설정</p>
+
+          <p>JVM 옵션에 아래와 같이 LPQ를 사용할 Connection Factory 이름들을 추가하면, 해당
+          Connection Factory를 이용해 만들어진 Connection에서 전송되는 모든 메시지는 LPQ를 통해 보내게
+          된다. 각 Connection Factory의 이름은 콤마(,)로 구분한다.</p>
+
+          <pre class="programlisting">jeus.jms.client.connection-factory-for-lpq=<span class="emphasis"><em>&lt;ConnectionFactoryName1,ConnectionFactoryName2,..&gt;</em></span></pre>
+
+          <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+            <p>JMS 스펙 상 Connection Factory 이름에 대한 제한점은 없지만, 구분자인 콤마(,)가 들어가
+            있다면 위 옵션을 정상적으로 적용할 수 없어 이를 통해서는 LPQ 기능을 사용할 수 없다.</p>
+          </div>
+        </li><li>
+          <p>Session 단위 설정</p>
+
+          <p>Session별로 LPQ를 통해 보낼지를 지정하는 방법으로 JEUS 전용 메시지 송신자 객체의 다음 API를
+          사용하면, 해당 Session으로 보내는 모든 메시지를 LPQ를 통해 보낼지를 설정할 수 있다.</p>
+
+          <pre class="programlisting">public void setLPQOnly(boolean lpqOnly); </pre>
+        </li><li>
+          <p>메시지 단위 설정</p>
+
+          <p>메시지별로 LPQ를 통해 보낼지를 지정하는 방법으로 JEUS 전용 메시지 송신자 객체의 다음 API들을
+          사용하거나 메시지의 User Property를 설정하는 방법이 있다.</p>
+
+          <pre class="programlisting">// JEUS 전용 API
+public void sendWithLPQ(Message message);
+public void sendWithLPQ(Message message, int deliveryMode, int priority, timeToLive);
+public void sendWithLPQ(Destination destination, Message message);
+public void sendWithLPQ(Destination destination, Message message, int deliveryMode, int priority, timeToLive);
+
+// JMS 메시지의 User Property
+Message msg = session.createMessage();
+<span class="bold"><strong>msg.setBooleanProperty("JMS_JEUS_USE_LPQ", <span class="emphasis"><em>true</em></span>);</strong></span></pre>
+
+          <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+            <p>JEUS 전용 API를 사용하여 LPQ를 활성화하는 경우는 해당 세션에서만 LPQ를 사용할 수 있기 때문에
+            그 이외의 세션을 통해 보내는 메시지에는 LPQ 설정을 하더라도 무시된다.</p>
+          </div>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_lpq_listener_setting"></a>6.6.3. LPQ 리스너 설정</h3></div></div></div>
+      
+
+      <p>메시지 전송에 LPQ를 사용하면 메시지가 비동기적으로 처리되어 실제 메시지가 전송되는 것을 클라이언트에서 알 수 없다.
+      때문에 메시지 전송의 결과와 정확한 시점을 알 수 있도록 LPQ에서는 리스너를 제공하고 있다.</p>
+
+      <p>리스너를 통해 메시지 전송의 결과를 받기 위해 interface로 제공되는 리스너인
+      jeus.jms.LPQMessageListener는 다음과 같다.</p>
+
+      <pre class="programlisting">package jeus.jms;
+
+public interface LPQForwardListener {
+    /**
+     * 메시지의 전송이 완료되었을 때 이벤트
+     * @param message 전송된 메시지
+     */
+    public void onComplete(Message message);
+
+    /**
+     * 메시지의 전송 도중 Exception이 발생했을 때 이벤트
+     * @param message 전송하려던 메시지
+     * @param e 발생한 Exception
+     */
+    public void onException(Message message, Exception e);
+
+    /**
+     * 메시지의 전송이 실패하였을 때 이벤트
+     *
+     * @param message 전송이 실패한 메시지
+     * @param cause 전송이 실패한 원인
+     */
+    public void onFailure(Message message, Throwable cause);
+}</pre>
+
+      <p>구현된 LPQMessageListener를 JMS 세션의 JEUS 전용 객체인 JeusSession에 다음 API를
+      사용하여 등록하면 메시지 전송의 결과를 제공받을 수 있다.</p>
+
+      <pre class="programlisting">public void setLPQMessageListener(jeus.jms.LPQMessageListener lpqMessageListener);</pre>
+
+      <p>또한 JEUS 전용 객체를 사용하여 LPQ를 활성화하는 경우 JeusSession의 다음 API를 사용하여 LPQ
+      활성화와 리스너 등록을 동시에 할 수도 있다.</p>
+
+      <pre class="programlisting">public void startLPQ(jeus.jms.LPQMessageListener lpqMessageListener);</pre>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_lpq_configuration"></a>6.6.4. LPQ 설정</h3></div></div></div>
+      
+
+      <p>LPQ는 실패한 전송에 대한 처리, 연결이 끊어졌을 때의 동작, 저장소의 위치 또는 크기에 대한 설정들이
+      필요하다.</p>
+
+      <p/>
+
+      <h4><a id="d4e3028"></a>LPQ 설정 항목</h4>
+
+      <p>다음은 LPQ 설정 항목에 대한 설명이다.</p>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc" compact="compact"><li>
+            <p>공통 항목</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col width="70"/><col/></colgroup><thead><tr><th align="left">항목</th><th>타입</th><th>설명</th></tr></thead><tbody><tr><td align="left">jeus.lpq.name</td><td>String</td><td>사용하는 LPQ의 이름을 설정한다. (기본값: JEUS_LPQ)</td></tr><tr><td align="left">jeus.lpq.max-message-count</td><td>int</td><td>LPQ가 한 번에 처리할 수 있는 최대 메시지 수를 설정한다. (기본값:
+                    819200)</td></tr><tr><td align="left">jeus.lpq.time-to-live</td><td>long</td><td>LPQ 내의 메시지들이 최대 얼마동안 존재할 수 있는지를 설정한다. (기본값:
+                    43200000ms (12시간))</td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p>전달 관련 항목</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col width="70"/><col/></colgroup><thead><tr><th align="left">항목</th><th>타입</th><th>설명</th></tr></thead><tbody><tr><td align="left">jeus.lpq.retry-limit</td><td>int</td><td><p>전달에 실패한 메시지의 재전송을 시도하는 횟수를 설정한다. 0 이하의 값으로
+                    설정된 경우 무한히 재시도한다. </p><p>(기본값: -1)</p></td></tr><tr><td align="left">jeus.lpq.retry-interval</td><td>long</td><td>메시지를 재전송할 때 매번 전송 시도 간 간격을 설정한다. (기본값:
+                    1000ms)</td></tr><tr><td align="left">jeus.lpq.retry-interval-increment</td><td>long</td><td>메시지를 재전송할 때 매번 전송 시도 간 간격의 증가량을 설정한다. (기본값:
+                    0ms)</td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p>재연결 관련 항목</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col width="70"/><col/></colgroup><thead><tr><th align="left">항목</th><th>타입</th><th>설명</th></tr></thead><tbody><tr><td align="left">jeus.lpq.reconnect-retry-interval</td><td>long</td><td><p>연결이 끊어졌을 때 재연결 시도간의 간격을
+                    설정한다.</p><p>(기본값: 5000ms)</p></td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p>저장소 관련 항목</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col width="70"/><col/></colgroup><thead><tr><th align="left">항목</th><th>타입</th><th>설명</th></tr></thead><tbody><tr><td align="left">jeus.lpq.store.store-mode</td><td>int</td><td>사용할 저장소의 형태를 설정한다. 1은 journal store를 사용하고 2는 메모리의
+                    저장소를 사용한다. (기본값: 1)</td></tr><tr><td align="left">jeus.lpq.store.journal.store-base-dir</td><td>String</td><td><p>Store를 생성할 디렉터리 이름을 설정한다. 이 디렉터리 이름은 각 LPQ
+                    설정별로 유일해야 하며 동시의 2개 이상의 접근은 허용하지 않는다.</p><p>상대 경로로
+                    설정되는 경우 설정 파일이 발견된 위치나 JVM이 실행된 위치의 하위로
+                    설정된다.</p><p>(기본값: JEUS_LPQ_STORE)</p></td></tr><tr><td align="left">jeus.lpq.store.journal.initial-log-file-count</td><td>int</td><td>Journal Store를 생성할 때 초기에 생성할 로그 파일들의 개수를 설정한다.
+                    (기본값: 2)</td></tr><tr><td align="left">jeus.lpq.store.journal.max-log-file-count</td><td>int</td><td><p>최대로 생성할 로그 파일들의 개수를 설정한다.</p><p>(기본값:
+                    10)</p></td></tr><tr><td align="left">jeus.lpq.store.journal.log-file-size</td><td>String</td><td><p>로그 파일의 크기를 지정한다. (기본값:
+                    64M)</p><p>Integer 타입의 값이나 숫자 뒤에 다음의 문자를 붙여 설정할 수
+                    있다. </p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                          <p>'K'(KiloBytes)</p>
+                        </li><li style="list-style-type: circle">
+                          <p>'M'(MegaBytes)</p>
+                        </li><li style="list-style-type: circle">
+                          <p>'G'(GigaBytes)</p>
+                        </li></ul></div><p/></td></tr></tbody></table>
+            </div>
+          </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e3152"></a>LPQ 설정 방법</h4><p>다음은 LPQ 설정 방법에 대한 설명이다. 설정 방법 간의
+      우선순위는 런타임 프로퍼티 설정 &gt; 설정 파일 &gt; JVM 옵션 순이다.</p>
+
+      <p/>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>설정 파일</p>
+
+          <p>LPQ 설정 파일이 지정된 위치에 존재한다면 LPQ가 활성화될 때 그 파일을 읽어 활성화되는 LPQ에 해당
+          설정을 적용시킨다. 지정된 위치는 해당 application이 설치된 위치인
+          DEPLOYED_HOME/myApp/WEB-INF/, DEPLOYED_HOME/myApp/META-INF/,
+          DEPLOYED_HOME/myApp/으로 상기한 순서대로 설정 파일을 찾는다. 설정 파일의 세부 경로의 기본값은
+          'jeus-lpq.properties'으로 다음 옵션을 통해 변경할 수 있다.</p>
+
+          <pre class="programlisting">-Djeus.jms.client.lpq-configuration-path=jeus-lpq.properties</pre>
+
+          <p>다음은 LPQ 설정 파일의 예이다. 이 예제 파일은 JEUS_HOME/templates/lpq/에
+          jeus-lpq.properties라는 이름으로 제공되고 있다.</p>
+
+          <pre class="programlisting">#JEUS Local-Persistent-Queue Configuration
+#[commons]
+jeus.lpq.name=JEUS_LPQ
+jeus.lpq.max-message-count=819200
+jeus.lpq.time-to-live=43200000
+
+#[forward]
+jeus.lpq.retry-limit=-1
+jeus.lpq.retry-interval=1000
+jeus.lpq.retry-interval-increment=0
+
+#[reconnect]
+jeus.lpq.reconnect-retry-interval=5000
+
+#[store]
+jeus.lpq.store.store-mode=1
+
+#[journal-store]
+jeus.lpq.store.journal.store-base-dir=JEUS_LPQ
+jeus.lpq.store.journal.max-log-file-count=10
+jeus.lpq.store.journal.initial-log-file-count=2
+jeus.lpq.store.journal.log-file-size=64M</pre>
+        </li><li>
+          <p>시스템 프로퍼티</p>
+
+          <p>위 설정 항목들은 각 항목명을 key로 하여 시스템 프로퍼티로도 설정할 수 있다. 예를 들어 LPQ의 이름을
+          설정한다면 JEUS MQ 클라이언트를 실행할 때 다음과 같이 JVM 옵션을 설정할 수 있다.</p>
+
+          <pre class="programlisting">-Djeus.lpq.name=<span class="emphasis"><em><span class="emphasis"><em>&lt;jeus lpq name&gt;</em></span></em></span></pre>
+
+          <p>다음과 같이 클라이언트 소스에 코드를 추가하여 런타임에 설정을 변경할 수도 있다.</p>
+
+          <pre class="programlisting">System.setProperty("jeus.lpq.name", <span class="emphasis"><em><span class="emphasis"><em>&lt;jeus lpq name&gt;</em></span></em></span>);</pre>
+        </li></ul></div>
+
+      <p/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_failover.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="appendix_journal-store-properties.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제5장 JEUS MQ 장애 극복 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> Appendix A. Journal Store 추가 속성</td></tr></table></div><div xmlns="" align="center"/></body></html>

@@ -1,0 +1,314 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>SocketID</title>
+      <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="SocketID (JEUS Network Library)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.net</font><br>Interface SocketID
+      </h2><pre></pre><dl>
+         <dt><b>All Superinterfaces:</b><dd>java.io.Serializable</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public interface <b>SocketID</b><dt>extends java.io.Serializable</dt></pre></dl>socket stream의 ID로 사용되는 class를 나타내는 interface이다.<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static int</code></font></td>
+               <td><code><b><a href="../../jeus/net/SocketID.html#CONNECTION_CLIENT_TYPE">CONNECTION_CLIENT_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td><code><b><a href="SocketID.html#getBasePort()">getBasePort</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   접속을 맺고자 하는 port, 통합 port로의 접근일때는 해당 node의 base port, 별도 port인 경우는 해당 port
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td><code><b><a href="SocketID.html#getConnectionType()">getConnectionType</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   socket ID의 ConnectionType을 얻어온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="SocketID.html#getHost()">getHost</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   접속을 맺고자 하는 host의 address
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="SocketID.html#getVirtualID()">getVirtualID</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   socket ID가 통합 port로의 connection이라면 해당 virtual ID를 반환 한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketID.html#isNotConnectable()">isNotConnectable</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결을 할수 있는 socket ID인지를 판별한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketID.html#needConnect(jeus.net.SocketID)">needConnect</a></b>(<a href="../../jeus/net/SocketID.html">SocketID</a> socketID)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   cross connection인 경우 어떤 connection을 끊어야 하는지를 판단해주는  method이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SocketID.html#setConnectionType(int)">setConnectionType</a></b>(int type)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   socket ID의 ConnectionType을 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SocketID.html#setNotConnectable()">setNotConnectable</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결을 받는 것이 아닌 다른 socket으로 연결을 할수 있는 socket ID로 설정한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="CONNECTION_CLIENT_TYPE"></a><h3>CONNECTION_CLIENT_TYPE</h3><pre>public static final int <b>CONNECTION_CLIENT_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getHost()"></a><h3>getHost</h3><pre>public java.lang.String <b>getHost</b>()<br></pre><dl>
+            <dd>접속을 맺고자 하는 host의 address</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>접속을 맺고자 하는 host의 address</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getBasePort()"></a><h3>getBasePort</h3><pre>public int <b>getBasePort</b>()<br></pre><dl>
+            <dd>접속을 맺고자 하는 port, 통합 port로의 접근일때는 해당 node의 base port, 별도 port인 경우는 해당 port</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>접속을 맺고자 하는 port, 통합 port로의 접근일때는 해당 node의
+                        base port, 별도 port인 경우는 해당 port
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getVirtualID()"></a><h3>getVirtualID</h3><pre>public java.lang.String <b>getVirtualID</b>()<br></pre><dl>
+            <dd>socket ID가 통합 port로의 connection이라면 해당 virtual ID를 반환 한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>Socket ID가 통합 port로 사용하는 virtual ID, 사용하지 않는 경우는 null을 return한다.</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getConnectionType()"></a><h3>getConnectionType</h3><pre>public int <b>getConnectionType</b>()<br></pre><dl>
+            <dd>socket ID의 ConnectionType을 얻어온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>socket ID의 ConnectionType</dd>
+                  </dt>
+                  <dt><b>See Also:</b><dd><a href="../../jeus/net/SocketID.html#CONNECTION_CLIENT_TYPE"><code>SocketID.CONNECTION_CLIENT_TYPE</code></a></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setNotConnectable()"></a><h3>setNotConnectable</h3><pre>public void <b>setNotConnectable</b>()<br></pre><dl>
+            <dd>연결을 받는 것이 아닌 다른 socket으로 연결을 할수 있는 socket ID로 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="isNotConnectable()"></a><h3>isNotConnectable</h3><pre>public boolean <b>isNotConnectable</b>()<br></pre><dl>
+            <dd>연결을 할수 있는 socket ID인지를 판별한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>연결을 할수 있는 socket ID의 여부</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setConnectionType(int)"></a><h3>setConnectionType</h3><pre>public void <b>setConnectionType</b>(<code>int</code> type)<br></pre><dl>
+            <dd>socket ID의 ConnectionType을 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>type</code> - 설정할 socket ID의 ConnectionType
+                     </dd>
+                  </dt>
+                  <dt><b>See Also:</b><dd><a href="../../jeus/net/SocketID.html#CONNECTION_CLIENT_TYPE"><code>SocketID.CONNECTION_CLIENT_TYPE</code></a></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="needConnect(jeus.net.SocketID)"></a><h3>needConnect</h3><pre>public boolean <b>needConnect</b>(<code><a href="../../jeus/net/SocketID.html">SocketID</a></code> socketID)<br></pre><dl>
+            <dd>cross connection인 경우 어떤 connection을 끊어야 하는지를 판단해주는  method이다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>socketID</code> - connect를 동시에 요청한 socketID
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>현재 객체가 주어진 socketID로 접속을 해야 하는 경우 true를 return한다.</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

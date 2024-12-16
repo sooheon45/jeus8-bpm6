@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제5장 Custom 보안 서비스 개발</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Security 안내서"/><link rel="up" href="index.html" title="JEUS Security 안내서"/><link rel="prev" href="chapter_security_system_api_programming.html" title="제4장 보안 시스템 API 프로그래밍"/><link rel="next" href="chapter_jacc_provider_application.html" title="제6장 JACC Provider 사용"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제5장 Custom 보안 서비스 개발</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_security_system_api_programming.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_jacc_provider_application.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_custom_security_service_develop"></a>제5장 Custom 보안 서비스 개발</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_custom_security_service_develop.html#d4e4114">5.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_service_class">5.2. 서비스 클래스</a></span></dt><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_calss_pattern">5.3. Custom 보안 서비스 구현 패턴</a></span></dt><dt><span class="section"><a href="chapter_custom_security_service_develop.html#spi_class">5.4. SPI 클래스</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_SubjectValidationService_SPI">5.4.1. SubjectValidationService SPI</a></span></dt><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_SubjectFactoryService_SPI">5.4.2. SubjectFactoryService SPI</a></span></dt><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_AuthenticationService_SPI">5.4.3. AuthenticationService SPI</a></span></dt><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_AuthenticationRepositoryService_SPI">5.4.4. AuthenticationRepositoryService SPI</a></span></dt><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_IdentityAssertionService_SPI">5.4.5. IdentityAssertionService SPI</a></span></dt><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_CredentialMappingService_SPI">5.4.6. CredentialMappingService SPI</a></span></dt><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_CredentialVerificationService_SPI">5.4.7. CredentialVerificationService SPI</a></span></dt><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_AuthorizationService_SPI">5.4.8. AuthorizationService SPI</a></span></dt><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_AuthorizationRepositoryService_SPI">5.4.9. AuthorizationRepositoryService SPI</a></span></dt><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_EventHandlingService_SPI">5.4.10. EventHandlingService SPI</a></span></dt><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_Dependencies_between_SPI_Implementations">5.4.11. Dependencies between SPI Implementations</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_custom_security_service_develop.html#sect_security_service_config">5.5. 보안 서비스 설정</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 JEUS 보안 시스템의 주요 특징인 Custom 보안 서비스를 개발하는 방법에 대해 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4114"></a>5.1. 개요</h2></div></div></div>
+    
+
+    <p>Custom 보안 서비스를 이용하면 JEUS 보안 시스템과 다양한 외부 보안 시스템, 보안 데이터 저장소를 쉽게 통합할 수
+    있다.</p>
+
+    <p>다음은 Custom 보안 서비스를 개발과 관련된 몇 가지 중요한 개념으로 각 절에서 상세히 설명한다.
+    </p><div class="itemizedlist"><ul type="disc"><li>
+          <p><a href="chapter_custom_security_service_develop.html#sect_service_class" title="5.2. 서비스 클래스">서비스 클래스</a></p>
+        </li><li>
+          <p><a href="chapter_custom_security_service_develop.html#sect_calss_pattern" title="5.3. Custom 보안 서비스 구현 패턴">구현 기본 패턴</a></p>
+        </li><li>
+          <p><a href="chapter_custom_security_service_develop.html#spi_class" title="5.4. SPI 클래스">11개의 SPI 클래스</a></p>
+        </li><li>
+          <p><a href="chapter_custom_security_service_develop.html#sect_security_service_config" title="5.5. 보안 서비스 설정">Custom 보안 서비스 설정
+          방법</a></p>
+        </li></ul></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_service_class"></a>5.2. 서비스 클래스</h2></div></div></div>
+    
+
+    <p>pluggable 보안 아키텍처에서 가장 기본이 되는 클래스는 jeus.security.base.Service 클래스이다.
+    서비스 클래스는 보안 서비스를 구현하려는 클래스들이 반드시 확장해야 하는 추상 클래스로 현재 jeus.security.spi 패키지에
+    있는 모든 SPI 클래스도 이 클래스를 확장한 것이다.<a id="d4e4134" class="indexterm"></a></p>
+
+    <p>다음은 서비스 클래스의 클래스 다이어그램이다.</p>
+
+    <div class="figure"><a id="figure_service_class_diagram"></a><p class="title"><b>[그림 5.1] 서비스 클래스 다이어그램</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="332"><tr><td align="left"><img src="resources/figure_service_class_diagram.png" align="top" width="332" alt="서비스 클래스 다이어그램"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p>서비스 클래스는 모든 보안 서비스에 공통적으로 적용되는 다음의 항목들을 포함하고 있다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Service Description<a id="d4e4148" class="indexterm"></a></strong></span></p>
+
+          <p>서비스 클래스는 제공하려는 서비스가 무엇인지에 대해 간단하게 설명하는 String 타입의 description을
+          제공한다. 서비스에 대한 설명은 <span><strong class="guibutton">getDescription()</strong></span> 메소드로 가져올 수
+          있다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Service Domain<a id="d4e4156" class="indexterm"></a></strong></span></p>
+
+          <p>런타임에 생성된 인스턴스는 특정 도메인에 할당된다. 따라서 도메인은 본질적으로 서비스 인스턴스의 집합이라 할 수
+          있다. 서비스의 도메인은 <span><strong class="guibutton">getDomain()</strong></span> 메소드로 가져올 수
+          있다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Service Type<a id="d4e4164" class="indexterm"></a></strong></span></p>
+
+          <p>서비스 구현 클래스는 단 하나의 타입을 가진다. 타입이란 Service set으로부터 특정 서비스 인스턴스를
+          가져오기 위해 사용하는 일종의 마크이다.</p>
+
+          <p>예를 들어 특정 서비스 구현 클래스가 인증 기능을 제공한다면 다른 보안 서비스에서 이 인증 서비스 클래스를
+          사용하기 위해 도메인에 해당 클래스를 요청해야 한다. 이때 서비스 타입을 전달해서 도메인이 정확한 서비스 인스턴스를 찾아서
+          리턴하도록 만들 수 있다.</p>
+
+          <p>서비스 타입은 <span><strong class="guibutton">getType()</strong></span> 메소드로 가져올 수 있다. 그러나
+          getType() 메소드는 추상 메소드이므로 반드시 서브 클래스에서 구현해야 한다. 서비스 타입은 실제로는
+          java.lang.Class 타입으로 jeus.security.spi 패키지에 포함되어 있는 SPI 클래스의 클래스
+          인스턴스이다. 각 SPI 클래스에서 getType() 메소드를 final로 구현하고 있다. 즉, SPI의 서브 클래스에서
+          는 getType() 메소드를 재정의할 수 없다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Service <a id="d4e4174" class="indexterm"></a></strong></span></p>
+
+          <p>서비스의 명칭은 <span><strong class="guibutton">getName()</strong></span> 메소드로 가져올 수
+          있다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Service MBean<a id="d4e4182" class="indexterm"></a></strong></span></p>
+
+          <p>서비스 클래스는 특정 서비스 인스턴스를 관리하는 데 사용되는 JMX MBean과 결합되어 있다.</p>
+
+          <p>MBean은 <span><strong class="guibutton">getMBean()</strong></span> 메소드로 가져올 수 있으며, 서브
+          클래스에서 디폴트 MBean이 아닌 다른 MBean을 리턴하려면 이 메소드를 재정의해야 한다.</p>
+
+          <p>기본적으로 MBean은 protected 메소드로 선언된 getMBeanInfo()로부터 리턴된
+          MBeanInfo를 바탕으로 생성된다. 서브 클래스는 이 메소드를 재정의해서 디폴트 이외의 다른 MBeanInfo
+          인스턴스를 리턴하도록 할 수 있다. 메소드를 재정의할 때 슈퍼 클래스의 MBeanInfo가 누락되지 않도록
+          주의한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Service State<a id="d4e4192" class="indexterm"></a></strong></span></p>
+
+          <p>서비스 구현 클래스는 created 또는 destoryed 둘 중 하나의 상태를 가지며 create()와
+          destroy() 메소드를 호출하여 상태를 변경할 수 있다. 이 메소드들은 추상 메소드인
+          <span><strong class="guibutton">doCreate()</strong></span>와
+          <span><strong class="guibutton">doDestroy()</strong></span> 메소드를 호출하여 실제 업무를 위임한다. 따라서, 서비스
+          구현 클래스는 doCreate()와 doDestroy() 메소드를 반드시 구현해야 한다.</p>
+
+          <p>doCreate()와 doDestroy() 메소드 내에 서비스를 적절히 초기화하고, 소멸하는 코드가 포함되어
+          있다. 전형적인 doCreate() 메소드는 데이터베이스 커넥션과 같은 자원을 획득하는 코드가 포함되어 있고,
+          doDestroy() 메소드에는 이러한 획득된 자원을 해제하는 코드가 포함되어 있다.</p>
+
+          <p>서비스 클래스의 현재 상태는 isCreate()와 isDestroyed() 메소드를 호출하여 알 수 있다. 또한
+          현재 상태를 String으로 리턴하는 getState() 메소드를 가지고 있다.</p>
+
+          <p>다음은 서비스 클래스의 상태 차트에 대한 그림이다. </p><div class="figure"><a id="figure_Servlet_two_status"></a><p class="title"><b>[그림 5.2] 서비스 클래스의 상태 차트</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="483"><tr><td align="left"><img src="resources/figure_service_status.png" align="top" width="483" alt="서비스 클래스의 상태 차트"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li><li>
+          <p><span><strong class="guibutton">Service Properties<a id="d4e4209" class="indexterm"></a></strong></span></p>
+
+          <p>서비스 클래스는 name-value 쌍의 속성을 가지고 있다. 이러한 속성을 설정하고 가져오는 작업은
+          jeus.security.base.PropertyHolder 인터페이스를 통해 이루어진다. 서비스 구현 클래스는 이
+          인터페이스를 구현해야 한다.</p>
+
+          <p>속성들은 서비스 인스턴스를 초기화하는 데 사용된다. 서비스 인스턴스가 생성되고 create() 메소드가 불려지기
+          전에, 속성들이 설정된다. 이후 doCreate() 메소드가 불려지면 설정된 속성값을 Query해 와서 Service
+          인스턴스를 적절하게 초기화한다.</p>
+        </li></ul></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_calss_pattern"></a>5.3. Custom 보안 서비스 구현 패턴</h2></div></div></div>
+    
+
+    <p>본 절에서는 Custom 보안 서비스의 구현 방법에 대해서 간략하게 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>일반적인 Custom 보안 서비스를 구현하는 과정은 다음과 같다.</p><div class="orderedlist"><ol type="1"><li>
+          <p>사전에 보안 시스템과 보안 시스템 아키텍처를 충분히 이해하고 있어야 한다.</p>
+        </li><li>
+          <p>Custom 보안 서비스가 어떤 보안 기능을 제공해야 하는지 파악한다.</p>
+        </li><li>
+          <p>해당 특성을 가지고 있는 SPI 클래스를 선택한다. 주요 SPI 클래스에 대한 자세한 내용은 <a href="chapter_custom_security_service_develop.html#spi_class" title="5.4. SPI 클래스">“5.4. SPI 클래스”</a>를 참고한다.</p>
+        </li><li>
+          <p>해당 SPI 클래스에 대한 문서를 주의 깊게 살펴본다(Javadoc, <a href="about.html#appendix_reference" title=". 참고 자료">참고 자료</a>, <a href="chapter_custom_security_service_develop.html#spi_class" title="5.4. SPI 클래스">“5.4. SPI 클래스”</a>에 대한 설명을 참고한다).</p>
+        </li><li>
+          <p>해당 SPI 클래스의 서브 클래스를 작성하고, 서브 클래스에서 다음 메소드들을 구현한다. 그리고 반드시
+          파라미터가 없는 public 생성자를 제공해야 한다.</p>
+
+          <div class="orderedlist"><ol type="a"><li>
+              <p>선택적으로 서비스 초기화에 사용되는 속성들을 정의한다. 각 속성은 public static final
+              String 타입으로 각각이 무엇을 나타내는지는 문서화되어야 한다.</p>
+            </li><li>
+              <p>doCreate() 메소드를 구현한다. 이 메소드는 보안 서비스가 시작할 때 단 한 번 불리며, 자원
+              할당과 같은 일반적인 초기화 작업을 수행한다. 이 메소드는 getProperty() 메소드를 통해 설정값을 읽어
+              들인다. getProperty() 메소드의 파라미터는 이전 단계에서 설정된 속성명이다.</p>
+            </li><li>
+              <p>doDestroy() 메소드를 구현한다. 이 메소드는 서비스가 종료하기 전에 단 한 번 호출된다. 이
+              메소드는 doCreate() 메소드에서 할당된 자원을 해제하거나, 특정 파일에 로그를 남기는 등의 일반적인
+              clean-up 작업을 수행한다.</p>
+            </li><li>
+              <p>선택한 SPI 클래스의 모든 추상 메소드를 Javadoc에서 설명하고 있는 방식대로
+              구현한다.</p>
+            </li><li>
+              <p>선택적으로 JMX를 통해 서비스를 관리하는 데 사용되는 메소드들을 구현할 수 있다. getMBean()
+              또는 getMBeanInfo() 메소드를 구현한다.</p>
+            </li></ol></div>
+        </li><li>
+          <p>SPI를 구현한 클래스를 컴파일한다.</p>
+        </li><li>
+          <p><a href="chapter_security_system_setup.html" title="제2장 보안 시스템 설정">“제2장 보안 시스템 설정”</a>에서 설명한 대로 새로운
+          보안 서비스를 JEUS에 등록한다.</p>
+        </li></ol></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="spi_class"></a>5.4. SPI 클래스</h2></div></div></div>
+    
+
+    <p>본 절에서는 jeus.security.spi 패키지에 포함되어 있는 다양한 SPI 클래스에 대해 설명한다.</p>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 jeus.security.spi 패키지 내에 정의된 SPI 클래스 목록이다. Cardinality는 각 도메인에
+    해당 SPI 클래스가 몇 개나 있을 수 있는지에 대한 설명이다.</p>
+
+    <div class="informaltable">
+         
+
+        <table border="1"><colgroup><col width="200"/><col width="320"/><col/></colgroup><thead><tr><th>class name</th><th>Purpose</th><th>Cardinality</th></tr></thead><tbody><tr><td>SecurityInstaller<a id="d4e4271" class="indexterm"></a></td><td><p>보안 시스템을 설치하고 제거한다. </p><p>전체 JVM에 대해 오직 하나만
+              존재해야 한다.</p></td><td>1</td></tr><tr><td><a href="chapter_custom_security_service_develop.html#sect_SubjectValidationService_SPI" title="5.4.1. SubjectValidationService SPI">SubjectValidationService</a><a id="d4e4280" class="indexterm"></a></td><td>로그인 전에 해당 Subject의 Credential이 유효한지 아닌지 체크한다.</td><td>0개 이상</td></tr><tr><td><a href="chapter_custom_security_service_develop.html#sect_SubjectFactoryService_SPI" title="5.4.2. SubjectFactoryService SPI">SubjectFactoryService</a><a id="d4e4287" class="indexterm"></a></td><td>로그인 전에 Custom Subject를 생성한다.</td><td>1</td></tr><tr><td><a href="chapter_custom_security_service_develop.html#sect_AuthenticationService_SPI" title="5.4.3. AuthenticationService SPI">AuthenticationService</a><a id="d4e4294" class="indexterm"></a><a href="chapter_custom_security_service_develop.html#sect_AuthenticationService_SPI" title="5.4.3. AuthenticationService SPI"/></td><td>로그인 전에 Subject를 인증한다.</td><td>1</td></tr><tr><td><a href="chapter_custom_security_service_develop.html#sect_AuthenticationRepositoryService_SPI" title="5.4.4. AuthenticationRepositoryService SPI">AuthenticationRepositoryService</a><a id="d4e4301" class="indexterm"></a><a href="chapter_custom_security_service_develop.html#sect_AuthenticationRepositoryService_SPI" title="5.4.4. AuthenticationRepositoryService SPI"/></td><td>Subject를 Subject 저장소로부터 추가, 삭제, 조회한다.</td><td>1</td></tr><tr><td><a href="chapter_custom_security_service_develop.html#sect_IdentityAssertionService_SPI" title="5.4.5. IdentityAssertionService SPI">IdentityAssertionService
+              </a><a id="d4e4308" class="indexterm"></a><a href="chapter_custom_security_service_develop.html#sect_IdentityAssertionService_SPI" title="5.4.5. IdentityAssertionService SPI"/></td><td>cert-user-map.xml 파일 정보를 이용하여 Credential을 Subject에
+              매핑한다.</td><td>0개 이상</td></tr><tr><td><a href="chapter_custom_security_service_develop.html#sect_CredentialMappingService_SPI" title="5.4.6. CredentialMappingService SPI">CredentialMappingService </a><a id="d4e4315" class="indexterm"></a><a href="chapter_custom_security_service_develop.html#sect_CredentialMappingService_SPI" title="5.4.6. CredentialMappingService SPI"/></td><td>Truststore 정보를 이용하여 Credential을 Subject에 매핑한다.</td><td>0개 이상</td></tr><tr><td><a href="chapter_custom_security_service_develop.html#sect_CredentialVerificationService_SPI" title="5.4.7. CredentialVerificationService SPI">CredentialVerificationService</a><a id="d4e4322" class="indexterm"></a></td><td>Subject가 가지고 있는 Credential 중 최소한 하나라도 유효한지 검증한다.</td><td>0개 이상</td></tr><tr><td><a href="chapter_custom_security_service_develop.html#sect_AuthorizationService_SPI" title="5.4.8. AuthorizationService SPI">AuthorizationService</a><a id="d4e4329" class="indexterm"></a></td><td>Subject가 특정 Role 또는 리소스에 접근할 권한이 있는지 체크한다.</td><td>1</td></tr><tr><td><a href="chapter_custom_security_service_develop.html#sect_AuthorizationRepositoryService_SPI" title="5.4.9. AuthorizationRepositoryService SPI">AuthorizationRepositoryService</a><a id="d4e4336" class="indexterm"></a><a href="chapter_custom_security_service_develop.html#sect_AuthorizationRepositoryService_SPI" title="5.4.9. AuthorizationRepositoryService SPI"/></td><td>Policy를 저장소로부터 추가, 삭제, 조회한다.</td><td>1</td></tr><tr><td><a href="chapter_custom_security_service_develop.html#sect_EventHandlingService_SPI" title="5.4.10. EventHandlingService SPI">EventHandlingService</a><a id="d4e4343" class="indexterm"></a></td><td>보안 이벤트에 대한 Custom 이벤트 핸들러, 다양한 보안 감사를 구현한다.</td><td>0개 이상</td></tr></tbody></table>
+      </div><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>SPI 클래스에 대한 상세한 설명은 <a href="about.html#appendix_reference" title=". 참고 자료">참고
+        자료</a>를 참고한다.</p>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_SubjectValidationService_SPI"></a>5.4.1. SubjectValidationService SPI</h3></div></div></div>
+      
+
+      <p><a id="d4e4356" class="indexterm"></a><a id="d4e4358" class="indexterm"></a>jeus.security.spi.SubjectValidationService SPI는 Subject가
+      가지고 있는 Credential이 유효한지 아닌지를 체크하는 데 사용된다. 이것은 때때로 Credential이 유효하지 않는
+      경우도 있음을 나타낸다. 유효하지 않는 Credential은 곧 Subject가 유효하지 않다는 의미이고, 결과적으로 해당
+      Subject로는 로그인할 수 없다는 것을 나타낸다.</p>
+
+      <p><a id="d4e4361" class="indexterm"></a>SubjectValidationService의 전형적인 예는 Subject가 "lock"
+      Credential을 가지고 있는지 여부를 체크하는 것이다. 만약 "lock" Credential을 가지고 있다면,
+      Subject는 Lock에 걸린 것으로 취급되어 더 이상의 로그인 프로세스가 진행되지 않는다.</p>
+
+      <p><a id="d4e4364" class="indexterm"></a><a id="d4e4366" class="indexterm"></a>SubjectValidationService.checkValidity(Subject) 메소드는 보통
+      로그인 과정에서 호출된다. 만약 이 메소드에서 SecurityException이 발생되면, 모든 로그인 과정은 실패로 돌아간다.
+      Subject에 "lock" Credential을 자동으로 설정하기 위해서 EventHandlingService가 사용된다. 이에
+      관한 자세한 설명은 <a href="chapter_custom_security_service_develop.html#sect_EventHandlingService_SPI" title="5.4.10. EventHandlingService SPI">“5.4.10. EventHandlingService SPI”</a>를
+      참고한다.</p>
+
+      <p>인증(파라미터로 넘어온 Subject가 실제 해당 Subject인지 검증하는 것)과 Subject 유효성 검사는 서로
+      별개의 것이나 로그인 과정에는 2가지 서비스가 모두 사용된다.</p>
+
+      <p><a id="d4e4371" class="indexterm"></a><a id="d4e4373" class="indexterm"></a>도메인당 0개 이상의 SubjectValidationService 인스턴스가 설정될 수 있다. 전체
+      SubjectValidationService에서 SecurityException이 하나도 발생하지 않으면, Subject는
+      유효하다고 판단되고, 로그인 과정이 계속 진행된다. 그러나 만약 SecurityException이 한 곳이라도 발생하면 전체
+      유효성 검사는 실패로 돌아가고 로그인 과정은 더 이상 진행되지 않는다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>SubjectValidationService SPI는 CredentialVerificationService와
+          많은 점에서 비슷해 보이지만 기능명에서 다르다.</p>
+
+          <p>SubjectValidationService는 Credential을 체크해서 Subject가 유효한지 아닌지를
+          판단하고, CredentialVerificationService는 해당 Subject가 실제 Subject인지 증명하는
+          Credential을 최소한 하나라도 가지고 있는지를 체크한다. 따라서, SubjectValidationService는
+          Subject가 성공적으로 인증된 후 사용되고, 반면에 CredentialVerificationService는
+          AuthenticationService에서 인증 과정 중에 사용된다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_SubjectFactoryService_SPI"></a>5.4.2. SubjectFactoryService SPI</h3></div></div></div>
+      
+
+      <p><a id="d4e4384" class="indexterm"></a>jeus.security.spi.SubjectFactoryService SPI 클래스는 외부에서 제공하는
+      정보없이 Subject를 생성하는 특별한 SPI이다.</p>
+
+      <p>SubjectFactoryService SPI는 보통 어떤 Subject나 Credential도 파라미터로 넘겨받지
+      않고, Subject를 SubjectFactoryService를 통하여 생성할 때 사용된다. 예를 들어 전형적인 구현 클래스는
+      프롬프트로부터 사용자명과 패스워드를 입력받아 이 정보를 기초로 Subject를 생성해서 리턴한다.</p>
+
+      <p>SubjectFactoryService는 로그인 메커니즘에서 패스워드 이외의 Credential 타입도 지원하기 위해
+      만들어졌다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_AuthenticationService_SPI"></a>5.4.3. AuthenticationService SPI</h3></div></div></div>
+      
+
+      <p><a id="d4e4393" class="indexterm"></a>jeus.security.spi.AuthenticationService는 Subject를 인증하기 위한
+      클래스이다. 즉, 파라미터로 넘겨받은 Subject가 Subject 저장소에 등록되어 있는 실제 Subject와 일치하는지
+      검증하는 것이다.</p>
+
+      <p>인증 과정은 다음과 같다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>jeus.security.spi.CredentialMappingService.getSubjectName(Object)
+          메소드를 호출하여 Subject의 Credential이 어떤 사용자에 매핑되는지 확인한다.</p>
+        </li><li>
+          <p>jeus.security.spi.AuthenticationRepository.getSubject(String
+          username) 메소드를 호출하여 Subject 저장소로부터 실제 등록되어 있는 Subject를 로컬로 복사해온다. 이를
+          로컬 Subject라고 한다.</p>
+        </li><li>
+          <p>만약 로컬 Subject가 null이 아니라면 로컬 Subject의 Credential과 인증할 Subject의
+          Credential이 일치하는지 비교한다. 이 비교는
+          jeus.security.spi.CredentialVerificationService.verifyCredentials(Subject,
+          Subject) 메소드를 호출하여 수행된다.</p>
+
+          <p>몇몇 경우에는 equals(Objet)를 사용하여 Credential을 비교하기도 하는데, 이는 유연한 방법이
+          아니다.</p>
+        </li><li>
+          <p>위의 과정이 모두 성공적으로 완료되면 로컬 Subject가 authenticate(Subject) 메소드로부터
+          리턴되고, 결국 이 Subject를 사용하여 SecurityCommonService로 로그인한다.</p>
+        </li></ol></div>
+
+      <p/>
+
+      <p>도메인당 1개 이상의 AuthenticationService를 설정할 수 있다. 만약 설정된
+      AuthenticationService 중 최소한 하나라도 Subject를 성공적으로 인증했다면 모든
+      AuthenticationService가 인증한 것으로 간주한다. 즉, 단 하나의 AuthenticationService라도
+      성공적으로 Subject를 인증했다면, 추가적으로 다른 AuthenticationService에 Query를 던지지
+      않는다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_AuthenticationRepositoryService_SPI"></a>5.4.4. AuthenticationRepositoryService SPI</h3></div></div></div>
+      
+
+      <p><a id="d4e4413" class="indexterm"></a>jeus.security.spi.AuthenticationRepositoryService SPI는
+      Subject 저장소로부터 Subject를 추가, 삭제, 조회하는 메소드를 가지고 있다. 이 SPI는
+      AuthenticationService 를 구현하는 클래스에서 사용되거나, J2EE 애플리케이션 코드 내에서 직접 사용될 수
+      있다.</p>
+
+      <p>예를 들어 웹 사이트를 통해 새로운 사용자가 등록할 때 마다, 자동으로 Subject를 Subject 저장소에 추가하는
+      코드를 작성하려면, 이 SPI를 사용해야 한다.</p>
+
+      <p>AuthenticationRepositoryService의 가장 큰 목적은 런타임에
+      jeus.security.base.Subject 인스턴스를 특정 저장소 타입에 저장하는 것이다. 전형적인 저장소로는 XML
+      파일이나 데이터베이스가 있다.</p>
+
+      <p>일반적으로 AuthenticationRepositoryService SPI를 별도로 구현할 필요는 없다. 그러나 디폴트
+      AuthenticationService를 사용하거나(사용자 인증 과정에서
+      AuthenticationRepositoryService.getSubject(String) 메소드를 호출하기 때문이다), J2EE
+      애플리케이션 코드에서 직접 사용할 때는 반드시 구현해야 한다.</p>
+
+      <p>도메인당 단 하나의 AuthenticationRepositoryService 인스턴스만 설정될 수 있다(현재 1개
+      이상의 AuthenticationRepositoryService를 설정하는 것은 불가능하다).</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_IdentityAssertionService_SPI"></a>5.4.5. IdentityAssertionService SPI</h3></div></div></div>
+      
+
+      <p><a id="d4e4424" class="indexterm"></a>jeus.security.spi.IdentityAssertionService SPI는 Subject의
+      사용자명(username)이 제공되지 않는 경우에 필요하다. 즉, 메인 Principal이 null일 때이다. 이 경우에는
+      Subject로부터 Credential을 가져와서 cert-user-map.xml의 정보를 기반으로 Credential이 어느
+      사용자명에 매칭되는지 알아보게 된다. 매칭된 사용자명은 이후 인증과정에 사용된다.</p>
+
+      <p>전형적인 예로 java.security.Certificate 인스턴스를 들 수 있다. 이 인스턴스는
+      Certificate Credential을 사용하므로 메인 Principal을 가지고 있지 않다. 이 경우 인증과정 동안
+      Sujbect 로부터 Certificate Credential을 얻어와서
+      IdentityAssertionService.getIdentity(Object) 메소드에 파라미터로 넘긴다.</p>
+
+      <p>해당 메소드는 다시 IdentityAssertionService.doIdentity(Object)를 호출한다. 이
+      메소드 내부에서 cert-user-map.xml에 정의된 Certificate에 Attribute Key값에 대응하는 사용자명을
+      역추적하고 결국 매칭되는 사용자명을 리턴한다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_CredentialMappingService_SPI"></a>5.4.6. CredentialMappingService SPI</h3></div></div></div>
+      
+
+      <p><a id="d4e4434" class="indexterm"></a>jeus.security.spi.CredentialMappingService는 Subject의
+      사용자명(username)이 제공되지 않는 경우에 필요하다. 즉, 메인 Principal이 null일 때이다. 이 경우에는
+      Subject로부터 Credential을 가져와서 Credential이 어느 사용자명에 매칭되는지 알아보게 된다. 매칭된
+      사용자명은 이후 인증 과정에 사용된다.</p>
+
+      <p>전형적인 예로 java.security.Certificate 인스턴스를 들 수 있다. 이 인스턴스는
+      Certificate Credential을 사용하므로 메인 Principal 을 가지고 있지 않다. 이 경우 인증과정 동안
+      Sujbect로부터 Certificate Credential을 얻어 와서,
+      CredentialMappingService.getSubjectName(Object) 메소드에 파라미터로 넘긴다.</p>
+
+      <p>해당 메소드는 다시 CredentialMappingService.doGetSubjectName(Object)를
+      호출한다. 이 메소드 내부에서 Certificate 저장소로부터 Certificate를 통해 사용자명을 역추적하고, 결국 매칭되는
+      사용자명을 리턴한다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_CredentialVerificationService_SPI"></a>5.4.7. CredentialVerificationService SPI</h3></div></div></div>
+      
+
+      <p><a id="d4e4444" class="indexterm"></a><a id="d4e4446" class="indexterm"></a>jeus.security.spi.CredentialVerificationService SPI는 새로운
+      타입의 Proof Credential을 지원하기 위해 사용된다.</p>
+
+      <p>Proof Credential는 파라미터로 넘어온 Subject가 실제 존재하는 Subject인지 검증하기 위해
+      사용되는 Credential이다. Proof Credential의 전형적인 예가 바로 패스워드로
+      jeus.security.resource.Password 클래스로 구현된다.</p>
+
+      <p>CredentialVerificationService SPI는 서브 클래스가 반드시 구현해야 하는 단 하나의 메소드인
+      doVerifyCredentials(Subject, Subject)를 선언하고 있다. 이 메소드 Signature에서 첫 번째로
+      나오는 Subject는 "reference Subject"라고 하고, Subject 저장소에 등록되어 있는 실제 Subject의
+      Credential들을 가지고 있다. 두 번째로 나오는 Subject는 "proof Subject"라고 하고, "proof
+      Credential"들을 가지고 있다. doVerifyCredentials(Subject, Subject) 메소드는 2개의
+      Subject의 Credential들을 서로 비교해서 하나라도 일치하는 것이 있는지 확인한다.</p>
+
+      <p>Credential들 간의 매칭은 다양한 방법으로 이루어진다(보통 equals(Object) 메소드만으로는 충분하지
+      않다). 만약 두 Subject 간에 하나라도 일치하는 Credential이 있다면 메소드는 리턴되고, 그렇지 않다면
+      jeus.security.base.SecurityException이 발생한다.<a id="d4e4451" class="indexterm"></a></p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>몇몇 경우에는 Reference Subject에 대한 정보가 필요없을 때가 있다. 즉, 특정 Proof
+          Credential의 경우 Proof Subjet에 대한 정보만 가지고 Credential을 검증할 수 있다. 예를 들어
+          특정 Certificate Credential의 경우가 그렇다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>jeus.security.resource.Password를 매치하는
+      CredentialVerificationService는
+      jeus.security.impl.verification.PasswordVerificationService
+      클래스이다.</p>
+
+      <p>도메인당 0개 이상의 CredentialVerificationService를 설정할 수 있다. 만약 최소한 하나의
+      CredentialVerificationService에서라도 매칭이 확인되면 전체
+      CredentialVerificationService가 모두 성공한 것으로 간주된다. 그렇지 않으면
+      SecurityException이 발생하고, 전체 검증은 모두 실패한 것으로 간주되어 결과적으로 인증 과정이 실패하게
+      된다.<a id="d4e4460" class="indexterm"></a></p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_AuthorizationService_SPI"></a>5.4.8. AuthorizationService SPI</h3></div></div></div>
+      
+
+      <p><a id="d4e4467" class="indexterm"></a>jeus.security.spi.AuthorizationService SPI는 보안 시스템에서 권한
+      체크와 관련된 메소드를 정의하고 있다. 이 SPI의 목적은 "Subject S는 A라는 액션을 실행할 권한이 있는가?"라는 질문에
+      답하는 것이다.</p>
+
+      <p>전형적인 구현 클래스는
+      jeus.security.spi.AuthorizationRepositoryService.getPolicy(contextId)
+      메소드를 호출하여 그 결과로 리턴된 jeus.security.base.Policy를 분석해서 위의 질문에 대한 답을 구한다.
+      AuthorizationRepositoryService SPI를 사용하지 않는 다른 종류의 구현도 얼마든지 가능하다.</p>
+
+      <p>도메인당 1개 이상의 AuthorizationService가 설정될 수 있다. 최소한 하나의
+      AuthorizationService에서라도 양수값을 리턴하면, 모든 권한 체크 과정을 통과한 것으로 간주한다. 즉, 하나의
+      AuthorizationService에서라도 Permission이 허가되었다면, 추가적으로 다른
+      AuthorizationService에 권한을 확인하는 Query를 던지지 않는다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_AuthorizationRepositoryService_SPI"></a>5.4.9. AuthorizationRepositoryService SPI</h3></div></div></div>
+      
+
+      <p><a id="d4e4476" class="indexterm"></a>jeus.security.spi.AuthorizationRepositoryService SPI는
+      정책(Policy) 저장소로부터 jeus.security.base.Policy 인스턴스를 추가, 제거, 조회하는 메소드를 포함하고
+      있다. 이 SPI는 AuthorizationService 구현 클래스에서 사용되거나 J2EE 애플리케이션 코드 내에서 특정
+      이벤트가 발생할 때 직접 정책을 저장소에 추가하거나 제거하기 위해 사용한다.</p>
+
+      <p>AuthorizationService의 가장 큰 목적은 런타임에 jeus.security.base.Policy를 특정
+      타입의 정책 저장소에 저장하는 것이다. 전형적인 구현 클래스는 XML 파일이나 데이터베이스, LDAP 서버에 정책을
+      저장한다.</p>
+
+      <p>AuthorizationRepositoryService SPI를 구현해서 사용하는 것은 선택사항이다. 그러나 디폴트
+      AuthorizationService 서비스를 사용한다면 이 서비스가
+      AuthorizationRepositoryService.getPolicy(String) 메소드를 호출하기 때문에 반드시 구현해야
+      한다.</p>
+
+      <p>도메인당 단 하나의 AuthorizationRepositoryService만 설정될 수 있다. 현재 1개 이상의
+      AuthorizationRepositoryService를 도메인에 설정하는 것은 불가능하다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_EventHandlingService_SPI"></a>5.4.10. EventHandlingService SPI</h3></div></div></div>
+      
+
+      <p><a id="d4e4486" class="indexterm"></a>EventHandlingService SPI는 각종 보안 이벤트를 캡쳐해서 처리하는
+      인터페이스이다.</p>
+
+      <p>EventHandlingService SPI를 사용하면 보안 이벤트가 발생할 때 로그를 남기고 관리자에 자동으로 메일을
+      보내고, Subject에 Lock을 설정하는 등의 작업을 쉽게 구현할 수 있다.</p>
+
+      <p>기본 개념은 매우 간단한데 보안 서비스에서 발생한 jeus.security.base.Event 타입의 이벤트는 같은
+      보안 도메인에 설정되어 있는 모든 EventHandlingService들에 통보된다. 그러면
+      EventHandlingService는 이벤트의 내용에 따라 각각 다르게 처리한다.</p>
+
+      <p>EventHandlingService의 예로 Subject에 Lock을 거는 경우를 생각해 볼 수 있다.
+      AuthenticationService(인증 서비스)가 실패할 때마다 “security.authentication.failed”
+      타입의 이벤트가 발생한다. 그러면 lockout EventHandlingService가 이벤트를 캐치하여,
+      handleEvent(Event) 메소드를 실행시킨다. 이 메소드 내부에서는 로그인 횟수를 카운트하고 있다가 특정 값(예를 들면
+      3회) 이상에 도달하면 해당 Subject에 "lock" Credential을 설정한다.</p>
+
+      <p>이후 SubjectValidationService는 해당 Subject에 Lock이 걸렸음을 확인하고, 결과적으로 이
+      Subject로의 로그인 시도는 모두 실패하게 만든다. SubjectValidationService와
+      EventHandlingService를 결합하면, 한번에 3회 이상 로그인에 실패한 Subject에 Lock을 걸어 더 이상
+      시스템에 로그인 시도를 할 수 없게 만드는 기능을 추가할 수 있다.</p>
+
+      <p>그러나 EventHandlingService SPI가 가장 빈번하게 사용되는 곳은 이벤트를 기록하는 Logger를
+      구현할 때 이다. 이벤트는 일반 텍스트나 XML 파일에 기록되기도 하지만, 때때로 부인방지를 위해 암호화된 파일이 사용되기도
+      한다.</p>
+
+      <p>도메인당 0개 이상의 EventHandlingService를 설정할 수 있다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Dependencies_between_SPI_Implementations"></a>5.4.11. Dependencies between SPI Implementations</h3></div></div></div>
+      
+
+      <p>SPI 클래스 간에는 의존이 존재할 수 있다. 예를 들어 AuthenticationService는
+      AuthenticationRepositoryService에 의존한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>의존은 하나의 SPI 구현 클래스가 다른 SPI 구현 클래스의 static 메소드를 호출한다는 것을 말한다.
+          AuthenticationService 구현 클래스를 AuthenticationServiceImpl이라 하면 이 클래스는
+          AuthenticationRepositoryService.getSubject()를 호출하여 Subject에 대한 정보를
+          얻어온다.</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>SPI 클래스 간에는 의존이 존재할 수 있는 것은 의존이 존재하지 않을 수도 있다는 것을 의미한다. 이는 SPI
+      클래스를 어떻게 구현하느냐에 결정된다. 어떤 SPI 클래스도 결코 직접적으로 다른 SPI 클래스의 메소드를 호출하지 않는다 (몇
+      가지 사소한 예외를 제외함). 일반적으로 SPI 를 구현한 클래스에서 다른 SPI 구현 클래스의 메소드를 호출함으로써 의존이
+      성립된다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음 그림은 디폴트 보안 시스템 구현에서 SPI 구현 클래스 간의 의존에 대한 설명으로 클래스 간의 관계를 단순화시킨
+      것이다.</p><div class="figure"><a id="figure_base_security_system_SPI_implement_class"></a><p class="title"><b>[그림 5.3] 기본 보안 시스템 구현에서의 SPI 구현 클래스</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><img src="resources/figure_base_security_system_spi_implement_class.png" align="top" alt="기본 보안 시스템 구현에서의 SPI 구현 클래스"/></div>
+        </div></div><p><br class="figure-break"/></p>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_security_service_config"></a>5.5. 보안 서비스 설정</h2></div></div></div>
+    
+
+    <p>새로운 SPI 구현 클래스를 컴파일한 다음, 이 클래스를 JEUS 보안 시스템에 등록해야 한다. 등록하는 방법은 <a href="chapter_security_system_setup.html#sect_security_system_service_setup" title="2.3. 보안 도메인 구성요소 설정">“2.3. 보안 도메인 구성요소 설정”</a>을 참고한다.</p>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_security_system_api_programming.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_jacc_provider_application.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제4장 보안 시스템 API 프로그래밍 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제6장 JACC Provider 사용</td></tr></table></div><div xmlns="" align="center"/></body></html>

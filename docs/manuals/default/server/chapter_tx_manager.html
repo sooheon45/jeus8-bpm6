@@ -1,0 +1,1658 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제7장 트랜잭션 매니저</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Server 안내서"/><link rel="up" href="index.html" title="JEUS Server 안내서"/><link rel="prev" href="chapter_datasource.html" title="제6장 DB Connection Pool과 JDBC"/><link rel="next" href="chapter_jeus_logging.html" title="제8장 Logging"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제7장 트랜잭션 매니저</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_datasource.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_jeus_logging.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_tx_manager"></a>제7장 트랜잭션 매니저</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_tx_manager.html#sect_JEUS_Transaction_Manager_Overview">7.1. 개요</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_tx_manager.html#sect_transaction_application">7.1.1. 애플리케이션</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_JEUS_Transaction_Manager">7.1.2. JEUS 트랜잭션 매니저</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_Resource_Manager">7.1.3. 리소스 매니저</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_tx_manager.html#sect_Server_Transaction_Manager_Config">7.2. 서버 트랜잭션 매니저 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_tx_manager.html#sect_Worker_Thread_Pool_Config1">7.2.1. Worker Thread Pool 설정</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_timeout_config1">7.2.2. 타임아웃 설정</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_TxResource_Management_Config">7.2.3. Root Coordinator와 Sub Coordinator 관련 설정</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#d4e6668">7.2.4. 트랜잭션 Join 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_tx_manager.html#sect_Client_TM_Config">7.3. 클라이언트 트랜잭션 매니저 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_tx_manager.html#d4e6682">7.3.1. 트랜잭션 매니저 사용 유무 설정</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_TM_Type_Config">7.3.2. 트랜잭션 매니저 타입 설정</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_Client_TM_TCP_Port_Conf">7.3.3. 트랜잭션 매니저의 TCP/IP Port 설정</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_Client_Worker_Thread_Pool_Config1">7.3.4. Worker Thread Pool 설정</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_Client_Timeout_conf">7.3.5. 타임아웃 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_tx_manager.html#sect_Tx_Application_Devel">7.4. 트랜잭션 애플리케이션 작성</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_tx_manager.html#sect_LocalTransaction">7.4.1. 로컬 트랜잭션(Local Transaction)</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_Client_Managed_Transaction">7.4.2. 클라이언트 관리 트랜잭션(Client Managed Transaction)</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_Bean_Managed_Transaction">7.4.3. Bean 관리 트랜잭션(Bean Managed Transaction)</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_Container_Managed_Transaction">7.4.4. 컨테이너 관리 트랜잭션(Container Managed Transaction)</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#d4e6970">7.4.5. 트랜잭션 매니저 사용</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_tx_manager.html#sect_TM_Recovery">7.5. 트랜잭션의 복구</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_tx_manager.html#sect_TM_Recovery_Introduction">7.5.1. 트랜잭션 복구 과정</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_Recovery_Log_File">7.5.2. 복구 관련 로그 파일</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_Recovery_Config">7.5.3. 복구 관련 설정</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_RM_Failure">7.5.4. 리소스 매니저 장애</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_tx_manager.html#sect_transaction_profile">7.6. 트랜잭션 프로파일 기능</a></span></dt><dt><span class="section"><a href="chapter_tx_manager.html#sect_trouble_shooting">7.7. IP 대역이 다른 서버 간에 트랜잭션 통신 문제</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 JEUS에서의 트랜잭션 매니저와 그 주변 요소들에 대해 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_Transaction_Manager_Overview"></a>7.1. 개요</h2></div></div></div>
+    
+
+    <p><a id="d4e6232" class="indexterm"></a><a id="d4e6234" class="indexterm"></a>JEUS 트랜잭션 매니저는 Java EE 환경에서 애플리케이션에게 다양한 형태의 트랜잭션 서비스를 제공할 수
+    있다. JEUS 트랜잭션 매니저는 애플리케이션의 동작에 따라 필요한 서비스를 제공하며, 다양한 리소스 매니저와의 연결을 제공한다.
+    또한 애플리케이션은 필요에 따라 트랜잭션의 제어 권한을 매니저에 일임할 수도 있고, 자신이 직접 갖을 수도 있다. 트랜잭션 매니저는
+    리소스 매니저, 애플리케이션 등과 함께 트랜잭션 처리를 위한 작업들을 하며, 그 작업에서 중점적인 역할을 담당한다.</p>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>엔터프라이즈 시스템에서 트랜잭션 서비스는 리소스에 대한 대용량의 클라이언트 요청을 안전하고 효율적으로 처리하는 데
+    기본적이고 중요한 서비스이다. 최근에는 리소스의 종류가 다양해지고, 리소스에 대한 요청 규모가 커짐에 따라, 트랜잭션 매니저는 통일된
+    인터페이스를 제공하고 더욱 안정적으로 동작할 필요성이 생겼다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JEUS의 트랜잭션 매니저는 Java Transaction Service(JTS)와의 호환성을 제공하며, Java
+    Transaction API(JTA)를 지원한다. 이는 클라이언트가 트랜잭션을 이용할 때 통일된 인터페이스와 기능을 제공하기
+    위함이다. 자세한 내용은 관련 API 문서나, 스펙 문서를 참고한다. 또한 다양한 형태의 애플리케이션을 지원하기 위하여,
+    애플리케이션이 동작할 수 있는 여러 가지 상황(클라이언트, 서버 애플리케이션)에서의 트랜잭션 서비스를 제공한다.</p>
+
+    <p>트랜잭션 매니저는 안정적인 서비스 제공을 위하여, 문제 상황이 발생하더라도 트랜잭션의 무결성을 보장해야 한다. 이를 위해
+    JEUS 트랜잭션 매니저는 트랜젹션 복구(Transaction Recovery) 기능을 제공하여, 다양한 문제 상황 이후에 트랜잭션을
+    복구할 수 있도록 한다.</p>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JEUS에서의 트랜잭션 작업에 참여하는 요소는 다음과 같이 크게 3가지로 나누어진다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>서비스를 받는 입장에서의 애플리케이션</p>
+
+        <p>애플리케이션은 웹 컨테이너나 EJB 컨테이너, 클라이언트 컨테이너를 통해서 다양한 리소스 매니저로 접속할 수 있다.
+        애플리케이션은 스스로 트랜잭션의 작업과 끝을 지정하여 트랜잭션을 조정할 수도 있고, 컨테이너의 트랜잭션 매니저가 그러한
+        작업들을 대신할 수도 있다.</p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>해당 애플리케이션에 트랜잭션 관리 기능과 그에 따르는 인터페이스를 제공하는 트랜잭션 매니저</p>
+
+        <p>트랜잭션 매니저는 애플리케이션의 동작 위치에 따라 서버 트랜잭션 매니저와 클라이언트 트랜잭션 매니저로 나눠지고,
+        실제 리소스 매니저에 직접적으로 트랜잭션 작업을 준비, 반영 요청을 전달한다.</p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>실제 트랜잭션들이 영향을 주는 리소스 매니저(예: DB)</p>
+
+        <p>리소스 매니저는 요청들을 받아들여 실제 작업을 수행한다.</p>
+      </li></ul></div>
+
+    <p>각 구성 요소는 트랜잭션 처리를 위해 표준 API인 JTA를 이용하여 서로 통신한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>본 절에서는 각 요소에 대해 설명하며, 각각에 대해 동작 방식을 알아보도록 한다. 트랜잭션의 기본적인 내용은 관련 서적이나
+    자료 등을 참고한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_transaction_application"></a>7.1.1. 애플리케이션</h3></div></div></div>
+      
+
+      <p>애플리케이션은 JEUS 트랜잭션 매니저를 이용하여 리소스 매니저에 트랜잭션 관련 작업을 수행한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">로컬
+            트랜잭션</strong></span><a id="d4e6271" class="indexterm"></a><a id="d4e6273" class="indexterm"></a></p>
+
+            <p>하나의 리소스 매니저를 사용하는 트랜잭션 작업들은 하나의 로컬 트랜잭션으로 묶일 수 있다. 애플리케이션은
+            리소스 매니저의 드라이버를 사용해서 로컬 트랜잭션을 시작하거나 종료한다.</p>
+
+            <p>기본적으로 JEUS 트랜잭션 매니저는 로컬 트랜잭션 처리에는 관여하지 않는다. 애플리케이션이 작업을 글로벌
+            트랜잭션으로 처리할 수 있지만, 하나의 리소스 매니저를 이용하는 단순한 트랜잭션의 작업을 할 경우라면 로컬 트랜잭션이
+            훨씬 효율적이므로 로컬 트랜잭션을 사용하길 권장한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">글로벌
+            트랜잭션</strong></span><a id="d4e6280" class="indexterm"></a><a id="d4e6282" class="indexterm"></a></p>
+
+            <p>애플리케이션이 2개 이상의 리소스 매니저를 이용하여 일련의 트랜잭션 작업을 시도할 경우 트랜잭션 매니저는 이
+            트랜잭션들을 하나의 글로벌 트랜잭션으로 묶어서 처리할 수 있다. 이 글로벌 트랜잭션은 흔히 2 Phase Commit
+            프로토콜을 사용하여 사용 중인 리소스들에 대해 일괄적인 트랜잭션 작업을 가능하게 한다.</p>
+
+            <p>트랜잭션 매니저는 트랜잭션을 commit할 때 애플리케이션의 실행 흐름을 추적해서 1 Phase
+            Commit을 할지 2 Phase Commit을 할지를 결정한다. 이 결정은 트랜잭션 내에 사용된 리소스 매니저의
+            개수와 타입에 따라서 결정된다. JEUS 트랜잭션은 중복된 트랜잭션을 지원하지 않으며 2개의 트랜잭션이 섞여서 진행하는
+            것은 허락하지 않는다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">User Managed
+            트랜잭션</strong></span><a id="d4e6289" class="indexterm"></a><a id="d4e6291" class="indexterm"></a></p>
+
+            <p>애플리케이션은 javax.transaction.UserTransaction 객체를 사용해서 트랜잭션의 시작과
+            종료 시기를 지정할 수 있다. 트랜잭션을 commit 또는 rollback할 것인지는 전적으로 애플리케이션에 의해
+            결정된다. 그러나 commit을 했음에도 불구하고 리소스 매니저가 트랜잭션을 처리할 수 없을 때 JEUS 트랜잭션
+            매니저가 rollback시킬 수도 있다.</p>
+
+            <p>EJB에서는 이 User Managed 트랜잭션을 Bean Managed Transaction(BMT)이라고
+            한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">Container Managed
+            트랜잭션</strong></span><a id="d4e6298" class="indexterm"></a><a id="d4e6300" class="indexterm"></a></p>
+
+            <p>Container Managed 트랜잭션은 컨테이너가 트랜잭션의 시작과 종료시기를 결정하는
+            방식이다.</p>
+
+            <p>트랜잭션의 commit, rollback 등의 결정은 전적으로 컨테이너에 의해 결정된다. EJB에서만 사용할
+            수 있으며 Bean의 각 메소드별로 트랜잭션 속성(NotSupported, Required, Supports,
+            RequiresNew, Mandatory, Never)을 지정해서 사용한다.</p>
+          </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p><a id="d4e6308" class="indexterm"></a><a id="d4e6310" class="indexterm"></a><a id="d4e6312" class="indexterm"></a><a id="d4e6314" class="indexterm"></a>애플리케이션은 몇 개의 리소스 매니저를 이용하느냐에 따라 <span><strong class="guibutton">로컬
+      트랜잭션</strong></span>과 <span><strong class="guibutton">글로벌 트랜잭션</strong></span> 2가지를 사용할 수 있다. 또한
+      트랜잭션의 결정 권한을 갖는 주체에 따라서 설정 및 프로그래밍 방식에 따라 나뉠 수 있다.</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_JEUS_Transaction_Manager"></a>7.1.2. JEUS 트랜잭션 매니저</h3></div></div></div>
+      
+
+      <p>JEUS는 서버 트랜잭션 매니저와 클라이언트 트랜잭션 매니저의 두 가지 트랜잭션 매니저를 제공한다.</p>
+
+      <p>서버 트랜잭션 매니저는 글로벌 트랜잭션을 관리하기 위한 모든 기능을 제공한다. 반면에 클라이언트 트랜잭션 매니저는 서버
+      트랜잭션의 대행(proxy) 역할만을 수행한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e6325"></a><span><strong class="guibutton">서버 트랜잭션 매니저</strong></span>(Server Transaction
+      Manager)</h4><p><a id="d4e6327" class="indexterm"></a><a id="d4e6329" class="indexterm"></a></p>
+
+      <p>서버 트랜잭션 매니저는 Java Transaction API를 모두 구현했으며, 서버 애플리케이션이 트랜잭션을 사용할
+      경우 동작한다.</p>
+
+      <p>글로벌 트랜잭션이 시작되면 서버 트랜잭션 매니저는 글로벌 트랜잭션과 관련된 모든 정보를 수집해서, 트랜잭션의
+      Coordinator로서 작업을 진행한다. 상황에 따라서 <span><strong class="guibutton">Root Coordinator</strong></span>와
+      <span><strong class="guibutton">Sub Coordinator</strong></span>로 역할이 나뉜다.</p>
+
+      <div class="figure"><a id="d4e6335"></a><p class="title"><b>[그림 7.1] Root Coordinator와 Sub Coordinator의 관계</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><img src="resources/figure_tm_image93.png" align="top" alt="Root Coordinator와 Sub Coordinator의 관계"/></div>
+      </div></div><br class="figure-break"/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Root Coordinator</p>
+
+          <p>트랜잭션이 시작되는 트랜잭션 매니저가 담당하며, 여기서 시작된 트랜잭션이 전파되는 매니저는 Sub
+          Coordinator가 된다.</p>
+        </li><li>
+          <p>Sub Coordinator</p>
+
+          <p>Root Coordinator로부터 결정을 받아 해당하는 작업을 수행한다. 즉, 능동적으로 트랜잭션을 관리하는
+          역할이 Root Coordinator, 이 내용을 따라하는 수동적 역할이 Sub Coordinator가 할
+          일이다.</p>
+        </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e6350"></a><span><strong class="guibutton">클라이언트 트랜잭션 매니저</strong></span>(Client
+      Transaction Manager) </h4><p><a id="d4e6352" class="indexterm"></a><a id="d4e6354" class="indexterm"></a></p>
+
+      <p>클라이언트 트랜잭션 매니저는 서버 트랜잭션 매니저의 대행자(proxy)로 작동한다.</p>
+
+      <p>글로벌 트랜잭션의 신호를 받은 서버 트랜잭션 매니저가 Root Coordinator의 역할을 하며, 해당 트랜잭션에
+      관한 정보를 모두 모아서 처리한다. commit 시점에 클라이언트 트랜잭션 매니저는 commit 신호를 Root
+      Coordinator에 전송하고 commit의 결과를 받는다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Resource_Manager"></a>7.1.3. 리소스 매니저</h3></div></div></div>
+      
+
+      <p><a id="d4e6362" class="indexterm"></a><a id="d4e6364" class="indexterm"></a></p>
+
+      <p>애플리케이션은 다양한 리소스 매니저와 작업을 할 수 있다. 커넥션 매니저는 리소스 매니저와의 연결을
+      관리한다.</p>
+
+      <p>JEUS에서는 JDBC Connection Manager, JMS Connection Manager, WebT
+      Connection Manager, Connector Manager의 4가지 타입의 커넥션 매니저를 제공한다. 글로벌 트랜잭션을
+      위해서 커넥션 매니저는 트랜잭션과 관련되는 정보를 트랜잭션 매니저에 보고한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>JDBC 리소스 매니저<a id="d4e6371" class="indexterm"></a></p>
+
+            <p>JDBC(Java Database Connectivity)는 Java 언어로 개발할 때 사용하는 DB와
+            애플케이션 간의 연결을 정의한 것이다. 애플리케이션은 JDBC 리소스 매니저을 Naming Server로부터
+            Lookup해서 사용한다. 자세한 내용은 <a href="chapter_jndi.html" title="제4장 JNDI Naming Server">“제4장 JNDI Naming Server”</a>와 <a href="chapter_datasource.html" title="제6장 DB Connection Pool과 JDBC">“제6장 DB Connection Pool과 JDBC”</a>를 참고한다.</p>
+          </li><li>
+            <p>JMS 리소스 매니저<a id="d4e6378" class="indexterm"></a></p>
+
+            <p>JMS(Java Message Service)는 Queue와 Topic 그리고 거기에 저장된 메시지에
+            액세스하기 위한 API를 정의한 스펙이다. 자세한 내용은 <a xmlns="" href="../mq/index.html" class="olink">"JEUS MQ 안내서"</a>나 JMS 스펙을 참고한다.</p>
+          </li><li>
+            <p>Tmax(WebT) 리소스 매니저<a id="d4e6384" class="indexterm"></a></p>
+
+            <p>Tmax는 TmaxSoft에서 개발된 TP-monitor이다. JEUS에서는 Tmax의 트랜잭션 매니저와
+            투명한 양방향 서비스를 위해서 WebT라는 Bridge를 제공한다. WebT는 양방향 메소드 호출을 지원한다. 그래서
+            Tmax에서 일반적인 EJB 클라이언트가 작동될 수 있으며, JEUS에 있는 EJB Bean을 동일한 방법으로 호출할
+            수 있다.</p>
+          </li><li>
+            <p>JCA 리소스 매니저<a id="d4e6389" class="indexterm"></a></p>
+
+            <p>JCA(Java Connector Architecture)는 Java EE 스펙 중의 하나로 Java EE
+            호환 플랫폼과 다양한 EIS(Enterprise Information System)와의 통합 메커니즘을 제공한다. XA
+            트랜잭션을 지원하는 Connector를 사용해서 애플리케이션이 다양한 트랜잭션 작업을 하나의 글로벌 트랜잭션으로 다룰
+            수 있다. 자세한 내용은 <a xmlns="" href="../jca/index.html" class="olink">"JEUS JCA
+            안내서"</a>를 참고한다.</p>
+
+            <p/>
+          </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Server_Transaction_Manager_Config"></a>7.2. 서버 트랜잭션 매니저 설정</h2></div></div></div>
+    
+
+    <p>본 절에서는 JEUS 트랜잭션 매니저의 설정 방법에 대해 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JEUS 사용자는 설정을 통해 다양한 선택을 할 수 있다. 이러한 선택 사항들은 JEUS 트랜잭션 매니저의 성능 및 동작에
+    큰 영향을 미치게 된다. 그러므로 각각의 내용을 숙지하고 알맞은 설정을 해야 한다.</p>
+
+    <p>트랜잭션 매니저의 설정은 대부분 WebAdmin이나 콘솔 툴을 이용할 수 있고, 나머지는 시스템 프로퍼티로 설정이
+    가능하다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <h3><a id="d4e6404"></a>WebAdmin 사용 </h3>
+
+    <p>다음은 WebAdmin으로 설정을 변경하기 위한 과정에 대한 설명이다.</p>
+
+    <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면 서버 목록
+          조회 화면으로 이동한다.</p>
+        </li><li>
+          <p>동적으로 설정을 변경하기 위해 <span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을
+          클릭한다. WebAdmin의 설정변경 모드에 대한 자세한 설명은 "<a xmlns="" href="../web-manager/index.html" class="olink">JEUS WebAdmin 안내서"</a>를 참고한다.</p>
+        </li><li>
+          <p>해당 화면에서 서버를 선택하면 서버 설정화면으로 이동한다. 서버 설정화면에서 <span><strong class="guibutton">[Basic]
+          &gt; [Tm Config]</strong></span> 메뉴를 선택하면 <span><strong class="guibutton">TM Config
+          화면</strong></span>으로 이동한다.</p>
+        </li><li>
+          <p>트랜잭션 설정을 변경하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다. 설정 정보는 왼쪽
+          메뉴 하단에 <span><strong class="guibutton">[Activate Changes]</strong></span> 버튼을 클릭해서
+          반영한다.</p>
+
+          <p/>
+        </li></ol></div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Worker_Thread_Pool_Config1"></a>7.2.1. Worker Thread Pool 설정</h3></div></div></div>
+      
+
+      <p>JEUS 트랜잭션 매니저에서는 다른 트랜잭션 매니저 간의 통신을 지원하기 위해서 여러 개의 Worker Thread를
+      사용한다. 트랜잭션 매니저는 기본적으로 서버의 System Thread Pool을 사용한다. 트랜잭션이 중요하고 빠른 처리를
+      요구하는 서버에서는 Thread Pool을 설정할 수 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">공용 Thread Pool</strong></span></p>
+
+          <p>트랜잭션이 많지는 않지만 일정한 수준으로 트랜잭션이 발생하고 다른 서비스보다 빠른 처리를 원한다면 서버 전체
+          서비스가 공용으로 사용하는 System Thread Pool을 설정한다.</p>
+
+          <p>공용 Thread Pool은 트랜잭션 매니저만 사용할 수 있는 Thread 개수를 <span class="bold"><strong>'Reserved Thread Num' </strong></span>항목을 이용하여 별도로 할당할 수 있다.
+          이때에는 다른 서비스들도 처리에 문제가 없도록 전체 Thread Pool의 크기를 고려해서 트랜잭션 매니저만의
+          Thread를 할당한다.</p>
+
+          <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+              <p>다른 서비스에서도 각각 해당 서비스만을 위한 Thread를 할당할 수 있는데 그 총합이 전체 Thread
+              Pool 크기 이상으로 설정하면 안 된다. <span class="bold"><strong>'Reserved Thread
+              Num'</strong></span>을 동적으로 변경할 경우(n → m) n 또는 m이 0이면 동적 반영되지 않고
+              Pending으로 처리되므로 재부팅해야 한다.</p>
+            </div>
+        </li><li>
+          <p><span><strong class="guibutton">전용 Thread Pool</strong></span></p>
+
+          <p>트랜잭션이 굉장히 많고 부하의 기복이 심하다면 System Thread를 사용하지 않고, 트랜잭션 매니저만
+          사용하는 전용 Thread를 생성해서 사용한다. Thread Pool을 구성하는 설정들은 System Thread
+          Pool의 설정들과 같으므로 <a href="chapter_server_conf.html#sect_server_thread_pool" title="2.3.3. Thread Pool 설정">“2.3.3. Thread Pool 설정”</a>을
+          참고한다.</p>
+        </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>위와 같이 System Thread Pool을 사용할 수도 있고, 전용 Thread Pool을 사용할 수도 있는데 서버
+      운영 중에는 Pool의 종류를 변경할 수는 없다. 즉, 변경 후 서버를 재시작해야 Pool의 종류를 반영할 수 있다. 그러나
+      Pool의 설정은 전용 Thread Pool의 큐 크기만 제외하고는 모두 서버 재시작 없이 동적 변경이 가능하다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e6448"></a>WebAdmin 사용 </h4><p>다음은 WebAdmin을 사용해서 Thread
+      Pool 변경하는 과정에 대한 설명이다. <span><strong class="guibutton">Tm Config 화면</strong></span>의 하단 부분에서
+      Thread Pool 설정을 변경할 수 있다. Thread Pool에 대해 설정하려면
+      <span><strong class="guibutton">'Pooling'</strong></span> 항목을 체크한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">공용 Thread Pool 설정</strong></span></p>
+
+          <p>공용 Thread Pool을 설정하는 경우는 <span><strong class="guibutton">'Shared'</strong></span> 항목을
+          선택하고, <span><strong class="guibutton">'Reserved Thread Num'</strong></span>을 설정한 후
+          <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="figure_server1_basicinfo_tmConfig_pooling_radio_button"></a><p class="title"><b>[그림 7.2] WebAdmin으로 공용 Thread Pool 설정</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_server1_basicinfo_tmconfig_pooling_radio_button.png" align="top" width="663" alt="WebAdmin으로 공용 Thread Pool 설정"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">전용 Thread Pool 설정</strong></span></p>
+
+          <p>전용 Thread Pool을 설정하는 경우는 <span><strong class="guibutton">'Dedicated'</strong></span>
+          항목을 선택하고, 필요한 항목을 설정한 후 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="figure_server1_basicinfo_tmConfig_pooling_radio_button2"></a><p class="title"><b>[그림 7.3] WebAdmin으로 전용 Thread Pool 설정</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_server1_basicinfo_tmconfig_pooling_radio_button2.png" align="top" width="663" alt="WebAdmin으로 전용 Thread Pool 설정"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <h4><a id="d4e6483"></a>콘솔 툴 사용 </h4><p>다음은 콘솔 툴을 사용해서 Thread Pool 변경하는
+      설명이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guiicon">공용 Thread Pool 설정</strong></span></p>
+
+            <p>System Thread Pool에서 몇 개의 Thread를 트랜잭션 매니저를 위해 별도로 할당하려면
+            <span><strong class="guibutton">modify-system-thread-pool</strong></span> 명령을 사용한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-system-thread-pool server1 -service transaction -reservednum 10</strong></span>
+Successfully performed the MODIFY operation for the transaction thread pool of the 
+server (server1).
+Check the results using "show-system-thread-pool server1 -service transaction or 
+modify-system-thread-pool server1 -service transaction"</pre>
+          </li><li>
+            <p><span><strong class="guibutton">전용 Thread Pool 설정</strong></span></p>
+
+            <p>트랜잭션 매니저 전용 Thread를 사용하려면
+            <span><strong class="guibutton">modify-service-thread-pool</strong></span> 명령을 사용한다.</p>
+
+            <p>System Thread Pool을 사용하다가 전용 Thread Pool을 설정하면 서버를 재시작해야
+            적용되고, 전용 Thread Pool을 사용하다가 속성만 바꾸면 재시작 없이 반영된다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-service-thread-pool server1 -service transaction -min 10 -max 20</strong></span>
+Successfully performed the MODIFY operation for The transaction thread pool of the 
+server (server1), but all changes were non-dynamic. They will be applied after 
+restarting.
+Check the results using "show-service-thread-pool server1 -service transaction or 
+modify-service-thread-pool server1 -service transaction"</pre>
+          </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>modify-system-thread-pool과 modify-service-thread-pool 명령어에 대한
+          자세한 설명은 <a xmlns="" href="../reference-book/ch04.html#cmd_modify-service-thread-pool" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.5.2. modify-service-thread-pool”</a>을 참고한다.</p>
+        </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_timeout_config1"></a>7.2.2. 타임아웃 설정</h3></div></div></div>
+      
+
+      <p>JEUS 트랜잭션 매니저는 예외 상황 처리를 위해서 다양한 타임아웃 메커니즘을 사용한다. 타임아웃 메커니즘의 값을
+      조정해서 애플리케이션 시스템에 가장 적합하도록 트랜잭션 매니저를 튜닝할 수 있다. 타임아웃 설정들은 모두 서버 재시작으로 반영되는
+      설정들이다. 서버 시작 전에 고려하여 설정하거나 서비스 중에 변경했다면 서버를 재시작해야 한다.</p>
+
+      <p/>
+
+      <h4><a id="d4e6511"></a>WebAdmin 사용</h4>
+
+      <p>다음은 WebAdmin을 사용해서 타임아웃을 변경하는 방법이다. <span><strong class="guibutton">Tm Config
+      화면</strong></span>의 상단 부분에서 여러 가지 타임아웃 설정을 변경할 수 있다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="figure_server1_basicinfo_tmConfig_pooling_radio_button2"></a><p class="title"><b>[그림 7.4] WebAdmin으로 타임아웃 변경</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_server1_basicinfo_tmconfig_timeouts.png" align="top" width="711" alt="WebAdmin으로 타임아웃 변경"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p>다음은 설정 항목에 대한 설명이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">기본 정보</strong></span></p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="150"/><col/></colgroup><thead><tr><th>항목</th><th>설명</th></tr></thead><tbody><tr><td>Active Timeout<a id="d4e6538" class="indexterm"></a></td><td><p>글로벌 트랜잭션이 시작되면 이 시간 안에 commit이 실행되어야 한다. 그렇지
+                    않으면 트랜잭션 매니저가 rollback시킨다.</p><p>(기본값: 600000(10분),
+                    단위: ms)</p></td></tr><tr><td>Automatic Recovery<a id="d4e6546" class="indexterm"></a></td><td><p>클러스터링 환경에서 현재의 트랜잭션 매니저가 Failure될 경우 다른 곳에서
+                    자동으로 Indoubt 트랜잭션을 복구해주는 기능을 사용할지의 여부를 설정한다. 이 기능이 올바로
+                    동작하기 위해서는 클러스터링 설정이 되어 있어야 하며, Failed TM의 로그 디렉터리를 다른 곳에서
+                    접근 가능하도록 제대로 설정되어 있어야 한다.</p></td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p><span><strong class="guibutton">고급 선택사항</strong></span></p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="150"/><col/></colgroup><thead><tr><th>항목</th><th>설명</th></tr></thead><tbody><tr><td>Prepare Timeout<a id="d4e6564" class="indexterm"></a></td><td><p>Root Coordinator는 이 시간 내에 Sub Coordinator와
+                    리소스 매니저로부터 ‘prepare’ 신호를 받아야 한다. 만약 이 시간 내에 받지 못하면 Root
+                    Coordinator는 글로벌 트랜잭션을 rollback시킨다. </p><p>(기본값:
+                    120000(2분), 단위: ms)</p></td></tr><tr><td>Prepared Timeout<a id="d4e6572" class="indexterm"></a></td><td>Sub Coordinator는 자신의 Root Coordinator로부터 이 시간 안에
+                    commit을 해야 할지 rollback을 해야 할지를 나타내는 Global Decision을 받아야
+                    한다. 만약 이 시간 내에 받지 못하면 Root Coordinator로 다시 ‘prepare’에 대한
+                    응답 메시지를 보낸다. 그래도 여전히 시간 내에 Global Decision이 오지 않으면 글로벌
+                    트랜잭션을 rollback시킨다. (기본값: 60000(1분), 단위: ms)</td></tr><tr><td>Commit Timeout<a id="d4e6578" class="indexterm"></a></td><td><p>Root Coordinator는 이 시간 내에 Sub Coordinator와
+                    리소스 매니저로부터 commit이나 rollback에 대한 결과를 받아야 한다.
+                    </p><p>만약 결과가 오지 않으면, Root Coordinator는 글로벌 트랜잭션을
+                    'Incomplete List’에 기록해서 트랜잭션이 완전히 끝나지 않았음을 남겨둔다.
+                    </p><p>(기본값: 240000(4분), 단위: ms)</p></td></tr><tr><td>Recovery Timeout<a id="d4e6587" class="indexterm"></a></td><td><p>트랜잭션 복구하는 경우에 사용되는 값이다. </p><p>트랜잭션
+                    매니저는 트랜잭션 복구를 위해서 복구될 트랜잭션 정보를 가져오려고 한다. 만약 다른 트랜잭션 매니저에서
+                    이 시간 내에 복구 정보를 알려주지 않으면 해당 트랜잭션을 rollback시킨다.
+                    </p><p>(기본값: 120000(2분), 단위: ms) </p></td></tr><tr><td>Incomplete Timeout<a id="d4e6596" class="indexterm"></a></td><td><p>트랜잭션 매니저는 전체 트랜잭션 처리를 완료하기 위해 실패한 글로벌 트랜잭션의
+                    목록을 보관한다. 완료되지 못한 글로벌 트랜잭션의 정보는 복구를 처리할 때 사용되므로 이 타임아웃
+                    시간까지 보관된다. </p><p>그러므로 이 시간이 너무 짧으면 복구 정보가 빨리 지워지고,
+                    트랜잭션 매니저가 해당 글로벌 트랜잭션의 무결성을 복구할 수 없게 된다. 그 결과 글로벌 트랜잭션 복구를
+                    위해서 시스템 관리자가 많은 작업을 직접 처리해야 한다. </p><p>(기본값:
+                    86400000(1일), 단위: ms) </p></td></tr></tbody></table>
+            </div>
+          </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e6607"></a>콘솔 툴 사용 </h4>
+
+      <p><span><strong class="guibutton">modify-transaction-manager</strong></span> 명령을 이용하여 트랜잭션
+      매니저의 타임아웃을 변경할 수 있다. 해당 명령에 대한 자세한 설명은 <a xmlns="" href="../reference-book/ch04.html#cmd_modify-transaction-manager" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.13.1. modify-transaction-manager”</a>를 참고한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 콘솔 툴을 사용해서 타임아웃 변경하는 방법에 대한 설명이다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-transaction-manager server1 -activeTimeout 20000</strong></span>
+Successfully performed the MODIFY operation for transaction of server (server1), but all changes were non-dynamic. They will be applied after restarting.
+Check the results using "show-transaction-manager server1 or modify-transaction-manager server1"</pre>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_TxResource_Management_Config"></a>7.2.3. Root Coordinator와 Sub Coordinator 관련 설정</h3></div></div></div>
+      
+
+      <p>트랜잭션 매니저는 역할에 따라 Root Coordinator와 Sub Coordinator로 나누어진다. Sub
+      Coordinator는 Root Coordinator로부터 트랜잭션 관련 사항을 전파받아야 하므로 Root Coordinator에
+      자신을 등록시켜 Root Coordinator가 Sub Coordinator의 존재를 알게 한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음의 두 가지 시스템 프로퍼티를 사용해서 설정할 수 있다. 사용자는 퍼포먼스와 안정성을 고려해서 옵션을 적절히
+      사용하도록 한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <pre class="programlisting"><span class="bold"><strong>-D<span class="bold"><strong>jeus.tm.forcedReg</strong></span>=&lt;true or false&gt;</strong></span></pre>
+
+          <p>이 설정은 Sub Coordinator가 Root Coordinator에게 언제 자신을 등록시킬 것인지에 대한
+          설정이다.</p>
+
+          <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><thead><tr><th align="left">설정값</th><th>설명</th></tr></thead><tbody><tr><td align="left">true</td><td>트랜잭션 전파 상황에서 Sub Coordinator는 즉시 자신을 등록한다.
+                  (기본값)</td></tr><tr><td align="left">false</td><td>실제로 Sub Coordinator에 연결된 리소스 매니저를 사용할 때 Root
+                  Coordinator에 등록한다. 이렇게 할 경우 실제 Sub Coordinator에 등록된 리소스 매니저를
+                  사용하지 않는 EJB Call이 많은 경우에 트랜잭션 매니저 간의 통신 횟수를 줄일 수 있다.</td></tr></tbody></table>
+          </div>
+
+          <p/>
+        </li><li>
+          <pre class="programlisting"><span class="bold"><strong>-D<span class="bold"><strong>jeus.tm.checkReg</strong></span>=&lt;true or false&gt;</strong></span></pre>
+
+          <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><thead><tr><th align="left">설정값</th><th>설명</th></tr></thead><tbody><tr><td align="left">true</td><td>Sub Coordinator가 자신을 등록할 때 Root Coordinator로부터 ACK를
+                  기다린다. 만약 일정 시간 내에 ACK가 도착하지 않으면 등록 실패로 간주하고 대기 중인 트랜잭션들을
+                  rollback을 시킨다. (기본값)</td></tr><tr><td align="left">false</td><td>Sub Coordinator가 자신을 등록할 때 Root Coordinator로부터 ACK를
+                  기다리지 않으므로 네트워크 등의 문제로 등록되지 않은 경우에도 미리 알지 못하므로 실제 commit할 때에
+                  문제가 된다.</td></tr></tbody></table>
+          </div>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6668"></a>7.2.4. 트랜잭션 Join 설정</h3></div></div></div>
+      
+
+      <p>JEUS 트랜잭션 매니저는 같은 리소스 매니저의 트랜잭션 리소스들은 서로 Join을 시킨다. 이렇게 할 경우 추가적인
+      트랜잭션 브랜치를 생성하지 않고도 작업을 하게 되어 오버헤드를 줄일 수 있다. 하지만 상황에 따라서는 이러한 방식이 문제가 될
+      수도 있다(예를 들면 Oracle OCI를 RAC처럼 사용할 때).</p>
+
+      <p>이 경우에는 다음의 옵션을 true로 지정하여 문제 발생을 대비한다.</p>
+
+      <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.disableJoin</strong></span>=true</pre>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Client_TM_Config"></a>7.3. 클라이언트 트랜잭션 매니저 설정</h2></div></div></div>
+    
+
+    <p>클라이언트 트랜잭션 매니저는 클라이언트 애플리케이션이 글로벌 트랜잭션을 시작하고 종료하기 위해서 만들어졌다. 본 절에서는
+    클라이언트에 특별한 의미를 갖는 설정들에 대해 설명한다.</p>
+
+    <p>클라이언트 애플리케이션은 domain.xml의 설정 등을 사용하지 않기 때문에 애플리케이션 실행 스크립트에 시스템 프로퍼티
+    형태로 설정을 지정한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6682"></a>7.3.1. 트랜잭션 매니저 사용 유무 설정</h3></div></div></div>
+      
+
+      <p>클라이언트 트랜잭션 매니저는 클라이언트 애플리케이션이 JNDI Lookup을 사용할 때 초기화된다. 그러나 클라이언트
+      애플리케이션에 따라 트랜잭션 매니저를 사용하지 않는 경우가 있다. 이때 발생하는 추가적인 오버헤드를 없애기 위해 다음의 내용을
+      실행 스크립트에 저장한다.</p>
+
+      <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.not_use</strong></span>=true</pre>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_TM_Type_Config"></a>7.3.2. 트랜잭션 매니저 타입 설정</h3></div></div></div>
+      
+
+      <p>클라이언트 트랜잭션 매니저는 클라이언트 컨테이너에서만 사용된다. 기본적으로 클라이언트에서는 클라이언트 트랜잭션 매니저를
+      사용하고 특별히 서버 트랜잭션 매니저를 클라이언트에서 사용하려면 다음을 클라이언트 애플리케이션 스크립트에 추가한다. 서버 트랜잭션
+      매니저와 클라이언트 트랜잭션 매니저의 차이는 <a href="chapter_tx_manager.html#sect_JEUS_Transaction_Manager" title="7.1.2. JEUS 트랜잭션 매니저">“7.1.2. JEUS 트랜잭션 매니저”</a>를 참고한다.</p>
+
+      <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.version</strong></span>=server</pre>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Client_TM_TCP_Port_Conf"></a>7.3.3. 트랜잭션 매니저의 TCP/IP Port 설정</h3></div></div></div>
+      
+
+      <p>클라이언트 트랜잭션 매니저는 다른 트랜잭션 매니저와 통신하기 위해서 TCP/IP Port를 사용한다.</p>
+
+      <p>기본적으로 클라이언트 트랜잭션 매니저는 적절한 포트를 스스로 찾아서 사용하나, 직접 설정하려면 다음을 클라이언트
+      애플리케이션 스크립트에 추가한다.</p>
+
+      <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.port</strong></span>=<span class="emphasis"><em>&lt;port number&gt;</em></span></pre>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Client_Worker_Thread_Pool_Config1"></a>7.3.4. Worker Thread Pool 설정</h3></div></div></div>
+      
+
+      <p>Worker Thread Pool의 정보를 설정한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Min</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+                <p>Pool에 생성되는 Worker Thread의 수로 클라이언트 트랜잭션 매니저에서 이 값을 설정하려면
+                다음의 내용을 클라이언트 실행 스크립트에 넣어준다.<a id="d4e6716" class="indexterm"></a></p>
+
+                <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.tmMin</strong></span>=<span class="emphasis"><em>&lt;number of threads&gt;</em></span></pre>
+              </li></ul></div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Max</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+                <p>Pool에서 생성되는 Thread의 최대 개수로 클라이언트 트랜잭션 매니저에서 이 값을 설정하려면
+                다음의 내용을 클라이언트 실행 스크립트에 넣어준다.<a id="d4e6730" class="indexterm"></a></p>
+
+                <pre class="programlisting"> -D<span class="bold"><strong>jeus.tm.tmMax</strong></span>=<span class="emphasis"><em>&lt;number of threads&gt;</em></span></pre>
+              </li></ul></div>
+        </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Client_Timeout_conf"></a>7.3.5. 타임아웃 설정</h3></div></div></div>
+      
+
+      <p>다음은 클라이언트에서 트랜잭션 매니저를 설정하는 방법에 대한 설명이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">Active Timeout</strong></span><a id="d4e6745" class="indexterm"></a></p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>글로벌 트랜잭션이 시작되면 이 시간 안에 commit이 실행되어야 한다. 그렇지 않으면 트랜잭션
+                매니저가 rollback시킨다. (기본값: 600000(10분), 단위: ms)</p>
+              </li></ul></div>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>클라이언트 컨테이너에서 이 값을 설정하려면 클라이언트 애플리케이션의 스크립트에 다음을
+                추가한다.</p>
+
+                <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.activeto</strong></span>=<span class="emphasis"><em>&lt;time in milliseconds&gt;</em></span></pre>
+              </li></ul></div>
+          </li><li>
+            <p><span><strong class="guibutton">Prepare
+            Timeout</strong></span><a id="d4e6760" class="indexterm"></a></p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>Root Coordinator는 이 시간 내에 Sub Coordinator와 리소스 매니저로부터
+                ‘prepare’ 신호를 받아야 한다. (기본값: 120000(2분), 단위: ms)</p>
+              </li><li>
+                <p>만약 받지를 못하면 Root Coordinator는 글로벌 트랜잭션을
+                rollback시킨다.</p>
+              </li></ul></div>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>클라이언트 컨테이너에서 이 값을 설정하려면 클라이언트 애플리케이션의 스크립트에 다음을
+                추가한다.</p>
+
+                <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.preparedto</strong></span>=<span class="emphasis"><em>&lt;time in milliseconds&gt;</em></span></pre>
+
+                <p/>
+              </li></ul></div>
+          </li><li>
+            <p><span><strong class="guibutton">Prepared
+            Timeout</strong></span><a id="d4e6778" class="indexterm"></a></p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>Sub Coordinator는 자신의 Root Coordinator로부터 이 시간 안에
+                commit할지 rollback할지를 나타내는 Global Decision을 받아야 한다. (기본값:
+                60000(1분), 단위: ms)</p>
+              </li><li>
+                <p>만약 이 시간 내에 받지 못하면 Root Coordinator 로 다시 ‘prepare’에 대한 응답
+                메시지를 보낸다. 그래도 여전히 시간 내에 Global Decision이 오지 않으면 글로벌 트랜잭션을
+                rollback시킨다.</p>
+              </li></ul></div>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>클라이언트 컨테이너에서 이 값을 설정하려면 클라이언트 애플리케이션의 스크립트에 다음을
+                추가한다.</p>
+
+                <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.preparedto</strong></span>=<span class="emphasis"><em>&lt;time in milliseconds&gt;</em></span></pre>
+
+                <p/>
+              </li></ul></div>
+          </li><li>
+            <p><span><strong class="guibutton">Commit
+            Timeout</strong></span><a id="d4e6796" class="indexterm"></a></p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>Root Coordinator는 이 시간 내에 Sub Coordinator와 리소스 매니저로부터
+                commit이나 rollback에 대한 결과를 받아야 한다. (기본값: 240000(4분), 단위:
+                ms)</p>
+              </li><li>
+                <p>만약 결과가 오지 않으면 Root Coordinator는 글로벌 트랜잭션을 ‘Incomplete
+                List’에 기록해서 트랜잭션이 완전히 끝나지 않았음을 남겨둔다.</p>
+              </li></ul></div>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>클라이언트 컨테이너에서 이 값을 설정하려면 클라이언트 애플리케이션의 스크립트에 다음을
+                추가한다.</p>
+
+                <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.committo</strong></span>=<span class="emphasis"><em>&lt;time in milliseconds&gt;</em></span></pre>
+
+                <p/>
+              </li></ul></div>
+          </li><li>
+            <p><span class="bold"><strong>Recovery Timeout</strong></span><a id="d4e6814" class="indexterm"></a></p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>트랜잭션을 복구하는 경우에 사용된다. 트랜잭션 매니저는 트랜잭션 복구를 위해서 복구될 트랜잭션 정보를
+                가져오려고 한다. (기본값: 120000(2분), 단위: ms)</p>
+              </li><li>
+                <p>만약 다른 트랜잭션 매니저에서 이 시간 내에 복구 정보를 알려주지 않으면 해당 트랜잭션을
+                rollback시킨다.</p>
+              </li></ul></div>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>클라이언트 컨테이너에서 이 값을 설정하려면 클라이언트 애플리케이션의 스크립트에 다음을
+                추가한다.</p>
+
+                <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.recoveryto</strong></span>=<span class="emphasis"><em>&lt;time in milliseconds&gt;</em></span></pre>
+
+                <p/>
+              </li></ul></div>
+          </li><li>
+            <p><span class="bold"><strong>Incomplete Timeout</strong></span><a id="d4e6832" class="indexterm"></a></p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>트랜잭션 매니저는 전체 트랜잭션 처리를 완료하기 위해 실패한 글로벌 트랜잭션의 목록을 보관한다.
+                완료되지 못한 글로벌 트랜잭션의 정보는 복구를 처리할 때 사용되므로 이 타임아웃 시간까지 보관된다. 그러므로 이
+                시간이 너무 짧으면 복구 정보가 빨리 지워지고 트랜잭션 매니저가 해당 글로벌 트랜잭션의 무결성을 복구할 수 없게
+                된다. 그 결과 글로벌 트랜잭션 복구를 위해서 시스템 관리자가 많은 작업을 직접 처리해야만 한다. (기본값:
+                86400000(1일), 단위: ms)</p>
+              </li></ul></div>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>클라이언트 컨테이너에서 이 값을 설정하려면 클라이언트 애플리케이션의 스크립트에 다음을
+                추가한다.</p>
+
+                <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.incomplete.to</strong></span>=<span class="emphasis"><em>&lt;time in milliseconds&gt;</em></span></pre>
+
+                <p/>
+              </li></ul></div>
+          </li></ul></div>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Tx_Application_Devel"></a>7.4. 트랜잭션 애플리케이션 작성</h2></div></div></div>
+    
+
+    <p>본 절에서는 JEUS 트랜잭션 프로그래밍 예제를 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>트랜잭션 프로그래밍 패턴에는 4가지가 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>로컬 트랜잭션(Local Transaction)</p>
+      </li><li>
+        <p>클라이언트 관리 트랜잭션(Client Managed Transaction)</p>
+      </li><li>
+        <p>Bean 관리 트랜잭션(Bean Managed Transaction)</p>
+      </li><li>
+        <p>컨테이너 관리 트랜잭션(Container Managed Transaction)</p>
+      </li></ul></div>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>사용자 및 애플리케이션 프로그래머는 현재 자신의 애플리케이션이 어떤 양식으로 운영되어야 하는가를 확실히 지정한 후
+    프로그래밍을 해야 한다. 그래야만 예측된 결과를 얻을 수 있으며 문제가 발생했을 때 쉽게 해결할 수 있다.</p>
+
+    <p>애플리케이션은 트랜잭션 작업을 하나의 트랜잭션으로 관리할 수 있다. 작업이 하나의 리소스 매니저를 통해서 처리된다면 로컬
+    트랜잭션을 형성한다. 그렇지 않다면 트랜잭션을 관리하기 위해서 글로벌 트랜잭션을 사용할 수밖에 없다.</p>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_LocalTransaction"></a>7.4.1. 로컬 트랜잭션(Local Transaction)</h3></div></div></div>
+      
+
+      <p><a id="d4e6869" class="indexterm"></a><a id="d4e6871" class="indexterm"></a>로컬 트랜잭션은 하나의 리소스 매니저에 대한 트랜잭션 작업을 관리하는 데 효과적인 방법이다. 가볍고
+      빠르기 때문에 가능하면 로컬 트랜잭션을 사용한다. 로컬 트랜잭션은 JEUS 트랜잭션 매니저와는 아무런 관계가 없으며 모든 타입의
+      컨테이너에서 사용할 수 있다.</p>
+
+      <p>다음은 로컬 트랜잭션을 사용하는 간단한 예제이다. 비록 Java 애플리케이션이지만 코드 일부분은 Servlet이나
+      EJB 등과 같은 다른 Java EE 프로그래밍에서도 사용할 수 있다.</p><div class="example"><a id="d4e6874"></a><p class="title"><b>[예 7.1] &lt;&lt;Client.java&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">import javax.naming.*;
+import javax.rmi.PortableRemoteObject;
+import java.util.*;
+import javax.transaction.UserTransaction;
+import java.sql.*;
+import javax.sql.*;
+
+public class Client {
+    private static Connection con;
+
+    private static Connection getConnection() throws
+                              NamingException, SQLException {
+         // get a JDBC connection
+    }
+
+    private static String insertCustomer(String id, String name,
+             String phone) throws NamingException, SQLException {
+        // insert a product entity given by the arguments to DB
+    }
+
+    private static void deleteCustomer(String id) throws
+                              NamingException, SQLException {
+        // delete a product entity given by the arguments from DB
+
+    }
+ 
+    public static void main(String[] args) {
+        try {
+          // get a JDBC connection
+          con = getConnection();
+
+          // set the autocommit attribute as false
+          con.setAutoCommit(false);
+
+          // insert customers
+          for (int i=0 ; i&lt;number/2 ; i++) {
+              System.out.println("inserting customer id="+i+"c... from Client");
+              customers[i] = insertCustomer(i+"c", "Hong Kil Dong "+i, "000-123-1234-"+i);
+          }
+          System.out.println("completed inserting customers!!");
+          con.commit();
+
+          // delete customers
+          for (int i=0 ; i&lt;number/2 ; i++) {
+             System.out.println("deleting customerid="+customers[i]+" ... from Client");
+             deleteCustomer(customers[i]);
+          }
+          System.out.println("completed deleting customers!!");
+          con.commit();
+
+       } catch (NamingException ne) {
+          System.out.println("Naming Exception caught : " + ne.getMessage());
+       } catch (SQLException sqle) {
+          System.out.println("SQL Exception caught : " + sqle.getMessage());
+       } catch(Exception e) {
+          try {
+             con.rollback();
+          } catch (Exception ee) {
+             System.out.println("Transaction Rollback error : " + ee.getMessage());
+          }
+          System.out.println("Error caught : " + e.getMessage());
+          e.printStackTrace();
+      } finally {
+         try {
+             if (con!=null) con.close();
+         } catch (SQLException se) {}
+      }
+   }
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Client_Managed_Transaction"></a>7.4.2. 클라이언트 관리 트랜잭션(Client Managed Transaction)</h3></div></div></div>
+      
+
+      <p><a id="d4e6882" class="indexterm"></a><a id="d4e6884" class="indexterm"></a>클라이언트 컨테이너의 애플리케이션에서 글로벌 트랜잭션을 사용할 수 있다. 클라이언트는
+      UserTransaction을 이용하여 직접 트랜잭션을 관리하고 실제 작업을 수행하는 EJB를 호출한다. 본 절에서는 간단한
+      예제를 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e6888"></a>클라이언트 </h4>
+
+      <p>글로벌 트랜잭션을 시작하기 전에 ‘java:comp/UserTransaction’을 Lookup해서
+      javax.transaction.UserTransaction의 인스턴스를 가져온다. 이 인스턴스의 begin()을 호출해서 글로벌
+      트랜잭션을 시작한 다음, EJB Bean을 여러 번 호출한다. EJB Bean의 트랜잭션 작업을 commit하려면
+      UserTransaction 인스턴스의 commit() 메소드를 실행해서 트랜잭션이 완료되었음을 알린다.</p>
+
+      <p>정상적으로 commit되면 메소드는 끝나게 된다. 장애가 발생해서 글로벌 트랜잭션이 commit되지 못한다면 메소드에서
+      Exception을 던지게 된다. javax.transaction.RollbackException은 JEUS 트랜잭션 매니저가
+      글로벌 트랜잭션이 rollback되었다는 것을 보장하는 Exception이다. 이외에 다른 Exception은 JEUS 트랜잭션
+      매니저가 예측할 수 없는 Exception이 발생해서 글로벌 트랜잭션을 rollback하려고 한다는 것을 나타낸다. 그러나 글로벌
+      트랜잭션에 포함된 모든 트랜잭션 작업들이 완전히 rollback된다는 것은 아니다. 이럴 때는 catch 문 안에서 다시 한 번
+      직접 UserTransaction의 rollback() 메소드를 호출해 글로벌 트랜잭션을 rollback시킨다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>Standalone 클라이언트는 컴포넌트의 개념이 없기 때문에 java:comp/UserTransaction을
+        Standalone 클라이언트에서 다른 이름으로 Lookup할 수 있도록 java:/UserTransaction을 지원한다.
+        실질적으로 클라이언트에서는 java:comp/UserTransaction, java:/UserTransaction 모두
+        트랜잭션을 Lookup하기 위해 사용 가능하고 어느 것을 사용해도 상관은 없다.</p>
+      </div>
+
+      <div class="example"><a id="d4e6893"></a><p class="title"><b>[예 7.2] &lt;&lt;Client.java&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">package umt;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.rmi.PortableRemoteObject;
+import java.util.*;
+import javax.transaction.UserTransaction;
+
+public class Client {
+ public static void main(String[] args) {
+   UserTransaction tx = null;
+   try {
+       InitialContext initial = new InitialContext();
+       ProductManager productManager =
+           (ProductManager)initial.lookup("productmanager");
+       System.out.println("");
+       System.out.println("&lt; Testing ProductManager EJBBean " + "Using User Managed Transaction &gt;&gt;");
+       System.out.println("");
+       int number = 10;
+       String products[] = new String[number];
+       tx = (UserTransaction)initial.lookup("java:comp/UserTransaction");
+       tx.begin();
+       // insert products
+       for (int i=0 ; i&lt;number/2 ; i++) {
+            System.out.println("inserting product id="+i+"b...");
+           // bean call
+            <span class="bold"><strong>products[i] = productManager.insertProduct(i+"b","ball pen", i*10);</strong></span> 
+        }
+        for (int i=number/2 ; i&lt;number ; i++) {
+            System.out.println("inserting product id="+i+"f...");
+            products[i] = productManager.insertProduct(i+"f", "fountain pen", (i-number/3)*50);
+        }
+        System.out.println("completed inserting products!!");
+        // delete products
+        for (int i=0 ; i&lt;number ; i++) {
+           System.out.println("deleting productid="+products[i]+" ...");
+           <span class="bold"><strong>productManager.deleteProduct(products[i]);</strong></span> // bean call
+        }
+       System.out.println("completed deleting products!!");
+       tx.commit();
+   } catch (javax.transaction.SystemException se) {
+      System.out.println("Transaction System Error caught : " + se.getMessage());
+   } catch (javax.transaction.RollbackException re) {
+      System.out.println("Transaction Rollback Errorcaught : " + re.getMessage());
+   } catch(Exception e) {
+      try {
+           tx.rollback();
+      } catch (Exception ee) {
+          System.out.println("Transaction Rollback error : " + ee.getMessage());
+      }
+            System.out.println("Error caught : " + e.getMessage());
+            e.printStackTrace();
+      }
+  }
+ }
+}</pre>
+
+        <p/>
+      </div></div><br class="example-break"/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e6902"></a>EJB</h4>
+
+      <p>다음의 EJB Bean은 트랜잭션 작업을 하는 메소드를 가지고 있다. 클라이언트에서 글로벌 트랜잭션을 관리하기 위해서는
+      EJB의 트랜잭션 타입이 CMT(container-managed)여야 한다. 기본값은 CMT이므로 아무것도 지정하지 않아도 되지만
+      명시적으로 지정하고 싶다면 다음과 같이 TransactionManagerType 값을 지정한다.</p>
+
+      <div class="example"><a id="d4e6905"></a><p class="title"><b>[예 7.3] &lt;&lt;ProductManagerEJB.java&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package umt;
+
+import javax.ejb.*;
+import javax.annotation.*;
+
+@Stateless
+<span class="bold"><strong>@TransactionManagement(TransactionManagementType.CONTAINER)</strong></span> 
+public class ProductManagerEJB implements ProductManager {
+    ....
+
+    public String insertProduct(String id, String name, double price) {
+        // insert a product entity given by the arguments to DB
+    }
+
+    public void deleteProduct(String id) {
+        // delete a product entity indicated by the argument from
+        // DB
+    }
+    .....
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Bean_Managed_Transaction"></a>7.4.3. Bean 관리 트랜잭션(Bean Managed Transaction)</h3></div></div></div>
+      
+
+      <p><a id="d4e6913" class="indexterm"></a><a id="d4e6915" class="indexterm"></a>Bean 관리 트랜잭션은 웹 컨테이너와 EJB 컨테이너에서 애플리케이션은 JTA를 사용해서 글로벌
+      트랜잭션 경계를 정할 수 있다. 애플리케이션이 글로벌 트랜잭션을 세밀하게 조절할 필요가 있을 때 유용한다. 실행 순서에 따라
+      클라이언트의 요청을 처리할 수 있기 때문에 애플리케이션은 자신의 판단에 따라서 commit과 rollback을 할 수 있다. 본
+      절에서는 EJB 컨테이너에서 애플리케이션이 글로벌 트랜잭션을 실행하는 예제를 설명한다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e6920"></a>클라이언트</h4><p>Bean 관리 트랜잭션(BMT)에서는 EJB Bean이 글로벌
+      트랜잭션 영역을 처리한다. 그러므로 모든 클라이언트는 단지 트랜잭션 작업을 하는 메소드를 호출하기만 하면 된다.</p>
+
+      <p/>
+
+      <div class="example"><a id="d4e6923"></a><p class="title"><b>[예 7.4] &lt;&lt;Client.java&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package bmt;
+
+import javax.naming.*;
+import javax.rmi.PortableRemoteObject;
+import java.util.*;
+
+public class Client {
+    public static void main(String[] args) {
+        try {
+            ProductManager productManager;
+            .......
+            // Getting a reference to an instance of
+            // ProductManager EJB bean.
+            .......
+            productManager.transactionTest();
+        } catch(Exception e) {
+           e.printStackTrace();
+        }
+    }
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e6929"></a>EJB</h4>
+
+      <p/>
+
+      <p>EJB Bean은 글로벌 트랜잭션을 시작하기 위해서 javax.transaction.UserTransaction를
+      사용한다.</p>
+
+      <p>javax.ejb.EJBContext(본 예제에서는 EJB가 Session Bean이므로
+      javax.ejb.SessionContext)를 사용해서 UserTransaction의 인스턴스를 얻어온다. 글로벌 트랜잭션은
+      메소드의 실행으로 begin되고 commit된다.</p>
+
+      <p>EJB가 Bean 관리 트랜잭션으로 작동하려면 Annotation으로 TransactionManagement 값을
+      TransactionManagementType.BEAN으로 지정한다. </p><div class="example"><a id="d4e6934"></a><p class="title"><b>[예 7.5] &lt;&lt;ProductManagerEJB.java&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package bmt;
+
+import javax.ejb.*;
+import javax.naming.*;
+import java.sql.*;
+import java.util.*;
+import javax.annotation.*;
+import javax.transaction.UserTransaction;
+
+@Stateless
+<span class="bold"><strong>@TransactionManagement(TransactionManagementType.BEAN)</strong></span> 
+public class ProductManagerEJB implements ProductManager {
+    @Resource SessionContext ejbContext;   
+
+    public void transactionTest() {
+        UserTransaction tx = null;
+        try {
+          int number = 20;
+          String products[] = new String[number];
+          <span class="bold"><strong>tx = ejbContext.getUserTransaction();</strong></span>
+          <span class="bold"><strong>tx.begin();</strong></span>
+          // insert products
+          for (int i=0 ; i&lt;number/2 ; i++) {
+               System.out.println("inserting product id="+i+"b ...");
+               products[i] = insertProduct(i+"b", "ball pen", i*10);
+           }
+           for (int i=number/2 ; i&lt;number ; i++) {
+               System.out.println("inserting product id="+i+"f...");
+               products[i] = insertProduct(i+"f", "fountain pen", 
+               (i-number/3)*50);
+           }
+           System.out.println("completed inserting products!!");
+            // delete products
+           for (int i=0 ; i&lt;number ; i++) {
+               System.out.println("deleting product id="+products[i]+" ...");
+               deleteProduct(products[i]);
+           }
+           System.out.println("completed deleting products!!");
+           <span class="bold"><strong>tx.commit();</strong></span>
+        } catch (javax.transaction.SystemException se) {
+            throw new EJBException(
+                "Transaction System Error caught : " + se.getMessage());
+        } catch (javax.transaction.RollbackException re) {
+            throw new EJBException(
+                "Transaction Rollback Error caught : " + re.getMessage());
+        } catch(Exception e) {
+           try {
+              tx.rollback();
+           } catch (Exception ee) {
+              throw new EJBException("Transaction Rollback error : " + ee.getMessage());
+           }
+           throw new EJBException("Error caught : " + e.getMessage());
+        }
+    }
+
+    private String insertProduct(String id, String name, double price) 
+        throws NamingException, SQLException {
+        // insert a product entity given by the arguments to DB
+    }
+
+    private void deleteProduct(String id) throws NamingException,SQLException {
+        // delete a product entity indicated by the argument from
+        // DB
+    }
+    // some EJB callback methods
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Container_Managed_Transaction"></a>7.4.4. 컨테이너 관리 트랜잭션(Container Managed Transaction)</h3></div></div></div>
+      
+
+      <p><a id="d4e6945" class="indexterm"></a><a id="d4e6947" class="indexterm"></a>Java EE 스펙에 의하면 애플리케이션은 글로벌 트랜잭션 경계(demarcation) 지정을 컨테이너에
+      위임할 수 있다. 웹 컨테이너나 EJB 컨테이너는 메소드와 관련된 글로벌 트랜잭션을 관리한다. 애플리케이션은 설정 파일에
+      메소드별로 트랜잭션 속성을 정할 수 있다. 이 방법은 글로벌 트랜잭션을 처리하는 가장 쉬운 방법이다.</p>
+
+      <p>본 절에서는 EJB 컨테이너가 관리하는 글로벌 트랜잭션의 예를 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e6953"></a>클라이언트</h4>
+
+      <p/>
+
+      <p>다음은 컨테이너 관리 트랜잭션에서 서버 측 EJB 컨테이너가 EJB의 글로벌 트랜잭션 작업을 관리하는
+      예제이다.</p>
+
+      <div class="example"><a id="d4e6956"></a><p class="title"><b>[예 7.6] &lt;&lt;Client.java&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">package bmt;
+
+import javax.naming.*;
+import javax.rmi.PortableRemoteObject;
+import java.util.*;
+
+public class Client {
+    public static void main(String[] args) {
+        try {
+            ProductManager productManager;
+            // getting a reference to an instance of
+            // ProductManager EJB bean.
+            productManager.transactionTest();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</pre>
+      </div></div><br class="example-break"/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e6962"></a>EJB</h4><p>컨테이너 관리 트랜잭션의 장점은 EJB Bean 개발자가 비즈니스
+      로직 코드에서 더 이상 트랜잭션 관련 코드를 작성하지 않도록 한다는 것이다.</p>
+
+      <p>EJB Bean의 메소드에 적절한 트랜잭션 속성만 지정하면 글로벌 트랜잭션 관련 작업은 모두 EJB 컨테이너에
+      위임된다. 다음의 예제에서 transactionTest()는 트랜잭션 관련 코드가 아무 것도 없다. EJB Bean이 컨테이너
+      관리 트랜잭션으로 작동하도록 EJB 컨테이너에 알려주려면 TransactionManagement Annotation을 생략하거나
+      TransactionManagerType.CONTAINER 값으로 지정한다. </p><div class="example"><a id="d4e6964"></a><p class="title"><b>[예 7.7] &lt;&lt;ProductManagerEJB.java&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package cmt;
+
+import javax.ejb.*;
+import javax.naming.*;
+import java.sql.*;
+import java.util.*;
+import javax.annotation.*;
+
+@Stateless
+<span class="bold"><strong>@TransactionManagement(TransactionManagementType.CONTAINER)</strong></span> 
+public class ProductManagerEJB implements ProductManager {
+    public void transactionTest() {
+      try {
+          int number = 20;
+          String products[] = new String[number];
+          // insert products
+          for (int i=0 ; i&lt;number/2 ; i++) {
+              System.out.println("inserting product id="+i+"b...");
+              products[i] = insertProduct(i+"b", "ball pen", i*10);
+          }
+          for (int i=number/2 ; i&lt;number ; i++) {
+          System.out.println("inserting product id="+i+"f...");
+          products[i] = insertProduct(i+"f", "fountain pen", (i-number/3)*50);
+      }
+      System.out.println("completed inserting products!!");
+      // delete products
+      for (int i=0 ; i&lt;number ; i++) {
+        System.out.println("deleting product id="+products[i]+" ...");
+        deleteProduct(products[i]);
+      }
+      System.out.println("completed deleting products!!");
+     } catch(Exception e) {
+       throw new EJBException("Error caught : " +  e.getMessage());
+     }
+  }
+
+    private String insertProduct(String id, String name, double price) 
+        throws NamingException, SQLException {
+        // insert a product entity given by the arguments to DB
+    }
+
+    private void deleteProduct(String id) throws NamingException, SQLException {
+        // delete a product entity indicated by the argument from
+        // DB
+    }
+
+    // some EJB callback methods
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6970"></a>7.4.5. 트랜잭션 매니저 사용</h3></div></div></div>
+      
+
+      <p>트랜잭션 매니저를 직접 사용하는 경우 JNDI Context에서
+      java:appserver/TransactionManager의 이름으로 Lookup하면 트랜잭션 매니저를 얻을 수 있다. 트랜잭션
+      매니저는 트랜잭션을 시작/종료할 수 있고 트랜잭션 객체를 얻거나 XAResource 객체를 등록하는 기능을 제공한다. 이에 대한
+      자세한 설명은 "Java Transaction API(JTA) specification"을 참고한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS에서 트랜잭션 매니저를 얻거나 UserTransaction을 얻는 방법은 Glassfish 또는 SunOne
+        Application Server와 호환된다. 따라서 Hibernate와 같은 3rd-party library를 사용할 때
+        호환되는 서버의 설정을 그대로 사용할 수 있다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_TM_Recovery"></a>7.5. 트랜잭션의 복구</h2></div></div></div>
+    
+
+    <p>본 절에서는 트랜잭션의 복구 작업에 대해 설명한다. 트랜잭션의 복구는 예상치 못한 문제 상황에 있어 트랜잭션 무결성을
+    지원하기 위한 중요한 기능이다. JEUS 사용자는 앞서 설명한 관련 설정 및 트랜잭션 복구 과정에 대해 숙지한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_TM_Recovery_Introduction"></a>7.5.1. 트랜잭션 복구 과정</h3></div></div></div>
+      
+
+      <p>트랜잭션 매니저는 트랜잭션을 사용할 때 발생할 수 있는 장애에 대한 대책을 가지고 있어야 한다. 장애 대책은 주로 진행
+      중이던 트랜잭션의 무결성을 보장하는 데 중점을 둔다. 트랜잭션 매니저는 트랜잭션 매니저의 역할에 따라서 복구 방식에 차이를
+      보인다. 즉, 매니저가 Root Coordinator 또는 Sub Coordinator인지, JEUS가 아닌 다른 외부 트랜잭션
+      매니저와 작업 중인지에 따라서 복구 방식이 달라진다.</p>
+
+      <p>다음의 그림은 트랜잭션 매니저의 복구 과정을 간단히 보여준다.</p>
+
+      <div class="figure"><a id="tx_recover_process"></a><p class="title"><b>[그림 7.5] 단순화한 트랜잭션 복구 과정</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><img src="resources/figure_tm_image94.png" align="top" alt="단순화한 트랜잭션 복구 과정"/></div>
+      </div></div><br class="figure-break"/>
+
+      <div class="itemizedlist"><ul type="circle"><li style="list-style-type: circle">
+          <p>1, 2) 트랜잭션 매니저가 장애 상황에서 복구될 경우 매니저는 트랜잭션 로그로부터 복구할 트랜잭션 정보를
+          얻어온다.</p>
+        </li><li style="list-style-type: circle">
+          <p>3) 그 이후 로그의 내용에 따라 해당 리소스 매니저로 Recover 명령을 보낸다.</p>
+        </li><li style="list-style-type: circle">
+          <p>4) 리소스 매니저는 이에 대한 응답으로 현재 자신이 처리하지 못한 트랜잭션들의 XID를 매니저로
+          넘겨준다.</p>
+        </li><li style="list-style-type: circle">
+          <p>5) 트랜잭션 매니저는 이 XID들과 로그로부터 얻어진 정보를 가지고 commit 또는 rollback 판정을
+          리소스 매니저로 전달한다.</p>
+        </li></ul></div>
+
+      <p/>
+
+      <p>트랜잭션 매니저의 역할에 따라 조금씩 복구 방식의 차이는 있지만 큰 흐름은 앞서 설명한 내용을 벗어나지 않는다.
+      이후부터는 복구에 참여하는 각각의 요소에 대한 간략한 설명과 관련 설정들에 대해 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e7003"></a>트랜잭션 매니저별 복구 과정</h4>
+
+      <p>트랜잭션 복구에서 트랜잭션 매니저는 가장 중심적인 역할을 한다. 다음은 트랜잭션 매니저 역할에 따른 복구 방식의 차이에
+      대한 설명이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Root Coordinator</p>
+
+          <p>트랜잭션 매니저가 Root Coordinator일 경우에는 <a href="chapter_tx_manager.html#tx_recover_process" title="[그림 7.5] 단순화한 트랜잭션 복구 과정">[그림 7.5]</a>과 같이 동작한다.</p>
+        </li><li>
+          <p>Sub Coordinator</p>
+
+          <p>Sub Coordinator는 Root Coordinator에게 하나의 리소스 매니저처럼 등록된다.</p>
+
+          <p>그리고 모든 Decision을 Root Coordinator로부터 받아오므로 Sub Coordinator는
+          자신에게 등록된 리소스 매니저와 로그 파일에 대해 XID를 얻어오는 작업까지만 수행한다. 그 이후 XID를 Root
+          Coordinator로 보내고 판정을 기다린다. Root Coordinator로부터 판정이 넘어오면 그 내용을 리소스
+          매니저에게 전달해 복구 작업을 마무리한다.</p>
+        </li><li>
+          <p>외부 트랜잭션 매니저와의 작업</p>
+
+          <p>JEUS 트랜잭션 매니저는 Root Coordinator로서 동작을 하고 외부 트랜잭션 매니저는 JEUS를
+          하나의 리소스 매니저로 인식한다. 그러므로 판정을 내리는 작업을 제외한 모든 작업들을 수행한다. 그 이후 외부 트랜잭션
+          매니저가 JEUS에게 Recover 명령 및 판정을 내리면 그에 따라 복구 작업을 완료한다.</p>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e7022"></a>자동 트랜잭션 복구</h4>
+
+      <p>자동 트랜잭션 복구 기능은 클러스터 환경에서 현재의 트랜잭션 매니저가 비정상 종료되면 다른 서버의 트랜잭션 매니저가
+      자동으로 indoubt 트랜잭션을 복구해주는 기능이다. 이 기능이 올바로 동작하기 위해서는 서버 간에 클러스터 설정이 되어 있어야
+      하며 복구해주는 서버가 비정상 종료된 서버의 트랜잭션 로그에 접근 가능해야 한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 WebAdmin과 콘솔 툴을 사용해서 자동 트랜잭션 복구를 설정하는 과정에 대한 설명이다.이 설정은 서버 재시작
+      없이 변경 적용이 가능하다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">WebAdmin 사용 </strong></span></p>
+
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면 서버
+            목록 화면으로 이동한다. 해당 화면에서 서버를 선택하면 서버 설정화면으로 이동한다. 서버 설정화면에서
+            <span><strong class="guibutton">[Tm Config]</strong></span> 메뉴를 선택해서 트랜잭션 설정화면으로 이동한다.
+            설정화면에서 <span><strong class="guibutton">'Automatic Recovery' </strong></span>항목을 체크하고
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+            <div class="figure"><a id="figure_server1_basicinfo_tmConfig_autorecover"></a><p class="title"><b>[그림 7.6] WebAdmin으로 자동 트랜잭션 복구</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_server1_basicinfo_tmconfig_autorecover.png" align="top" width="701" alt="WebAdmin으로 자동 트랜잭션 복구"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p><span><strong class="guibutton">콘솔 툴 사용 </strong></span></p>
+
+            <p>콘솔 툴에서 <span><strong class="guibutton">modify-transaction-manager</strong></span> 명령을
+            사용해서 자동 트랜잭션 복구 기능을 활성화할 수 있다. 해당 명령어에 대한 자세한 설명은 <a xmlns="" href="../reference-book/ch04.html#cmd_modify-transaction-manager" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.13.1. modify-transaction-manager”</a>를 참고한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-transaction-manager server1 -automaticRecovery true</strong></span>
+Successfully performed the MODIFY operation for transaction of server (server1), but all changes were non-dynamic. 
+They will be applied after restarting.
+Check the results using "show-transaction-manager server1 or modify-transaction-manager server1"</pre>
+          </li></ul></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Recovery_Log_File"></a>7.5.2. 복구 관련 로그 파일</h3></div></div></div>
+      
+
+      <p><a id="d4e7057" class="indexterm"></a>트랜잭션 복구에 사용되는 로그 파일은 다음의 2가지가 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>트랜잭션의 진행 상황을 기록한 로그</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>사용했던 XA 리소스 관련 로그</p>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>로그 파일은 기본적으로 SERVER_HOME/.workspace/tmlog의 하위 디렉터리에 생성된다.
+      SERVER_HOME의 위치는 <a href="chapter_server_structure.html#sect_server_directory_structure" title="1.5. 서버 디렉터리 구조">“1.5. 서버 디렉터리 구조”</a>를
+      참고한다. 로그 파일의 위치는 다음과 같이 변경할 수 있다.</p>
+
+      <p>예를 들어 위에서 설명한 자동 트랜잭션 복구를 위해서 여러 서버가 접근 가능한 위치에 로그를 남기고 싶은 경우 공용
+      디렉터리를 지정한다. 만약 복구가 필요없는 트랜잭션 때문에 기동 중 복구 관련 문제가 발생한다면 이 로그를 백업한 후 JEUS를
+      다시 실행한다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 WebAdmin과 콘솔 툴을 사용해서 복구 관련 로그 파일을 설정하는 과정에 대한 설명이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">WebAdmin 사용 </strong></span></p>
+
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면 서버
+            목록 화면으로 이동한다.</p>
+
+            <p>서버 설정화면에서 <span><strong class="guibutton"> [Tm Config]</strong></span> 메뉴를 선택해서 트랜잭션
+            설정화면으로 이동한다. 설정화면의 <span><strong class="guibutton">고급 선택사항</strong></span>에서 정보를 설정하고
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다. </p><div class="figure"><a id="figure_server1_basicinfo_tmConfig_autorecover"></a><p class="title"><b>[그림 7.7] WebAdmin으로 트랜잭션 로그 디렉터리 변경</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_server1_basicinfo_tmconfig_tmdir.png" align="top" width="711" alt="WebAdmin으로 트랜잭션 로그 디렉터리 변경"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p><span><strong class="guibutton">콘솔 툴 사용 </strong></span></p>
+
+            <p>콘솔 툴에서 <span><strong class="guibutton">modify-transaction-manager</strong></span> 명령을
+            사용하여 트랜잭션 로그 디렉터리를 변경할 수 있다. 해당 명령에 대한 자세한 설명은 <a xmlns="" href="../reference-book/ch04.html#cmd_modify-transaction-manager" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.13.1. modify-transaction-manager”</a>를 참고한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-transaction-manager server1 -txLogDir /Users/user1/jeus/domain1/tmlogs</strong></span>
+Successfully performed the MODIFY operation for transaction of server (server1) ,but ALL changes were non-dynamic. 
+They will be applied after restarting.
+Check the results using "show-transaction-manager server1 or modify-transaction-manager server1"</pre>
+          </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Recovery_Config"></a>7.5.3. 복구 관련 설정</h3></div></div></div>
+      
+
+      <p>본 절에서는 복구에 관련된 설정을 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>시스템 프로퍼티에 다음의 설정 내용을 서버의 JVM 설정에 추가해야 한다. 추가하는 방법은 <a xmlns="" href="../domain/chapter_domain_configuration.html#sect_jvm_config_change" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Domain 안내서</span>”의 “3.6.2. 서버의 JVM 설정변경”</a>을
+      참고한다.</p>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>시스템 관리자가 직접 복구할 경우나 성능 향상이 필요한 경우에 복구를 위한 logging을 막을 수도 있다.
+          <a id="d4e7109" class="indexterm"></a></p>
+
+          <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.noLogging</strong></span>=true</pre>
+
+          <p/>
+        </li><li>
+          <p>복구 작업 중에 어떤 문제에 의해 복구가 실패할 경우 트랜잭션 매니저는 그 리소스에 대해 추가적인 복구를
+          시도한다. 이는 2분에 한 번씩 시행되며 사용자는 시도 횟수를 지정할 수 있다. 시도 횟수 지정을 위해 다음 프로퍼티를
+          스크립트에 추가한다. (기본값: 30) <a id="d4e7117" class="indexterm"></a></p>
+
+          <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.recoveryTrial</strong></span>=<span class="emphasis"><em>number of trial</em></span></pre>
+        </li><li>
+          <p>서버를 시작할 때 복구할 트랜잭션이 있다면 STANDY가 되기 전에 복구를 시작한다.</p>
+
+          <p>복구 중 실패한 리소스가 있다면 그에 대해 백그라운로 복구를 재시도한다. 이때 재시도하는 간격을 지정할 수
+          있다. (기본값: 120000(2분), 단위: ms) <a id="d4e7126" class="indexterm"></a></p>
+
+          <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.recoveryInterval</strong></span>=<span class="emphasis"><em>&lt;time in milliseconds&gt;</em></span></pre>
+
+          <p/>
+        </li><li>
+          <p>TM 로그 파일이 지워져서 복구가 불가능한 상황일 때 JEUS의 boot는 실패하게 된다.</p>
+
+          <p>만약 복구가 필요하지 않는 상황이라면 JEUS가 파일이 깨진 것을 감지한 후 TM 로그 파일들을 전부 지우도록
+          초기화시킨 후 boot가 성공되게 한다. (기본값: false)</p>
+
+          <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.ignore.broken.log.file=&lt;true or false&gt;</strong></span></pre>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_RM_Failure"></a>7.5.4. 리소스 매니저 장애</h3></div></div></div>
+      
+
+      <p>리소스 매니저에서 장애가 발생했다면 시스템 매니저는 콘솔 툴을 사용해서 수동으로 복구한다. 그 이유는 JEUS 트랜잭션
+      매니저는 리소스 매니저가 다시 트랜잭션 처리가 가능한 상태인지를 알아낼 수 없기 때문이다.</p>
+
+      <p>리소스 매니저의 문제를 해결한 후에 콘솔 툴의 <span class="bold"><strong>recover-transactions</strong></span> 명령을 수행해서 복구를 진행한다. 콘솔 툴의 자세한
+      사용법은 <a xmlns="" href="../reference-book/ch04.html#cmd_recover-transactions" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.13.2. recover-transactions”</a>를 참고한다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_transaction_profile"></a>7.6. 트랜잭션 프로파일 기능</h2></div></div></div>
+    
+
+    <p>JEUS 트랜잭션 메니저가 각 트랜잭션 과정 중 중요한 시점에 사용자의 callback을 실행시킬 수 있는 기능을
+    제공한다. 클라이언트에서는 사용할 수 없고 서버에서만 사용할 수 있다.</p>
+
+    <p>다음에 정의된 인터페이스를 상속한 사용자만의 프로파일 리스너를 구현한다.</p>
+
+    <p/>
+
+    <div class="example"><a id="d4e7154"></a><p class="title"><b>[예 7.8] &lt;&lt;CoordinatorProfileListener.java&gt;&gt;</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting">package jeus.transaction.profile;
+
+import jeus.transaction.info.TransactionInfo;
+
+public interface <span class="bold"><strong>CoordinatorProfileListener</strong></span> extends ProfileListener {
+
+    public void beforePrepare( TransactionInfo info );
+
+    public void afterPrepare( jeus.transaction.info.TransactionInfo info );
+
+    public void beforeSetDecision( TransactionInfo info );
+
+    public void afterSetDecision( TransactionInfo info );
+
+    public void beforeCommit( TransactionInfo info );
+
+    public void afterCommit( TransactionInfo info );
+
+    public void beforeOnePhaseCommit( TransactionInfo info );
+
+    public void afterOnePhaseCommit( TransactionInfo info );
+
+    public void beforeRollback( TransactionInfo info );
+
+    public void afterRollback( jeus.transaction.info.TransactionInfo info );
+
+    public void beforeDestroy( TransactionInfo info );
+
+    public void afterDestroy( TransactionInfo info );
+
+    public void beforeActiveTimeout( TransactionInfo info );
+
+    public void afterActiveTimeout( TransactionInfo info );
+}                    </pre>
+    </div></div><br class="example-break"/>
+
+    <div class="example"><a id="d4e7158"></a><p class="title"><b>[예 7.9] &lt;&lt;TransactionInfo.java&gt;&gt;</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting">package jeus.transaction.info;
+
+import javax.transaction.xa.Xid;
+
+public interface <span class="bold"><strong>TransactionInfo</strong></span> {
+
+    public static final int JEUS_SPECIFIC_CURRENT_FORMAT_XID = 303077;
+    public static final int UNSPECIFIED_TIME = -1;
+
+    /**
+    * 이 transaction의 xid를 반환한다. 반환된 XID는 JEUS 내부구현체의 XID이며 
+    * serializable하다.
+    * 차후 이 XID를 string으로 표현하고자 할 경우 XidToString.getXidHexString()을 
+    * 이용하도록 한다.
+    *
+    * @return 해당 tx의 XID구현체
+    */
+    public Xid getXid();
+
+    /**
+    * transaction manager의 information을 string형태로 반환한다. 이 정보를 통해 해당 TX의 
+    * TM server 정보(ip, port등)를 알수 있다.
+    *
+    * @return 해당 tx의 transaction manager의 information
+    */
+    public String getCoordinator();
+
+    /**
+    * 외부에서 시작된 TX의 경우 외부의 xid를 반환한다. 반환된 XID는 JEUS 내부구현체의 XID로 
+    * 교체되며 serializable하다.
+    *
+    * @return 해당 tx의 XID구현체
+    */
+    public Xid getExternalXid();
+
+    /**
+    * active timeout설정을 반환한다. 단위는 ms이다.
+    *
+    * @return 해당 tx의 active timeout
+    */
+    public long getTimeout();
+
+    /**
+    * TX가 시작되고 얼마나 경과했는지에 대한 시간을 반환한다. 단위는 ms이다.
+    *
+    * @return 해당 tx의 tx의 경과 시간
+    */
+    public long getElapseSinceBegin();
+
+    /**
+    * TX의 상태를 string형태로 반환한다.
+    *
+    * @return 해당 tx의 string status값
+    */
+    public String getStatus();
+
+    /**
+    * TX에 enlist된 XAResource들을 String형태로 반환한다.
+    *
+    * @return 해당 tx에 enlist된 XAResource의 정보들
+    */
+    public String[] getXaResources();
+
+    /**
+    * TX을 시작한 thread를 return한다.
+    * TX을 전파받은 곳에서는 이 정보를 얻을 수 없다.
+    *
+    * @return 해당 tx을 시작한 thread
+    */
+
+    public Thread getBeginThread();
+}           </pre>
+    </div></div><br class="example-break"/>
+
+    <p>구현한 리스너를 시스템 프로퍼티로 지정한다. 여러 개의 리스너 클래스들을 공백, 세미콜론(;) 또는 콤마(,)을
+    separator로 하여 지정할 수 있다.</p>
+
+    <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.profile.classes</strong></span>="test.profile.MyCoordinatorListener1,test.profile.MyCoordinatorListener2"</pre>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_trouble_shooting"></a>7.7. IP 대역이 다른 서버 간에 트랜잭션 통신 문제</h2></div></div></div>
+    
+
+    <p>JEUS 트랜잭션 매니저 간에 통신을 할 경우 IP 주소를 이용하여 접속한다. 하지만 이 경우 NAT 환경 안에 있는
+    JEUS 트랜잭션 매니저와 외부 환경에 있는 JEUS 트랜잭션 매니저가 통신할 때 서로 간의 IP 대역이 맞지 않아 통신이 불가능할
+    경우가 생긴다.</p>
+
+    <p/>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>Real IP를 Virtual IP로 매핑하는 프로퍼티를 지정해서 해결할 수 있다.</p>
+
+        <p>JEUS_HOME/templates/nat.properties.template을 참고하여 IP 매핑 프로퍼티 파일을
+        생성해서 다음과 같이 시스템 프로퍼티로 지정한다.</p>
+
+        <pre class="programlisting">-D<span class="bold"><strong>jeus.tm.net.address-mapping-properties</strong></span>=<span class="emphasis"><em>&lt;full path of properties file&gt;</em></span></pre>
+      </li></ul></div>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_datasource.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_jeus_logging.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제6장 DB Connection Pool과 JDBC </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제8장 Logging</td></tr></table></div><div xmlns="" align="center"/></body></html>

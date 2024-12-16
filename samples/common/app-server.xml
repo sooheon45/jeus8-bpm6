@@ -1,0 +1,717 @@
+<?xml version="1.0"?>
+<!--
+$Id: app-server.xml 1919 2008-11-05 13:29:26Z guruwons $
+-->
+<project name="app-server-common" basedir=".">
+
+    <property environment="env"/>
+    <!-- Define sensible defaults for app-server properties -->
+    <property file="${ant.file.app-server-common}/../app-server.properties"/>
+
+
+    <!--
+    ======================================================================
+    Directories
+    ======================================================================
+    -->
+    <property name="jeus.lib.home" value="${jeus.home}/lib"/>
+
+    <property name="jeus.bin.dir" value="${jeus.home}/bin"/>
+    <property name="jeus.system.dir" value="${jeus.lib.home}/system"/>
+    <property name="jeus.datasource.dir" value="${jeus.lib.home}/datasource"/>
+    <property name="jeus.clientlib.dir" value="${jeus.lib.home}/client"/>
+    <property name="jeus.thirdparty.dir" value="${jeus.lib.home}/thirdparty"/>
+    <property name="jeus.endorsed.dir" value="${jeus.lib.home}/endorsed"/>
+    <property name="jeus.domain.dir" value="${jeus.home}/domains/${jeus.domain}" />
+    <property name="jeus.server.dir" value="${jeus.domain.dir}/servers/${jeus.das}" />
+    <property name="jeus.applib.dir" value="${jeus.domain.dir}/lib/application"/>
+    <property name="jeus.deployed.dir" value="${jeus.server.dir}/.workspace/deployed"/>
+    <property name="jeus.autodeploy.dir" value="${jeus.domain.dir}/autodeploy"/>
+
+    <path id="javaee.classpath">
+        <pathelement location="${jeus.system.dir}/javaee.jar"/>
+        <pathelement location="${jeus.system.dir}/jeusapi.jar"/>
+    </path>
+
+    <path id="javaclient.classpath">
+        <path refid="javaee.classpath"/>
+        <fileset dir="${jeus.lib.home}/client">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${jeus.system.dir}">
+            <include name="jeusmp.jar"/>
+            <include name="jmxri.jar"/>
+            <include name="jmxremote.jar"/>
+        </fileset>
+    </path>
+    
+    <path id="standalonejavaclient.classpath">
+        <path refid="javaee.classpath"/>
+        <fileset dir="${jeus.lib.home}/client">
+            <include name="jclient.jar"/>
+            <include name="jclient_jaxb.jar"/>
+        </fileset>
+        <fileset dir="${jeus.system.dir}">
+            <include name="jeusmp.jar"/>
+            <include name="jms.jar"/>
+            <include name="jmxri.jar"/>
+            <include name="jmxremote.jar"/>
+        </fileset>
+    </path>
+
+    <path id="jeus.libraries.classpath">
+        <pathelement location="${jeus.home}/classes"/>
+        <fileset dir="${jeus.home}/lib/system">
+          <include name="**/*.jar"/>
+          <exclude name="jeus-ws-proxy.jar"/>
+          <exclude name="jeus-jaxrs-proxy.jar"/>
+        </fileset>
+        <fileset dir="${jeus.applib.dir}">
+           <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${jeus.home}/lib/shared/wsit-2.3"> <!-- JEUS 8 -->
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${jeus.home}/lib/shared/wsit-2.2"> <!-- JEUS 7 -->
+            <include name="**/*.jar"/>
+        </fileset>
+	  </path>
+
+
+<!--
+    <taskdef resource="jeus/util/ant/jeusant.properties">
+      <classpath>
+        <path refid="jeus.libraries.classpath"/>
+      </classpath>
+    </taskdef>
+
+-->
+
+    <target name="setOSConditions">
+      <condition property="isUnix">
+        <os family="unix"/>
+      </condition>
+
+      <condition property="isWindows">
+        <os family="windows" />
+      </condition>
+        
+      <condition property="isMac">
+        <os family="mac"/>
+      </condition>
+    </target>
+
+    <target name="setToolUnix" if="isUnix">
+        <exec executable="hostname" outputproperty="hostname"/>
+
+        <property name="jeus.node" value="${hostname}"/>
+
+        <property name="cmd.jeus" value="${jeus.home}/bin/jeus"/>
+        <property name="cmd.jeusadmin" value="${jeus.home}/bin/jeusadmin"/>
+        <property name="cmd.appclient" value="${jeus.home}/bin/appclient"/>
+
+        <property name="cmd.appcompiler" value="${jeus.home}/bin/appcompiler"/>
+        <property name="cmd.ejbddinit" value="${jeus.home}/bin/ejbddinit"/>
+        <property name="cmd.cat" value="/bin/cat"/>
+        <property name="cmd.wsgen" value="${jeus.home}/bin/wsgen"/>
+        <property name="cmd.wsimport" value="${jeus.home}/bin/wsimport"/>
+        <property name="cmd.java2wsdl" value="${jeus.home}/bin/java2wsdl"/>
+        <property name="cmd.wsdl2java" value="${jeus.home}/bin/wsdl2java"/>
+        <property name="cmd.wsdl2uddi" value="${jeus.home}/bin/wsdl2uddi"/>
+        <property name="cmd.keytool" value="${java.home}/bin/keytool"/>
+    </target>
+
+    <target name="setToolWindows" if="isWindows">
+        <property name="jeus.node" value="${env.COMPUTERNAME}"/>
+
+        <property name="cmd.jeus" value="${jeus.home}/bin/jeus.cmd"/>
+        <property name="cmd.jeusadmin" value="${jeus.home}/bin/jeusadmin.cmd"/>
+        <property name="cmd.appclient" value="${jeus.home}/bin/appclient.cmd"/>
+
+        <property name="cmd.appcompiler" value="${jeus.bin.dir}/appcompiler.cmd"/>
+        <property name="cmd.ejbddinit" value="${jeus.bin.dir}/ejbddinit.cmd"/>
+        <property name="cmd.cat" value="type"/>
+        <property name="cmd.wsgen" value="${jeus.home}/bin/wsgen.cmd"/>
+        <property name="cmd.wsimport" value="${jeus.home}/bin/wsimport.cmd"/>
+        <property name="cmd.java2wsdl" value="${jeus.home}/bin/java2wsdl.cmd"/>
+        <property name="cmd.wsdl2java" value="${jeus.home}/bin/wsdl2java.cmd"/>
+        <property name="cmd.wsdl2uddi" value="${jeus.home}/bin/wsdl2uddi.cmd"/>
+        <property name="cmd.keytool" value="${java.home}/bin/keytool.exe"/>
+    </target>
+
+    <target name="setTools" depends="setOSConditions, setToolUnix, setToolWindows">
+        <property name="jeus.container.id" value="${jeus.node}_${jeus.container}"/>
+
+        <property name="admin.username" value="${jeus.admin.username}"/>
+        <property name="admin.password" value="${jeus.admin.password}"/>
+
+        <!-- server deployed directory -->
+        <property name="jeus.deployed.server.dir" value="${jeus.deployed.dir}"/>
+
+        <property name="tool.options" value="-host ${jeus.node} -port ${jeus.baseport} -u ${admin.username} -p ${admin.password}"/>
+
+    </target>
+
+
+    <!--
+    ======================================================================
+    install/deploy application tasks
+    ======================================================================
+    -->
+    <target name="common:install" depends="setTools">
+        <fail unless="file"/>
+        <echo>Installing...</echo>
+        <if>
+            <equals arg1="${dirdeploy}" arg2="false"/>
+            <then>
+                <var name="args" value="install-application ${file}"/>
+                <if>
+                    <isset property="name"/>
+                    <then>
+                        <var name="args" value="${args} -id ${name}"/>
+                    </then>
+                </if>
+                <echo>#jeusadmin ${tool.options} &quot;${args}&quot;</echo>
+                <exec executable="${cmd.jeusadmin}" failonerror="true">
+                    <arg line="${tool.options} &quot;${args}&quot;"/>
+                </exec>
+            </then>
+        </if>
+    </target>
+
+    <target name="common:deploy" depends="setTools">
+        <fail unless="name"/>
+        <echo>Deploying...</echo>
+        <if>
+            <isset property="target.cluster"/>
+            <then>
+                <var name="args" value="deploy -clusters ${target.cluster}"/>
+            </then>
+            <else>
+                <if>
+                    <isset property="target.servers"/>
+                    <then>
+                        <var name="args" value="deploy -servers ${target.servers}"/>
+                    </then>
+                    <else>
+                        <var name="args" value="deploy -servers ${jeus.das}"/>
+                    </else>
+                </if>
+            </else>
+        </if>
+        <if>
+            <isset property="classloading"/>
+            <then>
+                <!-- NOTE:property can't be override but var can be -->
+                <!-- http://ant-contrib.sourceforge.net/tasks/tasks/variable_task.html -->
+                <var name="args" value="${args} -classloading ${classloading}"/>
+            </then>
+        </if>
+        <if>
+            <equals arg1="${dirdeploy}" arg2="true"/>
+            <then>
+                <fail unless="file"/>
+                <var name ="args" value="${args} -path ${file}"/>
+            </then>
+            <else>
+                <var name ="args" value="${args} ${name}"/>
+            </else>
+        </if>
+        <echo>#jeusadmin ${tool.options} &quot;${args}&quot;</echo>
+        <exec executable="${cmd.jeusadmin}" failonerror="true">
+            <arg line="${tool.options} &quot;${args}&quot;"/>
+        </exec>
+    </target>
+
+    <target name="common:redeploy" depends="setTools">
+        <fail unless="file"/>
+        <echo>Redeploying...</echo>
+        <var name="args" value="redeploy"/>
+        <if>
+            <isset property="name"/>
+            <then>
+                <var name="args" value="${args} ${name}"/>
+            </then>
+        </if>
+        <if>
+            <isset property="undeploy-timeout"/>
+            <then>
+                <var name="args" value="${args} -undeploy-timeout ${undeploy-timeout}"/>
+            </then>
+        </if>
+        <var name="args" value="${args} -path ${file}"/>
+        <echo>#jeusadmin ${tool.options} &quot;${args}&quot;</echo>
+        <exec executable="${cmd.jeusadmin}" failonerror="true">
+            <arg line="${tool.options} &quot;${args}&quot;"/>
+        </exec>
+    </target>
+
+    <target name="common:install-and-deploy" depends="setTools">
+        <fail unless="file"/>
+        <fail unless="name"/>
+        <antcall target="common:install"/>
+        <antcall target="common:deploy"/>
+    </target>
+
+
+    <target name="common:appinfo" depends="setTools">
+        <var name="args" value="appinfo"/>
+        <if>
+            <isset property="name"/>
+            <then>
+                <var name="args" value="${args} -server ${jeus.das} -id ${name}"/>
+            </then>
+        </if>
+        <echo>#jeusadmin ${tool.options} &quot;${args}&quot;</echo>
+        <exec executable="${cmd.jeusadmin}" failonerror="true">
+            <arg line="${tool.options} &quot;${args}&quot;"/>
+        </exec>
+    </target>
+
+    <target name="common:start" depends="setTools">
+        <fail unless="name"/>
+        <var name="args" value="start-application"/>
+        <if>
+            <isset property="name"/>
+            <then>
+                <var name="args" value="${args} ${name}"/>
+            </then>
+        </if>
+        <echo>#jeusadmin ${tool.options} &quot;${args}&quot;</echo>
+        <exec executable="${cmd.jeusadmin}" failonerror="true">
+            <arg line="${tool.options} &quot;${args}&quot;"/>
+        </exec>
+    </target>
+
+    <target name="common:stop" depends="setTools">
+        <fail unless="name"/>
+        <var name="args" value="$stop-application"/>
+        <if>
+            <isset property="name"/>
+            <then>
+                <var name="args" value="${args} ${name}"/>
+            </then>
+        </if>
+        <echo>#jeusadmin ${tool.options} &quot;${args}&quot;</echo>
+        <exec executable="${cmd.jeusadmin}" failonerror="true">
+            <arg line="${tool.options} &quot;${args}&quot;"/>
+        </exec>
+    </target>
+
+    <target name="common:undeploy" depends="setTools">
+        <fail unless="name"/>
+        <echo>Undeploying...</echo>
+        <var name="args" value="undeploy ${name}"/>
+        <if>
+            <isset property="all"/>
+            <then>
+                <var name="args" value="${args} -all"/>
+            </then>
+        </if>
+        <echo>#jeusadmin ${tool.options} &quot;${args}&quot;</echo>
+        <exec executable="${cmd.jeusadmin}">
+            <arg line="${tool.options} &quot;${args}&quot;"/>
+        </exec>
+    </target>
+
+    <target name="common:uninstall" depends="setTools">
+        <echo>Uninstalling...</echo>
+        <if>
+            <equals arg1="${dirdeploy}" arg2="false"/>
+            <then>
+                <fail unless="name"/>
+                <var name="args" value="uninstall-application ${name}"/>
+                <echo>#jeusadmin ${tool.options} &quot;${args}&quot;</echo>
+                <exec executable="${cmd.jeusadmin}" failonerror="true">
+                    <arg line="${tool.options} &quot;${args}&quot;"/>
+                </exec>
+            </then>
+        </if>
+    </target>
+
+    <target name="common:undeploy-and-uninstall" depends="setTools">
+        <if>
+            <equals arg1="${dirdeploy}" arg2="true"/>
+            <then>
+                <fail unless="path"/>
+            </then>
+            <else>
+                <fail unless="name"/>
+            </else>
+        </if>
+        <antcall target="common:undeploy"/>
+        <antcall target="common:uninstall"/>
+    </target>
+
+    <!-- compile java sources, copy resources -->
+    <!-- params: $srcdir, $destdir, ($classpath, $classpath.1, $classpath.2, $classpath.3) -->
+    <target name="common:compile" >
+        <fail unless="srcdir"/>
+        <fail unless="destdir"/>
+        <compile srcdir="${srcdir}" destdir="${destdir}" classpath="${classpath}"/>
+    </target>
+
+    <target name="common:compile-web" >
+        <fail unless="srcdir"/>
+        <fail unless="destdir"/>
+        <compile-web srcdir="${srcdir}" destdir="${destdir}" classpath="${classpath}"/>
+    </target>
+
+    <!-- package EAR -->
+    <!-- params: $app.name, $libdir -->
+    <target name="common:package-ear">
+        <fail unless="app.name"/>
+        <jar file="${dist.dir}/${app.name}.ear" basedir=".">
+            <include name="META-INF/*"/>
+            <fileset dir="${dist.dir}">
+                <include name="**/*.jar"/>
+                <include name="**/*.war"/>
+                <include name="**/*.rar"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="common:package-ear-dir">
+        <copy todir="${build.dir}" preservelastmodified="true" overwrite="true">
+            <fileset dir="." includes="META-INF/**/*"/>
+        </copy>
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${dist.dir}/${app.name}"/>
+        <copy todir="${dist.dir}/${app.name}" preservelastmodified="true" overwrite="true">
+            <fileset dir="${build.dir}"/>
+        </copy>
+    </target>
+
+    <!-- package jar file -->
+    <!-- params: $srcdir, $destfile, $srcdir.1 -->
+    <target name="common:package-jar">
+    <fail unless="srcdir"/>
+    <fail unless="destfile"/>
+
+    <dirname file="${dist.dir}/${destfile}" property="destfile.dir"/>
+    <mkdir dir="${destfile.dir}"/>
+
+    <jar file="${dist.dir}/${destfile}">
+        <fileset dir="${srcdir}">
+        </fileset>
+    </jar>
+        <!-- additional source directories -->
+        <if>
+            <available file="${srcdir.1}" type="dir"/>
+            <then>
+                <jar file="${dist.dir}/${destfile}" update="yes">
+                    <fileset dir="${srcdir.1}">
+                    </fileset>
+                </jar>
+            </then>
+        </if>
+
+        <!-- update manifest if available -->
+        <if>
+            <available file="${srcdir}/META-INF/MANIFEST.MF"/>
+            <then>
+                <jar file="${dist.dir}/${destfile}" update="true" manifest="${srcdir}/META-INF/MANIFEST.MF"/>
+            </then>
+        </if>
+    </target>
+
+    <target name="common:package-jar-dir">
+        <fail unless="srcdir"/>
+
+        <copy todir="${build.dir}" preservelastmodified="true" overwrite="true">
+            <fileset dir="." includes="META-INF/**/*"/>
+        </copy>
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${dist.dir}/${app.name}"/>
+        <copy todir="${dist.dir}/${app.name}" preservelastmodified="true" overwrite="true">
+            <fileset dir="${srcdir}"/>
+        </copy>
+
+        <if>
+            <available file="${srcdir.1}" type="dir"/>
+            <then>
+                <copy todir="${dist.dir}/${app.name}" preservelastmodified="true" overwrite="true">
+                    <fileset dir="${srcdir.1}">
+                        <include name="META-INF/*"/>
+                        <include name="**/*.class"/>
+                    </fileset>
+                </copy>
+            </then>
+        </if>
+
+        <if>
+            <available file="${srcdir}/META-INF/MANIFEST.MF"/>
+            <then>
+                <mkdir dir="${dist.dir}/${app.name}/META-INF"/>
+                <copy todir="${dist.dir}/${app.name}/META-INF/" preservelastmodified="true" overwrite="true">
+                    <fileset file="${srcdir}/META-INF/MANIFEST.MF"/>
+                </copy>
+            </then>
+        </if>
+    </target>
+
+    <!-- package WAR -->
+    <!-- params: $srcdir, $destfile, ($libdir) -->
+    <target name="common:package-war">
+        <fail unless="srcdir"/>
+        <fail unless="destfile"/>
+
+        <dirname file="${dist.dir}/${destfile}" property="destfile.dir"/>
+        <mkdir dir="${destfile.dir}"/>
+
+        <jar file="${dist.dir}/${destfile}" filesonly="true">
+            <fileset dir="${srcdir}">
+            </fileset>
+        </jar>
+
+        <!-- additional source directories -->
+        <if>
+            <available file="${srcdir.1}" type="dir"/>
+            <then>
+                <jar file="${dist.dir}/${destfile}" update="yes">
+                    <zipfileset dir="${srcdir.1}" prefix="WEB-INF/classes">
+                        <include name="META-INF/*"/>
+                        <include name="**/*.class"/>
+                    </zipfileset>
+                </jar>
+            </then>
+        </if>
+
+        <!-- Add libraries -->
+        <if>
+            <available file="${libdir}" type="dir"/>
+            <then>
+                <jar file="${dist.dir}/${destfile}" update="yes">
+                    <zipfileset dir="${libdir}" prefix="WEB-INF/lib">
+                        <include name="*.jar"/>
+                    </zipfileset>
+                </jar>
+            </then>
+        </if>
+
+        <!-- update manifest if available -->
+        <if>
+            <available file="${srcdir}/META-INF/MANIFEST.MF"/>
+            <then>
+                <jar file="${dist.dir}/${destfile}" update="true" manifest="${srcdir}/META-INF/MANIFEST.MF"/>
+            </then>
+        </if>
+    </target>
+
+    <target name="common:package-war-dir">
+        <fail unless="srcdir"/>
+
+        <copy todir="${build.dir}" preservelastmodified="true" overwrite="true">
+            <fileset dir="." includes="META-INF/**/*"/>
+        </copy>
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${dist.dir}/${app.name}"/>
+        <copy todir="${dist.dir}/${app.name}" preservelastmodified="true" overwrite="true">
+            <fileset dir="${srcdir}"/>
+        </copy>
+
+        <if>
+            <available file="${srcdir.1}" type="dir"/>
+            <then>
+                <mkdir dir="${dist.dir}/${app.name}/WEB-INF/classes"/>
+                <copy todir="${dist.dir}/${app.name}/WEB-INF/classes" preservelastmodified="true" overwrite="true">
+                    <fileset dir="${srcdir.1}">
+                        <include name="META-INF/*"/>
+                        <include name="**/*.class"/>
+                    </fileset>
+                </copy>
+            </then>
+        </if>
+
+        <if>
+            <available file="${libdir}" type="dir"/>
+            <then>
+                <mkdir dir="${dist.dir}/${app.name}/WEB-INF/lib"/>
+                <copy todir="${dist.dir}/${app.name}/WEB-INF/lib" preservelastmodified="true" overwrite="true">
+                    <fileset dir="${libdir}">
+                        <include name="*.jar"/>
+                    </fileset>
+                </copy>
+            </then>
+        </if>
+
+        <if>
+            <available file="${srcdir}/META-INF/MANIFEST.MF"/>
+            <then>
+                <mkdir dir="${dist.dir}/${app.name}/META-INF"/>
+                <copy todir="${dist.dir}/${app.name}/META-INF/" preservelastmodified="true" overwrite="true">
+                    <fileset file="${srcdir}/META-INF/MANIFEST.MF"/>
+                </copy>
+            </then>
+        </if>
+    </target>
+
+    <!-- package rar file -->
+    <!-- params: archivedir, $srcdir, ($srcdir.1), $destfile -->
+    <target name="common:package-rar">
+        <fail unless="srcdir"/>
+        <fail unless="archivedir"/>
+        <fail unless="destfile"/>
+
+        <mkdir dir="${archivedir}"/>
+        <jar file="${archivedir}/spi.jar">
+            <fileset dir="${srcdir}">
+                <exclude name="META-INF/*"/>
+            </fileset>
+        </jar>
+        <if>
+            <available file="${srcdir}/META-INF" type="dir"/>
+            <then>
+                <copy todir="${archivedir}/META-INF">
+                    <fileset dir="${srcdir}/META-INF"/>
+                </copy>
+            </then>
+        </if>
+
+        <dirname file="${dist.dir}/${destfile}" property="destfile.dir"/>
+        <mkdir dir="${destfile.dir}"/>
+        <jar file="${dist.dir}/${destfile}">
+            <fileset dir="${archivedir}">
+            </fileset>
+        </jar>
+
+        <!-- additional source directories -->
+        <if>
+            <available file="${srcdir.1}" type="dir"/>
+            <then>
+                <jar file="${dist.dir}/${destfile}" update="yes">
+                    <fileset dir="${srcdir.1}">
+                    </fileset>
+                </jar>
+            </then>
+        </if>
+
+        <!-- update manifest if available -->
+        <if>
+            <available file="${srcdir}/META-INF/MANIFEST.MF"/>
+            <then>
+                <jar file="${dist.dir}/${destfile}" update="true" manifest="${srcdir}/META-INF/MANIFEST.MF"/>
+            </then>
+        </if>
+    </target>
+
+    <target name="undeployall" depends="setTools">
+        <echo>Undeploying all...</echo>
+        <property name="args" value="undeploy -a"/>
+        <echo>#jeusadmin ${tool.options} &quot;${args}&quot;</echo>
+        <exec executable="${cmd.jeusadmin}">
+            <arg line="${tool.options} &quot;${args}&quot;"/>
+        </exec>
+    </target>
+
+    <target name="appinfo" depends="setTools">
+        <property name="args" value="appinfo -server ${jeus.server}"/>
+        <echo>#jeusadmin ${tool.options} &quot;${args}&quot;</echo>
+        <exec executable="${cmd.jeusadmin}">
+            <arg line="${tool.options} &quot;${args}&quot;"/>
+        </exec>
+    </target>
+
+    <target name="do-deploy">
+        <echo>Deploying ${file}...</echo>
+        <antcall target="common:install-and-deploy">
+            <param name="file" value="${file}"/>
+        </antcall>
+    </target>
+    
+    <target name="do-undeploy">
+        <echo>Undeploying ${module.name}...</echo>
+        <antcall target="common:undeploy-and-uninstall">
+        </antcall>
+    </target>
+    
+    <target name="do-deploy-ant" depends="setTools">
+        <fail unless="file"/>
+        <echo>jeus.node=${jeus.node}</echo>
+        <echo>jeus.container.id=${jeus.container.id}</echo>
+        <echo>file=${file}</echo>
+        <deploy
+             deployURI="deployer:Jeus:${jeus.node}"
+             user="${jeus.admin.username}"
+             password="${jeus.admin.password}"
+             targetNames="${jeus.container.id}"
+             modulePath="${file}"
+             fastdeploy="false" />
+    </target>
+    
+    <target name="do-undeploy-ant" depends="setTools">
+        <modulecommand
+           deployURI="deployer:Jeus:${jeus.node}"
+           command="undeploy"
+           modulename="${module.name}"
+           moduletype="J2EEApplication"
+           targetNames="${jeus.container.id}"
+           user="${jeus.admin.username}"
+           password="${jeus.admin.password}" />
+    </target>
+    
+    <target name="do-runappclient" depends="setTools">
+        <property name="_arguments" value="-client ${client}"/>
+        <echo>appclient ${_arguments}</echo>
+        <exec executable="${cmd.appclient}">
+            <arg line ="${_arguments}"/>
+        </exec>
+    </target>
+
+    <target name="do-wsgen" depends="setTools">
+        <property name="args" value="-cp ${build.classes.dir} -keep -d ${build.classes.dir} ${sib.file}"/>
+        <echo>wsgen ${args}</echo>
+        <exec executable="${cmd.wsgen}">
+            <arg line="${args}"/>
+        </exec>
+    </target>
+    
+    <target name="do-wsimport" depends="setTools">
+        <property name="args" value="-keep -p ${package.name} -d ${build.classes.dir} ${binding.file} ${wsdl.file}"/>
+        <echo>wsimport ${args}</echo>
+        <exec executable="${cmd.wsimport}">
+            <arg line="${args}"/>
+        </exec>
+    </target>
+    
+    <target name="do-java2wsdl" depends="setTools">
+        <property name="args" value="${java2wsdl.option}"/>
+        <echo>java2wsdl ${args}</echo>
+        <exec executable="${cmd.java2wsdl}">
+            <arg line="${args}"/>
+        </exec>
+    </target>
+    
+    <target name="do-wsdl2java" depends="setTools">
+        <property name="args" value="${wsdl2java.option}"/>
+        <echo>wsdl2java ${args}</echo>
+        <exec executable="${cmd.wsdl2java}">
+            <arg line="${args}"/>
+        </exec>
+    </target>
+    
+    <target name="do-wsdl2uddi" depends="setTools">
+        <property name="args" value="${wsdl2uddi.option}"/>
+        <echo>wsdl2uddi ${args}</echo>
+        <exec executable="${cmd.wsdl2uddi}">
+            <arg line="${args}"/>
+        </exec>
+    </target>
+    
+    <target name="do-keytool" depends="setTools">
+        <property name="args" value="${keytool.option}"/>
+        <echo>keytool ${args}</echo>
+        <exec executable="${cmd.keytool}">
+            <arg line="${args}"/>
+        </exec>
+    </target>
+    
+  <target name="start-db" depends="" description="starts the databse server." >
+  </target>
+  
+  <target name="stop-db" depends="" description="stops the database server." >
+  </target>
+
+  <!-- Dummy placeholder targets. They can be overridden by application build file -->
+  <target name="-pre-deploy"/>
+</project>

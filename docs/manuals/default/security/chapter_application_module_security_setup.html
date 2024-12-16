@@ -1,0 +1,1251 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제3장 애플리케이션과 모듈에서 보안 설정</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Security 안내서"/><link rel="up" href="index.html" title="JEUS Security 안내서"/><link rel="prev" href="chapter_security_system_setup.html" title="제2장 보안 시스템 설정"/><link rel="next" href="chapter_security_system_api_programming.html" title="제4장 보안 시스템 API 프로그래밍"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제3장 애플리케이션과 모듈에서 보안 설정</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_security_system_setup.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_security_system_api_programming.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_application_module_security_setup"></a>제3장 애플리케이션과 모듈에서 보안 설정</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_application_module_security_setup.html#d4e2868">3.1. 개요</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_application_module_security_setup.html#d4e2879">3.1.1. 모듈 Deployment 대 애플리케이션 Deployment</a></span></dt><dt><span class="section"><a href="chapter_application_module_security_setup.html#sect_Role-to-Resource_mapping">3.1.2. Role-to-Resource 매핑</a></span></dt><dt><span class="section"><a href="chapter_application_module_security_setup.html#sect_Principal-to-Role_mapping">3.1.3. Principal-to-Role 매핑</a></span></dt><dt><span class="section"><a href="chapter_application_module_security_setup.html#d4e3009">3.1.4. 사용자 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_application_module_security_setup.html#sect_ejbmodule_security_setup">3.2. EJB 모듈 보안 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_application_module_security_setup.html#ejb-jar_setting">3.2.1. ejb-jar.xml 설정</a></span></dt><dt><span class="section"><a href="chapter_application_module_security_setup.html#jeus-ejb-dd_setting">3.2.2. jeus-ejb-dd.xml 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_application_module_security_setup.html#sect_webmodule_security_setup">3.3. 웹 모듈 보안 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_application_module_security_setup.html#web-dd_setting">3.3.1. web.xml 설정</a></span></dt><dt><span class="section"><a href="chapter_application_module_security_setup.html#jeus-web-dd_setting">3.3.2. jeus-web-dd.xml 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_application_module_security_setup.html#d4e3699">3.4. J2EE 애플리케이션 보안 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_application_module_security_setup.html#sect_application.xml_setup">3.4.1. application.xml 설정</a></span></dt><dt><span class="section"><a href="chapter_application_module_security_setup.html#sect_application_dd.xml_setup">3.4.2. jeus-application-dd.xml 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_application_module_security_setup.html#d4e3841">3.5. 예제</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 J2EE 애플리케이션과 EJB 모듈, 웹 모듈에서 보안을 설정하는 방법을 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2868"></a>3.1. 개요</h2></div></div></div>
+    
+
+    <p>본 절에서는 애플리케이션과 모듈에 보안을 설정하는 것과 관련된 가장 기본적인 이슈를 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>J2EE 애플리케이션, EJB 모듈, 웹 모듈의 가장 기본적인 보안 설정 과정은 다음과 같다.</p><div class="orderedlist"><ol type="1"><li>
+          <p>Role-to-Resource 매핑을 각 모듈마다 설정한다.</p>
+        </li><li>
+          <p>각 애플리케이션에 대해 Principal-to-Role 매핑을 정의한다.</p>
+        </li></ol></div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2879"></a>3.1.1. 모듈 Deployment 대 애플리케이션 Deployment</h3></div></div></div>
+      
+
+      <p>JEUS에서 deploy하는 방법은 크게 2가지로 나누어진다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>EJB 모듈(.jar 파일), 웹 모듈(.war 파일)을 각각 독립적으로 deploy하는 방법</p>
+          </li><li>
+            <p>여러 개의 EJB 모듈, 웹 모듈, Connector 모듈(.rar)을 EAR로 압축하여 J2EE
+            애플리케이션(.ear)으로 deploy하는 방법</p>
+          </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Role-to-Resource_mapping"></a>3.1.2. Role-to-Resource 매핑</h3></div></div></div>
+      
+
+      <p><a id="d4e2891" class="indexterm"></a><a id="d4e2893" class="indexterm"></a><a id="d4e2895" class="indexterm"></a></p>
+
+      <p>Assembler는 EJB 모듈이나 웹 모듈을 deploy하기 전에 해당 모듈에 Role-to-Resource 매핑을
+      설정해야 한다. Role-to-Resource 매핑을 보안 제약(security constraint)이라고 하며, 논리적인
+      Role에 모듈의 리소스를 매핑하는 것을 의미한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>EJB 모듈에서 리소스는 EJB의 메소드를 의미하며, META-INF/ejb-jar.xml에
+          설정한다.</p>
+        </li><li>
+          <p>웹 모듈에서 리소스는 서블릿 URL을 의미하며, WEB-INF/web.xml에 설정한다.</p>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 EJB 모듈에 설정된 보안 제약 내용으로 META-INF/ejb-jar.xml에 설정에 대한 설명이다.
+      </p><div class="example"><a id="d4e2907"></a><p class="title"><b>[예 3.1] EJB 모듈에 설정된 보안 제약 : &lt;&lt;ejb-jar.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0"?&gt;
+&lt;ejb-jar xmlns="http://java.sun.com/xml/ns/j2ee"&gt;
+    &lt;display-name&gt;product&lt;/display-name&gt;
+    &lt;enterprise-beans&gt;
+        &lt;entity&gt;
+<a id="co_1_1"></a><img src="../images/callouts/1.png" alt="1" border="0"/>           &lt;ejb-name&gt;<span class="bold"><strong>product</strong></span>&lt;/ejb-name&gt;
+            . . .
+<a id="co_1_2"></a><img src="../images/callouts/2.png" alt="2" border="0"/>           &lt;security-role-ref&gt;
+                &lt;role-name&gt;<span class="bold"><strong>cust</strong></span>&lt;/role-name&gt;
+                &lt;role-link&gt;<span class="bold"><strong>customer</strong></span>&lt;/role-link&gt;
+            &lt;/security-role-ref&gt;
+        &lt;/entity&gt;
+    &lt;/enterprise-beans&gt;
+    &lt;assembly-descriptor&gt;
+        . . .
+<a id="co_1_3"></a><img src="../images/callouts/3.png" alt="3" border="0"/>       &lt;security-role&gt;
+            &lt;role-name&gt;<span class="bold"><strong>administrator</strong></span>&lt;/role-name&gt;
+        &lt;/security-role&gt;
+<a id="co_1_4"></a><img src="../images/callouts/4.png" alt="4" border="0"/>       &lt;security-role&gt;
+            &lt;role-name&gt;<span class="bold"><strong>customer</strong></span>&lt;/role-name&gt;
+        &lt;/security-role&gt;
+<a id="co_1_5"></a><img src="../images/callouts/5.png" alt="5" border="0"/>       &lt;method-permission&gt;
+            &lt;role-name&gt;<span class="bold"><strong>administrator</strong></span>&lt;/role-name&gt;
+            &lt;method&gt;
+                &lt;ejb-name&gt;product&lt;/ejb-name&gt;
+                &lt;method-intf&gt;Remote&lt;/method-intf&gt;
+                &lt;method-name&gt;getSecretKey&lt;/method-name&gt;
+                &lt;method-params&gt;
+                   &lt;method-param&gt;java.lang.Integer&lt;/method-param&gt;
+                &lt;/method-params&gt;
+            &lt;/method&gt;
+        &lt;/method-permission&gt;
+<a id="co_1_6"></a><img src="../images/callouts/6.png" alt="6" border="0"/>      &lt;method-permission&gt;
+            &lt;unchecked/&gt;
+            &lt;method&gt;
+                &lt;ejb-name&gt;product&lt;/ejb-name&gt;
+                &lt;method-name&gt;doSomeAdmin&lt;/method-name&gt;
+                &lt;method-params&gt;
+                    &lt;method-param&gt;java.lang.String&lt;/method-param&gt;
+                &lt;/method-params&gt;
+            &lt;/method&gt;
+        &lt;/method-permission&gt;
+<a id="co_1_7"></a><img src="../images/callouts/7.png" alt="7" border="0"/>       &lt;method-permission&gt;
+            &lt;role-name&gt;<span class="bold"><strong>customer</strong></span>&lt;/role-name&gt;
+            &lt;method&gt;
+                &lt;ejb-name&gt;product&lt;/ejb-name&gt;
+                &lt;method-name&gt;test1&lt;/method-name&gt;
+            &lt;/method&gt;
+        &lt;/method-permission&gt;
+<a id="co_1_8"></a><img src="../images/callouts/8.png" alt="8" border="0"/>       &lt;exclude-list&gt;
+            &lt;method&gt;
+                &lt;ejb-name&gt;product&lt;/ejb-name&gt;
+                &lt;method-intf&gt;Remote&lt;/method-intf&gt;
+                &lt;method-name&gt;getCustomerProfile&lt;/method-name&gt;
+                &lt;method-params&gt;&lt;/method-params&gt;
+            &lt;/method&gt;
+        &lt;/exclude-list&gt;
+    &lt;/assembly-descriptor&gt;
+&lt;/ejb-jar&gt;  </pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>DD 파일의 각 부분이 의미하는 보안 제약 사항은 다음과 같다.</p><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a href="#co_1_1"><img src="../images/callouts/1.png" alt="1" border="0"/></a> </td><td valign="top" align="left">
+            <p>"product"라 불리는 Entity EJB가 있다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_1_2"><img src="../images/callouts/2.png" alt="2" border="0"/></a> </td><td valign="top" align="left">
+            <p>Role-to-Role Reference 매핑이 선언되어 있다. 실제 선언된 Role인 "customer"는
+            "cust"라는 Role Reference로 참조될 수 있다. 이는 EJB 소스 내에 "cust"라는 이름의 Role은
+            실제로는 "customer" Role에 해당한다는 것을 의미한다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_1_3"><img src="../images/callouts/3.png" alt="3" border="0"/></a> </td><td valign="top" align="left">
+            <p>논리적 Role인 "administrator"가 선언되어 있다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_1_4"><img src="../images/callouts/4.png" alt="4" border="0"/></a> </td><td valign="top" align="left">
+            <p>논리적 Role인 "customer"가 선언되어 있다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_1_5"><img src="../images/callouts/5.png" alt="5" border="0"/></a> </td><td valign="top" align="left">
+            <p>Role-to-Resource 매핑이 선언되어 있는데, 이는 "administrator" Role이 리모트
+            EJB 인터페이스의 getSecreteKey 메소드를 호출할 수 있도록 허락한다. 이 매핑에 따라 오직
+            "administrator" Role에 속하는 Principal만이 getSecreteKey 메소드를 호출할 수
+            있다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_1_6"><img src="../images/callouts/6.png" alt="6" border="0"/></a> </td><td valign="top" align="left">
+            <p>doSomeAdmin 메소드는 Unchecked로 선언되어 있다. 즉, 누구나 Role에 상관없이 이
+            메소드를 호출할 수 있다는 의미이다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_1_7"><img src="../images/callouts/7.png" alt="7" border="0"/></a> </td><td valign="top" align="left">
+            <p>"customer" Role에 속하는 Principal은 "product" EJB의 "test1" 메소드를
+            호출할 수 있다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_1_8"><img src="../images/callouts/8.png" alt="8" border="0"/></a> </td><td valign="top" align="left">
+            <p>getCustomerProfile 메소드는 Excluded 목록에 포함되어 있다. 즉, Role에 상관없이
+            어떤 Role도 해당 메소드를 호출할 수 없다는 의미이다.</p>
+          </td></tr></table></div>
+
+      <p/>
+
+      <p>웹 모듈에 대해서도 EJB와 비슷한 설정이 적용된다. 단, EJB에서 Role이 EJB 메소드를 호출할 수 있느냐의
+      문제였다면 웹 모듈에서는 Role이 서블릿 URL에 접근할 수 있느냐의 문제를 다룬다. 웹 모듈 보안 설정에 대한 자세한 정보는
+      <a href="chapter_application_module_security_setup.html#sect_webmodule_security_setup" title="3.3. 웹 모듈 보안 설정">“3.3. 웹 모듈 보안 설정”</a>을 참고한다.</p>
+
+      <p>지금까지 언급한 2가지 Role, 즉 "administrator"와 "customer"는 논리적 개념으로 실제
+      deploy되는 환경을 의미하지 않는다. 따라서, 논리적 Role을 실제 환경의 사용자나 사용자 그룹에 매핑하는 작업이 필요하다.
+      이 작업을 Principal-to-Role 매핑이라 하는데 자세한 내용은 <a href="chapter_application_module_security_setup.html#sect_Principal-to-Role_mapping" title="3.1.3. Principal-to-Role 매핑">“3.1.3. Principal-to-Role 매핑”</a>에서 설명한다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Principal-to-Role_mapping"></a>3.1.3. Principal-to-Role 매핑</h3></div></div></div>
+      
+
+      <p><a id="d4e2952" class="indexterm"></a><a id="d4e2954" class="indexterm"></a></p>
+
+      <p>일반적으로 Deployer가 J2EE 모듈 또는 애플리케이션에 정의된 Role을 실제 환경의 사용자나 사용자 그룹에
+      매핑하는 작업을 한다. 여기서, Principal을 논리적 Role에 매핑하는 것은 애플리케이션 범위(scope)를 가진다는 점에
+      주의해야 한다.</p>
+
+      <p>예를 들어 모듈 M1과 M2가 A1이라는 애플리케이션에 포함되어 있다면, Principal-to-Role 매핑은 M1과
+      M2에서 공유된다. 더 나아가 A2라는 별도의 애플리케이션은 A1과는 완전히 다른 Principal-to-Role 매핑을 가진다.
+      A1과 A2에서 동일한 이름의 Role이 있다고 하더라도 이들은 서로 다른 Role로 인식되며 공유되지 않는다.</p>
+
+      <p>다음 그림은 이러한 범위와 관련된 개념에 대한 설명이다. </p><div class="figure"><a id="figure_Principal-to-Role_mapping"></a><p class="title"><b>[그림 3.1] Principal-to-Role 매핑</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="587"><tr><td align="left"><img src="resources/figure_principal-to-role_mapping.png" align="top" width="587" alt="Principal-to-Role 매핑"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>위 그림에서 보듯이 2개의 서로 다른 애플리케이션(A1, A2)가 서로 다른 Principal-to-Role 매핑을
+      가지고 있으며, 포함되어 있는 모듈(M1, M2)은 애플리케이션이 포함하고 있는 매핑을 공유한다.</p>
+
+      <p>JEUS에서 Principal-to-Role 매핑은 다음의 파일에 설정된다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>JEUS DD인 jeus-ejb-dd.xml(EJB 모듈)</p>
+        </li><li>
+          <p>jeus-web-dd.xml(웹 모듈)</p>
+        </li><li>
+          <p>jeus-application-dd.xml(J2EE 애플리케이션)</p>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 ejb-jar.xml에 대한 jeus-ejb-dd.xml의 설정 예이다.</p><div class="example"><a id="d4e2976"></a><p class="title"><b>[예 3.2] Principal-to-Role 매핑 :
+          &lt;&lt;jeus-ejb-dd.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0"?&gt;
+&lt;jeus-ejb-dd xmlns=“http://www.tmaxsoft.com/xml/ns/jeus”&gt;
+     &lt;module-info&gt;
+<a id="co_2_1"></a><img src="../images/callouts/1.png" alt="1" border="0"/>       &lt;role-permission&gt;
+            &lt;principal&gt;<span class="bold"><strong>user1</strong></span>&lt;/principal&gt;
+            &lt;role&gt;<span class="bold"><strong>administrator</strong></span>&lt;/role&gt;
+            &lt;classname&gt;mypackage.MyRolePermission&lt;/classname&gt;
+        &lt;/role-permission&gt;
+<a id="co_2_2"></a><img src="../images/callouts/2.png" alt="2" border="0"/>       &lt;role-permission&gt;
+            &lt;principal&gt;<span class="bold"><strong>user2</strong></span>&lt;/principal&gt;
+            &lt;role&gt;<span class="bold"><strong>customer</strong></span>&lt;/role&gt;
+        &lt;/role-permission&gt;
+<a id="co_2_3"></a><img src="../images/callouts/3.png" alt="3" border="0"/>       &lt;role-permission&gt;
+            &lt;role&gt;<span class="bold"><strong>roleA</strong></span>&lt;/role&gt;
+            &lt;/excluded&gt;
+        &lt;/role-permission&gt;
+<a id="co_2_4"></a><img src="../images/callouts/4.png" alt="4" border="0"/>       &lt;role-permission&gt;
+            &lt;role&gt;<span class="bold"><strong>roleB</strong></span>&lt;/role&gt;
+            &lt;/unchecked&gt;
+        &lt;/role-permission&gt;
+<a id="co_2_5"></a><img src="../images/callouts/5.png" alt="5" border="0"/>       &lt;unspecified-method-permission&gt;
+            &lt;role&gt;<span class="bold"><strong>administrator</strong></span>&lt;/role&gt;
+        &lt;/unspecified-method-permission&gt;
+    &lt;/module-info&gt;
+    &lt;beanlist&gt;
+        . . .
+    &lt;/beanlist&gt;
+&lt;/jeus-ejb-dd&gt;   </pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>위의 예제는 다음과 같은 보안 정보를 담고 있다.</p><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a href="#co_2_1"><img src="../images/callouts/1.png" alt="1" border="0"/></a> </td><td valign="top" align="left">
+            <p>"user1"이라는 Principal(user)에게 "administrator" Role을 허가하는 Role
+            Permission이 선언되어 있다. 이는 "user1"이 "administrator" Role의 모든 권한을 가지게
+            되었다는 것을 의미한다.</p>
+
+            <p>예제에서 보듯이 Custom Role Permission은 &lt;classname&gt; 태그로 정의한다.
+            Custom Role Permission에 대한 자세한 정보는 <a href="chapter_security_system_setup.html" title="제2장 보안 시스템 설정">“제2장 보안 시스템 설정”</a>을 참고한다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_2_2"><img src="../images/callouts/2.png" alt="2" border="0"/></a> </td><td valign="top" align="left">
+            <p>"user2"라는 Principal(user)에게 "customer" Role을 부여하는
+            Role-Permission이 선언되어 있다. 이는 "user2"가 "customer" Role이 가지는 모든 권한을
+            가지게 되었다는 의미이다. &lt;classname&gt; 태그가 설정되어 있지 않았으므로, 디폴트 Role
+            Permission이 설정되어 있다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_2_3"><img src="../images/callouts/3.png" alt="3" border="0"/></a> </td><td valign="top" align="left">
+            <p>"roleA"라는 Role은 모든 Principal로부터 배제되어(excluded) 있다. 즉, 어떤
+            Principal도 "roleA"에 포함될 수 없다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_2_4"><img src="../images/callouts/4.png" alt="4" border="0"/></a> </td><td valign="top" align="left">
+            <p>"roleB"라는 Role은 권한 부여 시스템에서 체크되지 않는다.(unchecked) 즉, 모든
+            Principal은 자동으로 "roleB"에 포함된다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_2_5"><img src="../images/callouts/5.png" alt="5" border="0"/></a> </td><td valign="top" align="left">
+            <p>&lt;unspecified-method-permission&gt;은 "unspecified" EJB
+            메소드를 기본적으로 어떻게 다룰지 결정한다. "unspecified" EJB 메소드는 ejb-jar.xml에서
+            &lt;method-permission&gt; 태그로 언급되지 않은 메소드를 의미한다.
+            &lt;unspecified-method-permission&gt;은 3가지 방식으로 처리할 수 있다. Role에
+            매핑(예제에서는 "administrator" Role에 매핑되었다)하거나, excluded(누구도 접근할 수 없는
+            것)로 취급하거나, unchecked(누구나 접근할 수 있는 것)로 취급하는 것이 그것이다. 마지막 unchecked
+            옵션이 기본값이다.</p>
+          </td></tr></table></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>웹 모듈(jeus-web-dd.xml)의 설정은
+          &lt;unspecified-method-permission&gt; 설정이 없다는 것을 제외하고, EJB 모듈에서 설정과
+          동일하다.</p>
+        </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3009"></a>3.1.4. 사용자 설정</h3></div></div></div>
+      
+
+      <p>사용자 설정은 크게 2가지로 나누어진다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>애플리케이션에서 사용하는 도메인 자체의 사용자 설정을 이용하는 방식으로 다음의 파일에 설정한다. (<a href="chapter_security_system_setup.html#sect_security_system_Subject_setup" title="2.5. 보안 시스템 사용자 정보 설정">“2.5. 보안 시스템 사용자 정보 설정”</a> 참조)</p>
+
+            <pre class="programlisting">JEUS_HOME/domains/&lt;<span class="emphasis"><em>domain name</em></span>&gt;/config/security/&lt;<span class="emphasis"><em>security domain name</em></span>&gt;/accounts.xml</pre>
+
+            <p/>
+          </li><li>
+            <p>EJB 모듈(.jar 파일), 웹 모듈(.war 파일), J2EE 애플리케이션(.ear)자체의 사용자 설정
+            방식으로 WEB-INF(웹 모듈) 또는 META-INF(EJB 모듈 및 EAR) 디렉터리 안의
+            <span><strong class="guibutton">accounts.xml</strong></span>을 설정한다.</p>
+          </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>사용자 정보는 위의 어떤 방식으로 설정을 했는지에 관계없이 애플리케이션의 보안 도메인 범위(scope)을
+          가진다. 즉, 한 보안 도메인에서의 사용자는 같은 보안 도메인을 사용하는 모든 애플리케이션 내에서 공유된다.</p>
+        </div>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_ejbmodule_security_setup"></a>3.2. EJB 모듈 보안 설정</h2></div></div></div>
+    
+
+    <p>본 절에서는 EJB 모듈에 보안 설정하는 방법을 자세하게 설명한다. 본 절에서 다루지 않은 CSI와 같은 보안 설정들은
+    <a xmlns="" href="../ejb/index.html" class="olink">"JEUS EJB 안내서"</a>를 참고한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>보안 설정 방법은 크게 2가지로 나눌 수 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><a href="chapter_application_module_security_setup.html#ejb-jar_setting" title="3.2.1. ejb-jar.xml 설정">ejb-jar.xml 설정</a></p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><a href="chapter_application_module_security_setup.html#jeus-ejb-dd_setting" title="3.2.2. jeus-ejb-dd.xml 설정">jeus-ejb-dd.xml
+        설정</a></p>
+      </li></ul></div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="ejb-jar_setting"></a>3.2.1. ejb-jar.xml 설정</h3></div></div></div>
+      
+
+      <p>ejb-jar.xml에 다음과 같은 보안 요소를 설정할 수 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc" compact="compact"><li>
+          <p>Role-to-Role Reference 매핑</p>
+        </li><li>
+          <p>security identity 설정</p>
+        </li><li>
+          <p>논리적 Role 선언</p>
+        </li><li>
+          <p>EJB 메소드 Permission 설정</p>
+        </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음 예제는 위 보안 설정 요소를 포함하는 ejb-jar.xml이다. </p><div class="example"><a id="d4e3057"></a><p class="title"><b>[예 3.3] 보안 설정 : &lt;&lt;ejb-jar.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0"?&gt;
+&lt;ejb-jar xmlns="http://java.sun.com/xml/ns/j2ee"&gt;
+    &lt;display-name&gt;product&lt;/display-name&gt;
+    &lt;enterprise-beans&gt;
+        &lt;entity&gt;
+            &lt;ejb-name&gt;<span class="bold"><strong>product</strong></span>&lt;/ejb-name&gt;
+            . . .
+            &lt;security-role-ref&gt;
+                &lt;role-name&gt;<span class="bold"><strong>cust</strong></span>&lt;/role-name&gt;
+                &lt;role-link&gt;<span class="bold"><strong>customer</strong></span>&lt;/role-link&gt;
+            &lt;/security-role-ref&gt;
+            &lt;security-identity&gt;
+                &lt;run-as&gt;
+                    &lt;role-name&gt;<span class="bold"><strong>administrator</strong></span>&lt;/role-name&gt;
+                &lt;/run-as&gt;
+            &lt;/security-identity&gt;
+        &lt;/entity&gt;
+    &lt;/enterprise-beans&gt;
+    &lt;assembly-descriptor&gt;
+        . . .
+        &lt;security-role&gt;
+            &lt;role-name&gt;<span class="bold"><strong>administrator</strong></span>&lt;/role-name&gt;
+        &lt;/security-role&gt;
+        &lt;security-role&gt;
+            &lt;role-name&gt;<span class="bold"><strong>customer</strong></span>&lt;/role-name&gt;
+        &lt;/security-role&gt;
+        &lt;method-permission&gt;
+            &lt;role-name&gt;<span class="bold"><strong>administrator</strong></span>&lt;/role-name&gt;
+            &lt;method&gt;
+                &lt;ejb-name&gt;product&lt;/ejb-name&gt;
+                &lt;method-intf&gt;Remote&lt;/method-intf&gt;
+                &lt;method-name&gt;getSecretKey&lt;/method-name&gt;
+                &lt;method-params&gt;
+                   &lt;method-param&gt;java.lang.Integer&lt;/method-param&gt;
+                &lt;/method-params&gt;
+            &lt;/method&gt;
+        &lt;/method-permission&gt;
+        &lt;method-permission&gt;
+            &lt;unchecked/&gt;
+            &lt;method&gt;
+                &lt;ejb-name&gt;product&lt;/ejb-name&gt;
+                &lt;method-name&gt;doSomeAdmin&lt;/method-name&gt;
+                &lt;method-params&gt;
+                    &lt;method-param&gt;java.lang.String&lt;/method-param&gt;
+                &lt;/method-params&gt;
+            &lt;/method&gt;
+        &lt;/method-permission&gt;
+        &lt;method-permission&gt;
+            &lt;role-name&gt;<span class="bold"><strong>customer</strong></span>&lt;/role-name&gt;
+            &lt;method&gt;
+                &lt;ejb-name&gt;product&lt;/ejb-name&gt;
+                &lt;method-name&gt;test1&lt;/method-name&gt;
+            &lt;/method&gt;
+        &lt;/method-permission&gt;
+        &lt;exclude-list&gt;
+            &lt;method&gt;
+                &lt;ejb-name&gt;product&lt;/ejb-name&gt;
+                &lt;method-intf&gt;Remote&lt;/method-intf&gt;
+                &lt;method-name&gt;getCustomerProfile&lt;/method-name&gt;
+                &lt;method-params&gt;&lt;/method-params&gt;
+            &lt;/method&gt;
+        &lt;/exclude-list&gt;
+    &lt;/assembly-descriptor&gt;
+&lt;/ejb-jar&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>ejb-jar.xml에 다음과 같은 보안 요소를 설정할 수 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Role-to-Role Reference 매핑</strong></span></p>
+
+          <p>Role-to-Role Reference 매핑은 <span class="bold"><strong>&lt;security-role-ref&gt;</strong></span> 태그로 정의한다. 목적은 실제
+          논리적 Role에 대한 참조를 설정하는 것이다. 그래서 EJB 소스에서는 실제 Role 대신 Role Reference를
+          사용하게 된다.</p>
+
+          <p>다음 태그는 &lt;security-role-ref&gt; 태그 내에서 사용하는 태그이다.</p>
+
+          <div class="informaltable">
+            <table border="1"><colgroup><col width="130" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;role-name&gt;<a id="d4e3086" class="indexterm"></a></td><td>실제 Role에 대한 참조명으로 EJB 코드에는 실제 Role 이름 대신 참조명을
+                  사용한다.</td></tr><tr><td align="left">&lt;role-link&gt;<a id="d4e3092" class="indexterm"></a></td><td>&lt;security-role&gt; 태그로 선언한 실제 Role 이름으로 Role
+                  Reference는 &lt;role-link&gt;가 가리키는 Role에 매핑된다.</td></tr></tbody></table>
+          </div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Security Identity 설정</strong></span></p>
+
+          <p>모듈 내에 있는 각 EJB는 다른 EJB로 원격지를 호출할 때 자신의 Security Identity를
+          전파한다.</p>
+
+          <p>EJB의 Security Identity는 <span><strong class="guibutton">&lt;ejb-jar&gt;
+          &lt;enterprise-beans&gt; &lt;type&gt;</strong></span><span class="bold"><strong> &lt;security-identity&gt;</strong></span> 태그로 설정한다.</p>
+
+          <p>다음과 같은 하위 태그를 가지고 있다.</p>
+
+          <div class="informaltable">
+            <table border="1"><colgroup><col width="130" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;use-caller-identity&gt;<a id="d4e3115" class="indexterm"></a></td><td>empty 태그로 만일 설정되어 있으면, EJB를 호출할 때 호출자 자신이 Security
+                  Identity로 사용된다.</td></tr><tr><td align="left">&lt;run-as&gt;<a id="d4e3121" class="indexterm"></a></td><td>EJB가 호출할 때 &lt;role-name&gt;에 설정된 Role에 해당하는
+                  principal을 Security Identity로 이용한다. jeus-ejb-dd.xml에
+                  &lt;run-as-identity&gt; 태그가 있을 경우 이 설정은 무시된다.</td></tr></tbody></table>
+          </div>
+
+          <p/>
+
+          
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">논리적 Role 선언<a id="d4e3130" class="indexterm"></a></strong></span></p>
+
+          <p>&lt;assembly-descriptior&gt;의 하위 태그인 &lt;security-role&gt; 태그는
+          해당 EJB 모듈에 적용되는 논리적 Role을 선언하는 태그이다. ejb-jar.xml에 언급되어 있는 모든 Role
+          이름은 이 태그 내에 선언되어 있어야 한다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">EJB 메소드 Permission 설정</strong></span></p>
+
+          <p>&lt;assembly-descriptor&gt;의 하위 태그인 &lt;method-permission&gt;
+          태그는 각 EJB 메소드에 보안 제약을 설정하는 태그이다.</p>
+
+          <p>다음의 하위 태그를 설정한다.</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+                <p>&lt;role-name&gt; (선택) <a id="d4e3144" class="indexterm"></a></p>
+
+                <p>&lt;security-role&gt; 태그에 선언되어 있는 논리적 Role 이름으로 아래에 정의된
+                메소드에 접근할 수 있다.</p>
+              </li><li>
+                <p>&lt;unchecked&gt; (선택)<a id="d4e3150" class="indexterm"></a></p>
+
+                <p>값이 없는 empty 태그로 설정되어 있으면 아래에 정의된 메소드는 권한 체크를 하지 않는다. 즉,
+                Role에 상관없이 누구나 메소드에 접근할 수 있다.</p>
+              </li><li>
+                <p>&lt;method&gt; (1개 이상) <a id="d4e3156" class="indexterm"></a></p>
+
+                <p>&lt;role-name&gt; 또는 &lt;unchecked&gt; 태그가 적용되는 메소드로 하위
+                태그는 다음과 같다.</p>
+
+                <div class="informaltable">
+                    <table border="1"><colgroup><col width="130" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;ejb-name&gt;<a id="d4e3171" class="indexterm"></a></td><td>메소드를 포함하고 있는 EJB 이름이다.</td></tr><tr><td align="left">&lt;method-intf&gt;<a id="d4e3177" class="indexterm"></a></td><td>메소드를 포함하고 있는 EJB 인터페이스 타입으로 생략되면, 로컬, 리모트
+                          인터페이스 모두를 뜻하게 된다.</td></tr><tr><td align="left">&lt;method-name&gt;<a id="d4e3183" class="indexterm"></a></td><td>EJB 메소드 이름이다.</td></tr><tr><td align="left"><p>&lt;method-params&gt;
+                          </p><p>(선택)<a id="d4e3191" class="indexterm"></a></p></td><td><p>0개 이상의 &lt;method-param&gt; 태그를 가질 수
+                          있다.</p><p>&lt;method-param&gt; 태그는 EJB 메소드의 각
+                          파라미터를 나타낸다. 태그가 생략된 경우 메소드 이름만 동일하다면 파라미터와 상관없이 동일한
+                          Permission이 적용된다. EJB에는 파라미터는 다르고 메소드 이름은 은 동일한 여러
+                          개의 메소드가 있을 수 있다. 이 메소드들에 공통적으로 해당 Method Permission이
+                          적용된다는 의미이다. </p><p>&lt;method-param&gt; 태그 값은
+                          패키지 이름을 포함한 완전한 Java 클래스 이름이거나, int와 같은 Java
+                          Primitive 타입이 될 수 있다.
+                          </p><p>&lt;method-params&gt;를 empty 태그로
+                          설정하면(&lt;method-params/&gt;) 매개변수가 하나도 없다는 것을
+                          의미한다.</p></td></tr></tbody></table>
+                  </div>
+              </li><li>
+                <p>&lt;exclude-list&gt; (1개)<a id="d4e3201" class="indexterm"></a></p>
+
+                <p>단 하나의 &lt;exclude-list&gt;가 올 수 있으며, Excluded되는 EJB 메소드를
+                정의한다. 즉, 누구도 접근할 수 없는 메소드이다. 하위 태그로 1개 이상의 &lt;method&gt; 태그를
+                가질 수 있다.</p>
+              </li></ul></div>
+        </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>예제에 대한 설명은 <a href="chapter_application_module_security_setup.html#sect_Role-to-Resource_mapping" title="3.1.2. Role-to-Resource 매핑">“3.1.2. Role-to-Resource 매핑”</a>을
+          참고한다. 각 태그에 대한 자세한 설명은 EJB 스펙을 참고한다. 또한 JEUS에서 EJB를 Deploy하는 방법은
+          <a xmlns="" href="../ejb/index.html" class="olink">"JEUS EJB 안내서"</a>를 참고한다.</p>
+        </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus-ejb-dd_setting"></a>3.2.2. jeus-ejb-dd.xml 설정</h3></div></div></div>
+      
+
+      <p>jeus-ejb-dd.xml에 다음과 같은 보안 요소를 설정할 수 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>보안 관련된 설정</p>
+        </li><li>
+          <p>ejb-jar.xml에 설정되어 있지 않는 EJB 메소드 설정</p>
+        </li><li>
+          <p>Run-as Identity를 사용하는 EJB Principal 설정</p>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>EJB에서 대부분 Role-to-Method 매핑은 ejb-jar.xml에 설정되어 있으나, ejb-jar.xml에서
+      설정되어 있지 않는 메소드를 어떻게 다룰지와 실제 Principal-to-Role 매핑을 어디서 선언할지는 여전히 해결해야 할
+      문제이다. 이는 EJB.jar 파일의 META-INF 디렉터리에 존재하는 jeus-ejb-dd.xml 파일에서
+      설정한다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음 예제는 위 보안 설정 요소를 포함하는 jeus-ejb-dd.xml이다.</p>
+
+      <div class="example"><a id="d4e3228"></a><p class="title"><b>[예 3.4] 보안 설정 : &lt;&lt;jeus-ejb-dd.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0"?&gt;
+&lt;jeus-ejb-dd xmlns=“http://www.tmaxsoft.com/xml/ns/jeus”&gt;
+     &lt;module-info&gt;
+        &lt;role-permission&gt;
+            &lt;principal&gt;<span class="bold"><strong>user1</strong></span>&lt;/principal&gt;
+            &lt;role&gt;<span class="bold"><strong>administrator</strong></span>&lt;/role&gt;
+            &lt;classname&gt;mypackage.MyRolePermission&lt;/classname&gt;
+        &lt;/role-permission&gt;
+        &lt;role-permission&gt;
+            &lt;principal&gt;<span class="bold"><strong>user2</strong></span>&lt;/principal&gt;
+            &lt;role&gt;<span class="bold"><strong>customer</strong></span>&lt;/role&gt;
+        &lt;/role-permission&gt;
+        &lt;role-permission&gt;
+            &lt;role&gt;<span class="bold"><strong>roleA</strong></span>&lt;/role&gt;
+            &lt;/excluded&gt;
+        &lt;/role-permission&gt;
+        &lt;role-permission&gt;
+            &lt;role&gt;<span class="bold"><strong>roleB</strong></span>&lt;/role&gt;
+            &lt;/unchecked&gt;
+        &lt;/role-permission&gt;
+        &lt;unspecified-method-permission&gt;
+            &lt;role&gt;<span class="bold"><strong>administrator</strong></span>&lt;/role&gt;
+        &lt;/unspecified-method-permission&gt;
+    &lt;/module-info&gt;
+    &lt;beanlist&gt;
+        &lt;jeus-bean&gt;
+            . . .
+            &lt;run-as-identity&gt;
+                &lt;principal-name&gt;<span class="bold"><strong>user1</strong></span>&lt;/principal-name&gt;
+            &lt;/run-as-identity&gt;
+        &lt;/jeus-bean&gt;
+        . . .
+    &lt;/beanlist&gt;
+&lt;/jeus-ejb-dd&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>jeus-ejb-dd.xml에 다음과 같은 보안 요소를 설정할 수 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">보안 관련된 설정</strong></span></p>
+
+          <p>jeus-ejb-dd.xml에서 대부분 보안 관련된 설정의 &lt;jeus-ejb-dd&gt; 루트 태그 바로
+          아래에 있는 <span><strong class="guibutton">&lt;module-info&gt;</strong></span> 태그 내에 설정된다.</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+                <p>&lt;role-permission&gt; (0개 이상)<a id="d4e3250" class="indexterm"></a></p>
+
+                <p>다음은 &lt;role-permission&gt;의 하위 태그에 대한 설명이다. 각 태그는
+                Role(Principal-to-Role 매핑)을 정의하고 있다.</p>
+
+                <div class="informaltable">
+                    <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;principal&gt; (0개 이상)<a id="d4e3265" class="indexterm"></a></td><td>Role에 매핑되는 Principal 이름이다.</td></tr><tr><td align="left">&lt;role&gt; (필수)<a id="d4e3271" class="indexterm"></a></td><td><p>단 하나만 허락되며, 필수 항목으로 실제 논리적 Role 이름이다.
+                          </p><p>Role Permission을 구현하는 Java 클래스의 생성자에 첫
+                          번째 파라미터로 넘겨진다. Role 이름은 ejb-jar.xml에 선언된 Role 이름과
+                          일치해야 한다.</p></td></tr><tr><td align="left">&lt;actions&gt; (선택)<a id="d4e3279" class="indexterm"></a></td><td>Role Permissionn에 대해 부가적인 정보를 제공한다. 만약 설정되어
+                          있다면 액션 데이터는 Role Permission을 구현하는 Java 클래스의 두 번째
+                          파라미터로 넘겨진다.</td></tr><tr><td align="left">&lt;classname&gt; (선택)<a id="d4e3285" class="indexterm"></a></td><td><p>Role Permission을 구현하는 클래스로 패키지 이름을 포함한
+                          완전한 이름이어야 한다. 이 클래스는 java.security.Permission 클래스의
+                          서브 클래스로 최소한 하나의 파라미터(Role의 이름)를 받는 public 생성자를 가지고
+                          있어야 한다. </p><p>생략되어 있다면
+                          jeus.security.resource.RolePermission이
+                          사용된다.</p></td></tr><tr><td align="left">&lt;excluded&gt; (선택)<a id="d4e3293" class="indexterm"></a></td><td><p>empty 태그로 만약 설정되어 있다면 해당 Role은
+                          excluded된 것으로 취급한다(누구도 Role Permission에서 언급한 Role에
+                          접근할 수 없다).</p><p>&lt;principal&gt;,
+                          &lt;unchecked&gt; 태그보다 우선순위가 높다.</p></td></tr><tr><td align="left">&lt;unchecked&gt; (선택)<a id="d4e3301" class="indexterm"></a></td><td><p>empty 태그로 만약 설정되어 있다면, 해당 Role은
+                          unchecked된 것으로 취급한다(누구나 Role Permission에서 언급한 Role에
+                          접근할 수 있다). </p><p>&lt;principal&gt; 태그보다 우선순위가
+                          높다.</p></td></tr></tbody></table>
+                  </div>
+              </li></ul></div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">ejb-jar.xml에 설정되어 있지 않는 EJB 메소드 설정<a id="d4e3311" class="indexterm"></a></strong></span></p>
+
+          <p>ejb-jar.xml에 설정되어 있지 않는 EJB 메소드들을 설정한다. &lt;module-info&gt;의
+          <span class="bold"><strong>&lt;unspecified-method-permission&gt;</strong></span> 태그 내에
+          정의된다.</p>
+
+          <p>설정 가능한 하위 태그는 다음과 같다.</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="160" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;role&gt; (선택)<a id="d4e3327" class="indexterm"></a></td><td>설정되어 있다면 모든 설정되지 않는 메소드는 이 Role에 매핑된다.</td></tr><tr><td align="left">&lt;excluded&gt; (선택)<a id="d4e3333" class="indexterm"></a></td><td><p>설정되어 있다면 모든 설정되지 않는 메소드는 excluded 취급된다(누구도
+                    접근할 수 없다).</p><p>&lt;role&gt;이나 &lt;unchecked&gt;
+                    태그보다 우선순위가 높다.</p></td></tr><tr><td align="left">&lt;unchecked&gt; (선택)<a id="d4e3341" class="indexterm"></a></td><td><p>설정되어 있다면 모든 설정되지 않은 메소드는 unchecked로 취급된다(누구나
+                    접근할 수 있다).</p><p>&lt;role&gt; 태그보다 우선순위가
+                    높다.</p></td></tr></tbody></table>
+            </div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guiicon">Run-as Identity를 사용하는 EJB Principal 설정<a id="d4e3351" class="indexterm"></a></strong></span></p>
+
+          <p>Run-as Identity를 사용하는 EJB에 대해 Principal을 설정은
+          <span><strong class="guibutton">&lt;jeus-bean&gt;</strong></span><span class="bold"><strong>
+          &lt;run-as-identity&gt; </strong></span><span class="bold"><strong>&lt;principal-name&gt;</strong></span> 태그 내에 주어진 Principal
+          이름이 사용된다. Principal은 ejb-jar.xml에서 &lt;security-identity&gt;
+          &lt;run-as&gt; &lt;role-name&gt; 태그 내에 설정된 Role 내에 포함되어 있어야
+          한다.</p>
+        </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>1. 예제에 대한 자세한 설명은 <a href="chapter_application_module_security_setup.html#sect_Role-to-Resource_mapping" title="3.1.2. Role-to-Resource 매핑">“3.1.2. Role-to-Resource 매핑”</a>을 참고한다.</p>
+
+          <p>2. 각 태그에 대한 자세한 정보는 <a xmlns="" href="../ejb/index.html" class="olink">"JEUS EJB
+          안내서"</a>를 참고한다.</p>
+        </div>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_webmodule_security_setup"></a>3.3. 웹 모듈 보안 설정</h2></div></div></div>
+    
+
+    <p>본 절에서는 웹 모듈(서블릿 모듈)에 보안 설정하는 방법을 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>웹 모듈의 보안 설정은 크게 2가지로 구성된다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><a href="chapter_application_module_security_setup.html#web-dd_setting" title="3.3.1. web.xml 설정">web.xml 설정</a> : Role-to-Web
+        Resource 매핑 설정</p>
+      </li><li>
+        <p><a href="chapter_application_module_security_setup.html#jeus-web-dd_setting" title="3.3.2. jeus-web-dd.xml 설정">jeus-web-dd.xml 설정</a> :
+        Principal-to-Role 매핑 설정</p>
+      </li></ul></div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="web-dd_setting"></a>3.3.1. web.xml 설정</h3></div></div></div>
+      
+
+      <p>web.xml은 Web Archive(WAR 파일)에 대한 메인 DD 파일이다. 표준 J2EE DD 파일로 WAR
+      파일의 WEB-INF 디렉터리 내에 있다.</p>
+
+      <p>web.xml에서 설정할 수 있는 보안 요소는 다음과 같다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Run-as Identity</strong></span><a id="d4e3385" class="indexterm"></a></p>
+
+          <p>웹 모듈에 포함되어 있는 서블릿은 EJB로 원격 호출을 할 때 자신의 Security identity를
+          전파한다.</p>
+
+          <p>서블릿의 Security identity는
+          <span><strong class="guibutton">&lt;web-app&gt;&lt;servlet&gt;</strong></span><span class="bold"><strong>&lt;run-as&gt;</strong></span> 태그 내에 설정되고, 다음과 같은 하위 태그를
+          가진다.</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;role-name&gt; (선택)<a id="d4e3402" class="indexterm"></a></td><td>서블릿을 실행하는 Role로 생략하면 호출자의 identity가 사용된다.</td></tr></tbody></table>
+            </div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Role-to-role reference 매핑<a id="d4e3410" class="indexterm"></a></strong></span></p>
+
+          <p>Role-to-role reference 매핑은 <span class="bold"><strong>&lt;security-role-ref&gt;</strong></span> 태그로 설정하며, Role
+          Reference를 실제 논리적 Role에 매핑하는 것이 목적이다. Role Reference는 서블릿 코드에서 Role을
+          나타낼 때 사용된다.</p>
+
+          <p>web.xml에서 &lt;security-role-ref&gt; 태그는 &lt;servlet&gt; 내에
+          설정되며, 다음과 같은 하위 태그를 가진다.</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;role-name&gt;<a id="d4e3426" class="indexterm"></a></td><td>서블릿 코드에 사용되는 Role 이름이다.</td></tr><tr><td align="left">&lt;role-link&gt;<a id="d4e3432" class="indexterm"></a></td><td>&lt;security-role&gt; 태그로 정의한 실제 Role 이름으로
+                    &lt;role-name&gt; 태그에 설정된 Role Reference를 실제 Role에
+                    매핑한다.</td></tr></tbody></table>
+            </div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">서블릿 URL 접근 Permissions (Security constraints,
+          보안제약)</strong></span><a id="d4e3440" class="indexterm"></a></p>
+
+          <p>서블릿 URL에 접근을 제한하려는 목적으로 &lt;web-app&gt; 태그 바로 아래에 있는 <span class="bold"><strong>&lt;security-constraint&gt;</strong></span> 태그를 사용한다.</p>
+
+          <p>&lt;security-constraint&gt;는 다음과 같은 하위 태그를 가진다.</p><div class="itemizedlist"><ul type="circle"><li>
+                <p>&lt;web-resource-collection&gt; (1개 이상)<a id="d4e3448" class="indexterm"></a></p>
+
+                <p>접근 제한이 설정되는 웹 리소스의 목록을 나타낸다.</p>
+
+                <div class="informaltable">
+                    <table border="1"><colgroup><col width="160" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;web-resource-name&gt;<a id="d4e3463" class="indexterm"></a></td><td>웹 리소스 이름이다.</td></tr><tr><td align="left">&lt;url-patterns&gt; (0개 이상)<a id="d4e3469" class="indexterm"></a></td><td><p>웹 리소스를 나타내는 URL(contextroot에 상대 경로로 지정)
+                          패턴이다. </p><p>다음은 URL 패턴의 예이다.
+                          </p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                                <p>/mywebapp/* : mywebapp가 포함된 모든 URL</p>
+                              </li><li style="list-style-type: circle">
+                                <p>/something : 정확한 URL</p>
+                              </li><li style="list-style-type: circle">
+                                <p>*.jsp : JSP로 끝나는 모든 리소스</p>
+                              </li></ul></div></td></tr><tr><td align="left">&lt;http-method&gt; (0개 이상)<a id="d4e3484" class="indexterm"></a></td><td><p>웹 리소스에 적용되는 HTTP 메소드를
+                          나타낸다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                                <p>GET</p>
+                              </li><li style="list-style-type: circle">
+                                <p>POST</p>
+                              </li><li style="list-style-type: circle">
+                                <p>PUT</p>
+                              </li></ul></div></td></tr></tbody></table>
+                  </div>
+              </li><li>
+                <p>&lt;auth-constraint&gt; (선택)<a id="d4e3498" class="indexterm"></a></p>
+
+                <p>&lt;security-constraint&gt; 태그 내에 정의된 웹 리소스에 접근할 수 있는
+                Role을 설정한다. 하위 태그로는 0개 이상의 <span class="bold"><strong>&lt;role-name&gt;</strong></span> 태그가 오는데 각각은 접근이 허락된
+                Role을 나타낸다.</p>
+
+                <p>Role 이름이 설정되어 있지 않고 empty 태그 (&lt;auth-constraint/&gt;)로
+                설정되어 있다면, 아무도 해당 웹 리소스에 접근할 수 없다는 의미이다(이는 웹 리소스가 excluded된다는
+                것과 동일하다).</p>
+
+                <p>&lt;auth-constraint&gt; 태그가 아예 생략되어 있다면 이는 웹 리소스가
+                unchecked된다는 것으로 Role에 상관없이 누구나 웹 리소스에 접근할 수 있다는 의미이다.</p>
+              </li><li>
+                <p>&lt;user-data-constraint&gt; (선택)<a id="d4e3507" class="indexterm"></a></p>
+
+                <p>웹 리소스에 맺어지는 커넥션에 대해 "transport guarantee"(전송 보장)할 것인가를
+                선언하는 태그다.</p>
+
+                <p>하위 태그로 <span class="bold"><strong>&lt;transport-guarantee&gt;</strong></span> 태그를 가지며, 웹
+                리소스로의 커넥션을 보장하는 레벨을 나타낸다.</p>
+
+                <div class="informaltable">
+                  <table border="1"><colgroup><col width="160" align="left"/><col/></colgroup><thead><tr><th align="left">설정값</th><th>설명</th></tr></thead><tbody><tr><td align="left">NONE<a id="d4e3523" class="indexterm"></a></td><td>커넥션을 보장하지 못한다는 의미이다.</td></tr><tr><td align="left">INTEGRAL<a id="d4e3529" class="indexterm"></a></td><td>메시지의 무결성(즉, 보내진 메시지는 변경되지 않은 원본이다)을 보장하는 커넥션이라는
+                        의미이다.</td></tr><tr><td align="left">CONFIDENTIAL<a id="d4e3535" class="indexterm"></a></td><td>메시지가 도청되는 것을 방지하기 위해 암호화되어 보내진다는 의미이다.</td></tr></tbody></table>
+                </div>
+              </li></ul></div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">논리적 Role 선언<a id="d4e3543" class="indexterm"></a></strong></span></p>
+
+          <p>&lt;security-constraint&gt; 태그 다음에 논리적 Role을 나타내는
+          &lt;security-role&gt; 태그가 온다. 각 태그는 &lt;role-name&gt; 태그를 가지고 있는데,
+          이미 DD에 언급되었던 논리적 Role 이름을 선언하는 부분이다.</p>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 web.xml의 보안 설정 예제이다.</p><div class="example"><a id="d4e3550"></a><p class="title"><b>[예 3.5] 웹 모듈 보안 설정 : &lt;&lt;web.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0"?&gt;
+&lt;web-app xmlns="http://java.sun.com/xml/ns/j2ee"&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;
+        . . .
+<a id="co_3_1"></a><img src="../images/callouts/1.png" alt="1" border="0"/>       &lt;run-as&gt;
+            &lt;role-name&gt;<span class="bold"><strong>R1</strong></span>&lt;/role-name&gt;
+        &lt;/run-as&gt;
+<a id="co_3_2"></a><img src="../images/callouts/2.png" alt="2" border="0"/>       &lt;security-role-ref&gt;
+            &lt;role-name&gt;<span class="bold"><strong>adminRef</strong></span>&lt;/role-name&gt;
+            &lt;role-link&gt;<span class="bold"><strong>R1</strong></span>&lt;/role-link&gt;
+        &lt;/security-role-ref&gt;
+        . . .
+    &lt;/servlet&gt;
+<a id="co_3_3"></a><img src="../images/callouts/3.png" alt="3" border="0"/>   &lt;security-constraint&gt;
+       &lt;web-resource-collection&gt;
+            &lt;web-resource-name&gt;A&lt;/web-resource-name&gt;
+            &lt;url-pattern&gt;/a/*&lt;/url-pattern&gt;
+            &lt;url-pattern&gt;/b/*&lt;/url-pattern&gt;
+            &lt;url-pattern&gt;/a&lt;/url-pattern&gt;
+            &lt;url-pattern&gt;/b&lt;/url-pattern&gt;
+            &lt;http-method&gt;DELETE&lt;/http-method&gt;
+            &lt;http-method&gt;PUT&lt;/http-method&gt;
+        &lt;/web-resource-collection&gt;
+        &lt;web-resource-collection&gt;
+            &lt;web-resource-name&gt;B&lt;/web-resource-name&gt;
+            &lt;url-pattern&gt;*.asp&lt;/url-pattern&gt;
+        &lt;/web-resource-collection&gt;
+        &lt;auth-constraint/&gt;
+    &lt;/security-constraint&gt;
+<a id="co_3_4"></a><img src="../images/callouts/4.png" alt="4" border="0"/>   &lt;security-constraint&gt;
+        &lt;web-resource-collection&gt;
+            &lt;web-resource-name&gt;C&lt;/web-resource-name&gt;
+            &lt;url-pattern&gt;/a/*&lt;/url-pattern&gt;
+            &lt;url-pattern&gt;/b/*&lt;/url-pattern&gt;
+            &lt;http-method&gt;GET&lt;/http-method&gt;
+        &lt;/web-resource-collection&gt;
+        &lt;web-resource-collection&gt;
+            &lt;web-resource-name&gt;D&lt;/web-resource-name&gt;
+            &lt;url-pattern&gt;/b/*&lt;/url-pattern&gt;
+            &lt;http-method&gt;POST&lt;/http-method&gt;
+        &lt;/web-resource-collection&gt;
+        &lt;auth-constraint&gt;
+            &lt;role-name&gt;<span class="bold"><strong>R1</strong></span>&lt;/role-name&gt;
+        &lt;/auth-constraint&gt;
+        &lt;user-data-constraint&gt;
+            &lt;transport-guarantee&gt;
+                CONFIDENTIAL
+            &lt;/transport-guarantee&gt;
+        &lt;/user-data-constraint&gt;
+    &lt;/security-constraint&gt;
+<a id="co_3_5"></a><img src="../images/callouts/5.png" alt="5" border="0"/>   &lt;security-role&gt;
+        &lt;role-name&gt;<span class="bold"><strong>R1</strong></span>&lt;/role-name&gt;
+    &lt;/security-role&gt;
+    &lt;security-role&gt;
+        &lt;role-name&gt;<span class="bold"><strong>R2</strong></span>&lt;/role-name&gt;
+    &lt;/security-role&gt;
+    &lt;security-role&gt;
+        &lt;role-name&gt;<span class="bold"><strong>R3</strong></span>&lt;/role-name&gt;
+    &lt;/security-role&gt;
+&lt;/web-app&gt;  </pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>위 예제의 각각의 부분이 의미하는 내용은 다음과 같다.</p><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a href="#co_3_1"><img src="../images/callouts/1.png" alt="1" border="0"/></a> </td><td valign="top" align="left">
+            <p>Run-as-Identity가 Role "R1"으로 설정되어 있는 것은 서블릿의 Security
+            identity가 "R1"에 속한 Principal이어야 한다는 의미이다. 실제 Principal은 JEUS DD
+            파일에서 설정된다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_3_2"><img src="../images/callouts/2.png" alt="2" border="0"/></a> </td><td valign="top" align="left">
+            <p>&lt;security-role-ref&gt; 태그는 실제 Role인 "R1"을 Role Reference인
+            "adminRef"로 매핑해 놓았는데, 실제 서블릿 소스 내에서는 Role대신 Role Reference인
+            "adminRef"를 사용한다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_3_3"><img src="../images/callouts/3.png" alt="3" border="0"/></a> </td><td valign="top" align="left">
+            <p>첫 번째 Security constraint 설정은 "/a", "/b", "/a/*", "/b/*" URL
+            패턴을 가지고 있으면서 HTTP 메소드가 DELETE, PUT인 URL과 "*.asp"로 끝나는 URL은 누구도 접근할
+            수 없다는 것을 말하고 있다.</p>
+
+            <p>&lt;auth-constraint/&gt;로 설정되어 있기 때문이다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_3_4"><img src="../images/callouts/4.png" alt="4" border="0"/></a> </td><td valign="top" align="left">
+            <p>두 번째 Security constraint 설정은 "/a/*", "/b/*" 패턴을 가지고 있으면서 GET
+            방식인 URL과 /b/* 패턴을 가지고 있으면서, POST 방식인 URL은 오직 "R1" Role에 포함된
+            Principal만 접근할 수 있다는 것을 말하고 있다. 그리고 해당 커넥션은 CONFIDENTIAL을
+            보장한다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_3_5"><img src="../images/callouts/5.png" alt="5" border="0"/></a> </td><td valign="top" align="left">
+            <p>"R1", "R2", "R3" 3개의 논리적 Role을 선언하고 있다.</p>
+          </td></tr></table></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>웹 리소스(URL 패턴 + HTTP 메소드)가 web.xml에 별도로 설정되어 있지 않으면, 해당 리소스는 Role에
+      상관없이 누구나 접근할 수 있다는 의미이다. 이는 J2EE에서 웹 애플리케이션 접근에 대한 기본값이다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>web.xml에 나타나는 모든 태그들에 대한 자세한 정보는 서블릿 스펙을 참고한다. 또한 JEUS에서 서블릿을
+          deploy하는 것에 대한 추가적인 정보는 <a xmlns="" href="../web-engine/index.html" class="olink">"JEUS Web
+          Engine 안내서"</a>를 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus-web-dd_setting"></a>3.3.2. jeus-web-dd.xml 설정</h3></div></div></div>
+      
+
+      <p>웹 모듈에 대한 JEUS DD 파일인 jeus-web-dd.xml에서 보안을 설정하는 방법에 대해
+      설명한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Principal-to-Role 매핑 정의</strong></span></p>
+
+          <p>jeus-web-dd.xml에서 Principal-to-Role 매핑을 정의하기 위해 <span class="bold"><strong>&lt;jeus-web-dd&gt;&lt;role-mapping&gt;</strong></span> 태그를
+          사용한다.</p>
+
+          <p>다음은 <span class="bold"><strong>&lt;role-mapping&gt;</strong></span>의 하위
+          태그들이다.</p><div class="itemizedlist"><ul type="circle"><li>
+                <p>&lt;role-permission&gt; (0개 이상)<a id="d4e3602" class="indexterm"></a></p>
+
+                <p>Role에 대한 Permission(보통 Principal-to-Role 매핑)을 다음의 하위 태그에
+                설정한다.</p>
+
+                <div class="informaltable">
+                    <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;principal&gt; (0개 이상)<a id="d4e3617" class="indexterm"></a></td><td>Role에 매핑되는 Principal 이름이다.</td></tr><tr><td align="left">&lt;role&gt; (1개, 필수)<a id="d4e3623" class="indexterm"></a></td><td><p>논리적 Role 이름이다. </p><p>Role 이름은
+                          Role Permission을 구현하는 Java 클래스 생성자에 첫 번째 파라미터로 전달되고,
+                          web.xml에 주어진 논리적 Role 이름과 일치해야 한다.</p></td></tr><tr><td align="left">&lt;actions&gt; (선택)<a id="d4e3631" class="indexterm"></a></td><td>Role Permission에 대한 추가적인 데이터를 전달한다. 설정되어 있다면
+                          Role Permission을 구현하는 Java 클래스 생성자의 두 번째 파라미터로
+                          전달된다.</td></tr><tr><td align="left">&lt;classname&gt; (선택)<a id="d4e3637" class="indexterm"></a></td><td><p>Role Permission을 구현하는 Java 클래스명이다.
+                          </p><p>이 클래스는 java.security.Permission의 구현
+                          클래스로 최소한 하나의 파라미터(String rolename)를 넘겨받는 public 생성자를
+                          가지고 있어야 한다. </p><p>생략되면 기본값으로
+                          “jeus.security.resource.RolePermission” 클래스가
+                          사용된다.</p></td></tr><tr><td align="left">&lt;excluded&gt; (선택)<a id="d4e3646" class="indexterm"></a></td><td><p>empty 태그로 설정되어 있으면 Role은 excluded된 것으로
+                          취급한다. 즉, 어떤 Principal도 해당 Role을 부여받을 수
+                          없다.</p><p>&lt;principal&gt;, &lt;unchecked&gt;
+                          태그보다 우선순위가 높다.</p></td></tr><tr><td align="left">&lt;unchecked&gt; (선택)<a id="d4e3654" class="indexterm"></a></td><td><p>empty 태그로 설정되어 있으면 Role은 unchecked된 것으로
+                          취급한다. 즉, Principal에 상관 없이 누구나 Role을 부여받을 수
+                          있다.</p><p>&lt;principal&gt; 태그보다 우선순위가
+                          높다.</p></td></tr></tbody></table>
+                  </div>
+              </li></ul></div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">서블릿에서 &lt;run-as-principal&gt;
+          설정</strong></span></p>
+
+          <p>서블릿에서 &lt;run-as-principal&gt;을 설정하기 위해 &lt;servlet&gt; 태그를
+          선언하고 &lt;run-as&gt;&lt;principal-name&gt; 태그를 추가한다.
+          &lt;principal-name&gt; 태그 값은 web.xml에서
+          &lt;run-as&gt;&lt;role-name&gt;에 선언된 Role에 속하는 Principal이어야
+          한다.</p>
+        </li></ul></div>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>현재로는 web.xml에서 언급되어 있지 않는 서블릿 URL을 어떻게 다룰지 정의하는 태그가
+          jeus-web-dd.xml에 없다. 서블릿 스펙에서는 모든 정의되지 않은 URL을 항상 Unchecked로 취급한다.
+          즉, 누구나 접근할 수 있다.</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 jeus-web-dd.xml의 보안 설정 예제이다.</p>
+
+      <div class="example"><a id="d4e3672"></a><p class="title"><b>[예 3.6] 웹 모듈 보안 설정 : &lt;&lt;jeus-web-dd.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0"?&gt;
+&lt;jeus-web-dd xmlns=“http://www.tmaxsoft.com/xml/ns/jeus”&gt;
+        &lt;context-path&gt;/tutorial&lt;/context-path&gt;
+        &lt;docbase&gt;Tutorial&lt;/docbase&gt;
+        . . .
+        &lt;role-mapping&gt;
+<a id="co_4_1"></a><img src="../images/callouts/1.png" alt="1" border="0"/>           &lt;role-permission&gt;
+                &lt;principal&gt;user1&lt;/principal&gt;
+                &lt;principal&gt;user2&lt;/principal&gt;
+                &lt;principal&gt;customerGroup&lt;/principal&gt;
+                &lt;role&gt;R1&lt;/role&gt;
+            &lt;/role-permission&gt;
+<a id="co_4_2"></a><img src="../images/callouts/2.png" alt="2" border="0"/>           &lt;role-permission&gt;
+                &lt;role&gt;R2&lt;/role&gt;
+                &lt;/excluded&gt;
+            &lt;/role-permission&gt;
+<a id="co_4_3"></a><img src="../images/callouts/3.png" alt="3" border="0"/>           &lt;role-permission&gt;
+                &lt;role&gt;R3&lt;/role&gt;
+                &lt;/unchecked&gt;
+            &lt;/role-permission&gt;
+<a id="co_4_4"></a><img src="../images/callouts/4.png" alt="4" border="0"/>           &lt;role-permission&gt;
+                &lt;principal&gt;tellerGroup&lt;/principal&gt;
+                &lt;role&gt;R4&lt;/role&gt;
+                &lt;actions&gt;09:00-17:00&lt;/actions&gt;
+                &lt;classname&gt;
+                    jeus.security.resource.TimeConstrainedRolePermission<a id="d4e3680" class="indexterm"></a>
+                &lt;/classname&gt;
+            &lt;/role-permission&gt;
+        &lt;/role-mapping&gt;
+<a id="co_4_5"></a><img src="../images/callouts/5.png" alt="5" border="0"/>     &lt;servlet&gt;
+           &lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;
+        &lt;run-as-identity&gt;
+           &lt;principal-name&gt;user1&lt;/principal-name&gt;
+        &lt;/run-as-identity&gt;
+        . . .
+&lt;/servlet&gt;
+        . . .
+&lt;/jeus-web-dd&gt;  </pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>위 예제의 각 부분에 대한 의미는 다음과 같다.</p><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a href="#co_4_1"><img src="../images/callouts/1.png" alt="1" border="0"/></a> </td><td valign="top" align="left">
+            <p>"user1", "user2", "customerGroup" Principal은 "R1" Role에
+            속한다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_4_2"><img src="../images/callouts/2.png" alt="2" border="0"/></a> </td><td valign="top" align="left">
+            <p>"R2" Role은 Excluded되어 있다. 즉, 아무도 "R2" Role을 부여받을 수
+            없다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_4_3"><img src="../images/callouts/3.png" alt="3" border="0"/></a> </td><td valign="top" align="left">
+            <p>"R3" Role은 Unchecked되어 있다. 즉, 누구나 "R3" Role을 부여받을 수
+            있다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_4_4"><img src="../images/callouts/4.png" alt="4" border="0"/></a> </td><td valign="top" align="left">
+            <p>"tellerGroup" Principal은 오전 9시부터 오후 5시까지 Role "R4"를 부여받는다.
+            jeus.security.resource.TimeConstrainedRolePermission 클래스의
+            implies() 메소드에서 구현된다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_4_5"><img src="../images/callouts/5.png" alt="5" border="0"/></a> </td><td valign="top" align="left">
+            <p>run-as-principal로 "user1"이 사용되었다. 즉, 서블릿에서 EJB를 호출할 때
+            "user1"이 security identity로 넘겨진다. Deployer는 "user1"이 web.xml에 정의된
+            "R1" Role에 속하는지 반드시 확인해야 한다.</p>
+          </td></tr></table></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3699"></a>3.4. J2EE 애플리케이션 보안 설정</h2></div></div></div>
+    
+
+    <p>본 절에서는 J2EE 애플리케이션(EAR 파일)의 보안을 설정하는 방법을 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>기본적인 설정 방법은 다음과 같다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><a href="chapter_application_module_security_setup.html#sect_application.xml_setup" title="3.4.1. application.xml 설정">application.xml
+          설정</a> : 논리적 Role을 선언</p>
+        </li><li>
+          <p><a href="chapter_application_module_security_setup.html#sect_application_dd.xml_setup" title="3.4.2. jeus-application-dd.xml 설정">jeus-application-dd.xml
+          설정</a> : deploy할 보안 도메인과 Principal-to-Role 매핑을 설정</p>
+        </li></ul></div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_application.xml_setup"></a>3.4.1. application.xml 설정</h3></div></div></div>
+      
+
+      <p>J2EE 애플리케이션은 .ear 확장자를 가진 Archive 파일이다. EAR Archive는 EJB 모듈, 웹 모듈,
+      Connector 모듈 그리고 모듈에서 참조하고 있는 클래스들로 구성되어 있다. META-INF 디렉터리는
+      application.xml 설정 파일을 포함하고 있는데, 전체 애플리케이션에 대한 여러 가지 정보를 제공한다.</p>
+
+      <p>본 절에서는 application.xml에서 보안과 관련된 부분을 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>기본적으로 application.xml에는 보안과 관련된 설정은 논리적 Role을 설정하는 단 한 가지 밖에 없다.
+      Role 선언은 EAR 파일 내에 있는 모든 EJB 모듈과 웹 모듈에 공통으로 적용되며 애플리케이션 범위(scope)를
+      가진다.</p>
+
+      <div class="example"><a id="d4e3719"></a><p class="title"><b>[예 3.7] J2EE 애플리케이션 보안 설정 : &lt;&lt;application.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;application version="1.4" . . .&gt;
+    &lt;description&gt;Application description&lt;/description&gt;
+    &lt;display-name&gt;myApp&lt;/display-name&gt;
+    &lt;module&gt;
+        &lt;web&gt;
+            &lt;web-uri&gt;myWebApp.war&lt;/web-uri&gt;
+            &lt;context-root&gt;myWebApp&lt;/context-root&gt;
+        &lt;/web&gt;
+    &lt;/module&gt;
+    &lt;module&gt;
+        &lt;ejb&gt;myEjbApp.jar&lt;/ejb&gt;
+    &lt;/module&gt;
+<a id="co_5_1"></a><img src="../images/callouts/1.png" alt="1" border="0"/>   &lt;security-role&gt;
+        &lt;role-name&gt;Administrator&lt;/role-name&gt;
+    &lt;/security-role&gt;
+<a id="co_5_2"></a><img src="../images/callouts/2.png" alt="2" border="0"/>   &lt;security-role&gt;
+        &lt;role-name&gt;Customer&lt;/role-name&gt;
+    &lt;/security-role&gt;
+&lt;/application&gt;  </pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+
+      <p>위의 예제에서는 "Administrator", "Customer" 2가지 Role이 선언되었다.</p>
+
+      <p>두 가지 Role은 Role-to-Resource 매핑을 정의하기 위해 EJB 모듈과 웹 모듈의 DD 파일에서
+      사용된다. EJB 모듈과 웹 모듈 보안에 대해서는 <a href="chapter_application_module_security_setup.html#sect_ejbmodule_security_setup" title="3.2. EJB 모듈 보안 설정">“3.2. EJB 모듈 보안 설정”</a>과 <a href="chapter_application_module_security_setup.html#sect_webmodule_security_setup" title="3.3. 웹 모듈 보안 설정">“3.3. 웹 모듈 보안 설정”</a>에서 이미 설명되었다.</p>
+
+      <p>애플리케이션을 JEUS 서버에 deploy하기 전에 논리적 Role이 실제 Principal에 매핑되었는지 확인해야
+      한다. 이 매핑은 각각의 경우에 따라 아래 파일에 매핑된다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>애플리케이션의 경우 : jeus-application-dd.xml</p>
+        </li><li>
+          <p>EJB 모듈의 경우 : jeus-ejb-dd.xml (Principal-to-Role 설정은 <a href="chapter_application_module_security_setup.html#jeus-ejb-dd_setting" title="3.2.2. jeus-ejb-dd.xml 설정">“3.2.2. jeus-ejb-dd.xml 설정”</a>을 참고)</p>
+        </li><li>
+          <p>웹 모듈의 경우 : jeus-web-dd.xml (Principal-to-Role 설정은 <a href="chapter_application_module_security_setup.html#jeus-web-dd_setting" title="3.3.2. jeus-web-dd.xml 설정">“3.3.2. jeus-web-dd.xml 설정”</a>을 참고)</p>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>애플리케이션 전체에서 Role과 Principal-to-Role 매핑을 공유하기 때문에 J2EE 애플리케이션에 포함되어
+      있는 모든 모듈을 잘 알고 있어야 한다. 가령, application.xml에 "Administrator"라는 Role을 설정해
+      놓고, jeus-application-dd.xml에서 "user2"라는 Principal을 할당했다고 가정한다. 이 Role
+      매핑은 애플리케이션에 포함된 모든 EJB 모듈과 웹 모듈에서 적용된다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>비슷하게 Role과 Principal-to-Role 매핑을 특정 EJB의 jeus-ejb-dd.xml에만 정의했다고
+      해도 설정된 Role과 Principal-to-Role 매핑은 .ear에 포함된 모든 모듈에서 여전히 공유될 수
+      있다.</p>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>J2EE 애플리케이션에서 모든 Principal-to-Role 매핑은 그것이
+          jeus-application-dd.xml에 설정되어 있든 특정 jeus-ejb-dd.xml이나
+          jeus-web-dd.xml에 설정되어 있든 상관없이 애플리케이션 범위(scope)를 가진다는 점을 주의한다.</p>
+        </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_application_dd.xml_setup"></a>3.4.2. jeus-application-dd.xml 설정</h3></div></div></div>
+      
+
+      <p>애플리케이션 레벨에서 Principal-to-Role 매핑은
+      <span><strong class="guibutton">jeus-application-dd.xml</strong></span>에 설정한다.</p>
+
+      <p>Principal-to-Role 매핑을 정의하기 위해 jeus-application-dd.xml의
+      <span><strong class="guibutton">&lt;application&gt;</strong></span> 태그 아래에 다음 태그들을
+      추가한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>&lt;role-permission&gt; (선택)<a id="d4e3757" class="indexterm"></a></p>
+
+            <p>&lt;role-permission&gt; 태그는 Principal-to-Role 매핑을 정의하며,
+            선택적으로 Excluded, Unchecked Role을 설정할 수 있다. 이 태그는 jeus-web-dd.xml,
+            jeus-ejb-dd.xml, policies.xml과 완전히 동일하게 동작한다.</p>
+
+            <p>다음의 하위 태그를 가진다.</p>
+
+            <div class="informaltable">
+                <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;principal&gt; (0개 이상)<a id="d4e3773" class="indexterm"></a></td><td>Role에 매핑되는 Principal 이름이다.</td></tr><tr><td align="left">&lt;role&gt; (1개, 필수)<a id="d4e3779" class="indexterm"></a></td><td><p>Role 이름을 나타낸다. 이는 Role Permission을 구현하는
+                      Java 클래스 생성자에 첫 번째 파라미터로 넘겨진다.</p><p> Role 이름은
+                      application.xml에 선언된 논리적 Role 이름과 일치해야
+                      한다.</p></td></tr><tr><td align="left">&lt;actions&gt; (선택)<a id="d4e3787" class="indexterm"></a></td><td>Role Permission에 부가적인 정보를 제공한다. 설정되어 있다면 Role
+                      Permission을 구현하는 Java 클래스 생성자에 두 번째 파라미터로 넘겨진다.</td></tr><tr><td align="left">&lt;classname&gt; (선택)<a id="d4e3793" class="indexterm"></a></td><td><p>Role Permission을 구현하고 있는 Java 클래스명이다. 이
+                      클래스는 java.security.Permission 클래스의 서브 클래스로 최소한 하나의
+                      파라미터(String rolename)를 넘겨받는 public 생성자가 있어야 한다.
+                      </p><p>생략되어 있다면 기본값으로
+                      jeus.security.resource.RolePermission이
+                      사용된다.</p></td></tr><tr><td align="left">&lt;excluded&gt; (선택)<a id="d4e3801" class="indexterm"></a></td><td><p>empty 태그로 설정되어 있으면 Role은 Excluded로 취급된다. 즉,
+                      아무도 해당 Role을 부여받을 수 없다. </p><p>&lt;principal&gt;이나
+                      &lt;unchecked&gt; 태그보다 우선순위가 높다.</p></td></tr><tr><td align="left">&lt;unchecked&gt; (선택)<a id="d4e3809" class="indexterm"></a></td><td><p>empty 태그로 설정되어 있으면, Role이 Unchecked로 취급된다.
+                      즉, 누구나 해당 Role을 부여받을 수 있다.</p><p>&lt;principal&gt;
+                      태그보다 우선순위가 높다.</p></td></tr></tbody></table>
+              </div>
+          </li></ul></div>
+
+      <p>&lt;application&gt; 태그 아래에 해당 애플리케이션이 deploy되는 보안 도메인을 설정해 놓아야 한다.
+      기본값으로 'SYSTEM_DOMAIN'이 사용되지만, 특정 애플리케이션이 특별한 보안 서비스를 필요로 한다면 해당 보안 서비스를
+      포함하고 있는 새로운 도메인을 생성해서 deploy해야 한다.</p>
+
+      <p/>
+
+      <p>jeusadmin의 <span><strong class="guibutton">deploy</strong></span> 명령에서 보안 도메인 이름을 설정할 수
+      있다.</p>
+
+      <div class="example"><a id="d4e3820"></a><p class="title"><b>[예 3.8] J2EE 애플리케이션 보안 설정 :
+          &lt;&lt;jeus-application-dd.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">    &lt;application&gt;
+        . . .
+<a id="co_6_1"></a><img src="../images/callouts/1.png" alt="1" border="0"/>       &lt;role-permission&gt;
+           &lt;principal&gt;<span class="bold"><strong>user2</strong></span>&lt;/principal&gt;
+           &lt;role&gt;<span class="bold"><strong>Administrator</strong></span>&lt;/role&gt;
+        &lt;/role-permission&gt;
+<a id="co_6_2"></a><img src="../images/callouts/2.png" alt="2" border="0"/>       &lt;role-permission&gt;
+           &lt;role&gt;<span class="bold"><strong>Customer</strong></span>&lt;/role&gt;
+           &lt;/unchecked&gt;
+        &lt;/role-permission&gt;
+        . . .
+    &lt;/application&gt;
+</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>위의 예제에서, J2EE 애플리케이션 보안을 다음과 같이 설정했다.</p><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a href="#co_6_1"><img src="../images/callouts/1.png" alt="1" border="0"/></a> </td><td valign="top" align="left">
+            <p>"user2"라는 Principal은 "Administrator" Role에 매핑되어 있으며, 디폴트
+            RolePermission을 사용한다.</p>
+          </td></tr><tr><td width="5%" valign="top" align="left"><a href="#co_6_2"><img src="../images/callouts/2.png" alt="2" border="0"/></a> </td><td valign="top" align="left">
+            <p>모든 Principal에 "Customer" Role을 부여한다(Role이 unchecked되었기
+            때문이다).</p>
+          </td></tr></table></div><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>1. 보안 도메인을 설정하는 방법은 <a href="chapter_security_system_setup.html#sect_security_system_domain_setup" title="2.2. 보안 도메인 정의">“2.2. 보안 도메인 정의”</a>를 참고한다.</p>
+
+          <p>2. Custom Permission을 개발하고 설정하는 방법은 <a href="chapter_security_system_setup.html#sect_security_system_Policy_setup" title="2.6. 보안 시스템 정책 설정">“2.6. 보안 시스템 정책 설정”</a>을 참고한다.</p>
+
+          <p>3. JEUS에 J2EE 애플리케이션을 deploy하는 방법은 <a xmlns="" href="../server/index.html" class="olink">"JEUS Server 안내서"</a>를 참고한다.</p>
+        </div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3841"></a>3.5. 예제</h2></div></div></div>
+    
+
+    <p>본 절에서는 위에서 설명한 설정을 기반으로 작성한 예제에 대해 간략하게 설명한다.</p>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음 화면은 최초로 접속할 때의 로그인 화면이다. 해당 URL에 checked permission이 설정된 경우에만
+    보이며, Unchecked permission일 때는 이 화면이 생략되고 바로 페이지가 표시된다. Excluded
+    permission일 때는 Authorization이 실패하고 에러 화면이 나타난다.</p>
+
+    <p/>
+
+    <div class="figure"><a id="d4e3849"></a><p class="title"><b>[그림 3.2] 로그인 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="616"><tr><td align="left"><img src="resources/figure_sample_login.png" align="top" width="616" alt="로그인 화면"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p/>
+
+    <p>인증에 실패하였거나 권한이 없는 계정으로 로그인했을 경우 에러 페이지가 나타난다. 권한이 있는 계정으로 로그인에 성공하면
+    다음과 같은 화면이 나타난다. </p><div class="figure"><a id="d4e3856"></a><p class="title"><b>[그림 3.3] 메인 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_sample_mainpage.png" align="top" width="711" alt="메인 화면"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p>이 예제는 메인 페이지에서 3개의 서블릿으로 링크가 걸려 있으며, 3개의 EJB 메소드를 호출하게 된다. 로그인한 계정과
+    설정 파일에 따라 접근할 수 있는지 여부에는 차이가 있으므로 여러 가지 설정을 하고 여러 계정으로 로그인해 보면서 직접
+    확인해본다.</p>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_security_system_setup.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_security_system_api_programming.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제2장 보안 시스템 설정 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제4장 보안 시스템 API 프로그래밍</td></tr></table></div><div xmlns="" align="center"/></body></html>

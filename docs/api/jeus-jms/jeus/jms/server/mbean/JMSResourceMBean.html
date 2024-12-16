@@ -1,0 +1,803 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>JMSResourceMBean</title>
+      <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="JMSResourceMBean (JEUS JMS API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS JMS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.jms.server.mbean</font><br>MBean JMSResourceMBean
+      </h2>
+      <dl>
+         <dt><b>ObjectName Pattern:</b><dd><code>JEUS:name=<i>{JMSEngine-name}</i>,jeusType=JMSResource,*</code></dd>
+         </dt>
+         <dt><b>Permission Name:</b><dd><code>jeus.server.<i>{server-name}</i>.JMSResource.<i>{resource-name}</i></code></dd>
+         </dt>
+         <dt></dt>
+         <dt><b>Statistics:</b><dd><code><a href="../../../../jeus/jms/server/mbean/stats/JMSStats.html">JMSStats</a></code></dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl>
+         <dt><b>All Superinterfaces:</b><dd>jeus.management.j2ee.J2EEManagedObjectMBean, jeus.management.j2ee.J2EEResourceMBean, jeus.management.j2ee.StatisticsProvider</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>MBean <b>JMSResourceMBean</b></pre></dl>Java Message Service(JMS) 서버의 리소스를 나타내는 MBean이다.
+      <p/>
+      <p>이를 통해 해당하는 JMS 서버의 전체 정보를 얻을 수 있다.</p>
+      
+      <p>삭제된 API</p>
+      <p>getJMSDestinationDigest(), getJMSSubscriptionDigest(), getJMSConnectionFactoryDigest() since JEUS 8</p>
+      <p>각각 Destinationm Subscription, ConnectionFactory에 대한 요약 정보를 가져온다.
+      "요약된 정보"를 모아주는 별도의 기능은 없으며, 필요시 각각에 해당하는 MBean이나 console command를 통해 얻는다.</p>
+      <p>switchover() since JEUS 8
+      <p>수동으로 강제로 switch-over하는 기능은 제공하지 않는다.</p><br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../jeus/jms/server/mbean/JMSResourceMBean.html#J2EE_TYPE">J2EE_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.J2EEResourceMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.J2EEResourceMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>JAVAMAIL, JCA, JDBC, JMS, JNDI, JTA, parentKeyMap, RMI_IIOP, URL</code></td>
+            </tr>
+         </table>&nbsp;
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>SYSTEM_DOMAIN</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attribute_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="3"><font size="+2"><b>Attribute Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String[]</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSResourceMBean.html#ClientNames">ClientNames</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JMSClientEntry의 이름.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.jms.server.mbean.JMSClientEntryInfo[]</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSResourceMBean.html#DetailedClientsInfo">DetailedClientsInfo</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   현재 접속하고 있는 ClientEntry들의 정보.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.List&lt;javax.management.ObjectName&gt;</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSResourceMBean.html#JMSConnectionFactoryResourceNames">JMSConnectionFactoryResourceNames</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JMS Engine에 설정되어 있는 JMSConnectionFactoryResource들의 이름.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.List&lt;javax.management.ObjectName&gt;</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSResourceMBean.html#JMSDestinationResourceNames">JMSDestinationResourceNames</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JMS Engine에 설정되어 있는 Destination들의 MBean의 이름.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.jms.server.xa.XAParticipantInfo[]</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSResourceMBean.html#PendingXAParticipantInfos">PendingXAParticipantInfos</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   복구후에 PREPARED 상태로 남아있는 XAParticipant들의 정보들을 넘겨준다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSResourceMBean.html#RunningThreadCount">RunningThreadCount</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JMS Engine의 쓰레드 풀에서 현재 실제 작업을 하고 있는 쓰레드 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSResourceMBean.html#TotalThreadCount">TotalThreadCount</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JMS Engine의 쓰레드 풀에 생성되어 있는 쓰레드 개수.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attributes_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>J2EEType, JeusType, objectName, ObjectName, ParentObjectName, PermissionName, eventProvider, stateManageable, statisticsProvider</code></td>
+            </tr>
+         </table>&nbsp;<a name="attributes_inherited_from_class_jeus.management.j2ee.StatisticsProvider"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.StatisticsProvider</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>stats</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operation_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Operation Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> javax.management.ObjectName</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#addConnectionFactory(java.lang.String, java.lang.String, int, java.lang.String)">addConnectionFactory</a></b>(java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber, java.lang.String clientID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Connection Factory를 추가한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> javax.management.ObjectName</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#addConnectionFactory(java.lang.String, java.lang.String, java.lang.String, int, java.lang.String)">addConnectionFactory</a></b>(java.lang.String type, java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber, java.lang.String clientID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Connection Factory를 추가한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> javax.management.ObjectName</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#addDestination(byte, java.lang.String, java.lang.String)">addDestination</a></b>(byte type, java.lang.String destinationName, java.lang.String exportName)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Destination을 추가한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> javax.management.ObjectName</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#addQueueConnectionFactory(java.lang.String, java.lang.String, int)">addQueueConnectionFactory</a></b>(java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Queue Connection Factory를 추가한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> javax.management.ObjectName</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#addQueueDestination(java.lang.String, java.lang.String)">addQueueDestination</a></b>(java.lang.String destinationName, java.lang.String exportName)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Queue 타입의 Destination을 추가한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> javax.management.ObjectName</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#addTopicConnectionFactory(java.lang.String, java.lang.String, int, java.lang.String)">addTopicConnectionFactory</a></b>(java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber, java.lang.String clientID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Topic Connection Factory를 추가한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> javax.management.ObjectName</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#addTopicDestination(java.lang.String, java.lang.String)">addTopicDestination</a></b>(java.lang.String destinationName, java.lang.String exportName)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Topic 타입의 Destination을 추가한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> javax.management.ObjectName</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#addXAConnectionFactory(java.lang.String, java.lang.String, int, java.lang.String)">addXAConnectionFactory</a></b>(java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber, java.lang.String clientID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   XA Connection Factory를 추가한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> javax.management.ObjectName</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#addXAQueueConnectionFactory(java.lang.String, java.lang.String, int)">addXAQueueConnectionFactory</a></b>(java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   XA Queue Connection Factory를 추가한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> javax.management.ObjectName</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#addXATopicConnectionFactory(java.lang.String, java.lang.String, int, java.lang.String)">addXATopicConnectionFactory</a></b>(java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber, java.lang.String clientID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   XA Topic Connection Factory를 추가한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#commit(long)">commit</a></b>(long id)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 XAParticipant를 강제로 commit 시킨다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> jeus.jms.server.mbean.stats.JMSClientStatsImpl</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#getEntryStats(java.lang.String)">getEntryStats</a></b>(java.lang.String entryID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Hostname, Port, 그리고 Connection등의 정보를 담고 있는 JMSClientStats객체.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#removeConnectionFactory(java.lang.String)">removeConnectionFactory</a></b>(java.lang.String factoryName)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Connection Factory를 제거한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#removeDestination(java.lang.String)">removeDestination</a></b>(java.lang.String destinationName)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Destination을 제거한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#resumeEngine()">resumeEngine</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JMS엔진 전체의 동작을 재개한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#rollback(long)">rollback</a></b>(long id)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 XAParticipant를 강제로 rollback 시킨다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#setStorageDebug(boolean, java.lang.String)">setStorageDebug</a></b>(boolean enable, java.lang.String value)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Storage debug를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#shutdownEntry(java.lang.String)">shutdownEntry</a></b>(java.lang.String entryID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JMSClientEntry를 shutdown시킨다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#stopGracefully(long)">stopGracefully</a></b>(long timeout)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSResourceMBean.html#suspendEngine()">suspendEngine</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JMS엔진 전체의 동작을 정지한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operations_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Operations inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>addChild, refreshMonitoring, removeChild</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="J2EE_TYPE"></a><h3>J2EE_TYPE</h3><pre>public static final java.lang.String <b>J2EE_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="attribute_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Attribute Detail</b></font></th>
+            </tr>
+         </table><a name="ClientNames"></a><a name="getClientNames()"></a><h3>ClientNames</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.lang.String[] <b>getClientNames</b>()</pre><dl>
+               <dd>JMSClientEntry의 이름.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>JMSClientEntry 이름의 array</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="DetailedClientsInfo"></a><a name="getDetailedClientsInfo()"></a><h3>DetailedClientsInfo</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> jeus.jms.server.mbean.JMSClientEntryInfo[] <b>getDetailedClientsInfo</b>()</pre><dl>
+               <dd>현재 접속하고 있는 ClientEntry들의 정보.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>현재 접속하고 있는 ClientEntry들의 정보를 담고 있는 JMSClientEntryInfo객체 array</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="JMSConnectionFactoryResourceNames"></a><a name="getJMSConnectionFactoryResourceNames()"></a><h3>JMSConnectionFactoryResourceNames</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.util.List&lt;javax.management.ObjectName&gt; <b>getJMSConnectionFactoryResourceNames</b>()</pre><dl>
+               <dd>JMS Engine에 설정되어 있는 JMSConnectionFactoryResource들의 이름.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>JMS Engine에 설정되어 있는 JMSConnectionFactoryResource의 이름 리스트</dd>
+                     </dt>
+                     <dt><b>See Also:</b><dd><a href="../../../../jeus/jms/server/mbean/JMSTopicConnectionFactoryResourceMBean.html"><code>JMSTopicConnectionFactoryResourceMBean</code></a>,<a href="../../../../jeus/jms/server/mbean/JMSQueueConnectionFactoryResourceMBean.html"><code>JMSQueueConnectionFactoryResourceMBean</code></a>,<a href="../../../../jeus/jms/server/mbean/JMSConnectionFactoryResourceMBean.html"><code>JMSConnectionFactoryResourceMBean</code></a></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="JMSDestinationResourceNames"></a><a name="getJMSDestinationResourceNames()"></a><h3>JMSDestinationResourceNames</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.util.List&lt;javax.management.ObjectName&gt; <b>getJMSDestinationResourceNames</b>()</pre><dl>
+               <dd>JMS Engine에 설정되어 있는 Destination들의 MBean의 이름.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>JMS Engine에 설정되어 있는 Destination들의 MBean의 이름 리스트</dd>
+                     </dt>
+                     <dt><b>See Also:</b><dd><a href="../../../../jeus/jms/server/mbean/JMSQueueDestinationResourceMBean.html"><code>JMSQueueDestinationResourceMBean</code></a>,<a href="../../../../jeus/jms/server/mbean/JMSTopicDestinationResourceMBean.html"><code>JMSTopicDestinationResourceMBean</code></a>,<a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html"><code>JMSDestinationResourceMBean</code></a></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="PendingXAParticipantInfos"></a><a name="getPendingXAParticipantInfos()"></a><h3>PendingXAParticipantInfos</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> jeus.jms.server.xa.XAParticipantInfo[] <b>getPendingXAParticipantInfos</b>()</pre><dl>
+               <dd>복구후에 PREPARED 상태로 남아있는 XAParticipant들의 정보들을 넘겨준다.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>Pending된 XAParticipant들의 정보</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="RunningThreadCount"></a><a name="getRunningThreadCount()"></a><h3>RunningThreadCount</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getRunningThreadCount</b>()</pre><dl>
+               <dd>JMS Engine의 쓰레드 풀에서 현재 실제 작업을 하고 있는 쓰레드 개수.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>실제 작업중인 쓰레드 개수</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="TotalThreadCount"></a><a name="getTotalThreadCount()"></a><h3>TotalThreadCount</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getTotalThreadCount</b>()</pre><dl>
+               <dd>JMS Engine의 쓰레드 풀에 생성되어 있는 쓰레드 개수.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>쓰레드 풀에 존재하는 모든 쓰레드 개수</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+      </p>
+      <p><a name="operation_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Operation Detail</b></font></th>
+            </tr>
+         </table><a name="addConnectionFactory(java.lang.String, java.lang.String, int, java.lang.String)"></a><h3>addConnectionFactory</h3><pre> javax.management.ObjectName <b>addConnectionFactory</b>(java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber, java.lang.String clientID)</pre><dl>
+            <dd>Connection Factory를 추가한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>factoryName</code> - ConnectionFactory의 이름<br><code>exportName</code> - ConnectionFactory의 JNDI binding name<br><code>maxThreadNumber</code> - Connection에 사용될 thread의 최대수<br><code>clientID</code> - ConnectionFactory에서 만들어질 TopicConnection에서 default로 지정될 clientID
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>ConnectionFactory의 ObjectName</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - ConnectionFactory를 추가하는데 실패한 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addConnectionFactory(java.lang.String, java.lang.String, java.lang.String, int, java.lang.String)"></a><h3>addConnectionFactory</h3><pre> javax.management.ObjectName <b>addConnectionFactory</b>(java.lang.String type, java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber, java.lang.String clientID)</pre><dl>
+            <dd>Connection Factory를 추가한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>type</code> - ConnectionFactory의 type<br><code>factoryName</code> - ConnectionFactory의 이름<br><code>exportName</code> - ConnectionFactory의 JNDI binding name<br><code>maxThreadNumber</code> - Connection에 사용될 thread의 최대수<br><code>clientID</code> - (XA)QueueConnectionFactory에만 해당. Connection에 사용될 clientID를 지정
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>ConnectionFactory의 ObjectName</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - ConnectionFactory를 추가하는데 실패한 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addDestination(byte, java.lang.String, java.lang.String)"></a><h3>addDestination</h3><pre> javax.management.ObjectName <b>addDestination</b>(byte type, java.lang.String destinationName, java.lang.String exportName)</pre><dl>
+            <dd>Destination을 추가한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>type</code> - &nbsp;<br><code>destinationName</code> - Destination의 이름<br><code>exportName</code> - Destination이 JNDI에 rebind될 export name
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>Destination에 해당하는 MBean (<code>jeus.jms.server.mbean.JMSTopicDestinationResourceMBean</code> 또는
+                        <code>jeus.jms.server.mbean.JMSQueueuDestinationResourceMBean</code>)의 ObjectName
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - Destination을 추가하는데 실패한 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addQueueConnectionFactory(java.lang.String, java.lang.String, int)"></a><h3>addQueueConnectionFactory</h3><pre> javax.management.ObjectName <b>addQueueConnectionFactory</b>(java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber)</pre><dl>
+            <dd>Queue Connection Factory를 추가한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>factoryName</code> - QueueConnectionFactory의 이름<br><code>exportName</code> - QueueConnectionFactory의 JNDI binding name<br><code>maxThreadNumber</code> - QueueConnectionFactory가 client에서 내부적으로 사용할 thread pool의 최대 크기
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>ConnectionFactory의 ObjectName</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - ConnectionFactory를 추가하는데 실패한 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addQueueDestination(java.lang.String, java.lang.String)"></a><h3>addQueueDestination</h3><pre> javax.management.ObjectName <b>addQueueDestination</b>(java.lang.String destinationName, java.lang.String exportName)</pre><dl>
+            <dd>Queue 타입의 Destination을 추가한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>destinationName</code> - Queue의 이름<br><code>exportName</code> - Queue가 JNDI에 rebind될 export name
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>Queue에 해당하는 MBean (<code>jeus.jms.server.mbean.JMSQueueDestinationResourceMBean</code>)의 ObjectName</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - Destination을 추가하는데 실패한 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addTopicConnectionFactory(java.lang.String, java.lang.String, int, java.lang.String)"></a><h3>addTopicConnectionFactory</h3><pre> javax.management.ObjectName <b>addTopicConnectionFactory</b>(java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber, java.lang.String clientID)</pre><dl>
+            <dd>Topic Connection Factory를 추가한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>factoryName</code> - TopicConnectionFactory의 이름<br><code>exportName</code> - TopicConnectionFactory의 JNDI binding name<br><code>maxThreadNumber</code> - TopicConnectionFactory가 client에서 내부적으로 사용할 thread pool의 최대 크기<br><code>clientID</code> - TopicConnectionFactory에서 만들어질 TopicConnection에서 default로 지정될 clientID
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>ConnectionFactory의 ObjectName</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - ConnectionFactory를 추가하는데 실패한 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addTopicDestination(java.lang.String, java.lang.String)"></a><h3>addTopicDestination</h3><pre> javax.management.ObjectName <b>addTopicDestination</b>(java.lang.String destinationName, java.lang.String exportName)</pre><dl>
+            <dd>Topic 타입의 Destination을 추가한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>destinationName</code> - Topic의 이름<br><code>exportName</code> - Topic이 JNDI에 rebind될 export name
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>Topic에 해당하는 MBean (<code>jeus.jms.server.mbean.JMSTopicDestinationResourceMBean</code>)의 ObjectName</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - Destination을 추가하는데 실패한 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addXAConnectionFactory(java.lang.String, java.lang.String, int, java.lang.String)"></a><h3>addXAConnectionFactory</h3><pre> javax.management.ObjectName <b>addXAConnectionFactory</b>(java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber, java.lang.String clientID)</pre><dl>
+            <dd>XA Connection Factory를 추가한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>factoryName</code> - XAConnectionFactory의 이름<br><code>exportName</code> - XAConnectionFactory가 JNDI에 rebind될 export name<br><code>maxThreadNumber</code> - XAConnectionFactory가 client에서 내부적으로 사용할 thread pool의 최대 크기<br><code>clientID</code> - XAConnectionFactory에서 만들어질 TopicConnection에서 default로 지정될 clientID
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>ConnectionFactory의 ObjectName</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - ConnectionFactory를 추가하는데 실패한 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addXAQueueConnectionFactory(java.lang.String, java.lang.String, int)"></a><h3>addXAQueueConnectionFactory</h3><pre> javax.management.ObjectName <b>addXAQueueConnectionFactory</b>(java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber)</pre><dl>
+            <dd>XA Queue Connection Factory를 추가한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>factoryName</code> - XAQueueConnectionFactory의 이름<br><code>exportName</code> - XAQueueConnectionFactory의 JNDI binding name<br><code>maxThreadNumber</code> - XAQueueConnectionFactory가 client에서 내부적으로 사용할 thread pool의 최대 크기
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>ConnectionFactory의 ObjectName</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - ConnectionFactory를 추가하는데 실패한 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addXATopicConnectionFactory(java.lang.String, java.lang.String, int, java.lang.String)"></a><h3>addXATopicConnectionFactory</h3><pre> javax.management.ObjectName <b>addXATopicConnectionFactory</b>(java.lang.String factoryName, java.lang.String exportName, int maxThreadNumber, java.lang.String clientID)</pre><dl>
+            <dd>XA Topic Connection Factory를 추가한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>factoryName</code> - XATopicConnectionFactory의 이름<br><code>exportName</code> - XATopicConnectionFactory의 JNDI binding name<br><code>maxThreadNumber</code> - XATopicConnectionFactory가 client에서 내부적으로 사용할 thread pool의 최대 크기<br><code>clientID</code> - XATopicConnectionFactory에서 만들어질 TopicConnection에서 default로 지정될 clientID
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>ConnectionFactory의 ObjectName</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - ConnectionFactory를 추가하는데 실패한 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="commit(long)"></a><h3>commit</h3><pre> void <b>commit</b>(long id)</pre><dl>
+            <dd>해당 XAParticipant를 강제로 commit 시킨다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>id</code> - commit할 XAParticipant의 id
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.transaction.xa.XAException</code> - commit이 실패했을 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getEntryStats(java.lang.String)"></a><h3>getEntryStats</h3><pre> jeus.jms.server.mbean.stats.JMSClientStatsImpl <b>getEntryStats</b>(java.lang.String entryID)</pre><dl>
+            <dd>Hostname, Port, 그리고 Connection등의 정보를 담고 있는 JMSClientStats객체.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>entryID</code> - 해당 Client entry의 entryID
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>JMSClientStats 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="removeConnectionFactory(java.lang.String)"></a><h3>removeConnectionFactory</h3><pre> void <b>removeConnectionFactory</b>(java.lang.String factoryName)</pre><dl>
+            <dd>Connection Factory를 제거한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>factoryName</code> - 삭제할 ConnectionFactory의 이름
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - ConnectionFactory가 존재하지 않거나, 제거할 권한이 없는 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="removeDestination(java.lang.String)"></a><h3>removeDestination</h3><pre> void <b>removeDestination</b>(java.lang.String destinationName)</pre><dl>
+            <dd>Destination을 제거한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>destinationName</code> - 삭제할 Destination의 이름
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - Destination이 존재하지 않거나, 제거할 권한이 없는 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="resumeEngine()"></a><h3>resumeEngine</h3><pre> void <b>resumeEngine</b>()</pre><dl>
+            <dd>JMS엔진 전체의 동작을 재개한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="rollback(long)"></a><h3>rollback</h3><pre> void <b>rollback</b>(long id)</pre><dl>
+            <dd>해당 XAParticipant를 강제로 rollback 시킨다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>id</code> - rollback할 XAParticipant의 id
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.transaction.xa.XAException</code> - rollback이 실패했을 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setStorageDebug(boolean, java.lang.String)"></a><h3>setStorageDebug</h3><pre> void <b>setStorageDebug</b>(boolean enable, java.lang.String value)</pre><dl>
+            <dd>Storage debug를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>enable</code> - storage debug 여부<br><code>value</code> - storage의 logger level
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="shutdownEntry(java.lang.String)"></a><h3>shutdownEntry</h3><pre> void <b>shutdownEntry</b>(java.lang.String entryID)</pre><dl>
+            <dd>JMSClientEntry를 shutdown시킨다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>entryID</code> - shutdown시킬 JMSClientEntry의 entryID
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="stopGracefully(long)"></a><h3>stopGracefully</h3><pre> void <b>stopGracefully</b>(long timeout)</pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="suspendEngine()"></a><h3>suspendEngine</h3><pre> void <b>suspendEngine</b>()</pre><dl>
+            <dd>JMS엔진 전체의 동작을 정지한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS JMS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

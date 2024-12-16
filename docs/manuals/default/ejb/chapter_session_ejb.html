@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제7장 Session Bean</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS EJB 안내서"/><link rel="up" href="index.html" title="JEUS EJB 안내서"/><link rel="prev" href="chapter_ejb_clustering.html" title="제6장 EJB 클러스터링"/><link rel="next" href="chapter_entity_bean.html" title="제8장 Entity Bean"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제7장 Session Bean</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_ejb_clustering.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_entity_bean.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_session_ejb"></a>제7장 Session Bean</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_session_ejb.html#d4e3479">7.1. Stateless Session Bean</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_session_ejb.html#d4e3482">7.1.1. Thread Ticket Pool(TTP)과 Object Management</a></span></dt><dt><span class="section"><a href="chapter_session_ejb.html#d4e3509">7.1.2. Web Service Endpoint</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_session_ejb.html#d4e3516">7.2. Stateful Session Bean</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_session_ejb.html#d4e3526">7.2.1. Thread Ticket Pool(TTP)과 Object Management</a></span></dt><dt><span class="section"><a href="chapter_session_ejb.html#d4e3543">7.2.2. Pooling Session Bean</a></span></dt><dt><span class="section"><a href="chapter_session_ejb.html#d4e3549">7.2.3. Bean Pool 설정</a></span></dt><dt><span class="section"><a href="chapter_session_ejb.html#d4e3559">7.2.4. 세션 데이터 유지 메커니즘 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_session_ejb.html#d4e3569">7.3. 공통 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_session_ejb.html#d4e3576">7.3.1. Object Management 관련 설정</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 Stateless Session Bean과 Stateful Session Bean에 대해서 자세히
+  설명한다.</p>
+
+  <p>Stateless Session Bean은 사실상 <a href="chapter_common_characters_of_ejb.html" title="제4장 EJB의 공통 특성">“제4장 EJB의 공통 특성”</a>에서 설명한 내용 외에는 특별한 것이 없다. 따라서 본
+  장에서는 주로 Stateful Session Bean들에 대해 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3479"></a>7.1. Stateless Session Bean</h2></div></div></div>
+    
+
+    <p>본 절에서는 Session Bean의 TTP(Thread Ticket Pool)에 대해 설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3482"></a>7.1.1. Thread Ticket Pool(TTP)과 Object Management<a id="d4e3484" class="indexterm"></a><a id="d4e3486" class="indexterm"></a></h3></div></div></div>
+      
+
+      <p>Stateless Session Bean은 클라이언트의 요청에 관련된 상태 정보를 가지고 있지 않기 때문에 모든
+      클라이언트가 connection을 공유해서 Connection Pool은 설정할 필요가 없다. 그러나 상태 정보를 가지고 있지
+      않은 이유로 Bean Instance를 재활용할 수 있기 때문에 Bean Pool을 설정할 수 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 Stateless Session Bean의 TTP과 Bean Pool의 관계를 나타낸 그림이다.</p>
+
+      <div class="figure"><a id="figure_allocation_tt_from_thread_pool"></a><p class="title"><b>[그림 7.1] Stateless Session Bean의 TTP과 Bean Pool</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><img src="resources/figure_21_sl_thread_pool.png" align="top" alt="Stateless Session Bean의 TTP과 Bean Pool"/></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>create 시점에 클라이언트와 연결을 맺은 connection으로 요청을 하면 TTP에서 TT(Thread
+          Ticket)를 발급받는다. TT를 발급받지 못하면 TT를 발급받을 때까지 기다린다. 기다리는 시간이 10분을 초과하면
+          RemoteException이 발생하여 요청을 수행하지 못한다. (<a href="chapter_common_characters_of_ejb.html" title="제4장 EJB의 공통 특성">“제4장 EJB의 공통 특성”</a> 참고)</p>
+        </li><li>
+          <p>TT를 발급받은 클라이언트의 요청을 수행하기 위해 실제 Bean instance를 Bean Pool로부터
+          할당받아 connection과 연결을 맺는다.</p>
+        </li><li>
+          <p>Stateless Session Bean Instance가 처리를 끝냈을 때 TT는 TTP로 반환되고 Bean
+          Instance는 Bean Pool로 반환되어 다음 클라이언트 요청을 기다린다. 즉, 매 요청마다 TT와 Bean
+          Instance를 새로 할당받고 요청이 끝나면 반환된다.</p>
+        </li></ol></div>
+
+      <p>Bean Pool 개수의 의미가 TTP 개수의 의미와 다른 점은 동시 수행될 수 있는 로컬 클라이언트와 리모트
+      클라인언트의 요청의 개수와 관련된다는 점이다. 즉, Remote call은 TTP에서 TT를 할당받은 후 Bean Pool에서
+      Instance를 할당받을 수 있고, Local call은 클라이언트 스레드에서 바로 수행되므로 TT를 발급받을 필요가 없고
+      Bean Pool로부터 Instance만 할당받는다.</p>
+
+      <p>따라서 jeus-ejb-dd.xml의 &lt;thread-max&gt;의 값을 적게 설정하면 설정값 이상의 Remote
+      call은 받을 수 없고 Bean Pool의 최댓값은 무한대이기 때문에 Local call은 처리할 수 있다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3509"></a>7.1.2. Web Service Endpoint</h3></div></div></div>
+      
+
+      <p>EJB 2.1 이후부터 Stateless Session Bean은 웹 서비스 형태로 Export될 수
+      있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>이에 대한 자세한 정보는 <a xmlns="" href="../web-service/index.html" class="olink">"JEUS Web Service 안내서"</a>를 참고한다.</p>
+        </div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3516"></a>7.2. Stateful Session Bean</h2></div></div></div>
+    
+
+    <p>본 절에서는 다음의 Stateful Session Bean의 추가적인 설정들의 개념에 대해
+    설명한다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>Object Management 설정 : Bean Instance Pool과 Connection
+          Pool</p>
+        </li><li>
+          <p>Bean Instance Pooling 옵션</p>
+        </li><li>
+          <p>Session Manager를 통한 상태 유지 메커니즘</p>
+        </li></ul></div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3526"></a>7.2.1. Thread Ticket Pool(TTP)과 Object Management</h3></div></div></div>
+      
+
+      <p><a id="d4e3529" class="indexterm"></a></p>
+
+      <p>Stateful Session Bean은 클라이언트의 요청에 관련된 상태 정보를 지속적으로 유지하고 있어야 하기 때문에
+      Stateless Session Bean과는 달리 Connection Pool을 설정하고 활용해야 한다. 이는 Entity
+      Bean에도 동일하게 적용된다. 자세한 내용은 <a href="chapter_entity_bean.html" title="제8장 Entity Bean">“제8장 Entity Bean”</a>을
+      참고한다.</p>
+
+      
+
+      <p>다음은 Stateful Session Bean의 Connection Pool과 TTP, Bean Pool의 관계를
+      나타낸 그림이다.</p>
+
+      <div class="figure"><a id="figure_object_pool_of_stateful_bean"></a><p class="title"><b>[그림 7.2] Stateful Session Bean의 Connection Pool과 TTP, Bean
+          Pool</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><img src="resources/figure_22_sfobject_management.png" align="top" alt="Stateful Session Bean의 Connection Pool과 TTP, Bean Pool"/></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>클라이언트가 Stateful Session Bean을 생성하면 새로운 Bean Instance(SF Instance)가
+      만들어지고 Connection Pool에서 connection을 꺼내 2개가 연결된다. Bean Instance와 연결된
+      connection을 클라이언트에게 넘겨주면 이 connection은 현 클라이언트에게 할당되고 다른 클라이언트와 공유하지
+      않는다. 따라서 클라이언트가 제거하지 않는 한 다시 Connection Pool로 반환되지 않는다. Connection Pool로
+      반환될 때에는 연결되었던 Bean Instance와의 연결을 끊는다.</p>
+
+      <p>해당 connection으로 요청을 하면 TTP에서 TT를 받는다. TT를 받은 요청만 처리한다. Stateless
+      Session Bean과 달리 매 요청마다 새로운 Bean Instance가 Bean Pool로부터 할당되는 것이 아니라 해당
+      클라이언트를 위한 Bean Instance가 고정되어 있다.</p>
+
+      <p>앞에서 설명했듯이 이 Bean Instance는 클라이언트가 Bean을 제거했을 때 connection이
+      Connection Pool로 반환되면서 connection과의 연결을 잃으면서 삭제된다. 기본적으로 Stateful
+      Session Bean은 상태가 있기 때문에 Bean Instance를 재활용하는 Bean Pool을 사용하지
+      않는다.</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3543"></a>7.2.2. Pooling Session Bean</h3></div></div></div>
+      
+
+      <p><a id="d4e3546" class="indexterm"></a>EJB 표준에 따르면, 실제 Stateful Session Bean의 Instance는 다른 클라이언트
+      Session에서 재사용할 수 없다. 그러나 Bean이 제거될 때 초기화가 제대로 이루어진다면 Bean Instance를 재사용할
+      수도 있다. JEUS는 Bean Instance를 매번 생성하지 않는 점에서 성능 개선과 자원 낭비를 줄이기 위해 이를 재사용하는
+      방법을 제공한다.</p>
+
+      <p>Bean Pool을 사용하면 Bean이 제거될 때 해당 Bean Instance가 Bean Pool로 반환된다.
+      Bean의 제거는 클라이언트가 명시적으로 remove를 부르거나 오랫동안 요청이 없어 타임아웃이 된 경우에 발생한다. 이때 PRE
+      DESTROY callback이 불리게 되는데 여기서 Bean의 초기화를 잘 구현한 경우에만 사용하도록 권장한다.</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3549"></a>7.2.3. Bean Pool 설정</h3></div></div></div>
+      
+
+      <p>Stateful Session Bean을 Pooling Bean으로 전환하려면 간단히 jeus-ejb-dd.xml의
+      &lt;pooling-bean&gt; 값을 true로 설정한다.</p>
+
+      <div class="example"><a id="d4e3553"></a><p class="title"><b>[예 7.1] Bean Pool 설정 : &lt;&lt;jeus-ejb-dd.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jeus-ejb-dd&gt;
+    . . .
+    &lt;beanlist&gt;
+        <span class="bold"><strong>&lt;jeus-bean&gt;</strong></span>
+            &lt;ejb-name&gt;teller&lt;/ejb-name&gt;
+            &lt;export-name&gt;TELLEREJB&lt;/export-name&gt;
+            &lt;local-export-name&gt;LOCALTELLEREJB&lt;/local-export-name&gt;
+            &lt;export-port&gt;7654&lt;/export-port&gt;
+            &lt;export-iiop&gt;true&lt;/export-iiop&gt;
+            &lt;object-management&gt;
+                <span class="bold"><strong>&lt;pooling-bean&gt;true&lt;/pooling-bean&gt;</strong></span>
+                &lt;bean-pool&gt;
+                    &lt;pool-min&gt;10&lt;/pool-min&gt;
+                    &lt;pool-max&gt;200&lt;/pool-max&gt;
+                    &lt;resizing-period&gt;1800000&lt;/resizing-period&gt;
+                &lt;/bean-pool&gt;
+                . . .
+            &lt;/object-management&gt;
+            . . .
+        <span class="bold"><strong>&lt;/jeus-bean&gt;</strong></span>
+        . . .
+    &lt;/beanlist&gt;
+    . . .
+&lt;/jeus-ejb-dd&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3559"></a>7.2.4. 세션 데이터 유지 메커니즘 설정</h3></div></div></div>
+      
+
+      <p>이름에서 암시하듯이 Stateful Session Bean은 상태를 지니고 다닌다. 이 상태는 클라이언트 세션 동안
+      반드시 유지되어야 한다. 즉, 같은 클라이언트로부터 오는 모든 다른 요청에도 상태는 지속되어야 한다. 이것이 Stateful
+      Session Bean의 기본 특성이다.<a id="d4e3562" class="indexterm"></a></p>
+
+      <p>일반적으로 런타임할 때의 상태는 Instance 변수로 저장된다. 그러나 위에서 설명한 것과 마찬가지로 Stateful
+      Session Bean이 passivate 상태로 진입하면 시스템 자원을 보존하기 위해 운영환경에서 이 Instance 변수들을
+      제거해야 한다. 그러나 Bean이 다시 재활성화되면 상태를 복구하기 위해서 어딘가에서 데이터를 가져와야 한다. 즉, 2차 저장소가
+      필요하다.</p>
+
+      <p>JEUS에 포함된 분산식 Session Manager를 2차 저장소로 사용한다. 기본적으로는 passivate될 때
+      클러스터링으로 구성된 Stateful Session Bean의 경우는 Failover를 위해 트랜잭션의 commit이 성공적으로
+      수행될 때로 Bean의 정보가 Session Manager로 전달된다. Session Manager는 DAS에서
+      설정된다.</p>
+
+      <p>설정에 대한 자세한 내용은 <a href="chapter_ejb_clustering.html#sect_sfsb_clustering_config" title="6.3.3. Stateful Session Bean의 클러스터링 설정">“6.3.3. Stateful Session Bean의 클러스터링 설정”</a>을
+      참고한다.</p>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3569"></a>7.3. 공통 설정</h2></div></div></div>
+    
+
+    <p><a id="d4e3572" class="indexterm"></a>본 절에서는 Stateless Session Bean과 Stateful Session Bean의 공통 설정
+    항목에 대해서 설명한다. 이 모든 항목들은 JEUS EJB 모듈 DD의
+    <span><strong class="guibutton">&lt;jeus-bean&gt;</strong></span> 태그 아래에 설정된다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3576"></a>7.3.1. Object Management 관련 설정</h3></div></div></div>
+      
+
+      <p><a id="d4e3579" class="indexterm"></a>Stateless Session Bean은 상태가 없어서 하나의 connection만 사용해도 무방하기
+      때문에 Bean Pool만 사용할 수 있고, Stateful Session Bean은 상태가 있기 때문에 Connection
+      Pool과 Bean Pool을 모두 사용할 수 있다. 따라서 다음과 같이 제공되는 설정을 통해 Pool을 이용하면 매번
+      Instance를 생성하는 부하를 줄일 수 있다.</p>
+
+      <p>다음은 Object Management 관련 설정한 XML 예제이다. </p><div class="example"><a id="d4e3582"></a><p class="title"><b>[예 7.2] Object Management 설정 :
+          &lt;&lt;jeus-ejb-dd.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jeus-ejb-dd&gt;
+    . . .
+    &lt;beanlist&gt;
+        <span class="bold"><strong>&lt;jeus-bean&gt;</strong></span>
+            . . .
+            <span class="bold"><strong>&lt;object-management&gt;</strong></span>
+                &lt;bean-pool&gt;
+                    &lt;pool-min&gt;10&lt;/pool-min&gt;
+                    &lt;pool-max&gt;200&lt;/pool-max&gt;
+                &lt;/bean-pool&gt;
+                &lt;connect-pool&gt;
+                    &lt;pool-min&gt;10&lt;/pool-min&gt;
+                    &lt;pool-max&gt;200&lt;/pool-max&gt;
+                &lt;/connect-pool&gt;
+                &lt;passivation-timeout&gt;10000&lt;/passivation-timeout&gt;
+                &lt;disconnect-timeout&gt;1800000&lt;/disconnect-timeout&gt;
+            <span class="bold"><strong>&lt;/object-management&gt;</strong></span>
+        <span class="bold"><strong>&lt;jeus-bean&gt;</strong></span>
+        . . .
+    &lt;beanlist&gt;
+    . . .
+&lt;jeus-ejb-dd&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>다음은 &lt;object-management&gt;의 하위 설정 태그에 대한 설명이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span class="bold"><strong>&lt;bean-pool&gt;<a id="d4e3595" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>EJB Bean Instance Pool의 작동 방식을 결정한다.</p>
+              </li><li>
+                <p>하위 태그들은 다음과 같다.</p>
+
+                <div class="informaltable">
+                    <table border="1"><colgroup><col width="130" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;pool-min&gt;</td><td>Pool을 초기화할 때 생성해두는 초기 Bean Instance 개수이다.
+                          (기본값: 0)</td></tr><tr><td align="left">&lt;pool-max&gt;</td><td><p>Instance의 사용이 완료된 후 Pool에 저장 가능한 최대
+                          Bean Instance 개수이다. </p><p>(기본값:
+                          100)</p></td></tr><tr><td align="left">&lt;resizing-period&gt;</td><td>Pool의 크기를 재조정하는 시간으로 "resizing"은 사용되지 않는 Bean
+                          Instance들이 Pool의 최솟값까지 제거됨을 의미한다. (기본값: 5분, 단위:
+                          ms)</td></tr></tbody></table>
+                  </div>
+              </li></ul></div>
+          </li><li>
+            <p><span class="bold"><strong>&lt;connect-pool&gt;<a id="d4e3626" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>클라이언트와 Bean Instance를 연결하는 connection을 몇 개까지 유지할지를
+                설정한다(해당 옵션은 JEUS 6 Fix#8부터 Session Bean에서는 사용하지
+                않는다).</p>
+              </li><li>
+                <p>하위 태그들은 다음과 같다.</p>
+
+                <div class="informaltable">
+                    <table border="1"><colgroup><col width="130" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;pool-min&gt;</td><td>Pool을 초기화할 때 생성해두는 초기 connection 개수이다. (기본값:
+                          0)</td></tr><tr><td align="left">&lt;pool-max&gt;</td><td><p>connection 사용이 완료된 후 Pool에 저장 가능한 최대
+                          connection 개수이다. </p><p>(기본값:
+                          100)</p></td></tr><tr><td align="left">&lt;resizing-period&gt;</td><td>Pool의 크기를 재조정하는 시간으로 "resizing"은 사용되지 않는 Bean
+                          Instance들이 Pool의 최솟값까지 제거됨을 의미한다. (기본값: 5분, 단위:
+                          ms)</td></tr></tbody></table>
+                  </div>
+              </li></ul></div>
+          </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span class="bold"><strong>&lt;passivation-timeout&gt;<a id="d4e3658" class="indexterm"></a></strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>지정된 시간 동안 클라이언트의 요청을 받지 않은 Stateful Session Bean을
+              passivate할 때 사용된다. 그러므로 여기에 설정된 시간을 초과하는 동안 클라이언트의 요청이 없으면 그
+              Bean은 passivation의 대상이 된다.</p>
+
+              <p>어떤 Bean이 passivation 대상이 되는지를 검사하는 주기는 EJB 엔진에 설정한
+              resolution을 따른다. Passivation이 실행되면 메모리에서 해당하는 Bean Instance가
+              제거되고 Instance의 상태는 파일에 저장된다. 내부적으로 분산 세션 서버를 사용한다.</p>
+            </li></ul></div>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>이 설정은 여러 곳에서 설정이 가능하고 우선순위는 다음과 같다.</p>
+
+              <div class="orderedlist"><ol type="1"><li>
+                  <p>특정 Session Bean에만 적용 : jeus-ejb-dd.xml의
+                  &lt;passivation-timeout&gt;</p>
+                </li><li>
+                  <p>모든 Stateful Session Bean에 적용 : 시스템 프로퍼티
+                  jeus.ejb.stateful.passivate</p>
+                </li><li>
+                  <p>모든 EJB Bean에(Entity Bean과 Session Bean 모두) 적용 : 시스템
+                  프로퍼티 jeus.ejb.all.passivate</p>
+                </li><li>
+                  <p>모든 EJB Bean에(Entity Bean과 Session Bean 모두) 적용 : DAS의
+                  &lt;node&gt;/&lt;session-router-config&gt;/&lt;session-router&gt;/&lt;file-db&gt;/&lt;passivation-to&gt;</p>
+                </li></ol></div>
+
+              <p>위의 모든 설정이 없으면 기본값으로 설정된다. (기본값: 300000(5분), 단위: ms)</p>
+            </li></ul></div>
+        </li><li>
+          <p><span class="bold"><strong>&lt;disconnect-timeout&gt;<a id="d4e3681" class="indexterm"></a></strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>지정된 시간 동안 클라이언트의 요청을 받지 못하면 클라이언트와 Stateful Session Bean
+              Instance 사이를 연결하던 connection을 끊을 때 사용된다. 그렇게 되면 connection은 각각의
+              클라이언트 및 Instance와 맺고 있던 연결을 끊고 Connection Pool로 반환된다.</p>
+
+              <p>따라서 클라이언트는 이 connection으로 더 이상 요청을 할 수 없고, 사용 중이던 Bean
+              Instance는 삭제되거나 Bean Pool을 사용 중이면 Bean Pool로 반환된다.</p>
+            </li><li>
+              <p>이 설정은 여러 곳에서 설정 가능하고 우선순위는 다음과 같다.</p>
+
+              <div class="orderedlist"><ol type="1"><li>
+                  <p>특정 Session Bean에만 적용(순서대로 우선순위)</p>
+
+                  <div class="orderedlist"><ol type="a"><li>
+                      <p>ejb-jar.xml의 &lt;stateful-timeout&gt;</p>
+                    </li><li>
+                      <p>@StatefulTimeout</p>
+                    </li><li>
+                      <p><span class="bold"><strong>(Deprecated)</strong></span>
+                      jeus-ejb-dd.xml의 &lt;disconnect-timeout&gt;</p>
+                    </li></ol></div>
+                </li><li>
+                  <p>모든 Stateful Session Bean에 적용 : 시스템 프로퍼티
+                  jeus.ejb.stateful.disconnect</p>
+                </li><li>
+                  <p>모든 EJB Bean에(Entity Bean과 Session Bean 모두) 적용 : 시스템
+                  프로퍼티 jeus.ejb.all.disconnect</p>
+                </li></ol></div>
+
+              <p>위의 모든 설정이 없으면 시스템 프로퍼티 jeus.ejb.all.disconnect의 기본값으로
+              설정된다.</p>
+
+              <p>(기본값: 3600000(1시간), 단위: ms)</p>
+            </li></ul></div>
+
+          <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+              <p>&lt;passivation-timeout&gt;과 &lt;disconnect-timeout&gt;에
+              사용되는 시간은 Bean Instance에 액세스했던 마지막 시점부터 측정된다. 그러므로
+              &lt;disconnect-timeout&gt;을 &lt;passivation-timeout&gt;보다 길게
+              설정해야 한다. 또한 &lt;passivation-timeout&gt;은 EJB 엔진에 설정되는
+              resolution보다는 커야한다.</p>
+
+              <p>타임아웃 값을 길게 설정하면 오랜 시간(대략 십여 분 이상 또는 타임아웃이 중지된 경우) 동안 메모리
+              내의 많은 Instance가 활성화된 상태로 머물러 있다. 그러므로 시스템 자원 낭비를 초래한다. 너무 짧은
+              타임아웃 값은(수 초) passivation, activation등의 작업이 너무 자주 발생하므로 성능을 저하시킬
+              수 있고 disconnect 작업으로 인해 세션 유실 가능성이 있다.</p>
+            </div>
+        </li></ul></div>
+
+      <p/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_ejb_clustering.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_entity_bean.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제6장 EJB 클러스터링 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제8장 Entity Bean</td></tr></table></div><div xmlns="" align="center"/></body></html>

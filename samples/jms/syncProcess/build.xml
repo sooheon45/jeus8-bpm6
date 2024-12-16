@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<project name="jms_sync" default="all" basedir=".">
+    <property name="is.multi.module" value="false"/>
+    <property name="is.jar.module" value="true"/>
+
+    <import file="../../common/common-build.xml"/>
+
+    <target name="all" depends="build, run"/>
+
+    <target name="run">
+        <echo>Please execute run_sender or run_receiver</echo>
+    </target>
+
+    <target name="run_sender">
+        <antcall target="runjavaclient">
+            <param name="run.class" value="jms.queue.SyncMsgSend"/>
+        </antcall>
+    </target>
+
+    <target name="run_receiver">
+        <antcall target="runjavaclient">
+            <param name="run.class" value="jms.queue.SyncReceive"/>
+        </antcall>
+    </target>
+</project>

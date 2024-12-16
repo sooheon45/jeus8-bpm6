@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config SYSTEM "proxy-config.dtd">
+
+<config>
+	<single-server>
+		<domain-name>www.mydomain.com:8080</domain-name>
+		<rewriting>true</rewriting>
+		<path>/content</path>
+		<directory-rule>
+			<path>/remote</path>
+		</directory-rule>
+	</single-server>
+
+	<single-server>
+		<domain-name>www.mydomain.com:8080</domain-name>
+		<rewriting>true</rewriting>
+		<path>/content</path>
+		<directory-rule>
+			<path>/remote</path>
+		</directory-rule>
+	</single-server>
+
+	<cluster-server>
+		<server>
+			<domain-name>www.otherdomain.com</domain-name>
+			<rewriting>true</rewriting>
+		</server>
+
+		<server>
+			<domain-name>www.otherdomain1.com</domain-name>
+			<rewriting>true</rewriting>
+		</server>
+
+		<accept-everything-rule/> 
+	</cluster-server>
+</config>

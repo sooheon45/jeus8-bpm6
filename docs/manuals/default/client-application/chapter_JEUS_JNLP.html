@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제4장 JNLP 클라이언트</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Application Client 안내서"/><link rel="up" href="index.html" title="JEUS Application Client 안내서"/><link rel="prev" href="chapter_JEUS_Applet_Client.html" title="제3장 애플릿 클라이언트"/><link rel="next" href="glossary.html" title="용어해설"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제4장 JNLP 클라이언트</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_JEUS_Applet_Client.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="glossary.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_JEUS_JNLP"></a>제4장 JNLP 클라이언트<a id="d4e881" class="indexterm"></a></h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_JEUS_JNLP.html#sect_JEUS_JNLP_Intro">4.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_JEUS_JNLP.html#sect_JEUS_JNLP_Summary">4.2. 프로그램 작성</a></span></dt><dt><span class="section"><a href="chapter_JEUS_JNLP.html#d4e939">4.3. 프로그램 실행</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_JEUS_JNLP.html#d4e942">4.3.1. 클라이언트 실행</a></span></dt><dt><span class="section"><a href="chapter_JEUS_JNLP.html#d4e949">4.3.2. 클라이언트 컨테이너에서 실행</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 클라이언트와 이에 대한 JNLP 파일을 웹 애플리케이션에 deploy하는 방법과 실제로 사용자가 클라이언트를
+  실행하는 방법에 대해 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_JNLP_Intro"></a>4.1. 개요</h2></div></div></div>
+    
+
+    <p><a id="d4e888" class="indexterm"></a>애플리케이션의 사이즈가 크고 자주 변경이 된다면, 소프트웨어 컴퍼넌트의 배포 및 실행에 관한 프로토콜인
+    JNLP(Java Network Launching Protocol)을 사용한다. 프로토콜을 사용하여 클라이언트 애플리케이션(이하
+    클라이언트)을 웹 서버를 통해 자동으로 다운받아 클라이언트를 실행할 수 있는데 이를 Java Web Start라고 한다. JNLP를
+    통해 다운받은 클라이언트도 다른 것들과 마찬가지로 JEUS를 사용할 수 있다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JNLP를 사용하면 클라이언트 프로그램의 배포가 간편하다. 버전이 업그레이드되면 자동으로 필요한 바이너리를 전송받으므로
+    지속적인 배포가 가능하다. 또한 JDK 홈 디렉터리의 sample\jnlp에는 여러 가지 JNLP 샘플이 있으므로 이 디렉터리 아래에
+    위치한 README 파일을 따라 실행하면 JNLP를 쉽게 연습할 수 있다.</p>
+
+    <p/>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>본 안내서에서 JNLP에 대한 상세한 정보를 제공하지 않는다. 그러므로 JNLP에 대해서 어느 정도의 사전지식이
+      필요하다. JLNP를 통해서 JAR 파일을 배포할 때는 Java Permission 문제가 항상 따라다니기 때문에 대부분
+      sign을 하게 된다. JEUS에서 제공하는 jclient.jar, clientcontainer.jar 등의 파일들은 sign이
+      되어 있지 않으므로 반드시 다른 JAR 파일들과 함께 sign한다. JNLP의 자세한 내용은 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://docs.oracle.com/javase/7/docs/technotes/guides/javaws/" target="_top">http://docs.oracle.com/javase/7/docs/technotes/guides/javaws</a>를
+      참고한다.</p>
+    </div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_JNLP_Summary"></a>4.2. 프로그램 작성</h2></div></div></div>
+    
+
+    <p>본 절에서는 웹 애플리케이션의 구성 방법에 대해 설명한다.</p>
+
+    <p/>
+
+    <h3><a id="d4e904"></a>웹 애플리케이션 구성</h3>
+
+    <p>JNLP 파일을 웹에서 얻고 파일에 정의된 JAR 파일들을 웹 서버에서 다운받으려면 JNLP 프로토콜을 구현한 서블릿이
+    필요하다. JEUS에서는 이를 직접 제공하지 않으므로 JDK 7에서 제공하는 샘플 JNLP 서블릿을 사용한다.</p>
+
+    <p>서블릿을 구현한 jnlp-servlet.jar 파일은 JDK 7 기준으로 다음의 디렉터리에 위치한다(IBM JDK 7는
+    lib 디렉터리).</p>
+
+    <pre class="programlisting">sample/jnlp/servlet</pre>
+
+    <p>jnlp-servlet.jar 파일을 웹 애플리케이션의 WEB-INF\lib에 복사해두고 다음과 같이 web.xml을
+    작성하면 서블릿이 JNLP 프로토콜에 따라 JNLP 파일과 리소스 파일들을 클라이언트로 전송한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JNLP 프로토콜에 따라 리소스 파일을 전송하는 'JnlpDownloadServlet'에 대한 자세한 설명은
+        <a xmlns:xlink="http://www.w3.org/1999/xlink" href="https://docs.oracle.com/javase/7/docs/technotes/guides/javaws/developersguide/downloadservletguide.html" target="_top">https://docs.oracle.com/javase/7/docs/technotes/guides/javaws/developersguide/downloadservletguide.html</a>를
+        참고한다.</p>
+      </div><div class="literallayout"><p/></div>
+
+    <p>다음은 JNLP 서블릿을 위한 web.xml 예제이다.</p>
+
+    <div class="example"><a id="d4e917"></a><p class="title"><b>[예 4.1] JNLP 서블릿 : &lt;&lt;web.xml&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"&gt;
+  &lt;servlet&gt;
+       &lt;servlet-name&gt;JnlpDownloadServlet&lt;/servlet-name&gt;
+       &lt;servlet-class&gt;jnlp.sample.servlet.JnlpDownloadServlet&lt;/servlet-class&gt;
+       &lt;init-param&gt;
+           &lt;param-name&gt;logLevel&lt;/param-name&gt;
+           &lt;param-value&gt;DEBUG&lt;/param-value&gt;
+       &lt;/init-param&gt;
+       &lt;init-param&gt;
+           &lt;param-name&gt;logPath&lt;/param-name&gt;
+           &lt;param-value&gt;jnlpdownloadservlet.log&lt;/param-value&gt;
+       &lt;/init-param&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+      &lt;servlet-name&gt;JnlpDownloadServlet&lt;/servlet-name&gt;
+      &lt;url-pattern&gt;*.jnlp&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+&lt;/web-app&gt;</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 HelloClient 클래스의 소스이다. JNLP 클라이언트는 일반 클라이언트 동일하다. JNLP 클라이언트는 콘솔
+    화면이 없으므로 여기서는 애플릿과 같이 Swing을 사용하여 GUI 화면을 만들었다.</p>
+
+    <div class="example"><a id="d4e924"></a><p class="title"><b>[예 4.2] &lt;&lt;HelloClient.java&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">package helloejb;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import java.util.Hashtable;
+
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.event.*;
+
+import javax.swing.*;
+
+public class HelloClient extends JFrame {
+   public static void main(String[] args)
+   {
+      new HelloClient();
+   }
+
+   public HelloClient() {
+    try {
+            Hashtable env = new Hashtable();
+            env.put(Context.INITIAL_CONTEXT_FACTORY,"jeus.jndi.JNSContextFactory");
+            Context context = new InitialContext(env);
+            Hello hello = (Hello) context.lookup("helloejb.Hello");
+
+            JLabel label = new JLabel(hello.sayHello());
+            label.setFont(new Font("Helevetica", Font.BOLD, 15));
+            getContentPane().setLayout(new BorderLayout());
+            getContentPane().add(label, BorderLayout.CENTER);
+            setSize(500, 250);
+            setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+   }
+}</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>Java Web Start는 HelloClient를 실행하기 위한 정보가 담긴 JNLP 파일을 요청한다.</p>
+
+    <p>다음의 예에서는 HelloClient를 수행하기 위해 필요한 JAR 파일과 사용하는 Java 버전 등이 명시되어 있다.
+    <span><strong class="guibutton">&lt;jnlp&gt;</strong></span> 태그에서 codebase 속성의 '$$codebase'는 JNLP
+    서블릿을 포함한 웹 애플리케이션이 deploy되는 컨텍스트에 따라 자동으로 교체된다. 여기서는 JAR 파일의 href 값에 별다른
+    경로가 지정되어 있지 않으므로 JNLP 파일과 JAR 파일은 모두 동일한 디렉터리에 위치시켜야 한다.</p>
+
+    <div class="example"><a id="d4e933"></a><p class="title"><b>[예 4.3] &lt;&lt;HelloClient.jnlp&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;jnlp spec="1.0" codebase="$$codebase"&gt;
+   &lt;information&gt;
+      &lt;title&gt;HelloClient&lt;/title&gt;
+      &lt;vendor&gt;TmaxSoft&lt;/vendor&gt;
+   &lt;/information&gt;
+   &lt;resources&gt;
+      &lt;j2se version="1.5+" href="http://java.sun.com/products/autodl/j2se"/&gt;
+      &lt;jar href="hello-client.jar"/&gt;
+      &lt;jar href="jclient.jar"/&gt;
+   &lt;/resources&gt;
+   &lt;application-desc main-class="helloejb.HelloClient"/&gt;
+&lt;/jnlp&gt;</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>'$$codebase'와 같은 예약어는 Oracle의 JNLP 서블릿 구현에서 제공하는 것이며 JNLP 표준에서 정의한
+      것은 아니다.</p>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e939"></a>4.3. 프로그램 실행</h2></div></div></div>
+    
+
+    <p>본 절에서는 클라이언트의 실행 방법에 대해 설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e942"></a>4.3.1. 클라이언트 실행</h3></div></div></div>
+      
+
+      <p>웹 애플리케이션을 deploy한 후 JNLP 파일을 웹 브라우저에서 접근하면 Java Web Start가 시작되고
+      클라이언트가 실행된다.</p>
+
+      <p>다음은 웹 애플리케이션의 컨텍스트가 hello인 경우에 JNLP 파일을 요청하는 URL의 예이다.
+      HelloClient.jnlp와 HelloClient.jnlp에 정의된 hello-client.jar, jclient.jar는
+      url path가 app로 되어 있기 때문에 hello 디렉터리 혹은 WAR 파일 내의 app 디렉터리에 위치한다.
+      </p><pre class="programlisting">http://host1:8088/hello/app/HelloClient.jnlp</pre>
+
+      <p>이 JNLP 파일을 웹 브라우저에서 요청한 결과로 지정된 클라이언트가 수행된다. 웹 브라우저와 별도의 Java 화면이
+      나타나고 클라이언트가 실행된 것을 확인할 수 있다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e949"></a>4.3.2. 클라이언트 컨테이너에서 실행</h3></div></div></div>
+      
+
+      <p>JNLP 클라이언트의 경우 클라이언트 컨테이너를 통해서 Dependency Injection을 사용할 수 있다. 그렇게
+      하려면 위에서 제시한 방법과는 다른 방법이 필요하다.</p>
+
+      <p>다음은 HelloClient.java에서 Injection을 사용한 코드의 예이다.</p>
+
+      <div class="example"><a id="d4e953"></a><p class="title"><b>[예 4.4] &lt;&lt;HelloClient.java&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">package helloejb;
+
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.event.*;
+
+import javax.swing.*;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.ejb.EJB;
+
+public class HelloClient extends JFrame {
+   @EJB
+   private static Hello hello;
+
+   public static void main(String[] args) {
+      new HelloClient();
+   }
+
+   public HelloClient() {
+    try {
+            JLabel label = new JLabel(hello.sayHello());
+            label.setFont(new Font("Helevetica", Font.BOLD, 15));
+            getContentPane().setLayout(new BorderLayout());
+            getContentPane().add(label, BorderLayout.CENTER);
+            setSize(500, 250);
+            setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+   }
+}</pre>
+      </div></div><br class="example-break"/>
+
+      <p/>
+
+      <p>JNLP 파일도 이에 맞추어서 작성해야 한다. 클라이언트의 메인 클래스 대신에 JEUS의 클라이언트 컨테이너 클래스를
+      기술하고 그 클래스에 전달할 파라미터를 설정해야 한다. 파라미터에 대한 설명은 <a href="chapter_JEUS_Application_Client.html#sect_Usage_In_Console" title="1.6.1. 콘솔에서 실행">“1.6.1. 콘솔에서 실행”</a>을 참고한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p><span><strong class="guibutton">&lt;resources&gt;</strong></span> 태그에는 client.jar 대신
+      clientcontainer.jar를 기술하고, JEUS 클라이언트 컨테이너가 Java Web Start로 실행하는 모드임을 알
+      수 있도록 jeus.client.container.jws 프로퍼티를 true로 설정해야 한다.</p>
+
+      <p>또한 Java Web Start 프로그램의 경우 Permission을 체크하기 때문에
+      <span><strong class="guibutton">&lt;security&gt;</strong></span> 태그에 &lt;all-permissions&gt; 또는
+      &lt;j2ee-application-client-permissions&gt;를 기술하고 JAR 파일은 반드시 sign을 해야
+      한다.</p>
+
+      <div class="example"><a id="d4e964"></a><p class="title"><b>[예 4.5] &lt;&lt;HelloClient.jnlp&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;jnlp spec="1.0" codebase="$$codebase"&gt;
+   &lt;information&gt;
+      &lt;title&gt;HelloClient&lt;/title&gt;
+      &lt;vendor&gt;TmaxSoft&lt;/vendor&gt;
+   &lt;/information&gt;
+   &lt;security&gt;
+      &lt;all-permissions/&gt;
+   &lt;/security&gt;
+   &lt;resources&gt;
+      &lt;j2se version="1.5+" href="http://java.sun.com/products/autodl/j2se"/&gt;
+      &lt;jar href="clientcontainer.jar"/&gt;
+      &lt;jar href="hello-client.jar"/&gt;
+      &lt;property name="jeus.client.container.jws" value="true"/&gt;
+   &lt;/resources&gt;
+   &lt;application-desc main-class="jeus.client.container.ClientContainer"&gt;
+        &lt;argument&gt;-main&lt;/argument&gt;
+        &lt;argument&gt;helloejb.HelloClient&lt;/argument&gt;
+   &lt;/application-desc&gt;
+&lt;/jnlp&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <p>위의 경우와 마찬가지로 웹 브라우저나 Java Web Start를 통해서 JNLP 파일을 로딩하면 실행되는 결과는
+      동일하다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e970"></a>JAR 파일 sign하기</h4>
+
+      <p>JNLP 파일에 <span><strong class="guibutton">&lt;security&gt;</strong></span> 태그가 있을 경우 Java
+      Web Start는 반드시 signed JAR 파일을 요구하기 때문에 예제의
+      <span><strong class="guibutton">hello-client.jar</strong></span>를 sign해야 한다.</p>
+
+      <p>다음은 JDK에서 제공하는 keytool과 jarsigner를 사용해서 hello-client.jar를 sign하는
+      예이다.</p>
+
+      <pre class="screen">keytool -genkey -alias helloclient -keypass 1234 -keystore helloks -storepass 1234
+jarsigner -keystore helloks hello-client.jar helloclient</pre>
+
+      <p/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_JEUS_Applet_Client.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="glossary.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제3장 애플릿 클라이언트 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 용어해설</td></tr></table></div><div xmlns="" align="center"/></body></html>

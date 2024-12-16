@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제7장 Security 관리</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Domain 안내서"/><link rel="up" href="index.html" title="JEUS Domain 안내서"/><link rel="prev" href="chapter_domain_failure.html" title="제6장 서버 장애"/><link rel="next" href="idx.html" title="색인"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제7장 Security 관리</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_domain_failure.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="idx.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_domain_security"></a>제7장 Security 관리</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_domain_security.html#sect_Server_Security_Accounts">7.1. 계정 관리</a></span></dt><dt><span class="section"><a href="chapter_domain_security.html#sect_Server_Security_Password_Config">7.2. 패스워드 암호화 저장</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_domain_security.html#d4e2626">7.2.1. WebAdmin 사용</a></span></dt><dt><span class="section"><a href="chapter_domain_security.html#d4e2685">7.2.2. 콘솔 툴 사용</a></span></dt><dt><span class="section"><a href="chapter_domain_security.html#d4e2691">7.2.3. 암호화 툴을 통한 직접 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_domain_security.html#sect_Server_Security_SecretKey">7.3. 비밀 Key 파일 관리</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_domain_security.html#d4e2724">7.3.1. 비밀 Key 파일의 생성과 관리</a></span></dt><dt><span class="section"><a href="chapter_domain_security.html#d4e2738">7.3.2. 비밀 Key 파일 보호 옵션과 서버 기동 방법</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_domain_security.html#sect_Server_Security_KeyStore">7.4. Keystore와 Truststore 관리</a></span></dt><dt><span class="section"><a href="chapter_domain_security.html#sect_Server_Security_SSL_Script">7.5. SSL이 설정된 Domain에서의 실행 스크립트 관리</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 기본적으로 JEUS 서버를 사용하는 데 있어서 필요한 암호화된 패스워드 및 계정 관리 등 몇 가지 보안 방식에
+  대해서 간단하게 설명한다. Security 정보는 도메인에 속한 모든 서버가 공유하며, DAS를 통해 설정해야 한다.</p>
+
+  <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>JEUS Security에 대한 자세한 내용은 <a xmlns="" href="../security/index.html" class="olink">"JEUS
+      Security 안내서"</a>를 참고한다.</p>
+    </div>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Server_Security_Accounts"></a>7.1. 계정 관리</h2></div></div></div>
+    
+
+    <p>JEUS에서 계정은 개인 단위인 User(사용자)와 User들의 집합인 Group(그룹)으로 관리된다.</p>
+
+    <p><a id="d4e2586" class="indexterm"></a>JEUS의 권한 부여 모델은 Resource(리소스)들에 대한 권한을 Role(역할)이 갖고 Role에
+    User를 지정하여, Role이 가진 Resource 권한을 User가 갖는 구조이다.</p>
+
+    <p>다음은 Role에 User를 지정하는 3가지 방법이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>Role에 User의 Name을 직접 지정한다.</p>
+        </li><li>
+          <p>Role에 User가 속한 Group의 Name을 지정한다.</p>
+        </li><li>
+          <p>Role에 User가 속한 Group의 상위 Group의 Name을 지정한다.</p>
+        </li></ul></div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>계정의 구조가 User, Group, Subgroup 등의 계층을 갖기 때문에 JEUS에서 비슷한 역할을 하는 User에게
+    한 번에 비슷한 권한을 부여할 수 있다. 보안 정책에 대한 자세한 설정 방법은 <a xmlns="" href="../security/chapter_security_system_setup.html#sect_security_system_Policy_setup" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Security 안내서</span>”의 “2.6. 보안 시스템 정책 설정”</a>을 참고한다.</p>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Server_Security_Password_Config"></a>7.2. 패스워드 암호화 저장</h2></div></div></div>
+    
+
+    <p>시스템 관리를 위한 사용자의 패스워드를 간편하게 암호화하여 저장할 수 있다.</p>
+
+    <p>암호화 정보는 다음의 형식으로 저장된다.</p>
+
+    <pre class="programlisting"><span class="bold"><strong>{알고리즘}암호문</strong></span> </pre>
+
+    <p>가능한 암호화 알고리즘은 다음과 같다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>AES</p>
+        </li><li>
+          <p>DES</p>
+        </li><li>
+          <p>DESede</p>
+        </li><li>
+          <p>blowfish</p>
+        </li><li>
+          <p>SEED</p>
+        </li></ul></div>
+
+    <p>패스워드 암호화 저장은 WebAdmin 또는 콘솔 툴(jeusadmin)을 사용하거나, 암호화 툴을 통해 직접 설정하는
+    방법이 있다. 본 절에서는 각 방법에 대해 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2626"></a>7.2.1. WebAdmin 사용</h3></div></div></div>
+      
+
+      <p>다음은 WebAdmin을 통해 사용자 계정 패스워드를 설정하는 방법에 대한 예제이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin 화면 왼쪽의 <span><strong class="guibutton">[Security]</strong></span> 메뉴를 선택한다.
+          <span><strong class="guibutton">Security Manager 화면</strong></span>의 <span><strong class="guibutton">Security
+          Domains</strong></span> 영역의 목록에서 보안 도메인을 선택한다.</p>
+
+          <div class="figure"><a id="figure_security_select_security_domain"></a><p class="title"><b>[그림 7.1] 패스워드 설정 - 메뉴 이동</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_select_security_domain.png" align="top" width="711" alt="패스워드 설정 - 메뉴 이동"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <p/>
+        </li><li>
+          <p><span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을 클릭하여 설정변경 모드로
+          전환한다. WebAdmin의 설정변경 모드에 대한 자세한 설명은 <a xmlns="" href="../web-manager/chapter_boot_down.html#sect_menu" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS WebAdmin 안내서</span>”의 “2.3.2. 메뉴 영역”</a>을 참고한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">[Accounts &amp; Policies Management] &gt;
+          [accounts] </strong></span>메뉴로 이동한 후 <span><strong class="guibutton">Users</strong></span> 영역에서
+          패스워드를 변경할 사용자명을 선택한다.</p>
+
+          <div class="figure"><a id="figure_security_select_subject_management"></a><p class="title"><b>[그림 7.2] 패스워드 설정 - 사용자명 선택</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_security_select_subject_management.png" align="top" width="711" alt="패스워드 설정 - 사용자명 선택"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <p/>
+        </li><li>
+          <p>다음과 같이 <span><strong class="guibutton">User 화면</strong></span>이 나타나면
+          <span><strong class="guibutton">'Password'</strong></span> 항목 오른쪽의
+          <span><strong class="guibutton">[입력]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="figure_security_change_accounts"></a><p class="title"><b>[그림 7.3] 패스워드 설정 - 패스워드 입력</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_security_change_accounts.png" align="top" width="711" alt="패스워드 설정 - 패스워드 입력"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p>패스워드 암호화에 적용할 알고리즘을 선택하고, 패스워드를 입력한 뒤
+          <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="figure_security_change_password"></a><p class="title"><b>[그림 7.4] 패스워드 설정 - 패스워드 입력 팝업</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="332"><tr><td align="left"><img src="resources/figure_security_change_password.png" align="top" width="332" alt="패스워드 설정 - 패스워드 입력 팝업"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <p/>
+        </li><li>
+          <p>사용자의 정보 입력이 완료되면 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한 뒤, 변경 내용의
+          동적 반영을 위해 <span><strong class="guibutton">[Activate Changes]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="figure_security_change_password_activate"></a><p class="title"><b>[그림 7.5] 패스워드 설정 - 변경 완료</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_security_change_password_activate.png" align="top" width="711" alt="패스워드 설정 - 변경 완료"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p>자신의 패스워드를 변경한 경우에는 WebAdmin 로그인 화면으로 되돌아가며, 변경한 패스워드로 다시 로그인해야
+          한다. 다른 계정의 패스워드를 변경한 경우에는 변경 완료 메시지를 확인할 수 있다.</p>
+        </li></ol></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2685"></a>7.2.2. 콘솔 툴 사용</h3></div></div></div>
+      
+
+      <p>다음은 콘솔 툴(jeusadmin)을 통해 'administrator'라는 계정의 'password'라는 암호를 암호화
+      알고리즘 'AES'를 사용하여 암호화하고 저장하는 예제이다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>set-password</strong></span> administrator password -algorithm AES
+The password is set for [administrator]. 
+
+[DAS]domain1.adminServer&gt;exit
+
+JEUS_HOME/bin$ jeusadmin -u administrator -p password
+
+Attempting to connect to 127.0.0.1:9736.
+The connection has been established to Domain Administration Server adminServer
+in the domain domain1.
+JEUS8 Administration Tool
+To view help, use the 'help' command. </pre>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2691"></a>7.2.3. 암호화 툴을 통한 직접 설정</h3></div></div></div>
+      
+
+      <p>암호화 툴을 통해 직접 암호화를 수행하여 저장할 수도 있다. 예를 들어 DB 패스워드, accounts.xml 계정들의
+      패스워드의 경우 일반 문자열 대신 암호화된 문자열로 입력할 수 있다.</p>
+
+      <p>암호화된 문자열은 다음의 형식으로 패스워드가 필요한 위치에 설정한다.</p>
+
+      <pre class="programlisting"><span class="bold"><strong>{알고리즘}암호문</strong></span> </pre>
+
+      <p>이러한 암호화된 문자열을 사용하기 위해서는 JEUS가 제공하는 암호화 툴(Encryption Tool)을 사용해야
+      한다. 암호화 툴은 암호화될 대상이 되는 문자열과 알고리즘을 입력받아 결과물인 암호문을 출력하는데, 그 암호문을 위에서 언급한
+      형식에 맞춰서 기록한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>암호화 툴의 사용법에 관한 자세한 사항은 <a xmlns="" href="../reference-book/ch04.html#security_appendix_password_encryption_utilization" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.6. encryption”</a>을
+          참고한다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>base64 또는 Hash 알고리즘 (sha 등)은 평문이 정해지면 결과값도 항상 동일하게 출력되지만, 그 외의
+      알고리즘들은 수행하기 위한 비밀 Key(secret key)가 필요하다. 이러한 비밀 Key 관리 방법에 관한 자세한 사항은
+      <a href="chapter_domain_security.html#sect_Server_Security_SecretKey" title="7.3. 비밀 Key 파일 관리">“7.3. 비밀 Key 파일 관리”</a>를 참고한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 accounts.xml 편집을 통해 암호화된 문자열을 패스워드로 설정하는 예제이다.</p>
+
+      <div class="example"><a id="d4e2709"></a><p class="title"><b>[예 7.1] 암호화된 문자열 패스워드 설정 : &lt;&lt;accounts.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;accounts xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;users&gt;
+        &lt;user&gt;
+            &lt;name&gt;administrator&lt;/name&gt;
+            &lt;password&gt;<span class="bold"><strong>{base64}amV1czEyMw==</strong></span>&lt;/password&gt;
+        &lt;/user&gt;
+        &lt;user&gt;
+            &lt;name&gt;user1&lt;/name&gt;
+            &lt;password&gt;<span class="bold"><strong>{AES}i06wYRz3Gqun2sKtXHIq+Tw3vUcc=</strong></span>&lt;/password&gt;
+        &lt;/user&gt;
+        . . .
+    &lt;/users&gt;
+    . . .
+&lt;/accounts&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>최초 도메인을 구성했을 때에는 xml을 직접 수정할 수 있으나, 도메인 구성 후에는 WebAdmin이나 콘솔
+          툴(jeusadmin)을 통해 설정하는 것을 권장한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Server_Security_SecretKey"></a>7.3. 비밀 Key 파일 관리</h2></div></div></div>
+    
+
+    <p>본 절에서는 비밀 Key 파일을 생성하고 관리하는 방법과 비밀 Key 파일의 보호 옵션 및 서버 기동 방법에 대해
+    설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2724"></a>7.3.1. 비밀 Key 파일의 생성과 관리</h3></div></div></div>
+      
+
+      <p>JEUS_HOME/bin에 위치한 암호화 툴(Encryption Tool)이 제공하는 AES, DES, DESede,
+      SEED, BlowFish 등의 알고리즘은 암호화, 복호화를 수행하기 위해 비밀 Key가 필요하다. 이를 위해서 JEUS는 비밀
+      Key 파일을 사용한다. 비밀 Key 파일은 암호화 툴을 처음으로 사용할 때 자동으로 생성되며, 그 이후로는 그 파일을 계속
+      사용한다.</p>
+
+      <p>비밀 Key 파일은 기본적으로 다음 경로의 <span><strong class="guibutton">security.key</strong></span>
+      파일이다.<a id="d4e2729" class="indexterm"></a></p>
+
+      <pre class="programlisting">JEUS_HOME/domains/&lt;<span class="emphasis"><em>domain-name</em></span>&gt;/config/security</pre>
+
+      <p>또는 jeus.security.keypath 시스템 프로퍼티로 지정할 수 있다. 이 경로는 절대 경로, 상대 경로 모두
+      가능하며, 상대 경로의 기준 경로는 JVM을 실행한 경로이다. 경로를 디렉터리로 지정할 경우에는 해당 디렉터리의
+      security.key 파일을 이용하며, 파일로 지정할 경우에는 지정된 파일을 사용한다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2738"></a>7.3.2. 비밀 Key 파일 보호 옵션과 서버 기동 방법</h3></div></div></div>
+      
+
+      <p><a id="d4e2741" class="indexterm"></a>JEUS에서는 위에서 언급한 비밀 Key 파일 자체를 보호하는 옵션도 제공한다. 이를 위해서는 비밀
+      Key 파일을 암호화하기 위한 패스워드가 필요하다. 이를 마스터 패스워드(Master Password)라고 한다. 암호화 툴을
+      실행할 때 -protectkey 옵션을 입력하면 이 마스터 패스워드를 이용해서 비밀 Key 파일을 보호할 수 있다.</p>
+
+      <p>암호화 툴을 통해 마스터 패스워드가 설정되었다면 서버를 기동할 때 반드시 마스터 패스워드가 필요하게 된다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>마스터 패스워드를 입력하는 방법은 다음과 같이 크게 2가지가 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>서버를 백그라운드 프로세스로 시작할 경우 시스템 프로퍼티 jeus.security.master로 지정하는
+          방법</p>
+        </li><li>
+          <p>JEUS에서 제공하는 스크립트를 이용하여 시작할 때 콘솔 툴로 입력받는 방법</p>
+        </li></ul></div>
+
+      <p><a id="d4e2752" class="indexterm"></a>jeus.security.master로 지정하는 방법은 셸 스크립트에 마스터 패스워드를 입력해야 하므로
+      보안상 안전하지 않다. 만약 마스터 패스워드를 사용해야 하는 상황이라면 되도록 후자의 방법을 추천한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>1. 서버 기동에 대한 자세한 내용은 <a xmlns="" href="../reference-book/reference_jeus_Script.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “제3장 JEUS 서버 실행”</a>을 참고한다.</p>
+
+          <p>2. 비밀 Key에 대한 자세한 내용은 <a xmlns="" href="../reference-book/ch04.html#security_appendix_password_encryption_utilization" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.6. encryption”</a>을
+          참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Server_Security_KeyStore"></a>7.4. Keystore와 Truststore 관리</h2></div></div></div>
+    
+
+    <p>본 절에서는 SSL 통신에 사용되는 Keystore와 Truststore의 관리에 대해 간단히 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>Keystore와 Truststore는 모두 Java Key Store(JKS) 형식으로 본질적으로 동일하며, JDK에서
+    제공하는 Key 툴을 사용하여 생성 및 관리할 수 있다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>Keystore, Truststore 및 SSL에 대한 자세한 정보를 원한다면 Java SE 문서나 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://java.sun.com/products/jms/" target="_top">http://www.oracle.com/technetwork/java/index.html</a>에서
+        JSSE, JKS, Key 툴(keytool) 관련 정보를 찾아볼 수 있다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JEUS는 기본적으로 다음 경로의 파일들을 각각 Keystore, Truststore로 지정해서 사용하며,
+    Keystore, Truststore가 다른 경로에 혹은 다른 이름으로 존재한다면 이를 직접 설정해야 한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>Keystore<a id="d4e2778" class="indexterm"></a></p>
+
+          <p>Keystore는 개인 Key(Private Key)들만 별도로 모아서 저장해 놓은 저장소이다.</p>
+
+          <pre class="programlisting">JEUS_HOME/domains/&lt;<span class="emphasis"><em>domain-name</em></span>&gt;/config/security/keystore 파일</pre>
+        </li><li>
+          <p>Truststore<a id="d4e2786" class="indexterm"></a></p>
+
+          <p>Truststore는 공개 Key(Public Key)들만 별도로 모아서 저장해 놓은 저장소이다.</p>
+
+          <pre class="programlisting">JEUS_HOME/domains/&lt;<span class="emphasis"><em>domain-name</em></span>&gt;/config/security/truststore 파일</pre>
+        </li></ul></div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>설정 방법은 시스템 전체적으로 시스템 프로퍼티로 설정할 수도 있고, Keystore와 Truststore가 필요한 부분에서
+    각각 설정할 수도 있다. 각각 설정하는 방법은 안내서의 각 파트에 별도로 설명이 되어 있다.</p>
+
+    <p>사용하는 시스템 프로퍼티는 다음과 같다.</p>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">시스템 프로퍼티</th><th>설명</th></tr></thead><tbody><tr><td align="left">jeus.ssl.keystore <a id="d4e2807" class="indexterm"></a></td><td><p>SSL에서 사용하는 Keystore 파일 경로를 설정한다. </p><p>(기본값:
+              JEUS_HOME/domains/&lt;<span class="emphasis"><em>domain-name</em></span>&gt;/config/security/keystore)</p></td></tr><tr><td align="left">jeus.ssl.truststore <a id="d4e2815" class="indexterm"></a></td><td><p>SSL에서 사용하는 Truststore 파일 경로를 설정한다.
+              </p><p>(기본값:
+              JEUS_HOME/domains/&lt;<span class="emphasis"><em>domain-name</em></span>&gt;/config/security/truststore)</p></td></tr><tr><td align="left">jeus.ssl.keypass<a id="d4e2823" class="indexterm"></a></td><td><p>SSL에서 사용하는 Keystore 패스워드를 설정한다. </p><p>(기본값:
+              jeuskeypass)</p></td></tr><tr><td align="left">jeus.ssl.trustpass <a id="d4e2830" class="indexterm"></a></td><td><p>SSL에서 사용하는 Truststore 패스워드를 설정한다.
+              </p><p>(기본값: jeustrustpass)</p></td></tr></tbody></table>
+      </div>
+
+    <p>Keystore와 Truststore를 사용하기 위해서는 패스워드가 필요하며 위에서 설명한 것처럼 JEUS는
+    Keystore와 Truststore의 패스워드를 설정할 수 있다. 경로를 설정하는 것과 마찬가지로 시스템 프로퍼티로 전체적으로
+    설정하거나 필요한 부분에서 각각 설정할 수도 있다.</p>
+
+    <p>특히 Keystore는 저장소 자체의 패스워드 외에 Keystore 내에 존재하는 Key별로 각각 패스워드가 요구된다.
+    하지만 대부분의 경우에 이 패스워드들이 Keystore의 패스워드와 동일하기 때문에 JEUS 내부적으로 Keystore 패스워드와
+    동일하게 사용된다.</p>
+
+    <p>Keystore의 Key 패스워드를 저장소 패스워드와 구분해야 하는 경우에는 각 설정에
+    &lt;keystore-keypassword&gt; 지정하는 태그가 있으므로 이를 지정하여 사용한다. 또한, Keystore 내의
+    Key들의 패스워드가 서로 다를 경우 해당 Keystore를 이용할 수 없으며 동일 Keystore 내부의 Key들은 모두 동일한
+    패스워드로 설정되어 있어야 한다.</p>
+
+    <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+        <p>JEUS를 설치할 때 기본적으로 Keystore와 Truststore가 포함되어 있지만 직접 Keystore와
+        Truststore를 새로 생성하여 설정하는 것을 권장한다.</p>
+      </div>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Server_Security_SSL_Script"></a>7.5. SSL이 설정된 Domain에서의 실행 스크립트 관리</h2></div></div></div>
+    
+
+    <p>본 절에서는 Domain에서 각 서버의 Base Listener를 SSL로 동작하도록 설정하였을 때 각종 실행 스크립트에
+    추가해야할 설정에 대해서 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>Domain에 속하는 각 서버들을 SSL로 설정할 경우 서버들 간의 통신은 서버에 설정된 SSL 설정들이 이용되지만,
+    Console Admin 혹은 실행 스크립트 등 클라이언트 입장에서 동작하는 프로세스들에는 SSL 설정이 따로 필요하게
+    된다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>설정이 필요한 경우는 다음과 같다.</p>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">jeusadmin<a id="d4e2861" class="indexterm"></a></td><td>Console Admin을 실행하기 위한 스크립트</td></tr><tr><td align="left">startManagedServer<a id="d4e2866" class="indexterm"></a></td><td>MS를 직접 구동하기 위한 스크립트</td></tr><tr><td align="left">startNodeManager<a id="d4e2871" class="indexterm"></a></td><td>NodeManager를 구동하기 위한 스크립트</td></tr><tr><td align="left">stopServer<a id="d4e2876" class="indexterm"></a></td><td>서버의 동작을 정지시키기 위한 스크립트</td></tr><tr><td align="left">기타 Standalone Client<a id="d4e2881" class="indexterm"></a></td><td>스크립트는 아니나 SSL을 이용하여 서버와 통신해야 하는 Standalone Client</td></tr></tbody></table>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    
+
+    <p>다음 예제에서 볼드체로 강조된 부분은 스크립트에 추가해야 할 내용이다.</p>
+
+    <div class="example"><a id="d4e2887"></a><p class="title"><b>[예 7.2] SSL과 관련된 클라이언트 설정을 직접 명시한 jeusadmin 스크립트</b></p><div class="example-contents">
+        
+
+        <pre class="programlisting">. . .
+# execute jeusadmin
+"${JAVA_HOME}/bin/java" -classpath "${BOOTSTRAP_CLASSPATH}" ${TOOL_OPTION}
+-Djmx.remote.x.request.timeout=600000
+-Djava.library.path="${JEUS_LIBPATH}"
+-Djeus.home="${JEUS_HOME}"
+-Djeus.baseport=${JEUS_BASEPORT}
+-Djeus.tool.console.useJLine="false"
+-Djava.endorsed.dirs="${JEUS_HOME}/lib/endorsed"
+-Djava.naming.factory.initial=jeus.jndi.JEUSContextFactory
+-Djava.naming.factory.url.pkgs=jeus.jndi.jns.url
+-Djava.util.logging.config.file="${JEUS_HOME}/bin/logging.properties"
+<span class="bold"><strong>-Djeus.net.client.use-ssl=true</strong></span>
+<span class="bold"><strong>-Djavax.net.ssl.trustStore=${JEUS_HOME}/domains/domain1/config/truststore</strong></span>
+<span class="bold"><strong>-Djavax.net.ssl.trustStorePassword=changeit</strong></span>
+<span class="bold"><strong>-Djavax.net.ssl.trustStoreType=JKS</strong></span>
+<span class="bold"><strong>-Dssl.TrustManagerFactory.algorithm=SunX509</strong></span>
+<span class="bold"><strong>-Djavax.net.ssl.keyStore=${JEUS_HOME}/domains/domain1/config/keystore</strong></span>
+<span class="bold"><strong>-Djavax.net.ssl.keyStorePassword=changeit</strong></span>
+<span class="bold"><strong>-Djavax.net.ssl.keyStoreType=JKS</strong></span>
+<span class="bold"><strong>-Dssl.KeyManagerFactory.algorithm=SunX509</strong></span>
+<span class="bold"><strong>-Djeus.security.keypath=${JEUS_HOME}/domains/domain1/config/security/security.key</strong></span>
+${JAVA_ARGS}
+jeus.tool.console.ConsoleBootstrapper ${BOOT_PARAMETER}</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>또는 다음과 같이 대부분의 설정을 별도의 파일에 명시한 후 해당 파일을 지칭할 수 있다.</p>
+
+    <div class="example"><a id="d4e2903"></a><p class="title"><b>[예 7.3] SSL 설정을 별도 파일에 명시하도록 한 jeusadmin 스크립트</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">. . .
+# execute jeusadmin
+"${JAVA_HOME}/bin/java" -classpath "${BOOTSTRAP_CLASSPATH}" ${TOOL_OPTION}
+-Djmx.remote.x.request.timeout=600000
+-Djava.library.path="${JEUS_LIBPATH}"
+-Djeus.home="${JEUS_HOME}"
+-Djeus.baseport=${JEUS_BASEPORT}
+-Djeus.tool.console.useJLine="false"
+-Djava.endorsed.dirs="${JEUS_HOME}/lib/endorsed"
+-Djava.naming.factory.initial=jeus.jndi.JEUSContextFactory
+-Djava.naming.factory.url.pkgs=jeus.jndi.jns.url
+-Djava.util.logging.config.file="${JEUS_HOME}/bin/logging.properties"
+<span class="bold"><strong>-Djeus.net.client.ssl-properties-file=ssl.properties</strong></span>
+${JAVA_ARGS}
+jeus.tool.console.ConsoleBootstrapper ${BOOT_PARAMETER}</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 SSL과 관련된 클라이언트 설정을 별도 파일에 명시한 예제이다. 파일에 설정을 할 경우에는
+    ${JEUS_HOME}으로 시작하는 상대 경로는 사용할 수 없으므로 주의한다.</p>
+
+    <div class="example"><a id="d4e2910"></a><p class="title"><b>[예 7.4] SSL과 관련된 클라이언트 설정 : &lt;&lt;ssl.properties&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">javax.net.ssl.keyStore=/Users/ccs/workspace/JEUS8/target/jeus/domains/domain1/config/keystore
+javax.net.ssl.trustStore=/Users/ccs/workspace/JEUS8/target/jeus/domains/domain1/config/truststore
+javax.net.ssl.keyStorePassword=jeus
+javax.net.ssl.trustStorePassword={AES}i06wYRz3Gqun2sKtXHIq+Tw3vUcc=
+jeus.ssl.keystorekeypass={base64}amV1czEyMw==
+jeus.security.keypath=/Users/ccs/workspace/JEUS8/target/jeus/domains/domain1/config/security/security.key</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p>password가 들어가는 property 항목에는 accounts.xml에 사용되는 것과 동일한 방식으로 인코딩 혹은
+    암호화 된 문자열을 사용할 수 있다. 이 때는 JEUS에서 제공하는 암호화 툴을 사용하도록 한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>1. 암호화 툴 사용법에 대한 자세한 사항은 <a xmlns="" href="../reference-book/ch04.html#security_appendix_password_encryption_utilization" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.6. encryption”</a>을
+        참고한다.</p>
+
+        <p>2. Domain을 SSL 환경 하에서 사용하기 위해서는 Node Manager에도 동일한 SSL 설정을 해야한다.
+        자세한 사항은 <a xmlns="" href="../node-manager/chapter_nodemanager_02_java.html#sect_java_nm_configfile" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Node Manager 안내서</span>”의 “2.3.1. 설정 파일”</a>을 참고한다.</p>
+      </div>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_domain_failure.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="idx.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제6장 서버 장애 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 색인</td></tr></table></div><div xmlns="" align="center"/></body></html>

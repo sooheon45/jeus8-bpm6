@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제4장 JNDI Naming Server</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Server 안내서"/><link rel="up" href="index.html" title="JEUS Server 안내서"/><link rel="prev" href="chapter_server_control.html" title="제3장 JEUS 서버 제어 및 모니터링"/><link rel="next" href="chapter_external_resource.html" title="제5장 External Resource"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제4장 JNDI Naming Server</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_server_control.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_external_resource.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jndi"></a>제4장 JNDI Naming Server</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jndi.html#jndi_intro">4.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jndi.html#jeus-jndi-overview">4.2. 기본 개념과 구조</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jndi.html#jeus-jndi-overview-concept">4.2.1. 기본 개념</a></span></dt><dt><span class="section"><a href="chapter_jndi.html#jeus-jndi-info">4.2.2. 바인딩된 객체 확인</a></span></dt><dt><span class="section"><a href="chapter_jndi.html#jeus-jndi-overview-architecture">4.2.3. JNDI Naming Server 아키텍처</a></span></dt><dt><span class="section"><a href="chapter_jndi.html#jeus-jndi-overview-naming-clustering">4.2.4. JNDI 클러스터링</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jndi.html#jeus-jndi-naming-server-config">4.3. JNDI Naming Server 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jndi.html#jeus-jndi-naming-server-config-jns-config">4.3.1. JNSServer 설정</a></span></dt><dt><span class="section"><a href="chapter_jndi.html#jeus-jndi-naming-server-config-jnslocal-config">4.3.2. JNSClient 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jndi.html#jeus-jndi-naming-server-config-in-clustering">4.4. 클러스터링 환경에서 JNDI</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jndi.html#jndi-naming-server-config-in-clustering-binding-options">4.4.1. Lookup</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jndi.html#jndi_programming">4.5. JNDI 프로그래밍</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jndi.html#jeus-jndi-programming">4.5.1. JEUS 환경설정</a></span></dt><dt><span class="section"><a href="chapter_jndi.html#jeus-jndi-programming">4.5.2. InitialContext를 위한 프로퍼티 설정</a></span></dt><dt><span class="section"><a href="chapter_jndi.html#d4e3039">4.5.3. Context를 사용한 Named Object의 Lookup</a></span></dt><dt><span class="section"><a href="chapter_jndi.html#d4e3054">4.5.4. Named Object 사용</a></span></dt><dt><span class="section"><a href="chapter_jndi.html#d4e3065">4.5.5. Context 닫기</a></span></dt><dt><span class="section"><a href="chapter_jndi.html#d4e3071">4.5.6. 클러스터링 Context 생성</a></span></dt><dt><span class="section"><a href="chapter_jndi.html#d4e3111">4.5.7. 원격으로 Lookup 실행</a></span></dt></dl></dd></dl></div>
+  
+
+  <p><a id="d4e2600" class="indexterm"></a>본 장은 JEUS JNDI의 기본적인 개념과 용어 그리고 환경설정 방법 및 애플리케이션을 개발 방법에 대해서
+  설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jndi_intro"></a>4.1. 개요</h2></div></div></div>
+    
+
+    <p><a id="d4e2605" class="indexterm"></a>Java Naming and Directory Interface™ (JNDI)는 Java 애플리케이션이
+    네트워크에서 객체를 찾고 가져올 수 있도록 하는 표준 API이다. 애플리케이션은 객체의 논리적인 이름을 통해 해당하는 객체를 찾아서
+    사용할 수 있다. 사용자의 관점에서는 이전의 엔터프라이즈 환경보다 쉽게 객체를 찾아서 사용할 수 있는 환경을 제공해준다.</p>
+
+    <p>JEUS JNDI는 JNDI 1.2 API와 호환되며, Sun Microsystems에서 제안한 표준 JNDI API를
+    지원한다. 그리고 엔터프라이즈 환경에 적합하도록 JNDI Service Provider Interface(이하 SPI)도 제공한다.
+    즉, JNDI SPI를 구현한 제품은 JEUS JNDI 트리의 객체를 사용할 수 있다.</p>
+
+    <p/>
+
+    <p>JEUS JNDI 서비스는 JEUS 시스템 전반적으로 사용되므로 EJB, Servlet/JSP, JMS, JDBC 등을
+    사용할 때마다 보게 될 것이다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jeus-jndi-overview"></a>4.2. 기본 개념과 구조</h2></div></div></div>
+    
+
+    <p>JEUS JNDI는 객체를 bind하고 Lookup하는 고유의 아키텍처를 가지고 있다. 우선 JEUS JNDI의 구조와
+    기본 개념에 대해서 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus-jndi-overview-concept"></a>4.2.1. 기본 개념</h3></div></div></div>
+      
+
+      <p><a id="d4e2618" class="indexterm"></a><a id="d4e2620" class="indexterm"></a>MS를 시작하면 JEUS는 자동적으로 JNDI 서비스를 준비한다. JNDI 서비스는 JNDI Naming
+      Server가 제공하는데, 이것이 실행될 때 내부적으로 JEUS Naming Service Server(이하 JNSServer)가
+      실행된다. 이 JNSServer와 통신하기 위한 클라이언트 역할을 하는 것이 JEUS Naming Service Client(이하
+      JNSClient)이다.</p>
+
+      <p><a id="d4e2623" class="indexterm"></a>JNSClient는 JNSServer와 접속되어 있어서 객체의 bind와 Lookup은
+      JNSClient에서 먼저하고, 다음으로 JNSServer에서 진행된다. 하나의 JNSServer는 하나 이상의
+      JNSClient와 접속되어 있으며, 또한 JNSServer들도 다른 JNSServer와 접속하고 있어(특히 클러스터링 환경일
+      때) 트리와 같은 구조를 이루고 있다. 이러한 Naming Repository구조를 <span><strong class="guibutton">JNDI
+      트리</strong></span>라고 한다.</p>
+
+      <p>JNDI 트리는 객체를 bind하거나 Lookup할 때 사용되는데, 모든 객체는 서버들을 통해서 JNDI 트리로
+      bind되고 Lookup된다. 애플리케이션에서 JNSClient로 객체의 bind를 요청하면 JNDI 트리로 전달되어
+      bind되며, 이렇게 bind된 객체는 각 JNSClient를 통해 애플리케이션에서 Lookup할 수 있다.</p>
+
+      <p><a id="d4e2628" class="indexterm"></a>JNDI 트리의 객체를 액세스할 때는
+      <span><strong class="guibutton">InitialContext</strong></span>를 통해서만 가능하다. 그러므로 애플리케이션에서 JNDI를
+      사용하려면 반드시 InitialContext 객체를 생성해야만 한다. 이 객체는 JNDI 트리에 접근해서 객체를 핸들링할 수
+      있도록 해준다. 그리고 객체를 bind하거나 Lookup할 뿐만 아니라, 객체의 목록을 가져올 수 있으며 제거할 수 있는 기능을
+      한다.</p>
+
+      <p>바인딩되어 있는 객체는 WebAdmin과 콘솔 툴을 통해 확인할 수 있다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus-jndi-info"></a>4.2.2. 바인딩된 객체 확인</h3></div></div></div>
+      
+
+      <p>바인딩되어 있는 객체는 WebAdmin과 콘솔 툴을 통해 확인할 수 있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>본 절에서는 WebAdmin을 통해 조회하는 방법에 대해서만 설명한다. 콘솔 툴을 통해 조회하는 방법은
+          <a xmlns="" href="../reference-book/ch04.html#cmd_jndi-information" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.3.19. jndi-info”</a>를 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2643"></a>WebAdmin 사용</h4>
+
+      <p>다음 그림은 WebAdmin에서 JNDI 목록을 조회한 화면이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Monitoring] &gt;
+          [JNDI]</strong></span>를 선택하면 JNDI 목록 조회 화면으로 이동한다. 화면에서
+          <span><strong class="guibutton">'Server' </strong></span>항목에서 조회할 서버를 선택하면 해당 서버의 JNDI 목록이
+          조회된다.</p>
+
+          <div class="figure"><a id="d4e2651"></a><p class="title"><b>[그림 4.1] JNDI 목록 조회</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_monitoring_jndi.png" align="top" width="701" alt="JNDI 목록 조회"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li><li>
+          <p>JNDI 목록에서 조회할 Server를 선택하고 Context를 클릭하면 내부에 바인딩된 객체의 목록을, 객체를
+          클릭하면 상세 정보를 조회할 수 있다.</p>
+
+          <div class="figure"><a id="d4e2659"></a><p class="title"><b>[그림 4.2] JNDI 상세 조회</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_monitoring_jndi_detail.png" align="top" width="701" alt="JNDI 상세 조회"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+
+          <p/>
+        </li></ol></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus-jndi-overview-architecture"></a>4.2.3. JNDI Naming Server 아키텍처</h3></div></div></div>
+      
+
+      <p>본 절에서는 JNDI 트리 구조가 실제로 어떻게 작동되는지 자세히 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>JNDI 트리는 JNSServer와 JNSClient로 구성되어 있다. JNSServer는 MS의 JVM에 존재하며,
+      JNSClient는 MS 또는 클라이언트의 JVM에 존재한다. JNSServer는 JEUS JNDI 아키텍처의 메인으로 JNDI
+      트리를 생성하고 관리한다. JNSServer는 그 하위에 JNSClient를 둬서 관리한다.</p>
+
+      <p>다음 그림은 JNSServer와 JNSClient의 관계를 나타낸다. </p><div class="figure"><a id="figuer_relation_between_jnsserver_and_jnslocal"></a><p class="title"><b>[그림 4.3] JNSServer와 JNSClient의 관계</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="273"><tr><td align="left"><img src="resources/figure_jnsserver_and_jnslocal_relation.png" align="top" width="273" alt="JNSServer와 JNSClient의 관계"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>전체 JNDI 트리를 액세스하기 위해서는 JNSClient에서 JNSServer로 요청을 보내야 한다.</p>
+
+      <p>JNSServer는 다른 MS의 JNSServer와 연결되어서 클러스터링을 구성한다. JNSClient는
+      JNSServer와 MS 내에서 상호 작용을 하며, 클라이언트의 액세스 요청을 처리한다. 클라이언트는 JNSServer로 바로
+      접근하는 것이 아니라 JNSClient를 통해서 객체를 bind하고 Lookup한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2683"></a>JNSServer</h4><p><a id="d4e2684" class="indexterm"></a>JNSServer는 JNDI 트리를 관리하며, JNSClient가 JNDI 트리를 액세스할 수 있도록
+      하는 독립적인 Naming Server이다. JNDI 트리를 확장하기 위해서 여러 개의 JNSServer를 연결할 수 있다.
+      JNSServer는 다른 MS의 JNSServer와 직접적으로 연결할 수 있기 때문이다. JEUS에서는 MS가 시작되면
+      JNSServer는 자동적으로 JNSClient의 접속을 기다린다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2689"></a>JNSClient</h4>
+
+      <p><a id="d4e2691" class="indexterm"></a>JNSClient의 기본적인 기능은 JNSServer로 접속하여 애플리케이션의 요청을 전송하고
+      JNSServer의 결과를 다시 돌려주는 것이다. 각 JVM에서는 하나의 서버에 대해 하나의 JNSClient Singleton
+      인스턴스만 존재한다. 그래서 Lookup을 처리할 때 하나의 JNSClient만 사용하므로 엔터프라이즈 환경에서 EJB와
+      Servlet을 사용할 때 효과적이다.</p>
+
+      <p>다음은 JNSClient의 중요 기능이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>JNDI 트리 접속</p>
+
+          <p>JNSClient는 JNSServer에 접속해서 MS가 관리하는 JNDI 트리로 접속하는 방법을 제공한다.
+          bind되고 Lookup되는 객체는 전체 JNDI 트리에서 공유되거나, 클라이언트의 설정에 따라서 특정 클라이언트만
+          액세스할 수도 있다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Lookup된 객체의 캐싱</p>
+
+          <p>JNSClient는 자주 사용되는 객체를 캐싱해서 클라이언트가 더 빠르게 사용할 수 있도록 한다.
+          JNSClient는 JNSServer와 통신을 하면서 객체를 캐싱한다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>JNSServer와의 연결 관리</p>
+
+          <p>JNSClient는 클라이언트의 요청을 받아서 JNSServer로 전달하고 그 결과를 받아서 리턴한다.
+          클라이언트가 있는 JVM에 JNSClient가 존재하므로 별다른 I/O 없이 효율적으로 통신할 수 있다.</p>
+        </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>JNSClient에는 JNSServer의 위치(같은 MS인지 아니면 원격지에 있는지)에 따라서 2가지 종류로
+      나뉜다.</p>
+
+      <p/>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><thead><tr><th align="left">JNSClient</th><th>설명</th></tr></thead><tbody><tr><td align="left">Server-side<a id="d4e2720" class="indexterm"></a></td><td><p>MS의 각 엔진에 있는 EJB Bean, Servlet, JSP 등이 사용한다.
+              </p><p>Server-side JNSClient를 사용하려면
+              java.naming.factory.initial 프로퍼티 값을 jeus.jndi.JNSContextFactory로
+              설정한다. 이 값은 기본적으로 MS가 기동될 때 설정되므로 별다르게 고려할 필요는 없다.</p></td></tr><tr><td align="left">Client-side<a id="d4e2727" class="indexterm"></a></td><td><p>MS에서 동작하지 않는 애플릿, 애플리케이션 클라이언트 등이
+              사용한다.</p><p>Client-side JNSClient를 사용하려면
+              java.naming.factory.initial 프로퍼티값을 jeus.jndi.JNSContextFactory로
+              설정한다.</p><p>Client-side JNSClient는 일정시간 동안 통신이 없을 때 커넥션을
+              끊고, 다시 필요할 때 커넥션을 생성해서 리소스를 효율적으로 관리한다. 단, 클라이언트 컨테이너에서 동작하는
+              애플리케이션은 클라이언트 컨테이너가 실행될 때는 이 값을 시스템 프로퍼티로 설정하기 때문에 애플리케이션에서 별도로
+              설정할 필요는 없다.</p></td></tr></tbody></table>
+      </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus-jndi-overview-naming-clustering"></a>4.2.4. JNDI 클러스터링</h3></div></div></div>
+      
+
+      <p><a id="d4e2737" class="indexterm"></a>JNDI 트리는 JNSServer와 JNSClient 간의 연결로 구성되어 있다. 이 구조는 하나의
+      컴포넌트(JNSClient)에서 객체에 대한 정보의 변화가 있을 때 다른 컴포넌트(JNSClient)로 전달될 수 있도록 하며,
+      또한 여러 개의 MS를 지원(클러스터링)할 수 있도록 한다.</p>
+
+      <p>즉, JNDI Naming 클러스터링은 각각의 독립적인 JNDI를 하나의 확장된 JNDI 트리로 구성하는 것이라 할 수
+      있으며 이때도 마찬가지로 각 JNDI 트리에서 발생하는 객체에 대한 정보의 변화가 있을 때에는 나머지 다른 JNDI로 그 내용이
+      전달된다. 따라서 JNDI Naming 클러스터링 환경에서는 하나의 Naming Server에서 바인딩한 객체를 다른 여러
+      Naming Server에서 이 객체를 Lookup할 수 있게 된다.</p>
+
+      <p>예를 들어 다음 그림처럼 A, B, C, D라는 4개의 MS가 클러스터링을 구성하고 있는 환경에서 MS A에
+      obj1이라는 객체를 'objName1'이라는 이름으로 바인딩하면, 이는 나머지 3개의 MS B, C, D에도 이 객체가
+      전달된다. 따라서 처음에 클라이언트가 직접 바인딩을 시도한 MS A가 아닌 다른 3개의 MS에서도 'objName1'으로
+      Lookup하면 obj1이라는 객체를 얻어올 수 있게 된다.</p>
+
+      <p>그러나 바인딩한 모든 객체가 클러스터링에 속한 MS로 복제되는 것은 아니고, 클러스터링 대상으로 바인딩한 객체만
+      복제된다. 예를 들어 데이터소스같이 각 MS에 특화된 객체는 각 MS의 JNS Server에만 바인딩된다.</p>
+
+      <div class="figure"><a id="figure_jeus_jdni_architecture_in_clustering"></a><p class="title"><b>[그림 4.4] 클러스터링 환경에서 JEUS JNDI 아키텍처</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="379"><tr><td align="left"><img src="resources/figure_jnsserver_and_jnslocal_relation_in_clustering.png" align="top" width="379" alt="클러스터링 환경에서 JEUS JNDI 아키텍처"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>각 MS는 각각의 JNSServer를 관리할 책임을 가지고 있다. 각 JNSServer는 JEUS 시스템이 기동될 때
+      시작되어서 다른 MS의 JNSServer와 연결된다. 각 JEUS 엔진은 InitialContext를 가져옴과 동시에
+      JNSClient가 JNSServer로 연결된다. 클라이언트가 JNDI 트리의 객체를 Lookup할 때 JNSClient로
+      요청하고 이어서 해당 MS의 JNSServer로 요청이 보내진다. 그리고 이에 대한 객체를 클라이언트가 받게 된다.</p>
+
+      <div class="literallayout"><p/></div><h4><a id="d4e2751"></a>클러스터링 환경에서 원격으로
+      Lookup</h4>
+
+      <p>별도의 설정을 하지 않은 경우 JNDI Lookup은 자신이 포함된 JEUS JNDI 클러스터링 영역에 대해서
+      수행된다. 그러나 애플리케이션이 클러스터링에 있지 않은 다른 MS의 JNDI 서버에 있는 내용을 Lookup할 때에는
+      PROVIDER URL(<a xmlns="" href="../reference-book/ch01.html#jndi_system_properties" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “1.4. JNDI 시스템 프로퍼티”</a> 참고)을 지정해서 Context를 생성하거나
+      Lookup할 때 JEUS에서 생성한 jh(JEUS Host) 프로토콜을 사용한 이름으로 Lookup해야 한다. 이에 대한 내용은
+      <a href="chapter_jndi.html#jndi_programming" title="4.5. JNDI 프로그래밍">“4.5. JNDI 프로그래밍”</a>을 참고한다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2758"></a>JNSServer Replication</h4>
+
+      <p>JEUS의 각 JNSServer는 다른 서버와 연결되어서 상호 작용하기를 기다리고 있다. 기존의 클러스터로 새로운
+      MS가 들어오면, 새로 들어온 MS의 JNSServer는 시작할 때 이미 존재하는 다른 JNSServer로 통보를 보내게 된다.
+      이때 각 JNSServer는 자신의 데이터를 새로 들어온 JNSServer로 전송하게 되며, 이렇게 해서 새로 들어온
+      JNSServer에서도 기존에 bind되어 있는 객체를 Lookup할 수 있게 된다.</p>
+
+      <p>이런 확장성으로 인해 이상 작동하여 재기동된 JNSServer는 다른 JNSServer로부터 JNDI 트리 정보를 받아
+      정상 상태로 동작할 수 있다.</p>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jeus-jndi-naming-server-config"></a>4.3. JNDI Naming Server 설정</h2></div></div></div>
+    
+
+    <p>JNDI Naming Server는 JNSServer와 JNSClient로 구성되어 있다. 이 둘은 서로 다른 설정을
+    가진다.</p>
+
+    <p>JNSServer에서는 JNSClient의 커넥션을 받아들이는 설정과 다른 JNSServer와 접속하기 위한 설정이
+    필요하고, JNSClient는 JNSServer와 접속하기 위한 것과 JNDI 트리의 반영을 위한 설정이 필요하다.</p>
+
+    <p>본 절에서는 JNSServer와 JNSClient를 설정하는 방법에 대해서 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus-jndi-naming-server-config-jns-config"></a>4.3.1. JNSServer 설정</h3></div></div></div>
+      
+
+      <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면 서버 목록 조회
+      화면으로 이동한다. 서버 목록에서 서버를 선택하면 서버 설정화면으로 이동한다. 설정화면에서 <span><strong class="guibutton">[Naming
+      Server] </strong></span>메뉴를 선택하면 JNSServer의 설정할 수 있는 화면으로 이동한다.</p>
+
+      <p>다음은 <span><strong class="guibutton">Naming Server</strong></span> 설정화면이다.</p>
+
+      <div class="figure"><a id="d4e2776"></a><p class="title"><b>[그림 4.5] Naming server 설정</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_webadmin_naming_server.png" align="top" width="701" alt="Naming server 설정"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2783"></a>공용 Thread Pool 설정</h4><p> <a id="d4e2784" class="indexterm"></a></p>
+
+      <p>WebAdmin이나 콘솔 툴을 사용해서 서버 전반적으로 공유할 Thread Pool을 설정할 수 있다. Thread
+      Pool에 대한 기본적인 설명은 <a href="chapter_server_conf.html#sect_server_thread_pool" title="2.3.3. Thread Pool 설정">“2.3.3. Thread Pool 설정”</a>을
+      참고한다.</p>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">WebAdmin 사용 </strong></span></p>
+
+          <p>다음은 WebAdmin의 공용 Thread Pool 설정화면이다.
+          <span><strong class="guibutton">'Pooling'</strong></span> 체크박스를 체크하고 <span><strong class="guibutton">'Shared'
+          </strong></span>항목을 선택한다. 공용 Thread Pool에 대한 항목을 설정하고
+          <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+          <p/>
+
+          <div class="figure"><a id="d4e2799"></a><p class="title"><b>[그림 4.6] 공용 Thread Pool 설정</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_webadmin_namingserver_pooling_shared.png" align="top" width="701" alt="공용 Thread Pool 설정"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">콘솔 툴 사용 </strong></span></p>
+
+          <p>콘솔 툴을 통해서도 공용 Thread Pool을 설정할 수 있다.</p>
+
+          <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-system-thread-pool adminServer -service namingserver -r 10</strong></span>
+Successfully performed the MODIFY operation for The namingserver thread pool of
+the server (adminServer)., but all changes were non-dynamic. They will be applie
+d after restarting.
+Check the results using "show-system-thread-pool adminServer -service namingserv
+er or modify-system-thread-pool adminServer -service namingserver"
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-system-thread-pool adminServer -service namingserver</strong></span>
+show the current configuration.
+The namingserver thread pool of the server (adminServer) 
+================================================================================
++----------------------------------------------------------------------+-------+
+| Reserved Threads for the Service namingserver                        | 10    |
++----------------------------------------------------------------------+-------+
+================================================================================</pre>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2818"></a>서비스 전용 Thread Pool 설정</h4><p> <a id="d4e2819" class="indexterm"></a></p>
+
+      <p>WebAdmin이나 콘솔 툴을 사용해서 서비스별 전용 Thread Pool을 설정할 수 있다.</p>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">WebAdmin 사용 </strong></span></p>
+
+          <p>다음은 WebAdmin의 서비스 전용 Thread Pool 설정화면이다.
+          <span><strong class="guibutton">'Pooling'</strong></span> 체크박스를 체크하고
+          <span><strong class="guibutton">'Dedicated'</strong></span> 항목을 선택한다. 서비스 전용 Thread Pool에 대한
+          항목을 설정하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="d4e2832"></a><p class="title"><b>[그림 4.7] 서비스 전용 Thread Pool 설정</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_webadmin_namingserver_pooling_dedicated.png" align="top" width="701" alt="서비스 전용 Thread Pool 설정"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>Stuck Thread Handling 설정</p>
+
+              <p>Thread가 특정 일 때문에 일정시간 이상 계속 점유된 상태일 경우 그 Thread에 대해서 특정
+              액션을 취하기 위한 설정이다. 공유할 Thread Pool을 사용한다.</p>
+
+              <p>다음은 <span><strong class="guibutton">Stuck Thread Handling</strong></span> 관련 설정 항목에
+              대한 설명이다.</p>
+
+              <div class="informaltable">
+                  <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Max Stuck Thread Time</td><td><p>Thread를 Stuck Thread로 판단하는 기준이 되는 값이다.
+                        </p><p>여기에 설정된 시간 이상 계속 점유된 상태이면 그 Thread를 Stuck
+                        Thread로 간주한다. (기본값: 3600000(1시간), 단위:
+                        ms)</p></td></tr><tr><td align="left">Action On Stuck Thread</td><td><p>Stuck Thread로 판단된 경우 그 Thread에 대해 특정 액션을
+                        취하기 위한 설정이다. </p><p>다음 중 하나의 값을 설정한다.
+                        </p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                              <p>None : 아무 액션도 취하지 않는다.</p>
+                            </li><li style="list-style-type: circle">
+                              <p>Interrupt : Interrupt Signal을 보낸다.</p>
+                            </li><li style="list-style-type: circle">
+                              <p>IgnoreAndReplace : Stuck Thread를 무시하고 새로운
+                              Thread로 교체한다.</p>
+                            </li></ul></div><p/></td></tr><tr><td align="left">Stuck Thread Check Period</td><td><p>Stuck Thread의 상태를 체크하는 주기를
+                        설정한다.</p><p>여기에 설정된 주기마다 Thread의 상태를 체크하여 Stuck
+                        Thread로 판단할지 여부를 결정한다. (기본값: 300000(5분), 단위:
+                        ms)</p></td></tr></tbody></table>
+                </div>
+            </li></ul></div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">콘솔 툴 사용 </strong></span></p>
+
+          <p>콘솔 툴을 통해서도 서비스 전용 Thread Pool을 설정할 수 있다.</p>
+
+          <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-service-thread-pool server1 -service namingserver -min 0 -max 20</strong></span>
+Successfully performed the MODIFY operation for The namingserver thread pool of
+the server (server1)., but all changes were non-dynamic. They will be applied af
+ter restarting.
+Check the results using "show-service-thread-pool server1 -service namingserver
+or modify-service-thread-pool server1 -service namingserver"
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-service-thread-pool server1 -service namingserver</strong></span>
+Shows the current configuration.
+The namingserver thread pool of the server (server1). 
+===================================================================
++-------------------------------------------------------+---------+
+| Min                                                   | 0       |
+| Max                                                   | 20      |
+| Keep-Alive Time                                       | 60000   |
+| Queue Size                                            | 4096    |
+| Max Stuck Thread Time                                 | 3600000 |
+| Action On Stuck Thread                                | NONE    |
+| Stuck Thread Check Period                             | 300000  |
++-------------------------------------------------------+---------+
+===================================================================
+</pre>
+        </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>서비스의 Thread Pool 설정을 수정하는 것은 동적 반영 가능하기 때문에 서버를 재기동하지 않아도 된다.
+          하지만 공용 Thread Pool을 사용하다가 전용 Thread Pool을 사용하도록 변경하려면 서버를 재기동해야
+          한다.</p>
+        </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus-jndi-naming-server-config-jnslocal-config"></a>4.3.2. JNSClient 설정</h3></div></div></div>
+      
+
+      <p>JNSClient는 놓이는 위치에 따라서 설정하는 방법이 달라진다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Server-side JNSClient 설정<a id="d4e2894" class="indexterm"></a></p>
+
+          <p>Server-side JNSClient는 JNSClient가 MS와 같이 실행되는 것을 의미하며
+          JNSSever의 설정을 따른다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Client-side JNSClient 설정<a id="d4e2900" class="indexterm"></a></p>
+
+          <p>Client-side JNSClient는 JVM이 서로 다른 JNSServer를 액세스한다. 그래서
+          JNSServer와 연결되어서 JNDI 트리의 내용을 반영하는 Thread가 존재한다. JEUS JNDI는 Thread
+          Pool로 Thread를 관리한다. 이 Thread Pool은 JEUS 프로퍼티를 사용해서 설정하며, 기본값을 사용해도
+          무방하다.</p>
+
+          <p><a id="d4e2904" class="indexterm"></a>Client-side JNSClient의 프로퍼티를 설정하려면 JVM의 시스템 프로퍼티를
+          사용하거나 InitialContext의 Hash Table을 사용해야 한다.</p>
+
+          <p>다음은 Client-side JNSClient의 프로퍼티의 종류이다.</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JNSContext.RESOLUTION<a id="d4e2910" class="indexterm"></a></p>
+            </li><li>
+              <p>JNSContext.CONNECT_TIMEOUT<a id="d4e2914" class="indexterm"></a></p>
+            </li><li>
+              <p>JNSContext.CONNECTION_DURATION<a id="d4e2918" class="indexterm"></a></p>
+            </li></ul></div>
+        </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>EJB와 Servlet/JSP 같은 서버 측 객체에서 JNDI를 사용한다면 MS에 의해서 Server-side
+          JNSClient를 사용해서 bind나 Lookup되기 때문에 이런 프로퍼티를 설정할 필요가 없다. 프로퍼티에 대한 자세한
+          내용은 <a xmlns="" href="../reference-book/ch01.html#jndi_system_properties" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “1.4. JNDI 시스템 프로퍼티”</a>를 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jeus-jndi-naming-server-config-in-clustering"></a>4.4. 클러스터링 환경에서 JNDI</h2></div></div></div>
+    
+
+    <p>MS 간에 클러스터링 환경이 구성되어 있다면 JNDI를 클러스터링하기 위해서 별도의 작업은 필요없다. 만약 MS가
+    클러스터링된다면 각 JNSServer도 자동적으로 클러스터링 환경을 구성한다. MS들을 클러스터링하는 것에 대해서는 <a xmlns="" href="../domain/chapter_clustering.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Domain 안내서</span>”의 “제5장 JEUS 클러스터링”</a>을
+    참고한다.</p><div class="literallayout"><p/></div>
+
+    <p>기본적으로 JNSClient는 로컬 JNSServer로 접속한다. JNSClient는 MS의 JNSServer 주소를
+    Context.PROVIDER_URL로 제공받는데, 클러스터링 환경인 경우에도 클러스터링에 참여하고 있는 모든 MS의 주소를 다음과
+    같이 적어 주어야 한다.</p>
+
+    <p>JNSClient는 제공된 Context.PROVIDER_URL를 바탕으로 Load Balancing과 Failover를
+    수행하기 때문이다.</p>
+
+    <pre class="programlisting">Hashtable ht = new Hashtable();
+ht.put(Context.PROVIDER_URL, "host1:9736,host2:9736"); //cluster에 host1, host2가 참여</pre>
+
+    <p>만약 Context.PROVIDER_URL에서 적혔는 MS 중에 특정 MS가 FAILED 상태가 되면 JNSClient는
+    FAILED상태가 된 MS로 JNSServer의 JNDI 오퍼레이션할 때 이를 감지하여 다른 JNSServer로 Failover를
+    한다. FAILED 상태로 판단된 MS는 JNSClient에서 주기적으로 체크하여 RUNNING 상태가 되었는지 확인한다.
+    -Djeus.jndi.cluster.recheckto 옵션으로 설정 가능하다. (기본값: 5, 단위: 분)</p>
+
+    <p/>
+
+    <p>만약 JNSClient가 DAS의 관리를 받는 MS에서 동작하고 있다면, 다음과 같이 DAS에서 설정한 클러스터 이름을
+    적어서 사용할 수 있다.</p>
+
+    <pre class="programlisting">Hashtable ht = new Hashtable();
+ht.put(Context.PROVIDER_URL, "jeus://cluster1"); //cluster1은 DAS에 설정한 클러스터 이름</pre>
+
+    <p>클러스터 이름을 적어서 사용한 경우에는 JNSClient의 "jeus.jndi.cluster.recheckto" 옵션과
+    상관없이 DAS로부터 늘 MS 서버의 최신 상태 정보를 받아서 클러스터링을 할 수 있다. 즉, 클러스터에 속한 MS가 FAILED
+    상태가 되거나 새로운 MS가 추가된 경우에 JNSClient에서 JNDI 오퍼레이션을 수행하기 전에 최신의 서버 상태로 업데이트되어
+    동작된다. <span><strong class="guibutton">따라서 JNSClient가 DAS의 관리를 받는 MS에서 동작된다면 클러스터 이름을 사용할 것을
+    권장한다.</strong></span></p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jndi-naming-server-config-in-clustering-binding-options"></a>4.4.1. Lookup</h3></div></div></div>
+      
+
+      <p><a id="d4e2947" class="indexterm"></a>클러스터에 있는 클라이언트는 JNDI 트리에 bind되어 있는 어떤 객체든 Lookup할 수 있다. 만약
+      클라이언트가 JNSClient에 객체를 bind한다면 즉시 JNSServer를 통해서 클러스터링된 모든 MS에서 그것을 공유하게
+      된다. 또한 데이터 삭제나 변경이 발생하면 즉시 각 MS의 JNSClient에도 반영된다.</p>
+
+      <p>JEUS JNDI에서는 객체의 성격에 따라서 어떤 객체는 클러스터 전체에 공유되고 (Lookup을 위한 export
+      name 같은 객체), 어떤 객체는 자신의 MS(데이터소스같은 MS에 의존적인 객체)에서만 보인다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jndi_programming"></a>4.5. JNDI 프로그래밍</h2></div></div></div>
+    
+
+    <p>본 절에서는 JEUS JNDI를 사용하는 프로그래밍 방법에 대해서 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p><a id="d4e2957" class="indexterm"></a>Java 클라이언트는 InitialContext를 사용해서 JNDI 트리를 접근한다.
+    InitialContext에 사용되는 프로퍼티는 JNDI 표준 프로퍼티와 JEUS용 프로퍼티가 있다. 먼저 JNDI 환경을 설정하고
+    그 다음으로 InitialContext를 사용해서 객체를 Lookup한 다음, 객체의 레퍼런스를 가져온다. 마지막으로
+    InitialContext를 사용한 다음에는 반드시 close시켜준다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음의 과정으로 Java 클라이언트는 JEUS JNDI 서비스를 사용한다. </p><div class="orderedlist"><ol type="1"><li>
+          <p>JEUS 환경설정</p>
+        </li><li>
+          <p>InitialContext를 위한 프로퍼티 설정</p>
+        </li><li>
+          <p>Context를 사용한 Named Object의 Lookup</p>
+        </li><li>
+          <p>Named Object를 사용해서 객체의 레퍼런스 취득</p>
+        </li><li>
+          <p>Context 닫기</p>
+        </li></ol></div>
+
+    <p>각 단계에 대한 자세한 설명은 해당 절을 참고한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus-jndi-programming"></a>4.5.1. JEUS 환경설정</h3></div></div></div>
+      
+
+      <p>JNDI 서비스에서 필요한 클래스를 사용할 수 있도록 JEUS 클라이언트 모듈의 경로(JEUS_CLIENT)를 클래스
+      패스에 설정한다.</p>
+
+      <p/>
+
+      <pre class="screen">-classpath ${JEUS_CLIENT};</pre>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus-jndi-programming"></a>4.5.2. InitialContext를 위한 프로퍼티 설정</h3></div></div></div>
+      
+
+      <p>Java 클라이언트가 JEUS JNDI 서비스를 사용하기 전에 우선 InitialContext의 환경 프로퍼티를
+      설정한다.</p>
+
+      <p>설정하는 방법은 다음의 2가지가 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>JVM의 -D 옵션을 사용한다.</p>
+        </li><li>
+          <p>Hash Table을 생성하여 InitialContext의 생성자에게 넘긴다.</p>
+        </li></ul></div>
+
+      <p>위의 2가지 방법 중 Hash Table을 생성하여 InitialContext의 생성자에게 넘기는 방법보다 JVM의
+      -D 옵션을 사용하는 방법이 우선한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>JEUS JNDI의 InitialContext를 생성하기 위해서 설정해야 하는 프로퍼티는 다음과
+      같다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>Context.INITIAL_CONTEXT_FACTORY (required)</p>
+          </li><li>
+            <p>Context.URL_PKG_PREFIXES</p>
+          </li><li>
+            <p>Context.PROVIDER_URL</p>
+          </li><li>
+            <p>Context.SECURITY_PRINCIPAL</p>
+          </li><li>
+            <p>Context.SECURITY_CREDENTIALS</p>
+          </li></ul></div><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>프로퍼티에 대한 자세한 사항은 <a xmlns="" href="../reference-book/ch01.html#jndi_system_properties" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “1.4. JNDI 시스템 프로퍼티”</a>를 참고한다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div><p>이 프로퍼티들은 Hash Table에 넣어서
+      InitialContext를 생성할 때 사용한다. 만약 서버 측 객체 내(EJB나 Servlet/JSP)에서만
+      InitialContext를 사용한다면 별도의 설정 없이 기본으로 설정된 InitialContext를 사용한다.</p>
+
+      <p>클라이언트 프로그램에서는 다음과 같이 설정한다.</p>
+
+      <pre class="programlisting">Context ctx = null;
+Hashtable ht = new Hashtable();
+ht.put(Context.INITIAL_CONTEXT_FACTORY, "jeus.jndi.JNSContextFactory”);
+ht.put(Context.URL_PKG_PREFIXES, “jeus.jndi.jns.url”);
+ht.put(Context.PROVIDER_URL, “<span class="emphasis"><em>&lt;hostname&gt;</em></span>”);
+ht.put(Context.SECURITY_PRINCIPAL, “<span class="emphasis"><em>&lt;username&gt;</em></span>”);
+ht.put(Context.SECURITY_CREDENTIALS, “<span class="emphasis"><em>&lt;password&gt;</em></span>”);
+
+try {
+    ctx = new InitialContext(ht);
+    // use the context
+} catch (NamingException ne) {
+    // fail to get an InitialContext
+} finally {
+    try{
+        ctx.close();
+    catch (Exception e) {
+        // an error occurred
+    }
+}</pre>
+
+      <div class="literallayout"><p/></div>
+
+      <p>클러스터링 환경에서 JNDI를 사용할 때는 JNDI 트리를 구성하고 JNSClient의 내부적인 작동을 효과적으로
+      관리하기 위해서 jeus.jndi.JNSContext의 추가적인 환경 프로퍼티를 사용할 수 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Hash Table을 사용해서 Context 생성하기</p>
+
+          <p>InitialContext의 환경 프로퍼티를 설정할 때 Hash
+          Table(java.util.Hashtable)의 키로 프로퍼티 이름을 넣고, 값으로 프로퍼티의 데이터를 넣은 후에
+          InitialContext 생성자의 파라미터로 넣어준다.</p>
+        </li><li>
+          <p>Security Context 생성하기</p>
+
+          <p>JEUS Security 도메인의 사용자를 실행 Thread에 적용시키기 위해서 몇 가지 보안 관련 환경
+          프로퍼티를 사용할 수 있다. InitialContext가 생성될 때 Security Context는 다음의 프로퍼티로
+          구성한다.</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>사용자명 프로퍼티 : java.naming.security.principal</p>
+            </li></ul></div>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>패스워드 프로퍼티 : java.naming.security.credentials</p>
+            </li></ul></div>
+        </li></ul></div>
+
+      <p>인증이 성공하면 인증된 사용자의 정보가 실행 Thread에 설정되며, JEUS Security Manager가 관리하는
+      리소스를 액세스할 수 있다. 만약 인증에 실패하면 Thread는 guest 사용자로 인식된다.</p>
+
+      <p>Security Context가 설정되어도 InitialContext가 생성되기 전에 JEUS Security API를
+      사용해서 로그인한 경우 Security Context는 무시된다. 즉, 이미 로그인된 subject를 사용해서 JNDI 통신을
+      수행한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>1. 사용자 정보 설정에 관한 더 자세한 내용과 JEUS Security Service에 대한 내용은
+          <a xmlns="" href="../security/index.html" class="olink">"JEUS Security
+          안내서"</a>를 참고한다.</p>
+
+          <p>2. InitialContext 설정 관련 프로퍼티와 환경 프로퍼티에 대한 자세한 내용은 <a xmlns="" href="../reference-book/ch01.html#jndi_system_properties" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “1.4. JNDI 시스템 프로퍼티”</a>를 참고한다.</p>
+        </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3039"></a>4.5.3. Context를 사용한 Named Object의 Lookup</h3></div></div></div>
+      
+
+      <p>JNDI 트리에 bind된 객체는 JNDI Context의 Lookup() 메소드를 사용해서 찾는다. 다음은
+      Lookup하려는 객체의 모듈 이름이 countermod이고, EJB 이름이 Count인 경우이다.</p>
+
+      <pre class="programlisting">try {
+    Context ctx = new InitialContext();
+    Count count = (Count)ctx.lookup(“java:global/countermod/Count”);
+//    Count count = (Count)ctx.lookup(“java:global/countermod/Count!my.ejb3.tx.Count”);
+//    Count count = (Count)ctx.lookup(“Count”);
+    // successfully got the object
+} catch (NameNotFoundException ex) {
+    // no such binding exists
+} catch (NamingException e) {
+    // an error occurred
+}</pre>
+
+      <p>비즈니스 인터페이스가 여러 개인 경우 "!인터페이스이름"을 뒤에 더 붙여서 Lookup하면 된다.</p>
+
+      <pre class="programlisting">Count count = (Count)ctx.lookup(“java:global/countermod/Count!my.ejb3.tx.Count”);</pre>
+
+      <p>export name을 준 경우는 export name으로 Lookup할 수 있다.</p><pre class="programlisting">Count count = (Count)ctx.lookup(“Count”);</pre>
+
+      <p>다음은 EJB 2.x 객체인 경우를 lookup하는 예제이다.</p>
+
+      <pre class="programlisting">try {
+    Context ctx = new InitialContext();
+    CountHome countHome = (CountHome)ctx.lookup(“Count”);
+    // successfully got the object
+} catch (NameNotFoundException ex) {
+    // no such binding exists
+} catch (NamingException e) {
+    // an error occurred
+}</pre>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3054"></a>4.5.4. Named Object 사용</h3></div></div></div>
+      
+
+      <p>EJB 3.x인 경우에는 Lookup한 객체를 다음과 같이 바로 사용한다.</p>
+
+      <pre class="programlisting">count.service();</pre>
+
+      <p>EJB 2.x 인 경우 Lookup한 EJB 홈 객체의 create() 메소드를 사용해서 EJB 리모트 객체의
+      Reference를 가져온다. 다음과 같이 메소드를 실행해서 사용하려는 객체의 Home Reference를 가져오고, 그
+      Reference의 메소드를 실행한다.</p>
+
+      <pre class="programlisting">Count count = countHome.create();
+count.service();</pre>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3065"></a>4.5.5. Context 닫기</h3></div></div></div>
+      
+
+      <p>다음과 같이 Context를 사용한 다음에는 close() 메소드를 실행해서 Context를 닫아준다.</p>
+
+      <p/>
+
+      <pre class="programlisting">try {
+    cx.close();
+} catch(Exception e) {
+    // an error occurred
+}</pre>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3071"></a>4.5.6. 클러스터링 Context 생성</h3></div></div></div>
+      
+
+      <p>JEUS 클러스터링 환경에서 사용할 수 있는 Context를 생성하기 위해서는 다음과 같이
+      Context.PROVIDER_URL에 여러 개의 호스트를 설정한다.</p>
+
+      <pre class="programlisting">Hashtable ht = new Hashtable();
+ht.put(Context.PROVIDER_URL, "host1:9736,host2:9736");</pre>
+
+      <p/>
+
+      <p>도메인에 설정한 클러스터 이름을 알고 있다면 다음과 같이 설정하여 사용할 수도 있다.</p>
+
+      <pre class="programlisting">Context.PROVIDER_URL에 'jeus://' + <span class="emphasis"><em>&lt;클러스터 이름&gt; </em></span></pre>
+
+      <p>단, 클러스터에 속한 MS에서만 사용이 가능하고, 독립된 클라이언트(Standalone Client)에서는 클러스터
+      정보를 알 수 없어 사용할 수 없다.</p>
+
+      <pre class="programlisting">Hashtable ht = new Hashtable();
+ht.put(Context.PROVIDER_URL, "jeus://cluster1");</pre>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>클러스터링된 Context에서 Lookup하는 경우 어떤 MS에서 객체를 가져올 것인지에 대한 정책을 정할 수
+      있다.</p>
+
+      <p>jeus.jndi.clusterlink.selection-policy 프로퍼티를 제공하며 다음과 같은 3가지 값을
+      설정할 수 있다. 또한 이 값들은 System property를 주어 설정할 수도 있으며, 이 경우에는 Hashtable을 통한 설정이 우선된다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">locallinkPreference</td><td>로컬 MS에 있는 객체를 사용한다.</td></tr><tr><td align="left">roundrobin</td><td>처음 요청에서는 random하게 선택한 MS의 객체를 사용하고, 그 후 요청부터는 하나씩 증가하면서
+                서버를 선택한다.</td></tr><tr><td align="left">random</td><td>클러스터링된 MS들 중에서 random하게 하나를 선택해서 사용한다.</td></tr></tbody></table>
+        </div>
+
+      <p/>
+
+      <p>다음은 설정 예제이다.</p>
+
+      <pre class="programlisting">Hashtable ht = new Hashtable();
+ht.put(Context.PROVIDER_URL, "host1:9736,host2:9736");
+ht.put("jeus.jndi.clusterlink.selection-policy", "random");</pre>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3111"></a>4.5.7. 원격으로 Lookup 실행</h3></div></div></div>
+      
+
+      <p>애플리케이션이 클러스터링에 있지 않은 다른 MS의 JNDI 서버에 있는 내용을 Lookup할 때에는 PROVIDER
+      URL을 지정해서 Context를 생성하거나 Lookup할 때 JEUS에서 생성한 jh(JEUS Host) 프로토콜을 사용한
+      이름으로 Lookup해야 한다.</p>
+
+      <p>다음은 JEUS의 클러스터링 환경에서 원격으로 Lookup을 실행할 수 있도록 하는 특별한 Lookup 구문이다. 이
+      구문은 자신이 속한 JEUS JNDI 클러스터링의 영역을 벗어나 원격지의 JEUS JNDI 클러스터링에 있는 객체를 Lookup할
+      때 사용한다.</p>
+
+      <pre class="programlisting">jh:<span class="emphasis"><em>&lt;remote JEUS host name&gt;:&lt;remote JEUS base port&gt;/&lt;export name&gt;</em></span>
+("jh" = JEUS host)</pre>
+
+      <p>다음은 Lookup 구분의 사용법으로 JNDI Context 문자열 내에 다음과 같은 구문을 입력한다.</p>
+
+      <pre class="programlisting">try {
+    Context ctx = new InitialContext();
+    CountHome countHome = (CountHome)ctx.lookup("jh:dev:9736/Count");
+    // successfully got the object
+} catch (NameNotFoundException ex) {
+    // no such binding exists
+} catch (NamingException e) {
+    // an error occurred
+}</pre>
+
+      <p/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_server_control.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_external_resource.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제3장 JEUS 서버 제어 및 모니터링 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제5장 External Resource</td></tr></table></div><div xmlns="" align="center"/></body></html>

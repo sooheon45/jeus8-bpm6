@@ -1,0 +1,1249 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제11장 domain.xml EJB 엔진 설정</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS XML Reference"/><link rel="up" href="index.html" title="JEUS XML Reference"/><link rel="prev" href="webengine_domain.xml_VirtualHost.html" title="제10장 domain.xml의 웹 엔진내의 Virtual Host 설정"/><link rel="next" href="jms-server.html" title="제12장 domain.xml의 JMS 엔진 설정"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제11장 domain.xml EJB 엔진 설정</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="webengine_domain.xml_VirtualHost.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="jms-server.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_EJBMain_configuration"></a>제11장 domain.xml EJB 엔진 설정</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_EJBMain_configuration.html#d4e144195">11.1. 소개</a></span></dt><dt><span class="section"><a href="chapter_EJBMain_configuration.html#d4e144249">11.2. XML Schema/XML 트리</a></span></dt><dt><span class="section"><a href="chapter_EJBMain_configuration.html#d4e144369">11.3. Element Reference</a></span></dt><dt><span class="section"><a href="chapter_EJBMain_configuration.html#d4e145779">11.4. domain.xml의 EJB 엔진 설정 예제</a></span></dt></dl></div>
+    
+
+    <p>여기에서 JEUS의 EJB 엔진에 설정에 관한 설명을 찾을 수 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+            <p>XML Schema 파일:
+            <code class="filename">JEUS_HOME/lib/schemas/jeus/ejb-engine.xsd</code></p>
+        </li></ul></div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e144195"></a>11.1. 소개</h2></div></div></div>
+        
+
+        <p>레퍼런스는 다음 형식으로 구성되어 있다. </p><div class="orderedlist"><ol type="1"><li>
+      <p><span class="bold"><strong>XML Schema/XML 트리</strong></span>: XML 설정 파일의 모든
+      태그 리스트를 정리했다. 각 노드의 형식은 다음과 같다.</p><div class="orderedlist"><ol type="a"><li>
+            <p>태그 레퍼런스로 빨리 찾아보기 위해서 각 태그마다 인덱스 번호( 예: (11) )를 붙여 놓았다. 태그
+            레퍼런스에서는 이 번호 순서로 설명한다.</p>
+          </li><li>
+            <p>XML Schema에서 정의한 XML 태그명을 &lt;<span class="bold"><strong>tag
+            name</strong></span>&gt; 형식으로 표시한다.</p>
+          </li><li>
+            <p>XML Schema에서 정의한 Cardinality를 표시한다. “?” = 0개나 1개의 element,
+            “+” = 1개 이상의 element, “*” = 0개 이상의 element, (기호가 없음) = 정확히 1개의
+            element</p>
+          </li><li>
+            <p>몇몇 태그에는 “P” 문자를 붙여 놓았는데, 해당 태그는 성능에 관계되는 태그라는 것을 뜻한다. 이 태그는
+            설정을 튜닝할 때 사용된다.</p>
+          </li></ol></div>
+    </li><li>
+      <p><span class="bold"><strong>Element Reference</strong></span>: 트리에 있는 각 XML
+      태그를 설명한다.</p><div class="orderedlist"><ol type="a"><li>
+            <p><span class="bold"><strong>Dynamic</strong></span>: 동적 설정 반영 가능</p>
+          </li><li>
+            <p><span class="bold"><strong>Non-Dynamic</strong></span>: 동적 설정 반영 불가능, Dynamic이 설정되지 않은
+            항목들이 보통 이에 해당 하나 특별히 설명이 있는 경우 이 항목이 표시된다.</p>
+          </li><li>
+            <p><span class="bold"><strong>Description</strong></span>: 태그에 대한 간단한
+            설명.</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Description</strong></span>: 입력하는 값과
+            타입.</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Type</strong></span>: 값의 데이터 타입. (예:
+            String)</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Type Description</strong></span>: 값의 데이터 타입에 대한 설명 </p>
+          </li><li>
+            <p><span class="bold"><strong>Default Value</strong></span>: 해당 XML을 사용하지
+            않았을 때 기본적으로 사용되는 값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Defined Value</strong></span>: 이미 정해져 있는
+            값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Example</strong></span>: 해당 XML 태그에 대한
+            예.</p>
+          </li><li>
+            <p><span class="bold"><strong>Performance Recommendation</strong></span>:
+            성능 향상을 위해서 추천하는 값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Child Elements</strong></span>: 자신의 태그 안에
+            사용하는 태그.</p>
+          </li></ol></div>
+    </li></ol></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e144249"></a>11.2. XML Schema/XML 트리</h2></div></div></div>
+        
+
+        <div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine"></a>
+                (969)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">&lt;ejb-engine&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.resolution"></a>
+                (970)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.resolution">&lt;resolution&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.enable-user-notify"></a>
+                (971)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.enable-user-notify">&lt;enable-user-notify&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management"></a>
+                (972)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">&lt;active-management&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management.max-blocked-thread"></a>
+                (973)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.max-blocked-thread">&lt;max-blocked-thread&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management.max-idle-time"></a>
+                (974)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.max-idle-time">&lt;max-idle-time&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management.email-notify"></a>
+                (975)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify">&lt;email-notify&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management.email-notify.smtp-host-address"></a>
+                (976)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.smtp-host-address">&lt;smtp-host-address&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management.email-notify.from-address"></a>
+                (977)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.from-address">&lt;from-address&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management.email-notify.sender-id"></a>
+                (978)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.sender-id">&lt;sender-id&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management.email-notify.sender-password"></a>
+                (979)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.sender-password">&lt;sender-password&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management.email-notify.to-address"></a>
+                (980)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.to-address">&lt;to-address&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management.email-notify.property"></a>
+                (981)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.property">&lt;property&gt;</a>*</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management.email-notify.property.key"></a>
+                (982)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.property.key">&lt;key&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management.email-notify.property.value"></a>
+                (983)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.property.value">&lt;value&gt;</a></p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management.email-notify.cc-address"></a>
+                (984)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.cc-address">&lt;cc-address&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.active-management.email-notify.bcc-address"></a>
+                (985)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.bcc-address">&lt;bcc-address&gt;</a>?</p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.invoke-http"></a>
+                (986)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.invoke-http">&lt;invoke-http&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.invoke-http.url"></a>
+                (987)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.invoke-http.url">&lt;url&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.invoke-http.http-port"></a>
+                (988)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.invoke-http.http-port">&lt;http-port&gt;</a>? P</p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.timer-service"></a>
+                (989)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service">&lt;timer-service&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.timer-service.support-persistence"></a>
+                (990)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.support-persistence">&lt;support-persistence&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.timer-service.max-retrial-count"></a>
+                (991)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.max-retrial-count">&lt;max-retrial-count&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.timer-service.retrial-interval"></a>
+                (992)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.retrial-interval">&lt;retrial-interval&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.timer-service.thread-pool"></a>
+                (993)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool">&lt;thread-pool&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.timer-service.thread-pool.min"></a>
+                (994)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool.min">&lt;min&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.timer-service.thread-pool.max"></a>
+                (995)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool.max">&lt;max&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.timer-service.thread-pool.period"></a>
+                (996)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool.period">&lt;period&gt;</a>? P</p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.timer-service.database-setting"></a>
+                (997)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.database-setting">&lt;database-setting&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.timer-service.database-setting.db-vendor"></a>
+                (998)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.database-setting.db-vendor">&lt;db-vendor&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.timer-service.database-setting.data-source-id"></a>
+                (999)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.database-setting.data-source-id">&lt;data-source-id&gt;</a></p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.async-service"></a>
+                (1000)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.async-service">&lt;async-service&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.async-service.thread-min"></a>
+                (1001)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.async-service.thread-min">&lt;thread-min&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.async-service.thread-max"></a>
+                (1002)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.async-service.thread-max">&lt;thread-max&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.async-service.access-timeout"></a>
+                (1003)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.async-service.access-timeout">&lt;access-timeout&gt;</a>? P</p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.ejb-engine.use-dynamic-proxy-for-ejb2"></a>
+                (1004)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.use-dynamic-proxy-for-ejb2">&lt;use-dynamic-proxy-for-ejb2&gt;</a>? P</p></li></ul></div><p>
+</p></li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e144369"></a>11.3. Element Reference</h2></div></div></div>
+        
+
+        <p><a id="schema-table-reference.domain.servers.server.ejb-engine"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (969)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; <span class="bold"><strong>&lt;ejb-engine&gt;</strong></span>
+</code>
+<a id="d4e144384" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>EJB 엔진은 J2EE EJB 애플리케이션이 작동하기 위한 환경을 제공한다. J2EE 스펙에서의
+                        EJB 컨테이너에 대응하는 기능이다. 서버가 부팅될 때 실행되며, 하나의 서버에서는 하나의 EJB 엔진만 지원한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">ejb-engineType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (970)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.resolution">resolution</a>?</code>
+</p>
+<p>
+            (971)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.enable-user-notify">enable-user-notify</a>?</code>
+</p>
+<p>
+            (972)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>?</code>
+</p>
+<p>
+            (986)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.invoke-http">invoke-http</a>?</code>
+</p>
+<p>
+            (989)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service">timer-service</a>?</code>
+</p>
+<p>
+            (1000)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.async-service">async-service</a>?</code>
+</p>
+<p>
+            (1004)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.use-dynamic-proxy-for-ejb2">use-dynamic-proxy-for-ejb2</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.resolution"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (970)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; <span class="bold"><strong>&lt;resolution&gt;</strong></span>
+</code>
+<a id="d4e144434" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Dynamic</em></span>
+</td><td>ActiveManager, PassivationTask를 고려하여 반영한다.</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>EJB 엔진의 상태를 체크하는 주기이다.
+                      Active Management를 설정했을 경우, Block된 스레드의 수를 체크하여 설정된 동작을 실행한다.
+                      각 Bean이 &lt;bean-pool&gt;과 &lt;connect-pool&gt;을 사용하는 경우, Pool의 idle 개수를 줄이는 작업을 Resizing이라고 하는데
+                      &lt;resizing-period&gt;가 지났는지 체크를 하고 Resizing을 수행한다.
+                      또한 Stateful Session Bean이 클라이언트로부터 &lt;passivation-timeout&gt; 이상으로 요청이 없었는지 체크하고 필요하면 Passivation을 실행한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>밀리세컨드</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">300000</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">100000</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.enable-user-notify"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (971)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; <span class="bold"><strong>&lt;enable-user-notify&gt;</strong></span>
+</code>
+<a id="d4e144481" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Non-Dynamic</em></span>
+</td><td>사용하는 곳이 별로 없고 User Log의 향후 모습에 따라 사라질 수 있다.</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>특성이 활성화되면 EJB Exception은 Server의 User Logging에 정의된 User Log에 기록된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">false</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">true</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (972)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; <span class="bold"><strong>&lt;active-management&gt;</strong></span>
+</code>
+<a id="d4e144520" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>EJB 엔진을 모니터링하고 오류를 처리하며 그 결과를 e-mail을 통해 관리자에게 통지한다.
+                      [Performace Recommendation]: 일반적으로 사용자는 EJB엔진의 Active Management 보다는 서블릿 엔진에 포함된
+                      Web Connections 사용을 권장한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">active-managementType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (973)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.max-blocked-thread">max-blocked-thread</a>?</code>
+</p>
+<p>
+            (974)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.max-idle-time">max-idle-time</a>?</code>
+</p>
+<p>
+            (975)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify">email-notify</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management.max-blocked-thread"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (973)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>&gt; <span class="bold"><strong>&lt;max-blocked-thread&gt;</strong></span>
+</code>
+<a id="d4e144559" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Dynamic</em></span>
+</td><td>동적 변경이 가능하다.</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Block된 스레드의 최대 개수를 설정한다. 이 설정값보다 EJB에 Block된 스레드 개수가
+                          많을 경우에 컨테이너를 재시작한다. 이 값이 작게 설정되어 있다면 EJB 엔진이 너무 자주 재시작될 수도 있기
+                          때문에 주의가 필요하다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>스레드 개수</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">off-intType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>기본적으로 Non Negative Int 타입이지만 -1인 경우에는 미설정 상태이다. 즉, off된다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">-1</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">200</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management.max-idle-time"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (974)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>&gt; <span class="bold"><strong>&lt;max-idle-time&gt;</strong></span>
+</code>
+<a id="d4e144607" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Dynamic</em></span>
+</td><td>동적 변경이 가능하다.</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>EJB 스레드가 Block되었다고 간주되는 상태를 정의한다. 이 설정값은 시간을 의미하며
+                      만약, 어떤 스레드가 이 시간을 초과하여 Idle 상태를 유지한다면 이 스레드는 Block되었다고 간주된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>밀리세컨드</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">300000</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">180000</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (975)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>&gt; <span class="bold"><strong>&lt;email-notify&gt;</strong></span>
+</code>
+<a id="d4e144655" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Non-Dynamic</em></span>
+</td><td>Logger 측에서는 동적 변경을 제공하지 않을 예정이다.</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Active Management나 혹은 다른 비정상적인 상태에 의해서 엔진이 재시작한다면 여기에 설정된 곳으로 e-mail을 보내서 상황을 알린다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">smtp-senderType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (976)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.smtp-host-address">smtp-host-address</a>
+</code>
+</p>
+<p>
+            (977)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.from-address">from-address</a>
+</code>
+</p>
+<p>
+            (978)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.sender-id">sender-id</a>
+</code>
+</p>
+<p>
+            (979)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.sender-password">sender-password</a>
+</code>
+</p>
+<p>
+            (980)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.to-address">to-address</a>
+</code>
+</p>
+<p>
+            (981)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.property">property</a>*</code>
+</p>
+<p>
+            (984)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.cc-address">cc-address</a>?</code>
+</p>
+<p>
+            (985)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.bcc-address">bcc-address</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.smtp-host-address"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (976)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify">email-notify</a>&gt; <span class="bold"><strong>&lt;smtp-host-address&gt;</strong></span>
+</code>
+<a id="d4e144714" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>e-mail을 보낼 SMTP 서버의 주소를 지정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.from-address"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (977)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify">email-notify</a>&gt; <span class="bold"><strong>&lt;from-address&gt;</strong></span>
+</code>
+<a id="d4e144741" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>e-mail을 보내는 사람의 주소를 지정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.sender-id"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (978)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify">email-notify</a>&gt; <span class="bold"><strong>&lt;sender-id&gt;</strong></span>
+</code>
+<a id="d4e144768" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>e-mail을 보낼 sender의 id를 지정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.sender-password"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (979)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify">email-notify</a>&gt; <span class="bold"><strong>&lt;sender-password&gt;</strong></span>
+</code>
+<a id="d4e144795" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>e-mail을 보낼 sender의 password를 지정한다.
+                        암호화해서 저장할 때에는 '{암호화할 알고리즘}암호화된 password'와 같은 형식으로 입력한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">{DES}FQrLbQ/D8O1lDVS71L28rw==</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.to-address"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (980)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify">email-notify</a>&gt; <span class="bold"><strong>&lt;to-address&gt;</strong></span>
+</code>
+<a id="d4e144827" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>e-mail을 받는 사람의 주소를 지정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.property"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (981)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify">email-notify</a>&gt; <span class="bold"><strong>&lt;property&gt;</strong></span>
+</code>
+<a id="d4e144854" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>이용하는 mail서버에 특정한 smtp 프로퍼티를 지정한다.
+                        schema에 명시된 property와 겹치는 경우에는 schema의 값을 따른다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">propertyType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (982)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.property.key">key</a>
+</code>
+</p>
+<p>
+            (983)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.property.value">value</a>
+</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.property.key"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (982)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify">email-notify</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.property">property</a>&gt; <span class="bold"><strong>&lt;key&gt;</strong></span>
+</code>
+<a id="d4e144892" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>프로퍼티의 Key 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.property.value"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (983)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify">email-notify</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.property">property</a>&gt; <span class="bold"><strong>&lt;value&gt;</strong></span>
+</code>
+<a id="d4e144920" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>프로퍼티의 Value 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.cc-address"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (984)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify">email-notify</a>&gt; <span class="bold"><strong>&lt;cc-address&gt;</strong></span>
+</code>
+<a id="d4e144947" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>e-mail을 참조로 받는 사람의 주소를 지정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify.bcc-address"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (985)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management">active-management</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.active-management.email-notify">email-notify</a>&gt; <span class="bold"><strong>&lt;bcc-address&gt;</strong></span>
+</code>
+<a id="d4e144974" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>e-mail을 숨은 참조로 받는 사람의 주소를 지정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.invoke-http"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (986)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; <span class="bold"><strong>&lt;invoke-http&gt;</strong></span>
+</code>
+<a id="d4e144999" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Non-Dynamic</em></span>
+</td><td>Stub이 다르게 생성되므로 동적으로 변경이 불가능하다.</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>이 기능을 설정하면 클라이언트 측의 EJB Stub과 원격지의 RMI 실행 환경은
+		      HTTP-RMI 요청(Request)으로 통신한다. 이것은 방화벽을 사이에 두고 EJB에 접근할 때
+		      사용된다. HTTP 호출 모드를 사용할 때 클라이언트가 EJB Stub에서 메소드를
+		      호출하면 HTTP-RMI 요청(Request)은 이것을 웹 컨테이너로 보낼 웹 서버로 발송된다.
+		      그리고 이것은 RMI 핸들러 서블릿(jeus. rmi.http.ServletHandler)으로 보내지고 여기서
+		      핸들러 서블릿은 요청(Request)으로부터 HTTP header를 제거한 뒤 이것을 RMI 실행 환경으로
+		      전송한다. 이 설정은 jeus.rmi.http.ServletHandler 서블릿이 사전에
+		      JEUS 웹 컨테이너에 반드시 Deploy되어 있어야만 한다("JEUS Web Engine 안내서" 참고).</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">invoke-httpType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Performance Recommendation</em></span>
+</td><td>HTTP 호출 모드를 사용함으로써 약간의 성능 향상을 기대할 수 있다.</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (987)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.invoke-http.url">url</a>
+</code>
+</p>
+<p>
+            (988)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.invoke-http.http-port">http-port</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.invoke-http.url"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (987)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.invoke-http">invoke-http</a>&gt; <span class="bold"><strong>&lt;url&gt;</strong></span>
+</code>
+<a id="d4e145043" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>HTTP-RMI Stub에 의해 호출될 RMI 핸들러 서블릿(jeus.rmi.http.ServletHandler)
+                        의 URI 경로가 반드시 설정되어야 한다. 이 URL은 프로토콜, 웹 서버 IP, 포트 번호를 제외하고 오직
+                        서블릿 요청 경로만을 설정해야 한다.  프로토콜은 HTTP, RMI 실행 환경과 웹 서버는 같은 IP 주소를
+                        가지고 있다고 가정한다(이것은 웹 서버와 웹 엔진은 반드시 HTTP-RMI 요청을 같은 머신에서
+                        받는다는 것을 의미한다). 포트 번호는 다음에 설명할 HTTP Port에서 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>RMI 핸들러 서블릿을 명시한 서블릿 컨텍스트 경로를 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">/mycontext/RMIHandlerServlet</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.invoke-http.http-port"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (988)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.invoke-http">invoke-http</a>&gt; <span class="bold"><strong>&lt;http-port&gt;</strong></span>
+</code>
+<a id="d4e145078" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>HTTP-RMI 요청을 받고 처리할 웹 서버의 포트 번호를 설정한다. 해당 웹 서버 및 웹
+                        엔진에서는 반드시 RMI 핸들러 서블릿이 Deploy되어 있고 이미 실행 중이어야만 한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>HTTP-RMI Stub가 연결할 웹 서버의 포트 번호를 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">80</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.timer-service"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (989)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; <span class="bold"><strong>&lt;timer-service&gt;</strong></span>
+</code>
+<a id="d4e145116" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>EJB Timer 서비스에 대해 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">timer-serviceType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (990)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.support-persistence">support-persistence</a>?</code>
+</p>
+<p>
+            (991)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.max-retrial-count">max-retrial-count</a>?</code>
+</p>
+<p>
+            (992)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.retrial-interval">retrial-interval</a>?</code>
+</p>
+<p>
+            (993)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool">thread-pool</a>?</code>
+</p>
+<p>
+            (997)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.database-setting">database-setting</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.timer-service.support-persistence"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (990)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service">timer-service</a>&gt; <span class="bold"><strong>&lt;support-persistence&gt;</strong></span>
+</code>
+<a id="d4e145161" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Non-Dynamic</em></span>
+</td><td>Persistence의 지원 여부를 동적으로 변경하는 것은 불가능하다.</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>EJB Timer의 지속성(persistence)를 지원할 것인지를 결정한다. EJB Timer는 기본적으로 지속적(persistent)이지만
+                      지속적인 Timer를 사용하고 싶지 않는 경우에는 편의상 false로 설정해서 일괄적으로 Non Persistent로 지정할 수 있다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">true</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">true</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.timer-service.max-retrial-count"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (991)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service">timer-service</a>&gt; <span class="bold"><strong>&lt;max-retrial-count&gt;</strong></span>
+</code>
+<a id="d4e145201" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Non-Dynamic</em></span>
+</td><td>Restart after change</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Timeout Callback 메소드에서 오류가 발생하거나 해당 메소드에 연관된 트랜잭션이 Rollback되었을 경우
+                    최대 재시도 횟수를 나타낸다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>최대 재시도 횟수</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">1</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">3</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.timer-service.retrial-interval"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (992)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service">timer-service</a>&gt; <span class="bold"><strong>&lt;retrial-interval&gt;</strong></span>
+</code>
+<a id="d4e145249" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Non-Dynamic</em></span>
+</td><td>Restart after change</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>재시도 사이의 간격을 의미한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>밀리세컨드</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">5000</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">5000</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (993)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service">timer-service</a>&gt; <span class="bold"><strong>&lt;thread-pool&gt;</strong></span>
+</code>
+<a id="d4e145297" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Timer 서비스가 Timeout Callback 메소드를 수행하는 Thread Pool에 대한 설정이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">poolingType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (994)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool.min">min</a>?</code>
+</p>
+<p>
+            (995)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool.max">max</a>?</code>
+</p>
+<p>
+            (996)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool.period">period</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool.min"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (994)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service">timer-service</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool">thread-pool</a>&gt; <span class="bold"><strong>&lt;min&gt;</strong></span>
+</code>
+<a id="d4e145337" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Pooling되는 객체의 최솟값을 지정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">2</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool.max"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (995)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service">timer-service</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool">thread-pool</a>&gt; <span class="bold"><strong>&lt;max&gt;</strong></span>
+</code>
+<a id="d4e145373" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Pooling되는 객체의 최댓값을 지정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">30</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool.period"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (996)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service">timer-service</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.thread-pool">thread-pool</a>&gt; <span class="bold"><strong>&lt;period&gt;</strong></span>
+</code>
+<a id="d4e145409" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Pool에 있는 객체의 개수를 min 값에 지정된 개수만큼 줄인다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">long</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">3600000</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Performance Recommendation</em></span>
+</td><td>설정값이 클수록 정리하는 주기가 길어져 서버를 운영할 때 부하가
+                        줄어들 수 있지만 그만큼 메모리 사용량이 늘어날 수 있다.</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.timer-service.database-setting"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (997)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service">timer-service</a>&gt; <span class="bold"><strong>&lt;database-setting&gt;</strong></span>
+</code>
+<a id="d4e145444" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Non-Dynamic</em></span>
+</td><td>Persistence에 관한 설정을 동적으로 변경하는 것은 불가능하다.</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Timer 서비스가 Persistent하게 관리하는 Timer Handle을 외부 DB에 저장하고 싶을 경우에 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">database-settingType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (998)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.database-setting.db-vendor">db-vendor</a>?</code>
+</p>
+<p>
+            (999)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.database-setting.data-source-id">data-source-id</a>
+</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.timer-service.database-setting.db-vendor"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (998)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service">timer-service</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.database-setting">database-setting</a>&gt; <span class="bold"><strong>&lt;db-vendor&gt;</strong></span>
+</code>
+<a id="d4e145485" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Non-Dynamic</em></span>
+</td><td>Restart after change</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Timer Handle을 저장하기 위한 DB의 Vendor를 나타낸다.
+                    자동으로 Vendor를 확인하지만 필요한 경우에 설정하도록 한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">db-vendorType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Defined Value</em></span>
+</td><td>
+<p>
+<code class="constant">oracle</code>
+</p>
+<p>
+<code class="constant">informix</code>
+</p>
+<p>
+<code class="constant">db2</code>
+</p>
+<p>
+<code class="constant">mssql</code>
+</p>
+<p>
+<code class="constant">sybase</code>
+</p>
+<p>
+<code class="constant">hsql</code>
+</p>
+<p>
+<code class="constant">cloudscape</code>
+</p>
+<p>
+<code class="constant">mysql</code>
+</p>
+<p>
+<code class="constant">tibero</code>
+</p>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">Oracle</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.timer-service.database-setting.data-source-id"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (999)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service">timer-service</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.timer-service.database-setting">database-setting</a>&gt; <span class="bold"><strong>&lt;data-source-id&gt;</strong></span>
+</code>
+<a id="d4e145543" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Non-Dynamic</em></span>
+</td><td>Restart after change</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Timer 서비스가 Timer의 Persistence를 제공하기 위해 사용하는 DB의 Connection Pool 이름이다.
+                    반드시 Resources 항목의 DataSource 메뉴에 DB 리소스로 설정되어 있어야 하며, 되도록 XA 연동이 가능한 타입의 Connection Pool을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.async-service"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (1000)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; <span class="bold"><strong>&lt;async-service&gt;</strong></span>
+</code>
+<a id="d4e145572" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Asynchronous Invocation 서비스를 위한 설정이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">async-serviceType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (1001)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.async-service.thread-min">thread-min</a>?</code>
+</p>
+<p>
+            (1002)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.async-service.thread-max">thread-max</a>?</code>
+</p>
+<p>
+            (1003)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.async-service.access-timeout">access-timeout</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.async-service.thread-min"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (1001)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.async-service">async-service</a>&gt; <span class="bold"><strong>&lt;thread-min&gt;</strong></span>
+</code>
+<a id="d4e145611" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Non-Dynamic</em></span>
+</td><td>Restart after change</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>유지할 스레드 개수의 최솟값을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>스레드 개수</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">0</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">10</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.async-service.thread-max"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (1002)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.async-service">async-service</a>&gt; <span class="bold"><strong>&lt;thread-max&gt;</strong></span>
+</code>
+<a id="d4e145659" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Non-Dynamic</em></span>
+</td><td>Restart after change</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>유지할 스레드 개수의 최댓값을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>스레드 개수</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">30</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">100</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.async-service.access-timeout"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (1003)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine.async-service">async-service</a>&gt; <span class="bold"><strong>&lt;access-timeout&gt;</strong></span>
+</code>
+<a id="d4e145707" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Non-Dynamic</em></span>
+</td><td>Restart after change</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Async 메소드가 수행이 완료된 후 일정시간이 지나도 클라이언트에서 Get하지 않으면 Future 객체를 삭제한다.
+                        이는 클라이언트의 실수로 Get하지 않는 경우 Memory Leak의 발생을 방지하고자 함이다.
+                        Retrun 타입을 Future로 가지는 Async 메소드에 한해 적용된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>밀리세컨드</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">300000</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">180000</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.ejb-engine.use-dynamic-proxy-for-ejb2"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (1004)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.ejb-engine">ejb-engine</a>&gt; <span class="bold"><strong>&lt;use-dynamic-proxy-for-ejb2&gt;</strong></span>
+</code>
+<a id="d4e145754" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Non-Dynamic</em></span>
+</td><td>Stub이 다르게 생성되므로 동적 변경이 불가능하다.</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>(Since JEUS 6 Fix#7) JEUS 6 Fix#6 이후 버전부터는 EJB 2.x 스타일의 Bean에서 기존 RMI Stub 방식 대신 Dynamic Proxy 방식을 사용할 수 있다.
+                        Dynamic Proxy 방식이란, 클라이언트별로 직접 RMI Stub 클래스를 로딩해서 사용하는 대신에,
+                        미리 생성되어 있는 RMI Stub에 대한 Dynamic Proxy(java.lang.reflect.Proxy)를 이용해서 메소드를 호출하는 방식이다.
+                        이러한 Dynamic Proxy 방식을 이용해야만 Local Call Optimization(같은 JVM에서 호출되는 EJB Remote Call을 RMI를 통하지 않고 Local Call로 호출되도록 하여 성능을 향상 시켜주는 기능)을 사용할 수 있다.
+                        만약, 이 EJB를 원격에서 호출하는 클라이언트가 있고, 그 클라이언트가 사용하는 JEUS 라이브러리 버전이 JEUS 6 Fix#6 보다
+                        낮은 경우에는 호환성 문제가 발생하므로 이 옵션을 false로 설정한다.
+                        이 옵션은 EJB 모듈별로 jeus-ejb-dd.xml의 &lt;module-info&gt;&lt;use-dynamic-proxy-for-ejb2&gt;에 설정할 수 있으나,
+                        현재 EJB 엔진의 모든 EJB 모듈에 대해서 EJB 2.x에 대해 Dynamic Proxy 방식을 사용하지 않고 원격 클라이언트와의 호환성을 유지하기 위해서,
+                        Use Dynamic Proxy For Ejb2를 false로 설정하여 EJB 모듈별 설정을 무시하도록 할 수 있다.
+                        기본값 true로 EJB 2.x 스타일의 Bean에 대해서 Dynamic Proxy 방식을 사용하도록 한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">true</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">true</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e145779"></a>11.4. domain.xml의 EJB 엔진 설정 예제</h2></div></div></div>
+        
+
+        <div class="example"><a id="d4e145781"></a><p class="title"><b>[예 11.1] domain.xml의 EJB 엔진 설정 예제</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;domain xmlns="http://www.tmaxsoft.com/xml/ns/jeus" version="7.0"&gt;
+    &lt;servers&gt;
+        &lt;server&gt;
+
+            &lt;ejb-engine&gt;
+                &lt;!-- period of checking ejb engine for active management and beans for passivation --&gt;
+                &lt;resolution&gt;300000&lt;/resolution&gt;
+
+                &lt;!-- unenable to write ejb exceptions into the user log specified in domain.xml --&gt;
+                &lt;enable-user-notify&gt;false&lt;/enable-user-notify&gt;
+
+                &lt;!-- check the number of blocked threads and send an e-mail --&gt;
+                &lt;active-management&gt;
+                    &lt;max-blocked-thread&gt;3&lt;/max-blocked-thread&gt;
+                    &lt;max-idle-time&gt;300000&lt;/max-idle-time&gt;
+                    &lt;email-notify&gt;
+                        &lt;smtp-host-address&gt;mail.foo.com&lt;/smtp-host-address&gt;
+                        &lt;from-address&gt;admin@mail.foo.com&lt;/from-address&gt;
+                        &lt;to-address&gt;admin@mail.foo.com&lt;/to-address&gt;
+                        &lt;cc-address&gt;admin@mail.foo.com&lt;/cc-address&gt;
+                        &lt;bcc-address&gt;admin@mail.foo.com&lt;/bcc-address&gt;
+                    &lt;/email-notify&gt;
+                &lt;/active-management&gt;
+
+                &lt;!-- use http-rmi invocation --&gt;
+                &lt;invoke-http&gt;
+                    &lt;url&gt;/mycontext/RMIHandlerServlet&lt;/url&gt;
+                    &lt;http-port&gt;80&lt;/http-port&gt;
+                &lt;/invoke-http&gt;
+
+                &lt;!-- configuration related to timer service --&gt;
+                &lt;timer-service&gt;
+                    &lt;support-persistence&gt;true&lt;/support-persistence&gt;
+                    &lt;max-retrial-count&gt;1&lt;/max-retrial-count&gt;
+                    &lt;retrial-interval&gt;5000&lt;/retrial-interval&gt;
+                    &lt;thread-pool&gt;
+                        &lt;min&gt;2&lt;/min&gt;
+                        &lt;max&gt;30&lt;/max&gt;
+                        &lt;period&gt;3600000&lt;/period&gt;
+                    &lt;/thread-pool&gt;
+                    &lt;database-setting&gt;
+                        &lt;db-vendor&gt;oracle&lt;/db-vendor&gt;
+                        &lt;data-source-id&gt;datasource&lt;/data-source-id&gt;
+                    &lt;/database-setting&gt;
+                &lt;/timer-service&gt;
+
+                &lt;!-- configuration related to async service --&gt;
+                &lt;async-service&gt;
+                    &lt;thread-min&gt;0&lt;/thread-min&gt;
+                    &lt;thread-max&gt;30&lt;/thread-max&gt;
+                    &lt;access-timeout&gt;300000&lt;/access-timeout&gt;
+                &lt;/async-service&gt;
+            &lt;/ejb-engine&gt;
+            
+        &lt;/server&gt;
+    &lt;/servers&gt;
+&lt;/domain&gt;
+
+</pre>
+        </div></div><br class="example-break"/>
+    </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="webengine_domain.xml_VirtualHost.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="jms-server.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제10장 domain.xml의 웹 엔진내의 Virtual Host 설정 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제12장 domain.xml의 JMS 엔진 설정</td></tr></table></div><div xmlns="" align="center"/></body></html>

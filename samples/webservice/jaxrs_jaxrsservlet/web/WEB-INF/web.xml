@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee">
+    <servlet>
+        <servlet-name>JaxRsServlet</servlet-name>
+        <servlet-class>jeus.webservices.jaxrs.server.impl.container.servlet.ServletAdaptor</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>rest.MyApplication</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JaxRsServlet</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+</web-app>

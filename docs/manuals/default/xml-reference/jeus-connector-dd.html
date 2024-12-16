@@ -1,0 +1,2005 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제22장 jeus-connector-dd.xml 설정</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS XML Reference"/><link rel="up" href="index.html" title="JEUS XML Reference"/><link rel="prev" href="chapter_jeus-ejb-dd.xml_XML_Configuration.html" title="제21장 jeus-ejb-dd.xml 설정"/><link rel="next" href="chapter_jeusclient_descriptor.html" title="제23장 jeus-client-dd.xml 설정"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제22장 jeus-connector-dd.xml 설정</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jeus-ejb-dd.xml_XML_Configuration.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_jeusclient_descriptor.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="jeus-connector-dd"></a>제22장 jeus-connector-dd.xml 설정</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="jeus-connector-dd.html#d4e178256">22.1. 소개</a></span></dt><dt><span class="section"><a href="jeus-connector-dd.html#d4e178310">22.2. XML Schema/XML 트리</a></span></dt><dt><span class="section"><a href="jeus-connector-dd.html#d4e178522">22.3. Element Reference</a></span></dt><dt><span class="section"><a href="jeus-connector-dd.html#d4e180712">22.4. jeus-connector-dd.xml 파일 예제</a></span></dt></dl></div>
+    
+
+    <p>여기에서 Resource Adapter 모듈의 DD인
+    <code class="filename">jeus-connector-dd.xml</code>에서 사용되는 설정을 찾을 수 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+            <p>XML Schema 파일:
+            <code class="filename">JEUS_HOME/lib/schemas/jeus/jeus-connector-dd.xsd</code></p>
+        </li></ul></div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e178256"></a>22.1. 소개</h2></div></div></div>
+        
+
+        <p>레퍼런스는 다음 형식으로 구성되어 있다. </p><div class="orderedlist"><ol type="1"><li>
+      <p><span class="bold"><strong>XML Schema/XML 트리</strong></span>: XML 설정 파일의 모든
+      태그 리스트를 정리했다. 각 노드의 형식은 다음과 같다.</p><div class="orderedlist"><ol type="a"><li>
+            <p>태그 레퍼런스로 빨리 찾아보기 위해서 각 태그마다 인덱스 번호( 예: (11) )를 붙여 놓았다. 태그
+            레퍼런스에서는 이 번호 순서로 설명한다.</p>
+          </li><li>
+            <p>XML Schema에서 정의한 XML 태그명을 &lt;<span class="bold"><strong>tag
+            name</strong></span>&gt; 형식으로 표시한다.</p>
+          </li><li>
+            <p>XML Schema에서 정의한 Cardinality를 표시한다. “?” = 0개나 1개의 element,
+            “+” = 1개 이상의 element, “*” = 0개 이상의 element, (기호가 없음) = 정확히 1개의
+            element</p>
+          </li><li>
+            <p>몇몇 태그에는 “P” 문자를 붙여 놓았는데, 해당 태그는 성능에 관계되는 태그라는 것을 뜻한다. 이 태그는
+            설정을 튜닝할 때 사용된다.</p>
+          </li></ol></div>
+    </li><li>
+      <p><span class="bold"><strong>Element Reference</strong></span>: 트리에 있는 각 XML
+      태그를 설명한다.</p><div class="orderedlist"><ol type="a"><li>
+            <p><span class="bold"><strong>Dynamic</strong></span>: 동적 설정 반영 가능</p>
+          </li><li>
+            <p><span class="bold"><strong>Non-Dynamic</strong></span>: 동적 설정 반영 불가능, Dynamic이 설정되지 않은
+            항목들이 보통 이에 해당 하나 특별히 설명이 있는 경우 이 항목이 표시된다.</p>
+          </li><li>
+            <p><span class="bold"><strong>Description</strong></span>: 태그에 대한 간단한
+            설명.</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Description</strong></span>: 입력하는 값과
+            타입.</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Type</strong></span>: 값의 데이터 타입. (예:
+            String)</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Type Description</strong></span>: 값의 데이터 타입에 대한 설명 </p>
+          </li><li>
+            <p><span class="bold"><strong>Default Value</strong></span>: 해당 XML을 사용하지
+            않았을 때 기본적으로 사용되는 값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Defined Value</strong></span>: 이미 정해져 있는
+            값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Example</strong></span>: 해당 XML 태그에 대한
+            예.</p>
+          </li><li>
+            <p><span class="bold"><strong>Performance Recommendation</strong></span>:
+            성능 향상을 위해서 추천하는 값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Child Elements</strong></span>: 자신의 태그 안에
+            사용하는 태그.</p>
+          </li></ol></div>
+    </li></ol></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e178310"></a>22.2. XML Schema/XML 트리</h2></div></div></div>
+        
+
+        <div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd"></a>
+                (1)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">&lt;jeus-connector-dd&gt;</a></p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.module-name"></a>
+                (2)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.module-name">&lt;module-name&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.use-workmanager"></a>
+                (3)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.use-workmanager">&lt;use-workmanager&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.worker-pool"></a>
+                (4)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool">&lt;worker-pool&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.worker-pool.min"></a>
+                (5)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.min">&lt;min&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.worker-pool.max"></a>
+                (6)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.max">&lt;max&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.worker-pool.step"></a>
+                (7)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.step">&lt;step&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.worker-pool.keep-alive-time"></a>
+                (8)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.keep-alive-time">&lt;keep-alive-time&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.worker-pool.pooled-timeout"></a>
+                (9)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.pooled-timeout">&lt;pooled-timeout&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.worker-pool.queue-size"></a>
+                (10)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.queue-size">&lt;queue-size&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.worker-pool.pre-allocation"></a>
+                (11)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.pre-allocation">&lt;pre-allocation&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.worker-pool.submit-timeout"></a>
+                (12)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.submit-timeout">&lt;submit-timeout&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.worker-pool.release-timeout"></a>
+                (13)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.release-timeout">&lt;release-timeout&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.worker-pool.shutdown-timeout"></a>
+                (14)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.shutdown-timeout">&lt;shutdown-timeout&gt;</a>? P</p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool"></a>
+                (15)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">&lt;connection-pool&gt;</a>*</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.connectionfactory-interface"></a>
+                (16)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.connectionfactory-interface">&lt;connectionfactory-interface&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.export-name"></a>
+                (17)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.export-name">&lt;export-name&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.log-file"></a>
+                (18)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.log-file">&lt;log-file&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.log-file.file-name"></a>
+                (19)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.log-file.file-name">&lt;file-name&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.log-file.buffer-size"></a>
+                (20)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.log-file.buffer-size">&lt;buffer-size&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.log-file.valid-day"></a>
+                (21)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.log-file.valid-day">&lt;valid-day&gt;</a>?</p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.transaction-support"></a>
+                (22)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.transaction-support">&lt;transaction-support&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.user"></a>
+                (23)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.user">&lt;user&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.password"></a>
+                (24)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.password">&lt;password&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.use-wrapper"></a>
+                (25)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.use-wrapper">&lt;use-wrapper&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.dissociation-timeout"></a>
+                (26)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.dissociation-timeout">&lt;dissociation-timeout&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.invalidation-timeout"></a>
+                (27)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.invalidation-timeout">&lt;invalidation-timeout&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.validation-timeout"></a>
+                (28)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.validation-timeout">&lt;validation-timeout&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.skip-connection-matching"></a>
+                (29)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.skip-connection-matching">&lt;skip-connection-matching&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.use-lazy-transaction-enlistment"></a>
+                (30)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.use-lazy-transaction-enlistment">&lt;use-lazy-transaction-enlistment&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management"></a>
+                (31)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">&lt;pool-management&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.min"></a>
+                (32)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.min">&lt;min&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.max"></a>
+                (33)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.max">&lt;max&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.step"></a>
+                (34)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.step">&lt;step&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.pooled-timeout"></a>
+                (35)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.pooled-timeout">&lt;pooled-timeout&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.period"></a>
+                (36)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.period">&lt;period&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection"></a>
+                (37)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection">&lt;wait-connection&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.wait-connection"></a>
+                (38)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.wait-connection">&lt;wait-connection&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.max-waiter-count"></a>
+                (39)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.max-waiter-count">&lt;max-waiter-count&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.max-wait-trial"></a>
+                (40)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.max-wait-trial">&lt;max-wait-trial&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.wait-timeout"></a>
+                (41)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.wait-timeout">&lt;wait-timeout&gt;</a>? P</p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.use-match-connection"></a>
+                (42)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.use-match-connection">&lt;use-match-connection&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.allow-disposable-connection-when-match-failed"></a>
+                (43)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.allow-disposable-connection-when-match-failed">&lt;allow-disposable-connection-when-match-failed&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation"></a>
+                (44)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation">&lt;connection-validation&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.enabled"></a>
+                (45)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.enabled">&lt;enabled&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.period"></a>
+                (46)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.period">&lt;period&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.non-validation-interval"></a>
+                (47)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.non-validation-interval">&lt;non-validation-interval&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.validation-retrial-count"></a>
+                (48)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.validation-retrial-count">&lt;validation-retrial-count&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.destroy-policy-on-validation"></a>
+                (49)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.destroy-policy-on-validation">&lt;destroy-policy-on-validation&gt;</a>? P</p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.action-on-connection-leak"></a>
+                (50)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.action-on-connection-leak">&lt;action-on-connection-leak&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace"></a>
+                (51)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace">&lt;connection-trace&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace.enabled"></a>
+                (52)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace.enabled">&lt;enabled&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace.get-connection-trace"></a>
+                (53)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace.get-connection-trace">&lt;get-connection-trace&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace.local-transaction-trace"></a>
+                (54)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace.local-transaction-trace">&lt;local-transaction-trace&gt;</a>? P</p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.max-use-count"></a>
+                (55)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.max-use-count">&lt;max-use-count&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.pool-destroy-timeout"></a>
+                (56)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.pool-destroy-timeout">&lt;pool-destroy-timeout&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection"></a>
+                (57)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection">&lt;disposable-connection&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection.allow-disposable-connection"></a>
+                (58)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection.allow-disposable-connection">&lt;allow-disposable-connection&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection.max-disposable-count"></a>
+                (59)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection.max-disposable-count">&lt;max-disposable-count&gt;</a>? P</p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.property"></a>
+                (60)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.property">&lt;property&gt;</a>*</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.property.name"></a>
+                (61)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.property.name">&lt;name&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.property.type"></a>
+                (62)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.property.type">&lt;type&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.connection-pool.property.value"></a>
+                (63)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.property.value">&lt;value&gt;</a></p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.java-security-permission"></a>
+                (64)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.java-security-permission">&lt;java-security-permission&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.java-security-permission.description"></a>
+                (65)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.java-security-permission.description">&lt;description&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-connector-dd.java-security-permission.security-permission-spec"></a>
+                (66)
+
+                <a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.java-security-permission.security-permission-spec">&lt;security-permission-spec&gt;</a></p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e178522"></a>22.3. Element Reference</h2></div></div></div>
+        
+
+        <p>
+
+
+
+
+
+</p><p><a id="schema-table-reference.jeus-connector-dd"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (1)
+                                <code class="code">
+<span class="bold"><strong>&lt;jeus-connector-dd&gt;</strong></span>
+</code>
+<a id="d4e178535" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>리소스 어댑터 모듈의 최상위 항목이다. jeus-connector-dd.xml 파일에는 이 태그가 반드시 존재한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">jeus-connector-ddType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (2)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.module-name">module-name</a>?</code>
+</p>
+<p>
+            (3)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.use-workmanager">use-workmanager</a>?</code>
+</p>
+<p>
+            (4)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool">worker-pool</a>?</code>
+</p>
+<p>
+            (15)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>*</code>
+</p>
+<p>
+            (64)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.java-security-permission">java-security-permission</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.module-name"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (2)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; <span class="bold"><strong>&lt;module-name&gt;</strong></span>
+</code>
+<a id="d4e178576" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated. 리소스 어댑터 모듈의 이름이다.
+                    JEUS 6 Fix#7부터는 더 이상 사용하지 않는다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.use-workmanager"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (3)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; <span class="bold"><strong>&lt;use-workmanager&gt;</strong></span>
+</code>
+<a id="d4e178598" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated. Work Manager 사용 여부를 설정한다.
+                    true로 설정한 경우 리소스 어댑터가 시작되기 직전에 설정에 따라 초기화된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">false</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.worker-pool"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (4)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; <span class="bold"><strong>&lt;worker-pool&gt;</strong></span>
+</code>
+<a id="d4e178625" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Work Manager를 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">deprecated-worker-poolType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (5)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.min">min</a>?</code>
+</p>
+<p>
+            (6)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.max">max</a>?</code>
+</p>
+<p>
+            (7)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.step">step</a>?</code>
+</p>
+<p>
+            (8)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.keep-alive-time">keep-alive-time</a>?</code>
+</p>
+<p>
+            (9)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.pooled-timeout">pooled-timeout</a>?</code>
+</p>
+<p>
+            (10)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.queue-size">queue-size</a>?</code>
+</p>
+<p>
+            (11)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.pre-allocation">pre-allocation</a>?</code>
+</p>
+<p>
+            (12)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.submit-timeout">submit-timeout</a>?</code>
+</p>
+<p>
+            (13)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.release-timeout">release-timeout</a>?</code>
+</p>
+<p>
+            (14)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool.shutdown-timeout">shutdown-timeout</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.worker-pool.min"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (5)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool">worker-pool</a>&gt; <span class="bold"><strong>&lt;min&gt;</strong></span>
+</code>
+<a id="d4e178682" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Work Manager가 관리하는 스레드 수의 최솟값을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">0</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.worker-pool.max"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (6)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool">worker-pool</a>&gt; <span class="bold"><strong>&lt;max&gt;</strong></span>
+</code>
+<a id="d4e178714" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Work Manager가 관리하는 스레드 수의 최댓값을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">5</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.worker-pool.step"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (7)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool">worker-pool</a>&gt; <span class="bold"><strong>&lt;step&gt;</strong></span>
+</code>
+<a id="d4e178746" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated 이 값은 항상 1이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">1</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.worker-pool.keep-alive-time"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (8)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool">worker-pool</a>&gt; <span class="bold"><strong>&lt;keep-alive-time&gt;</strong></span>
+</code>
+<a id="d4e178778" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>최솟값 이외의 스레드의 경우, 설정된 시간 동안 사용되지 않는다면 자동적으로 Thread Pool에서 제거된다.
+                    밀리세컨드 단위로 설정한다.
+                    0이면 제거하지 않으며 기본값은 1분이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">60000</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.worker-pool.pooled-timeout"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (9)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool">worker-pool</a>&gt; <span class="bold"><strong>&lt;pooled-timeout&gt;</strong></span>
+</code>
+<a id="d4e178810" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated. Keep Alive Time의 사용을 권장한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">60000</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.worker-pool.queue-size"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (10)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool">worker-pool</a>&gt; <span class="bold"><strong>&lt;queue-size&gt;</strong></span>
+</code>
+<a id="d4e178842" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Work Manager가 Work를 저장할 Queue의 크기를 지정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">4096</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.worker-pool.pre-allocation"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (11)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool">worker-pool</a>&gt; <span class="bold"><strong>&lt;pre-allocation&gt;</strong></span>
+</code>
+<a id="d4e178874" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Work Manager가 초기화될 때 최솟값에 설정된 수의 스레드를 미리 생성해 놓는다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">true</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.worker-pool.submit-timeout"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (12)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool">worker-pool</a>&gt; <span class="bold"><strong>&lt;submit-timeout&gt;</strong></span>
+</code>
+<a id="d4e178902" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">0</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.worker-pool.release-timeout"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (13)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool">worker-pool</a>&gt; <span class="bold"><strong>&lt;release-timeout&gt;</strong></span>
+</code>
+<a id="d4e178934" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">0</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.worker-pool.shutdown-timeout"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (14)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.worker-pool">worker-pool</a>&gt; <span class="bold"><strong>&lt;shutdown-timeout&gt;</strong></span>
+</code>
+<a id="d4e178966" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Work Manager가 종료될 때 바로 종료하지 않고 여기에 설정된 시간만큼 기다린다.
+                    즉, Graceful Shutdown을 지원한다.
+                    밀리세컨드 단위로 설정한다.
+                    -1 또는 0이면 기다리지 않는다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">long</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">-1</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (15)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; <span class="bold"><strong>&lt;connection-pool&gt;</strong></span>
+</code>
+<a id="d4e178993" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>아웃바운드 Connection Pool을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">connection-poolType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (16)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.connectionfactory-interface">connectionfactory-interface</a>?</code>
+</p>
+<p>
+            (17)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.export-name">export-name</a>
+</code>
+</p>
+<p>
+            (18)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.log-file">log-file</a>?</code>
+</p>
+<p>
+            (22)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.transaction-support">transaction-support</a>?</code>
+</p>
+<p>
+            (23)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.user">user</a>?</code>
+</p>
+<p>
+            (24)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.password">password</a>?</code>
+</p>
+<p>
+            (25)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.use-wrapper">use-wrapper</a>?</code>
+</p>
+<p>
+            (26)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.dissociation-timeout">dissociation-timeout</a>?</code>
+</p>
+<p>
+            (27)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.invalidation-timeout">invalidation-timeout</a>?</code>
+</p>
+<p>
+            (28)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.validation-timeout">validation-timeout</a>?</code>
+</p>
+<p>
+            (29)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.skip-connection-matching">skip-connection-matching</a>?</code>
+</p>
+<p>
+            (30)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.use-lazy-transaction-enlistment">use-lazy-transaction-enlistment</a>?</code>
+</p>
+<p>
+            (31)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>?</code>
+</p>
+<p>
+            (60)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.property">property</a>*</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.connectionfactory-interface"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (16)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;connectionfactory-interface&gt;</strong></span>
+</code>
+<a id="d4e179062" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>ra.xml에 등록한 &lt;connection-definition&gt;의 &lt;connectionfactory-interface&gt;의 설정값을 나타낸다.
+                    하나의 리소스 어댑터 모듈에는 &lt;connection-definition&gt; 설정을 여러 개 할 수 있고, 그에 맞춰서 Connection Pool을 생성해야 한다.
+                    그래서 ra.xml에 &lt;connection-definition&gt;이 2개 이상 설정되어 있을 경우에는 이 값을 반드시 설정해야 한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.export-name"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (17)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;export-name&gt;</strong></span>
+</code>
+<a id="d4e179085" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connection Pool의 JNDI 이름이다.
+                    임의로 지정할 수 있지만 Standalone 모듈인 경우에는 전체 노드에서 유일한 이름이어야 한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.log-file"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (18)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;log-file&gt;</strong></span>
+</code>
+<a id="d4e179108" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated. 리소스 어댑터의 ManagedConnectionFactory가 사용할 로그 파일을 지정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">log-fileType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (19)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.log-file.file-name">file-name</a>
+</code>
+</p>
+<p>
+            (20)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.log-file.buffer-size">buffer-size</a>?</code>
+</p>
+<p>
+            (21)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.log-file.valid-day">valid-day</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.log-file.file-name"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (19)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.log-file">log-file</a>&gt; <span class="bold"><strong>&lt;file-name&gt;</strong></span>
+</code>
+<a id="d4e179145" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connection Pool이 사용할 로그 파일 이름을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">C:\logs\mylog.log</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.log-file.buffer-size"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (20)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.log-file">log-file</a>&gt; <span class="bold"><strong>&lt;buffer-size&gt;</strong></span>
+</code>
+<a id="d4e179174" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connection Pool이 로그 파일에 출력할 때 사용하는 Buffer의 크기를 지정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>Byte 단위이다.
+                        [Performance Recommandation]: 이 값이 클수록 파일에 출력되는 메시지는 지연되어 출력되지만 Logging 성능은 좋아진다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">512</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">512</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.log-file.valid-day"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (21)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.log-file">log-file</a>&gt; <span class="bold"><strong>&lt;valid-day&gt;</strong></span>
+</code>
+<a id="d4e179216" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>날짜 단위로 로그 파일을 바꿀 때 사용한다.
+                      1 이상의 값을 설정하면 로그 파일 이름 뒤에 파일이 사용된 날짜가 자동으로 붙게 된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>day</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">off-intType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>기본적으로 Non Negative Int 타입이지만 -1인 경우에는 미설정 상태이다. 즉, off된다.</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">1</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.transaction-support"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (22)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;transaction-support&gt;</strong></span>
+</code>
+<a id="d4e179252" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connection Pool이 지원하는 트랜잭션 타입을 설정한다.
+                    여기에 설정된 값은 ra.xml에 설정된 값보다 우선된다.
+                    XATransactionOnly 값은 더 이상 사용하지 않으며 XATransaction으로 취급한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">transaction-supportType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Defined Value</em></span>
+</td><td>
+<p>
+<code class="constant">NoTransaction</code>
+</p>
+<p>
+<code class="constant">LocalTransaction</code>
+</p>
+<p>
+<code class="constant">XATransaction</code>
+</p>
+<p>
+<code class="constant">XATransactionOnly</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.user"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (23)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;user&gt;</strong></span>
+</code>
+<a id="d4e179287" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>기본 인증을 서버에 맡길 경우 이에 필요한 User의 이름을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.password"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (24)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;password&gt;</strong></span>
+</code>
+<a id="d4e179310" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>기본 인증을 서버에 맡길 경우 이에 필요한 Password를 설정한다.
+                    Password를 암호화해서 저장할 때에는 '{algorithm}ciphertext'와 같은 형식으로 입력한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">{DES}FQrLbQ/D8O1lDVS71L28rw==</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.use-wrapper"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (25)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;use-wrapper&gt;</strong></span>
+</code>
+<a id="d4e179338" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">true</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.dissociation-timeout"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (26)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;dissociation-timeout&gt;</strong></span>
+</code>
+<a id="d4e179366" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated. Dissociation을 적용하는 시간값을 설정한다.
+                    해당 리소스 어댑터에서 이 기능을 지원하지 않는 경우 무시된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">0</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.invalidation-timeout"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (27)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;invalidation-timeout&gt;</strong></span>
+</code>
+<a id="d4e179398" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated. Invalidation을 적용할 시간값을 설정한다.
+                    이 시간이 경과해도 Connection Pool로 돌아오지 않는 커넥션은 강제로 제거된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">0</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.validation-timeout"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (28)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;validation-timeout&gt;</strong></span>
+</code>
+<a id="d4e179430" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated. 리소스 어댑터가 Connection Pool의 커넥션을 검증하는 시간 단위를 설정한다.
+                    리소스 어댑터의 ManagedConnectionFactory가 ValidatingManagedConnectionFactory 인터페이스를 구현했으면 이 시간 단위로 Invalid 커넥션은 Connection Pool에서 제거된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">0</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.skip-connection-matching"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (29)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;skip-connection-matching&gt;</strong></span>
+</code>
+<a id="d4e179462" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated. 커넥션 인증을 위한 Connection Matching 과정을 생략한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">false</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.use-lazy-transaction-enlistment"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (30)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;use-lazy-transaction-enlistment&gt;</strong></span>
+</code>
+<a id="d4e179490" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>JCA 표준에서 언급하는 트랜잭션 최적화 기능 중 하나인 "Lazy Transaction Enlistment" 옵션 사용 여부를 설정한다.
+                    이 옵션을 사용할 경우 예상하는 트랜잭션 시나리오와 달라질 수 있으므로 주의한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">false</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (31)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;pool-management&gt;</strong></span>
+</code>
+<a id="d4e179518" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connection Pool에 관련된 값을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">pool-managementType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (32)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.min">min</a>?</code>
+</p>
+<p>
+            (33)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.max">max</a>?</code>
+</p>
+<p>
+            (34)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.step">step</a>?</code>
+</p>
+<p>
+            (35)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.pooled-timeout">pooled-timeout</a>?</code>
+</p>
+<p>
+            (36)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.period">period</a>?</code>
+</p>
+<p>
+            (37)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection">wait-connection</a>?</code>
+</p>
+<p>
+            (42)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.use-match-connection">use-match-connection</a>?</code>
+</p>
+<p>
+            (43)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.allow-disposable-connection-when-match-failed">allow-disposable-connection-when-match-failed</a>?</code>
+</p>
+<p>
+            (44)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation">connection-validation</a>?</code>
+</p>
+<p>
+            (50)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.action-on-connection-leak">action-on-connection-leak</a>?</code>
+</p>
+<p>
+            (51)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace">connection-trace</a>?</code>
+</p>
+<p>
+            (55)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.max-use-count">max-use-count</a>?</code>
+</p>
+<p>
+            (56)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.pool-destroy-timeout">pool-destroy-timeout</a>?</code>
+</p>
+<p>
+            (57)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection">disposable-connection</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.min"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (32)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;min&gt;</strong></span>
+</code>
+<a id="d4e179588" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connection Pool에 의해 관리되는 커넥션 수의 최솟값을 설정한다..</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">2</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.max"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (33)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;max&gt;</strong></span>
+</code>
+<a id="d4e179621" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connection Pool에 의해 관리되는 커넥션 수의 최댓값을 설정한다..</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">10</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.step"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (34)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;step&gt;</strong></span>
+</code>
+<a id="d4e179654" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>커넥션을 늘릴 필요가 있는 상황에서 한 번에 늘리는 단위 개수를 의미한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">1</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.pooled-timeout"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (35)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;pooled-timeout&gt;</strong></span>
+</code>
+<a id="d4e179687" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated. &lt;period&gt;를 사용한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">600000</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.period"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (36)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;period&gt;</strong></span>
+</code>
+<a id="d4e179720" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>설정 주기마다 Connection Pool의 커넥션 수를 조정한다.
+                    특히 Connection Pool에 최소 커넥션 수보다 많은 커넥션이 존재하는 경우에는 최솟값으로 줄여준다.
+                    또한 최소값보다 실제 커넥션 수가 적은 경우에는 최솟값으로 조정해준다.
+                    그러나 애플리케이션이 커넥션 인증을 하는 경우에는 커넥션을 임의로 생성할 수 없기 때문에 최솟값으로 늘려주지 않는다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>밀리세컨드 단위로 설정하고, 0 이면 제거하지 않는다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">600000</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (37)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;wait-connection&gt;</strong></span>
+</code>
+<a id="d4e179757" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Pool에 유휴 커넥션이 없을 때 스레드들이 커넥션을 얻기 위해 기다릴지 여부를 결정한다.
+                    이 설정을 하지 않을 경우 Pool에 이미 최댓값만큼 커넥션이 생성되었음에도 불구하고 Pool이 비어있으면
+                    일회용 커넥션(disposable connection)을 생성해서 애플리케이션에 넘겨주게 된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">wait-connectionType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (38)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.wait-connection">wait-connection</a>?</code>
+</p>
+<p>
+            (39)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.max-waiter-count">max-waiter-count</a>?</code>
+</p>
+<p>
+            (40)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.max-wait-trial">max-wait-trial</a>?</code>
+</p>
+<p>
+            (41)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.wait-timeout">wait-timeout</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.wait-connection"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (38)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection">wait-connection</a>&gt; <span class="bold"><strong>&lt;wait-connection&gt;</strong></span>
+</code>
+<a id="d4e179798" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>커넥션을 얻기 위해 기다릴 것인지 여부를 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">false</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.max-waiter-count"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (39)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection">wait-connection</a>&gt; <span class="bold"><strong>&lt;max-waiter-count&gt;</strong></span>
+</code>
+<a id="d4e179828" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated. 커넥션을 얻기 위해 기다리는 클라이언트의 최대 수이다.
+                    이보다 많을 경우 바로 실패한 것으로 간주된다.
+                    JEUS 6 Fix#7부터는 사용하지 않는 옵션이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">5</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.max-wait-trial"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (40)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection">wait-connection</a>&gt; <span class="bold"><strong>&lt;max-wait-trial&gt;</strong></span>
+</code>
+<a id="d4e179862" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated 설정한 횟수만큼 Connection Matching을 실패했다면 커넥션을 얻는 데 실패한 것으로 간주한다.
+                    JEUS 6 Fix#7부터는 사용하지 않는 옵션이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">5</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection.wait-timeout"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (41)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.wait-connection">wait-connection</a>&gt; <span class="bold"><strong>&lt;wait-timeout&gt;</strong></span>
+</code>
+<a id="d4e179896" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>설정한 시간 동안 기다려도 커넥션을 얻지 못했다면 커넥션을 얻는 데 실패한 것으로 간주한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">10000</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.use-match-connection"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (42)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;use-match-connection&gt;</strong></span>
+</code>
+<a id="d4e179929" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connectio Match를 사용할 것인지 결정한다.
+                    자세한 내용은 JCA 표준을 참조한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">false</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.allow-disposable-connection-when-match-failed"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (43)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;allow-disposable-connection-when-match-failed&gt;</strong></span>
+</code>
+<a id="d4e179958" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connection Match가 실패했을 경우 일회용(disposable) 커넥션을 사용할 것인지를 설정한다.
+                    Connection Match를 하지 않는 경우에는 이 값을 사용하지 않는다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">false</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (44)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;connection-validation&gt;</strong></span>
+</code>
+<a id="d4e179987" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>커넥션 유효성 검사에 관련된 설정을 한다.
+                    리소스 어댑터가 제공하는 ManagedConnectionFactory가 javax.resource.spi.ValidatingManagedConnectionFactory를 구현했을 경우에만 사용 가능하다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">jcaConnectionValidationType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (45)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.enabled">enabled</a>?</code>
+</p>
+<p>
+            (46)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.period">period</a>?</code>
+</p>
+<p>
+            (47)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.non-validation-interval">non-validation-interval</a>?</code>
+</p>
+<p>
+            (48)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.validation-retrial-count">validation-retrial-count</a>?</code>
+</p>
+<p>
+            (49)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.destroy-policy-on-validation">destroy-policy-on-validation</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.enabled"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (45)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation">connection-validation</a>&gt; <span class="bold"><strong>&lt;enabled&gt;</strong></span>
+</code>
+<a id="d4e180031" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connection Validation(커넥션 유효성 검사)기능을 사용할지 여부를 결정한다.
+                    리소스 어댑터가 javax.resource.spi.ValidatingManagedConnectionFactory를 구현했을 경우에만 사용 가능하다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">false</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.period"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (46)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation">connection-validation</a>&gt; <span class="bold"><strong>&lt;period&gt;</strong></span>
+</code>
+<a id="d4e180061" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connection Validation(커넥션 유효성 검사)의 주기를 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">0</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.non-validation-interval"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (47)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation">connection-validation</a>&gt; <span class="bold"><strong>&lt;non-validation-interval&gt;</strong></span>
+</code>
+<a id="d4e180095" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connection Validation(커넥션 유효성 검사)이 너무 잦아서 오버헤드가 발생하는 경우 설정한다.
+                        커넥션 유효성 검사를 수행하기 직전의 시각과 가장 최근의 커넥션 유효성 검사 시각과의 차이가 설정한 시간 간격 이내면 커넥션 유효성 검사를 생략한다.
+                        예를 들어 이 설정값이 5000ms인 경우 어떤 커넥션의 마지막 커넥션 유효성 검사 시각으로부터 아직 5초가 지나지 않았다면 그 커넥션에 대한 유효성 검사가 생략된 채 애플리케이션에 전달된다.
+                        밀리세컨드 단위로 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">0</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.validation-retrial-count"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (48)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation">connection-validation</a>&gt; <span class="bold"><strong>&lt;validation-retrial-count&gt;</strong></span>
+</code>
+<a id="d4e180129" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connection Validation(커넥션 유효성 검사)은 기본적으로 Destroy Policy On Valiation이 FAILED_CONNECTION_ONLY로 설정되어 있을 경우 한 번 수행된다.
+                        Destroy Policy On Check Query가 ALL_CONNECTIONS로 설정되어 있을 경우에는 최초의 커넥션 유효성 검사에서 커넥션 이상이 확인되면 또 다른 커넥션에 대해서 한 번 더 커넥션 유효성 검사가 이루어져 총 두 번의 커넥션 유효성 검사가 수행될 수 있다.
+                        이 설정값이 이러한 기본 커넥션 유효성 검사 수행 횟수에 더해져 최종 커넥션 유효성 검사 수행 횟수가 정해진다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">0</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation.destroy-policy-on-validation"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (49)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-validation">connection-validation</a>&gt; <span class="bold"><strong>&lt;destroy-policy-on-validation&gt;</strong></span>
+</code>
+<a id="d4e180163" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>커넥션이 유효하지 않은 것으로 확인되었을 때 Connection Pool에 있는 다른 커넥션들에 대한 처리 정책을 설정한다.
+                        FAILED_CONNECTION_ONLY로 설정하면 유효하지 않은 것으로 확인된 커넥션만 제거한다.
+                        ALL_CONNTECTIONS로 설정하면 유효하지 않은 것으로 확인된 커넥션을 제거하고 Connection Pool에 있는 다른 커넥션의 유효성을 한 번 더 확인한다.
+                        그조차 유효하지 않은 것으로 확인되면 Connection Pool의 모든 커넥션을 제거한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">destroy-policy-on-check-queryType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">FailedConnectionOnly</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Defined Value</em></span>
+</td><td>
+<p>
+<code class="constant">FailedConnectionOnly</code>
+</p>
+<p>
+<code class="constant">AllConnections</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.action-on-connection-leak"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (50)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;action-on-connection-leak&gt;</strong></span>
+</code>
+<a id="d4e180200" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>컴포넌트(주로 Stateless Component - Servlet/JSP, Stateless Session Bean, MDB)에서 사용한 커넥션에 대한 Logging이나 반환 액션을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">action-on-resource-leakType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Defined Value</em></span>
+</td><td>
+<p>
+<code class="constant">NoAction</code>
+</p>
+<p>
+<code class="constant">Warning</code>
+</p>
+<p>
+<code class="constant">AutoClose</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (51)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;connection-trace&gt;</strong></span>
+</code>
+<a id="d4e180234" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>커넥션을 모니터링하기 위한 옵션이다.
+                    기본 기능은 어떤 애플리케이션이 커넥션을 사용하고 있는지 알 수 있도록 getConnection할 때의 Stack 정보를 표시한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">jca-connection-traceType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (52)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace.enabled">enabled</a>?</code>
+</p>
+<p>
+            (53)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace.get-connection-trace">get-connection-trace</a>?</code>
+</p>
+<p>
+            (54)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace.local-transaction-trace">local-transaction-trace</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace.enabled"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (52)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace">connection-trace</a>&gt; <span class="bold"><strong>&lt;enabled&gt;</strong></span>
+</code>
+<a id="d4e180272" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>커넥션 모니터링 기능 사용 여부를 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">false</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace.get-connection-trace"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (53)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace">connection-trace</a>&gt; <span class="bold"><strong>&lt;get-connection-trace&gt;</strong></span>
+</code>
+<a id="d4e180302" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>애플리케이션이 커넥션 요청(getConnection)을 할 때의 StackTrace를 저장한다.
+                        이것은 서버 로그 또는 관리 도구(WebAdmin 등)을 통해서 확인할 수 있다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">true</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace.local-transaction-trace"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (54)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.connection-trace">connection-trace</a>&gt; <span class="bold"><strong>&lt;local-transaction-trace&gt;</strong></span>
+</code>
+<a id="d4e180332" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>애플리케이션이 리소스 어댑터와 로컬 트랜잭션 작업을 할 때의 정보를 추적할 것인지 선택하는 옵션이다.
+                        Get Connection Trace 설정과 함께 사용하면 로컬 트랜잭션을 제대로 Commit 또는 Rollback하지 않은 애플리케이션을 추적할 때 도움을 줄 수 있다.
+                        이 옵션을 설정한 상태에서 jeus.connector.pool.transaction Logger의 레벨을 FINE으로 설정했을 경우, 서버 로그를 통해서 확인할 수 있다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">false</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.max-use-count"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (55)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;max-use-count&gt;</strong></span>
+</code>
+<a id="d4e180361" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>물리적 커넥션을 몇 번 사용할지 결정하는 옵션이다.
+                        이 횟수만큼 사용되고 나면 새로운 커넥션으로 교체된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">0</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.pool-destroy-timeout"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (56)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;pool-destroy-timeout&gt;</strong></span>
+</code>
+<a id="d4e180394" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Connection Pool을 Destroy할 때 대기하는 시간이다.
+                        리소스 어댑터를 Undeploy할 때 Pool을 Destroy하게 되는데 이때 커넥션을 닫으면서 리소스와 네트워크 통신을 할 경우 Block될 가능성이 존재한다.
+                        만약, 여기에 설정된 시간만큼 기다린 뒤에도 Destroy가 진행되지 않으면 이를 무시하고 계속 Undeploy를 진행한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeLongType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Long 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">10000</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (57)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; <span class="bold"><strong>&lt;disposable-connection&gt;</strong></span>
+</code>
+<a id="d4e180427" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated. JEUS 6 Fix#7부터는 사용하지 않는 옵션이다.
+                    DB Connection Pool과 마찬가지로 &lt;wait-connection&gt; 설정을 사용하지 않을 경우에는 항상 일회용(disposable) 커넥션을 생성한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">disposable-connectionType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (58)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection.allow-disposable-connection">allow-disposable-connection</a>?</code>
+</p>
+<p>
+            (59)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection.max-disposable-count">max-disposable-count</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection.allow-disposable-connection"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (58)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection">disposable-connection</a>&gt; <span class="bold"><strong>&lt;allow-disposable-connection&gt;</strong></span>
+</code>
+<a id="d4e180462" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated. 커넥션을 얻지 못했을 경우 임시 커넥션을 사용할 것인지를 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">true</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection.max-disposable-count"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (59)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management">pool-management</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.pool-management.disposable-connection">disposable-connection</a>&gt; <span class="bold"><strong>&lt;max-disposable-count&gt;</strong></span>
+</code>
+<a id="d4e180492" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>@Deprecated. 임시 커넥션의 최대 개수이다.
+                    임시 커넥션은 사용이 끝나면 자동적으로 제거된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nonNegativeIntType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type Description</em></span>
+</td><td>0 이상의 Int 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">3</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.property"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (60)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; <span class="bold"><strong>&lt;property&gt;</strong></span>
+</code>
+<a id="d4e180524" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>ManagedConnectionFactory에 적용할 속성을 추가한다.
+                    ra.xml에 설정된 값보다 우선된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">typePropertyType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (61)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.property.name">name</a>
+</code>
+</p>
+<p>
+            (62)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.property.type">type</a>
+</code>
+</p>
+<p>
+            (63)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.property.value">value</a>
+</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.property.name"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (61)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.property">property</a>&gt; <span class="bold"><strong>&lt;name&gt;</strong></span>
+</code>
+<a id="d4e180561" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>프로퍼티의 이름이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.property.type"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (62)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.property">property</a>&gt; <span class="bold"><strong>&lt;type&gt;</strong></span>
+</code>
+<a id="d4e180585" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>프로퍼티 값의 Type을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>Java Primitive 타입이 올 수 있다. 또한 java.util.Properties 타입이 오면 Value의 값을 프로퍼티에 입력한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">java.lang.Integer</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.connection-pool.property.value"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (63)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool">connection-pool</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.connection-pool.property">property</a>&gt; <span class="bold"><strong>&lt;value&gt;</strong></span>
+</code>
+<a id="d4e180618" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>프로퍼티의 값을 설정한다. java.util.Properties 타입이면, Value는 key=value[,key=value]* 형식이 된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.java-security-permission"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (64)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; <span class="bold"><strong>&lt;java-security-permission&gt;</strong></span>
+</code>
+<a id="d4e180640" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>JEUS가 J2SE Security를 사용할 때 해당 애플리케이션에게 허용할 J2SE Permission을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">securityPermissionType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (65)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.java-security-permission.description">description</a>?</code>
+</p>
+<p>
+            (66)
+            <code class="code">
+<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.java-security-permission.security-permission-spec">security-permission-spec</a>
+</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.java-security-permission.description"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (65)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.java-security-permission">java-security-permission</a>&gt; <span class="bold"><strong>&lt;description&gt;</strong></span>
+</code>
+<a id="d4e180673" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Security Permission 설정에 대한 설명을 입력할 수 있다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-connector-dd.java-security-permission.security-permission-spec"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (66)
+                                <code class="code">&lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd">jeus-connector-dd</a>&gt; &lt;<a href="jeus-connector-dd.html#schema-table-reference.jeus-connector-dd.java-security-permission">java-security-permission</a>&gt; <span class="bold"><strong>&lt;security-permission-spec&gt;</strong></span>
+</code>
+<a id="d4e180696" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Security Permission을 기술한다. 형식은 Java Policy 파일을 따른다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Example</em></span>
+</td><td>
+<code class="code">grant {
+                                permission java.lang.RuntimePermission "foo";
+                            }</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p>
+</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e180712"></a>22.4. jeus-connector-dd.xml 파일 예제</h2></div></div></div>
+        
+
+        <div class="example"><a id="d4e180714"></a><p class="title"><b>[예 22.1] jeus-connector-dd.xml 파일 예제</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;jeus-connector-dd xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;module-name&gt;whitebox-xa&lt;/module-name&gt;
+
+    &lt;use-workmanager&gt;true&lt;/use-workmanager&gt;
+
+    &lt;!--
+        Work Manager Configuration
+    --&gt;
+    &lt;worker-pool&gt;
+        &lt;min&gt;3&lt;/min&gt;
+        &lt;max&gt;10&lt;/max&gt;
+        &lt;step&gt;1&lt;/step&gt;
+        &lt;pre-allocation&gt;true&lt;/pre-allocation&gt;
+        &lt;submit-timeout&gt;5000&lt;/submit-timeout&gt;
+        &lt;release-timeout&gt;60000&lt;/release-timeout&gt;
+        &lt;!-- Do not wait for running tasks
+             while work manager is shutting down. --&gt;
+        &lt;shutdown-timeout&gt;-1&lt;/shutdown-timeout&gt;
+        &lt;pooled-timeout&gt;600000&lt;/pooled-timeout&gt;
+    &lt;/worker-pool&gt;
+
+    &lt;!--
+        Connection Pool Configuration
+    --&gt;
+    &lt;connection-pool&gt;
+        &lt;export-name&gt;datasource1&lt;/export-name&gt;
+        &lt;log-file&gt;
+            &lt;file-name&gt;c:\logs\whitebox-xa.log&lt;/file-name&gt;
+            &lt;buffer-size&gt;512&lt;/buffer-size&gt;
+            &lt;!-- To roll over log file every day. --&gt;
+            &lt;valid-day&gt;1&lt;/valid-day&gt;
+        &lt;/log-file&gt;
+        &lt;!-- Defined values are NoTransaction, LocalTransaction,
+             XATransaction and XATransactionOnly. --&gt;
+        &lt;transaction-support&gt;XATransaction&lt;/transaction-support&gt;
+        &lt;user&gt;scott&lt;/user&gt;
+        &lt;password&gt;tiger&lt;/password&gt;
+        &lt;use-wrapper&gt;true&lt;/use-wrapper&gt;
+        &lt;!-- Works only if the resource adapter supported dissociation. --&gt;
+        &lt;dissociation-timeout&gt;60000&lt;/dissociation-timeout&gt;
+        &lt;invalidation-timeout&gt;300000&lt;/invalidation-timeout&gt;
+        &lt;!-- Works only if the resource adapter
+             implemented ValidatingManagedConnectionFactory --&gt;
+        &lt;validation-timeout&gt;600000&lt;/validation-timeout&gt;
+        &lt;skip-connection-matching&gt;false&lt;/skip-connection-matching&gt;
+        &lt;pool-management&gt;
+            &lt;min&gt;0&lt;/min&gt;
+            &lt;max&gt;20&lt;/max&gt;
+            &lt;pooled-timeout&gt;600000&lt;/pooled-timeout&gt;
+            &lt;wait-connection&gt;
+                &lt;wait-connection&gt;true&lt;/wait-connection&gt;
+                &lt;max-waiter-count&gt;5&lt;/max-waiter-count&gt;
+                &lt;max-wait-trial&gt;5&lt;/max-wait-trial&gt;
+                &lt;wait-timeout&gt;10000&lt;/wait-timeout&gt;
+            &lt;/wait-connection&gt;
+            &lt;disposable-connection&gt;
+                &lt;allow-disposable-connection&gt;true&lt;/allow-disposable-connection&gt;
+                &lt;max-disposable-count&gt;3&lt;/max-disposable-count&gt;
+            &lt;/disposable-connection&gt;
+        &lt;/pool-management&gt;
+        &lt;property&gt;
+            &lt;name&gt;Vendor&lt;/name&gt;
+            java.lang.String
+            &lt;value&gt;TmaxSoft&lt;/value&gt;
+        &lt;/property&gt;
+    &lt;/connection-pool&gt;
+&lt;/jeus-connector-dd&gt;
+</pre>
+        </div></div><br class="example-break"/>
+    </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jeus-ejb-dd.xml_XML_Configuration.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_jeusclient_descriptor.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제21장 jeus-ejb-dd.xml 설정 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제23장 jeus-client-dd.xml 설정</td></tr></table></div><div xmlns="" align="center"/></body></html>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제1장 소개</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS 소개"/><link rel="up" href="index.html" title="JEUS 소개"/><link rel="prev" href="about.html" title="안내서에 대하여"/><link rel="next" href="chapter_jeus_environment.html" title="제2장 JEUS 환경"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제1장 소개</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_jeus_environment.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_What_is_JEUS"></a>제1장 소개</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_What_is_JEUS.html#sect_about_JEUS">1.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_What_is_JEUS.html#sect_JEUS_system_part">1.2. 시스템 개념과 역할</a></span></dt><dt><span class="section"><a href="chapter_What_is_JEUS.html#sect_JEUS_composition_architecture">1.3. 구성 요소와 아키텍처</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_What_is_JEUS.html#sect_client_layer">1.3.1. Client Layer</a></span></dt><dt><span class="section"><a href="chapter_What_is_JEUS.html#sect_JEUS_WAS_layer">1.3.2. WAS Middleware Layer</a></span></dt><dt><span class="section"><a href="chapter_What_is_JEUS.html#sect_Source_layer">1.3.3. Source Layer</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_What_is_JEUS.html#sect_JEUS_mutural_operation">1.4. 상호 운용 모듈</a></span></dt><dt><span class="section"><a href="chapter_What_is_JEUS.html#sect_JEUS_Edition">1.5. Edition</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 JEUS에 대한 기본적인 이해와 Java EE 스펙에 대해서 설명하고, JEUS 시스템의 개념 및 구성 요소와
+  에디션별 기능에 대해 기술한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_about_JEUS"></a>1.1. 개요</h2></div></div></div>
+    
+
+    <p>JEUS(Java Enterprise User Solution)는 웹 환경에서 애플리케이션을 개발, 운용, 실행할 수 있는
+    플랫폼 역할을 하면서, 포괄적인 Java 기반의 웹 애플리케이션 서비스와 관리를 제공한다. JEUS는 Java EE 애플리케이션을
+    구동할 때 필요한 플랫폼과 다음의 같은 구성 요소를 제공한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>EJB 컨테이너</p>
+      </li><li>
+        <p>웹 컨테이너(JSP/서블릿 엔진)</p>
+      </li><li>
+        <p>보안 모듈(Security Module)</p>
+      </li><li>
+        <p>Naming 서버</p>
+      </li><li>
+        <p>트랜잭션 매니저</p>
+      </li><li>
+        <p>JDBC Connection Pool</p>
+      </li><li>
+        <p>세션 매니저</p>
+      </li></ul></div>
+
+    <p/>
+
+    <h3><a id="d4e406"></a>Java EE</h3>
+
+    <p>JEUS는 Oracle 사의 Java Enterprise Edition 스펙을 준수하며, Java EE 7 인증을
+    획득했다.</p>
+
+    <p>다음은 Oracle 사의 웹 사이트에 있는 문구로 JEUS는 나열된 모든 기술들을 제공한다.</p>
+
+    <p><span class="emphasis"><em>"The Java Platform, Enterprise Edition (Java EE) defines
+    the standard for developing multitier enterprise applications. The Java EE
+    platform simplifies enterprise applications by basing them on
+    standardized, modular components, by providing a complete set of services
+    to those components, and by handling many details of application behavior
+    automatically, without complex programming."</em></span></p>
+
+    <p><span class="emphasis"><em>"The primary technologies in Java EE are: Enterprise
+    JavaBeansTM (EJBsTM), JavaServer PagesTM (JSPsTM), Java Servlets, the Java
+    Naming and Directory InterfaceTM (JNDITM), the Java Transaction API (JTA),
+    CORBA, and the JDBCTM data access API." </em></span></p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>Java EE에 대한 보다 자세한 정보를 알아보기 위해서는 Oracle 사의 홈페이지(<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.oracle.com/technetwork/java/javaee/overview/index.html" target="_top">http://www.oracle.com/technetwork/java/javaee/overview/index.html</a>)를
+        참고한다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 Java EE의 스펙 중에서 JEUS 8에서 구현한 기능 목록이다.</p>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="350" align="left"/><col/></colgroup><thead><tr><th align="left">Spec</th><th>JEUS 8</th></tr></thead><tbody><tr><td align="left">J2EE</td><td>Java EE 7</td></tr><tr><td align="left">WebServer</td><td>WebtoB 5.0</td></tr><tr><td align="left">HTTP</td><td>1.0/1.1/2.0</td></tr><tr><td align="left">CGI</td><td>1.1</td></tr><tr><td align="left">PHP</td><td>3.x/4.x/5.x</td></tr><tr><td align="left">SSL</td><td>/ssl3/tls1</td></tr><tr><td align="left">WebSocket</td><td>1.0</td></tr><tr><td align="left">Java API for JSON Processing</td><td> </td></tr><tr><td align="left">Batch Application for the Java Platform</td><td> </td></tr><tr><td align="left">Concurrency Utilities for Java EE</td><td>1.0</td></tr><tr><td align="left">EJB</td><td>3.2</td></tr><tr><td align="left">RMI-IIOP</td><td>지원</td></tr><tr><td align="left">JAF</td><td>1.1</td></tr><tr><td align="left">EJB to CORBA Mapping</td><td>1.1</td></tr><tr><td align="left">JCA</td><td>1.7</td></tr><tr><td align="left">JMS</td><td>2.0</td></tr><tr><td align="left">Common Annotations for the Java Platform</td><td>1.2</td></tr><tr><td align="left">JPA</td><td>2.1</td></tr><tr><td align="left">JavaMail API</td><td>1.5</td></tr><tr><td align="left">JTA</td><td>1.2</td></tr><tr><td align="left">JTS</td><td>1.0</td></tr><tr><td align="left">JNDI</td><td>1.2.1</td></tr><tr><td align="left">CDI</td><td>1.1</td></tr><tr><td align="left">Bean Validation</td><td>1.1</td></tr><tr><td align="left">Managed Beans</td><td>1.0</td></tr><tr><td align="left">Interceptors</td><td>1.2</td></tr><tr><td align="left">JSP</td><td>2.3</td></tr><tr><td align="left">Servlet</td><td>3.1</td></tr><tr><td align="left">JSF</td><td>2.2</td></tr><tr><td align="left">JSTL</td><td>1.2</td></tr><tr><td align="left">XSLT</td><td>1.0</td></tr><tr><td align="left">JDBC</td><td>4.0</td></tr><tr><td align="left">IBM MQ</td><td>지원</td></tr><tr><td align="left">Sonic MQ</td><td>지원</td></tr><tr><td align="left">J2EE Management</td><td>1.1</td></tr><tr><td align="left">J2EE Deployment API</td><td>1.2</td></tr><tr><td align="left">JAAS</td><td>1.0.1</td></tr><tr><td align="left">JACC</td><td>1.5</td></tr><tr><td align="left">JASPIC</td><td>1.1</td></tr><tr><td align="left">JAXP</td><td>(JDK 7에 포함되어 제공)</td></tr><tr><td align="left">StAX</td><td>(JDK 7에 포함되어 제공)</td></tr><tr><td align="left">JAXB</td><td>2.2</td></tr><tr><td align="left">SAAJ</td><td>1.3</td></tr><tr><td align="left">Implementing Enterprise Web Services</td><td>1.3</td></tr><tr><td align="left">Web Service Metadata</td><td>2.1</td></tr><tr><td align="left">JAX-RPC</td><td>1.1</td></tr><tr><td align="left">JAX-WS</td><td>2.2</td></tr><tr><td align="left">JAX-RS</td><td>2.0</td></tr><tr><td align="left">JAXR</td><td>1.0</td></tr><tr><td align="left">UDDI</td><td>2.0/3.0</td></tr><tr><td align="left">SOAP</td><td>1.1/1.2</td></tr><tr><td align="left">WSDL</td><td>1.1</td></tr><tr><td align="left">WS-I Basic Profile</td><td>1.1</td></tr><tr><td align="left">WS-Policy</td><td>1.5</td></tr><tr><td align="left">WS-Policy Attachment</td><td>1.5</td></tr><tr><td align="left">WS-Addressing</td><td>1.0</td></tr><tr><td align="left">WS-Security</td><td>1.1</td></tr><tr><td align="left">WS-Security Policy</td><td>1.2</td></tr><tr><td align="left">WS-Trust</td><td>1.4</td></tr><tr><td align="left">WS-Secure Conversation</td><td>1.4</td></tr><tr><td align="left">WS-Reliable Messaging</td><td>1.2</td></tr><tr><td align="left">WS-AtomicTransaction</td><td>1.2</td></tr><tr><td align="left">WS-Coordination</td><td>1.2</td></tr><tr><td align="left">OTS</td><td>지원</td></tr><tr><td align="left">Java IDL API</td><td>지원</td></tr><tr><td align="left">IDE Tool</td><td>미지원</td></tr><tr><td align="left">GUI Tool</td><td>미지원</td></tr><tr><td align="left">Web Tool</td><td>WebAdmin</td></tr><tr><td align="left">Monitoring Tool</td><td>Console Tool, WebAdmin</td></tr><tr><td align="left">JDK</td><td>7 (인증)</td></tr></tbody></table>
+      </div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>1. 스펙에 대한 내용은 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.oracle.com/technetwork/java/javaee/tech/index.html" target="_top">http://www.oracle.com/technetwork/java/javaee/tech/index.html</a>에서
+        확인할 수 있다.</p>
+
+        <p>2. 사용하는 JEUS 에디션에 따라서 위 표에 나열된 모든 기능이 구현되지 않을 수 있다. 자세한 내용은 각
+        JEUS 에디션 소개 자료를 참고한다.</p>
+      </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_system_part"></a>1.2. 시스템 개념과 역할</h2></div></div></div>
+    
+
+    <p>다음은 엔터프라이즈 애플리케이션 솔루션을 제공하기 위해서 JEUS가
+    다른 웹 서버나 DBMS 등과 어떻게 통합되는지 보여준다.</p><div class="figure"><a id="figure_features-and-roles"></a><p class="title"><b>[그림 1.1] JEUS의 기능과 역할</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="616"><tr><td align="left"><img src="../images/figure_jeus_architecture_j8000.png" align="top" width="616" alt="JEUS의 기능과 역할"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p>위 그림에서 나타난 4가지 Layer는 다음과 같다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><span class="bold"><strong>Client Layer<a id="d4e658" class="indexterm"></a></strong></span></p>
+
+        <p>웹 서버나 Java 애플리케이션 또는 Native 애플리케이션으로 구성된다. 최종 사용자는 WAS의 서비스를
+        사용하기 위해서 다양한 클라이언트를 사용하며, 이 클라이언트는 다양한 프로토콜 중에 하나를 사용해서 WAS의 서비스에
+        접근한다.</p>
+      </li><li>
+        <p><span class="bold"><strong>Web/Internet Layer<a id="d4e664" class="indexterm"></a></strong></span></p>
+
+        <p>클라이언트와 WAS 사이에서 작동하는 웹 서버나 프로토콜로 정의된다. 이 Layer에서는 정적인 콘텐츠와 부하
+        분산을 처리한다.</p>
+      </li><li>
+        <p><span class="bold"><strong>JEUS/WAS Layer<a id="d4e670" class="indexterm"></a></strong></span></p>
+
+        <p>Java 기반의 미들웨어로 구성되며, Web Layer나 Client Layer로부터 오는 요청을 받아서
+        처리한다.</p>
+      </li><li>
+        <p><span class="bold"><strong>EIS Layer<a id="d4e676" class="indexterm"></a></strong></span></p>
+
+        <p>비즈니스 데이터나 기존의 Legacy 서비스를 나타낸다. WAS는 JDBC나 디렉터리 서비스, Java EE
+        Connector 등의 다양한 메커니즘을 통해서 Legacy 서비스와 상호 작용한다.</p>
+      </li></ul></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_composition_architecture"></a>1.3. 구성 요소와 아키텍처</h2></div></div></div>
+    
+
+    <p/>
+
+    <p>JEUS는 많은 서로 다른 모듈들로 구성되어 있다. 이러한 모듈들은 다음의 <a href="chapter_What_is_JEUS.html#figure_web-application-architecture" title="[그림 1.2] JEUS 웹 애플리케이션 아키텍처 다이어그램">[그림 1.2]</a>에서 클라이언트 애플리케이션과 데이터 저장장치,
+    JEUS 사이의 통신 기술에 따라서 사용된다.</p>
+
+    <div class="figure"><a id="figure_web-application-architecture"></a><p class="title"><b>[그림 1.2] JEUS 웹 애플리케이션 아키텍처 다이어그램</b></p><div class="figure-contents">
+      
+
+      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="../images/figure_jeus_detail_architecture_j7000.png" align="top" width="711" alt="JEUS 웹 애플리케이션 아키텍처 다이어그램"/></td></tr></table></div>
+    </div></div><br class="figure-break"/>
+
+    <p>Client Layer는 다양한 형태의 클라이언트 애플리케이션과 통신 프로토콜을 보여주고 있다. Source Layer는
+    다양한 형태의 back-end 데이터 저장장치들이 나열되어 있다. TmaxSoft의 JEUS 제품은 WebtoB와 더불어 그림의 중간
+    부분인 WAS Middleware Layer를 구성한다. 웹 서버는 클라이언트 애플리케이션과 연결되어 있으며, 웹 서버는 웹
+    애플리케이션 서버와 밀접하게 통합되어 있다. 또한 웹 게이트웨이(WebT)는 WAS와 TP-Monitor(Tmax Server)를
+    연계시키며, 마지막으로 MainFrame 게이트웨이(Host-Link)는 MainFrame과 TP-Monitor 사이의 연결을
+    제공한다.</p>
+
+    <p>다음 절에서는 그림에서 보이는 3가지 Layer(Client Layer, WAS Middleware Layer,
+    Source Layer)의 구성 요소에 대해 알아본다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_client_layer"></a>1.3.1. Client Layer</h3></div></div></div>
+      
+
+      <p>Client Layer(클라이언트 계층)는 JEUS를 사용할 수 있는 원격 혹은 지역 애플리케이션을
+      나타낸다.</p>
+
+      <p>다음은 Client Layer를 구성하는 유형에 대한 설명이다.</p>
+
+      <p/>
+
+      <div class="informaltable">
+        
+
+        <table border="1"><colgroup><col width="160" align="left"/><col/></colgroup><thead><tr><th align="left">Client Layer</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">Web browser</td><td>가장 일반적인 클라이언트 애플리케이션은 HTML 콘텐츠를 얻기 위해 JEUS 서블릿 엔진과 WebtoB
+              Light 웹 서버에 요청을 하는 표준 웹 브라우저이다. 통신 프로토콜은 HTTP이다.</td></tr><tr><td align="left">Web Services</td><td>웹 서비스의 구현을 제공한다.</td></tr><tr><td align="left">Applet</td><td>JEUS 자신의 구성 요소를 참조할 수 있는 애플릿 컨테이너를 제공한다.</td></tr><tr><td align="left">Java Application</td><td>일반적인 독립된 Java 애플리케이션들은 JEUS에 의해 제공되는 클라이언트 컨테이너 내에서 RMI를
+              사용하여 실행된다. 이러한 클라이언트들을 Java EE 스펙에서는 애플리케이션 클라이언트라고 한다.</td></tr><tr><td align="left">COM/DCOM</td><td>Microsoft Windows 환경에서 EJB를 COM 형태로 호출할 수 있다.</td></tr><tr><td align="left">CORBA</td><td>CORBA 기술을 사용한 애플리케이션도 RMI/IIOP를 통해 JEUS를 사용할 수
+              있다.</td></tr><tr><td align="left">NMS</td><td>네트워크 관리 시스템은 JMX를 통해 JEUS를 관리하고 사용할 수 있다.</td></tr><tr><td align="left">JNLP</td><td>JNLP(Java Network Lanuching Protocol) 클라이언트들은 JEUS 8에서
+              지원된다.</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_JEUS_WAS_layer"></a>1.3.2. WAS Middleware Layer</h3></div></div></div>
+      
+
+      <p><a href="chapter_What_is_JEUS.html#figure_web-application-architecture" title="[그림 1.2] JEUS 웹 애플리케이션 아키텍처 다이어그램">[그림 1.2]</a>에서 JEUS WAS
+      Layer는 Java EE 7 스펙을 인증받은 JEUS 8 제품을 나타내며 구성 요소는 다음과 같다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span class="bold"><strong>JEUS Domain Administration
+          Server(DAS)</strong></span></p>
+
+          <p>도메인 내에는 Domain Administration Server(이하 DAS)라는 특별한 하나의 서버가 항상
+          존재한다. DAS는 도메인 내 서버들 간의 설정과 도메인 내의 모든 애플리케이션 및 리소스를 중앙에서 관리하고, 서버들을
+          제어 및 모니터링하는 관리 툴(WebAdmin, jeusadmin)과 통신한다.</p>
+
+          <p/>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">서비스</th><th>설명</th></tr></thead><tbody><tr><td align="left">Domain Configuration</td><td>도메인 전체의 설정을 관리한다.</td></tr><tr><td align="left">Application Management</td><td>도메인 전체의 애플리케이션을 관리한다.</td></tr><tr><td align="left">Administration</td><td>WebAdmin과 jeusadmin을 통해 도메인 내의 모든 서버, 서비스, 애플리케이션 및
+                    리소스를 한 번에 모니터링 및 제어할 수 있다.</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p><span class="bold"><strong>JEUS Managed
+          Server(MS)</strong></span></p>
+
+          <p>Managed Server(이하 MS)는 JEUS 시스템에서 구성될 수 있는 다양한 형태의 엔진과 서비스에 대한
+          기반을 제공하고 있다.</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">엔진 / 서비스</th><th>설명</th></tr></thead><tbody><tr><td align="left">EJB Engine</td><td>EJB 비즈니스 애플리케이션을 구동한다.</td></tr><tr><td align="left">Servlet Engine</td><td>웹 컨테이너로 정적인 콘텐츠(HTML)뿐만 아니라 JSP/Servelet 애플리케이션을
+                    구동한다.</td></tr><tr><td align="left">JMS Engine</td><td>JMS 기반 구조를 제공한다.</td></tr><tr><td align="left">Web Services Engine</td><td>JEUS 웹 서버의 인스턴스로서 서블릿 엔진의 front-end로 구동된다.</td></tr><tr><td align="left">JNDI Service</td><td>Naming 시스템이다.</td></tr><tr><td align="left">Security Service</td><td>인증과 권한 서비스이다.</td></tr><tr><td align="left">JTA</td><td>웹 애플리케이션 서버에서 구동되는 다양한 애플리케이션들에 대한 완전한 트랜잭션을
+                    제공한다.</td></tr><tr><td align="left">Scheduler</td><td>미리 정해진 시간에 이벤트를 발생시키는 타이머 기능을 제공한다.</td></tr><tr><td align="left">Session Manager</td><td>클러스터링이 필요한 경우 신뢰성있는 방식으로 클라이언트의 세션 정보를
+                    저장한다.</td></tr><tr><td align="left">JDBC</td><td>데이터베이스 Connection Pool이 설정될 수 있다.</td></tr><tr><td align="left">Logging</td><td>JEUS 실행 중에 시스템에서 수행되었던 일련의 작업들에 대한 내용을 순서대로 보관 및
+                    기록한다.</td></tr><tr><td align="left">JMX</td><td>NMS/JMX 클라이언트가 JEUS 시스템을 관리할 수 있도록 한다.</td></tr><tr><td align="left">JCA</td><td>JCA(Java EE Connector Architecture)는 JCA를 지원하는
+                    EAI(Enterprise Application Integration) 솔루션들에게 JEUS의 JCA를
+                    통한 Legacy EIS 연결을 지원한다.</td></tr></tbody></table>
+            </div>
+
+          <p/>
+        </li><li>
+          <p><span class="bold"><strong>Web Server (WebtoB,
+          Apache)</strong></span></p>
+
+          <p>웹 서버는 HTML과 같은 정적인 콘텐츠와 CGI와 같은 동적인 콘텐츠를 전송한다. 또한, 서블릿 엔진의
+          front-end로서 상호 작용한다. WebtoB는 TmaxSoft의 WebtoB 웹 서버로서 모든 기능을 지원하는 버전과
+          일부 축소된 기능만을 가진 JEUS 웹 서버의 2가지 버전이 있다.</p>
+
+          <p>JEUS 웹 서버는 JEUS에 포함되어 있으며, WebtoB에는 포함되어 있지 않다. 또한, 오픈 소스 웹
+          서버인 Apache를 JEUS에서 사용할 수 있다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span class="bold"><strong>JEUS Administration
+          Tools</strong></span></p>
+
+          <p>JEUS는 다음과 같은 2가지의 주요한 관리 툴이 있다.</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">툴</th><th>설명</th></tr></thead><tbody><tr><td align="left">WebAdmin</td><td>웹 브라우저에서 사용하며 JEUS의 모듈 패키징, 설정 이외의 모든 구성 요소들을 관리할 수
+                    있는 웹 툴이다.</td></tr><tr><td align="left">콘솔 툴(jeusadmin)</td><td>그래픽 툴을 통해 사용될 수 있는 모든 기능은 명령행 기반의 콘솔 툴을 사용해서 수행될 수
+                    있다. 이 툴은 그래픽 환경을 사용하지 않을 때 사용한다.</td></tr></tbody></table>
+            </div>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Source_layer"></a>1.3.3. Source Layer</h3></div></div></div>
+      
+
+      <p><a href="chapter_What_is_JEUS.html#figure_web-application-architecture" title="[그림 1.2] JEUS 웹 애플리케이션 아키텍처 다이어그램">[그림 1.2]</a>의 오른쪽의
+      Source Layer는 back-end의 리소스와 JEUS 시스템에 의해 사용될 수 있는 데이터 저장소를 나타내며, 종류는
+      다음과 같다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">Source Layer</th><th>설명</th></tr></thead><tbody><tr><td align="left">Database</td><td>JEUS에서 JDBC를 통해서 접속할 수 있다.</td></tr><tr><td align="left">Directory Service</td><td>LDAP와 같은 것들이 있으며, JNDI를 통해서 사용된다.</td></tr><tr><td align="left">Other Java EE Server</td><td>JEUS는 타 벤더의 Java EE 서버와 상호 작용이 가능하다.</td></tr><tr><td align="left">Tmax Server</td><td>TmaxSoft에서 개발한 TP-Monitor로, WebT API 라이브러리는 JEUS와 Tmax를
+                통합하는 데 사용된다.</td></tr><tr><td align="left">ORB</td><td>IIOP(Internet Inter-ORB Protocol)를 통해 참조될 수 있다.</td></tr><tr><td align="left">Mainframe</td><td>IBM MainFrame들은 특별히 Host-Link(혹은 Java EE Connector) 제품을
+                통해 사용된다.</td></tr><tr><td align="left">Legacy EIS</td><td>JCA를 지원하는 Legacy EIS로 JEUS와 상호 작용이 가능하다.</td></tr></tbody></table>
+        </div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_mutural_operation"></a>1.4. 상호 운용 모듈</h2></div></div></div>
+    
+
+    <p>상호 운용성이란 예상되는 결과를 얻기 위해 2개 또는 그 이상의 시스템(컴퓨터, 통신장치, 네트워크, 소프트웨어 혹은 다른
+    정보 기술 요소)에서 정의된 방법을 통한 데이터 교환이나 상호 작용을 의미한다(ISO ITC-215). JEUS는 서로 다른
+    프로토콜과 웹 서비스, JBuilder Bridge, JNLP, RMI-IIOP와 같은 기술들을 지원한다.</p>
+
+    <p>다음은 JEUS의 상호 운용을 위해 제공되는 모듈이다.</p>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">모듈</th><th>설명</th></tr></thead><tbody><tr><td align="left">RMI-IIOP</td><td>IIOP(Internet Inter-ORB Protocol) 프로토콜에서 수행되는 RMI 기술로서
+              JAVA 플랫폼에서 CORBA의 분산 컴퓨팅 작업을 가능하게 한다.</td></tr><tr><td align="left">JEUS</td><td>다른 웹 애플리케이션의 사용을 가능하게 하며, 웹 서비스 또한 지원한다.</td></tr><tr><td align="left">WebT</td><td>TP-Monitor와 JEUS를 연계하는 게이트웨이이다.</td></tr><tr><td align="left">Host-Link</td><td>Legacy EIS에 있는 서비스를 클라이언트가 사용할 수 있도록 하는 어댑터 모듈이다.</td></tr><tr><td align="left">JCA</td><td>JEUS와 JEUS 클라이언트가 가상적으로 어떠한 Legacy의 EIS에 대한 상호 작용도 가능하게
+              한다.</td></tr></tbody></table>
+      </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_Edition"></a>1.5. Edition</h2></div></div></div>
+    
+
+    <p>다음은 JEUS 8의 Edition에 대한 설명이다.</p>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">Edition</th><th>주요 특징</th></tr></thead><tbody><tr><td align="left">JEUS Standard Edition</td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                    <p>JEUS Server</p>
+                  </li><li style="list-style-type: circle">
+                    <p>JEUS Web Server</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Servlet 3.1</p>
+                  </li><li style="list-style-type: circle">
+                    <p>JSP 2.3</p>
+                  </li><li style="list-style-type: circle">
+                    <p>JSF 2.2</p>
+                  </li><li style="list-style-type: circle">
+                    <p>JSTL 1.2</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Security</p>
+                  </li><li style="list-style-type: circle">
+                    <p>JDBC connection pooling</p>
+                  </li><li style="list-style-type: circle">
+                    <p>XML 유틸리티</p>
+                  </li><li style="list-style-type: circle">
+                    <p>JNDI</p>
+                  </li><li style="list-style-type: circle">
+                    <p>JMX</p>
+                  </li><li style="list-style-type: circle">
+                    <p>WebAdmin</p>
+                  </li><li style="list-style-type: circle">
+                    <p>JEUS node clustering</p>
+                  </li><li style="list-style-type: circle">
+                    <p>EJB 3.2</p>
+                  </li><li style="list-style-type: circle">
+                    <p>JMS 2.0</p>
+                  </li><li style="list-style-type: circle">
+                    <p>2 Phase-Commit 지원 JTA</p>
+                  </li><li style="list-style-type: circle">
+                    <p>JCA 1.7</p>
+                  </li><li style="list-style-type: circle">
+                    <p>SNMP</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Web service</p>
+                  </li></ul></div></td></tr><tr><td align="left">JEUS Enterprise Edition</td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                    <p>JEUS Standard Edition</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Session clustering</p>
+                  </li><li style="list-style-type: circle">
+                    <p>JMS clustering</p>
+                  </li></ul></div></td></tr></tbody></table>
+      </div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>1. 제공되는 JEUS 안내서는 위의 표에서 언급된 모든 주제들을 포함하고 있다. 안내서에 기술된 기능들이 실제로 사용
+      가능한지 여부를 이 표에서 확인하기 바란다. JEUS를 설치하면 Trial 라이선스가 기본적으로 내장되어 있다.</p>
+
+      <p>2. 각각의 Standard Edition, Enterprise Edition별로 Cloud 라이선스를
+      제공한다.</p>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_jeus_environment.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">안내서에 대하여 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제2장 JEUS 환경</td></tr></table></div><div xmlns="" align="center"/></body></html>

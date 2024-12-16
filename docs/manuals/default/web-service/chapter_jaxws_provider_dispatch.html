@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제8장 프로바이더와 디스패치 인터페이스</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Service 안내서"/><link rel="up" href="pt01.html" title="Part I. JEUS 8 웹 서비스"/><link rel="prev" href="chapter_jaxws_handler.html" title="제7장 핸들러 프레임워크"/><link rel="next" href="chapter_jaxws_async_operation.html" title="제9장 비동기 웹 서비스"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제8장 프로바이더와 디스패치 인터페이스</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jaxws_handler.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part I. JEUS 8 웹 서비스</td><td width="20%" align="right"> <a accesskey="n" href="chapter_jaxws_async_operation.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jaxws_provider_dispatch"></a>제8장 프로바이더와 디스패치 인터페이스</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jaxws_provider_dispatch.html#d4e2054">8.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jaxws_provider_dispatch.html#sect_service_endpoint_provider_interface">8.2. 서비스 Endpoint 프로바이더 인터페이스</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_provider_dispatch.html#d4e2070">8.2.1. 프로바이더 인터페이스</a></span></dt><dt><span class="section"><a href="chapter_jaxws_provider_dispatch.html#d4e2111">8.2.2. 프로바이더 인터페이스 예제</a></span></dt><dt><span class="section"><a href="chapter_jaxws_provider_dispatch.html#d4e2120">8.2.3. 프로바이더 인터페이스 예제 실행</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxws_provider_dispatch.html#sect_client_dispatch_interface">8.3. 클라이언트 디스패치 인터페이스</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_provider_dispatch.html#sect_dispatch_interface">8.3.1. 디스패치 인터페이스</a></span></dt><dt><span class="section"><a href="chapter_jaxws_provider_dispatch.html#d4e2182">8.3.2. 디스패치 인터페이스 예제</a></span></dt><dt><span class="section"><a href="chapter_jaxws_provider_dispatch.html#d4e2192">8.3.3. 디스패치 예제 실행</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxws_provider_dispatch.html#d4e2204">8.4. XML/HTTP 바인딩</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_provider_dispatch.html#d4e2213">8.4.1. RESTful 웹 서비스</a></span></dt><dt><span class="section"><a href="chapter_jaxws_provider_dispatch.html#d4e2259">8.4.2. RESTful 웹 서비스 예제</a></span></dt><dt><span class="section"><a href="chapter_jaxws_provider_dispatch.html#d4e2294">8.4.3. RESTful 웹 서비스 예제 실행</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 서비스 Endpoint의 프로바이더 인터페이스와 클라이언트의 디스패치 인터페이스에 대해서 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2054"></a>8.1. 개요</h2></div></div></div>
+    
+
+    <p>웹 서비스의 서비스와 클라이언트는 서로 XML 기반의 메시지를 통해 서로 통신한다. 이때 JAX-WS 서비스
+    Endpoint 인터페이스는 개발자에게 Java 객체에서 XML 기반의 메시지 혹은 XML 기반의 메시지에서 Java 객체로의 복잡한
+    상호 변환 과정을 감추는 높은 수준의 추상화를 제공한다. 그러나 어떤 경우에는 개발자가 이러한 서비스와 클라이언트 간의 XML 기반
+    메시지 교환을 순수하게 메시지 레벨에서(SOAP 메시지 핸들러와 같은 복잡한 프로그래밍 모델의 도움 없이) 다루는 것을 보다 선호하는
+    경우가 있다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JEUS 8 웹 서비스는 서비스 Endpoint의 경우
+    <span><strong class="guibutton">프로바이더(Provider)</strong></span>라는 인터페이스와 클라이언트의 경우
+    <span><strong class="guibutton">디스패치(Dispatch)</strong></span>라는 인터페이스를 제공한다. 이를 통해 교환되는 메시지를 순수하게
+    메시지 수준에서 접근할 수 있도록 하고 있다. 프로바이더와 디스패치 인터페이스는 웹 서비스 개발자나 그 서비스를 소비하는 클라이언트의
+    개발자에게 메시지를 XML 메시지 수준에서 다룰 수 있도록 해준다.<a id="d4e2061" class="indexterm"></a><a id="d4e2063" class="indexterm"></a></p>
+
+    <p>본 장에서는 이러한 2가지의 인터페이스에 대해 설명한다.</p>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_service_endpoint_provider_interface"></a>8.2. 서비스 Endpoint 프로바이더 인터페이스</h2></div></div></div>
+    
+
+    <p>본 절에서는 프로바이더 인터페이스에 대해 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2070"></a>8.2.1. 프로바이더 인터페이스</h3></div></div></div>
+      
+
+      <p>프로바이더 인터페이스는 웹 서비스 Endpoint가 XML 문서를 XML 메시지 레벨에서 사용할 때 사용한다.
+      Endpoint는 메시지 또는 메시지 페이로드(payload)에 저수준의 Generic(Java SE 5의 새로운 기능) API를
+      통해 이에 접근할 수 있다.</p>
+
+      <p>다음은 프로바이더 인터페이스의 사용방법이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>@javax.xml.ws.WebServiceProvider Annotation을 가지고 있어야
+          한다.</p>
+        </li><li>
+          <p>해당 클래스는 Provider&lt;javax.xml.transform.Source&gt;,
+          Provider&lt;javax.xml.soap.SOAPMessage&gt;,
+          Provider&lt;javax.activation.DataSource&gt;를 구현해야 한다.</p>
+
+          <div class="itemizedlist"><ul type="disc"><li>
+              <p>Provider&lt;javax.xml.transform.Source&gt;를 구현해서 메시지 페이로드
+              사용</p>
+
+              <p><a id="d4e2083" class="indexterm"></a>메시지의 페이로드를 Source 객체로 사용하기 위해서는 @ServiceMode
+              Annotation을 Service.Mode.PAYLOAD 값으로 설정한다.</p>
+
+              <p>사실 이는 @WebServiceProvider Annotation만 선언되어 있으면 자동으로 설정되는
+              기본값이므로 생략할 수 있다.</p>
+
+              <pre class="programlisting">@WebServiceProvider
+public class ProviderImpl implements Provider&lt;Source&gt; {
+    public Source invoke(Source source) {
+        ...
+    }
+}</pre>
+            </li><li>
+              <p>Provider&lt;javax.xml.soap.SOAPMessage&gt;를 구현해서 메시지
+              사용</p>
+
+              <p><a id="d4e2091" class="indexterm"></a>메시지를 SOAPMessage 객체로 사용하기 위해서는 @ServiceMode
+              Annotation을 Service.Mode.Message 값으로 설정한다.</p>
+
+              <pre class="programlisting">@WebServiceProvider
+@ServiceMode(value=Service.Mode.MESSAGE)
+public class ProviderImpl implements Provider&lt;SOAPMessage&gt; {
+    public SOAPMessage invoke(SOAPMessage msg) {
+        ...
+    }
+}</pre>
+            </li><li>
+              <p>Provider&lt;javax.activation.DataSource&gt;를 구현해서 메시지
+              사용</p>
+
+              <p><a id="d4e2098" class="indexterm"></a>메시지를 Source 객체로 사용하기 위해서는 @ServiceMode Annotation을
+              Service.Mode.Message 값으로 설정한다. 요청 메시지가 SOAP 메시지일 경우 Attachment를
+              제외한 SOAP Part 부분만이 Source 객체로 넘어오게 된다. 리턴되는 값이 null 값이라면 이 웹
+              서비스는 단방향(one-way) 방식의 웹 서비스임을 의미한다.</p>
+
+              <pre class="programlisting">@WebServiceProvider
+@ServiceMode(value=Service.Mode.MESSAGE)
+public class ProviderImpl implements Provider&lt;Source&gt; {
+    public Source invoke(Source source) {
+        ...
+        <span class="bold"><strong>return null;</strong></span>
+    }
+}</pre>
+            </li></ul></div>
+        </li><li>
+          <p>Endpoint가 메시지(Service.Mode.MESSAGE)에 접근할 것인지 혹은
+          페이로드(Service.Mode.PAYLOAD)에 접근할 것인지에 대해서는 @javax.xml.ws.ServiceMode
+          Annotation이 담당한다.</p>
+
+          <p>@javax.xml.ws.ServiceMode Annotation이 없을 경우 페이로드만을 다루는 것이
+          기본값이다.</p>
+        </li></ol></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>실제로 웹 서비스의 Endpoint를 구성할 때 프로바이더 인터페이스를 구현하는 서비스 구현 클래스는 Endpoint
+      인터페이스에 대한 어떠한 정보도 주지 못한다. 따라서 반드시 WSDL로부터 웹 서비스를 생성하는 방식을 취해야 한다.</p>
+
+      <p>또한 프로바이더 인터페이스를 구현하는 서비스 구현 클래스로 웹 서비스를 구성하는 경우 WSDL로부터 얻은
+      Portable Artifact들 중 어떤 포트들은 프로바이더 인터페이스를 구현하는 서비스 구현 클래스에 의해 실제로 사용되지
+      않게 된다. 따라서 WSDL로부터 wsimport 툴을 사용하여 Portable Artifact들을 생성하는데 성능상의 이슈가 큰
+      경우 이러한 포트들이 생성되지 않도록 외부 바인딩 선언을 이용할 수 있다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2111"></a>8.2.2. 프로바이더 인터페이스 예제</h3></div></div></div>
+      
+
+      <p>다음은 Provider&lt;Source&gt; 인터페이스를 구현해서 메시지의 페이로드 부분을 다루기 위한 서비스 구현
+      클래스의 예이다.</p>
+
+      <div class="example"><a id="d4e2114"></a><p class="title"><b>[예 8.1] &lt;&lt; AddnumbersImpl.java &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">@ServiceMode(value = Service.Mode.PAYLOAD)
+@WebServiceProvider(wsdlLocation = "WEB-INF/wsdl/AddNumbers.wsdl",
+    targetNamespace = "http://tmaxsoft.com",
+    serviceName = "AddNumbersService", portName = "AddNumbersPort")
+public class AddNumbersImpl implements Provider&lt;Source&gt; {
+    public Source invoke(Source source) {
+        try {
+            DOMResult dom = new DOMResult();
+            Transformer trans = TransformerFactory.newInstance().newTransformer();
+            trans.transform(source, dom);
+            Node node = dom.getNode();
+            Node root = node.getFirstChild();
+            Node first = root.getFirstChild();
+            int number1 = Integer.decode(first.getFirstChild().getNodeValue());
+            Node second = first.getNextSibling();
+            int number2 = Integer.decode(second.getFirstChild().getNodeValue());
+            int sum = number1 + number2;
+
+            String body =
+            "&lt;ns:addNumbersResponse xmlns:ns=\"http://tmaxsoft.com\"&gt;&lt;ns:return&gt;"
+            + sum + "&lt;/ns:return&gt;&lt;/ns:addNumbersResponse&gt;";
+            Source sumsource = 
+              new StreamSource(new ByteArrayInputStream(body.getBytes()));
+
+            return sumsource;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+}</pre>
+      </div></div><br class="example-break"/>
+
+      <p>위의 예제에서 AddNumbersImpl이라는 클래스는 @WebServiceProvider라는 Annotation과
+      함께 Provider&lt;Source&gt;를 구현하며 @ServiceMode Annotation으로 메시지 페이로드를 다루는
+      것을 알 수 있다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2120"></a>8.2.3. 프로바이더 인터페이스 예제 실행</h3></div></div></div>
+      
+
+      <p>본 절에서는 지금까지 구현한 클래스들 및 기타 설정 파일들을 사용하여 프로바이더 인터페이스를 구현하는 웹 서비스를
+      실행하는 법을 설명한다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음과 같이 프로바이더 인터페이스를 구현하는 웹 서비스를 생성하여 JEUS에 deploy한다.</p>
+
+      <pre class="screen">$ ant deploy</pre>
+
+      <p>위의 과정이 모두 실행되어 서비스가 정상적으로 deploy되었으면, 클라이언트를 빌드한다. 클라이언트에서
+      wsimport의 과정을 거치므로 서비스의 deploy가 모두 완료되었을 때 클라이언트의 구성이 가능하다.</p>
+
+      <p>다음과 같이 클라이언트를 생성해서 서비스를 호출한다. 화면에 메시지를 주고받는 모습이 나타나며 프로바이더 인터페이스를
+      구현하는 웹 서비스의 모습을 알 수 있다.</p>
+
+      <pre class="screen">$ ant run
+
+...
+
+run:
+     [java] ##############################################
+     [java] ### JAX-WS Webservices examples - Provider ###
+     [java] ##############################################
+     [java] Testing Provider webservices...
+     [java] Success!
+
+...
+
+BUILD SUCCESSFUL
+
+...
+
+---[HTTP request]---
+Host: localhost:8088
+Content-length: 199
+Content-type: text/xml; charset=utf-8
+Accept: text/xml, multipart/related, text/html, image/gif, image/jpeg, *; q=.2,
+*/*; q=.2
+Connection: keep-alive
+Soapaction: ""
+User-agent: JAX-WS RI 2.2 - JEUS 8
+&lt;?xml version="1.0" ?&gt;&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envel
+ope/"&gt;&lt;S:Body&gt;&lt;addNumbers xmlns="http://tmaxsoft.com"&gt;&lt;arg0&gt;10&lt;/arg0&gt;&lt;arg1&gt;20&lt;/a
+rg1&gt;&lt;/addNumbers&gt;&lt;/S:Body&gt;&lt;/S:Envelope&gt;
+--------------------
+---[HTTP response 200]---
+&lt;?xml version="1.0" ?&gt;&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envel
+ope/"&gt;&lt;S:Body&gt;&lt;ns:addNumbersResponse xmlns:ns="http://tmaxsoft.com"&gt;&lt;ns:return&gt;3
+0&lt;/ns:return&gt;&lt;/ns:addNumbersResponse&gt;&lt;/S:Body&gt;&lt;/S:Envelope&gt;
+--------------------
+
+...</pre>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_client_dispatch_interface"></a>8.3. 클라이언트 디스패치 인터페이스</h2></div></div></div>
+    
+
+    <p>본 절에서는 클라이언트 디스패치 인터페이스에 대해 설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_dispatch_interface"></a>8.3.1. 디스패치 인터페이스</h3></div></div></div>
+      
+
+      <p>서비스 Endpoint의 프로바이더 인터페이스와 대칭되는 개념으로 클라이언트에서도 애플리케이션이 XML 문서를 메시지
+      수준으로 다룰 수가 있다.</p>
+
+      <p/>
+
+      <p>서버의 프로바이더 인터페이스와 마찬가지로 클라이언트의 디스패치 인터페이스를 구현하는 클라이언트 애플리케이션 또한
+      WSDL로부터 얻은 Portable Artifact들 중 어떤 포트들은 디스패치 인터페이스를 구현하는 클래스에 의해 실제로
+      사용되지 않게 된다. 따라서 WSDL로부터 wsimport 툴을 사용하여 Portable Artifact들을 생성하는데 성능상의
+      이슈가 큰 경우 이러한 포트들이 생성되지 않도록 외부 바인딩 선언을 이용할 수 있다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>디스패치 인터페이스의 사용 방법은 다음과 같다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>javax.xml.transform.Source, javax.xml.soap.SOAPMessage,
+          javax.activation.DataSource를 구현한다.<a id="d4e2150" class="indexterm"></a><a id="d4e2152" class="indexterm"></a><a id="d4e2154" class="indexterm"></a></p>
+
+          <p>서비스 Endpoint의 프로바이더 인터페이스가 Provider&lt;Source&gt;를 구현해서 클라이언트의
+          메시지로부터 페이로드 부분을 다루거나 Provider&lt;SOAPMessage&gt; 또는
+          Provider&lt;Source&gt;를 구현해서 클라이언트의 메시지를 다루는 것과 마찬가지로 클라이언트의 디스패치
+          인터페이스는 SOAPMessage, Source 또는 JAXB Object로 메시지를 구성할 수가 있다.</p>
+        </li><li>
+          <p>디스패치 객체의 생성을 위한 서비스 객체 생성(동적인 서비스 오퍼레이션 호출)한다.</p>
+
+          <p>서비스(javax.xml.ws.Service)는 동적인 서비스 생성을 위한 팩토리의 역할을 한다. 동적인
+          서비스의 생성이란 WSDL 없이 서비스 객체를 생성하기 위해 실제 서비스의 여러 바인딩에 대한 정보를 동적으로 할당하여
+          생성하기 위한 것이다.</p>
+
+          <p>다음은 동적인 서비스의 생성을 위해 사용하는 코드의 예이다.</p>
+
+          <pre class="programlisting">Service service = Service.createService(QName serviceQName);
+Service service = Service.createService(URL wsdlLocation, QName serviceQName);</pre>
+
+          <p/>
+
+          <p>또한 이렇게 생성된 서비스 객체에 대해 디스패치 객체가 바인드되는 특정의 포트나 Endpoint를 다음과 같이
+          addPort() 메소드를 통해 추가할 수 있다. 이렇게 추가된 포트를 통해 클라이언트 애플리케이션은 디스패치 인터페이스를
+          통해 호출할 수 있다.</p>
+
+          <p>위의 서비스 객체를 동적으로 wsdlLocation의 정보를 통해 생성하는 경우 다음 메소드는 동작하지 않는다는
+          점에 주의한다. 이미 wsdlLocation의 정보를 통해 서비스는 포트를 구성했기 때문이다.</p>
+
+          <pre class="programlisting">service.addPort(QName portName, String SOAPBinding.SOAP11HTTP_BINDING,
+    String endpointAddress);
+service.addPort(QName portName, String SOAPBinding.SOAP12HTTP_BINDING,
+    String endpointAddress);
+service.addPort(QName portName, String HTTPBinding.HTTP_BINDING,
+    String endpointAddress);</pre>
+
+          <p>위는 각각 차례대로 SOAP 1.1, SOAP 1.2 그리고 XML/HTTP 바인딩을 QName과
+          Endpoint 주소를 통해 포트를 구성하는 방식이다.</p>
+
+          <p>WSDL 파일로부터 생성되는 서비스 객체에 대해서는 위의 오퍼레이션들은 의미가 없다. 그 이유는 wsimport
+          툴에 의해 WSDL 파일로부터 생성될 때의 서비스는 이러한 포트 바인딩 혹은 QName, Endpoint 주소와 같은
+          정보들을 이미 생성되는 Portable Artifact들 중 서비스 객체가 알고 있기 때문이다.</p>
+
+          <p>다음은 일반적인 WSDL 파일로부터 wsimport 툴을 통해 생성된 Portable Artifact들 중
+          서비스 객체를 생성하는 예제 코드이다.</p>
+
+          <pre class="programlisting">Service service = new AddNumbersService();</pre>
+        </li><li>
+          <p>디스패치 객체를 생성한다. 서비스 객체를 동적으로 또는 WSDL 파일로부터 생성했으면 디스패치 객체는 다음의
+          서비스 클래스의 2가지 메소드를 통해 생성된다.</p>
+
+          <pre class="programlisting">Dispatch dispatch = service.createDispatch(QName portName,
+    Class clazz, Service.Mode mode);
+Dispatch dispatch = service.createDispatch(QName portName,
+    JAXBContext jaxbcontext, Service.Mode mode);</pre>
+
+          <p>디스패치 객체는 javax.xml.transform.Source 혹은 JAXB Data Binding
+          Object를 이용할 수 있는데 이 2가지의 경우 Service 객체로부터 Service.Mode.PAYLOAD 혹은
+          Service.Mode.MESSAGE 모드와 createDispatch 메소드를 통해 디스패치 객체를
+          생성한다.</p>
+
+          <p>또한 디스패치 객체가 javax.xml.soap.SOAPMessage를 이용할 경우에는 Service 객체로부터
+          Service.Mode.MESSAGE 모드와 createDispatch 메소드를 통해 디스패치 객체를
+          생성한다.</p>
+        </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2182"></a>8.3.2. 디스패치 인터페이스 예제</h3></div></div></div>
+      
+
+      <p>다음은 원격 웹 서비스의 WSDL 문서로부터 디스패치 인터페이스를 구현한 클라이언트 웹 서비스의 예이다.</p>
+
+      <div class="example"><a id="d4e2185"></a><p class="title"><b>[예 8.2] &lt;&lt; AddNumbersClient.java &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">public class AddNumbersClient {
+
+    public static void main(String[] args) {
+        try {
+            Service service = new AddNumbersService();
+            String request = "&lt;addNumbers xmlns=\"http://tmaxsoft.com\"&gt;
+                &lt;arg0&gt;10&lt;/arg0&gt;&lt;arg1&gt;20&lt;/arg1&gt;&lt;/addNumbers&gt;";
+            QName portQName = new QName("http://tmaxsoft.com", "AddNumbersPort");
+            Dispatch&lt;Source&gt; sourceDispatch = service.createDispatch(portQName,
+                    Source.class, Service.Mode.PAYLOAD);
+            System.out.println("##############################################");
+            System.out.println("### JAX-WS Webservices examples - Dispatch ###");
+            System.out.println("##############################################");
+            System.out.println("Testing Dispatch webservices...");
+
+            Source result = 
+              sourceDispatch.invoke(new StreamSource(new StringReader(request)));
+
+            DOMResult dom = new DOMResult();
+            Transformer trans = TransformerFactory.newInstance().newTransformer();
+            trans.transform(result, dom);
+            Node node = dom.getNode();
+            Node root = node.getFirstChild();
+            Node first = root.getFirstChild();
+            int sum = Integer.decode(first.getFirstChild().getNodeValue());
+            if (sum == 30) {
+                System.out.println("Success!");
+            } else {
+                System.out.println("Fail!");
+            }
+        } catch (ProtocolException jex) {
+            jex.printStackTrace();
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
+    }
+}</pre>
+      </div></div><br class="example-break"/>
+
+      <p>위의 예제에서 AddNumbersClient이라는 클래스는 WSDL로부터 얻은 서비스 객체에 대해
+      createDispatch() 메소드를 통해 Dispatch&lt;Source&gt; 타입의 sourceDispatch 객체를
+      얻어 프로그래밍하는 것을 알 수 있다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2192"></a>8.3.3. 디스패치 예제 실행</h3></div></div></div>
+      
+
+      <p>지금까지 구현한 클래스들 및 기타 설정 파일들을 사용하여 디스패치 인터페이스를 구현하는 웹 서비스를 실행하는 방법은
+      다음과 같다.</p>
+
+      <p>디스패치 인터페이스를 구현하는 웹 서비스를 생성하여 JEUS에 deploy한다.</p>
+
+      <pre class="screen">$ ant deploy</pre>
+
+      <p>위의 과정이 모두 실행되어 서비스가 정상적으로 deploy되면, 클라이언트를 빌드한다. 클라이언트에서 wsimport의
+      과정을 거치므로 서비스의 deploy가 모두 완료되었을 때 클라이언트의 구성이 가능하다.</p>
+
+      <p>다음과 같이 클라이언트를 생성해서 서비스를 호출한다. 화면에 메시지를 주고받는 모습이 나타나며 디스패치 인터페이스를
+      구현하는 웹 서비스의 모습을 알 수 있다.</p>
+
+      <pre class="screen">$ ant run
+
+...
+
+run:
+     [java] ##############################################
+     [java] ### JAX-WS Webservices examples - Dispatch ###
+     [java] ##############################################
+     [java] Testing Dispatch webservices...
+     [java] Success!
+
+...
+
+BUILD SUCCESSFUL
+
+...
+
+---[HTTP request]---
+Host: localhost:8088
+Content-length: 199
+Content-type: text/xml; charset=utf-8
+Accept: text/xml, multipart/related, text/html, image/gif, image/jpeg, *; q=.2,
+*/*; q=.2
+Connection: keep-alive
+Soapaction: ""
+User-agent: JAX-WS RI 2.2 - JEUS 8
+&lt;?xml version="1.0" ?&gt;&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envel
+ope/"&gt;&lt;S:Body&gt;&lt;addNumbers xmlns="http://tmaxsoft.com"&gt;&lt;arg0&gt;10&lt;/arg0&gt;&lt;arg1&gt;20&lt;/a
+rg1&gt;&lt;/addNumbers&gt;&lt;/S:Body&gt;&lt;/S:Envelope&gt;
+--------------------
+---[HTTP response 200]---
+&lt;?xml version="1.0" ?&gt;&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envel
+ope/"&gt;&lt;S:Body&gt;&lt;addNumbersResponse xmlns="http://tmaxsoft.com"&gt;&lt;return&gt;30&lt;/return
+&gt;&lt;/addNumbersResponse&gt;&lt;/S:Body&gt;&lt;/S:Envelope&gt;
+--------------------
+
+...</pre>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2204"></a>8.4. XML/HTTP 바인딩</h2></div></div></div>
+    
+
+    <p>웹 서비스에서는 메시지를 주고받을 때 SOAP 메시지가 아닌 XML 문서 자체를 그대로 HTTP에 실어 보내는 경우가
+    있다. 이와 같은 웹 서비스를 RESTful 웹 서비스라고도 한다. 기본적으로 RESTful 웹 서비스의 서비스와 클라이언트는
+    프로바이더와 디스패치 인터페이스를 사용한다. 프로바이더와 디스패치 인터페이스에 대해서는 각각 <a href="chapter_jaxws_provider_dispatch.html#sect_service_endpoint_provider_interface" title="8.2. 서비스 Endpoint 프로바이더 인터페이스">“8.2. 서비스 Endpoint 프로바이더 인터페이스”</a>와 <a href="chapter_jaxws_provider_dispatch.html#sect_client_dispatch_interface" title="8.3. 클라이언트 디스패치 인터페이스">“8.3. 클라이언트 디스패치 인터페이스”</a>를 참고한다.</p>
+
+    <p>본 절에서는 이러한 RESTful 웹 서비스를 지원하기 위한 JEUS 웹 서비스의 XML/HTTP 바인딩에 대해
+    설명한다.</p>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2213"></a>8.4.1. RESTful 웹 서비스</h3></div></div></div>
+      
+
+      <p>RESTful 웹 서비스의 주요 특징은 다음과 같다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>HTTP의 GET Request 또한 Endpoint에 전달될 수 있다.</p>
+        </li><li>
+          <p>표준 MessageContext.QUERY_STRING과 MessageContext.PATH_INFO를 통해
+          필요한 HTTP request의 쿼리(Query String)와 경로(path) 정보를 얻는다.</p>
+        </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>RESTful 웹 서비스는 보통 WSDL 문서를 통해 웹 서비스와 클라이언트를 구성하지 않는다. RESTful 웹
+      서비스는 사전에 미리 약속된 XML 문서의 스키마를 통해 웹 서비스 공급자와 소비자는 웹 서비스를 구성한다. 공급자는 서비스
+      클래스를 wsgen 툴을 통해 구성하며 클라이언트 또한 Portable Artifact의 도움 없이 독립적으로 애플리케이션을
+      구성한다.</p>
+
+      <p>JAX-WS는 보다 편리한 RESTful 웹 서비스를 위해 프로바이더와 디스패치 인터페이스에서 XML/HTTP 바인딩을
+      지원하는데 이를 통해 RESTful 웹 서비스를 공급자와 소비자는 JEUS 웹 서비스를 통해 보다 쉽게 구성할 수
+      있다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2229"></a>서비스 Endpoint 구성</h4>
+
+      <p><a href="chapter_jaxws_provider_dispatch.html#sect_service_endpoint_provider_interface" title="8.2. 서비스 Endpoint 프로바이더 인터페이스">“8.2. 서비스 Endpoint 프로바이더 인터페이스”</a>에서
+      프로바이더 인터페이스를 구현하기 위해 서비스 Endpoint가 Provider&lt;Source&gt; 또는
+      Provider&lt;SOAPMessage&gt;를 구현하는 클래스로 생성해서 바인딩된 Source와 SOAPMessage 객체를
+      통해 메시지의 페이로드 혹은 전체를 다룰 수 있도록 한다고 설명했다.</p>
+
+      <p><a id="d4e2233" class="indexterm"></a>프로바이더 Endpoint는 바인딩 식별자를 사용해서 다른 바인딩으로 설정할 수 있는데 이러한 바인딩
+      식별자는 Endpoint 클래스가 @BindingType Annotation을 설정함으로 가능하다. 이러한 바인딩 식별자가 없을
+      경우 기본 바인딩인 SOAP1.1/HTTP가 선언된다.</p>
+
+      <p>다음은 이러한 바인딩 식별자를 이용해서 XML/HTTP 바인딩을 선언한 예이다.</p>
+
+      <pre class="programlisting">@ServiceMode(value=Service.Mode.MESSAGE)
+@BindingType(value=HTTPBinding.HTTP_BINDING)
+public class ProviderImpl implements Provider&lt;Source&gt; {
+    public Source invoke(Source source) {
+        ...
+    }
+}</pre>
+
+      <p>위에서와 같이 서비스 Endpoint 클래스는 들어오는 메시지를 XML/HTTP로 바인딩하겠다는 선언을 했으므로
+      Provider&lt;SOAPMessage&gt;가 아닌 Provider&lt;Source&gt;를 구현하고 있다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2243"></a>클라이언트 구성</h4>
+
+      <p>RESTful 웹 서비스의 클라이언트 구성은 <a href="chapter_jaxws_provider_dispatch.html#sect_dispatch_interface" title="8.3.1. 디스패치 인터페이스">“8.3.1. 디스패치 인터페이스”</a>의 방법2에서 살펴본 바와 같이 동적인 서비스 객체를 생성하고
+      HTTPBinding.HTTP_BINDING으로 포트를 생성해서 다음과 같이 프로그래밍한다.</p>
+
+      <pre class="programlisting">Service service = Service.createService(QName serviceQName);
+service.addPort(QName portName, String HTTPBinding.HTTP_BINDING,
+    String endpointAddress);</pre>
+
+      <p>이렇게 생성된 서비스 객체를 사용해서 디스패치 객체를 생성하고, 필요하다면 이 서비스 객체에 Request를 POST
+      또는 GET 방식으로 지정하고 필요한 쿼리 스트링(MessageContext.QUERY_STRING)과
+      패스(MessageContext.PATH_INFO) 정보를 등록하여 서비스를 호출하면 된다.</p>
+
+      <p/>
+
+      <p>다음은 이러한 클라이언트 코드를 구성하는 예이다.</p>
+
+      <pre class="programlisting">...
+
+Dispatch&lt;Source&gt; d = service.createDispatch(portQName, Source.class,
+    Service.Mode.MESSAGE);
+Map&lt;String, Object&gt; requestContext = d.getRequestContext();
+requestContext.put(MessageContext.HTTP_REQUEST_METHOD,new String("GET"));
+requestContext.put(MessageContext.QUERY_STRING, queryString);
+requestContext.put(MessageContext.PATH_INFO, path);
+Source result = d.invoke(null);
+
+...</pre>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>invoke 메소드에 아무런 파라미터도 넘기지 않는다는 점에 주의한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2259"></a>8.4.2. RESTful 웹 서비스 예제</h3></div></div></div>
+      
+
+      <p>본 절에서는 RESTful 웹 서비스와 클라이언트 예제에 대해서 설명한다.</p>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2266"></a>RESTful 웹 서비스 예제</h4>
+
+      <p>다음은 RESTful 웹 서비스에서 서비스에 해당하는 Java 클래스의 예이다.</p>
+
+      <div class="example"><a id="d4e2269"></a><p class="title"><b>[예 8.3] &lt;&lt; AddNumbersImpl.java &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting"><span class="bold"><strong>@WebServiceProvider(serviceName = "AddNumbersService")
+@ServiceMode(value = Service.Mode.MESSAGE)
+@BindingType(value = HTTPBinding.HTTP_BINDING)</strong></span>
+public class AddNumbersImpl implements Provider&lt;Source&gt; {
+
+<span class="bold"><strong>    @Resource(type = Object.class)
+    protected WebServiceContext wsContext;</strong></span>
+
+    public Source invoke(Source source) {
+        try {
+            MessageContext mc = wsContext.getMessageContext();
+            String query = (String) mc.get(MessageContext.QUERY_STRING);
+            StringTokenizer st = new StringTokenizer(query, "=&amp;/");
+            st.nextToken();
+            int number1 = Integer.parseInt(st.nextToken());
+            st.nextToken();
+            int number2 = Integer.parseInt(st.nextToken());
+            int sum = number1 + number2;
+            String body =
+            "&lt;ns:addNumbersResponse xmlns:ns=\"urn:AddNumbers\"&gt;&lt;ns:return&gt;"
+            + sum + "&lt;/ns:return&gt;&lt;/ns:addNumbersResponse&gt;";
+            Source resultsrc = 
+              new StreamSource(new ByteArrayInputStream(body.getBytes()));
+            return resultsrc;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+
+      <p>위와 같이 RESTful 웹 서비스의 선언은 BindingType Annotation으로
+      HTTPBinding.HTTP_BINDING을 설정하고 Resource Annotation으로 WebServiceContext
+      타입의 멤버변수 wsContext를 설정한 것을 알 수 있다. wsContext는 런타임에 JAX-WS RI가 자동으로
+      Injection한다.</p>
+
+      <p>대략적인 이 클래스의 모습을 살펴보면 WebServiceContext로부터 MessageContext를 얻고 이를 통해
+      쿼리(Query String) 값을 얻은 후 sendSource 메소드를 통해 파싱 및 반환해줄 Source를 직접 형성해서 이를
+      리턴값으로 넘겨주고 있다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2283"></a>RESTful 웹 서비스 클라이언트 예제</h4>
+
+      <p>다음은 RESTful 웹 서비스에서 클라이언트에 해당하는 Java 클래스의 예이다.</p>
+
+      <div class="example"><a id="d4e2286"></a><p class="title"><b>[예 8.4] &lt;&lt; AddNumbersClient.java &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">public class AddNumbersClient {
+
+    public static void main(String[] args) throws Exception {
+        String endpointAddress = "http://localhost:8088/AddNumbers/addnumbers";
+        URL url = new URL(endpointAddress + "?num1=10&amp;num2=20");
+        System.out.println("#############################################");
+        System.out.println("### JAX-WS Webservices examples - RESTful ###");
+        System.out.println("#############################################");
+        System.out.println("Testing RESTful webservices...");
+        InputStream in = url.openStream();
+        StreamSource source = new StreamSource(in);
+
+        try {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            StreamResult sr = new StreamResult(bos);
+            Transformer trans = TransformerFactory.newInstance().newTransformer();
+            Properties oprops = new Properties();
+            oprops.put(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            trans.setOutputProperties(oprops);
+            trans.transform(source, sr);
+            System.out.println(bos.toString());
+            bos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>위와 같이 RESTful 웹 서비스의 클라이언트는 WSDL로부터 생성할 Portable Artifact 코드들의 모습은
+      보이지 않는다. 단지 URL 객체를 통해 직접 만든 Source를 스트림 형태로 보내주고 있음을 알 수 있다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2294"></a>8.4.3. RESTful 웹 서비스 예제 실행</h3></div></div></div>
+      
+
+      <p>본 절에서는 구현한 클래스들 및 기타 설정 파일들을 가지고 RESTful 웹 서비스를 실행하는 방법에 대해서
+      설명한다.</p>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음과 같이 RESTful 웹 서비스를 생성하여 JEUS에 deploy한다.</p>
+
+      <pre class="screen">$ ant build deploy</pre>
+
+      <p>위의 과정이 모두 실행되어 서비스가 정상적으로 deploy되면, 클라이언트를 빌드한다.</p>
+
+      <p>다음과 같이 RESTful 웹 서비스를 위한 클라이언트를 생성하고 서비스를 호출한다. 다음과 같이 콘솔에서 입력하면
+      정상적으로 메시지를 주고받는 모습을 확인할 수 있다.</p>
+
+      <pre class="screen">$ ant run
+
+...
+
+run:
+     [java] #############################################
+     [java] ### JAX-WS Webservices examples - RESTful ###
+     [java] #############################################
+     [java] Testing Restful webservices...
+     [java] &lt;ns:addNumbersResponse xmlns:ns="urn:AddNumbers"&gt;&lt;ns:return&gt;30&lt;/ns:r
+eturn&gt;&lt;/ns:addNumbersResponse&gt;
+
+...
+
+BUILD SUCCESSFUL
+
+...
+
+---[HTTP request]---
+Host: localhost:8088
+Content-type: application/x-www-form-urlencoded
+Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+Connection: keep-alive
+User-agent: JAX-WS RI 2.2 - JEUS 8
+
+--------------------
+---[HTTP response 200]---
+&lt;ns:addNumbersResponse xmlns:ns="urn:AddNumbers"&gt;&lt;ns:return&gt;30&lt;/ns:return&gt;&lt;/ns:a
+ddNumbersResponse&gt;
+--------------------
+
+...</pre>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jaxws_handler.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="pt01.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="chapter_jaxws_async_operation.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제7장 핸들러 프레임워크 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제9장 비동기 웹 서비스</td></tr></table></div><div xmlns="" align="center"/></body></html>

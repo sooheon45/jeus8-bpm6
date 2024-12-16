@@ -1,0 +1,533 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>SessionContainerMoMBean</title>
+      <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="SessionContainerMoMBean (JEUS API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.management.j2ee.servlet</font><br>MBean SessionContainerMoMBean
+      </h2>
+      <dl>
+         <dt><b>ObjectName Pattern:</b><dd><code>JEUS:name=engine-name-session,j2eeType=JeusService,jeusType=SessionContainer,*</code></dd>
+         </dt>
+         <dt></dt>
+         <dt></dt>
+         <dt><b>Statistics:</b><dd><code><a href="../../../../jeus/management/j2ee/servlet/SessionStats.html">SessionStats</a></code></dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl>
+         <dt><b>All Superinterfaces:</b><dd>jeus.management.j2ee.J2EEManagedObjectMBean, jeus.management.j2ee.StatisticsProvider</dd>
+         </dt>
+      </dl>
+      <dl>
+         <dt><b>All Known Subinterfaces:</b><dd><a href="../../../../jeus/management/j2ee/servlet/SessionContainerCentralMoMBean.html">SessionContainerCentralMoMBean</a>, <a href="../../../../jeus/management/j2ee/servlet/SessionRouterMoMBean.html">SessionRouterMoMBean</a></dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>MBean <b>SessionContainerMoMBean</b></pre></dl>웹/EJB컨테이너에 존재하는 세션 컨테이너를 나타낸다.
+      
+      <p>세션 컨테이너가 관리하는 세션들의 key에 대한 정보를 얻거나, 특정 id의 세션의 존재 유무 확인 및 해당 세션을 invalidate하는 기능을 제공한다.
+      분산식의 경우 세션 서버와 세션 컨테이너는 동일한 객체를 가리킨다. </p>
+      
+      <p>Session Container(세션 컨테이너): 웹 컨테이너나 EJB 컨테이너에서 세션 객체들을 관리하는 객체이다.</p><br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static int</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/j2ee/servlet/SessionContainerMoMBean.html#CENTRAL_TYPE">CENTRAL_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   중앙 집중 방식으로 세션 클러스터링을 지원하는 세션 컨테이너를 나타낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/j2ee/servlet/SessionContainerMoMBean.html#J2EE_TYPE">J2EE_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/j2ee/servlet/SessionContainerMoMBean.html#JEUS_TYPE">JEUS_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static int</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/j2ee/servlet/SessionContainerMoMBean.html#LOCAL_TYPE">LOCAL_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   세션 클러스터링을 지원하지 않는 세션 컨테이너를 나타낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static int</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/j2ee/servlet/SessionContainerMoMBean.html#P2P_TYPE">P2P_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   분산 방식으로 세션 클러스터링을 지원하는 세션 컨테이너를 나타낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String[]</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/j2ee/servlet/SessionContainerMoMBean.html#parentKeyMap">parentKeyMap</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>SYSTEM_DOMAIN</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attribute_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="3"><font size="+2"><b>Attribute Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.sessionmanager.central.CentralSessionServerInfo</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/servlet/SessionContainerMoMBean.html#CentralServerInfo">CentralServerInfo</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   중앙식에서 세션 컨테이너가 접속하고 있는 세션서버의 정보.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/servlet/SessionContainerMoMBean.html#ContainerType">ContainerType</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   세션 컨테이너 종류.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.sessionmanager.distributed.DistributedSessionServerInfo</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/servlet/SessionContainerMoMBean.html#DistributedServerInfo">DistributedServerInfo</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   분산식에서 세션 컨테이너가 접속한 세션 서버의 정보.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.ArrayList&lt;java.lang.String&gt;</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/servlet/SessionContainerMoMBean.html#LocalSessionKeys">LocalSessionKeys</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   세션 컨테이너가 가지고 있는 모든 세션의 키(key) 값.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.Hashtable&lt;java.lang.String, java.lang.Boolean&gt;</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/servlet/SessionContainerMoMBean.html#P2PConnectionStatus">P2PConnectionStatus</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   세션 서버간의 소켓 커넥션 상태를 커넥션 아이디와 상태 정보.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attributes_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>J2EEType, JeusType, objectName, ObjectName, ParentObjectName, PermissionName, eventProvider, stateManageable, statisticsProvider</code></td>
+            </tr>
+         </table>&nbsp;<a name="attributes_inherited_from_class_jeus.management.j2ee.StatisticsProvider"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.StatisticsProvider</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>stats</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operation_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Operation Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> java.util.List&lt;javax.servlet.http.HttpSession&gt;</code></font></td>
+               <td><code><b><a href="SessionContainerMoMBean.html#getMonitorableSessions(int)">getMonitorableSessions</a></b>(int count)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   count 만큼 Session이 전달 되며, session은 idle time( last Access Time )으로 정렬되어 있다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> boolean</code></font></td>
+               <td><code><b><a href="SessionContainerMoMBean.html#invalidateSession(java.lang.String)">invalidateSession</a></b>(java.lang.String id)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   이 세션 컨테이너에서 특정 세션을 invalidate시킨다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> boolean</code></font></td>
+               <td><code><b><a href="SessionContainerMoMBean.html#isExist(java.lang.String)">isExist</a></b>(java.lang.String key)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   세션 컨테이너에 특정 세션의 존재를 확인한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> int</code></font></td>
+               <td><code><b><a href="SessionContainerMoMBean.html#removeTimeExceededSession(int)">removeTimeExceededSession</a></b>(int timeMin)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   이 세션 컨테이너에서 일정 시간이 지난 세션들을 제거한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operations_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Operations inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>addChild, refreshMonitoring, removeChild</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="J2EE_TYPE"></a><h3>J2EE_TYPE</h3><pre>public static final java.lang.String <b>J2EE_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="JEUS_TYPE"></a><h3>JEUS_TYPE</h3><pre>public static final java.lang.String <b>JEUS_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="parentKeyMap"></a><h3>parentKeyMap</h3><pre>public static final java.lang.String[] <b>parentKeyMap</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="LOCAL_TYPE"></a><h3>LOCAL_TYPE</h3><pre>public static final int <b>LOCAL_TYPE</b></pre><dl>
+            <dd>세션 클러스터링을 지원하지 않는 세션 컨테이너를 나타낸다.
+               로컬 JVM에서만 세션이 관리된다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="CENTRAL_TYPE"></a><h3>CENTRAL_TYPE</h3><pre>public static final int <b>CENTRAL_TYPE</b></pre><dl>
+            <dd>중앙 집중 방식으로 세션 클러스터링을 지원하는 세션 컨테이너를 나타낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="P2P_TYPE"></a><h3>P2P_TYPE</h3><pre>public static final int <b>P2P_TYPE</b></pre><dl>
+            <dd>분산 방식으로 세션 클러스터링을 지원하는 세션 컨테이너를 나타낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="attribute_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Attribute Detail</b></font></th>
+            </tr>
+         </table><a name="CentralServerInfo"></a><a name="getCentralServerInfo(java.lang.String, java.lang.String)"></a><h3>CentralServerInfo</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> jeus.sessionmanager.central.CentralSessionServerInfo <b>getCentralServerInfo</b>()</pre><dl>
+               <dd>중앙식에서 세션 컨테이너가 접속하고 있는 세션서버의 정보.
+                  세션 컨테이너가 중앙 집중 방식 <a href="SessionContainerMoMBean.html#CENTRAL_TYPE"><code>CENTRAL_TYPE</code></a>인 경우,
+                  이 컨테이너가 접속하고 있는 세션 서버(Primary, Backup)의 정보를 알려준다.
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>이 컨테이너가 접속하고 있는 세션 서버 및 백업 서버에 대한 정보</dd>
+                     </dt>
+                     <dt><b>See Also:</b><dd>jeus.sessionmanager.central.CentralSessionServerInfo</dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>sessionContainerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="ContainerType"></a><a name="getContainerType(java.lang.String, java.lang.String)"></a><h3>ContainerType</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getContainerType</b>()</pre><dl>
+               <dd>세션 컨테이너 종류.
+                  리턴값은  <a href="SessionContainerMoMBean.html#LOCAL_TYPE"><code>LOCAL_TYPE</code></a>,
+                   <a href="SessionContainerMoMBean.html#CENTRAL_TYPE"><code>CENTRAL_TYPE</code></a>,
+                   <a href="SessionContainerMoMBean.html#P2P_TYPE"><code>P2P_TYPE</code></a> 중 하나이다.
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>세션 컨테이너 종류</dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>sessionContainerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="DistributedServerInfo"></a><a name="getDistributedServerInfo(java.lang.String, java.lang.String)"></a><h3>DistributedServerInfo</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> jeus.sessionmanager.distributed.DistributedSessionServerInfo <b>getDistributedServerInfo</b>()</pre><dl>
+               <dd>분산식에서 세션 컨테이너가 접속한 세션 서버의 정보.
+                  세션 컨테이너가 분산 방식 <a href="SessionContainerMoMBean.html#P2P_TYPE"><code>P2P_TYPE</code></a>인 경우,
+                  이 컨테이너가 가지고 있는 세션 서버의 정보(이름) 와 접속하고 있는 백업 세션을 알려준다.
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>이 컨테이너가 가지고 있는 세션 서버 및 백업 세션 서버에 대한 정보(이름)</dd>
+                     </dt>
+                     <dt><b>See Also:</b><dd>jeus.sessionmanager.distributed.DistributedSessionServerInfo</dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>sessionContainerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="LocalSessionKeys"></a><a name="getLocalSessionKeys(java.lang.String, java.lang.String)"></a><h3>LocalSessionKeys</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.util.ArrayList&lt;java.lang.String&gt; <b>getLocalSessionKeys</b>()</pre><dl>
+               <dd>세션 컨테이너가 가지고 있는 모든 세션의 키(key) 값.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>세션 컨테이너가 가지고 있는 모든 세션의 키(key) 값들</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="P2PConnectionStatus"></a><a name="getP2PConnectionStatus(java.lang.String, java.lang.String)"></a><h3>P2PConnectionStatus</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.util.Hashtable&lt;java.lang.String, java.lang.Boolean&gt; <b>getP2PConnectionStatus</b>()</pre><dl>
+               <dd>세션 서버간의 소켓 커넥션 상태를 커넥션 아이디와 상태 정보.
+                  세션 컨테이너가 분산 방식 <a href="SessionContainerMoMBean.html#P2P_TYPE"><code>P2P_TYPE</code></a>인 경우,
+                  세션 서버간의 소켓 커넥션 상태를 연결 아이디(Connection ID)와
+                  상태 정보(정상, 비정상)의 <code>Hashtable</code>로 알려준다.
+                  <code>Hashtable</code>의 키는 연결 아이디이고,
+                  값은 <code>Boolean</code>으로 정상인 경우 <code>true</code>이다.
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>세션 서버간의 소켓 연결 상태를 연결 아이디와 상태 정보의 <code>Hashtable</code></dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>sessionContainerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+      </p>
+      <p><a name="operation_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Operation Detail</b></font></th>
+            </tr>
+         </table><a name="getMonitorableSessions(int)"></a><h3>getMonitorableSessions</h3><pre> java.util.List&lt;javax.servlet.http.HttpSession&gt; <b>getMonitorableSessions</b>(int count)</pre><dl>
+            <dd>count 만큼 Session이 전달 되며, session은 idle time( last Access Time )으로 정렬되어 있다.
+               List의 Session은 수정이 불가능하며 수정시 RuntimeException이 발생한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>count</code> - 정보를 확인하고 싶은 세션들 갯수
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>정보 확인이 가능한 Session들의 List</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="invalidateSession(java.lang.String)"></a><h3>invalidateSession</h3><pre> boolean <b>invalidateSession</b>(java.lang.String id)</pre><dl>
+            <dd>이 세션 컨테이너에서 특정 세션을 invalidate시킨다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>id</code> - 삭제하려는 세션의 아이디
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>삭제하려는 세션이 로컬에 존재할 경우 <code>true</code>, 그렇지 않으면 <code>false</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="isExist(java.lang.String)"></a><h3>isExist</h3><pre> boolean <b>isExist</b>(java.lang.String key)</pre><dl>
+            <dd>세션 컨테이너에 특정 세션의 존재를 확인한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>key</code> - 세션 아이디
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>키에 대한 세션의 존재 유무</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="removeTimeExceededSession(int)"></a><h3>removeTimeExceededSession</h3><pre> int <b>removeTimeExceededSession</b>(int timeMin)</pre><dl>
+            <dd>이 세션 컨테이너에서 일정 시간이 지난 세션들을 제거한다.
+               너무 작은 값을 넣을수 있기에 min 단위로 설정하였다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>timeMin</code> - 대상이 되는 시간 (분)
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>삭제된 세션의 갯수</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

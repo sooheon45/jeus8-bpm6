@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제1장 소개</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Scheduler 안내서"/><link rel="up" href="index.html" title="JEUS Scheduler 안내서"/><link rel="prev" href="about.html" title="안내서에 대하여"/><link rel="next" href="chapter_programming.html" title="제2장 Scheduler 프로그래밍"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제1장 소개</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_programming.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_overview"></a>제1장 소개</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_overview.html#d4e391">1.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_overview.html#d4e419">1.2. Scheduler 컴포넌트 구조</a></span></dt><dt><span class="section"><a href="chapter_overview.html#d4e432">1.3. Scheduler 서버</a></span></dt></dl></div>
+  
+
+  <p/>
+
+  <p>본 장에서는 JEUS Scheduler의 기능과 사용 가능한 환경, 수행 방식에 대해 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e391"></a>1.1. 개요</h2></div></div></div>
+    
+
+    <p><a id="d4e394" class="indexterm"></a>JEUS Scheduler는 정해진 시간에 수행되거나 반복적으로 수행되는 작업을 scheduling할 수
+    있는 기능을 제공한다.</p>
+
+    <p>Scheduler는 JEUS의 확장된 기능으로 정해진 시간이나 주기적으로 작업을 수행해야 할 때 사용할 수 있다. EJB의
+    경우 Timer Service와 같은 기능을 제공하는데 이와 유사한 목적을 지니고 있으며 EJB 환경이 아니더라도 사용할 수 있다.
+    예를 들어 주기적으로 임시 파일을 삭제한다거나, 주기적으로 데이터베이스 커넥션을 체크하는 등의 시스템 관리에 사용할 수도
+    있다.</p>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p><a id="d4e400" class="indexterm"></a>Java EE 환경에서 Timer Service를 이용할 때 Java SE
+    Timer(java.util.Timer)를 직접 사용할 수 없으므로 EJB Timer Service를 사용하거나 JEUS에서 제공하는
+    JEUS Scheduler를 사용해야 한다. EJB Timer Service는 EJB 환경에서만 사용할 수 있는데 반하여 JEUS
+    Scheduler는 모든 Java EE 환경에서 사용할 수 있고 일반 Java SE 애플리케이션에서도 사용이 가능하다.</p>
+
+    <p>JEUS Scheduler는 Java SE Timer(java.util.Timer)와 유사하기 때문에 Java SE
+    Timer에 익숙하다면 JEUS Scheduler를 쉽게 사용할 수 있다. 또한 Java SE Timer에는 없는 작업 종료
+    시점(end time)과 최대 수행 횟수(max count)를 지정할 수 있는 기능도 제공한다.</p>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JEUS Scheduler는 다음과 같이 다양한 환경에서 사용이 가능하다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>Java SE 애플리케이션에서 Standalone Scheduler 사용</p>
+        </li><li>
+          <p>Java EE 애플리케이션 클라이언트에서 Standalone Scheduler 사용</p>
+        </li><li>
+          <p>JEUS 서버 Scheduler Service를 원격에서 접속하여 사용</p>
+        </li><li>
+          <p>JEUS 서버 설정 파일에 Job을 등록해서 사용</p>
+        </li><li>
+          <p>JEUS 서버 Scheduler Service를 Java EE 컴포넌트에서 사용</p>
+        </li></ul></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e419"></a>1.2. Scheduler 컴포넌트 구조</h2></div></div></div>
+    
+
+    <p>JEUS Scheduler는 사용자 애플리케이션 내에서 사용할 수도 있고 JEUS 서버에서 사용할 수도 있다. JEUS
+    서버는 원격에서 접속할 수 있는 Scheduler Service를 구동시킬 수 있으며 설정 파일을 통해 scheduling될 작업을
+    등록할 수도 있다.</p>
+
+    <p>JEUS Scheduler의 컴포넌트는 다음과 같은 구조를 갖는다.</p>
+
+    <p/>
+
+    <p/>
+
+    <div class="figure"><a id="d4e425"></a><p class="title"><b>[그림 1.1] JEUS에서의 Scheduler 컴포넌트</b></p><div class="figure-contents">
+      
+
+      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="597"><tr><td align="left"><img src="resources/figure_jeus_component_scheduler.png" align="top" width="597" alt="JEUS에서의 Scheduler 컴포넌트"/></td></tr></table></div>
+    </div></div><br class="figure-break"/>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e432"></a>1.3. Scheduler 서버</h2></div></div></div>
+    
+
+    <p>Scheduler 서버의 종류에 따라 Scheduler의 수행 방식이 달라지고, Scheduler Service가
+    구분된다.</p>
+
+    <p>다음은 Scheduler 서버의 종류에 따른 수행 방식을 나타낸다.</p>
+
+    <p/>
+
+    <div class="figure"><a id="d4e437"></a><p class="title"><b>[그림 1.2] Scheduler 서버별 수행 방식</b></p><div class="figure-contents">
+      
+
+      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="412"><tr><td align="left"><img src="resources/figure_jeus_scheduler_modes.png" align="top" width="412" alt="Scheduler 서버별 수행 방식"/></td></tr></table></div>
+    </div></div><br class="figure-break"/>
+
+    <p/>
+
+    <p>다음은 각각의 Scheduler Service를 사용하는 경우에 대한 설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>서버 Scheduler Service</p>
+
+        <p>항상 주기적으로 수행되어야 할 작업을 scheduling할 때 사용한다. 서버에서 항상 수행되어야 할 주기적인
+        작업이 있다면 Job-list에 미리 등록하여 서버가 구동할 때 수행되도록 할 수도 있다.</p>
+
+        <p>Java EE 컴포넌트들(Servlet, JSP, EJB 등)이 주기적으로 수행되는 작업을 scheduling할 때
+        주로 사용한다. 또한 JNDI 저장소에 등록되어서 원격 클라이언트에서도 사용할 수 있다.</p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>클라이언트 Scheduler Service</p>
+
+        <p>애플리케이션 클라이언트에서 Standalone 방식으로 구동되는 JEUS Scheduler Service는
+        애플리케이션 클라이언트 내부에서 어떠한 작업을 주기적으로 수행하는 경우 주로 사용한다. 또한 애플리케이션 클라이언트가 종료되면
+        더 이상 수행될 필요가 없는 작업인 경우에 사용한다.</p>
+      </li></ul></div>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_programming.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">안내서에 대하여 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제2장 Scheduler 프로그래밍</td></tr></table></div><div xmlns="" align="center"/></body></html>

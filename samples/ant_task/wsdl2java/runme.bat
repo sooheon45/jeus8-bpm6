@@ -1,0 +1,1 @@
+call set CLASSPATH=D:\jeus_src\jeus6\lib\system\jeus-ws.jar;D:\jeus_src\jeus6\lib\system\jeusutil.jar;D:\jeus_src\jeus6\lib\system\jeus.jar;D:\jeus_src\jeus6\lib\system\javaee.jar;D:\jeus_src\jeus6\lib\system\jeusjaxb.jar;%JEUS_HOME%\lib\system\jaxb-impl.jar;%CLASSPATH%

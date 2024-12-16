@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <definitions 
+ xmlns="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="WSTxTestService" targetNamespace="http://service.wstx/" xmlns:tns="http://service.wstx/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsat="http://schemas.xmlsoap.org/ws/2004/10/wsat" 
+ >
+    <message name="initQueue"/>
+    <message name="initQueueResponse"/>
+    <message name="putMessage"/>
+    <message name="putMessageResponse"/>
+    <message name="verifyMessage"/>
+    <message name="verifyMessageResponse"/>
+    <portType name="WSTxTest">
+        <operation name="initQueue">
+            <input message="tns:initQueue"/>
+            <output message="tns:initQueueResponse"/>
+        </operation>
+        <operation name="putMessage">
+            <input message="tns:putMessage"/>
+            <output message="tns:putMessageResponse"/>
+        </operation>
+        <operation name="verifyMessage">
+            <input message="tns:verifyMessage"/>
+            <output message="tns:verifyMessageResponse"/>
+        </operation>
+    </portType>
+    <binding name="WSTxTestPortBinding" type="tns:WSTxTest">
+        <operation name="initQueue">
+            <wsp:PolicyReference URI="#WSTxTestPortBinding_initQueue_Policy"/>
+            <input/>
+            <output/>
+        </operation>
+        <operation name="putMessage">
+            <wsp:PolicyReference URI="#WSTxTestPortBinding_putMessage_Policy"/>
+            <input/>
+            <output/>
+        </operation>
+        <operation name="verifyMessage">
+            <wsp:PolicyReference URI="#WSTxTestPortBinding_verifyMessage_Policy"/>
+            <input/>
+            <output/>
+        </operation>
+    </binding>
+    <service name="WSTxTestService">
+        <port name="WSTxTestPort" binding="tns:WSTxTestPortBinding"/>
+    </service>
+    <wsp:Policy wsu:Id="WSTxTestPortBinding_initQueue_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsat:ATAssertion wsp:Optional="true"/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="WSTxTestPortBinding_putMessage_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsat:ATAssertion wsp:Optional="true"/>
+                <wsat:ATAlwaysCapability/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="WSTxTestPortBinding_verifyMessage_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsat:ATAssertion wsp:Optional="true"/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>

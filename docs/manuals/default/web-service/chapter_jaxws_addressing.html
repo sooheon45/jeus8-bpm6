@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제14장 웹 서비스 Addressing</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Service 안내서"/><link rel="up" href="pt01.html" title="Part I. JEUS 8 웹 서비스"/><link rel="prev" href="chapter_jaxws_policy.html" title="제13장 웹 서비스 정책"/><link rel="next" href="chapter_jaxws_rm.html" title="제15장 신뢰성 메시징 기술"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제14장 웹 서비스 Addressing</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jaxws_policy.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part I. JEUS 8 웹 서비스</td><td width="20%" align="right"> <a accesskey="n" href="chapter_jaxws_rm.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jaxws_addressing"></a>제14장 웹 서비스 Addressing</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jaxws_addressing.html#d4e3096">14.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jaxws_addressing.html#d4e3139">14.2. 서버 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_addressing.html#d4e3143">14.2.1. Java 클래스로부터 설정</a></span></dt><dt><span class="section"><a href="chapter_jaxws_addressing.html#d4e3182">14.2.2. WSDL로부터 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxws_addressing.html#d4e3188">14.3. 클라이언트 설정</a></span></dt><dt><span class="section"><a href="chapter_jaxws_addressing.html#d4e3205">14.4. 예제</a></span></dt><dt><span class="section"><a href="chapter_jaxws_addressing.html#d4e3217">14.5. 예제 실행</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 트랜스포트에 독립적인 웹 서비스 Addressing과 그에 대한 간단한 예제를 통해 사용법을
+  설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3096"></a>14.1. 개요</h2></div></div></div>
+    
+
+    <p><a id="d4e3099" class="indexterm"></a>웹 서비스 Addressing은 트랜스포트(transport)에 독립적으로 웹 서비스 메시지에 주소와 같은
+    정보를 표기하는 방식을 의미한다. 기본적인 웹 서비스는 Stateless의 메시지들의 교환이기 때문에 웹 서비스의
+    Addressing을 이용하면 상태를 알 수 있는 웹 서비스의 지원이 가능해진다. 실제로 웹 서비스 Addressing은 이후 장에서
+    설명할 WS-RM, WS-Security, WS-secure Conversation, WS-Trust 등 상당수 "WS-*" 스펙들의
+    기반 기술이다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>웹 서비스 Addressing은 웹 서비스가 실행되고 있는 트랜스포트가 HTTP이든 SMTP이든 상관없이 동작하게 된다.
+    웹 서비스 Addressing을 설정하지 않고 애플리케이션 레벨에서 어떤 메시지에 정보를 표기하려면 메시지는 다음과 같은 모습을
+    나타난다.</p>
+
+    <pre class="screen">POST /AddNumbers/addnumbers HTTP 1.1/POST  
+Host: tmaxsoft.com  
+SOAPAction: http://tmaxsoft.com/AddNumbers/addnumbers   
+
+&lt;S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope"
+            xmlns:tmax="http://tmaxsoft.com/"&gt;  
+    &lt;S:Header&gt;  
+        &lt;tmax:MessageID&gt;   
+            uuid:e197db59-0982-4c9c-9702-4234d204f7f4  
+        &lt;/tmax:MessageID&gt;  
+    &lt;/S:Header&gt;  
+    &lt;S:Body&gt;   
+        ...   
+    &lt;/S:Body&gt;   
+&lt;/S:Envelope&gt;</pre>
+
+    <p>위와 같이 웹 서비스 Addressing을 설정하지 않은 메시지의 모습을 통해 알 수 있듯이 우선 이 메시지에 애플리케이션
+    나름으로 부여한 ID는 이 애플리케이션 레벨에서 사용하기 위해 설정한 것이므로 다른 애플리케이션에서의 재사용이 어렵다. 또한
+    트랜스포트를 HTTP에서 SMTP와 같은 것으로 변환한다면 트랜스포트 Header에 있는 정보 또한 그에 따른 매핑 규칙에 따라
+    변환해야 하는 등 많은 어려움을 수반한다. 따라서 이를 위해 W3C에서는 웹 서비스 Addressing을 위해 MAP(Message
+    Addressing Properties)을 정의해서 SOAP 메시지나 WSDL 문서로의 바인딩(binding)을 규정해
+    놓았다.<a id="d4e3107" class="indexterm"></a></p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 메시지 레벨에서 이러한 MAP의 정보가 담긴 웹 서비스 Addressing을 설정한 메시지의 예제이다.</p>
+
+    <pre class="screen">POST /AddNumbers/addnumbers HTTP 1.1/POST  
+Host: tmaxsoft.com  
+SOAPAction: http://tmaxsoft.com/AddNumbers/addnumbers   
+
+&lt;S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" 
+            xmlns:wsa="http://www.w3.org/2005/08/addressing/"&gt;  
+    &lt;S:Header&gt;  
+        &lt;wsa:MessageID&gt;   
+            uuid:e197db59-0982-4c9c-9702-4234d204f7f4  
+        &lt;/wsa:MessageID&gt;  
+        &lt;wsa:To&gt;   
+            http://tmaxsoft.com/AddNumbers/addnumbers  
+        &lt;/wsa:To&gt;  
+        &lt;wsa:Action&gt;   
+            http://tmaxsoft.com/AddNumbers/addnumbers  
+        &lt;/wsa:Action&gt;  
+    &lt;/S:Header&gt;  
+    &lt;S:Body&gt;   
+        ...   
+    &lt;/S:Body&gt;   
+&lt;/S:Envelope&gt;</pre>
+
+    <p>웹 서비스 Addressing을 설정한 메시지의 SOAP 메시지를 보면 &lt;wsa:MessageID&gt;,
+    &lt;wsa:To&gt;, &lt;wsa:Action&gt; 같은 웹 서비스 Addressing에 관련된 element로 구성되어
+    있는 것을 알 수 있다. 이들은 MAP(Message Addressing Properties)의 SOAP 메시지로의 바인딩
+    형태이다.</p>
+
+    <p>다음은 각 element에 대한 설명이다.</p>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="130" align="left"/><col/></colgroup><thead><tr><th align="left">element</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;wsa:MessageID&gt;</td><td>메시지를 유일하게 구분할 수 있도록 하는 절대 URI로 설정된 값이다.</td></tr><tr><td align="left">&lt;wsa:To&gt;</td><td>메시지를 전달받도록 의도된 곳의 주소를 나타내기 위한 절대 URI로 설정된 값이다.</td></tr><tr><td align="left">&lt;wsa:Action&gt;</td><td>메시지가 의미하는 바를 나타내기 위한 절대 URI로 설정된 값이다.</td></tr></tbody></table>
+      </div>
+
+    <p>이와 같은 웹 서비스 Addressing 메시지는 모든 정보들이 트랜스포트 또는 애플리케이션과 독립적으로 프로세싱될 수
+    있는 고유의 형태로 들어 있는 것을 알 수 있다. 예를 들어 이러한 메시지가 HTTP가 아닌 SMTP와 같은 다른 트랜스포트로
+    전달되어야 한다면 &lt;wsa:To&gt; Header의 값을 mailto:purchasing@example.com과 같은 값으로
+    변경한다.</p>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>본 절에서는 서버와 클라이언트에서 웹 서비스 Addressing을 설정하는 방법과 예제와 실행방법에 대해서
+    설명한다.</p>
+
+    
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3139"></a>14.2. 서버 설정</h2></div></div></div>
+    
+
+    <p>서버에서 웹 서비스 Addressing 설정은 Java 클래스로부터 설정하는 방법과 WSDL로부터 설정하는 방법이 있다.
+    본 절에서는 각 방법에 대해서 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3143"></a>14.2.1. Java 클래스로부터 설정</h3></div></div></div>
+      
+
+      <p>Java 클래스로부터 웹 서비스를 구성할 때 웹 서비스 Addressing을 설정하기 위해서는 다음과 같이 단순히
+      javax.jws.WebService Annotation과 더불어 javax.xml.ws.soap.Addressing
+      Annotation을 추가하면 모든 웹 서비스 Addressing 설정은 완료된다.</p>
+
+      <div class="example"><a id="d4e3146"></a><p class="title"><b>[예 14.1] &lt;&lt; AddnumbersImpl.java &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting"><span class="bold"><strong>@Addressing
+@WebService</strong></span>
+public class AddNumbersImpl {
+    ...
+}</pre>
+      </div></div><br class="example-break"/>
+
+      <p>위와 같이 javax.xml.ws.soap.Addressing Annotation을 통해 웹 서비스
+      Addressing을 설정하면 이를 통해 서비스 Endpoint는 다음과 같은 동작을 수행하게 된다.</p>
+
+      <div class="itemizedlist"><ul type="circle"><li style="list-style-type: circle">
+          <p>생성되는 WSDL 문서의 &lt;wsdl:binding&gt; element에 표준
+          &lt;wsaw:UsingAddressing&gt; element가 생성된다.</p>
+        </li><li style="list-style-type: circle">
+          <p>받아들이는 메시지의 모든 웹 서비스 Addressing Header들을 해석해서 올바른 문법인지를
+          검사한다.</p>
+        </li><li style="list-style-type: circle">
+          <p>올바른 문법이 아닌 경우 오류 메시지를 전달한다.</p>
+        </li><li style="list-style-type: circle">
+          <p>&lt;wsa:Action&gt; Header 값이 해당 오퍼레이션에 대해 기대한 값과 일치하지 않을 경우 오류
+          메시지를 전달한다.</p>
+        </li><li style="list-style-type: circle">
+          <p>모든 전달되는 메시지에는 웹 서비스 Addressing Header에 대한 정보를 포함하고 있다.</p>
+        </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p><a id="d4e3166" class="indexterm"></a>또한 웹 서비스 Addressing은 SEI의 메소드(WSDL 문서의 operation element)에
+      대해 다음과 같이 Action MAP(Message Addressing Property)을 직접 설정할 수 있다.</p>
+
+      <div class="example"><a id="d4e3168"></a><p class="title"><b>[예 14.2] &lt;&lt; AddnumbersImpl.java &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">@Addressing
+@WebService
+public class AddNumbersImpl {
+<span class="bold"><strong>
+    @Action(
+        input = "http://tmaxsoft.com/input",
+        output = "http://tmaxsoft.com/output",
+        fault = {
+            @FaultAction(className = AddNumbersException.class,
+            value = "http://tmaxsoft.com/fault")
+        }
+    )
+</strong></span>    public int addNumbers(int number1, int number2)
+        throws AddNumbersException {
+
+        ...
+
+    }
+}</pre>
+      </div></div><br class="example-break"/>
+
+      <p>이와 같이 설정된 메소드는 WSDL로 변환될 때 다음과 같은 WSDL 문서의 operation element에
+      바인딩된다.</p>
+
+      <div class="example"><a id="d4e3174"></a><p class="title"><b>[예 14.3] &lt;&lt; Addnumbers.wsdl &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">...
+
+&lt;operation name="addNumbers"&gt;
+    &lt;input <span class="bold"><strong>wsaw:Action="http://tmaxsoft.com/input"</strong></span>
+           message="tns:addNumbers"/&gt;
+    &lt;output <span class="bold"><strong>wsaw:Action="http://tmaxsoft.com/output"</strong></span>
+            message="tns:addNumbersResponse"/&gt;
+    &lt;fault <span class="bold"><strong>wsaw:Action="http://tmaxsoft.com/fault"</strong></span>
+           message="tns:AddNumbersException"
+           name="AddNumbersException"/&gt;
+&lt;/operation&gt;
+
+...
+
+&lt;binding name="AddNumbersImplPortBinding" type="tns:AddNumbersImpl"&gt;
+<span class="bold"><strong>    &lt;wsaw:UsingAddressing /&gt;</strong></span>
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+        style="document" /&gt;
+    &lt;operation name="addNumbers"&gt;
+        &lt;soap:operation soapAction="" /&gt;
+        &lt;input&gt;
+            &lt;soap:body use="literal" /&gt;
+        &lt;/input&gt;
+        &lt;output&gt;
+            &lt;soap:body use="literal" /&gt;
+        &lt;/output&gt;
+    &lt;/operation&gt;
+    &lt;operation name="addNumbers2"&gt;
+        &lt;soap:operation soapAction="" /&gt;
+        &lt;input&gt;
+            &lt;soap:body use="literal" /&gt;
+        &lt;/input&gt;
+        &lt;output&gt;
+            &lt;soap:body use="literal" /&gt;
+        &lt;/output&gt;
+    &lt;/operation&gt;
+&lt;/binding&gt;
+...</pre>
+      </div></div><br class="example-break"/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3182"></a>14.2.2. WSDL로부터 설정</h3></div></div></div>
+      
+
+      <p>WSDL로부터 웹 서비스를 구성할 때는 위의 Java 클래스로부터 WSDL을 생성했을 때와 마찬가지로 표준 확장
+      element인 &lt;wsaw:UsingAddressing&gt;을 이용한다. 이렇게 구성된 웹 서비스는 JEUS에서 제공하는
+      wsimport 툴을 사용하여 간단히 Addressing을 지원하는 웹 서비스를 생성할 수 있다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3188"></a>14.3. 클라이언트 설정</h2></div></div></div>
+    
+
+    <p>클라이언트의 웹 서비스 Addressing 설정은 클라이언트를 생성하기 위해 참조하는 WSDL 문서의
+    &lt;wsaw:UsingAddressing&gt;이 포함되어 있는지 여부에 따라
+    <span><strong class="guibutton">wsimport</strong></span> 툴에 의해 자동으로 결정된다.</p>
+
+    <p>클라이언트가 별도로 웹 서비스 Addressing 기능을 애플리케이션 레벨에서 수행하고 있는 경우 웹 서비스
+    Addressing이 설정된 서비스로부터 클라이언트를 구성할 때 웹 서비스 Addressing 기능을 동작시키지 않을 수
+    있다.</p>
+
+    <p/>
+
+    <p>다음은 클라이언트에서 웹 서비스의 Addressing 기능을 동작시키고 싶지 않을 경우 사용할 수 있는
+    방법이다.</p>
+
+    <pre class="programlisting">new AddNumbersImplService().getAddNumbersImplPort(
+    new javax.xml.ws.AddressingFeature(false));</pre>
+
+    <p>위와 같이 클라이언트로부터 프록시(Endpoint Interface)를 얻을 때
+    javax.xml.ws.AddressingFeature의 값을 false로 설정하면 클라이언트는 메시지를 전송할 때 서비스에서
+    WSDL에 규정하고 있는 웹 서비스 Addressing 기능을 동작하지 않은 상태로 메시지를 전송하게 된다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>서비스의 WSDL에 웹 서비스의 Addressing 기능을 나타내는 wsaw:UsingAddressing을 포함하고 있지
+    않을 때 <span><strong class="guibutton">wsimport</strong></span> 툴을 통해 얻은 Portable Artifact들은 순수한 웹
+    서비스의 기능만을 수행한다. 클라이언트에서 별도로 웹 서비스의 Addressing 기능을 동작하고 싶은 경우가 있는데 이런 경우에는
+    다음과 같이 javax.xml.ws.Service가 지원하는 메소드들을 사용하거나
+    javax.xml.ws.soap.AddressingFeature를 사용한다.</p>
+
+    <pre class="programlisting">&lt;T&gt; Dispatch&lt;T&gt; createDispatch(javax.xml.namespace.QName,
+    java.lang.Class&lt;T&gt;, Service.Mode, WebServiceFeature...) 
+Dispatch&lt;java.lang.Object&gt; createDispatch(javax.xml.namespace.QName,
+    javax.xml.bind.JAXBContext, Service.Mode, WebServiceFeature...) 
+&lt;T&gt; T getPort(java.lang.Class&lt;T&gt;, WebServiceFeature...) 
+&lt;T&gt; T getPort(javax.xml.namespace.QName, java.lang.Class&lt;T&gt;,
+    WebServiceFeature...)
+
+new AddNumbersImplService().getAddNumbersImplPort(
+    new javax.xml.ws.AddressingFeature());</pre>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3205"></a>14.4. 예제</h2></div></div></div>
+    
+
+    <p>다음은 예제에서 다루는 서비스 Endpoint 구현 클래스의 예이다.</p>
+
+    <div class="example"><a id="d4e3208"></a><p class="title"><b>[예 14.4] &lt;&lt; AddNumbersImpl.java &gt;&gt;</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting"><span class="emphasis"><em>@Addressing</em></span>
+@WebService
+public class AddNumbersImpl {
+
+<span class="bold"><strong>    @Resource
+    WebServiceContext wsc;</strong></span>
+
+<span class="bold"><strong>    @Action(input = "http://tmaxsoft.com/input",
+        output = "http://tmaxsoft.com/output")</strong></span>
+
+    public int addNumbers(int number1, int number2) {
+        return number1 + number2;
+    }
+
+    public int addNumbers2(int number1, int number2) {
+        return number1 + number2;
+    }
+}</pre>
+    </div></div><br class="example-break"/>
+
+    <p>위와 같이 Addressing Annotation과 WSDL 문서의 operation element에 바인딩될 Action
+    Annotation으로 웹 서비스 Addressing을 구성하고 있는 것을 확인할 수 있다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3217"></a>14.5. 예제 실행</h2></div></div></div>
+    
+
+    <p>위와 같이 구성한 웹 서비스 Addressing을 설정한 Endpoint 클래스들 및 기타 파일들을 사용해서 서비스를
+    구성하여 JEUS 8에 deploy하는 방법은 다음과 같다.</p>
+
+    <pre class="screen">$ ant deploy</pre>
+
+    <p>위의 과정이 모두 실행되어 서비스가 정상적으로 deploy되면, 클라이언트를 실행한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>클라이언트 콘솔과 서버 콘솔 화면으로부터 다음과 같이 정상적으로 메시지를 전달하는 모습을 확인할 수 있다.</p>
+
+    <pre class="screen">$ ant run
+
+...
+
+run:
+     [java] ################################################
+     [java] ### JAX-WS Webservices examples - addressing ###
+     [java] ################################################
+     [java] basic name mapping result: 20
+     [java] default name mapping result: 20
+
+BUILD SUCCESSFUL
+
+...
+...
+
+---[HTTP request]---
+Host: localhost:8088
+Content-length: 626
+Content-type: text/xml; charset=utf-8
+Accept: text/xml, multipart/related, text/html, image/gif, image/jpeg,
+*; q=.2, */*; q=.2
+Connection: keep-alive
+Soapaction: "http://tmaxsoft.com/input"
+User-agent: JAX-WS RI 2.2 - JEUS 8
+&lt;?xml version="1.0" ?&gt;
+&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:wsa="http://www.w3.org/2005/08/addressing"&gt;
+    &lt;S:Header&gt;
+        &lt;wsa:To&gt;http://localhost:8088/AddNumbers/addnumbers&lt;/wsa:To&gt;
+        &lt;wsa:Action&gt;http://tmaxsoft.com/input&lt;/wsa:Action&gt;
+        &lt;wsa:ReplyTo xmlns:wsa="http://www.w3.org/2005/08/addressing"&gt;
+            &lt;wsa:Address&gt;
+                http://www.w3.org/2005/08/addressing/anonymous
+            &lt;/wsa:Address&gt;
+        &lt;/wsa:ReplyTo&gt;
+        &lt;wsa:MessageID&gt;uuid:880f3891-d07b-4ad1-bbc1-8dce8f1aedef&lt;/wsa:MessageID&gt;
+    &lt;/S:Header&gt;
+    &lt;S:Body&gt;
+        &lt;ns2:addNumbers xmlns:ns2="http://server.wsaddressing/"&gt;
+            &lt;arg0&gt;10&lt;/arg0&gt;&lt;arg1&gt;10&lt;/arg1&gt;
+        &lt;/ns2:addNumbers&gt;
+    &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;
+---[HTTP response 200]---
+&lt;?xml version="1.0" ?&gt;
+&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:wsa="http://www.w3.org/2005/08/addressing"&gt;
+    &lt;S:Header&gt;
+        &lt;wsa:To&gt;http://www.w3.org/2005/08/addressing/anonymous&lt;/wsa:To&gt;
+        &lt;wsa:Action&gt;http://tmaxsoft.com/output&lt;/wsa:Action&gt;
+        &lt;wsa:MessageID&gt;uuid:815cb296-a2f3-45df-80c5-5a2c1ca836ca&lt;/wsa:MessageID&gt;
+        &lt;wsa:RelatesTo&gt;uuid:880f3891-d07b-4ad1-bbc1-8dce8f1aedef&lt;/wsa:RelatesTo&gt;
+    &lt;/S:Header&gt;
+    &lt;S:Body&gt;
+        &lt;ns2:addNumbersResponse xmlns:ns2="http://server.wsaddressing/"&gt;
+            &lt;return&gt;20&lt;/return&gt;
+        &lt;/ns2:addNumbersResponse&gt;
+    &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;
+--------------------
+
+...
+
+---[HTTP request]---
+Host: localhost:8088
+Content-length: 663
+Content-type: text/xml; charset=utf-8
+Accept: text/xml, multipart/related, text/html, image/gif, image/jpeg,
+*; q=.2, */*; q=.2
+Connection: keep-alive
+Soapaction: "http://server.wsaddressing/AddNumbersImpl/addNumbers2Request"
+User-agent: JAX-WS RI 2.2 - JEUS 8
+&lt;?xml version="1.0" ?&gt;
+&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:wsa="http://www.w3.org/2005/08/addressing"&gt;
+    &lt;S:Header&gt;
+        &lt;wsa:To&gt;http://localhost:8088/AddNumbers/addnumbers&lt;/wsa:To&gt;
+        &lt;wsa:Action&gt;
+            http://server.wsaddressing/AddNumbersImpl/addNumbers2Request
+        &lt;/wsa:Action&gt;
+        &lt;wsa:ReplyTo xmlns:wsa="http://www.w3.org/2005/08/addressing"&gt;
+            &lt;wsa:Address&gt;
+                http://www.w3.org/2005/08/addressing/anonymous
+            &lt;/wsa:Address&gt;
+        &lt;/wsa:ReplyTo&gt;
+        &lt;wsa:MessageID&gt;uuid:bf65c920-9129-495a-b9dc-8cb8efb9c2a6&lt;/wsa:MessageID&gt;
+    &lt;/S:Header&gt;
+    &lt;S:Body&gt;
+        &lt;ns2:addNumbers2 xmlns:ns2="http://server.wsaddressing/"&gt;
+            &lt;arg0&gt;10&lt;/arg0&gt;&lt;arg1&gt;10&lt;/arg1&gt;
+        &lt;/ns2:addNumbers2&gt;
+    &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;
+---[HTTP response 200]---
+&lt;?xml version="1.0" ?&gt;
+&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:wsa="http://www.w3.org/2005/08/addressing"&gt;
+    &lt;S:Header&gt;
+        &lt;wsa:To&gt;http://www.w3.org/2005/08/addressing/anonymous&lt;/wsa:To&gt;
+        &lt;wsa:Action&gt;
+            http://server.wsaddressing/AddNumbersImpl/addNumbers2Response
+        &lt;/wsa:Action&gt;
+        &lt;wsa:MessageID&gt;uuid:41975002-46e8-4219-89a6-ed6e72899fa8&lt;/wsa:MessageID&gt;
+        &lt;wsa:RelatesTo&gt;uuid:bf65c920-9129-495a-b9dc-8cb8efb9c2a6&lt;/wsa:RelatesTo&gt;
+    &lt;/S:Header&gt;
+    &lt;S:Body&gt;
+        &lt;ns2:addNumbers2Response xmlns:ns2="http://server.wsaddressing/"&gt;
+            &lt;return&gt;20&lt;/return&gt;
+        &lt;/ns2:addNumbers2Response&gt;
+    &lt;/S:Body&gt;
+&lt;/S:Envelope&gt;
+--------------------
+
+...</pre>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jaxws_policy.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="pt01.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="chapter_jaxws_rm.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제13장 웹 서비스 정책 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제15장 신뢰성 메시징 기술</td></tr></table></div><div xmlns="" align="center"/></body></html>

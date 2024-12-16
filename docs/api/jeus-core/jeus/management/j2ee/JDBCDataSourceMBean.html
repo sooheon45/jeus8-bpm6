@@ -1,0 +1,263 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>JDBCDataSourceMBean</title>
+      <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="JDBCDataSourceMBean (JEUS API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.management.j2ee</font><br>MBean JDBCDataSourceMBean
+      </h2>
+      <dl>
+         <dt><b>ObjectName Pattern:</b><dd><code>JEUS:name=<i>{export-name}</i>,j2eeType=JDBCDataSource,*</code></dd>
+         </dt>
+         <dt></dt>
+         <dt></dt>
+         <dt><b>Statistics:</b><dd><code>javax.management.j2ee.statistics.JDBCConnectionPoolStats</code></dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl>
+         <dt><b>All Superinterfaces:</b><dd>jeus.management.j2ee.J2EEManagedObjectMBean, jeus.management.j2ee.StatisticsProvider</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>MBean <b>JDBCDataSourceMBean</b></pre></dl>JDBC 데이터 소스를 나타낸다.
+      어플리케이션은 아래와 같은 방식으로 DB 커넥션 풀 모니터링 정보를 얻어야 한다.</p>
+      <p><blockquote><pre>
+      javax.management.j2ee.statistics.JDBCConnectionPoolStats cpStats = (JDBCConnectionPoolStats) jdbcDataSourceMBean.getstats();
+      long minSize = ((BoundaryStatistic) cpStats.getStatistic("MinPoolSize")).getUpperBound();
+      long maxSize = ((BoundaryStatistic) cpStats.getStatistic("MaxPoolSize")).getUpperBound();
+      long idleCount = cpStats.getFreePoolSize();
+      long poolCount = cpStats.getPoolSize();
+      long activeCount = poolCount - idleCount;
+      </pre></blockquote><br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/management/j2ee/JDBCDataSourceMBean.html#J2EE_TYPE">J2EE_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String[]</code></font></td>
+               <td><code><b><a href="../../../jeus/management/j2ee/JDBCDataSourceMBean.html#parentKeyMap">parentKeyMap</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>SYSTEM_DOMAIN</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attribute_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="3"><font size="+2"><b>Attribute Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../jeus/management/j2ee/JDBCDataSourceMBean.html#jdbcDriver">jdbcDriver</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JDBC 드라이버에 대한 MBean의 ObjectName
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attributes_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>J2EEType, JeusType, objectName, ObjectName, ParentObjectName, PermissionName, eventProvider, stateManageable, statisticsProvider</code></td>
+            </tr>
+         </table>&nbsp;<a name="attributes_inherited_from_class_jeus.management.j2ee.StatisticsProvider"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.StatisticsProvider</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>stats</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operation_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Operation Summary</b></font></th>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operations_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Operations inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>addChild, refreshMonitoring, removeChild</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="parentKeyMap"></a><h3>parentKeyMap</h3><pre>public static final java.lang.String[] <b>parentKeyMap</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="J2EE_TYPE"></a><h3>J2EE_TYPE</h3><pre>public static final java.lang.String <b>J2EE_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="attribute_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Attribute Detail</b></font></th>
+            </tr>
+         </table><a name="jdbcDriver"></a><a name="getjdbcDriver(java.lang.String, java.lang.String)"></a><h3>jdbcDriver</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.lang.String <b>getjdbcDriver</b>()</pre><dl>
+               <dd>JDBC 드라이버에 대한 MBean의 ObjectName</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>JDBC 드라이버 MBean의 ObjectName <code>javax.management.ObjectName.toString()</code>&nbsp;</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+      </p>
+      <p></p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

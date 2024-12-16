@@ -1,0 +1,383 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>SaveService</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="SaveService (JEUS UDDI 3.0 Client API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.uddi.v3.api.request.publication</font><br>Class SaveService
+      </h2><pre>java.lang.Object<br>  <img src="../../../../../../resource/inherit.gif" alt="extended by"><a href="../../../../../../jeus/uddi/v3/AbstractRegistryObject.html">jeus.uddi.v3.AbstractRegistryObject</a><br>     <img src="../../../../../../resource/inherit.gif" alt="extended by"><b>jeus.uddi.v3.api.request.publication.SaveService</b></pre><dl>
+         <dt><b>All Implemented Interfaces:</b><dd>java.io.Serializable, <a href="../../../../../../jeus/uddi/datatype/RegistryObject.html">RegistryObject</a></dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public class <b>SaveService</b><dt>extends <a href="../../../../../../jeus/uddi/v3/AbstractRegistryObject.html">AbstractRegistryObject</a></dt></pre></dl>save_service의 data type class. Used to register or update complete information about a businessService.
+      <p>
+      <p>다음 schema는 UDDI version 3.0 Schema에서 인용한다.
+      <p>
+      <pre>
+      &lt;element name="save_service" type="{urn:uddi-org:api_v3}save_service"/>
+      &lt;complexType name="save_service">
+      &lt;complexContent>
+      &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+      &lt;sequence>
+      &lt;element ref="{urn:uddi-org:api_v3}authInfo" minOccurs="0"/>
+      &lt;element ref="{urn:uddi-org:api_v3}businessService" maxOccurs="unbounded"/>
+      &lt;/sequence>
+      &lt;/restriction>
+      &lt;/complexContent>
+      &lt;/complexType>
+      </pre><br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="SaveService.html#SaveService()">SaveService</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   기본 생성자.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="SaveService.html#SaveService(java.lang.Object)">SaveService</a></b>(java.lang.Object object)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="SaveService.html#SaveService(java.lang.String, java.util.Vector)">SaveService</a></b>(java.lang.String authInfo, java.util.Vector businessServiceVector)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   필수 값을 가지고 객체를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="SaveService.html#SaveService(org.w3c.dom.Element)">SaveService</a></b>(org.w3c.dom.Element base)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   DOM Tree로 부터 객체를 생성한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SaveService.html#addBusinessService(jeus.uddi.v3.datatype.service.BusinessService)">addBusinessService</a></b>(<a href="../../../../../../jeus/uddi/v3/datatype/service/BusinessService.html">BusinessService</a> businessService)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   businessService을 더한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../../../jeus/uddi/v3/datatype/AuthInfo.html">AuthInfo</a></code></font></td>
+               <td><code><b><a href="SaveService.html#getAuthInfo()">getAuthInfo</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   authInfo를 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="SaveService.html#getAuthInfoString()">getAuthInfoString</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   authInfo를 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.Vector</code></font></td>
+               <td><code><b><a href="SaveService.html#getBusinessServiceVector()">getBusinessServiceVector</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   businessServices를 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.xml.bind.JAXBElement</code></font></td>
+               <td><code><b><a href="SaveService.html#getMarshallingJAXBElement()">getMarshallingJAXBElement</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.uddi.xmlbinding.v3.datatype.SaveServiceType</code></font></td>
+               <td><code><b><a href="SaveService.html#getMarshallingObject()">getMarshallingObject</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SaveService.html#setAuthInfo(java.lang.String)">setAuthInfo</a></b>(java.lang.String authInfo)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   authInfo를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SaveService.html#setAuthInfo(jeus.uddi.v3.datatype.AuthInfo)">setAuthInfo</a></b>(<a href="../../../../../../jeus/uddi/v3/datatype/AuthInfo.html">AuthInfo</a> authInfo)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   authInfo를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SaveService.html#setBusinessServiceVector(java.util.Vector)">setBusinessServiceVector</a></b>(java.util.Vector businessServiceVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   businessServices를 설정한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_jeus.uddi.v3.AbstractRegistryObject"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class jeus.uddi.v3.<a href="../../../../../../jeus/uddi/v3/AbstractRegistryObject.html">AbstractRegistryObject</a></b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><a href="../../../jeus/uddi/v3/AbstractRegistryObject.html#getVersion()">getVersion</a>, <a href="../../../jeus/uddi/v3/AbstractRegistryObject.html#toXML()">toXML</a>, <a href="../../../jeus/uddi/v3/AbstractRegistryObject.html#toXML(org.w3c.dom.Node)">toXML</a></code></td>
+            </tr>
+         </table>&nbsp;<a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></td>
+            </tr>
+         </table>&nbsp;
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="SaveService()"></a><h3>SaveService</h3><pre>public <b>SaveService</b>()<br></pre><dl>
+            <dd>기본 생성자.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="SaveService(java.lang.String, java.util.Vector)"></a><h3>SaveService</h3><pre>public <b>SaveService</b>(<code>java.lang.String</code> authInfo,<br>                   <code>java.util.Vector</code> businessServiceVector)<br></pre><dl>
+            <dd>필수 값을 가지고 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="SaveService(org.w3c.dom.Element)"></a><h3>SaveService</h3><pre>public <b>SaveService</b>(<code>org.w3c.dom.Element</code> base)<br>                  throws <code><a href="../../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></pre><dl>
+            <dd>DOM Tree로 부터 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="SaveService(java.lang.Object)"></a><h3>SaveService</h3><pre>public <b>SaveService</b>(<code>java.lang.Object</code> object)<br></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i></dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getMarshallingObject()"></a><h3>getMarshallingObject</h3><pre>public jeus.uddi.xmlbinding.v3.datatype.SaveServiceType <b>getMarshallingObject</b>()<br>                                                                           throws <code><a href="../../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i><br><br>&nbsp;
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMarshallingJAXBElement()"></a><h3>getMarshallingJAXBElement</h3><pre>public javax.xml.bind.JAXBElement <b>getMarshallingJAXBElement</b>()<br>                                                          throws <code><a href="../../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i><br><br>&nbsp;
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getAuthInfo()"></a><h3>getAuthInfo</h3><pre>public <a href="../../../../../../jeus/uddi/v3/datatype/AuthInfo.html">AuthInfo</a> <b>getAuthInfo</b>()<br></pre><dl>
+            <dd>authInfo를 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>authInfo</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getAuthInfoString()"></a><h3>getAuthInfoString</h3><pre>public java.lang.String <b>getAuthInfoString</b>()<br></pre><dl>
+            <dd>authInfo를 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>string</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getBusinessServiceVector()"></a><h3>getBusinessServiceVector</h3><pre>public java.util.Vector <b>getBusinessServiceVector</b>()<br></pre><dl>
+            <dd>businessServices를 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>vector</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setAuthInfo(java.lang.String)"></a><h3>setAuthInfo</h3><pre>public void <b>setAuthInfo</b>(<code>java.lang.String</code> authInfo)<br></pre><dl>
+            <dd>authInfo를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setBusinessServiceVector(java.util.Vector)"></a><h3>setBusinessServiceVector</h3><pre>public void <b>setBusinessServiceVector</b>(<code>java.util.Vector</code> businessServiceVector)<br></pre><dl>
+            <dd>businessServices를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setAuthInfo(jeus.uddi.v3.datatype.AuthInfo)"></a><h3>setAuthInfo</h3><pre>public void <b>setAuthInfo</b>(<code><a href="../../../../../../jeus/uddi/v3/datatype/AuthInfo.html">AuthInfo</a></code> authInfo)<br></pre><dl>
+            <dd>authInfo를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addBusinessService(jeus.uddi.v3.datatype.service.BusinessService)"></a><h3>addBusinessService</h3><pre>public void <b>addBusinessService</b>(<code><a href="../../../../../../jeus/uddi/v3/datatype/service/BusinessService.html">BusinessService</a></code> businessService)<br></pre><dl>
+            <dd>businessService을 더한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

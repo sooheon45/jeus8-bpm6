@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>jeus.webservices.maven.sample</groupId>
+    <artifactId>wsimport_sample</artifactId>
+    <version>0.0.1</version>
+    <packaging>war</packaging>
+    
+    <name>${project.artifactId}</name>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>jeus.ws</groupId>
+                <artifactId>jeus-ws-maven-plugin</artifactId>
+                <version>0.0.1</version>
+                <executions>
+                    <execution>
+                        <id>wsimport_test</id>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>jeus.webservices.sample.test</packageName>
+                            <wsdlDirectory>${basedir}/src/wsdl</wsdlDirectory>
+                            <wsdlFiles>
+                                <wsdlFile>EchoService.wsdl</wsdlFile>
+                            </wsdlFiles>
+                        </configuration>
+                    </execution>
+                </executions>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>com.sun</groupId>
+                        <artifactId>tools</artifactId>
+                        <version>1.6</version>
+                        <scope>system</scope>
+                        <systemPath>${java.home}/../lib/tools.jar</systemPath>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.xml.ws</groupId>
+                        <artifactId>jaxws-tools</artifactId>
+                        <version>2.2</version>
+                        <scope>system</scope>
+                        <systemPath>${jeus.home}/lib/system/jaxws-tools.jar</systemPath>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                        <endorseddirs>${jeus.home}/lib/endorsed</endorseddirs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                    <webResources>  
+                        <resource >
+                            <directory>${basedir}/src/wsdl</directory>
+                            <targetPath>WEB-INF/wsdl</targetPath>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>            
+        </plugins>  
+    </build>
+
+</project>

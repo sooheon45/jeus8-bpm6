@@ -1,0 +1,1192 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제3장 JEUS 서버 제어 및 모니터링</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Server 안내서"/><link rel="up" href="index.html" title="JEUS Server 안내서"/><link rel="prev" href="chapter_server_conf.html" title="제2장 JEUS 설정"/><link rel="next" href="chapter_jndi.html" title="제4장 JNDI Naming Server"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제3장 JEUS 서버 제어 및 모니터링</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_server_conf.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_jndi.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_server_control"></a>제3장 JEUS 서버 제어 및 모니터링</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_server_control.html#sect_server_control">3.1. 서버 제어 및 모니터링</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server_control.html#sect_managed_server_lifecycle">3.1.1. Managed Server의 Lifecycle</a></span></dt><dt><span class="section"><a href="chapter_server_control.html#sect_start_managed_server">3.1.2. Managed Server 시작</a></span></dt><dt><span class="section"><a href="chapter_server_control.html#sect_graceful_shutdown">3.1.3. Managed Server 종료</a></span></dt><dt><span class="section"><a href="chapter_server_control.html#sect_suspend_server">3.1.4. Managed Server 일시 정지</a></span></dt><dt><span class="section"><a href="chapter_server_control.html#sect_resume_server">3.1.5. Managed Server 복귀</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_server_control.html#sect_engine_control">3.2. 서버 엔진 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server_control.html#jeus_engine_on_off">3.2.1. 엔진 사용 여부 설정</a></span></dt><dt><span class="section"><a href="chapter_server_control.html#jeus_engine_init_time">3.2.2. 엔진 초기화 시점 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_server_control.html#sect_thread_monitoring_control">3.3. Thread 모니터링 및 제어</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server_control.html#jeus_thread_monitoring">3.3.1. Thread 모니터링</a></span></dt><dt><span class="section"><a href="chapter_server_control.html#jeus_thread_control">3.3.2. Thread 제어</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_server_control.html#sect_memory_monitoring_control">3.4. 메모리 모니터링 및 제어</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server_control.html#jeus_memory_monitoring">3.4.1. 메모리 모니터링</a></span></dt><dt><span class="section"><a href="chapter_server_control.html#jeus_memory_control">3.4.2. 메모리 사용량에 따른 제어</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 JEUS 서버를 제어하고 모니터링하는 방법을 설명한다. 여기에서 설명하는 서버는 MS에 한정되며, 관리를 담당하는
+  DAS가 정상 동작 중이라고 가정한다. 설명한 내용은 WebAdmin을 통해서도 가능하므로 COMMAND Line에 익숙하지 않다면
+  WebAdmin을 사용할 것을 권장한다. </p><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>서버 실행 스크립트와 콘솔 툴에 관한 자세한 사항은 <a xmlns="" href="../reference-book/reference_jeus_Script.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “제3장 JEUS 서버 실행”</a>과 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-common-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.2. Local 명령어”</a>를 참고한다.<a id="d4e1990" class="indexterm"></a><a id="d4e1992" class="indexterm"></a></p>
+    </div>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_server_control"></a>3.1. 서버 제어 및 모니터링</h2></div></div></div>
+    
+
+    <p>본 절에서는 서버 제어 및 모니터링에 대해서 설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_managed_server_lifecycle"></a>3.1.1. Managed Server의 Lifecycle</h3></div></div></div>
+      
+
+      <p>MS는 다음과 같은 동작 상태를 갖는다. MS의 상태는 DAS 또는 사용자에 의해 변경될 수 있다.</p>
+
+      <div class="figure"><a id="figure_engine_container_status"></a><p class="title"><b>[그림 3.1] MS의 상태 전이도</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><img src="resources/figure_managedserverstatediagram.png" align="top" alt="MS의 상태 전이도"/></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="130" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">SHUTDOWN</td><td>서버가 아직 부팅되지 않았거나 정상적으로 종료된 상태이다.</td></tr><tr><td align="left">STARTING</td><td><p>서버가 시작 명령을 받고 부팅 중인 상태이다. </p><p>서버는 실행
+                스크립트 또는 노드 매니저에 의해서 시작될 수 있다. 이 단계에서 서버는 엔진(WEB, EJB, JMS) 생성,
+                JEUS 서비스(보안, SCF 등) 실행, 그리고 등록된 애플리케이션 deploy 등의 작업을
+                수행한다.</p></td></tr><tr><td align="left">STADNBY</td><td>서버에서 실행되어야 하는 JEUS 서비스가 시작된 상태이다. 만약 서버가 이 상태로 부팅을
+                완료했다면 서버에 등록된 애플리케이션이 deploy를 실패한 것이다. 서버에 등록된 애플리케이션
+                distribute가 실패한 경우에도 서버는 STANDBY 상태에 머무르게 된다.</td></tr><tr><td align="left">RUNNING</td><td>서버가 부팅이 완료되고 등록된 애플리케이션들도 정상적으로 서비스되는 상태이다. 만약 STANDBY
+                상태의 서버를 -force 옵션을 통해 시작시킨 상황이라면 서버에 등록된 모든 애플리케이션이 서비스되지 못하는
+                상태일 수도 있다.</td></tr><tr><td align="left">SUSPENDING</td><td><p>RUNNING 상태인 서버가 suspend 명령을 수행 중인 상태이다.
+                </p><p>이 단계에서는 서버에서 서비스되고 있는 모든 애플리케이션의 서비스를 중단된다. 단,
+                애플리케이션 서비스를 위한 Listener는 내리지 않는다.</p></td></tr><tr><td align="left">SUSPENDED</td><td>서버에 deploy된 애플리케이션을 모두 중지시켜 서비스가 되지 않도록 멈춘 상태이다. 단,
+                애플리케이션 서비스를 위한 Listener는 내리지 않고 그대로 있다.</td></tr><tr><td align="left">RESUMING</td><td><p>SUSPENDED 상태의 서버가 resume 명령을 수행 중인 상태이다.
+                </p><p>이 상태에서는 중지된 모든 애플리케이션을 다시 시작시켜 서비스 가능한 상태로 만든다.
+                resume 명령이 성공적으로 수행되면 서버는 RUNNING 상태가 된다.</p></td></tr><tr><td align="left">SHUTTING_DOWN</td><td><p>서버가 종료되고 있는 상태이다. deploy된 애플리케이션을 undeploy하고 부팅할
+                때 실행시켰던 JEUS 서비스들을 모두 종료시킨다. </p><p>서버를 종료할 때 적절한 타임아웃을
+                설정해서 서비스 중인 요청이 처리될 수 있도록 보장할 수 있다. 이를 Graceful Shutdown이라고
+                한다.<a id="d4e2048" class="indexterm"></a></p></td></tr></tbody></table>
+        </div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>1. DAS에서 관리하는 MS의 Lifecycle에 대한 자세한 내용은 <a xmlns="" href="../domain/chapter_server_lifecycle.html#sect_managed_server_lifecycle" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Domain 안내서</span>”의 “4.4. 서버 Lifecycle 상태 확인”</a>을 참고한다.</p>
+
+          <p>2. Graceful Shutdown에 대한 자세한 내용은 <a href="chapter_server_control.html#sect_graceful_shutdown" title="3.1.3. Managed Server 종료">“3.1.3. Managed Server 종료”</a>를 참고한다.</p>
+        </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_start_managed_server"></a>3.1.2. Managed Server 시작</h3></div></div></div>
+      
+
+      <p>JEUS 7부터 DAS와 MS는 기본적으로 Launcher를 통해 기동된다. 스크립트나 DAS를 통한 서버 실행 명령은
+      Launcher를 실행하게 되고, Launcher에서는 서버를 띄우기 위한 준비작업과 실제 서버를 기동하는 작업을 수행한다.
+      Launcher에 대한 자세한 내용은 <a href="chapter_server_structure.html#sect_launcher" title="1.6. Launcher">“1.6. Launcher”</a>를 참고한다. 콘솔 툴이나
+      WebAdmin으로 DAS를 통해 서버를 시작하는 방법은 <a xmlns="" href="../domain/chapter_server_lifecycle.html#sect_start_managed_server" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Domain 안내서</span>”의 “4.2.2. Managed Server(MS) 시작”</a>을 참고한다. 본 절에서는 스크립트로 서버를
+      실행하는 예제만 설명한다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e2067"></a>예제 </h4>
+
+      <p>Launcher에서는 실제 서버의 JVM을 기동하고 해당 서버의 부팅이 완료된 것을 확인한 뒤에 종료된다. 다음과 같이
+      Launcher 로그를 통해 서버가 정상적으로 기동되었는지 확인할 수 있다.</p>
+
+      <pre class="screen">JEUS_HOME/bin$ ./startManagedServer -domain domain1 -server server1 -u jeus -p jeus -dasurl localhost:9736
+***************************************************************
+  - JEUS Home         : /home/test/jeus
+  - JEUS Base Port    :
+  - Added Java Option :
+  - Java Vendor       : Sun
+***************************************************************
+...
+[2016.08.23 23:01:30][2] [launcher-1] [SERVER-0201] Successfully connected to the Domain Administration Server(localhost:9736).
+[2016.08.23 23:01:30][2] [launcher-1] [Launcher-0058] All local configurations are up-to-date.
+...
+[2016.08.23 23:01:36][2] [server1-1] [SERVER-0248] The JEUS server is RUNNING.
+[2016.08.23 23:01:36][2] [server1-1] [SERVER-0401] The elapsed time to start: 4283ms.
+[2016.08.23 23:01:36][2] [launcher-11] [Launcher-0034] <span class="bold"><strong>The server[server1] initialization completed successfully[pid : 20496].</strong></span>
+[2016.08.23 23:01:36][0] [launcher-1] [Launcher-0040] <span class="bold"><strong>Successfully started the server. The server state is now RUNNING.</strong></span>
+JEUS_HOME/bin$ </pre>
+
+      <p>MS가 자신이 갖고 있는 애플리케이션 파일을 부팅 중 deploy할 때 문제가 발생할 경우 STANDBY 상태에 머무를
+      수 있다. MS가 부팅 중 deploy하는 애플리케이션은 보통 한 번 이상 정상적으로 서비스되던 것이다. 그렇기 때문에 이러한
+      문제가 발생했다면 이전과 비교하여 파일이 잘못 변경되었을 가능성이 크다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>특정 MS에서 JEUS 내부 디렉터리인 .workspace에 존재하는 애플리케이션의 xml 태그를 잘못 수정할 경우
+      아래와 같이 STANDBY 상태에 머무를 수 있다. 도메인 구조의 deploy에 대한 자세한 내용은 <a xmlns="" href="../deployment/chapter_application_management.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Applications &amp; Deployment 안내서</span>”의 “제1장 도메인 환경에서 애플리케이션 관리”</a>를 참고한다.</p>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>애플리케이션의 관리는 DAS를 통해서 하는 것이 기본 정책이므로, MS의 .workspace 디렉터리에 직접
+          접근하여 작업하지 않도록 한다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p/>
+
+      <pre class="screen">JEUS_HOME/bin$ ./startManagedServer -domain domain1 -server server1 -u administrator 
+-p adminadmin -dasurl 61.77.153.160:9736
+...
+[2016.08.24 05:21:27][2] [server1-1] [SERVER-0248] The JEUS server is STARTING.
+[2016.08.24 05:21:27][2] [server1-1] [Deploy-0095] Distribute the application[de
+ployment_helloear].
+[2016.08.24 05:21:27][2] [server1-1] [SERVER-0201] Successfully connected to the
+Domain Administration Server(61.77.153.160:9736).
+[2016.08.24 05:21:27][0] [server1-1] [STDERR] java.lang.RuntimeException: Unexpe
+cted close tag &lt;/application&gt;; expected &lt;/module&gt;
+...
+&lt;&lt;__!Exception__&gt;&gt;
+[2016.08.24 05:21:27][1] [server1-1] [SERVER-0300] Distributing some registered
+applications [deployment_helloear] failed.
+[2016.08.24 05:21:27][2] [server1-1] [SERVER-0248] The JEUS server is STANDBY.
+[2016.08.24 05:21:27][0] [server1-1] [SERVER-0250] Starting server (server1) fai
+led. Staying in STANDBY.
+[2016.08.24 05:21:27][2] [server1-1] [SERVER-0401] The elapsed time to start: 9541ms.
+[2016.08.24 05:21:27][2] [launcher-10] [Launcher-0034] The server[server1] initi
+alization completed successfully[pid : 31068].
+[2016.08.24 05:21:27][0] [launcher-1] [Launcher-0042] <span class="bold"><strong>Comp
+leted starting the server but the server state is still STANDBY.</strong></span>
+JEUS_HOME/bin$</pre><p>이 경우 다음과 같이 <span><strong class="guibutton">server-info</strong></span> 명령을 통해
+      MS가 STANDBY 상태임을 확인할 수 있다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>server-info</strong></span>
+
+Information of Domain (domain1)
+===============================================================================================
+================================================================================
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| Server|  Status |Node | PID | Clu |   Latest   |  Need  |   Listen  |Running |
+|       |         |Name |     |ster | Start Time |   to   |   Ports   |Engines |
+|       |         |     |     |     | / Shutdown |Restart |           |        |
+|       |         |     |     |     |    Time    |        |           |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| admin | RUNNING | nod | 5716| N/A | 2016-08-24 | true   | base-0.0. | jms,   |
+|Server |(04:24:1 |e1   |     |     | (수) 오후   |        |0.0:9736   |ejb, web|
+|(*)    |0)       |     |     |     |12:57:36 KST|        | http-serv |        |
+|       |         |     |     |     |            |        |er-0.0.0.0 |        |
+|       |         |     |     |     |            |        |:8088      |        |
+|       |         |     |     |     |            |        | jms-0.0.0 |        |
+|       |         |     |     |     |            |        |.0:9741    |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| serve | STANDBY | nod | 1820| clu | 2016-08-24 | false  | BASE-0.0. | jms,   |
+|r1     |(00:00:1 |e1   |     |ster1| (수) 오후   |        |0.0:9836   |ejb, web|
+|       |8)       |     |     |     |05:21:27 KST|        |           |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+===============================================================================================</pre>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_graceful_shutdown"></a>3.1.3. Managed Server 종료</h3></div></div></div>
+      
+
+      <p>MS의 종료는 <span><strong class="guibutton">jeusadmin</strong></span> 명령을 통해 가능하다. 특정 MS에 접속한
+      콘솔 툴에서 local-shutdown 명령을 통해 접속한 MS를 종료할 수도 있으며, 콘솔 툴이나 WebAdmin에서 DAS를
+      통한 명령으로 종료할 수도 있다. MS를 종료하는 방법에 대한 자세한 내용은 <a xmlns="" href="../domain/chapter_server_lifecycle.html#sect_stop_managed_server" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Domain 안내서</span>”의 “4.3.1. Managed Server(MS) 종료”</a>를 참고한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>MS는 DAS의 관리를 받는 것이 기본 정책이므로 DAS를 통해 종료하는 것을 권장한다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2102"></a>예제 </h4>
+
+      <p>MS를 종료할 때 현재 수행 중인 요청에 대한 처리를 보장해주는 Graceful Shutdown 기능이 존재한다. 서버
+      종료를 요청한 시점부터는 새로운 요청은 처리하지 않으나, 현재 수행 중인 요청에 대해서는 정해진 시간만큼 처리가 끝나길 기다려 줄
+      수 있다.</p>
+
+      <p>다음은 MS 종료 명령에 Timeout 옵션을 통해 대기시간을 설정하는 예제이다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;stop-server server1 -to 60000
+Server [server1] was successfully stopped.</pre>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>콘솔 툴을 통해 해당 MS에 직접 접속한 경우 역시 Timeout 지정이 가능하다.</p>
+
+      <pre class="screen">domain1.server1&gt;local-shutdown -to 60000
+The server [server1] has been shut down successfully.
+offline&gt; </pre>
+
+      <p/>
+
+      <p>정상적으로 종료된 서버에서는 다음과 같은 로그를 확인할 수 있다.</p>
+
+      <pre class="programlisting">...
+[2016.08.24 03:42:36][2] [server1-63] [SERVER-0248] The JEUS server is SHUTDOWN.
+[2016.08.24 03:42:36][0] [server1-63] [SERVER-0265] The JEUS server has exited.
+[2016.08.24 03:42:36][0] [server1-1] [SERVER-0099] The server[server1] has been
+shut down.
+[2016.08.24 03:42:36][0] [server1-9] [SERVER-0565] The JVM process is shutting down.
+[2016.08.24 03:42:36][0] [server1-9] [SERVER-0566] The JVM process will be terminated.</pre>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_suspend_server"></a>3.1.4. Managed Server 일시 정지</h3></div></div></div>
+      
+
+      <p>MS의 종료는 애플리케이션 서비스를 모두 내리고 MS JVM을 종료하는 과정이다. 이와 달리 서비스하고 있던 모든
+      애플리케이션의 일시 정지 기능이 제공된다. 여기서도 마찬가지로 Graceful Timeout을 적용하여 현재 수행 중인 요청 처리
+      완료를 기다릴 수 있다. 콘솔 툴의 <span><strong class="guibutton">suspend-server</strong></span> 명령 또는
+      WebAdmin을 통해서 동작 가능하다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2125"></a>WebAdmin 사용 </h4>
+
+      <p>다음은 WebAdmin을 통해 서버를 일시 정지하는 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Monitoring] &gt;
+          [Servers]</strong></span>를 선택하면 도메인 서버 목록이 조회된다. 목록에서 일시 정지할 서버의 이름 옆에
+          있는 체크박스를 체크한 뒤 <span><strong class="guibutton">[suspend]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="d4e2133"></a><p class="title"><b>[그림 3.2] 도메인 서버 목록 조회</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_server_monitoring_to_suspend.png" align="top" width="701" alt="도메인 서버 목록 조회"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li><li>
+          <p>동작이 완료된 후 다음과 같이 일시 정지가 되었는지 여부를 확인할 수 있다.</p>
+
+          <div class="figure"><a id="d4e2141"></a><p class="title"><b>[그림 3.3] 도메인 서버 일시 정지</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_server_monitoring_suspended.png" align="top" width="701" alt="도메인 서버 일시 정지"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e2153"></a>콘솔 툴 사용 </h4>
+
+      <p>다음은 콘솔 툴을 통해 서버를 일시 정지하는 예제이다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>suspend-server -servers server1</strong></span>
+Successfully suspended server(s).</pre>
+
+      <p><span><strong class="guibutton">server-info</strong></span> 명령으로 서버가 SUSPENDED 상태가 된 것을 확인할
+      수 있다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>server-info</strong></span>
+
+Information of Domain (domain1)
+================================================================================
++-------+---------+-----+-----+-----+--------------+-------+-----------+-------+
+| Server|  Status |Node | PID | Clu | Latest Start |  Need |   Listen  | Runni |
+|       |         |Name |     |ster |    Time /    |  to   |   Ports   |  ng   |
+|       |         |     |     |     |Shutdown Time |Restart|           |Engines|
++-------+---------+-----+-----+-----+--------------+-------+-----------+-------+
+| admin | RUNNING | nod | 5716| N/A | 2016-08-24   | true  | base-0.0. | jms,  |
+|Server |(03:05:3 |e1   |     |     |(수) 오후      |       |0.0:9736   |ejb,   |
+|(*)    |6)       |     |     |     |12:57:36 KST  |       | http-serv |web    |
+|       |         |     |     |     |              |       |er-0.0.0.0 |       |
+|       |         |     |     |     |              |       |:8088      |       |
+|       |         |     |     |     |              |       | jms-0.0.0 |       |
+|       |         |     |     |     |              |       |.0:9741    |       |
++-------+---------+-----+-----+-----+--------------+-------+-----------+-------+
+| serve | SUSPEND | nod | 139 | clu | 2016-08-24   | false | BASE-0.0. | jms,  |
+|r1     |ED(00:00 |e1   |84   |ster1|(수) 오후      |       |0.0:9836   |ejb,   |
+|       |:58)     |     |     |     |04:02:14 KST  |       |           |web    |
++-------+---------+-----+-----+-----+--------------+-------+-----------+-------+
+================================================================================</pre>
+
+      <p>정상적으로 일시 정지된 서버에서는 다음과 같은 로그를 확인할 수 있다.</p>
+
+      <pre class="programlisting">[2012.05.12 18:24:51][2] [server1-30] [SERVER-0248] The JEUS server is SUSPENDING.
+...
+[2012.05.12 18:24:51][2] [server1-30] [EJB-4953] [deployment_helloear#ejb] The EJB 
+module stopped.
+[2012.05.12 18:24:51][2] [server1-30] [WEB-3485] ServletContext[name=deployment_
+helloear#web, path=/hello, ctime=Sat May 12 18:24:15 KST 2012] stopped successfully.
+[2012.05.12 18:24:51][2] [server1-30] [SERVER-0248] <span class="bold"><strong>The JEUS server is SUSPENDED.</strong></span></pre>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>DAS의 제어를 받지 않고 있는 경우에도 해당 서버에 직접 콘솔 툴에 접속하여 MS를 일시 정지시킬 수
+        있다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_resume_server"></a>3.1.5. Managed Server 복귀</h3></div></div></div>
+      
+
+      <p>일시 정지되었던 서버의 애플리케이션들을 다시 서비스하도록 복귀시킬 수 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2177"></a>WebAdmin 사용 </h4>
+
+      <p>다음은 WebAdmin을 통해 서버를 복귀시키는 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Monitoring] &gt;
+          [Servers]</strong></span>를 선택하면 도메인 서버 목록이 조회된다. 목록에서 서비스를 다시 시작할 서버의 이름
+          옆에 있는 체크박스를 체크한 뒤 <span><strong class="guibutton">[resume]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="d4e2184"></a><p class="title"><b>[그림 3.4] 도메인 서버 목록</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_server_monitoring_to_resume.png" align="top" width="701" alt="도메인 서버 목록"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p>동작이 완료된 후 다음과 같이 서버가 정상적으로 resume되었는지 여부를 확인할 수 있다.</p>
+
+          <div class="figure"><a id="d4e2192"></a><p class="title"><b>[그림 3.5] 도메인 서버 복귀</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_server_monitoring_resumed.png" align="top" width="701" alt="도메인 서버 복귀"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li></ol></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e2200"></a>콘솔 툴 사용 </h4>
+
+      <p>DAS의 제어를 받지 않고 있는 경우에도 해당 서버에 직접 콘솔 툴에 접속하여 SUSPENDED 상태인 MS를 다시
+      시작시킬 수 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 콘솔 툴을 통해 서버를 복귀시키는 예제이다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>resume-server -servers server1</strong></span>
+Successfully resumed the servers.</pre>
+
+      <p><span><strong class="guibutton">server-info</strong></span> 명령을 통해 서버가 다시 RUNNING 상태가 된 것을
+      확인할 수 있다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>server-info</strong></span>
+
+Information of Domain (domain1)
+================================================================================
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| Server|  Status |Node | PID | Clu |   Latest   |  Need  |   Listen  |Running |
+|       |         |Name |     |ster | Start Time |   to   |   Ports   |Engines |
+|       |         |     |     |     | / Shutdown |Restart |           |        |
+|       |         |     |     |     |    Time    |        |           |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| admin | RUNNING | nod | 5716| N/A | 2016-08-24 | true   | base-0.0. | jms,   |
+|Server |(04:26:5 |e1   |     |     | (수) 오후   |        |0.0:9736   |ejb, web|
+|(*)    |3)       |     |     |     |12:57:36 KST|        | http-serv |        |
+|       |         |     |     |     |            |        |er-0.0.0.0 |        |
+|       |         |     |     |     |            |        |:8088      |        |
+|       |         |     |     |     |            |        | jms-0.0.0 |        |
+|       |         |     |     |     |            |        |.0:9741    |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| serve | RUNNING | nod | 4620| clu | 2016-08-24 | false  | BASE-0.0. | jms,   |
+|r1     |(00:01:0 |e1   |     |ster1| (수) 오후   |        |0.0:9836   |ejb, web|
+|       |0)       |     |     |     |05:23:29 KST|        |           |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+================================================================================</pre>
+
+      <p>정상적으로 애플리케이션 서비스가 다시 시작된 서버에서는 다음과 같은 로그를 확인할 수 있다.</p>
+
+      <pre class="programlisting">[2012.05.12 18:25:07][2] [server1-30] [SERVER-0248] The JEUS server is RESUMING.
+[2012.05.12 18:25:07][2] [server1-30] [Deploy-0098] Starting the application
+[deployment_helloear].
+[2012.05.12 18:25:07][2] [server1-30] [EJB-4952] [deployment_helloear#ejb] 
+The EJB module started.
+[2012.05.12 18:25:07][2] [server1-30] [WEB-3484] ServletContext[name=deployment_
+helloear#web, path=/hello, ctime=Sat May 12 18:24:15 KST 2012] started 
+successfully.
+[2012.05.12 18:25:07][2] [server1-30] [Deploy-0099] Successfully started the 
+application[deployment_helloear].
+[2012.05.12 18:25:07][2] [server1-30] [SERVER-0248] <span class="bold"><strong>The JEUS server is RUNNING.</strong></span></pre>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_engine_control"></a>3.2. 서버 엔진 설정</h2></div></div></div>
+    
+
+    <p>JEUS 서버에는 애플리케이션을 서비스하는 엔진이 내부적으로 존재한다. 웹 애플리케이션 서비스, EJB 애플리케이션
+    서비스, JMS 서비스를 위한 엔진이 각각 존재한다. 이들 각 엔진의 사용 여부는 초기화 시점을 설정을 통해 제어할 수 있다. 단,
+    현재 이들 설정은 모두 서버를 재기동해야 적용된다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus_engine_on_off"></a>3.2.1. 엔진 사용 여부 설정</h3></div></div></div>
+      
+
+      <p>JEUS 서버의 각 엔진의 사용 여부를 설정한다. 각 엔진에 대하여 사용 설정을 할 경우 각 엔진들은 서버가 기동되거나
+      각 엔진에서 서비스될 첫 번째 애플리케이션이 deploy될 때 필요한 엔진이 초기화된다. 사용 설정을 하지 않은 경우 서버가
+      기동된 후에도 엔진은 초기화되지 않으므로 해당 엔진에서 서비스될 애플리케이션들을 deploy하면 실패하게 된다.</p>
+
+      <p/>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+        <p>엔진 사용가능할 때 정상적으로 deploy된 애플리케이션을 이후 엔진 미사용을 한 후 서버를 기동할 경우 해당
+        애플리케이션은 deploy 실패하게된다. 그리고 서버의 상태도 서비스 가능상태(RUNNING)가 아닌 대기(STANDBY)로
+        전환됨으로 관리자가 이를 확인하여 엔진의 상태와 애플리케이션의 상태를 수정해주어야한다.</p>
+      </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p/>
+
+      <p>WebAdmin과 콘솔 툴로 각 엔진별 사용 여부를 설정할 수 있다.</p>
+
+      <h4><a id="d4e2231"></a>WebAdmin 사용 </h4>
+
+      <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>에서 원하는 서버를 선택하면
+      선택하면 해당 서버의 설정을 확인할 수 있다. 이 화면 중간에 각 엔진들의 사용 여부를 설정한 부분이 있다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="figure_Server_Webadmin_Engine_Configure"></a><p class="title"><b>[그림 3.6] Server 내부 Engine 설정 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_server_webadmin_engine_configure.png" align="top" width="701" alt="Server 내부 Engine 설정 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p><span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을 클릭한 후 설정을 변경할 엔진 정보를
+      설정하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다. <span><strong class="guibutton">[Activate
+      Changes]</strong></span> 메뉴를 선택해서 설정 정보를 적용하려면 서버를 재시작해야 한다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="figure_Server_Webadmin_Engine_Configure_Result"></a><p class="title"><b>[그림 3.7] Server 내부 Engine 설정 결과 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_server_webadmin_engine_configure_result.png" align="top" width="701" alt="Server 내부 Engine 설정 결과 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e2255"></a>콘솔 툴 사용</h4>
+
+      <p>콘솔 툴에서 서버 내 각 엔진 사용 여부를 설정하는 방법은 다음과 같다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>disable-engines adminServer -all</strong></span>
+All engine(s) was(were) successfully disabled.
+The configuration was changed.
+================================================================================
++------------------------------------------------------------------------------+
+|                                    Result                                    |
++------------------------------------------------------------------------------+
+| Successfully changed only the XML.                                           |
+| Restart the server to apply the changes.                                     |
++------------------------------------------------------------------------------+
+================================================================================
+...
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>disable-engines adminServer -web -ejb</strong></span>
+Web EJB engine(s) was(were) successfully disabled.
+The configuration was changed.
+================================================================================
++------------------------------------------------------------------------------+
+|                                    Result                                    |
++------------------------------------------------------------------------------+
+| Successfully changed only the XML.                                           |
+| Restart the server to apply the changes.                                     |
++------------------------------------------------------------------------------+
+================================================================================
+...
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>disable-engines adminServer -all</strong></span>
+All engine(s) was(were) successfully enabled.
+The configuration was changed.
+================================================================================
++------------------------------------------------------------------------------+
+|                                    Result                                    |
++------------------------------------------------------------------------------+
+| Successfully applied part of the changes.                                    |
+| Restart the server to apply the remaining changes.                           |
++------------------------------------------------------------------------------+
+================================================================================
+...
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>disable-engines adminServer -web -ejb</strong></span>
+Web EJB engine(s) was(were) successfully enabled.
+The configuration was changed.
+================================================================================
++------------------------------------------------------------------------------+
+|                                    Result                                    |
++------------------------------------------------------------------------------+
+| Successfully applied part of the changes.                                    |
+| Restart the server to apply the remaining changes.                           |
++------------------------------------------------------------------------------+
+================================================================================</pre>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>JEUS 콘솔 툴의 서버 내 엔진 설정 명령에 대한 자세한 정보는 <a xmlns="" href="../reference-book/ch04.html#cmd_disable-engines" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.3.9. disable-engines”</a>,
+          <a xmlns="" href="../reference-book/ch04.html#cmd_enable-engines" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.3.15. enable-engines”</a>를 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus_engine_init_time"></a>3.2.2. 엔진 초기화 시점 설정</h3></div></div></div>
+      
+
+      <p>JEUS 서버의 각 엔진의 사용 여부를 설정한다. 각 엔진에 대하여 사용 설정을 할 경우 각 엔진들은 엔진 초기화와
+      동시에 또는 각 엔진에서 서비스될 첫 번째 애플리케이션이 deploy될 때 필요한 엔진이 초기화된다. 사용 설정을 하지 않은 경우
+      서버가 기동된 후에도엔진은 초기화되지 않으므로 해당 엔진에서 서비스될 애플리케이션들을 deploy할 경우 실패하게 된다.
+      WebAdmin과 콘솔 툴로 각 엔진별 사용 여부를 설정할 수 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2276"></a>WebAdmin 사용 </h4>
+
+      <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>에서 서버를 선택하면 해당
+      서버의 설정을 확인할 수 있다. 이 화면 중간에 각 엔진들의 서버를 기동할 때 초기화 여부를 설정한 부분이 있다.</p>
+
+      <p><span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span>를 클릭한 후 설정을 변경할 엔진에 맞추어
+      설정한 후 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다. <span><strong class="guibutton">[Activate
+      Changes]</strong></span> 메뉴를 선택해서 설정 정보를 적용하려면 서버를 재시작해야 한다. 화면은 엔진 사용 여부 설정
+      확인 화면과 같은 화면이므로 위 화면을 참고한다.</p>
+
+      <p/>
+
+      <h4><a id="d4e2285"></a>콘솔 툴 사용</h4>
+
+      <p>콘솔 툴에서 서버 내 각 엔진의 초기화 시점을 설정하는 방법은 다음과 같다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>disable-engine-init-on-boot adminServer,server1</strong></span>
+EngineInitOnBoot was successfully enabled.
+The configuration was changed.
+================================================================================
++------------------------------------------------------------------------------+
+|                                    Result                                    |
++------------------------------------------------------------------------------+
+| Successfully changed only the XML.                                           |
+| Restart the server to apply the changes.                                     |
++------------------------------------------------------------------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>enable-engine-init-on-boot adminServer</strong></span>
+EngineInitOnBoot was successfully enabled.
+The configuration was changed.
+================================================================================
++------------------------------------------------------------------------------+
+|                                    Result                                    |
++------------------------------------------------------------------------------+
+| Successfully applied part of the changes.                                    |
+| Restart the server to apply the remaining changes.                           |
++------------------------------------------------------------------------------+
+================================================================================</pre>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS 콘솔 툴의 서버 내 엔진 설정 명령에 대한 자세한 정보는 <a xmlns="" href="../reference-book/ch04.html#cmd_disable-engine-init-on-boot" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.3.8. disable-engine-init-on-boot”</a>, <a xmlns="" href="../reference-book/ch04.html#cmd_enable-engine-init-on-boot" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.3.14. enable-engine-init-on-boot”</a>를 참고한다.</p>
+      </div>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_thread_monitoring_control"></a>3.3. Thread 모니터링 및 제어</h2></div></div></div>
+    
+
+    <p>JEUS에서는 서블릿 Thread와 EJB 리모트 Thread, System Thread Pool에 대한 모니터링 기능과
+    Thread의 Stack을 확인할 수 있는 기능, 그리고 특정 Thread에 Interrupt Signal을 보낼 수 있는 기능을
+    제공한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus_thread_monitoring"></a>3.3.1. Thread 모니터링</h3></div></div></div>
+      
+
+      <p>JEUS에서는 Thread를 모니터링하는 기능을 제공한다. 모니터링의 대상이 되는 Thread는 서블릿 Thread,
+      EJB 리모트 요청 Thread 그리고 System Thread Pool이다.</p>
+
+      <p>서블릿 Thread나 EJB 리모트 요청 Thread의 모니터링 기능을 사용하면 Thread ID, Thread 이름,
+      Thread 상태, 처리시간 등의 정보를 알 수 있고 Thread Pool 모니터링 기능을 사용하면 System Thread
+      Pool의 core size, max size, keep alive time 그리고 System Thread Pool에 있는
+      Thread 정보를 알 수 있다. 단, 콘솔 툴에서는 서블릿 Thread와 EJB 리모트 요청 Thread만 모니터링할 수
+      있다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2306"></a>Thread 정보 확인</h4>
+
+      <p>WebAdmin과 콘솔 툴로 Thread 정보를 확인할 수 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">WebAdmin 사용 </strong></span></p>
+
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Monitoring] &gt;
+          [Thread]</strong></span>를 선택하면 <span><strong class="guibutton">Thread 모니터링 화면</strong></span>으로
+          이동한다.</p>
+
+          <div class="figure"><a id="d4e2315"></a><p class="title"><b>[그림 3.8] Thread 모니터링 화면</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_server_webadmin_threadinfo_main.png" align="top" width="701" alt="Thread 모니터링 화면"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <p>Thread 정보를 조회할 서버의 이름을 선택하면 다음과 같이 Thread들에 대한 정보를 확인할 수
+          있다.</p>
+
+          <div class="figure"><a id="d4e2321"></a><p class="title"><b>[그림 3.9] WebAdmin에서 Thread 정보 확인</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_server_webadmin_threadinfo_webadmin.png" align="top" width="701" alt="WebAdmin에서 Thread 정보 확인"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <p/>
+        </li><li>
+          <p><span><strong class="guibutton">콘솔 툴 사용</strong></span></p>
+
+          <p>콘솔 툴에서 Thread 정보를 확인하는 방법은 다음과 같다.</p>
+
+          <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>thread-info -server adminServer</strong></span>
+
+Thread information for the server [adminServer]
+There are no EJB RMI threads for the server [adminServer].
+============================================================
+The web container threads for 'ADMIN-HTTP' listener.
+
++-----+--------------------------+---------+---------+-----+
+| tid |           name           |  state  | elapsed | uri |
++-----+--------------------------+---------+---------+-----+
+|  48 | ADMIN-HTTP-2             | waiting |   21050 |     |
++-----+--------------------------+---------+---------+-----+
+
+elapsed: Elapsed time (ms)
+============================================================
+
+================================================================================
+Thread statistics for the 'ADMIN-HTTP' listener.
+
++-----------------------------------+-------+--------+------+---------+--------+
+|                                   | total | active | idle | blocked | reconn |
++-----------------------------------+-------+--------+------+---------+--------+
+| The number of threads.            |     1 |      0 |    1 |       0 |      0 |
++-----------------------------------+-------+--------+------+---------+--------+
+
+total = active + idle, reconn: reconnecting
+================================================================================
+
+======================================================
+The web container threads for 'http1' listener.
+
++-----+--------------------+---------+---------+-----+
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>disable-engines adminServer -all</strong></span>
+All engine(s) was(were) successfully disabled.
+The configuration was changed.
+================================================================================
++------------------------------------------------------------------------------+
+|                                    Result                                    |
++------------------------------------------------------------------------------+
+| Successfully changed only the XML.                                           |
+| Restart the server to apply the changes.                                     |
++------------------------------------------------------------------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>thread-info -server adminServer</strong></span>
+
+Thread information for the server [adminServer]
+There are no EJB RMI threads for the server [adminServer].
+
+============================================================
+The web container threads for 'ADMIN-HTTP' listener.
+
++------+-------------------------+---------+---------+-----+
+|  tid |           name          |  state  | elapsed | uri |
++------+-------------------------+---------+---------+-----+
+| 1053 | ADMIN-HTTP-14           | waiting |  123437 |     |
+| 1077 | ADMIN-HTTP-16           | waiting |  107897 |     |
+| 1078 | ADMIN-HTTP-17           | waiting |  123464 |     |
++------+-------------------------+---------+---------+-----+
+
+elapsed: Elapsed time (ms)
+============================================================
+
+================================================================================
+Thread statistics for the 'ADMIN-HTTP' listener.
+
++-----------------------------------+-------+--------+------+---------+--------+
+|                                   | total | active | idle | blocked | reconn |
++-----------------------------------+-------+--------+------+---------+--------+
+| The number of threads.            |     3 |      0 |    3 |       0 |      0 |
++-----------------------------------+-------+--------+------+---------+--------+
+
+total = active + idle, reconn: reconnecting
+================================================================================
+
+=============================================================
+The web container threads for 'http1' listener.
+
++-----+------------------+---------+------------------+-----+
+| tid |       name       |  state  |      elapsed     | uri |
++-----+------------------+---------+------------------+-----+
+|  49 | http1-1          | waiting |         16083595 |     |
+|  58 | http1-10         | waiting |         16083594 |     |
+|  50 | http1-2          | waiting |         16083595 |     |
+|  51 | http1-3          | waiting |         16083595 |     |
+|  52 | http1-4          | waiting |         16083595 |     |
+|  53 | http1-5          | waiting |         16083594 |     |
+|  54 | http1-6          | waiting |         16083594 |     |
+|  55 | http1-7          | waiting |         16083594 |     |
+|  56 | http1-8          | waiting |         16083594 |     |
+|  57 | http1-9          | waiting |         16083594 |     |
++-----+------------------+---------+------------------+-----+
+
+elapsed: Elapsed time (ms)
+=============================================================
+
+================================================================================
+Thread statistics for the 'http1' listener.
+
++-----------------------------------+-------+--------+------+---------+--------+
+|                                   | total | active | idle | blocked | reconn |
++-----------------------------------+-------+--------+------+---------+--------+
+| The number of threads.            |    10 |      0 |   10 |       0 |      0 |
++-----------------------------------+-------+--------+------+---------+--------+
+
+total = active + idle, reconn: reconnecting
+================================================================================
+
+================================================================================
+The threads for the 'threadpool.System' thread pool.
+
++-----+----------------------------------------+---------------+---------------+
+| tid |                  name                  |  thread state | active thread |
++-----+----------------------------------------+---------------+---------------+
+| 683 | threadpool.System-4 [adminServer-683]  | RUNNABLE      | true          |
+|  71 | threadpool.System-2 [adminServer-71]   | TIMED_WAITING | false         |
+| 124 | threadpool.System-3 [adminServer-124]  | TIMED_WAITING | false         |
+|  68 | threadpool.System-1 [adminServer-68]   | TIMED_WAITING | false         |
++-----+----------------------------------------+---------------+---------------+
+================================================================================
+
+================================================================================
+The statistics for the 'threadpool.System' thread pool.
+
++-----------+-----------+-----------+-----------+----------+-------------------+
+| pool name |  minimum  |  maximum  |  current  |   work   |   remaining work  |
+|           | pool size | pool size | pool size |queue size|    queue size     |
++-----------+-----------+-----------+-----------+----------+-------------------+
+| threadpoo |         0 |       100 |         4 |     4096 |              4096 |
+|l.System   |           |           |           |          |                   |
++-----------+-----------+-----------+-----------+----------+-------------------+
+================================================================================</pre>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e2338"></a>특정 Thread의 Stack Trace 조회 </h4><p>WebAdmin과 콘솔 툴로
+      특정 Thread의 Stack Trace를 조회할 수 있다.</p>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">WebAdmin 사용 </strong></span></p>
+
+          <p>WebAdmin의 <span><strong class="guibutton">Thread 모니터링 화면</strong></span>에서 특정 tid를 클릭하면
+          해당 Thread의 Stack Trace를 조회할 수 있다.</p>
+
+          <p>다음은 WebAdmin에서 특정 Thread의 Stack Trace를 조회한 화면이다.</p>
+
+          <div class="figure"><a id="d4e2348"></a><p class="title"><b>[그림 3.10] WebAdmin에서 특정 Thread의 Stack Trace 조회</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_server_webadmin_printstacktrace.png" align="top" width="701" alt="WebAdmin에서 특정 Thread의 Stack Trace 조회"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li><li>
+          <p><span><strong class="guibutton">콘솔 툴 사용 </strong></span></p>
+
+          <p>콘솔 툴에서 특정 Thread의 Stack Trace를 조회하는 방법이다. 주로 Thread 정보를 조회하는
+          명령(콘솔 툴에서의 ti 명령)을 통해 확인했을 때 블록된 Thread가 있을 경우 해당 Thread의 Stack을
+          확인하는 데 사용한다.</p>
+
+          <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>print-stack-trace -server server1 45</strong></span>
+servlet thread [tid=45] Stack trace of ADMIN-HTTP-1 [server1-45] tid=45
+java.lang.Thread.State: WAITING
+  at sun.misc.Unsafe.park(Native Method)
+  at java.util.concurrent.locks.LockSupport.park(LockSupport.java:156)
+  at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await (AbstractQueuedSynchronizer.java:1987)
+  at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:399)
+  at jeus.util.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1291)
+  at jeus.servlet.engine.WebThreadPoolExecutor.getTask(WebThreadPoolExecutor.java:68)
+  at jeus.util.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:1215)
+  at jeus.servlet.engine.WebThreadPoolExecutor$WebRequestWorker.run (WebThreadPoolExecutor.java:332)
+  at java.lang.Thread.run(Thread.java:662)</pre>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>1. JEUS 콘솔 툴의 <span><strong class="guibutton">ti</strong></span> 명령과
+          <span><strong class="guibutton">strace</strong></span> 명령에 대한 자세한 정보는 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-common-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.2. Local 명령어”</a>를 참고한다.</p>
+
+          <p>2. 서블릿 Thread와 EJB 리모트 요청 Thread 정보, Stack Trace는 WebAdmin의
+          <span><strong class="guibutton">[Monitoring] &gt; [Thread]</strong></span> 메뉴에서 확인할 수 있다. 또한
+          System Thread Pool의 정보와 System Thread Pool의 Thread 정보를 확인할 수 있다. 더
+          자세한 사항은 <a xmlns="" href="../web-manager/index.html" class="olink">"JEUS
+          WebAdmin 안내서"</a>와 온라인 도움말을 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus_thread_control"></a>3.3.2. Thread 제어</h3></div></div></div>
+      
+
+      <p>JEUS에서는 특정 Thread에 Interrupt Signal을 보내서 수행 중인 작업을 중단할 수 있도록
+      Exception을 발생시키는 기능이 있다.</p>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>이 기능은 현재 실험적으로 제공되는 기능으로 Thread에 Interrupt가 걸려 있으면 수행 중인
+          Thread가 바로 중단되는 것이 아니라 Interrupt Status를 체크하여 Exception을 던져 더 이상
+          진행하지 않도록 유도하는 것이기 때문에 발생하는 Exception에 대해서는 사용자 애플리케이션에서 처리해야 한다.
+          Exception을 제대로 처리하지 않아서 발생하는 문제에 대해서는 사용자에게 책임이 있다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div><h4><a id="d4e2379"></a>Thread
+      Interrupt</h4>
+
+      <p><a id="d4e2381" class="indexterm"></a>Thread에 Interrupt를 건다는 것은 동작하고 있는 Thread에 Interrupt
+      Signal을 보내서 현재 진행 중인 동작의 중단을 유도하기 위해 Exception을 발생시켜 이후의 작업을 더 이상 진행하지
+      않도록 힌트를 주는 것이다. 주로 요청이 블록되어 있거나, 예상한 시간보다 오래 지체되어 있는 경우에 사용될 수
+      있다.</p>
+
+      <p>실제로 Thread에 Interrupt가 걸린다고 해서 해당 Thread가 강제적으로 멈춘다든가, Interrupt를
+      발생시키는 순간에 바로 효과가 있는 것은 아니다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>JEUS에서는 서블릿 Thread, EJB 리모트 요청 Thread와 System Thread Pool의 수행 중인
+      Thread에 Interrupt Signal을 보낼 수 있는 기능을 지원한다. 이때 Thread가 JNDI 원격 커넥션이나 EJB
+      operation, JDBC operation, 또는 I/O 작업을 진행 중이면 Interrupt가 걸릴 수 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">서블릿 Thread</strong></span></p>
+
+          <p>서블릿 Thread는 다음의 경우들에 대해 Interrupt가 걸려 있으면 Exception이 발생한다. 이때
+          발생하는 Exception에 대한 처리는 사용자 애플리케이션에서 해야 한다.</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JNDI 원격 커넥션을 맺으려고 할 때</p>
+            </li><li>
+              <p>JNDI 원격 operation을 수행하려고 할 때</p>
+            </li><li>
+              <p>EJB 호출하려고 할 때</p>
+            </li><li>
+              <p>JDBC 커넥션을 얻어올 때 또는 커넥션 객체의 메소드를 호출할 때</p>
+            </li></ul></div>
+
+          <p>콘솔 툴이나 WebAdmin을 통해 관리자가 직접 Interrupt를 걸 수 있으며, 서블릿 Thread의
+          수행시간을 체크하여 자동으로 Interrupt 되도록 하는 기능을 제공한다. 이 기능에 대한 설정 방법은 <a xmlns="" href="../web-engine/chapter_webserver_connectivity_and_clustering.html#sect_configuring_thread_state_notify" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Web Engine 안내서</span>”의 “2.3.7. 자동 Thread Pool 관리 설정(Thread 상태 통보)”</a>을
+          참고한다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">EJB 리모트 요청 Thread</strong></span></p>
+
+          <p>EJB operation의 경우에는 다음의 시점에 Interrupt Status를 체크해서
+          javax.ejb.EJBException을 발생시킨다.</p><div class="itemizedlist"><ul type="circle"><li>
+                <p>EJB 2.x 방식으로 create와 같은 EJBHome 메소드를 호출할 때(EJB 3.0의 경우
+                사용자가 EJB Lookup을 하면 EJB 컨테이너 내부적으로 create 처리)</p>
+              </li><li>
+                <p>EJB 비즈니스 메소드를 호출할 때</p>
+              </li></ul></div><p>이때 발생하는 Exception에 대해서는 사용자 애플리케이션에서 적절하게 처리해주어야
+          한다. 만약 EJB 비즈니스 메소드 호출이 이미 들어간 상태에서 Interrupt Signal을 받았다면
+          Exception이 발생하지 않을 수 있다. 하지만 해당 메소드에서 다른 EJB를 호출한다던가, JDBC
+          operation이나 JNDI operation을 사용하는 경우라면 Interrupt가 걸릴 수도 있다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">JDBC </strong></span></p>
+
+          <p>JDBC operation의 경우에는 다음의 operation을 수행하려고 할 때 Interrupt
+          Signal을 받았다면 java.sql.SQLException이 발생한다. 이때 발생하는 Exception에 대해서는
+          사용자 애플리케이션에서 적절하게 처리해주어야 한다.</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>DataSource#getConnection()을 통해 Connection Pool에서 커넥션을 가져올
+              때</p>
+            </li><li>
+              <p>Connection Pool에서 가져온 java.sql.Connection에 대해서 operation을
+              수행하려고 할 때</p>
+            </li><li>
+              <p>JDBC Connection Pool 설정에 use-sql-trace나 stmt-caching-size
+              옵션을 설정하고 executeQuery와 같은 operation을 수행하려고 할 때(옵션에 대한 자세한 설명은
+              <a href="chapter_datasource.html#sect_DB_Connection_Pool_Config" title="6.4.2. Connection Pool 설정">“6.4.2. Connection Pool 설정”</a>을 참고한다.)</p>
+            </li></ul></div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">JNDI</strong></span></p>
+
+          <p>JNDI operation을 수행하는 중에도 Interrupt의 효과가 있는 경우가 있다. 다음의 JNDI
+          operation을 수행하려고 할 때 Interrupt Signal을 받았다면
+          javax.naming.NamingException이 발생한다. 이때 발생하는 Exception에 대해서는 사용자
+          애플리케이션에서 적절하게 처리해주어야 한다.</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JNDI 원격 커넥션을 맺을 때(javax.naming.InitialContext를 생성하는
+              시점)</p>
+            </li><li>
+              <p>JNDI operation을 하기 위해 원격 메시지를 보낼 때</p>
+
+              <p>Lookup, Bind, Rebind, Rename과 같은 JNDI operation일 경우이다. 단,
+              로컬(같은 JVM)에 있는 레지스트리에 접근하거나 캐시에 접근하는 경우에는 Interrupt의 효과가
+              없다.</p>
+            </li></ul></div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">I/O 작업</strong></span></p>
+
+          <p>I/O 작업을 할 때는 항상은 아니지만 상황에 따라 Interrupt의 효과가 있을 수 있다.</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>java.nio.channels.SocketChannel</p>
+
+              <p>java.nio.channels.SocketChannel을 사용하는 경우에는 Interrupt에 걸리게
+              된다. java.nio.channels.SocketChannel을 사용해서 연결할 때는 3단계로
+              분리된다.</p>
+
+              <p>첫 번째 단계인 begin 단계에서는 Thread에 Interrupt Status가 설정되었는지 체크하고
+              설정되어 있다면 채널을 종료한다. 실제 연결하는 단계에서는 Interrupt Status가 설정되어 있다면
+              connect()를 진행하지 않고, end 단계에서 Interrupt가 걸려 있다면
+              java.nio.channels.ClosedByInterruptedException이 발생한다(이후에
+              Interrupt Status는 clear된다).</p>
+            </li></ul></div>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>java.nio.channels.SocketChannel#read()/java.nio.channels.SocketChannel#write()</p>
+
+              <p>java.nio.channels.SocketChannel#read()나
+              java.nio.channels.SocketChannel#write()하는 경우에도 역시 3단계로 나뉘게
+              된다.</p>
+
+              <p>첫 번째 단계인 begin 단계에서는 Interrupt Status가 설정되었는지 체크하고 설정되어
+              있다면 채널을 종료한다. 그리고 실제 IO를 처리하는 단계에서는 Interrupt Status가 설정되어 있다면
+              실제 Read, Write를 진행하지 않고 마지막 end 단계에서는
+              java.nio.channels.ClosedByInterruptedException이 발생한다(이후에
+              Interrupt Status는 clear된다).</p>
+
+              <p>java.nio.channels.ClosedByInterruptedException이 발생한 후 이전에
+              생성했던 채널을 사용해서 Read, Write를 하려고 하면 I/O 작업이 수행되지 않고
+              java.nio.channels.ClosedChannelException이 발생한다.</p>
+            </li><li>
+              <p>java.net.Socket 사용</p>
+
+              <p>java.net.Socket을 사용할 때는 OS, JVM에 따라서 다르다. HP-UX와
+              Solaris에서는 JVM의 컴파일 옵션에 따라 Socket I/O 작업에 Interrupt를 걸 수
+              있다.</p>
+
+              <p>Socket의 스트림을 통해 Read나 Write를 하려고 할 때 Interrupt Status가
+              체크되기 때문에 Interrupt에 걸릴 수 있고 java.net.SocketException이 발생한다(이후에
+              Interrupt Status는 clear된다). 하지만 이때 실제 소켓이 끊어지는 것은 아니고 Interrupt가
+              걸린 시점의 다음 operation만 중단된다(다음에 Read, Write를 수행하면 제대로
+              동작한다).</p>
+
+              <p>그 외 Windows, IBM AIX, Linux 등에서는 Socket I/O 작업을 하는 Thread에
+              Interrupt를 걸어도 효과가 없다.</p>
+            </li></ul></div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Object#wait() / Thread#sleep() /
+          Thread#join()</strong></span></p>
+
+          <p>Thread가 Object#wait(), Thread#sleep() 또는 Thread#join()하고 있는
+          상태라면 해당 Thread는 Interrupt에 걸리게 된다. 이 경우 해당 Thread는
+          java.lang.InterruptedException이 발생한다(이후에 Interrupt Status는
+          clear된다).</p>
+        </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>자세한 사항은 해당 클래스의 Javadoc API 문서를 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e2467"></a>Interrupt Signal 전송</h4>
+
+      <p>JEUS에서는 콘솔 툴과 WebAdmin을 통해 Thread에 Interrupt Signal을 보낼 수 있는 명령을
+      제공한다.</p>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">WebAdmin 사용 </strong></span></p>
+
+          <p><span><strong class="guibutton">Thread 모니터링 화면</strong></span>에서
+          <span><strong class="guibutton">[interrupt]</strong></span> 버튼을 클릭하면 해당 Thread에 Interrupt
+          Signal을 보낼 수 있다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">콘솔 툴 사용 </strong></span></p>
+
+          <p>다음은 콘솔 툴 사용해서 Thread Interrupt Signal을 전송하는 예제이다. JEUS 콘솔 툴의
+          <span><strong class="guibutton">interrupt-thread</strong></span> 명령에 대한 자세한 정보는 <a xmlns="" href="../reference-book/ch04.html#cmd_interrupt-thread" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.5.1. interrupt-thread”</a>를 참고한다.</p>
+
+          <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>interrupt-thread -server server1 45</strong></span>
+Sent an interrupt hint signal to the thread [tid=45] on the server server1.</pre>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_memory_monitoring_control"></a>3.4. 메모리 모니터링 및 제어</h2></div></div></div>
+    
+
+    <p>JEUS에서는 메모리를 모니터링하고 특정 사용량을 초과한 경우에 서버를 제어할 수 있는 기능을 제공한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus_memory_monitoring"></a>3.4.1. 메모리 모니터링</h3></div></div></div>
+      
+
+      <p/>
+
+      <p>WebAdmin과 콘솔 툴을 사용해서 메모리 정보를 확인할 수 있다.</p>
+
+      <h4><a id="d4e2497"></a>WebAdmin 사용</h4>
+
+      <p>다음은 WebAdmin을 사용해서 메모리 정보를 확인하는 방법이다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>WebAdmin을 통해서 메모리 정보를 확인하는 방법은
+        <span><strong class="guibutton">[Monitoring]</strong></span>의 <span><strong class="guibutton">[Web]</strong></span> 메뉴를
+        사용하거나 <span><strong class="guibutton">[System Info]</strong></span> 메뉴를 사용하는 방법이 있다.
+        <span><strong class="guibutton">[System Info]</strong></span> 메뉴에서는 메모리 정보뿐만 아니라 CPU, Process,
+        JVM 정보까지 모두 확인이 가능하고, <span><strong class="guibutton">[Web]</strong></span> 메뉴에서는 간단한 메모리 정보를
+        확인할 수 있다. 그러므로 본 절에서는 <span><strong class="guibutton">[System Info]</strong></span> 메뉴를 사용한 방법을
+        설명한다.</p>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p/>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에서<span><strong class="guibutton"> [Monitoring] &gt; [System
+            Info]</strong></span>를 선택하면 메모리를 포함한 시스템 전반적인 모니터링 화면으로 이동한다.</p>
+
+            <div class="figure"><a id="d4e2516"></a><p class="title"><b>[그림 3.11] System Info 모니터링 화면</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_jeussysinfo.png" align="top" width="701" alt="System Info 모니터링 화면"/></td></tr></table></div>
+            </div></div><br class="figure-break"/>
+          </li><li>
+            <p>조회할 서버 이름을 클릭하면 다음과 같이 메모리 정보를 확인할 수 있다.</p>
+
+            <div class="figure"><a id="d4e2524"></a><p class="title"><b>[그림 3.12] WebAdmin에서 메모리 정보 확인</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_jeusmemoryinfo.png" align="top" width="701" alt="WebAdmin에서 메모리 정보 확인"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li></ol></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p/>
+
+      
+
+      <h4><a id="d4e2533"></a>콘솔 툴 사용</h4>
+
+      <p>콘솔 툴에서 <span><strong class="guibutton">memory-info</strong></span> 명령을 사용하여 메모리 정보를 확인할 수
+      있다. memory-info 명령에 대한 자세한 내용은 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-server-management-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.3. Server Management 관련 명령어”</a>를 참고한다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>memory-info -servers adminServer</strong></span>
+Domain [domain1] Memory Information
+Memory Information
+================================================================================
++-------------+---------------------------+------------------------------------+
+|    Server   |   Total Amount of Memory  |    The Current Amount of Memory    |
++-------------+---------------------------+------------------------------------+
+| adminServer |                 177274880 |                          101567168 |
++-------------+---------------------------+------------------------------------+
+================================================================================</pre>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus_memory_control"></a>3.4.2. 메모리 사용량에 따른 제어</h3></div></div></div>
+      
+
+      <p>JEUS에서는 자주 사용되는 기능은 아니기 때문에 현재 시스템 프로퍼티를 통해서만 메모리 관련 동작을 제어할 수
+      있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>1. Memory Overflow가 발생한 경우 오직 한 번 Heap Dump를 떨어뜨리게 되어 있다.
+        (SERVER_HOME/logs 디렉터리에 생성)</p>
+
+        <p>2. IBM JDK의 경우에는 Java를 실행한 위치에 Heap Dump가 떨어지므로 경로를 다르게 설정하려면
+        -Xdump:heap:file 옵션을 사용해야 한다. IBM Heap Dump에 대한 더 많은 옵션은 관련 홈 페이지를
+        참조한다.</p>
+
+        <p>3. Heap Dump를 남기기 전에 Thread Dump가 로그에 남는다.</p>
+      </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p/>
+
+      <p>관련된 프로퍼티는 다음과 같다.</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">프로퍼티</th><th>설명</th></tr></thead><tbody><tr><td align="left">jeus.server.memorymonitor.enabled<a id="d4e2561" class="indexterm"></a></td><td><p>MemoryMoniterService를 사용할 것인지를 설정한다.
+              </p><p>설정이 활성화되어 있지 않다면 나머지 프로퍼티의 속성은 의미가 없다.
+              </p><p>(기본값: false)</p></td></tr><tr><td align="left">jeus.server.memorymonitor.ratio<a id="d4e2569" class="indexterm"></a></td><td><p>Memory Overflow의 기준치를 설정한다. </p><p>만약 0.8을
+              설정했다면 MAX 메모리를 기준으로 약 80%의 메모리를 사용할 경우 Overflow로 간주한다. (기본값:
+              0.8)</p></td></tr><tr><td align="left">jeus.server.memorymonitor.interval<a id="d4e2576" class="indexterm"></a></td><td><p>메모리 사용량을 측정하는 주기를 설정한다. </p><p>(기본값: 2000,
+              단위: ms)</p></td></tr><tr><td align="left">jeus.server.memorymonitor.duration<a id="d4e2583" class="indexterm"></a></td><td><p>Memory Overflow를 판단하는 시간을 설정한다. (기본값: 60000, 단위:
+              ms)</p><p>예를 들어 jeus.server.memorymonitor.ratio가 0.8이고
+              jeus.server.memorymonitor.duration이 1분이라면
+              MemoryMonitorService에서는 메모리가 80% 이상 1분 넘게 지속될 경우 Memory
+              Overflow로 간주한다. </p><p/></td></tr><tr><td align="left">jeus.server.enable.restart.in.memory.shortage<a id="d4e2591" class="indexterm"></a></td><td>Memory Overflow로 판정된 경우 자동으로 서버를 재기동할지 여부를 설정한다. (기본값:
+              true)</td></tr></tbody></table>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_server_conf.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_jndi.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제2장 JEUS 설정 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제4장 JNDI Naming Server</td></tr></table></div><div xmlns="" align="center"/></body></html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT config (single-server*, cluster-server*)>
+
+<!-- single-server: proxy로 오는 해당 요청 -->
+<!ELEMENT single-server (domain-name, rewriting?, path?, (directory-rule|accept-everything-rule))>
+
+<!-- cluster-server: proxy로 오는 요청을 여러 서버에 round robin으로 보낼 때 설정 -->
+<!ELEMENT cluster-server (server*, (directory-rule|accept-everything-rule))>  
+
+<!-- server: cluster된 하나의 서버를 말함 -->
+<!ELEMENT server (domain-name, rewriting?, path?)>
+
+<!-- directory rule: proxy 서버에 대한 요청을 구분하기 위한 rule. directory 명으로 구부한다. path를 "/dir"으로 설정하면 HOSTNAME/dir 으로 요청에 맞는 server로 요청이 전달된다. -->
+<!ELEMENT directory-rule (path)>
+
+<!-- path: directory 설정 "/" 로 시작한다. -->
+<!ELEMENT path (#PCDATA)>
+
+<!-- accept-everthing-rule: 모든 요청에 대해서 해당 서버로 요청을 전달하기 위한 rule. 설정에서 가장 하위에 설정되어야 함 -->
+<!ELEMENT accept-everything-rule EMPTY>
+
+<!-- domain-name: 서버의 주소. HOSTNAME:PORT ex) www.server1.com, www.server2.com:9999 -->
+<!ELEMENT domain-name (#PCDATA)>
+
+<!-- rewriting: proxy 된 문서 내용 중 link 들 중에 절대 주소를 rewriting할 지 결정 여부. -->
+<!ELEMENT rewriting (#PCDATA)>

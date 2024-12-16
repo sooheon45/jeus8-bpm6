@@ -1,0 +1,913 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>Endpoint</title>
+      <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="Endpoint (JEUS Network Library)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.net</font><br>Class Endpoint
+      </h2><pre>java.lang.Object<br>  <img src="../../resource/inherit.gif" alt="extended by"><b>jeus.net.Endpoint</b></pre><hr>
+      <dl><pre>public class <b>Endpoint</b><dt>extends java.lang.Object</dt></pre></dl>Endpoint는 네트워크 통신에 필요한 양쪽 종단, Connector와 Acceptor를 표현하는 객체이다.
+      
+      Acceptor로 동작할 경우에는 Endpoint를 생성할 때 서버 소켓에 바인드할 주소를 설정하고  <a href="Endpoint.html#export()"><code>Endpoint.export()</code></a>를 호출하여 서버를
+      실행시키며, Connector로 동작할 경우에는  <a href="../../jeus/net/Endpoint.html#trySocketStream(SocketID,Object)"><code>Endpoint.trySocketStream(SocketID,Object)</code></a>를 호출하여 서버와 연결을
+      한다. 클라이언트에서 연결을 시도하면 서버는  <a href="../../jeus/net/AcceptorConnectionListener.html"><code>AcceptorConnectionListener</code></a>를 생성하여 클라이언트 요청들을 처리하고
+      클라이언트는  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하여 서버의 요청/응답들을 처리한다. 상대방과의 데이터를 송수신은
+       <a href="../../jeus/net/SocketStream.html"><code>SocketStream</code></a>에서 이뤄진다.
+      마지막으로 연결을 종료할 때는  <a href="Endpoint.html#unexport()"><code>Endpoint.unexport()</code></a>를 호출하였다.
+      
+      Server들 사이에 서로 연결을 맺고 peer-to-peer 방식으로 통신하기 위해 사용한다.
+      Application은 이 class를 통해 physical connection을 의미하는 socket stream을 얻는다.<br><p>
+         <dl>
+            <dt></dt>
+            <dt><b>See Also:</b><dd><a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>, <a href="../../jeus/io/Connector.html"><code>Connector</code></a>, jeus.net.connection.EndpointConnector
+               </dd>
+            </dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.ConnectionListenerFactory)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a> creator, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a> creator, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory, jeus.util.protocol.ssl.SSLConfig sslConfig)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a> creator, <a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, jeus.io.handler.StreamContentHandlerCreator contentHandlerCreator, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, int, int, boolean)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a> creator, <a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, jeus.io.handler.StreamContentHandlerCreator contentHandlerCreator, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory, int backlog, int selectorNum, boolean useDualSelector)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a> creator, <a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, jeus.io.handler.StreamContentHandlerCreator contentHandlerCreator, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory, jeus.util.protocol.ssl.SSLConfig sslConfig)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig, int)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a> creator, <a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, jeus.io.handler.StreamContentHandlerCreator contentHandlerCreator, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory, jeus.util.protocol.ssl.SSLConfig sslConfig, int backlog)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig, int, int)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a> creator, <a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, jeus.io.handler.StreamContentHandlerCreator contentHandlerCreator, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory, jeus.util.protocol.ssl.SSLConfig sslConfig, int backlog, int selectorNum)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig, int, int, boolean)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a> creator, <a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, jeus.io.handler.StreamContentHandlerCreator contentHandlerCreator, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory, jeus.util.protocol.ssl.SSLConfig sslConfig, int backlog, int selectorNum, boolean useDualSelector)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig, int, int, boolean, boolean, long, long)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a> creator, <a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, jeus.io.handler.StreamContentHandlerCreator contentHandlerCreator, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory, jeus.util.protocol.ssl.SSLConfig sslConfig, int backlog, int selectorNum, boolean useDualSelector, boolean enablePing, long pingPeriod, long pingTimeout)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig, int, int, boolean, boolean, long, long, java.lang.String)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a> creator, <a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, jeus.io.handler.StreamContentHandlerCreator contentHandlerCreator, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory, jeus.util.protocol.ssl.SSLConfig sslConfig, int backlog, int selectorNum, boolean useDualSelector, boolean enablePing, long pingPeriod, long pingTimeout, java.lang.String selectorGroupName)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.net.ConnectionListenerFactory)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a> creator, <a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a> creator, <a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory, jeus.util.protocol.ssl.SSLConfig sslConfig)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, jeus.io.handler.StreamContentHandlerCreator contentHandlerCreator, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, int)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, jeus.io.handler.StreamContentHandlerCreator contentHandlerCreator, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory, int backlog)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Endpoint.html#Endpoint(java.lang.String, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, int, boolean, long, long)">Endpoint</a></b>(java.lang.String name, <a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, jeus.io.handler.StreamContentHandlerCreator contentHandlerCreator, <a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a> listenerFactory, int backlog, boolean enablePing, long pingPeriod, long pingTimeout)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 생성한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="Endpoint.html#broadcast(int, jeus.net.SocketStream, java.lang.Object)">broadcast</a></b>(int connectionType, <a href="../../jeus/net/SocketStream.html">SocketStream</a> sockStream, java.lang.Object message)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결되어 있는 SocketSteam을 통해 모두에게 메시지를 broadcast한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Endpoint.html#destroyAcceptor()">destroyAcceptor</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint에서 listen중인 acceptor를 닫는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static void</code></font></td>
+               <td><code><b><a href="Endpoint.html#destroyAllActiveEndpoints()">destroyAllActiveEndpoints</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   local에 현재 활성화되어 있는 모든 Endpoint를 닫는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Endpoint.html#destroySelector()">destroySelector</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Endpoint.html#export()">export</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint를 export시켜, 지정된 port로 listen을 시작한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.net.connection.ConnectionManager</code></font></td>
+               <td><code><b><a href="Endpoint.html#getConnectionManager()">getConnectionManager</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   socket stream을 관리하는 ConnectionManager를 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../jeus/net/SocketID.html">SocketID</a></code></font></td>
+               <td><code><b><a href="Endpoint.html#getMySocketID()">getMySocketID</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   이 Enpoint의  <a href="../../jeus/net/SocketID.html"><code>SocketID</code></a>를 얻어온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td><code><b><a href="Endpoint.html#getServerSocketPort()">getServerSocketPort</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   사용하고 있는  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>의 listen 포트를 얻어온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../jeus/net/SocketStream.html">SocketStream</a></code></font></td>
+               <td><code><b><a href="Endpoint.html#getSocketStream(jeus.net.SocketID, int, java.lang.Object, int, int)">getSocketStream</a></b>(<a href="../../jeus/net/SocketID.html">SocketID</a> socketID, int retries, java.lang.Object piggybackedData, int connectTimeout, int readTimeout)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 socketID에 해당하는 socket stream을 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../jeus/net/SocketStream.html">SocketStream</a></code></font></td>
+               <td><code><b><a href="Endpoint.html#getSocketStream(jeus.net.SocketID, int, java.lang.Object, int, int, int)">getSocketStream</a></b>(<a href="../../jeus/net/SocketID.html">SocketID</a> socketID, int retries, java.lang.Object piggybackedData, int connectTimeout, int readTimeout, int interval)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 socketID에 해당하는 socket stream을 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../jeus/net/SocketStream.html">SocketStream</a>[]</code></font></td>
+               <td><code><b><a href="Endpoint.html#getSocketStreams()">getSocketStreams</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   다른 Socket과 연결되어 있는 SocketStream을 얻어온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="Endpoint.html#isNeedSafeClose()">isNeedSafeClose</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="Endpoint.html#destroyAllActiveEndpoints()"><code>Endpoint.destroyAllActiveEndpoints()</code></a>로 Endpoint가 닫히게 될 때, unexport를 호출하는지를 얻어온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="Endpoint.html#isSelectorAlive()">isSelectorAlive</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint에서 생성한  <a href="../../jeus/io/Selector.html"><code>Selector</code></a>가 동작중인지를 확인한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Endpoint.html#setDisableLocalOptimize(boolean)">setDisableLocalOptimize</a></b>(boolean disable)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   local에 있는 Endpoint에 연결할 때, 최적화 여부를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Endpoint.html#setNeedSafeClose(boolean)">setNeedSafeClose</a></b>(boolean needSafeClose)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Endpoint.html#setPort(jeus.net.SocketID)">setPort</a></b>(<a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint가 사용하는 port를 지정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Endpoint.html#setPort(jeus.net.SocketID, int)">setPort</a></b>(<a href="../../jeus/net/SocketID.html">SocketID</a> mySocketID, int backlog)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint가 사용하는 port를 지정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="Endpoint.html#toString()">toString</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.concurrent.Future&lt;<a href="../../jeus/net/SocketStream.html">SocketStream</a>&gt;</code></font></td>
+               <td><code><b><a href="Endpoint.html#trySocketStream(jeus.net.SocketID, java.lang.Object)">trySocketStream</a></b>(<a href="../../jeus/net/SocketID.html">SocketID</a> socketID, java.lang.Object piggybackedData)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 socketID에 해당하는 socket stream을 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Endpoint.html#trySocketStream(jeus.net.SocketID, java.lang.Object, jeus.net.util.CompletionHandler<jeus.net.SocketStream&gt;, long)">trySocketStream</a></b>(<a href="../../jeus/net/SocketID.html">SocketID</a> socketID, java.lang.Object piggybackedData, jeus.net.util.CompletionHandler&lt;jeus.net.SocketStream&gt; socketStreamCompletionHandler, long timeout)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 socketID에 해당하는 socket stream을 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Endpoint.html#unexport()">unexport</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   이 Endpoint를 unexport시킨다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.ConnectionListenerFactory)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a></code> creator,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>creator</code> - 네트워크에 필요한 각종 IO 처리 객체들을 생성하는 팩토리<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a></code> creator,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory,<br>                <code>jeus.util.protocol.ssl.SSLConfig</code> sslConfig)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>creator</code> - 네트워크에 필요한 각종 IO 처리 객체들을 생성하는 팩토리<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리<br><code>sslConfig</code> - SSL을 사용할 때 필요한 <code>jeus.util.protocol.ssl.SSLConfig</code>&nbsp;
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.net.ConnectionListenerFactory)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a></code> creator,<br>                <code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>creator</code> - 네트워크에 필요한 각종 IO 처리 객체들을 생성하는 팩토리<br><code>mySocketID</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket의 주소등의 정보<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a></code> creator,<br>                <code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory,<br>                <code>jeus.util.protocol.ssl.SSLConfig</code> sslConfig)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>creator</code> - 네트워크에 필요한 각종 IO 처리 객체들을 생성하는 팩토리<br><code>mySocketID</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket의 주소<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리<br><code>sslConfig</code> - SSL을 사용할 때 필요한 <code>jeus.util.protocol.ssl.SSLConfig</code>&nbsp;
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                <code>jeus.io.handler.StreamContentHandlerCreator</code> contentHandlerCreator,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.
+               When to export endpoint which listens via UnifiedTransportServer
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>mySocketID</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket의 주소등의 정보<br><code>contentHandlerCreator</code> - 메시지를 만들고 쓰는것에 사용할 <code>jeus.io.handler.StreamContentWriter</code>와
+                        <code>jeus.io.handler.StreamContentReader</code>를 생성하는 팩토리<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a></code> creator,<br>                <code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                <code>jeus.io.handler.StreamContentHandlerCreator</code> contentHandlerCreator,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>creator</code> - 네트워크에 필요한 각종 IO 처리 체객체들을 생성하는 팩토리<br><code>mySocketID</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket의 주소등의 정보<br><code>contentHandlerCreator</code> - 메시지를 만들고 쓰는것에 사용할 <code>jeus.io.handler.StreamContentWriter</code>와
+                        <code>jeus.io.handler.StreamContentReader</code>를 생성하는 팩토리<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a></code> creator,<br>                <code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                <code>jeus.io.handler.StreamContentHandlerCreator</code> contentHandlerCreator,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory,<br>                <code>jeus.util.protocol.ssl.SSLConfig</code> sslConfig)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>creator</code> - 네트워크에 필요한 각종 IO 처리 객체들을 생성하는 팩토리<br><code>mySocketID</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket의 주소등의 정보<br><code>contentHandlerCreator</code> - 메시지를 만들고 쓰는것에 사용할 <code>jeus.io.handler.StreamContentWriter</code>와
+                        <code>jeus.io.handler.StreamContentReader</code>를 생성하는 팩토리<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리<br><code>sslConfig</code> - SSL을 사용할 때 필요한 <code>jeus.util.protocol.ssl.SSLConfig</code>&nbsp;
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig, int)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a></code> creator,<br>                <code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                <code>jeus.io.handler.StreamContentHandlerCreator</code> contentHandlerCreator,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory,<br>                <code>jeus.util.protocol.ssl.SSLConfig</code> sslConfig,<br>                <code>int</code> backlog)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>creator</code> - 네트워크에 필요한 각종 IO 처리 객체들을 생성하는 팩토리<br><code>mySocketID</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket의 주소등의 정보<br><code>contentHandlerCreator</code> - 메시지를 만들고 쓰는것에 사용할 <code>jeus.io.handler.StreamContentWriter</code>와
+                        <code>jeus.io.handler.StreamContentReader</code>를 생성하는 팩토리<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리<br><code>sslConfig</code> - SSL을 사용할 때 필요한 <code>jeus.util.protocol.ssl.SSLConfig</code>&nbsp;<br><code>backlog</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket에서 사용할 backlog length
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig, int, int)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a></code> creator,<br>                <code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                <code>jeus.io.handler.StreamContentHandlerCreator</code> contentHandlerCreator,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory,<br>                <code>jeus.util.protocol.ssl.SSLConfig</code> sslConfig,<br>                <code>int</code> backlog,<br>                <code>int</code> selectorNum)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>creator</code> - 네트워크에 필요한 각종 IO 처리 객체들을 생성하는 팩토리<br><code>mySocketID</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket의 주소등의 정보<br><code>contentHandlerCreator</code> - 메시지를 만들고 쓰는것에 사용할 <code>jeus.io.handler.StreamContentWriter</code>와
+                        <code>jeus.io.handler.StreamContentReader</code>를 생성하는 팩토리<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리<br><code>sslConfig</code> - SSL을 사용할 때 필요한 <code>jeus.util.protocol.ssl.SSLConfig</code>&nbsp;<br><code>backlog</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket에서 사용할 backlog length<br><code>selectorNum</code> -  <a href="../../jeus/io/helper/IOComponentCreator.html#NON_BLOCKING"><code>IOComponentCreator.NON_BLOCKING</code></a>을 사용할 때, 생성할
+                        <code>java.nio.channels.Selector</code>의 갯수
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, int, int, boolean)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a></code> creator,<br>                <code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                <code>jeus.io.handler.StreamContentHandlerCreator</code> contentHandlerCreator,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory,<br>                <code>int</code> backlog,<br>                <code>int</code> selectorNum,<br>                <code>boolean</code> useDualSelector)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>creator</code> - 네트워크에 필요한 각종 IO 처리 객체들을 생성하는 팩토리<br><code>mySocketID</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket의 주소등의 정보<br><code>contentHandlerCreator</code> - 메시지를 만들고 쓰는것에 사용할 <code>jeus.io.handler.StreamContentWriter</code>와
+                        <code>jeus.io.handler.StreamContentReader</code>를 생성하는 팩토리<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리<br><code>backlog</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket에서 사용할 backlog length<br><code>selectorNum</code> -  <a href="../../jeus/io/helper/IOComponentCreator.html#NON_BLOCKING"><code>IOComponentCreator.NON_BLOCKING</code></a>을 사용할 때, 생성할
+                        <code>java.nio.channels.Selector</code>의 갯수<br><code>useDualSelector</code> -  <a href="../../jeus/io/helper/IOComponentCreator.html#NON_BLOCKING"><code>IOComponentCreator.NON_BLOCKING</code></a>을 사용할 때, 생성할
+                         <a href="../../jeus/io/Selector.html"><code>Selector</code></a>에서 read와 write를 나누어 할지 설정
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, int)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                <code>jeus.io.handler.StreamContentHandlerCreator</code> contentHandlerCreator,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory,<br>                <code>int</code> backlog)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>mySocketID</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket의 주소등의 정보<br><code>contentHandlerCreator</code> - 메시지를 만들고 쓰는것에 사용할 <code>jeus.io.handler.StreamContentWriter</code>와
+                        <code>jeus.io.handler.StreamContentReader</code>를 생성하는 팩토리<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리<br><code>backlog</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket에서 사용할 backlog length
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig, int, int, boolean)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a></code> creator,<br>                <code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                <code>jeus.io.handler.StreamContentHandlerCreator</code> contentHandlerCreator,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory,<br>                <code>jeus.util.protocol.ssl.SSLConfig</code> sslConfig,<br>                <code>int</code> backlog,<br>                <code>int</code> selectorNum,<br>                <code>boolean</code> useDualSelector)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>creator</code> - 네트워크에 필요한 각종 IO 처리 객체들을 생성하는 팩토리<br><code>mySocketID</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket의 주소등의 정보<br><code>contentHandlerCreator</code> - 메시지를 만들고 쓰는것에 사용할 <code>jeus.io.handler.StreamContentWriter</code>와
+                        <code>jeus.io.handler.StreamContentReader</code>를 생성하는 팩토리<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리<br><code>sslConfig</code> - SSL을 사용할 때 필요한 설정들(<code>jeus.util.protocol.ssl.SSLConfig</code>)<br><code>backlog</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket에서 사용할 backlog length<br><code>selectorNum</code> -  <a href="../../jeus/io/helper/IOComponentCreator.html#NON_BLOCKING"><code>IOComponentCreator.NON_BLOCKING</code></a>을 사용할 때, 생성할
+                        <code>java.nio.channels.Selector</code>의 갯수<br><code>useDualSelector</code> -  <a href="../../jeus/io/helper/IOComponentCreator.html#NON_BLOCKING"><code>IOComponentCreator.NON_BLOCKING</code></a>을 사용할 때, 생성할
+                         <a href="../../jeus/io/Selector.html"><code>Selector</code></a>에서 read와 write를 나누어 할지 설정
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, int, boolean, long, long)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                <code>jeus.io.handler.StreamContentHandlerCreator</code> contentHandlerCreator,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory,<br>                <code>int</code> backlog,<br>                <code>boolean</code> enablePing,<br>                <code>long</code> pingPeriod,<br>                <code>long</code> pingTimeout)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>mySocketID</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket의 주소등의 정보<br><code>contentHandlerCreator</code> - 메시지를 만들고 쓰는것에 사용할 <code>jeus.io.handler.StreamContentWriter</code>와
+                        <code>jeus.io.handler.StreamContentReader</code>를 생성하는 팩토리<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리<br><code>backlog</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket에서 사용할 backlog length<br><code>enablePing</code> - ping을 사용할지 설정<br><code>pingPeriod</code> - ping의 주기<br><code>pingTimeout</code> - ping을 보내고 응답을 기다리는 timeout
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig, int, int, boolean, boolean, long, long)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a></code> creator,<br>                <code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                <code>jeus.io.handler.StreamContentHandlerCreator</code> contentHandlerCreator,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory,<br>                <code>jeus.util.protocol.ssl.SSLConfig</code> sslConfig,<br>                <code>int</code> backlog,<br>                <code>int</code> selectorNum,<br>                <code>boolean</code> useDualSelector,<br>                <code>boolean</code> enablePing,<br>                <code>long</code> pingPeriod,<br>                <code>long</code> pingTimeout)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>creator</code> - 네트워크에 필요한 각종 IO 처리 객체들을 생성하는 팩토리<br><code>mySocketID</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket의 주소등의 정보<br><code>contentHandlerCreator</code> - 메시지를 만들고 쓰는것에 사용할 <code>jeus.io.handler.StreamContentWriter</code>와
+                        <code>jeus.io.handler.StreamContentReader</code>를 생성하는 팩토리<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리<br><code>sslConfig</code> - SSL을 사용할 때 필요한 설정들(<code>jeus.util.protocol.ssl.SSLConfig</code>)<br><code>backlog</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket에서 사용할 backlog length<br><code>selectorNum</code> -  <a href="../../jeus/io/helper/IOComponentCreator.html#NON_BLOCKING"><code>IOComponentCreator.NON_BLOCKING</code></a>을 사용할 때, 생성할
+                        <code>java.nio.channels.Selector</code>의 갯수<br><code>useDualSelector</code> -  <a href="../../jeus/io/helper/IOComponentCreator.html#NON_BLOCKING"><code>IOComponentCreator.NON_BLOCKING</code></a>을 사용할 때, 생성할
+                         <a href="../../jeus/io/Selector.html"><code>Selector</code></a>에서 read와 write를 나누어 할지 설정<br><code>enablePing</code> - ping을 사용할지 설정<br><code>pingPeriod</code> - ping의 주기<br><code>pingTimeout</code> - ping을 보내고 응답을 기다리는 timeout
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Endpoint(java.lang.String, jeus.io.helper.IOComponentCreator, jeus.net.SocketID, jeus.io.handler.StreamContentHandlerCreator, jeus.net.ConnectionListenerFactory, jeus.util.protocol.ssl.SSLConfig, int, int, boolean, boolean, long, long, java.lang.String)"></a><h3>Endpoint</h3><pre>public <b>Endpoint</b>(<code>java.lang.String</code> name,<br>                <code><a href="../../jeus/io/helper/IOComponentCreator.html">IOComponentCreator</a></code> creator,<br>                <code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                <code>jeus.io.handler.StreamContentHandlerCreator</code> contentHandlerCreator,<br>                <code><a href="../../jeus/net/ConnectionListenerFactory.html">ConnectionListenerFactory</a></code> listenerFactory,<br>                <code>jeus.util.protocol.ssl.SSLConfig</code> sslConfig,<br>                <code>int</code> backlog,<br>                <code>int</code> selectorNum,<br>                <code>boolean</code> useDualSelector,<br>                <code>boolean</code> enablePing,<br>                <code>long</code> pingPeriod,<br>                <code>long</code> pingTimeout,<br>                <code>java.lang.String</code> selectorGroupName)<br>               throws <code>IOException</code></pre><dl>
+            <dd>Endpoint를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - 서버를 동작시키기 위해서 필요한 각종 쓰레드들의 베이스 이름으로 사용될 이름<br><code>creator</code> - 네트워크에 필요한 각종 IO 처리 객체들을 생성하는 팩토리<br><code>mySocketID</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket의 주소등의 정보<br><code>contentHandlerCreator</code> - 메시지를 만들고 쓰는것에 사용할 <code>jeus.io.handler.StreamContentWriter</code>와
+                        <code>jeus.io.handler.StreamContentReader</code>를 생성하는 팩토리<br><code>listenerFactory</code> - 클라언트로부터 수신된 요청 메시지들을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>를 생성하는 팩토리<br><code>sslConfig</code> - SSL을 사용할 때 필요한 설정들(<code>jeus.util.protocol.ssl.SSLConfig</code>)<br><code>backlog</code> -  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>가 바인드할 ServerSocket에서 사용할 backlog length<br><code>selectorNum</code> -  <a href="../../jeus/io/helper/IOComponentCreator.html#NON_BLOCKING"><code>IOComponentCreator.NON_BLOCKING</code></a>을 사용할 때, 생성할
+                        <code>java.nio.channels.Selector</code>의 갯수<br><code>useDualSelector</code> -  <a href="../../jeus/io/helper/IOComponentCreator.html#NON_BLOCKING"><code>IOComponentCreator.NON_BLOCKING</code></a>을 사용할 때, 생성할
+                         <a href="../../jeus/io/Selector.html"><code>Selector</code></a>에서 read와 write를 나누어 할지 설정<br><code>enablePing</code> - ping을 사용할지 설정<br><code>pingPeriod</code> - ping의 주기<br><code>pingTimeout</code> - ping을 보내고 응답을 기다리는 timeout<br><code>selectorGroupName</code> -  <a href="../../jeus/io/Selector.html"><code>Selector</code></a>를 공유하여 사용할 그룹 이름
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="isNeedSafeClose()"></a><h3>isNeedSafeClose</h3><pre>public boolean <b>isNeedSafeClose</b>()<br></pre><dl>
+            <dd> <a href="Endpoint.html#destroyAllActiveEndpoints()"><code>Endpoint.destroyAllActiveEndpoints()</code></a>로 Endpoint가 닫히게 될 때, unexport를 호출하는지를 얻어온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd> <a href="Endpoint.html#destroyAllActiveEndpoints()"><code>Endpoint.destroyAllActiveEndpoints()</code></a>로 Endpoint가 닫히게 될 때, unexport를 호출 여부</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="export()"></a><h3>export</h3><pre>public void <b>export</b>()<br>                 throws <code>java.io.IOException</code></pre><dl>
+            <dd>Endpoint를 export시켜, 지정된 port로 listen을 시작한다.
+               Endpoint를 Acceptor로 사용하려면 export()를 호출해야한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="isSelectorAlive()"></a><h3>isSelectorAlive</h3><pre>public boolean <b>isSelectorAlive</b>()<br></pre><dl>
+            <dd>Endpoint에서 생성한  <a href="../../jeus/io/Selector.html"><code>Selector</code></a>가 동작중인지를 확인한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>Endpoint에서 생성한  <a href="../../jeus/io/Selector.html"><code>Selector</code></a>가 동작 여부</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="destroyAcceptor()"></a><h3>destroyAcceptor</h3><pre>public void <b>destroyAcceptor</b>()<br></pre><dl>
+            <dd>Endpoint에서 listen중인 acceptor를 닫는다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="destroySelector()"></a><h3>destroySelector</h3><pre>public void <b>destroySelector</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="unexport()"></a><h3>unexport</h3><pre>public void <b>unexport</b>()<br></pre><dl>
+            <dd>이 Endpoint를 unexport시킨다. 현재의 connection은 모두 끊어지게 된다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="getConnectionManager()"></a><h3>getConnectionManager</h3><pre>public jeus.net.connection.ConnectionManager <b>getConnectionManager</b>()<br></pre><dl>
+            <dd>socket stream을 관리하는 ConnectionManager를 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>connection manager</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="destroyAllActiveEndpoints()"></a><h3>destroyAllActiveEndpoints</h3><pre>public static void <b>destroyAllActiveEndpoints</b>()<br></pre><dl>
+            <dd>local에 현재 활성화되어 있는 모든 Endpoint를 닫는다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="getSocketStreams()"></a><h3>getSocketStreams</h3><pre>public <a href="../../jeus/net/SocketStream.html">SocketStream</a>[] <b>getSocketStreams</b>()<br></pre><dl>
+            <dd>다른 Socket과 연결되어 있는 SocketStream을 얻어온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>SocketStream들의 array</dd>
+                  </dt>
+                  <dt><b>See Also:</b><dd><a href="../../jeus/net/SocketStream.html"><code>SocketStream</code></a></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getServerSocketPort()"></a><h3>getServerSocketPort</h3><pre>public int <b>getServerSocketPort</b>()<br></pre><dl>
+            <dd>사용하고 있는  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>의 listen 포트를 얻어온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>사용하고 있는  <a href="../../jeus/io/Acceptor.html"><code>Acceptor</code></a>의 listen 포트</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMySocketID()"></a><h3>getMySocketID</h3><pre>public <a href="../../jeus/net/SocketID.html">SocketID</a> <b>getMySocketID</b>()<br></pre><dl>
+            <dd>이 Enpoint의  <a href="../../jeus/net/SocketID.html"><code>SocketID</code></a>를 얻어온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>이 Enpoint의  <a href="../../jeus/net/SocketID.html"><code>SocketID</code></a>&nbsp;</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="toString()"></a><h3>toString</h3><pre>public java.lang.String <b>toString</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Overrides:</b><dd><code>toString</code> in class <code>Object</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setNeedSafeClose(boolean)"></a><h3>setNeedSafeClose</h3><pre>public void <b>setNeedSafeClose</b>(<code>boolean</code> needSafeClose)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>needSafeClose</code> -  <a href="Endpoint.html#destroyAllActiveEndpoints()"><code>Endpoint.destroyAllActiveEndpoints()</code></a>로 Endpoint가 닫히게 될 때, unexport를 호출 여부
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setDisableLocalOptimize(boolean)"></a><h3>setDisableLocalOptimize</h3><pre>public void <b>setDisableLocalOptimize</b>(<code>boolean</code> disable)<br></pre><dl>
+            <dd>local에 있는 Endpoint에 연결할 때, 최적화 여부를 설정한다.
+               true로 설정하면 최적화를 하지 않아 local에 있더라도 remote로 연결을 시도한다.
+               false로 설정하면 local에 있는 Endpoint에 연결할 때에는 network을 통하지 않고 local method call로 메시지를 전달한다.
+               기본값은 false
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>disable</code> - local에 있는 Endpoint에 연결할 때, 최적화를 안할지 여부
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="broadcast(int, jeus.net.SocketStream, java.lang.Object)"></a><h3>broadcast</h3><pre>public boolean <b>broadcast</b>(<code>int</code> connectionType,<br>                         <code><a href="../../jeus/net/SocketStream.html">SocketStream</a></code> sockStream,<br>                         <code>java.lang.Object</code> message)<br></pre><dl>
+            <dd>연결되어 있는 SocketSteam을 통해 모두에게 메시지를 broadcast한다.
+               부번째 인수의 SocketStream을 제외한 현재 이 Endpoint에 접속한 다른 SocketStream으로 메시지를 전송할 때 사용되는
+               메소드이다. 그런데 필요에 따라 클라이언트들을 그룹을 지어 관리하고 각각의 그룹별로 broadcast할 경우가 있을 것이다. 이런경우 각각의
+               그룹을 ConnectionType이라는 속성으로 구분할 수 있다. 이 값은 어플리케이션 개발자가 정하는 것이며 서버와 클라이언트는 이 값을 서로
+               약속하고 사용해야한다. 지금까지의 예제에서 Endpoint가 Connector로 사용될 경우 SocketID를 지정하지 않았는데 이것은 SocketID가
+               지정되지 않은 것이 아니라 내부적으로 NoListenID라는 객체를 설정한 것이고 이 SocketID는 ConnectionType의 값으로
+               SocketID.CONNECTION_CLIENT_TYPE를 사용했던 것이다. 만약 클라이언트들을 여러 그룹으로 나누어서 관리 하고 싶을 경우 NoListenID에
+               ConnectionType값을 지정하여 생성한 후 SocketID가 인수로 있는 Endpoint의 생성자나 setSocketID라는 메소드를 호출해 주어야 한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>connectionType</code> - broadcast할 그룹을 나타내는 connection type<br><code>sockStream</code> - braodcast에서 제외할 socketStream<br><code>message</code> - broadcast할 메시지
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>broadcast의 성공 여</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setPort(jeus.net.SocketID)"></a><h3>setPort</h3><pre>public void <b>setPort</b>(<code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID)<br></pre><dl>
+            <dd>Endpoint가 사용하는 port를 지정한다.
+               이 메소드는 export()가 호출되기 전에 사용되어야 한다. 하지만, 특별한 경우가 아니라면, 생성자에서 호출되어 별도로 호출할 필요는 없다.
+               Endpoint를 Acceptor로 사용하지 않을 경우, mySocketID를 <code>NoListenID</code>로 넘겨줘야한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>mySocketID</code> - 이 Endpoint가 사용할 port를 포함하는 이 Endpoint의 주소
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setPort(jeus.net.SocketID, int)"></a><h3>setPort</h3><pre>public void <b>setPort</b>(<code><a href="../../jeus/net/SocketID.html">SocketID</a></code> mySocketID,<br>                    <code>int</code> backlog)<br></pre><dl>
+            <dd>Endpoint가 사용하는 port를 지정한다.
+               이 메소드는 export()가 호출되기 전에 사용되어야 한다. 하지만, 특별한 경우가 아니라면, 생성자에서 호출되어 별도로 호출할 필요는 없다.
+               Endpoint를 Acceptor로 사용하지 않을 경우, mySocketID를 <code>NoListenID</code>로 넘겨줘야한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>mySocketID</code> - 이 Endpoint가 사용할 port를 포함하는 이 Endpoint의 주소<br><code>backlog</code> - 이 Endpoint의 Acceptor가 바인드할 ServerSocket에서 사용할 backlog length
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getSocketStream(jeus.net.SocketID, int, java.lang.Object, int, int)"></a><h3>getSocketStream</h3><pre>public <a href="../../jeus/net/SocketStream.html">SocketStream</a> <b>getSocketStream</b>(<code><a href="../../jeus/net/SocketID.html">SocketID</a></code> socketID,<br>                                    <code>int</code> retries,<br>                                    <code>java.lang.Object</code> piggybackedData,<br>                                    <code>int</code> connectTimeout,<br>                                    <code>int</code> readTimeout)<br>                                  throws <code>jeus.net.ConnectorException</code></pre><dl>
+            <dd>해당 socketID에 해당하는 socket stream을 얻는다. 해당 socket ID와 이미 연결이 되어 있다면, 연결된 socket stream을 반환하고,
+               연결 되어 있지 않다면, 동기적으로 연결을 맺는다.
+               
+               Endpoint는 하나의 socketID에 대해 오직 하나의 socket stream이 존재하는
+               것을 보장한다. (즉, cross connection의 경우 connection을 끊어서 하나만 유지한다.)
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>socketID</code> - socket stream의 상대방의 socket id<br><code>retries</code> - 연결에 실패했을때 재시도 횟수<br><code>piggybackedData</code> - 연결을 맺으며 piggyback으로 넘겨줄 데이터<br><code>connectTimeout</code> - 연결을 맺을때의 timeout<br><code>readTimeout</code> - 연결된 socket stream으로 메시지를 받을때의 timeout
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>주어진 socketID에 연결된 socket stream</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>jeus.net.ConnectorException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getSocketStream(jeus.net.SocketID, int, java.lang.Object, int, int, int)"></a><h3>getSocketStream</h3><pre>public <a href="../../jeus/net/SocketStream.html">SocketStream</a> <b>getSocketStream</b>(<code><a href="../../jeus/net/SocketID.html">SocketID</a></code> socketID,<br>                                    <code>int</code> retries,<br>                                    <code>java.lang.Object</code> piggybackedData,<br>                                    <code>int</code> connectTimeout,<br>                                    <code>int</code> readTimeout,<br>                                    <code>int</code> interval)<br>                                  throws <code>jeus.net.ConnectorException</code></pre><dl>
+            <dd>해당 socketID에 해당하는 socket stream을 얻는다. 해당 socket ID와 이미 연결이 되어 있다면, 연결된 socket stream을 반환하고,
+               연결 되어 있지 않다면, 동기적으로 연결을 맺는다.
+               
+               Endpoint는 하나의 socketID에 대해 오직 하나의 socket stream이 존재하는
+               것을 보장한다. (즉, cross connection의 경우 connection을 끊어서 하나만 유지한다.)
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>socketID</code> - socket stream의 상대방의 socket id<br><code>retries</code> - 연결에 실패했을때 재시도 횟수<br><code>piggybackedData</code> - 연결을 맺으며 piggyback으로 넘겨줄 데이터<br><code>connectTimeout</code> - 연결을 맺을때의 timeout<br><code>readTimeout</code> - 연결된 socket stream으로 메시지를 받을때의 timeout<br><code>interval</code> - 연결에 실패했을때 재시도 간격
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>주어진 socketID에 연결된 socket stream</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>jeus.net.ConnectorException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="trySocketStream(jeus.net.SocketID, java.lang.Object)"></a><h3>trySocketStream</h3><pre>public java.util.concurrent.Future&lt;<a href="../../jeus/net/SocketStream.html">SocketStream</a>&gt; <b>trySocketStream</b>(<code><a href="../../jeus/net/SocketID.html">SocketID</a></code> socketID,<br>                                                                          <code>java.lang.Object</code> piggybackedData)<br></pre><dl>
+            <dd>해당 socketID에 해당하는 socket stream을 얻는다. 해당 socket ID와 이미 연결이 되어 있다면, 연결된 socket stream을 반환하고,
+               연결 되어 있지 않다면, 비동기적으로 연결을 맺는다.
+               
+               Endpoint는 하나의 socketID에 대해 오직 하나의 socket stream이 존재하는
+               것을 보장한다. (즉, cross connection의 경우 connection을 끊어서 하나만 유지한다.)
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>socketID</code> - 상대방 Endpoint의  <a href="../../jeus/net/SocketID.html"><code>SocketID</code></a>&nbsp;<br><code>piggybackedData</code> - 새로 연결을 맺을 때, piggyback으로 보낼 데이터
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>연결된 SocketStream</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="trySocketStream(jeus.net.SocketID, java.lang.Object, jeus.net.util.CompletionHandler<jeus.net.SocketStream&gt;, long)"></a><h3>trySocketStream</h3><pre>public void <b>trySocketStream</b>(<code><a href="../../jeus/net/SocketID.html">SocketID</a></code> socketID,<br>                            <code>java.lang.Object</code> piggybackedData,<br>                            <code>jeus.net.util.CompletionHandler&lt;jeus.net.SocketStream&gt;</code> socketStreamCompletionHandler,<br>                            <code>long</code> timeout)<br></pre><dl>
+            <dd>해당 socketID에 해당하는 socket stream을 얻는다. 해당 socket ID와 이미 연결이 되어 있다면, 연결된 socket stream을 반환하고,
+               연결 되어 있지 않다면, 비동기적으로 연결을 맺는다.
+               
+               Endpoint는 하나의 socketID에 대해 오직 하나의 socket stream이 존재하는
+               것을 보장한다. (즉, cross connection의 경우 connection을 끊어서 하나만 유지한다.)
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>socketID</code> - 상대방 Endpoint의  <a href="../../jeus/net/SocketID.html"><code>SocketID</code></a>&nbsp;<br><code>piggybackedData</code> - 새로 연결을 맺을 때, piggyback으로 보낼 데이터<br><code>socketStreamCompletionHandler</code> - 연결된 SocketStream이 들어있는 <code>util.CompletionHandler</code>&nbsp;<br><code>timeout</code> - &nbsp;
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

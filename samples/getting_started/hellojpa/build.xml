@@ -1,0 +1,29 @@
+<project name="hellojpa" default="build" basedir=".">
+    <property name="is.ear.module" value="true"/>
+    <import file="../../common/common-build.xml"/>
+
+
+    <property name="derby.home" value="${jeus.home}/derby"/>
+    <property name="derby.classpath" value="${derby.home}/lib/derbyclient.jar"/>
+    <property name="derby.url" value="jdbc:derby://localhost:1527/sample;create=true"/>
+
+    <path id="sub-components">
+        <filelist dir="./hellojpa-ejb" files="build.xml"/>
+        <filelist dir="./hellojpa-war" files="build.xml"/>
+    </path>
+
+    <target name="setup" depends="">
+        <sql src="setup/deleteddl.sql" onerror="continue"
+        url="${derby.url}" userid="app" password="app" 
+        driver="org.apache.derby.jdbc.ClientDriver" classpath="${derby.classpath}" />
+        <sql src="setup/createddl.sql" onerror="continue"
+        url="${derby.url}" userid="app" password="app" 
+        driver="org.apache.derby.jdbc.ClientDriver" classpath="${derby.classpath}" />
+    </target>
+
+    <target name="unsetup" depends="">
+        <sql src="setup/deleteddl.sql" onerror="continue"
+        url="${derby.url}" userid="app" password="app" 
+        driver="org.apache.derby.jdbc.ClientDriver" classpath="${derby.classpath}" />
+    </target>
+</project>

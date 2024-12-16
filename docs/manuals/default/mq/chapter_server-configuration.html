@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제3장 JEUS MQ 서버 설정</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS MQ 안내서"/><link rel="up" href="index.html" title="JEUS MQ 안내서"/><link rel="prev" href="chapter_clients.html" title="제2장 JEUS MQ 클라이언트 프로그래밍"/><link rel="next" href="chapter_clustering.html" title="제4장 JEUS MQ 클러스터링"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제3장 JEUS MQ 서버 설정</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_clients.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_clustering.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_server-configuration"></a>제3장 JEUS MQ 서버 설정</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_server-configuration.html#sect_mq-composition">3.1. 개요</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server-configuration.html#sect_jms-directory-structure">3.1.1. 디렉터리 구조</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sect_domain-jms-configureation">3.1.2. WebAdmin</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_server-configuration.html#sect_jms-resource-configuration">3.2. JMS 리소스 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server-configuration.html#sect_destination-configuration">3.2.1. Destination 설정</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sect_durable-subscriber-configuration">3.2.2. Durable Subscriber 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_server-configuration.html#sect_jms-engine-configuration">3.3. JMS 엔진 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server-configuration.html#sect_jms-engine-advanced-configuration">3.3.1. 기본 정보 설정</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sect_service-channel-configuration">3.3.2. 서비스 채널 설정</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sect_connection-factory-configuration">3.3.3. Connection Factory 설정</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sect_persistence-store-configuration">3.3.4. Persistence Store 설정</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sorting_conf">3.3.5. Message Sort 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_server-configuration.html#d4e1563">3.4. 서버 관리 및 모니터링</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server-configuration.html#d4e1589">3.4.1. 서버 관리</a></span></dt><dt><span class="section"><a href="chapter_server-configuration.html#sect_mq-monitor">3.4.2. 서버 모니터링</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 JEUS MQ 서버를 실행하기 위한 JMS 엔진과 리소스 설정 방법에 대해서 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_mq-composition"></a>3.1. 개요</h2></div></div></div>
+    
+
+    <p>JEUS MQ 서버는 JMS 엔진으로 표현되며, 서버 당 하나의 JMS 엔진이 실행될 수 있다. JEUS의 각 구성 요소에
+    대한 설명은 <a xmlns="" href="../server/chapter_server_structure.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “제1장 소개”</a>를 참고한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_jms-directory-structure"></a>3.1.1. 디렉터리 구조</h3></div></div></div>
+      
+
+      <p>다음은 JEUS 및 JEUS MQ 서버를 설정하고 관리하기 위한 파일들의 위치를 보여준다. JEUS_HOME은
+      JEUS가 설치된 경로를 나타낸다.</p>
+
+      <div class="figure"><a id="figure_directory-structure"></a><p class="title"><b>[그림 3.1] JEUS MQ 서버 관련 파일들</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><img src="resources/figure_directory-structure.png" align="top" alt="JEUS MQ 서버 관련 파일들"/></div>
+      </div></div><br class="figure-break"/>
+
+      <div class="variablelist"><dl><dt><span class="term">jeusadmin</span></dt><dd>
+            <p>JEUS Manager를 관리하기 위한 콘솔 툴이다. JEUS Manager와 서버 제어를 포함해 JEUS
+            전반에 대한 관리 기능을 제공한다. 자세한 사용법은 <a xmlns="" href="../reference-book/ch04.html#reference_jeusadmin" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2. jeusadmin”</a>을 참고한다.</p>
+          </dd><dt><span class="term">domain.xml</span></dt><dd>
+            <p>JEUS 도메인 설정 파일로 JEUS MQ 서버에 대한 모든 설정을 한다.</p>
+
+            <p>domain.xml에 <span class="emphasis"><em>&lt;jms-engine</em></span>&gt;은 JMS 엔진에
+            관한 설정을 하고, <span class="emphasis"><em>&lt;jms-resource&gt;</em></span>에는 Queue나
+            Topic과 같은 JMS 엔진에 필요한 리소스를 설정한다.</p>
+          </dd></dl></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_domain-jms-configureation"></a>3.1.2. WebAdmin</h3></div></div></div>
+      
+
+      <p>WebAdmin에서 <span><strong class="guibutton">[Servers]</strong></span> 메뉴를 클릭하면 도메인 내에 설정된
+      JEUS 서버의 목록이 조회된다. 서버 목록에서 설정할 서버의 이름을 클릭하면 서버 설정 화면으로 이동한다.</p>
+
+      <p>JEUS WebAdmin에서 JEUS MQ 서버 설정은 다음의 메뉴로 구성된다. JEUS MQ 서버 설정은
+      WebAdmin를 통해 설정할 것을 권장한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">[Basic]</strong></span></p>
+        </li><li>
+          <p><span><strong class="guibutton"><a href="chapter_server-configuration.html#sect_mq_server_resource" title="3.1.2. [Resource]">[Resource]</a></strong></span></p>
+        </li><li>
+          <p><span><strong class="guibutton"><a href="chapter_server-configuration.html#sect_mq_server_engine" title="3.1.2. [Engine]">[Engine]</a></strong></span></p>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 각 메뉴의 화면에 대한 설명이다. <span><strong class="guibutton">[Basic] </strong></span>메뉴는 JMS와 관련된
+      설정 부분이 없으므로 설명에서 제외한다.</p>
+
+      <p/>
+
+      <h4><a id="sect_mq_server_resource"></a>[Resource]</h4>
+
+      <p><span><strong class="guibutton">Jms Resource 화면</strong></span>에서는 JMS 리소스에 대해 설정한다.
+      WebAdmin의 <span><strong class="guibutton">[Servers] &gt; [서버명] &gt; [Resource] </strong></span>
+      탭에서 <span><strong class="guibutton">[Jms Resource]</strong></span> 메뉴를 선택한다.</p>
+
+      <p>다음은 <span><strong class="guibutton">Jms Resource 화면</strong></span>이다. 화면에 대한 자세한 설명은 <a href="chapter_server-configuration.html#sect_jms-resource-configuration" title="3.2. JMS 리소스 설정">“3.2. JMS 리소스 설정”</a>을 참고한다.</p>
+
+      <div class="figure"><a id="figure_jms-resource-configuration-1"></a><p class="title"><b>[그림 3.2] Jms Resource 설정 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_jms-resource-configuration.png" align="top" width="711" alt="Jms Resource 설정 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>본 안내서는 JMS 설정에 해당하는 부분에 대한 설명만 하므로
+          <span><strong class="guibutton">[Resource]</strong></span> 탭의 다른 설정 메뉴(Listener, Jmx Manager,
+          Scheduler, Lifecycle Invocation, External Resource)에 대한 자세한 내용은
+          <a xmlns="" href="../web-manager/index.html" class="olink">"JEUS WebAdmin
+          안내서"</a> 또는 관련 안내서를 참고한다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="sect_mq_server_engine"></a>[Engine]</h4>
+
+      <p>각각 JMS 엔진의 <span><strong class="guibutton">[Servers] &gt; [서버명] &gt;
+      [Engine]</strong></span> 탭의 <span><strong class="guibutton">[Jms Engine]</strong></span> 메뉴를 선택하면
+      JEUS MQ 서버에 대해 설정할 수 있다.</p>
+
+      <div class="figure"><a id="figure_jms-engine-configuration"></a><p class="title"><b>[그림 3.3] Jms Engine 설정 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_jms-engine-configuration.png" align="top" width="711" alt="Jms Engine 설정 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p><span><strong class="guibutton">Jms Engine 화면</strong></span>은 다음의 메뉴로 구성된다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="160" align="left"/><col/></colgroup><thead><tr><th align="left">메뉴</th><th>설명</th></tr></thead><tbody><tr><td align="left"><span><strong class="guibutton">[Basic]</strong></span></td><td>JEUS MQ 서버의 Failover와 JMS 엔진의 고급 선택사항을 설정한다. Failover에
+                관해서는 <a href="chapter_failover.html" title="제5장 JEUS MQ 장애 극복">“제5장 JEUS MQ 장애 극복”</a>을 참고한다. JMS 엔진의 고급
+                선택사항에 관한 자세한 설명은 <a href="chapter_server-configuration.html#sect_jms-engine-advanced-configuration" title="3.3.1. 기본 정보 설정">“3.3.1. 기본 정보 설정”</a>을
+                참고한다.</td></tr><tr><td align="left"><span><strong class="guibutton">[Service Config]</strong></span></td><td>JEUS MQ 서버가 클라이언트와 통신하는 서비스 채널(Service Channel)에 대한
+                설정이다. 자세한 설정 방법은 <a href="chapter_server-configuration.html#sect_service-channel-configuration" title="3.3.2. 서비스 채널 설정">“3.3.2. 서비스 채널 설정”</a>을 참고한다.</td></tr><tr><td align="left"><span><strong class="guibutton">[Connection Factory]</strong></span></td><td>JEUS MQ 서버에서 사용하는 JMS 관리 객체인 ConnectionFactory에 관한
+                설정이다. 자세한 설정 방법은 <a href="chapter_server-configuration.html#sect_connection-factory-configuration" title="3.3.3. Connection Factory 설정">“3.3.3. Connection Factory 설정”</a>을
+                참고한다.</td></tr><tr><td align="left"><span><strong class="guibutton">[Persistence Store]</strong></span></td><td>JEUS MQ 서버에서 사용하는 Persistence Store에 관한 설정이다. 자세한 설정
+                방법은 <a href="chapter_server-configuration.html#sect_persistence-store-configuration" title="3.3.4. Persistence Store 설정">“3.3.4. Persistence Store 설정”</a>을
+                참고한다.</td></tr><tr><td align="left"><span><strong class="guibutton">[Message Sort]</strong></span></td><td>JEUS MQ 서버의 Message Sort 기능을 위한 설정이다. 자세한 설정 방법은 <a href="chapter_jeus-mq-special-func.html#sect_sorting" title="6.2. JEUS MQ Message Sort">“6.2. JEUS MQ Message Sort”</a>를 참고한다.</td></tr></tbody></table>
+        </div>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_jms-resource-configuration"></a>3.2. JMS 리소스 설정</h2></div></div></div>
+    
+
+    <p><span><strong class="guibutton">Jms Resource 화면</strong></span>에서는 JMS 리소스에 대해 설정한다.
+    WebAdmin에서 <span><strong class="guibutton">[Servers] &gt; [서버명] &gt; [Resource]</strong></span> 탭의
+    <span><strong class="guibutton">[Jms Resource]</strong></span> 메뉴를 선택한다.</p>
+
+    <div class="figure"><a id="figure_jms-resource-configuration-2"></a><p class="title"><b>[그림 3.4] Jms Resource 설정 화면</b></p><div class="figure-contents">
+      
+
+      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_jms-resource-configuration.png" align="top" width="711" alt="Jms Resource 설정 화면"/></td></tr></table></div>
+    </div></div><br class="figure-break"/>
+
+    <p><span><strong class="guibutton">Jms Resource 화면</strong></span>은 다음의 2개 영역으로 구성된다.</p>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="160" align="left"/><col/></colgroup><thead><tr><th align="left">메뉴</th><th>설명</th></tr></thead><tbody><tr><td align="left"><span><strong class="guibutton">Destination</strong></span></td><td>JEUS MQ 서버 내의 Destination에 관한 설정이다. 자세한 설정 방법은 <a href="chapter_server-configuration.html#sect_destination-configuration" title="3.2.1. Destination 설정">“3.2.1. Destination 설정”</a>을 참고한다.</td></tr><tr><td align="left"><span><strong class="guibutton">Durable Subscriber</strong></span></td><td>JEUS MQ 서버 내의 Durable Subscriber에 관한 설정이다. 자세한 설정 방법은
+              <a href="chapter_server-configuration.html#sect_durable-subscriber-configuration" title="3.2.2. Durable Subscriber 설정">“3.2.2. Durable Subscriber 설정”</a>을
+              참고한다.</td></tr></tbody></table>
+      </div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_destination-configuration"></a>3.2.1. Destination 설정</h3></div></div></div>
+      
+
+      <p>Queue나 Topic과 같은 Destination 역시 JEUS MQ 서버가 기동할 때 도메인 설정을 읽어 JEUS
+      JNDI 서비스에 등록한다.</p>
+
+      <p><span><strong class="guibutton">Jms Resource 화면</strong></span>의
+      <span><strong class="guibutton">Destination</strong></span> 영역에서 설정할 리소스 목록에서 특정 리소스의 이름을 클릭하면
+      다음과 같이 해당 리소스에 대한 설정 화면이 나타난다. 각 항목의 정보를 설정하고
+      <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 설정한 정보가 저장된다. 항목을 다시 설정하려면
+      <span><strong class="guibutton">[재설정]</strong></span> 버튼을 클릭한다.</p>
+
+      <div class="figure"><a id="figure_destination-configuration"></a><p class="title"><b>[그림 3.5] Destination 설정 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="682"><tr><td align="left"><img src="resources/figure_destination-configuration_1.png" align="top" width="682" alt="Destination 설정 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e1383"></a>Destination 메모리 관리 </h4>
+
+      <p>Destination에 클라이언트에게 전달되지 않은 메시지가 계속해서 늘어나면 JVM이 OutOfMemoryError를
+      내면서 서버가 종료될 수 있다. 이를 방지하기 위해 JEUS MQ는 Destination 설정을 통해 Destination별로
+      메모리 관리 정책을 설정할 수 있는 방법을 제공한다.</p>
+
+      <p>Destination이 많은 메모리를 사용하고 있지 않을 때 JEUS MQ 서버는 메시지 내용에 대한 Strong
+      Reference를 가지고 있다. Destination 설정 내에 <span><strong class="guibutton">'Quota'</strong></span> 값을
+      지정하면 메모리 사용량에 따라 JEUS MQ 서버는 다음과 같이 동작한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Destination이 사용하고 있는 메모리가 <span><strong class="guibutton">'Quota'</strong></span> 설정값
+          이상이면 클라이언트의 메시지 송신 시도는 실패하고 JMSException이 발생한다.
+          <span><strong class="guibutton">'Quota'</strong></span>는 기본값은 128MB이다.</p>
+        </li><li>
+          <p>Destination이 사용하고 있는 메모리가 <span><strong class="guibutton">'Quota'</strong></span> 설정값의
+          75%이상이면 저장소에 저장한 메시지의 내용은 메모리에서 관리하지 않는다.</p>
+        </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>Destination에 도착한 메시지의 내용이 메모리에서 삭제되어도 메시지는 유실되지 않는다. 메시지는 저장소에
+      저장되어 있기 때문에 JEUS MQ 서버는 필요할 때 메시지 내용을 저장소로부터 읽어서 처리한다. 이 경우 처리 속도는 메시지
+      내용이 메모리에 있을 때보다 느릴 수 밖에 없다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS MQ 서버는 저장소에 저장하지 않은 메시지 내용을 항상 메모리에 가지고 있으므로,
+        <span><strong class="guibutton">'Quota'</strong></span>에 의한 설정은 저장소가 설정되어 있고 메시지를
+        DeliveryMode.PERSISTENT로 지정한 경우에만 영향을 미친다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1405"></a>메시지 흐름 제어</h4><p><span><strong class="guibutton">Destination
+      화면</strong></span>의 <span><strong class="guibutton">'Max Pending Limit'</strong></span>,
+      <span><strong class="guibutton">'Resume Dispatch Factor'</strong></span> 항목은 메시지 흐름을 제어한다. 메시지
+      수신자가 Destination에 Message Listener를 등록한 경우 JEUS MQ 서버는 Destination에 메시지가
+      도착하면 해당 클라이언트에게 메시지를 전송한다. 그런데 서버가 메시지를 전송하는 속도보다 클라이언트에서 메시지를 처리하는 속도가
+      느리면 클라이언트 메모리에 메시지가 계속해서 쌓이게 되고, 결국 클라이언트 JVM에서 OutOfMemoryError가 발생할 수
+      있다. 이와 같은 상황을 방지하기 위해 클라이언트 측에 아직 처리되지 않고 쌓여 있는 메시지의 최대 개수를 설정하여 이 개수를
+      초과하면 서버가 클라이언트로 잠시 동안 메시지를 전송하지 않도록 할 수 있다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_durable-subscriber-configuration"></a>3.2.2. Durable Subscriber 설정</h3></div></div></div>
+      
+
+      <p>일반적으로 Durable Subscriber는 클라이언트가 생성하기 때문에 생성 이전에 Topic에 도착한 메시지는
+      클라이언트에게 전달되지 않는다. 이런 상황을 방지하기 위해 JEUS MQ는 Durable Subscriber를 설정하여 서버가
+      실행될 때 미리 Durable Subscriber를 등록해두었다가 조건에 맞는 클라이언트가 접속했을 때 메시지를 전달하는 기능을
+      제공한다. Session.createDurableSubscriber() 메소드를 호출할 때 클라이언트 ID와
+      Subscription 이름 및 Topic이 필요한 것처럼 JEUS WebAdmin에서 Durable Subscriber를 설정할
+      때도 동일한 항목을 설정해야 한다. 추가로 Message Selector도 설정할 수 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p><span><strong class="guibutton">Jms Resource 화면</strong></span>의 <span><strong class="guibutton">Durable
+      Subscriber</strong></span> 영역에서 설정할 특정 리소스의 이름을 클릭하면 다음과 같이 설정 화면이 나타난다. 각
+      항목의 정보를 설정하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 설정한 정보가 저장된다. 항목을 다시
+      설정하려면 <span><strong class="guibutton">[재설정]</strong></span> 버튼을 클릭한다.</p>
+
+      <div class="figure"><a id="figure_durable-subsriber-configuration"></a><p class="title"><b>[그림 3.6] Durable Subscriber 설정 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_durable-subscriber-configuration.png" align="top" width="711" alt="Durable Subscriber 설정 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_jms-engine-configuration"></a>3.3. JMS 엔진 설정</h2></div></div></div>
+    
+
+    <p><span><strong class="guibutton">Jms Engine 화면</strong></span>에서는 JEUS MQ 서버에 대해 설정한다. 각각 JMS
+    엔진의 <span><strong class="guibutton">[Servers] &gt; [서버명] &gt; [Engine]</strong></span> 탭의
+    <span><strong class="guibutton">[Jms Engine]</strong></span> 메뉴를 선택한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_jms-engine-advanced-configuration"></a>3.3.1. 기본 정보 설정</h3></div></div></div>
+      
+
+      <p><span><strong class="guibutton">Jms Engine 화면</strong></span>에서
+      <span><strong class="guibutton">[Basic]</strong></span> 메뉴를 선택하면 JMS 엔진 기본 정보 설정 화면으로
+      이동한다.</p>
+
+      <p>화면은 JEUS MQ 서버의 Failover와 JMS 엔진의 고급 선택사항을 설정하는 화면으로 구성된다. 상단의
+      Failover 설정에서는 서버나 네트워크에 장애가 발생하는 경우 이를 복구하는 정보를 설정한다. Failover 설정에 대한
+      자세한 내용은 <a href="chapter_failover.html" title="제5장 JEUS MQ 장애 극복">“제5장 JEUS MQ 장애 극복”</a>을 참고한다.</p>
+
+      <div class="figure"><a id="figure_jms-engine-configuration"></a><p class="title"><b>[그림 3.7] Jms Engine 설정 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_jms-engine-configuration.png" align="top" width="711" alt="Jms Engine 설정 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1447"></a>고급 선택사항 설정</h4>
+
+      <p>JMS 엔진 고급 선택사항 화면에서는 JEUS MQ 서버가 사용하는 Thread Pool에 대한 정보를 설정한다.
+      JMS의 비동기적인 특성에 따라 클라이언트와 메시지를 주고받거나 서버 내부에서 메시지를 처리하고 저장소에 저장하는 등의 작업은
+      각각 별도의 스레드에 의해 수행된다.</p>
+
+      <p>JEUS MQ 서버 내에서 동시에 실행 가능한 스레드의 개수는 이 Thread Pool 설정에 의해 결정된다. 서버의
+      성능에 크게 영향을 미치므로 동시 처리 가능한 클라이언트의 수와 서버에 걸리는 부하 등을 고려한 적절한 설정이
+      필요하다.</p>
+
+      <p>다음은 <span><strong class="guibutton">고급 선택사항</strong></span> 설정 화면이다.</p>
+
+      <div class="figure"><a id="figure_jms-engine-advanced-configuration"></a><p class="title"><b>[그림 3.8] JMS 엔진 고급 선택사항 설정 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_engine-advanced-configuration.png" align="top" width="711" alt="JMS 엔진 고급 선택사항 설정 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_service-channel-configuration"></a>3.3.2. 서비스 채널 설정</h3></div></div></div>
+      
+
+      <p>JEUS MQ 서버는 서비스 채널(Service Channel)을 통해서 클라이언트와 통신한다. 하나의 JEUS MQ
+      서버에는 최소한 하나의 서비스 채널이 있어야 하며 각 서비스 채널마다 서비스 URL 등의 네트워크 설정을 다르게 지정할 수 있다.
+      서비스 채널이 사용하는 리스너의 이름은 <span><strong class="guibutton">[Server] &gt; [Resource] &gt;
+      [Listener]</strong></span>에서 설정한다. 리스너 설정에 대한 자세한 설명은 <a xmlns="" href="../server/chapter_server_conf.html#sect_server_listener" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “2.3.2. Listener 설정”</a>을
+      참고한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p><span><strong class="guibutton">[Servers] &gt; [서버명] &gt; [Engine] &gt; [Jms Engine]
+      &gt; [Service Config]</strong></span> 탭을 선택하면 서비스 채널에서 사용하는 리스너 목록이 조회된다.
+      리스너 목록에서 채널을 설정할 대상을 선택하면, 다음의 설정 화면이 나타난다. 각 항목의 정보를 설정하고
+      <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 설정한 정보가 저장된다. 항목을 다시 설정하려면
+      <span><strong class="guibutton">[재설정]</strong></span> 버튼을 클릭한다.</p>
+
+      <div class="figure"><a id="figure_service-channel-configuration"></a><p class="title"><b>[그림 3.9] 서비스 채널 설정 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_service-config.png" align="top" width="711" alt="서비스 채널 설정 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_connection-factory-configuration"></a>3.3.3. Connection Factory 설정</h3></div></div></div>
+      
+
+      <p>Connection Factory는 JMS 관리 객체로 클라이언트가 JMS 서버에 접속하는 데 필요한 연결 설정 정보와
+      클라이언트를 위한 기본 정보들을 가지고 있다. JEUS MQ 서버가 기동될 때 생성되어 JEUS JNDI 서비스에
+      등록된다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p><span><strong class="guibutton">[Servers] &gt; [서버명] &gt; [Engine] &gt; [Jms Engine]
+      &gt; [Connection Factory]</strong></span> 탭을 선택하면 Connection Factory 목록이
+      조회된다. 목록에서 설정할 대상을 선택하면, 다음의 설정 화면이 나타난다. 각 항목의 정보를 설정하고
+      <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 설정한 정보가 저장된다. 항목을 다시 설정하려면
+      <span><strong class="guibutton">[재설정]</strong></span> 버튼을 클릭한다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="figure_connection-factory-configuration"></a><p class="title"><b>[그림 3.10] Connection Factory 설정 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_connection-factory-configuration.png" align="top" width="711" alt="Connection Factory 설정 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_persistence-store-configuration"></a>3.3.4. Persistence Store 설정</h3></div></div></div>
+      
+
+      <p>Persistence Store는 서버가 재기동될 때 메시지나 Subscription, 트랜잭션들의 이전 상태를
+      복구하기 위해 필요하다. Persistence Store를 설정하지 않으면 클라이언트에서
+      DeliveryMode.PERSISTENT 방식으로 메시지를 송신한 경우에 서버에서 장애가 발생했을 때 메시지 전달을 보장할 수
+      없다. JEUS MQ에서 제공하는 Persistence Store의 종류에는 저널 로그와 데이터베이스가 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>Persistence Store 설정은 WebAdmin의 <span><strong class="guibutton">[Server] &gt; [Engine]
+      &gt; [Jms Engine] &gt; [Persistence Store] </strong></span>메뉴를 선택한다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="figure_persistence-store-configuration"></a><p class="title"><b>[그림 3.11] Persistence Store 설정 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="682"><tr><td align="left"><img src="resources/figure_persistence-store-configuration.png" align="top" width="682" alt="Persistence Store 설정 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <p>저널 로그 방식을 사용하려면 <span><strong class="guibutton">'Journal'</strong></span>을 선택하고 데이터베이스 방식을
+      사용하려면 <span><strong class="guibutton">'Jdbc'</strong></span>를 선택해서 설정한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">저널 로그 방식 </strong></span></p>
+
+          <p>저널 로그 방식으로 Persistence Store를 사용할 경우에는 다음과 같이 설정한다.</p>
+
+          <div class="figure"><a id="figure_persistence-store-journal-configuration"></a><p class="title"><b>[그림 3.12] Persistence Store 설정 - Journal</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_persistence-store-journal-configuration.png" align="top" width="663" alt="Persistence Store 설정 - Journal"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">데이터베이스 방식 </strong></span></p>
+
+          <p>다음은 외부 데이터베이스를 Persistence Store로 설정한 예이다. 이 설정은 저널 설정 하단에 위치해
+          있다.</p>
+
+          <p/>
+
+          <div class="figure"><a id="figure_persistence-store-jdbc-configuration"></a><p class="title"><b>[그림 3.13] Persistence Store 설정 - Jdbc</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_persistence-store-jdbc-configuration.png" align="top" width="663" alt="Persistence Store 설정 - Jdbc"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <p/>
+
+          <p>현재 호환 가능한 외부 데이터베이스는 다음과 같다.</p>
+
+          <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                <p>Oracle Database 9i 이상(Enterprise Edition)</p>
+              </li><li>
+                <p>Tibero 3 SP2 이상</p>
+              </li><li>
+                <p>Altibase 4.x(5 이상은 지원하지 않음)</p>
+              </li></ul></div>
+
+          <p><span><strong class="guibutton">'Data Source'</strong></span> 항목에 설정된 값은 Persistence
+          Store로 사용할 데이터소스의 JNDI 이름이다. JEUS에 데이터소스를 추가하는 방법은 <a xmlns="" href="../server/chapter_datasource.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “제6장 DB Connection Pool과 JDBC”</a>를
+          참고한다.</p>
+
+          <p>위와 같이 설정하는 경우 해당 데이터베이스 내의 테이블 이름을 변경할 수 있다. 이 태그들을 사용하면 운용 중인
+          서버에서 테스트를 수행하는 경우 별도의 Persistence Store를 설치하지 않고도 사용하는 테이블의 이름만 바꿔서
+          JEUS MQ 서버를 테스트하는 것이 가능하다. 테이블의 이름을 설정하지 않는 경우 기본적으로
+          &lt;<span class="emphasis"><em>SERVER-NAME</em></span>&gt;_DEST,
+          &lt;<span class="emphasis"><em>SERVER-NAME</em></span>&gt;_DSUB,
+          &lt;<span class="emphasis"><em>SERVER-NAME</em></span>&gt;_MESG,
+          &lt;<span class="emphasis"><em>SERVER-NAME</em></span>&gt;_SMSG,
+          &lt;<span class="emphasis"><em>SERVER-NAME</em></span>&gt;_TRAN이라는 이름의 테이블을 사용하게 된다.
+          JDBC를 설정했을 때 생성되는 테이블들의 각 컬럼에 대한 설명은 <a href="appendix_jdbc-store-columns.html" title="Appendix B. JDBC Persistence Store 컬럼">“Appendix B. JDBC Persistence Store 컬럼”</a>을 참고한다.</p>
+        </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sorting_conf"></a>3.3.5. Message Sort 설정</h3></div></div></div>
+      
+
+      <p>Message Sort 기능에 대한 설정은 <a href="chapter_jeus-mq-special-func.html#sect_sorting" title="6.2. JEUS MQ Message Sort">“6.2. JEUS MQ Message Sort”</a>의 설명을
+      참고한다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e1563"></a>3.4. 서버 관리 및 모니터링</h2></div></div></div>
+    
+
+    <p>JEUS MQ 서버 관리는 다음과 같은 작업을 통해 메시지 유실 없이 지속적인 서비스가 가능하도록 하는
+    것이다.</p>
+
+    <div class="itemizedlist"><ul type="disc" compact="compact"><li>
+        <p>운용 중인 JEUS MQ 서버의 리소스 관리 및 모니터링</p>
+
+        <p>다음의 리소스들이 관리 및 모니터링의 대상이 된다.</p>
+
+        <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+            <p>Connection Factory, Destination과 같은 JMS 관리 객체</p>
+          </li><li>
+            <p>Destination과 Durable Subscription의 메시지</p>
+          </li><li>
+            <p>클라이언트에 할당된 커넥션, 세션, 메시지 송/수신자</p>
+          </li><li>
+            <p>JEUS MQ 서버가 차지하는 메모리 영역</p>
+          </li><li>
+            <p>JEUS MQ 서버가 사용하는 Persistent Storage</p>
+          </li></ul></div>
+      </li><li>
+        <p>장애 상황에 대처하고 장애로부터 JEUS MQ 서버를 복구</p>
+      </li></ul></div>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JEUS는 콘솔 툴인 jeusadmin과 WebAdmin을 제공해서 JEUS MQ 서버 관리 및 모니터링하는 기능을
+    제공한다. 본 절에서는 각 툴을 사용해서 JEUS MQ 서버를 관리 및 모니터링하는 방법에 대해 설명한다.</p>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1589"></a>3.4.1. 서버 관리</h3></div></div></div>
+      
+
+      <p>다음은 콘솔 툴(jeusadmin)과 WebAdmin을 사용해서 서버를 관리하는 방법에 대한 설명이다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e1594"></a>WebAdmin 사용 </h4>
+
+      <p>WebAdmin을 통해 JMS에 필요한 Connection Factory, Destination, Durable
+      Subsriber들을 관리할 수 있다. 각 목록에서 <span><strong class="guibutton">[ADD]</strong></span>,
+      <span><strong class="guibutton">[DEL]</strong></span> 버튼을 통해 Connection Factory를 추가하거나 삭제할 수
+      있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Connection Factory 관련</strong></span></p>
+
+          <p><span><strong class="guibutton">[Server] &gt; [Engine] &gt; [Jms Engine] &gt;
+          [Connection Factory]</strong></span> 메뉴를 선택하면 설정된 Connection Factory 목록을
+          조회할 수 있다.</p>
+
+          <p/>
+
+          <div class="figure"><a id="figure_connection-factory-management"></a><p class="title"><b>[그림 3.14] Connection Factory 관리</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/figure_connection-factory-management.png" align="top" width="692" alt="Connection Factory 관리"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <p/>
+        </li><li>
+          <p><span><strong class="guibutton">Destination 관련</strong></span></p>
+
+          <p><span><strong class="guibutton">[Server] &gt; [Resource] &gt; [Jms Resource]
+          </strong></span>메뉴를 선택하면 설정된 Destination 목록을 조회할 수 있다.</p>
+
+          <p/>
+
+          <div class="figure"><a id="figure_destination-management"></a><p class="title"><b>[그림 3.15] Destination 관리</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/figure_destination-management.png" align="top" width="692" alt="Destination 관리"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <p/>
+        </li><li>
+          <p><span><strong class="guibutton">Durable Subscriber 관련</strong></span></p>
+
+          <p><span><strong class="guibutton">[Server] &gt; [Resource] &gt; [Jms
+          Resource]</strong></span> 메뉴를 선택하면 설정된 Durable Subscriber 목록을 조회할 수
+          있다.</p>
+
+          <p/>
+
+          <div class="figure"><a id="figure_durable-subscriber-management"></a><p class="title"><b>[그림 3.16] Durable Subscriber 관리</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/figure_durable-subscriber-management.png" align="top" width="692" alt="Durable Subscriber 관리"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1638"></a>콘솔 툴 사용 </h4>
+
+      <p>콘솔 툴은 콘솔에서 여러 가지 명령어를 실행해서 서버 관리작업을 수행할 수 있는 툴로 다음의 경로에
+      위치한다.</p>
+
+      <pre class="programlisting">JEUS_HOME/bin/</pre>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 서버 관리를 위해서 제공되는 명령어 목록이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Connection Factory 관련</strong></span></p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="200" align="left"/><col/></colgroup><thead><tr><th align="left">명령어</th><th>설명</th></tr></thead><tbody><tr><td align="left">add-jms-connection-factory</td><td>Connection Factory를 추가한다.</td></tr><tr><td align="left">remove-jms-connection-factory</td><td>Connection Factory를 제거한다.</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p><span><strong class="guibutton">Destination 관련</strong></span></p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="200" align="left"/><col/></colgroup><thead><tr><th align="left">명령어</th><th>설명</th></tr></thead><tbody><tr><td align="left">add-jms-destination</td><td>Destination을 추가한다.</td></tr><tr><td align="left">remove-jms-destination</td><td>Destination을 제거한다.</td></tr></tbody></table>
+            </div>
+        </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>명령어에 대한 자세한 설명과 사용법, 사용 예는 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-jms-engine-command" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.10. JMS 엔진 관련 명령어”</a>를 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_mq-monitor"></a>3.4.2. 서버 모니터링</h3></div></div></div>
+      
+
+      <p>다음은 콘솔 툴과 WebAdmin을 사용해서 서버 모니터링을 하는 방법에 대한 설명이다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1693"></a>WebAdmin 사용 </h4>
+
+      <p>WebAdmin의 <span><strong class="guibutton">[Monitornig] &gt; [JMS]</strong></span> 메뉴를 통해
+      JEUS MQ 서버의 현재 상태를 모니터링할 수 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Destination 관련</strong></span></p>
+
+          <p><span><strong class="guibutton">[Destinations] </strong></span>탭을 선택하고
+          <span><strong class="guibutton">[Server]</strong></span>나 <span><strong class="guibutton">[Cluster]</strong></span>
+          메뉴를 선택한다. 조회 목록에서 서버나 클러스터를 선택하면 현재 서버 또는 클러스터에 있는 Destination 목록과
+          정보를 조회한다.</p>
+
+          <p>Destination의 이름을 클릭하면 해당 Destination의 더 자세한 정보를 조회할 수 있다.
+          Destination 조회와 메시지 관련 모니터링 기능에 대한 설명과 사용 예는 <a href="chapter_jeus-mq-special-func.html#sect_message_management" title="6.5. JEUS MQ Message Management 기능">“6.5. JEUS MQ Message Management 기능”</a>을 참고한다.</p>
+
+          <div class="figure"><a id="figure_destination-monitoring"></a><p class="title"><b>[그림 3.17] Destination 모니터링</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/figure_destination-monitoring.png" align="top" width="692" alt="Destination 모니터링"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">Durable Subscription 관련</strong></span></p>
+
+          <p><span><strong class="guibutton">[Durable Subscriptions]</strong></span> 탭을 선택하고 조회할 서버를
+          선택하면 현재 서버에 존재하는 Durable Subscription 목록과 정보를 조회한다.</p>
+
+          <div class="figure"><a id="figure_durable-subscriber-monitoring"></a><p class="title"><b>[그림 3.18] Durable Subscriptions 모니터링</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/figure_durable-subscriber-monitoring.png" align="top" width="692" alt="Durable Subscriptions 모니터링"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">클라이언트 관련</strong></span></p>
+
+          <p><span><strong class="guibutton">[JMS Clients]</strong></span> 탭을 선택하고 조회할 서버를 선택하면 현재
+          서버에 접속된 JMS 클라이언트의 목록과 정보를 조회한다.</p>
+
+          <div class="figure"><a id="figure_client-monitoring"></a><p class="title"><b>[그림 3.19] 클라이언트 모니터링</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/figure_client-monitoring.png" align="top" width="692" alt="클라이언트 모니터링"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">트랜잭션 관련</strong></span></p>
+
+          <p><span><strong class="guibutton">[JMS Pending Transactions]</strong></span> 탭을 선택하면 JMS에
+          관련된 Indoubt Transaction의 목록을 조회한다. </p>
+
+          <div class="figure"><a id="figure_transaction-monitoring"></a><p class="title"><b>[그림 3.20] JMS Pending Transaction 모니터링</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/figure_transaction-monitoring.png" align="top" width="692" alt="JMS Pending Transaction 모니터링"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1744"></a>콘솔 툴 사용 </h4>
+
+      <p>콘솔 툴은 콘솔에서 여러 가지 명령어를 실행해서 서버 관리작업을 수행할 수 있는 툴로 다음의 경로에
+      위치한다.</p>
+
+      <pre class="programlisting">JEUS_HOME/bin/</pre>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 서버 모니터링을 위해서 제공되는 명령어 목록이다.</p>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Connection Factory 관련</strong></span></p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">명령어</th><th>설명</th></tr></thead><tbody><tr><td align="left">list-jms-connection-factories</td><td>Connection Factory 목록을 조회하거나 지정된 Conntection
+                    Factory의 정보를 출력한다.</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p><span><strong class="guibutton">Destination 관련</strong></span></p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">명령어</th><th>설명</th></tr></thead><tbody><tr><td align="left">list-jms-destinations</td><td>Destination 목록을 조회하거나 지정된 Destination 정보를
+                    출력한다.</td></tr><tr><td align="left">control-jms-destination</td><td>지정된 Destination의 상태를 제어한다.</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p><span><strong class="guibutton">메시지 관련</strong></span></p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">명령어</th><th>설명</th></tr></thead><tbody><tr><td align="left">list-jms-messages</td><td>지정된 Destination 내의 메시지들의 정보를 조회한다.</td></tr><tr><td align="left">view-jms-message</td><td>지정된 메시지의 상세한 정보를 조회한다.</td></tr><tr><td align="left">move-jms-messages</td><td>지정된 메시지들을 서버나 클러스터 내의 다른 Destination으로
+                    이동한다.</td></tr><tr><td align="left">delete-jms-messages</td><td>지정된 메시지들을 Destination에서 삭제한다.</td></tr><tr><td align="left">export-jms-messages</td><td>지정된 메시지들을 XML 파일 형태로 내보낸다.</td></tr><tr><td align="left">import-jms-messages</td><td>내보내진 XML 파일의 메시지들을 지정된 Destination으로 가져온다.</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p><span><strong class="guibutton">Durable Subscription관련</strong></span></p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">명령어</th><th>설명</th></tr></thead><tbody><tr><td align="left">list-jms-durable-subscriptions</td><td>Durable Subscription 목록을 조회하거나 지정된 Durable
+                    Subscription 정보를 조회한다.</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p><span><strong class="guibutton">클라이언트 관련</strong></span></p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">명령어</th><th>설명</th></tr></thead><tbody><tr><td align="left">list-jms-clients</td><td>클라이언트 목록을 조회하고 정보를 출력한다.</td></tr><tr><td align="left">ban-jms-client</td><td>클라이언트로부터의 연결을 강제로 끊는다.</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p><span><strong class="guibutton">트랜잭션 관련</strong></span></p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">명령어</th><th>설명</th></tr></thead><tbody><tr><td align="left">list-jms-pending-transactions</td><td>pending 트랜잭션 목록을 출력한다.</td></tr><tr><td align="left">commit-jms-pending-transaction</td><td>지정된 pending 트랜잭션을 강제로 commit한다.</td></tr></tbody></table>
+            </div>
+        </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>명령어에 대한 자세한 설명과 사용법, 사용 예는 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-jms-engine-command" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.10. JMS 엔진 관련 명령어”</a>를 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_clients.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_clustering.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제2장 JEUS MQ 클라이언트 프로그래밍 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제4장 JEUS MQ 클러스터링</td></tr></table></div><div xmlns="" align="center"/></body></html>

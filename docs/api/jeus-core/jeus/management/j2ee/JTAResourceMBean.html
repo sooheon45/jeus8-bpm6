@@ -1,0 +1,839 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>JTAResourceMBean</title>
+      <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="JTAResourceMBean (JEUS API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.management.j2ee</font><br>MBean JTAResourceMBean
+      </h2>
+      <dl>
+         <dt><b>ObjectName Pattern:</b><dd><code>JEUS:name=<i>{server-name}</i>,j2eeType=JTAResource,*</code></dd>
+         </dt>
+         <dt><b>Permission Name:</b><dd><code>jeus.server.<i>{server-name}</i>.JTAResource.<i>{resource-name}</i></code></dd>
+         </dt>
+         <dt></dt>
+         <dt><b>Statistics:</b><dd><code><a href="../../../jeus/management/j2ee/statistics/JTAStats.html">JTAStats</a></code></dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl>
+         <dt><b>All Superinterfaces:</b><dd>jeus.management.j2ee.J2EEManagedObjectMBean, jeus.management.j2ee.J2EEResourceMBean, jeus.management.j2ee.StatisticsProvider</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>MBean <b>JTAResourceMBean</b></pre></dl>Java Transaction API 리소스를 나타내며, 서버에서 제공하는 트랜잭션 매니저에 해당한다.<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#J2EE_TYPE">J2EE_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static int</code></font></td>
+               <td><code><b><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#TYPE_CONNECTOR">TYPE_CONNECTOR</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JEUS Connector의 resource type이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static int</code></font></td>
+               <td><code><b><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#TYPE_JMS">TYPE_JMS</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JEUS JMS의 resource type이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static int</code></font></td>
+               <td><code><b><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#TYPE_SQL">TYPE_SQL</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JDBC XADataSource의 resource type이다.
+               </td>
+            </tr>
+         </table>
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.J2EEResourceMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.J2EEResourceMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>JAVAMAIL, JCA, JDBC, JMS, JNDI, JTA, parentKeyMap, RMI_IIOP, URL</code></td>
+            </tr>
+         </table>&nbsp;
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>SYSTEM_DOMAIN</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attribute_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="3"><font size="+2"><b>Attribute Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RW</code></td>
+               <td><code><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#activeTimeout">activeTimeout</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   글로벌 트랜잭션의 전체 타임아웃.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.transaction.logging.IncompletedTx[]</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#AllIncompletedTx">AllIncompletedTx</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>더이상 사용되지 않는다.  <a href="JTAResourceMBean.html#getIncompletedTransactionInfos()"><code>getIncompletedTransactionInfos()</code></a>로 대체되었음.</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RW</code></td>
+               <td><code><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#commitTimeout">commitTimeout</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   글로벌 트랜잭션의 commit 타임아웃.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.transaction.logging.ReferenceInfo[]</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#CurrentXAResourceInfo">CurrentXAResourceInfo</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>더이상 사용되지 않는다.  <a href="JTAResourceMBean.html#getTransactionInfos()"><code>getTransactionInfos()</code></a>로 대체되었음.</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.transaction.info.IncompletedTransactionInfo[]</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#IncompletedTransactionInfos">IncompletedTransactionInfos</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   현재 JEUS 트랜잭션 매니저에서 시작된 트랜잭션이나 외부에서 전파된 트랜잭션 중 미완료 상태의 트랜잭션들 정보.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RW</code></td>
+               <td><code><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#incompleteTimeout">incompleteTimeout</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>더이상 incomplete 타임아웃은 사용되지 않는다.</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RW</code></td>
+               <td><code><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#preparedTimeout">preparedTimeout</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   글로벌 트랜잭션의 prepared 타임아웃.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RW</code></td>
+               <td><code><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#prepareTimeout">prepareTimeout</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   글로벌 트랜잭션의 prepare 타임아웃.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.transaction.logging.ReferenceInfo[]</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#RecoveredXAResourceInfo">RecoveredXAResourceInfo</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>더이상 사용되지 않는다.  <a href="JTAResourceMBean.html#getIncompletedTransactionInfos()"><code>getIncompletedTransactionInfos()</code></a>로 대체되었음.</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RW</code></td>
+               <td><code><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#recoveryTimeout">recoveryTimeout</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   트랜잭션의 recovery 타임아웃.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.transaction.info.XAResourceInfo[]</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#RetryingXAResourceInfos">RetryingXAResourceInfos</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JEUS 트랜잭션 매니저에서 백그라운드 쓰레드로 XA 작업을 완료 시도중인 XAResource들 정보.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.transaction.info.TransactionInfo[]</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../jeus/management/j2ee/JTAResourceMBean.html#TransactionInfos">TransactionInfos</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   현재 JEUS 트랜잭션 매니저가 진행중인 트랜잭션들 정보.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attributes_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>J2EEType, JeusType, objectName, ObjectName, ParentObjectName, PermissionName, eventProvider, stateManageable, statisticsProvider</code></td>
+            </tr>
+         </table>&nbsp;<a name="attributes_inherited_from_class_jeus.management.j2ee.StatisticsProvider"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.StatisticsProvider</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>stats</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operation_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Operation Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JTAResourceMBean.html#commit(javax.transaction.xa.Xid)">commit</a></b>(javax.transaction.xa.Xid xid)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   외부 트랜잭션 매니저에서 시작된 글로벌 트랜잭션에 대해 수동으로 부분 commit을 수행한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JTAResourceMBean.html#forget(javax.transaction.xa.Xid)">forget</a></b>(javax.transaction.xa.Xid xid)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   외부 트랜잭션 매니저에서 시작된 글로벌 트랜잭션에 대해 수동으로 부분 forget을 수행한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> javax.transaction.xa.Xid[]</code></font></td>
+               <td><code><b><a href="JTAResourceMBean.html#recover(int)">recover</a></b>(int flag)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   외부 트랜잭션 매니저에서 시작된 글로벌 트랜잭션 중에서 in-doubt(의심스러운) 트랜잭션 상태의 xid들을 반환.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JTAResourceMBean.html#removeXAResourceInfo(jeus.transaction.logging.ReferenceInfo)">removeXAResourceInfo</a></b>(jeus.transaction.logging.ReferenceInfo ref)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>더이상 사용되지 않는다.</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JTAResourceMBean.html#resyncXAResource(int, java.lang.String)">resyncXAResource</a></b>(int resourceType, java.lang.String exportName)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   XADataSource나 JMS Resource 중 해당 export name으로 등록되어 있는 리소스에 대해 recover를 수행한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JTAResourceMBean.html#resyncXAResource(int, java.lang.String, java.lang.String)">resyncXAResource</a></b>(int resourceType, java.lang.String exportName, java.lang.String moduleName)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JEUS Connector를 recover할때 사용한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JTAResourceMBean.html#rollback(javax.transaction.xa.Xid)">rollback</a></b>(javax.transaction.xa.Xid xid)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   외부 트랜잭션 매니저에서 시작된 글로벌 트랜잭션에 대해 수동으로 부분 rollback을 수행하거나,
+                  현 JEUS 트랜잭션 매니저에서 시작된 특정 트랜잭션에 대해 xid를 기반으로 강제 rollback을 수행한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operations_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Operations inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>addChild, refreshMonitoring, removeChild</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="J2EE_TYPE"></a><h3>J2EE_TYPE</h3><pre>public static final java.lang.String <b>J2EE_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="TYPE_SQL"></a><h3>TYPE_SQL</h3><pre>public static final int <b>TYPE_SQL</b></pre><dl>
+            <dd>JDBC XADataSource의 resource type이다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="TYPE_JMS"></a><h3>TYPE_JMS</h3><pre>public static final int <b>TYPE_JMS</b></pre><dl>
+            <dd>JEUS JMS의 resource type이다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="TYPE_CONNECTOR"></a><h3>TYPE_CONNECTOR</h3><pre>public static final int <b>TYPE_CONNECTOR</b></pre><dl>
+            <dd>JEUS Connector의 resource type이다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="attribute_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Attribute Detail</b></font></th>
+            </tr>
+         </table><a name="activeTimeout"></a><a name="getactiveTimeout(java.lang.String, java.lang.String)setactiveTimeout(java.lang.String, java.lang.String)"></a><h3>activeTimeout</h3>
+         <ul><code><font size="+1">Read-Write Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getactiveTimeout</b>()</pre><dl>
+               <dd>글로벌 트랜잭션의 전체 타임아웃.
+                  
+                  <p>글로벌 트랜잭션이 시작되면 이 시간 안에 commit 또는 rollback이 실행되어야 한다.
+                  그렇지 않으면 트랜잭션 매니저는 해당 트랜잭션에 대해 rollback을 수행하게 된다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>active 타임아웃을 반환한다. 단위는 ms이다.</dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+            <h3>Setter : </h3><pre>public void <b>setactiveTimeout</b>(long timeout)</pre><dl>
+               <dd>글로벌 트랜잭션의 전체 타임아웃.
+                  
+                  <p>글로벌 트랜잭션의 타임아웃을 동적으로 설정한다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Parameters:</b><dd><code>timeout</code> - active 타임아웃의 설정 값. 단위는 ms이다.
+                        </dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="AllIncompletedTx"></a><a name="getAllIncompletedTx(java.lang.String, java.lang.String)"></a><h3>AllIncompletedTx</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> jeus.transaction.logging.IncompletedTx[] <b>getAllIncompletedTx</b>()</pre><b>Deprecated.</b>&nbsp;
+            
+            <dl>
+               <dd><i>더이상 사용되지 않는다.  <a href="JTAResourceMBean.html#getIncompletedTransactionInfos()"><code>getIncompletedTransactionInfos()</code></a>로 대체되었음.</i></dd>
+               <p></p>&nbsp;
+               <dd>
+                  <dl></dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="commitTimeout"></a><a name="getcommitTimeout(java.lang.String, java.lang.String)setcommitTimeout(java.lang.String, java.lang.String)"></a><h3>commitTimeout</h3>
+         <ul><code><font size="+1">Read-Write Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getcommitTimeout</b>()</pre><dl>
+               <dd>글로벌 트랜잭션의 commit 타임아웃.
+                  
+                  <p>Root Coordinator는 Sub Coordinator와 리소스 매니저들에게 commit 메세지를 보낸 후,
+                  이 설정 값(commit 타임아웃)의 시간 이내에 commit이나 rollback에 대한 결과를 받아야 한다.</p>
+                  
+                  <p> 만약 결과가 오지 않으면, Root Coordinator는 글로벌 트랜잭션을 in-doubt(의심스러운) 트랜잭션 목록에 기록해서,
+                  트랜잭션이 완전히 끝나지 않았음을 남겨둔다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>commit 타임아웃을 반환한다. 단위는 ms이다.</dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+            <h3>Setter : </h3><pre>public void <b>setcommitTimeout</b>(long timeout)</pre><dl>
+               <dd>글로벌 트랜잭션의 commit 타임아웃.
+                  
+                  <p>Root Coordinator는 Sub Coordinator와 리소스 매니저들에게 commit 메세지를 보낸 후,
+                  이 설정 값(commit 타임아웃)의 시간 이내에 commit이나 rollback에 대한 결과를 받아야 한다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Parameters:</b><dd><code>timeout</code> - commit 타임아웃의 설정 값. 단위는 ms이다.
+                        </dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="CurrentXAResourceInfo"></a><a name="getCurrentXAResourceInfo(java.lang.String, java.lang.String)"></a><h3>CurrentXAResourceInfo</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> jeus.transaction.logging.ReferenceInfo[] <b>getCurrentXAResourceInfo</b>()</pre><b>Deprecated.</b>&nbsp;
+            
+            <dl>
+               <dd><i>더이상 사용되지 않는다.  <a href="JTAResourceMBean.html#getTransactionInfos()"><code>getTransactionInfos()</code></a>로 대체되었음.</i></dd>
+               <p></p>&nbsp;
+               <dd>
+                  <dl></dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="IncompletedTransactionInfos"></a><a name="getIncompletedTransactionInfos(java.lang.String, java.lang.String)"></a><h3>IncompletedTransactionInfos</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> jeus.transaction.info.IncompletedTransactionInfo[] <b>getIncompletedTransactionInfos</b>()</pre><dl>
+               <dd>현재 JEUS 트랜잭션 매니저에서 시작된 트랜잭션이나 외부에서 전파된 트랜잭션 중 미완료 상태의 트랜잭션들 정보.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>현재 미완료 상태의 트랜잭션들에 대한 <code>IncompletedTransactionInfo</code>의 객체들</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="incompleteTimeout"></a><a name="getincompleteTimeout(java.lang.String, java.lang.String)setincompleteTimeout(java.lang.String, java.lang.String)"></a><h3>incompleteTimeout</h3>
+         <ul><code><font size="+1">Read-Write Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getincompleteTimeout</b>()</pre><b>Deprecated.</b>&nbsp;
+            
+            <dl>
+               <dd><i>더이상 incomplete 타임아웃은 사용되지 않는다.</i></dd>
+               <p></p>&nbsp;
+               <dd>
+                  <dl></dl>
+               </dd>
+            </dl>
+            <h3>Setter : </h3><pre>public void <b>setincompleteTimeout</b>(long timeout)</pre><b>Deprecated.</b>&nbsp;
+            
+            <dl>
+               <dd><i>더이상 incomplete 타임아웃은 사용되지 않는다.</i></dd>
+               <p></p>&nbsp;
+               <dd>
+                  <dl></dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="preparedTimeout"></a><a name="getpreparedTimeout(java.lang.String, java.lang.String)setpreparedTimeout(java.lang.String, java.lang.String)"></a><h3>preparedTimeout</h3>
+         <ul><code><font size="+1">Read-Write Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getpreparedTimeout</b>()</pre><dl>
+               <dd>글로벌 트랜잭션의 prepared 타임아웃.
+                  
+                  <p>트랜잭션이 commit되어 Root Coordinator로부터 prepare 요청 메세지를 받으면,
+                  Sub Coordinator는 prepare 요청에 대한 응답을 Root Coordinator로 보내고 트랜잭션의 글로벌 결정을 기다린다.</p>
+                  
+                  <p>Sub Coordinator는 자신의 Root Coordinator로부터 이 설정 값(prepared 타임아웃)의 시간 안에 글로벌 결정을 받아야 하며,
+                  이 시간내에 글로벌 결정을 받지 못하면, 로컬 XA 리소스가 포함된 경우에 한해 rollback을 하며, 그외의 경우 글로벌 결정이 내려지기까지
+                  대기한다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>prepared 타임아웃을 반환한다. 단위는 ms이다.</dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+            <h3>Setter : </h3><pre>public void <b>setpreparedTimeout</b>(long timeout)</pre><dl>
+               <dd>글로벌 트랜잭션의 prepared 타임아웃.
+                  
+                  <p>prepared 타임아웃을 설정한다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Parameters:</b><dd><code>timeout</code> - prepared 타임아웃의 설정 값. 단위는 ms이다.
+                        </dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="prepareTimeout"></a><a name="getprepareTimeout(java.lang.String, java.lang.String)setprepareTimeout(java.lang.String, java.lang.String)"></a><h3>prepareTimeout</h3>
+         <ul><code><font size="+1">Read-Write Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getprepareTimeout</b>()</pre><dl>
+               <dd>글로벌 트랜잭션의 prepare 타임아웃.
+                  
+                  <p>트랜잭션이 commit될때 Root Coordinator는 이 시간 내에 Sub Coordinator와 리소스 매니저들로부터 prepare 요청에 따른
+                  응답 신호를 받아야 한다.</p>
+                  
+                  <p>만약 응답을 주어진 prepare 타임아웃 안에 받지 못하면 Root Coordinator는 글로벌 트랜잭션을 rollback 시킨다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>prepare 타임아웃을 반환한다. 단위는 ms이다.</dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+            <h3>Setter : </h3><pre>public void <b>setprepareTimeout</b>(long timeout)</pre><dl>
+               <dd>글로벌 트랜잭션의 prepare 타임아웃.
+                  
+                  <p>트랜잭션이 commit될때 Root Coordinator는 이 시간 내에 Sub Coordinator와 리소스 매니저들로부터 prepare 요청에 따른
+                  응답 신호를 받아야 하는데, 이에 대한 타임아웃 값을 설정한다.</p>
+                  
+                  <p>만약 응답을 주어진 prepare 타임아웃 안에 받지 못하면 Root Coordinator는 글로벌 트랜잭션을 rollback 시킨다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Parameters:</b><dd><code>timeout</code> - prepare 타임아웃의 설정 값. 단위는 ms이다.
+                        </dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="RecoveredXAResourceInfo"></a><a name="getRecoveredXAResourceInfo(java.lang.String, java.lang.String)"></a><h3>RecoveredXAResourceInfo</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> jeus.transaction.logging.ReferenceInfo[] <b>getRecoveredXAResourceInfo</b>()</pre><b>Deprecated.</b>&nbsp;
+            
+            <dl>
+               <dd><i>더이상 사용되지 않는다.  <a href="JTAResourceMBean.html#getIncompletedTransactionInfos()"><code>getIncompletedTransactionInfos()</code></a>로 대체되었음.</i></dd>
+               <p></p>&nbsp;
+               <dd>
+                  <dl></dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="recoveryTimeout"></a><a name="getrecoveryTimeout(java.lang.String, java.lang.String)setrecoveryTimeout(java.lang.String, java.lang.String)"></a><h3>recoveryTimeout</h3>
+         <ul><code><font size="+1">Read-Write Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getrecoveryTimeout</b>()</pre><dl>
+               <dd>트랜잭션의 recovery 타임아웃.
+                  
+                  <p>이 설정 값은 트랜잭션 복구 시에 사용된다.</p>
+                  
+                  <p>트랜잭션 매니저는 트랜잭션 복구를 위해서 복구될 트랜잭션 정보를 가져오려고 한다.
+                  만약 다른 트랜잭션 매니저에서 이 시간 내에 복구 정보를 알려주지 않으면,
+                  해당 트랜잭션 매니저의 이상현상으로 판단하여 특정 시간 후에 재시도 하며,
+                  해당 시스템 관리자에 의해 수동으로 복구할 수도 있다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>recovery 타임아웃을 반환한다. 단위는 ms이다.</dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+            <h3>Setter : </h3><pre>public void <b>setrecoveryTimeout</b>(long timeout)</pre><dl>
+               <dd>트랜잭션의 recovery 타임아웃.
+                  
+                  <p>이 설정 값은 트랜잭션 복구 시에 사용된다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Parameters:</b><dd><code>timeout</code> - recovery 타임아웃의 설정 값. 단위는 ms이다.
+                        </dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="RetryingXAResourceInfos"></a><a name="getRetryingXAResourceInfos(java.lang.String, java.lang.String)"></a><h3>RetryingXAResourceInfos</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> jeus.transaction.info.XAResourceInfo[] <b>getRetryingXAResourceInfos</b>()</pre><dl>
+               <dd>JEUS 트랜잭션 매니저에서 백그라운드 쓰레드로 XA 작업을 완료 시도중인 XAResource들 정보.
+                  
+                  <p>현재 관리되고 있는 이 XAResource들에 대해 정보를 제공하기 위한 API로서,
+                  JEUS 트랜잭션 매니저에서 백그라운드 쓰레드로 XA 작업을 완료 시도중인 XAResource들에 대한 정보를 제공한다.</p>
+                  
+                  <p>Runtime시에 중요한 XA 작업(예를들어 commit(), rollback()등)을  실패할 경우 글로벌 트랜잭션을 보장하기 위해
+                  JEUS는 내부적으로 백그라운드 쓰레드를 통해 실패한 XAResource들을 관리한다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>현재 백그라운드 쓰레드에서 XA 작업을 시도하고 있는 <code>XAResourceInfo</code>객체들</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="TransactionInfos"></a><a name="getTransactionInfos(java.lang.String, java.lang.String)"></a><h3>TransactionInfos</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> jeus.transaction.info.TransactionInfo[] <b>getTransactionInfos</b>()</pre><dl>
+               <dd>현재 JEUS 트랜잭션 매니저가 진행중인 트랜잭션들 정보.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>현재 진행중인 트랜잭션들에 대한 <code>TransactionInfo</code>의 객체들</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+      </p>
+      <p><a name="operation_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Operation Detail</b></font></th>
+            </tr>
+         </table><a name="commit(javax.transaction.xa.Xid)"></a><h3>commit</h3><pre> void <b>commit</b>(javax.transaction.xa.Xid xid)</pre><dl>
+            <dd>외부 트랜잭션 매니저에서 시작된 글로벌 트랜잭션에 대해 수동으로 부분 commit을 수행한다.
+               
+               <p>해당 글로벌 트랜잭션에 대한 xid를 기반으로 commit을 수행하며,
+               이 작업은 글로벌 트랜잭션의 consistency를 깰 수 있으므로 신중히 결정되어야 한다.</p>
+               
+               <p>보통 in-doubt(의심스러운) 트랜잭션에 대해 후 처리를 수동으로 하기 위해 사용된다.</p>
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>xid</code> - 수동으로 commit을 하고자 하는 글로벌 트랜잭션의 xid
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.transaction.xa.XAException</code> - commit을 제대로 수행하지 못하였을 경우. 예를들어 xid가 잘못되었을 경우
+                     </dd>
+                  </dt>
+                  <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="forget(javax.transaction.xa.Xid)"></a><h3>forget</h3><pre> void <b>forget</b>(javax.transaction.xa.Xid xid)</pre><dl>
+            <dd>외부 트랜잭션 매니저에서 시작된 글로벌 트랜잭션에 대해 수동으로 부분 forget을 수행한다.
+               이 작업은 in-doubt 트랜잭션의 로깅된 정보를 제거하는 작업을 포함한다.
+               
+               <p>해당 글로벌 트랜잭션에 대한 xid를 기반으로 forget을 수행하며,
+               이 작업은 글로벌 트랜잭션의 consistency를 깰 수 있으므로 신중히 결정되어야 한다.</p>
+               
+               <p>이 작업은 글로벌 트랜잭션의 consistency를 깰 수 있으므로 신중히 결정되어야 한다.</p>
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>xid</code> - 수동으로 forget을 하고자 하는 글로벌 트랜잭션의 xid
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.transaction.xa.XAException</code> - commit을 제대로 수행하지 못하였을 경우. 예를들어 xid가 잘못되었을 경우
+                     </dd>
+                  </dt>
+                  <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="recover(int)"></a><h3>recover</h3><pre> javax.transaction.xa.Xid[] <b>recover</b>(int flag)</pre><dl>
+            <dd>외부 트랜잭션 매니저에서 시작된 글로벌 트랜잭션 중에서 in-doubt(의심스러운) 트랜잭션 상태의 xid들을 반환.
+               
+               <p>보통 <code>commit(javax.transaction.xa.Xid)</code> 또는 <code>rollback(javax.transaction.xa.Xid)</code>
+               또는 <code>forget(javax.transaction.xa.Xid)</code>등을 위해 xid 리스트를 얻기 위해 사용된다.</p>
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>flag</code> - <code>javax.transaction.xa.XAResource</code>의 TMSTARTRSCAN, TMENDRSCAN, TMNOFLAGS, TMNOFLAGS등이 사용될 수 있다.
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>in-doubt 트랜잭션의 리스트</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.transaction.xa.XAException</code> - recovery를 올바로 수행하지 못하였을 경우
+                     </dd>
+                  </dt>
+                  <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="removeXAResourceInfo(jeus.transaction.logging.ReferenceInfo)"></a><h3>removeXAResourceInfo</h3><pre> void <b>removeXAResourceInfo</b>(jeus.transaction.logging.ReferenceInfo ref)</pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>더이상 사용되지 않는다.</i><br><br><b>Deprecated.</b>&nbsp;
+               &nbsp;
+            </dd>
+         </dl>
+         <hr><a name="resyncXAResource(int, java.lang.String)"></a><h3>resyncXAResource</h3><pre> void <b>resyncXAResource</b>(int resourceType, java.lang.String exportName)</pre><dl>
+            <dd>XADataSource나 JMS Resource 중 해당 export name으로 등록되어 있는 리소스에 대해 recover를 수행한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>resourceType</code> - recovery를 수행하고자 하는 리소스에 대한 타입<br><code>exportName</code> - recovery를 수행하고자 하는 리소스에 대한 export name
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.rmi.RemoteException</code> - 잘못된 리소스 타입을 명시하였을 경우
+                     </dd>
+                  </dt>
+                  <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="resyncXAResource(int, java.lang.String, java.lang.String)"></a><h3>resyncXAResource</h3><pre> void <b>resyncXAResource</b>(int resourceType, java.lang.String exportName, java.lang.String moduleName)</pre><dl>
+            <dd>JEUS Connector를 recover할때 사용한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>resourceType</code> - TYPE_CONNECTOR의 값이어야 한다.<br><code>exportName</code> - Connector의 export name<br><code>moduleName</code> - Connector의 module name
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.rmi.RemoteException</code> - 잘못된 리소스 타입을 명시하였을 경우
+                     </dd>
+                  </dt>
+                  <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="rollback(javax.transaction.xa.Xid)"></a><h3>rollback</h3><pre> void <b>rollback</b>(javax.transaction.xa.Xid xid)</pre><dl>
+            <dd>외부 트랜잭션 매니저에서 시작된 글로벌 트랜잭션에 대해 수동으로 부분 rollback을 수행하거나,
+               현 JEUS 트랜잭션 매니저에서 시작된 특정 트랜잭션에 대해 xid를 기반으로 강제 rollback을 수행한다.
+               
+               <p>해당 글로벌 트랜잭션에 대한 xid를 기반으로 rollback을 수행하며,
+               이 작업은 글로벌 트랜잭션의 consistency를 깰 수 있으므로 신중히 결정되어야 한다.</p>
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>xid</code> - 수동으로 rollback을 하고자 하는 글로벌 트랜잭션의 xid
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.transaction.xa.XAException</code> - rollback을 제대로 수행하지 못하였을 경우
+                     </dd>
+                  </dt>
+                  <dt><b>Permission Action:</b><dd><code>control</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

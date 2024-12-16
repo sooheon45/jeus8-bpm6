@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제4장 보안 시스템 API 프로그래밍</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Security 안내서"/><link rel="up" href="index.html" title="JEUS Security 안내서"/><link rel="prev" href="chapter_application_module_security_setup.html" title="제3장 애플리케이션과 모듈에서 보안 설정"/><link rel="next" href="chapter_custom_security_service_develop.html" title="제5장 Custom 보안 서비스 개발"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제4장 보안 시스템 API 프로그래밍</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_application_module_security_setup.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_custom_security_service_develop.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_security_system_api_programming"></a>제4장 보안 시스템 API 프로그래밍</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_security_system_api_programming.html#d4e3865">4.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_security_system_api_programming.html#d4e3871">4.2. Java SE Permission 설정</a></span></dt><dt><span class="section"><a href="chapter_security_system_api_programming.html#d4e3890">4.3. 기본 API</a></span></dt><dt><span class="section"><a href="chapter_security_system_api_programming.html#d4e3959">4.4. 리소스 API</a></span></dt><dt><span class="section"><a href="chapter_security_system_api_programming.html#d4e4071">4.5. SPI 클래스</a></span></dt><dt><span class="section"><a href="chapter_security_system_api_programming.html#d4e4103">4.6. 예제</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 보안 시스템 API 프로그래밍에 대해 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3865"></a>4.1. 개요</h2></div></div></div>
+    
+
+    <p>사용자 애플리케이션에 자신만의 특별한 보안 기능을 추가하기 위해 보안 시스템 API를 사용하여 프로그래밍할 수 있다.
+    이러한 예로는 애플리케이션을 통해 등록한 사용자를 자동으로 JEUS 보안 시스템에 등록하는 Registration
+    Servlet("auto-registration"이라고 한다)이 있다.</p>
+
+    <p>애플리케이션 프로그래머는 보안 서비스를 개발하기 전에 표준 J2EE 보안 모델과 JEUS의 보안 서비스들이 원하는 보안
+    기능을 제공하는지 먼저 확인한다. 보안 API를 사용하여 프로그램을 개발하게 되면 J2EE 서버 간의 호환성이 떨어진다. 일반적으로
+    J2EE 서버 간의 호환성을 유지하기 위해 표준 J2EE 보안 인터페이스만 사용하기를 권장한다.</p>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3871"></a>4.2. Java SE Permission 설정</h2></div></div></div>
+    
+
+    <p>악의적인 사용자 코드(서블릿, EJB)로부터 JEUS 시스템을 보호하기 위해 보안 API를 사용할 수 있다.</p>
+
+    <p>사용자 코드에 보안 API를 사용하는 경우는 Java SE SecurityManager를 사용하거나 소스 코드(서블릿,
+    EJB)가 SecurityCommonService.loginDefault(Subject)를 사용하여 성공적으로 로그인한 경우이다.
+    이때 Subject는 Target 보안 도메인의 accounts.xml에 미리 설정되어 있는 사용자에 대한 Subject로
+    policies.xml에 설정된 필요한 JEUS Permission을 가지고 있는 경우이다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>각 파일에 대한 설정 방법은 다음을 참고한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>Java SE SecurityManager와 Java SE Policy 파일 : <a href="chapter_security_system_setup.html#sect_JavaSE_SecurityManager_setup" title="2.7.1. Java SE SecurityManager 설정">“2.7.1. Java SE SecurityManager 설정”</a></p>
+        </li><li>
+          <p>accounts.xml : <a href="chapter_security_system_setup.html#sect_security_system_Subject_setup" title="2.5. 보안 시스템 사용자 정보 설정">“2.5. 보안 시스템 사용자 정보 설정”</a></p>
+        </li><li>
+          <p>JEUS 보안 시스템에 policies.xml : <a href="chapter_security_system_setup.html#sect_security_system_Policy_setup" title="2.6. 보안 시스템 정책 설정">“2.6. 보안 시스템 정책 설정”</a>과 <a href="about.html#appendix_reference" title=". 참고 자료">참고 자료</a></p>
+        </li></ul></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3890"></a>4.3. 기본 API</h2></div></div></div>
+    
+
+    <p>애플리케이션 프로그래밍 레벨에서 보안 시스템과 연동할 때
+    <span><strong class="guibutton">jeus.security.base</strong></span> 패키지의 클래스는 중요한 역할을 한다.<a id="d4e3894" class="indexterm"></a></p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="220" align="left"/><col/></colgroup><thead><tr><th align="left">클래스</th><th>설명</th></tr></thead><tbody><tr><td align="left">jeus.security.base.Subject<a id="d4e3906" class="indexterm"></a></td><td><p>사용자를 나타낸다. </p><p>Subject는 단 하나의 메인 Principal을
+            가지고 있으며, 메인 Principal이 Subject의 ID(username)로 취급된다.
+            jeus.security.base.Subject 클래스에 여러 개의 String 속성값이 전달되기도
+            한다.</p></td></tr><tr><td align="left">jeus.security.base.CredentialFactory<a id="d4e3914" class="indexterm"></a></td><td><p>Subject 클래스의 멤버 변수이며, Subject에 대한 실제 Credential을 생성하는
+            데 사용된다. </p><p>예를 들어 PasswordFactory 클래스는 패스워드 Credential
+            인스턴스를 생성하고, JKSCertificateFactory 클래스는 JKS Keystore로부터 인증서를 얻어와서
+            인증서 Credential 인스턴스를 생성한다.</p></td></tr><tr><td align="left">jeus.security.base.Policy<a id="d4e3922" class="indexterm"></a></td><td>하나의 Principal-to-Role 매핑과 여러 개의 Role-to-Resource 매핑을 나타낸다.
+            PermissionMaps을 멤버 변수로 가지고 있다.</td></tr><tr><td align="left">jeus.security.base.PermissionMap<a id="d4e3928" class="indexterm"></a></td><td>java.security.Permission 인스턴스들의 컨테이너로 볼 수 있으며, Policy 클래스의
+            멤버 변수이다.</td></tr><tr><td align="left">jeus.security.base.Role<a id="d4e3934" class="indexterm"></a></td><td><p>논리적 Role을 나타내는 인터페이스이다. </p><p>Role-to-Resource
+            PermissionMap에서는 Role 인스턴스가 Resource Permission에 매핑된다. 마찬가지로
+            Principal-to-Role PermissionMap에서는 Principal이 Role Permission에
+            매핑된다.</p></td></tr><tr><td align="left">jeus.security.base.SecurityCommonService<a id="d4e3942" class="indexterm"></a></td><td>해당 Subject를 인증하고, Subject에 대한 Permission을 체크한다.</td></tr><tr><td align="left">jeus.security.base.SecurityException<a id="d4e3948" class="indexterm"></a></td><td>로그인 실패, 인증 실패, 권한 체크 실패 등의 보안을 위반했을 때 발생하는 예외이다.</td></tr><tr><td align="left">jeus.security.base.ServiceException<a id="d4e3954" class="indexterm"></a></td><td>보안 시스템에서 심각한 런타임 에러가 발생할 때 발생하는 예외이다.</td></tr></tbody></table>
+    </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3959"></a>4.4. 리소스 API</h2></div></div></div>
+    
+
+    <p>리소스와 관련해서 jeus.security.base 패키지의 몇 가지 기본 클래스뿐만 아니라
+    <span><strong class="guibutton">jeus.security.resource</strong></span> 패키지의 클래스도 중요한 역할을
+    한다.<a id="d4e3963" class="indexterm"></a></p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="220" align="left"/><col/></colgroup><thead><tr><th align="left">클래스</th><th>설명</th></tr></thead><tbody><tr><td align="left">jeus.security.resource.PrincipalImpl<a id="d4e3975" class="indexterm"></a></td><td>java.security.Principal 인터페이스의 구현 클래스이다.</td></tr><tr><td align="left">jeus.security.resource.GroupPrincipalImpl<a id="d4e3981" class="indexterm"></a></td><td>그룹 Principal을 나타내는 PrincipalImpl의 서브 클래스로 Nested한 그룹의 멤버를
+            관리하는 java.security.acl.Group 인터페이스의 구현 클래스이다.<a id="d4e3985" class="indexterm"></a></td></tr><tr><td align="left">jeus.security.resource.Password<a id="d4e3989" class="indexterm"></a></td><td>단순한 Password Credential 인스턴스로 PasswordFactory에 의해
+            생성된다.<a id="d4e3993" class="indexterm"></a></td></tr><tr><td align="left">jeus.security.resource.PasswordFactory<a id="d4e3997" class="indexterm"></a></td><td>Password Credential을 생성하는 CredentialFactory이다.<a id="d4e4001" class="indexterm"></a><a id="d4e4003" class="indexterm"></a></td></tr><tr><td align="left">jeus.security.resource.Lock<a id="d4e4007" class="indexterm"></a></td><td><p>일종의 Credential로 해당 Subject에 Lock을 건다.
+            </p><p>Lock이 걸린 Subject로 로그인하게 되면 항상 실패하게 된다.</p></td></tr><tr><td align="left">jeus.security.resource.LockFactory<a id="d4e4015" class="indexterm"></a></td><td>Lock Credential을 생성하는 CredentialFactory<a id="d4e4019" class="indexterm"></a>이다.</td></tr><tr><td align="left">jeus.security.resource.ExpiryTime<a id="d4e4023" class="indexterm"></a></td><td><p>일종의Credential로 해당 Subject의 만료 기간을 설정한다.
+            </p><p>Subject가 만료된 후 해당 Subjet를 사용하여 로그인을 시도하면 모두
+            실패한다.</p></td></tr><tr><td align="left">jeus.security.resource.ExpiryTimeFactory<a id="d4e4031" class="indexterm"></a></td><td>ExpiryTime<a id="d4e4035" class="indexterm"></a>을 생성하는 CredentialFactory<a id="d4e4037" class="indexterm"></a>이다.</td></tr><tr><td align="left">jeus.security.resource.RoleImpl<a id="d4e4041" class="indexterm"></a></td><td>Role 인터페이스를 구현한 클래스이다.</td></tr><tr><td align="left">jeus.security.resource.RolePermission<a id="d4e4047" class="indexterm"></a></td><td>특정 Principal이 특정 Role에 속한다는 것을 나타내는
+            java.security.Permission의 서브 클래스이다. RolePermission은
+            Principal-to-Role 매핑을 나타낼 때 사용된다.</td></tr><tr><td align="left">jeus.security.resource.TimeConstrainedRolePermission<a id="d4e4053" class="indexterm"></a></td><td>RolePermission의 서브 클래스로 현재 시간이 설정된 시간 범위 내에 있을 때만
+            Principal이 이 클래스의 슈퍼 클래스가 나타내는 Role에 속한다는 것을 나타낸다.</td></tr><tr><td align="left">jeus.security.resource.ResourcePermission<a id="d4e4059" class="indexterm"></a></td><td><p>java.security.Permission의 서브 클래스로 Role이 리소스에 접근해서 특정
+            액션을 실행할 수 있다는 개념을 나타낸다. </p><p>따라서 ResourcePermission은
+            Role-to-Resource 매핑을 나타낼 때 사용된다.</p></td></tr></tbody></table>
+    </div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>해당 클래스에 대한 자세한 정보는 Javadoc과 <a href="about.html#appendix_reference" title=". 참고 자료">참고 자료</a>를 확인한다.</p>
+      </div>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4071"></a>4.5. SPI 클래스</h2></div></div></div>
+    
+
+    <p>보안 시스템의 근간을 이루는 서비스와 작업하려면, <span><strong class="guibutton">jeus.security.spi</strong></span>
+    패키지의 SPI 클래스를 사용해야 한다.<a id="d4e4075" class="indexterm"></a></p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="220" align="left"/><col/></colgroup><thead><tr><th align="left">클래스</th><th>설명</th></tr></thead><tbody><tr><td align="left">jeus.security.spi.AuthenticationRepositoryService<a id="d4e4087" class="indexterm"></a></td><td>Subject 저장소로부터 Subject를 추가, 삭제, 조회하는 데 사용된다. 이 API를 이용하면
+            Subject(user)를 프로그램 내에서 추가할 수 있다.</td></tr><tr><td align="left">jeus.security.spi.AuthorizationRepositoryService<a id="d4e4093" class="indexterm"></a></td><td>Policy 저장소로부터 Policy 데이터를 추가, 삭제, 조회하는 데 사용된다. 이 API를 이용하면
+            프로그램 내에서 Permission을 추가할 수 있다.</td></tr></tbody></table>
+    </div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>해당 클래스에 대한 자세한 정보는 Javadoc과 <a href="about.html#appendix_reference" title=". 참고 자료">참고 자료</a>를 확인한다. SPI 클래스에 대한 더욱 상세한
+        정보는 <a href="chapter_custom_security_service_develop.html" title="제5장 Custom 보안 서비스 개발">“제5장 Custom 보안 서비스 개발”</a>을
+        참고한다.</p>
+      </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4103"></a>4.6. 예제</h2></div></div></div>
+    
+
+    <p>다음 예제는 보안 API를 사용한 프로그램의 일부이다.<a id="d4e4106" class="indexterm"></a><a id="d4e4108" class="indexterm"></a></p><pre class="programlisting">// Login the CodeSubject so that security checks are
+// disabled (so that we can modify the Subject and Policy
+// stores)
+SecurityCommonService.loginCodeSubject();
+
+// Make Subject with Principal “pete”
+Principal petePrincipal = new PrincipalImpl(“pete”);
+Subject pete = new Subject(petePrincipal);
+
+// Make password “petepw” for Subject “pete”
+PasswordFactory pf = new PasswordFactory(“petepw”);
+pete.getCredentialFactories().add(pf);
+
+// Add new Subject to the Subject store
+AuthenticationRepositoryService.addSubject(pete);
+
+// Make a new Policy
+Policy policy = new Policy();
+
+// Make role “someRole”
+Role someRole = new RoleImpl(“someRole”);
+
+// Make a RolePermission for role “someRole”
+Permission rolePermission = new RolePermission(someRole);
+
+// Add the RolePermission for “someRole” to the Policy
+policy.getRolePolicy().addPermission(
+     rolePermission, new Object[] {petePrincipal}, false, false);
+
+// Create a ResourcePermission for resource “rsc1” with actions
+// “action1” and “action2”
+Permission rscPermission = 
+new ResourcePermission(“rsc1”, “action1,action2”);
+
+// Add the ResourcePermission to the Policy using 
+// context id “ctx1”
+policy.getResourcePolicy(“ctx1”, true).addPermission(
+     rscPermission, new Object[] {someRole}, false, false);
+
+// Add the new Policy to the Policy store
+AuthorizationRepositoryService.addPolicy(policy);
+
+// Logout the CodeSubject so that security checks are 
+// enabled again
+SecurityCommonService.logout();
+
+// Make a Subject to be logged in
+Subject pete2 = Subject.makeSubject(“pete”, “petepw”);
+
+// Login Subject “pete” (should succeed since we added 
+// “pete” earlier)
+SecurityCommonService.loginDefault(pete2);
+
+// Check ResourcePermission “rsc1” for current Subject (“pete”)
+// Should succeed since we added Policy for this above
+SecurityCommonService.checkPermission(
+     “ctx1”, new ResourcePermissin(“rsc1”, “action2”);
+
+// Print the name of the current Subject (“pete”)
+System.out.println(
+SecurityCommonService.getCurrentSubject().getPrincipal().getName());
+
+// Logout “pete”
+SecurityCommonService.logout();</pre>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_application_module_security_setup.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_custom_security_service_develop.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제3장 애플리케이션과 모듈에서 보안 설정 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제5장 Custom 보안 서비스 개발</td></tr></table></div><div xmlns="" align="center"/></body></html>

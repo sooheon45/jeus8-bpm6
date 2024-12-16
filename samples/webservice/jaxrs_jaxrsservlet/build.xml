@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jaxrsservlet" default="all" basedir=".">
+
+    <property name="is.war.module" value="true" />
+
+    <import file="../../common/common-build.xml" />
+
+    <target name="build">
+        <antcall target="do-compile"/>
+        <antcall target="do-package-war" />
+    </target>
+
+    <target name="run">
+        <antcall target="launch">
+            <param name="run.uri" value="${module.name}/rest/hello" />
+        </antcall>
+   	</target>
+
+    <target name="all" depends="build, deploy, run" />
+
+</project>

@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+
+<project name="deploy" default="deploy" basedir=".">
+
+    <property environment="env"/>
+
+    <property file="../../common/app-server.properties"/>
+
+    <path id="jeus.libraries">
+        <fileset dir="${jeus.home}/lib/system" includes="*.jar"/>
+    </path>
+
+    <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="../../common/lib/ant-contrib-1.0b3.jar"/>
+
+    <taskdef resource="jeus/util/ant/jeusant.properties">
+        <classpath>
+            <path refid="jeus.libraries"/>
+        </classpath>
+    </taskdef>
+
+    <echo>${jeus.home}</echo>
+    <property name="java.library.path"
+              value="${jeus.home}/lib/endorsed:${java.library.path};${jeus.home}/lib/system"/>
+
+    <property name="app.id" value="${app.id}" />
+
+    <property name="target.servers" value="${target.servers}" />
+    <property name="target.clusters" value="${target.clusters}" />
+    <property name="target.vhost" value="${target.vhost}" />
+    <property name="all.target" value="${all.target}" />
+
+    <property name="app.type" value="${app.type}" />
+    <property name="shared.classloading" value="${shared.classloading}" />
+    <property name="auto.redeploy" value="-1" />
+    <property name="security.domain" value="${security.domain}" />
+    <property name="keep.gen" value="false" />
+    <property name="fast.deploy" value="false" />
+    <property name="shared" value="false" />
+    <property name="plan.name" value="" />
+    <property name="staging.mode" value="false" />
+    <property name="context.path" value="" />
+
+    <property name="dist.only" value="false" />
+
+    <property name="grace.timeout" value="0" />
+
+    <property name="old" value="false" />
+    <property name="new" value="false" />
+
+    <property name="all" value="false" />
+
+    <property name="app.path" value="${app.path}" />
+    <property name="force" value="false" />
+    <property name="upgrade.dd" value="false" />
+
+    <property name="hostName" value="${jeus.host}:${jeus.baseport}" />
+    <property name="userName" value="${jeus.admin.username}" />
+    <property name="password" value="${jeus.admin.password}"/>
+
+
+    <target name="install">
+        <fail unless="app.path"/>
+        <echo message="install-application path=${app.path} id=${app.id}"/>
+        <install sourcePath="${app.path}"
+                 applicationId="${app.id}"
+                 force="${force}"
+                 useCompatibleDD="${upgrade.dd}"
+                 hostName="${hostName}"
+                 userName="${userName}"
+                 password="${password}"/>
+    </target>
+
+    <target name="deploy">
+        <fail unless="app.id"/>
+        <echo>deploy ${app.id}</echo>
+        <deploy applicationId="${app.id}"
+                applicationPath="${app.path}"
+                serverTargets="${target.servers}"
+                clusterTargets="${target.clusters}"
+                vhostName="${target.vhost}"
+                allTarget="${all.target}"
+                applicationType="${app.type}"
+                useSharedClassLoading="${shared.classloading}"
+                autoRedeployInterval="${auto.redeploy}"
+                securityDomainName="${security.domain}"
+                keepGenerated="${keep.gen}"
+                fastDeploy="${fast.deploy}"
+                useSharedDisk="${shared}"
+                deploymentPlanName="${plan.name}"
+                contextPath="${context.path}"
+                stagingMode="${staging.mode}"
+                useCompatibleDD="${upgrade.dd}"
+                onlyDistribute="${dist.only}"
+                hostName="${hostName}"
+                userName="${userName}"
+                password="${password}"/>
+    </target>
+
+    <target name="start">
+        <fail unless="app.id"/>
+        <echo>start ${app.id}</echo>
+        <modulecommand command="start"
+                       applicationId="${app.id}"
+                       hostName="${hostName}"
+                       userName="${userName}"
+                       password="${password}"/>
+    </target>
+
+    <target name="stop">
+        <fail unless="app.id"/>
+        <echo>stop ${app.id}</echo>
+        <modulecommand command="stop"
+                       applicationId="${app.id}"
+                       hostName="${hostName}"
+                       userName="${userName}"
+                       password="${password}"/>
+    </target>
+
+    <target name="undeploy">
+        <fail unless="app.id"/>
+        <echo>undeploy ${app.id}</echo>
+        <modulecommand command="undeploy"
+                       applicationId="${app.id}"
+                       gracefulTimieout="${grace.timeout}"
+                       onlyOldVersion="${old}"
+                       onlyNewVersion="${new}"
+                       allApplication="${all}"
+                       hostName="${hostName}"
+                       userName="${userName}"
+                       password="${password}" />
+    </target>
+
+    <target name="redeploy">
+        <fail unless="app.id"/>
+        <echo>redeploy ${app.id}</echo>
+        <redeploy applicationId="${app.id}"
+                  sourcePath="${app.path}"
+                  gracefulTimeout="${grace.timeout}"
+                  force="${force}"
+                  distributeOnly="${dist.only}"
+                  deploymentPlanName="${plan.name}"
+                  hostName="${hostName}"
+                  userName="${userName}"
+                  password="${password}"/>
+    </target>
+
+    <target name="uninstall">
+        <fail unless="app.id"/>
+        <echo>uninstall ${app.id}</echo>
+        <modulecommand command="uninstall"
+                       applicationId="${app.id}"
+                       allApplication="${all}"
+                       hostName="${hostName}"
+                       userName="${userName}"
+                       password="${password}"/>
+    </target>
+
+    <target name="addtarget">
+        <fail unless="app.id"/>
+        <echo>addtarget ${app.id} servers=${target.servers} clusters=${target.clusters}</echo>
+        <apptargetcommand command="add"
+                          applicationId="${app.id}"
+                          serverTargets="${target.servers}"
+                          clusterTargets="${target.clusters}"
+                          vhostName="${target.vhost}"
+                          hostName="${hostName}"
+                          userName="${userName}"
+                          password="${password}"/>
+    </target>
+
+    <target name="removetarget">
+        <fail unless="app.id"/>
+        <echo>removetarget ${app.id} servers=${target.servers} clusters=${target.clusters}</echo>
+        <apptargetcommand command="remove"
+                          applicationId="${app.id}"
+                          serverTargets="${target.servers}"
+                          clusterTargets="${target.clusters}"
+                          vhostName="${target.vhost}"
+                          hostName="${hostName}"
+                          userName="${userName}"
+                          password="${password}"/>
+    </target>
+</project>

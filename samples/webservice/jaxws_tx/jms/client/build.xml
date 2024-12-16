@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="wstxTestClient" default="all" basedir=".">
+    <property name="is.war.module" value="true" />
+
+    <import file="../../../common/common-build.xml" />
+
+    <target name="-pre-compile">
+        <mkdir dir="${build.classes.dir}" />
+        <antcall target="wsimport">
+            <param name="package.name" value="wstx.client" />
+            <param name="binding.file" value="" />
+            <param name="wsdl.file" value="http://192.168.14.242:8088/wstxTest/WSTxTestService?wsdl" />
+            <!--param name="wsdl.file" value="http://${jeus.http.host}:${jeus.http.port}/wstxTest/WSTxTestService?wsdl" /-->
+
+        </antcall>
+    </target>
+
+    <property name="run.uri" value="wstxTestClient/wstxtest" />
+	
+    <target name="run" depends="launch" />
+	
+    <!--target name="do-deploy-cmd" depends="setTools">
+        <fail unless="file"/>
+        <property name="args" value="${jeus.node} -U${jeus.admin.username} -P${jeus.admin.password} deploy -con ${jeus.node}_container2 -absolute-path ${file} as ${module.name}"/>
+        <echo>jeusadmin ${args}</echo>
+        <exec executable="${cmd.jeusadmin}" failonerror="true">
+            <arg line="${args}"/>
+        </exec>
+    </target-->
+	
+    <target name="all" depends="build, deploy, run" />
+</project>

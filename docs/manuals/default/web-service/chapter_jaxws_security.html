@@ -1,0 +1,2987 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제17장 웹 서비스 보안</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Service 안내서"/><link rel="up" href="pt01.html" title="Part I. JEUS 8 웹 서비스"/><link rel="prev" href="chapter_jaxws_tx.html" title="제16장 웹 서비스 트랜잭션"/><link rel="next" href="chapter_jaxrs_server_sent_events.html" title="제18장 Server-Sent Event"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제17장 웹 서비스 보안</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jaxws_tx.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part I. JEUS 8 웹 서비스</td><td width="20%" align="right"> <a accesskey="n" href="chapter_jaxrs_server_sent_events.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jaxws_security"></a>제17장 웹 서비스 보안</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jaxws_security.html#d4e3486">17.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#sect_jeus_webservice_security_ssl_wsit">17.2. 전송 수준 보안</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#d4e3539">17.3. 메시지 수준 보안</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_security.html#sect_ws-security-policy">17.3.1. 웹 서비스 보안 정책</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#sect_ws-security">17.3.2. 웹 서비스 보안</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#sect_ws-secureconversation">17.3.3. 웹 서비스 보안 대화</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#sect_ws-trust">17.3.4. 웹 서비스 신뢰</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxws_security.html#d4e3815">17.4. 메시지 수준 보안 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_security.html#d4e3823">17.4.1. 공통 설정</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#d4e4099">17.4.2. 사용자명 인증을 통한 대칭 바인딩의 인증 기능 강화</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#d4e4157">17.4.3. 상호 인증 보안(Mutual Certificates Security)</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#d4e4176">17.4.4. SSL을 통한 SAML 인증</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#d4e4216">17.4.5. 보안 대화(Secure Conversation)</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#d4e4237">17.4.6. 웹 서비스 신뢰(WS-Trust)</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#d4e4272">17.4.7. 실행</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxws_security.html#d4e4279">17.5. JAX-RPC(JEUS 5) 웹 서비스 보안 이전 방법</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_security.html#d4e4284">17.5.1. 암호화(Encryption)</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#d4e4314">17.5.2. 서명(Signature)</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#d4e4344">17.5.3. Timestamp</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#d4e4375">17.5.4. 사용자명 토큰(Username Token)</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxws_security.html#d4e4406">17.6. 접근 제어 설정된 웹 서비스 호출 방법</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_security.html#sect_configure_jeus_webservice_domain_wsit">17.6.1. Portable Artifact의 생성</a></span></dt><dt><span class="section"><a href="chapter_jaxws_security.html#sect_configure_jeus_webservice_domain_wsit">17.6.2. 웹 서비스의 클라이언트 작성</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 전송 수준과 메시지 수준의 웹 서비스 보안에 대해 자세히 설명하고, JEUS 웹 서비스에서 이러한 보안을 적용하는
+  방법에 대해 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3486"></a>17.1. 개요</h2></div></div></div>
+    
+
+    <p><a id="d4e3489" class="indexterm"></a>웹 서비스에 보안을 적용하기 위해서는 전통적으로 다음과 같은 2가지 방식이 존재한다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>전송 수준 보안(Transport-level Security)<a id="d4e3494" class="indexterm"></a><a id="d4e3496" class="indexterm"></a></p>
+
+          <p>SSL을 사용하여 클라이언트와 웹 서비스 사이의 연결 보안을 보장한다.</p>
+
+          <p>전송 수준 보안을 적용하려면 클라이언트와 JEUS 서버 간의 연결을 SSL을 사용하여 안전하게 할 수 있다.
+          그러나 이러한 방식은 연결 자체만을 안전하게 하며 클라이언트와 JEUS 서버 사이에 라우터나 메시지 큐와 같은
+          매개체(Intermediary)가 있다면 매개체는 SOAP 메시지를 암호화되지 않은 읽히기 쉬운 텍스트 문서 형태로 가질
+          수 있다. 또한 전송 수준 보안은 전체적인 메시지를 다루므로 메시지 일부의 보안 적용이 불가능하다.</p>
+        </li><li>
+          <p>메시지 수준 보안<a id="d4e3503" class="indexterm"></a><a id="d4e3505" class="indexterm"></a></p>
+
+          <p>SOAP 메시지를 전자 서명이나 암호화한다.</p>
+
+          <p>메시지 수준 보안은 SSL의 보안의 장점을 포함하면서 부가적인 유연성을 제공한다. 메시지 수준 보안은 메시지
+          전달 과정에서 하나 이상의 매개체가 존재하더라도 보안이 유지되는 End-to-End 보안이다. 연결 자체의 보안 유지보다는
+          SOAP 메시지 자체의 서명과 암호화를 의미한다. 또한 부분적인 서명과 암호화가 가능하다는 장점이 있다.</p>
+        </li></ul></div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_jeus_webservice_security_ssl_wsit"></a>17.2. 전송 수준 보안</h2></div></div></div>
+    
+
+    <p><a id="d4e3516" class="indexterm"></a>웹 서비스의 전송 수준 보안은 웹 서비스 클라이언트 응용 프로그램과 웹 서비스 간의 연결을 SSL을 사용하여
+    안전하게 하는 것을 의미한다.</p>
+
+    <p>전체적인 절차는 다음과 같다.</p><div class="orderedlist"><ol type="1"><li>
+          <p>JEUS 서버의 SSL을 설정한다.</p>
+
+          <p>웹 서비스 개발 부분은 추가 작업이 필요하지 않다. JEUS 서버에서의 SSL 설정은 <a xmlns="" href="../web-engine/index.html" class="olink">"JEUS Web Engine
+          안내서"</a>를 참조한다.</p>
+        </li><li>
+          <p>다음의 과정으로 클라이언트 응용 프로그램의 SSL을 설정한다.</p>
+
+          <div class="orderedlist"><ol type="a"><li>
+              <p>인증서를 가져온다(Internet Explorer 등을 통해 인증서를 로컬 디렉터리에
+              저장한다).</p>
+            </li><li>
+              <p>가져온 인증서를 Keystore에 저장한다.</p>
+            </li><li>
+              <p>wsimport를 사용하여 WSDL로부터 Stub을 생성하려고 하거나 클라이언트에서 웹 서비스를 호출하기
+              위해 클라이언트를 실행할 때 시스템 프로퍼티 값을 다음과 같이 설정한다.</p>
+
+              <pre class="programlisting">–Djavax.net.ssl.trustStore=keystore_name</pre><pre class="programlisting">–Djavax.net.ssl.trustStorePassword=keystore_password</pre>
+            </li><li>
+              <p>wsimport 툴을 사용하기 위해 추가적으로 다음과 같은 환경변수 설정이 필요하다.</p>
+
+              <pre class="programlisting">set WSIMPORT_OPTS=-Djavax.net.ssl.trustStore=keystore_name 
+      -Djavax.net.ssl.trustStorePassword=keystore_password</pre>
+            </li></ol></div>
+        </li></ol></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3539"></a>17.3. 메시지 수준 보안</h2></div></div></div>
+    
+
+    <p>다음은 JEUS 웹 서비스가 구현하고 있는 웹 서비스 보안에 관한 명세서이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><a href="chapter_jaxws_security.html#sect_ws-security-policy" title="17.3.1. 웹 서비스 보안 정책">웹 서비스 보안 정책(WS-Security
+        Policy)</a></p>
+      </li><li>
+        <p><a href="chapter_jaxws_security.html#sect_ws-security" title="17.3.2. 웹 서비스 보안">웹 서비스
+        보안(WS-Security)</a></p>
+      </li><li>
+        <p><a href="chapter_jaxws_security.html#sect_ws-secureconversation" title="17.3.3. 웹 서비스 보안 대화">웹 서비스 보안
+        대화(WS-SecureConversation)</a></p>
+      </li><li>
+        <p><a href="chapter_jaxws_security.html#sect_ws-trust" title="17.3.4. 웹 서비스 신뢰">웹 서비스 신뢰(WS-Trust)</a></p>
+      </li></ul></div>
+
+    <p>본 절에서는 각각의 명세서들에 대해 그 의미와 시나리오에 대해 설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_ws-security-policy"></a>17.3.1. 웹 서비스 보안 정책</h3></div></div></div>
+      
+
+      <p><a id="d4e3559" class="indexterm"></a>웹 서비스 보안 정책(WS-Security Policy) 명세는 어떻게 메시지가 보안화되어 이동되는지를
+      설명하는 전제(assertion)들을 정의한다. 이러한 전제들은 토큰, 암호화 기법, 사용되는 메커니즘, 전송 보안 등의 정책들을
+      포괄하는 유연성을 따른다. 이러한 웹 서비스 보안 정책은 웹 서비스 메시지 수준 보안을 구현할 때 핵심적인 요소이다.</p>
+
+      <p>JEUS 웹 서비스에서는 여러 가지 웹 서비스 메시지 수준 보안을 위한 시나리오별 예제들을 제공한다. 이러한 시나리오별
+      예제의 웹 서비스 보안 정책을 적용한 정책 파일들은 여러 가지 웹 서비스의 메시지 보안을 적용하는 데 도움이 될
+      것이다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_ws-security"></a>17.3.2. 웹 서비스 보안</h3></div></div></div>
+      
+
+      <p><a id="d4e3566" class="indexterm"></a>웹 서비스 보안(WS-Security) 명세는 메시지의 XML 서명을 사용한 데이터 무결성과 XML
+      암호화를 사용한 데이터 비밀성 2가지를 실현하여 안전한 웹 서비스를 구현할 때 사용되는 확장된 SOAPElement들을 정의하고
+      있다.</p>
+
+      <p>다음은 웹 서비스 보안 명세를 사용한 웹 서비스 보안 시나리오이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>사용자명 인증(Username Authentication)을 통한 대칭 바인딩의 인증 기능 강화</p>
+          </li><li>
+            <p>상호 인증 보안</p>
+          </li><li>
+            <p>SSL을 통한 SAML 인증</p>
+          </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e3580"></a>17.3.2.1. 사용자명 인증을 통한 대칭 바인딩의 인증 기능 강화</h4></div></div></div>
+        
+
+        <p>이 예제는 대칭 바인딩(Symmetric Binding)을 통한 메시지 보안 예제이다. 앞서 설명한 것과 마찬가지로
+        대칭 바인딩에서는 클라이언트와 서버가 암호화 키와 서명에 동일한 인증서 정보를 사용한다. 이 예제에서는 그 인증서 정보로써
+        서버의 인증서를 사용한다. 이때 클라이언트는 자신이 누구인지를 서버에 인증받을 방법이 별도로 존재하지 않기 때문에 부가적으로
+        사용자명 토큰을 사용한다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p>다음은 사용자명 인증(Username Authentication)의 시나리오와 Keystore 설정에 대한
+        설명이다.</p>
+
+        <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">시나리오 </strong></span></p>
+
+            <p>다음은 사용자명 인증의 시나리오이다.</p>
+
+            <div class="orderedlist"><ol type="1"><li>
+                <p>클라이언트는 대칭 키를 생성한 후 이를 사용해 요청 메시지를 암호화 및 서명을 한다. 이때 서버의
+                공개 키를 사용하여 대칭 키를 함께 메시지에 담아 보낸다. 추가적으로 사용자명과 비밀번호 정보를 함께
+                보낸다.</p>
+              </li><li>
+                <p>서버는 서버의 개인 키를 사용하여 대칭 키를 해독한 뒤 이를 사용하여 클라이언트의 요청 메시지를
+                복호화하고 서명을 검증한다. 추가적으로 사용자명과 비밀번호를 통해 클라이언트를 인증한다.</p>
+              </li><li>
+                <p>서버는 다시 그 대칭 키를 통해 응답 메시지를 서명 및 암호화한다. 이때 대칭 키를 별도로
+                클라이언트로 전송하지는 않는다.</p>
+              </li><li>
+                <p>클라이언트는 가지고 있던 대칭 키를 사용하여 서버의 응답 메시지를 해석하고 서명을
+                확인한다.</p>
+              </li></ol></div>
+          </li><li>
+            <p><span><strong class="guibutton">Keystore 설정</strong></span></p>
+
+            <p>다음은 Keystore 설정 정보이다.</p>
+
+            <div class="informaltable">
+                <table border="1"><colgroup><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">클라이언트</td><td>서버의 공개 키가 담긴 Keystore이다.</td></tr><tr><td align="left">서버</td><td>서버의 개인 키가 담긴 Keystore이다.</td></tr></tbody></table>
+              </div>
+          </li></ul></div>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e3621"></a>17.3.2.2. 상호 인증 보안</h4></div></div></div>
+        
+
+        <p>이 예제는 비대칭 바인딩, 상호 인증서를 통한 메시지 보안 예제이다. 대칭 바인딩과 달리 비대칭 바인딩에서는
+        클라이언트와 서버가 암호화 키와 서명에 서로 다른 인증서 정보를 사용한다. 서로 자신의 개인 키로 서명을 하고 인증서 정보를
+        넘겨줌으로써 서로 서명을 검증할 때 상대편이 누구인지를 인증할 수 있다.</p>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <p>다음은 상호 인증 보안 시나리오와 Keystore 설정에 대한 설명이다.</p>
+
+        <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">시나리오 </strong></span></p>
+
+            <p>다음은 상호 인증 보안 (Mutual Certificates Security)의 시나리오이다.</p>
+
+            <div class="orderedlist"><ol type="1"><li>
+                <p>클라이언트는 클라이언트의 개인 키로 메시지에 서명을 하고 하나의 대칭 키를 생성해서 메시지를 암호화한
+                후, 그 대칭 키를 서버의 공개 키를 사용하여 암호화하여 메시지와 함께 서버에게 요청 메시지를 보낸다. 이때
+                인증 역할을 하게 될 클라이언트의 인증서를 함께 보낸다.</p>
+              </li><li>
+                <p>서버는 서버의 개인 키를 사용하여 대칭 키를 꺼낸 후 암호화된 메시지를 해석한다. 인증서를 통해
+                인증을 하고 클라이언트의 공개 키로 서명을 검증한다.</p>
+              </li><li>
+                <p>서버는 서버의 개인 키로 메시지에 서명을 하고 하나의 대칭 키를 생성해서 메시지를 암호화한 후 그
+                대칭 키를 클라이언트의 공개 키를 사용하여 암호화하며 메시지와 함께 클라이언트에게 응답 메시지를 보낸다. 이때
+                인증 역할을 하게 될 서버의 인증서는 함께 보내지 않는다.</p>
+              </li><li>
+                <p>클라이언트는 클라이언트의 개인 키를 사용하여 대칭 키를 꺼낸후 암호화된 메시지를 해석한다. 서버의
+                공개 키로 서명을 확인한다.</p>
+              </li></ol></div>
+          </li><li>
+            <p><span><strong class="guibutton">Keystore 설정</strong></span></p>
+
+            <p>다음은 Keystore 설정 정보이다.</p>
+
+            <div class="informaltable">
+                <table border="1"><colgroup><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">클라이언트</td><td>서버의 공개 키가 담긴 Keystore이다.</td></tr><tr><td align="left">서버</td><td>서버의 개인 키가 담긴 Keystore이다.</td></tr></tbody></table>
+              </div>
+          </li></ul></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e3660"></a>17.3.2.3. SSL을 통한 SAML 인증</h4></div></div></div>
+        
+
+        <p>본 절에서는 SAML(Security Assertions Mark-up Language) 토큰을 SOAP 메시지
+        Header에 포함시켜 보내는 방법에 대해 설명한다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p>실제 웹 서비스에서 SAML 토큰을 사용한 서비스를 하려면 이러한 SAML 토큰을 생성하는 SAML 토큰
+        프레임워크가 필요하다. 여기서는 단순히 핸들러를 통해 SAML 토큰을 텍스트로 생성해서 보내는 예를 통해 어떻게 SAML
+        토큰을 SOAP 메시지 Header에 포함시키는지에 대해 알 수 있다.</p>
+
+        <p>웹 서비스의 발전과 사용자의 활용 빈도가 높아짐에 따라 다양한 웹 애플리케이션 간에 보안 및 인증 정보를 교환할
+        필요성이 높아지고 이에 따른 교환 표준이 필요하다. 이와 같은 표준을 제공하기 위해 탄생한 언어가 SAML이다.</p>
+
+        <p>SAML은 다음과 같은 기능을 제공한다.</p>
+
+        <div class="itemizedlist"><ul type="circle"><li style="list-style-type: circle">
+            <p>사용자 보안 정보에 대한 XML 포맷을 제공하고 이러한 정보를 요청 및 전송하기 위한 포맷을
+            제공한다.</p>
+          </li><li style="list-style-type: circle">
+            <p>SOAP과 같은 프로토콜에서 이러한 메시지를 사용하는 방법을 정의한다.</p>
+          </li><li style="list-style-type: circle">
+            <p>웹 SSO와 같이 일반적인 특정 사용 사례에 대해 자세한 메시지 교환 방법을 지정한다.</p>
+          </li><li style="list-style-type: circle">
+            <p>사용자의 신원을 Export시키지 않고 사용자 속성을 결정하는 기능을 비롯하여 여러 가지 개인 정보 보호
+            메커니즘을 지원한다.</p>
+          </li><li style="list-style-type: circle">
+            <p>UNIX, Microsoft Windows, X.509, LDAP, DCE, XCML 등 널리 사용되는
+            기술에서 제공하는 포맷으로 ID 정보를 처리하는 방법을 제공한다.</p>
+          </li><li style="list-style-type: circle">
+            <p>메타 데이터 스키마를 수식화하여 참여하는 시스템에서 지원하는 SAML 옵션과 통신할 수 있는 기능을
+            제공한다.</p>
+          </li></ul></div>
+
+        <div class="literallayout"><p/></div>
+
+        <p/>
+
+        <p>다음은 SSL을 통한 SAML 인증을 사용하기 위한 시나리오이다.</p>
+
+        <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">시나리오 </strong></span></p>
+
+            <div class="orderedlist"><ol type="1"><li>
+                <p>클라이언트는 SAML 토큰을 SOAP 메시지 Header에 포함하여 SSL 설정을 통해 메시지를
+                보낸다.</p>
+              </li><li>
+                <p>서버는 SOAP 메시지 Header에 포함된 SAML 토큰을 해석하고 응답 메시지를
+                보낸다.</p>
+              </li></ol></div>
+          </li></ul></div>
+
+        <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>모든 클라이언트와 서버의 메시지 교환은 JEUS 서버의 SSL 설정을 통해 이루어진다.</p>
+        </div>
+
+        <h5><a id="d4e3696"></a> </h5>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_ws-secureconversation"></a>17.3.3. 웹 서비스 보안 대화</h3></div></div></div>
+      
+
+      <p><a id="d4e3703" class="indexterm"></a>웹 서비스 보안 대화(Web Service Secure Conversation) 명세는 서비스 제공자와
+      클라이언트 간의 보안 컨텍스트 생성 및 공유를 정의한다. 보안 컨텍스트는 메시지를 교환할 때 생기는 간접비용(overhead)을
+      줄이기 위해 사용된다. 이 명세는 보다 나은 메시지 수준의 보안과 보다 효율적인 다중 메시지 교환을 제공하기 위한 표준을
+      정의한다.</p>
+
+      <p>이 명세를 따르고 있는 JEUS 웹 서비스는 다중 메시지 교환을 위한 보안 방식이 정의되는 기본 메커니즘을 제공하고
+      더욱 더 효율적인 키나 새로운 키 재료와 함께 컨텍스트가 수립되도록 한다. 이러한 접근은 전체적인 성능과 다음에 따르는 메시지
+      교환의 보안성을 향상시킨다.</p>
+
+      <p>대칭 바인딩에서는 메시지를 여러 번 주고받을 때마다 암호화 키를 매번 생성해야 한다. 따라서 메시지를 여러 번 주고받는
+      시나리오에서는 적합하지 않다. 이 예제에서는 보안 대화(Secure Conversation)를 통해 첫 메시지를 주고받기 전
+      Handshaking 과정을 통해 비대칭 바인딩으로 서로 SecureContext를 수립하고 이후 실제 메시지를 여러 번 주고받을
+      때는 수립한 SecureContext를 사용하여 대칭 바인딩과 같이 서명과 암호화에 사용하게 된다. 인증 과정은 처음 비대칭
+      바인딩을 통한 SecureContext 수립 과정에서 거치게 된다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 웹 서비스 보안 대화의 시나리오와 Keystore 설정에 대한 설명이다.</p>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">시나리오 </strong></span></p>
+
+          <p>다음은 웹 서비스 보안 대화의 시나리오이다.</p>
+
+          <div class="orderedlist"><ol type="1"><li>
+              <p>클라이언트는 자신의 인증서와 SecureContext 정보를 자신의 인증서를 사용해서 서명하고, 서버의
+              공개 키로 암호화하여 서버에 전송한다(비대칭 바인딩).</p>
+            </li><li>
+              <p>서버는 자신의 개인 키로 클라이언트의 메시지를 복호화하고 클라이언트 서명을 검증하면서 인증 절차를 거친후
+              SecureContext 수립 메시지로 응답한다(비대칭 바인딩).</p>
+            </li><li>
+              <p>이후 클라이언트와 서버는 메시지를 주고받을 때 이 SecureContext 정보를 통해 암호화 및 서명을
+              한다(대칭 바인딩).</p>
+            </li></ol></div>
+
+          
+        </li><li>
+          <p><span><strong class="guibutton">Keystore 설정</strong></span></p>
+
+          <p>다음은 Keystore 설정 정보이다.</p>
+
+          <div class="informaltable">
+            <table border="1"><colgroup><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">클라이언트</td><td>클라이언트의 개인 키와 서버의 공개 키가 담긴 Keystore이다.</td></tr><tr><td align="left">서버</td><td>서버의 개인 키와 클라이언트의 공개 키가 담긴 Keystore이다.</td></tr></tbody></table>
+          </div>
+        </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_ws-trust"></a>17.3.4. 웹 서비스 신뢰</h3></div></div></div>
+      
+
+      <p>본 절에서는 WS-Trust를 인증에 관해 사용하는 예에 대해 살펴본다. 서로 다른 토큰, 즉 신뢰할 수 없는 관계의
+      인증서는 STS를 통해 SAML 토큰이라는 다른 형태로 변환되어 요청자를 신뢰할 수 없는 응답자가 STS를 통해 인증할 수
+      있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p/>
+
+      <p><a id="d4e3748" class="indexterm"></a>웹 서비스 보안을 사용하는 메시지 교환 방식에서는 서비스와 클라이언트 간에 보안 정보 공유를 위해
+      사용되는 보안 토큰에 대해 이미 합의되어야 하지만, 이러한 사전 합의가 이루어지지 않는 경우 메시지 교환 이전에 신뢰
+      관계(Trust Relationship)가 성립되어야 한다. 이러한 것을 웹 서비스 신뢰(Web Service Trust)라고
+      하며 JEUS 웹 서비스는 이를 지원하고 있다.</p>
+
+      <p><a id="d4e3751" class="indexterm"></a>웹 서비스 신뢰는 서버와 클라이언트가 서로 다른 형태의 보안 토큰 또는 서로 다른 도메인의 보안 토큰을
+      사용해서 서로를 인증하지 못하는 상황일 때 사용할 수 있다. 이러한 클라이언트와 서버의 상이한 보안 토큰때문에 서로를 인증하지
+      못하는 상황은 클라이언트와 서버 사이에 각각의 인증 역할을 중계해 주는 또 다른 웹 서비스가 존재하여 해결한다. 이러한 웹
+      서비스를 통상적으로 <span><strong class="guibutton">STS(Security Token Service)</strong></span>라고
+      한다.</p>
+
+      <p/>
+
+      <p>웹 서비스 신뢰는 다음의 관계를 갖는다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>클라이언트와 서버는 서로 직접적인 신뢰 관계가 없다.</p>
+        </li><li>
+          <p>클라이언트와 STS는 서로 신뢰 관계가 있다.</p>
+        </li><li>
+          <p>STS와 서버는 서로 신뢰 관계가 있다.</p>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음 그림과 같이 Requestor는 웹 서비스와 통신하기 전에 웹 서비스가 자신을 인증할 수 있도록 하는 보안 토큰을
+      STS로부터 동적으로 부여받는다. 부여받은 보안 토큰을 통해 Requestor는 웹 서비스에게 실제로 보내려는 메시지에 STS로
+      부여받은 보안 토큰을 함께 실어 보내게 되며 웹 서비스는 Requestor를 인증(신뢰)할 수 있다.</p>
+
+      <div class="figure"><a id="figure_entity_structure_xml_tag_name"></a><p class="title"><b>[그림 17.1] WS-Trust</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="644"><tr><td align="left"><img src="resources/figure_image061.png" align="top" width="644" alt="WS-Trust"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p>*출처 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://docs.oasis-open.org/ws-sx/ws-trust/200512/ws-trust-1.3-os.html" target="_top">http://docs.oasis-open.org/ws-sx/ws-trust/200512/ws-trust-1.3-os.html</a></p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 웹 서비스 신뢰 시나리오와 Keystore 설정에 대한 설명이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">시나리오 </strong></span></p>
+
+          <p>다음은 웹 서비스 신뢰의 시나리오이다.</p>
+
+          <div class="orderedlist"><ol type="1"><li>
+              <p>클라이언트는 자신의 인증서, 사용자명, 암호와 함께 실제 메시지를 전달할 서버에 대한 SAML 인증서
+              발급을 STS에 요청한다.</p>
+            </li><li>
+              <p>STS는 클라이언트를 인증한 후 SAML 인증서를 발급한다.</p>
+            </li><li>
+              <p>클라이언트는 SAML 인증서와 함께 서버에 메시지를 보낸다.</p>
+            </li><li>
+              <p>서버는 SAML 인증서를 통해 클라이언트를 신뢰하고 비즈니스 로직을 수행한다.</p>
+            </li></ol></div>
+        </li><li>
+          <p><span><strong class="guibutton">Keystore 설정</strong></span></p>
+
+          <p>다음은 Keystore 설정 정보이다.</p>
+
+          <div class="informaltable">
+            <table border="1"><colgroup><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">클라이언트</td><td><p>1. 클라이언트의 개인 키와 서버의 공개 키가 담긴 Keystore이다.
+                  </p><p>2. 클라이언트의 개인 키와 STS 서버의 공개 키가 담긴 Keystore이다.
+                  </p></td></tr><tr><td align="left">서버</td><td>서버의 개인 키와 클라이언트의 공개 키가 담긴 Keystore이다.</td></tr><tr><td align="left">STS 서버</td><td>서버의 개인 키와 클라이언트의 공개 키가 담긴 Keystore이다.</td></tr></tbody></table>
+          </div>
+        </li></ul></div>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3815"></a>17.4. 메시지 수준 보안 설정</h2></div></div></div>
+    
+
+    <p>본 절에서는 JEUS 웹 서비스 메시지 수준 보안의 여러 가지 시나리오 예제에서 공통적으로 적용되는 설정법과 각각의
+    시나리오에 대한 설정법을 자세히 살펴볼 것이다. 실제 여러 가지 시나리오 예제에서 동작하는 것에 대해서는 샘플을
+    참고한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>각 시나리오별 메시지 보안 설정 예제의 웹 서비스와 클라이언트의 비즈니스 로직은 모두 동일하다.</p>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3823"></a>17.4.1. 공통 설정</h3></div></div></div>
+      
+
+      <p>JEUS 웹 서비스 메시지 수준 보안의 여러 가지 시나리오 예제에서 공통적으로 적용되는 설정은 서버와 클라이언트로
+      구분하여 설정한다.</p>
+
+      <p/>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e3827"></a>17.4.1.1. 서버 설정</h4></div></div></div>
+        
+
+        <p>다음은 'endpoint-policy-subject', 'operation-policy-subject',
+        'input(output)-message-policy-subject'에 공통적으로 들어가는 보안 설정들에 대한
+        설명이다.</p>
+
+        <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">'keystore', 'truststore' element의
+            설정</strong></span></p>
+
+            <p>'security-policy' 하위의 element 중 하나인 'keystore', 'truststore'
+            element는 그 'security-policy' element의 'security-binding'의 보안 설정에
+            따라 능동적으로 설정해야 한다.</p>
+
+            <p>'keystore-filename'에 들어가는 Keystore 파일에 대한 설정은 절대 경로 혹은 상대
+            경로를 포함한 실제 Keystore 파일의 위치를 지정한다. 상대 경로로 지정할 때는 서비스 구현 클래스가 포함된
+            classes 디렉터리 하위의 META-INF 디렉터리에 Keystore 파일이 위치해야 한다.</p>
+
+            <div class="example"><a id="d4e3836"></a><p class="title"><b>[예 17.1] &lt;&lt; jeus-webservices-config.xsd &gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;xs:schema xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+targetNamespace="http://www.tmaxsoft.com/xml/ns/jeus"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified" version="7.0"&gt;
+    ......
+    &lt;xs:complexType name="keyTruststoreType"&gt;
+        &lt;xs:choice&gt;
+            &lt;xs:element name="keystore-file" type="keyTruststoreFileType" /&gt;
+            &lt;xs:element name="keystore-callbackhandler" type="xs:string" /&gt;
+        &lt;/xs:choice&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="keyTruststoreFileType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="alias" type="xs:string" /&gt;
+            &lt;xs:element name="key-type" type="xs:string" minOccurs="0"
+            default="JKS" /&gt;
+            &lt;xs:element name="keystore-password" type="xs:string" /&gt;
+            &lt;xs:element name="keystore-filename" type="xs:string" /&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+    ......
+&lt;/xs:schema&gt;</pre>
+            </div></div><br class="example-break"/>
+          </li></ul></div>
+
+        <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">'include-token' 속성 설정</strong></span></p>
+
+            <p>'include-token' 속성은 메시지에 토큰을 포함할 것인지의 여부를 설정한다.</p>
+
+            <p>X509 토큰에서 사용되는 예는 다음과 같다.</p>
+
+            <div class="example"><a id="d4e3846"></a><p class="title"><b>[예 17.2] &lt;&lt; jeus-webservices-config.xsd &gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;xs:schema xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+targetNamespace="http://www.tmaxsoft.com/xml/ns/jeus"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified" version="7.0"&gt;
+    ......
+    &lt;xs:complexType name="x509TokenType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="include-token" type="xs:boolean" minOccurs="0"
+            default="false" /&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+    ......
+&lt;/xs:schema&gt;</pre>
+            </div></div><br class="example-break"/>
+
+            <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+              <p>그 밖의 다른 element 설정에 대한 자세한 설명은
+              'jeus-webservices-config.xsd' 스키마 및 <a xmlns="" href="../reference-book/index.html" class="olink">"JEUS Reference Book"</a>이나
+              sample 예제를 참고한다.</p>
+            </div>
+
+            <p/>
+          </li></ul></div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e3857"></a>Java 클래스로부터 웹 서비스 구현</h5>
+
+        <p>Java 클래스로부터 웹 서비스 메시지 보안을 구현하기 위해서는 다음과 같이
+        <span><strong class="guibutton">wsgen</strong></span> 툴의 -policy 기능을 사용하여 웹 서비스를 구성한다.</p>
+
+        <pre class="screen">$ <span class="bold"><strong>wsgen</strong></span> fromjava.server.AddNumbersImpl -d web/WEB-INF<span class="bold"><strong> -policy service-config.xml</strong></span></pre>
+
+        <p>-policy의 인자로 사용되는 service-config.xml을 구성하려면 service-config.xml을
+        위한 JEUS 보안 정책 스키마인 jeus-webservices-config.xsd에 대한 지식이 필요하다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        
+
+        <p>JEUS 보안 정책 스키마는 다음과 같이 'endpoint-policy-subject',
+        'operation-policy-subject', 'input(output)-message-policy-subject'
+        element에 보안 설정을 할 수 있다.</p>
+
+        <div class="example"><a id="d4e3867"></a><p class="title"><b>[예 17.3] &lt;&lt; jeus-webservices-config.xsd &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;xs:schema xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+targetNamespace="http://www.tmaxsoft.com/xml/ns/jeus"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified" version="7.0"&gt;
+    ......
+    &lt;xs:element name="web-services-config" type="web-services-configType" /&gt;
+    &lt;xs:complexType name="web-services-configType"&gt;
+        &lt;xs:choice&gt;
+            ......
+            &lt;xs:element name="policy" type="policy-configType"
+            maxOccurs="unbounded" /&gt;
+        &lt;/xs:choice&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="policy-configType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name=<span class="bold"><strong>"endpoint-policy-subject"</strong></span>
+            type="endpointPolicySubjectType" maxOccurs="unbounded" /&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="endpointPolicySubjectType"&gt;
+        &lt;xs:sequence&gt;
+            ......
+            &lt;xs:element name="security-policy"
+            type="endpointSecurityPolicyType" minOccurs="0" /&gt;
+            &lt;xs:element name=<span class="bold"><strong>"operation-policy-subject"</strong></span>
+            type="operationPolicySubjectType" minOccurs="0"
+            maxOccurs="unbounded" /&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="operationPolicySubjectType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="security-policy"
+            type="operationSecurityPolicyType" minOccurs="0" /&gt;
+            ......
+            &lt;xs:element name=<span class="bold"><strong>"input-message-policy-subject"</strong></span>
+            type="messagePolicySubjectType" minOccurs="0" /&gt;
+            &lt;xs:element name=<span class="bold"><strong>"output-message-policy-subject"</strong></span>
+            type="messagePolicySubjectType" minOccurs="0" /&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+    &lt;xs:complexType name="messagePolicySubjectType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="security-policy" type="messageSecurityPolicyType"
+            minOccurs="0" /&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+    ......
+&lt;/xs:schema&gt;</pre>
+        </div></div><br class="example-break"/>
+
+        <p>이 3가지 element들의 보안 설정 내용은 다음과 같다.</p>
+
+        <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">'endpoint-policy-subject' element 보안
+            설정</strong></span></p>
+
+            <p>서비스 구현 클래스를 단위로 보안 설정을 할 수 있다. 보안 바인딩(비대칭, 대칭) 설정 및 서명 및
+            암호화, 보안 토큰, WS-Security 버전 등 메시지 보안에 관련된 여러 가지를 설정할 수 있다.</p>
+
+            <div class="example"><a id="d4e3881"></a><p class="title"><b>[예 17.4] &lt;&lt; jeus-webservices-config.xsd &gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;xs:schema xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+targetNamespace="http://www.tmaxsoft.com/xml/ns/jeus"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified" version="7.0"&gt;
+    ......
+    &lt;xs:complexType name="endpointSecurityPolicyType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="security-binding" type="securityBindingType"
+            minOccurs="0" /&gt;
+            &lt;xs:element name="token" type="supportingTokenType" minOccurs="0" /&gt;
+            &lt;xs:element name="protection" type="protectionType" minOccurs="0" /&gt;
+            ......
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+    ......
+&lt;/xs:schema&gt;</pre>
+            </div></div><br class="example-break"/>
+
+            <p>'endpoint-policy-subject' element 보안 설정은 서비스 구현 클래스 단위의 보안
+            설정으로 다음과 같이 크게 3가지로 구분할 수 있다.</p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                <p>security-binding</p>
+
+                <p>다음과 같이 security-binding element 보안 설정은
+                'transport-binding', 'symmetric-binding', 'asymmetric-binding'
+                중 하나를 선택할 수 있다.</p>
+
+                <div class="example"><a id="d4e3890"></a><p class="title"><b>[예 17.5] &lt;&lt; jeus-webservices-config.xsd &gt;&gt;</b></p><div class="example-contents">
+                  
+
+                  
+
+                  <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;xs:schema xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+targetNamespace="http://www.tmaxsoft.com/xml/ns/jeus"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified" version="7.0"&gt;
+    ......
+   <span class="bold"><strong> &lt;xs:complexType name="securityBindingType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:choice&gt;
+                &lt;xs:element name="transport-binding"
+                type="transportBindingType" /&gt;
+                &lt;xs:element name="symmetric-binding"
+                type="symmetricBindingType" /&gt;
+                &lt;xs:element name="asymmetric-binding"
+                type="asymmetricBindingType" /&gt;
+            &lt;/xs:choice&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;</strong></span>
+    ......
+&lt;/xs:schema&gt;</pre>
+                </div></div><br class="example-break"/>
+
+                <div class="itemizedlist"><ul type="square"><li>
+                    <p>'transport-binding' element 보안 설정</p>
+
+                    <p>transport-binding element의 보안 설정은 웹 서비스
+                    보안(WS-Security) 명세 외에 다른 전송단, 예를 들어 HTTPS와 같은 것을 사용하여 메시지를
+                    보호하겠다는 것을 나타낸다.</p>
+
+                    <div class="example"><a id="d4e3899"></a><p class="title"><b>[예 17.6] &lt;&lt; jeus-webservices-config.xsd
+                      &gt;&gt;</b></p><div class="example-contents">
+                      
+
+                      
+
+                      <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;xs:schema xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+targetNamespace="http://www.tmaxsoft.com/xml/ns/jeus"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified" version="7.0"&gt;
+    ......
+    <span class="bold"><strong>&lt;xs:complexType name="transportBindingType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="transport-token" type="tokenType" /&gt;
+            &lt;xs:element name="algorithm-suite" type="algorithmSuiteType"
+            minOccurs="0" default="Basic128" /&gt;
+            &lt;xs:element name="layout" type="layoutType" minOccurs="0"
+            default="Lax" /&gt;
+            &lt;xs:element name="timestamp" type="xs:boolean" minOccurs="0"
+            default="true" /&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;</strong></span>
+    ......
+&lt;/xs:schema&gt;</pre>
+                    </div></div><br class="example-break"/>
+                  </li></ul></div>
+
+                <div class="itemizedlist"><ul type="square"><li>
+                    <p>'symmetric-binding' element 보안 설정</p>
+
+                    <p>symmetric-binding element의 보안 설정은 웹 서비스
+                    보안(WS-Security) 명세를 사용하여 대칭 바인딩(Symmetric Binding)으로 메시지를
+                    보호할 때 설정한다.</p>
+
+                    <p>대칭 바인딩(Symmetric Binding)은 메시지를 암호화하거나 복호화할 때 사용되는
+                    대칭 키(Symmetric Key)는 SOAP 메시지의 Header 부분에 추가적인
+                    element(EncryptedKey) 하위에 암호화된 상태로 메시지와 함께 전송되는데, 이 대칭 키를
+                    암호화하거나 복호화할 때 사용되는 토큰이 같다는 것을 의미한다. 서명할 때도 서명을 검증할 때와 같은
+                    토큰을 통하여 이루어진다는 것을 의미한다. 하위의 'protection-token' element는
+                    추가적으로 메시지 암호화 및 서명에 사용되는 토큰이 동일함을 의미한다.</p>
+
+                    <div class="example"><a id="d4e3909"></a><p class="title"><b>[예 17.7] &lt;&lt; jeus-webservices-config.xsd
+                      &gt;&gt;</b></p><div class="example-contents">
+                      
+
+                      
+
+                      <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;xs:schema xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+targetNamespace="http://www.tmaxsoft.com/xml/ns/jeus"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified" version="7.0"&gt;
+    ......
+   <span class="bold"><strong> &lt;xs:complexType name="symmetricBindingType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="protection-token" type="tokenType" /&gt;
+            &lt;xs:element name="algorithm-suite" type="algorithmSuiteType"
+            minOccurs="0" default="Basic128" /&gt;
+            &lt;xs:element name="layout" type="layoutType" minOccurs="0"
+            default="Lax" /&gt;
+            &lt;xs:element name="timestamp" type="xs:boolean" minOccurs="0"
+            default="true" /&gt;
+            &lt;xs:element name="encrypt-signature" type="xs:boolean"
+            minOccurs="0" default="false" /&gt;
+            &lt;xs:element name="encrypt-before-siging" type="xs:boolean"
+            minOccurs="0" default="false" /&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;</strong></span>
+    ......
+&lt;/xs:schema&gt;</pre>
+                    </div></div><br class="example-break"/>
+                  </li></ul></div>
+
+                <div class="itemizedlist"><ul type="square"><li>
+                    <p>'asymmetric-binding' element 보안 설정</p>
+
+                    <p>asymmetric-binding element의 보안 설정은 웹 서비스
+                    보안(WS-Security) 명세를 사용하여 비대칭 바인딩(Asymmetric Binding)으로
+                    메시지를 보호할 때 설정한다.</p>
+
+                    <p>비대칭 바인딩(Asymmetric Binding)은 메시지를 암호화하거나 복호화하는 데
+                    사용되는 대칭 키(symmetric key)는 SOAP 메시지의 Header 부분에 추가적인
+                    element(EncryptedKey) 하위에 암호화된 상태로 메시지와 함께 전송되는데, 이 대칭 키를
+                    암호화하거나 복호화할 때 사용되는 토큰이 서로 다르다는 것을 의미한다. 서명을 할 때와 서명을 검증할 때
+                    다른 토큰을 통해 이루어진다는 것을 의미한다.</p>
+
+                    <div class="example"><a id="d4e3919"></a><p class="title"><b>[예 17.8] &lt;&lt; jeus-webservices-config.xsd
+                      &gt;&gt;</b></p><div class="example-contents">
+                      
+
+                      
+
+                      <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;xs:schema xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+targetNamespace="http://www.tmaxsoft.com/xml/ns/jeus"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified" version="7.0"&gt;
+    ......
+    <span class="bold"><strong>&lt;xs:complexType name="asymmetricBindingType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="initiator-token" type="tokenType" /&gt;
+            &lt;xs:element name="recipient-token" type="tokenType" /&gt;
+            &lt;xs:element name="algorithm-suite" type="algorithmSuiteType"
+            minOccurs="0" default="Basic128" /&gt;
+            &lt;xs:element name="layout" type="layoutType" minOccurs="0"
+            default="Strict" /&gt;
+            &lt;xs:element name="timestamp" type="xs:boolean" minOccurs="0"
+            default="true" /&gt;
+            &lt;xs:element name="encrypt-before-siging" type="xs:boolean"
+            minOccurs="0" default="false" /&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;</strong></span>
+    ......
+&lt;/xs:schema&gt;</pre>
+                    </div></div><br class="example-break"/>
+
+                    <p>다음은 하위의 element에 대한 설명이다.</p>
+
+                    <div class="informaltable">
+                      <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><thead><tr><th align="left">element</th><th>설명</th></tr></thead><tbody><tr><td align="left">initiator-token</td><td><p>클라이언트가 메시지를 서명할 때 사용하는 토큰이자 서버로부터 받은
+                            암호화된 메시지를 복호화할 때 사용하는 토큰임을 의미한다. </p><p>서버가
+                            메시지를 암호화할 때 사용하는 토큰이자 클라이언트로부터 받은 메시지의 서명을 검증할 때
+                            사용하는 토큰임을 의미한다.</p></td></tr><tr><td align="left">recipient-token</td><td><p>서버가 메시지를 서명할 때 사용하는 토큰이자 클라이언트로부터 받은
+                            암호화된 메시지를 복호화할 때 사용하는 토큰임을 의미한다. </p><p>클라이언트가
+                            메시지를 암호화할 때 사용하는 토큰이자 서버로부터 받은 메시지의 서명을 검증할 때 사용하는
+                            토큰임을 의미한다.</p></td></tr></tbody></table>
+                    </div>
+                  </li></ul></div>
+              </li><li>
+                <p><a id="supportingToken"></a>token</p>
+
+                <p>다음은 token element 보안 설정에 대한 예로 하위의 element 중 하나를 선택할 수
+                있다.</p>
+
+                <div class="example"><a id="d4e3946"></a><p class="title"><b>[예 17.9] &lt;&lt; jeus-webservices-config.xsd &gt;&gt;</b></p><div class="example-contents">
+                  
+
+                  
+
+                  <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;xs:schema xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+targetNamespace="http://www.tmaxsoft.com/xml/ns/jeus"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified" version="7.0"&gt;
+    ......
+<span class="bold"><strong>    &lt;xs:complexType name="supportingTokenType"&gt;
+        &lt;xs:choice&gt;
+            &lt;xs:element name="supporting-token" type="tokenType" /&gt;
+            &lt;xs:element name="signed-supporting-token" type="tokenType" /&gt;
+            &lt;xs:element name="endorsing-supporting-token" type="tokenType" /&gt;
+            &lt;xs:element name="signed-endorsing-supporting-token"
+            type="tokenType" /&gt;
+        &lt;/xs:choice&gt;
+    &lt;/xs:complexType&gt;</strong></span>
+    ......
+&lt;/xs:schema&gt;</pre>
+                </div></div><br class="example-break"/>
+
+                <p>다음은 하위의 element에 대한 설명이다.</p>
+
+                <div class="informaltable">
+                  <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">element</th><th>설명</th></tr></thead><tbody><tr><td align="left">supporting-token</td><td>이곳에 설정한 토큰 값은 실제 메시지의 Header 부분에 포함되며 다른 메시지
+                        부분을 암호화하거나 서명할 때 사용할 수 있다.</td></tr><tr><td align="left">signed-supporting-token</td><td>'supporting-token'과 같다. 추가적으로 이 토큰 또한 서명이
+                        된다.</td></tr><tr><td align="left">endorsing-supporting-token</td><td>서명을 다시 서명하는 데 사용되는 토큰을 설정할 때 사용한다. 'Signature'
+                        element를 전체를 서명한다.</td></tr><tr><td align="left">signed-endorsing-supporting-token</td><td>'endorsing-supporting-token'과 같다. 추가적으로 이 토큰 또한
+                        원래 서명을 통해 서명한다. 상호 서명하는 것을 의미한다.</td></tr></tbody></table>
+                </div>
+              </li><li>
+                <p><a id="protection"></a>protection</p>
+
+                <p>다음은 protection element 보안 설정에 대한 예로 하위의 element 중 하나를
+                선택할 수 있다.</p>
+
+                <div class="example"><a id="d4e3975"></a><p class="title"><b>[예 17.10] &lt;&lt; jeus-webservices-config.xsd &gt;&gt;</b></p><div class="example-contents">
+                  
+
+                  
+
+                  <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;xs:schema xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+targetNamespace="http://www.tmaxsoft.com/xml/ns/jeus"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified" version="7.0"&gt;
+    ......
+<span class="bold"><strong>    &lt;xs:complexType name="protectionType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="signed-part" type="protectionPartType"
+            minOccurs="0" /&gt;
+            &lt;xs:element name="encrypted-part" type="protectionPartType"
+            minOccurs="0" /&gt;
+            &lt;xs:element name="signed-element" type="xs:string"
+            minOccurs="0" /&gt;
+            &lt;xs:element name="encrypted-element" type="xs:string"
+            minOccurs="0"&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;</strong></span>
+    ......
+&lt;/xs:schema&gt;</pre>
+                </div></div><br class="example-break"/>
+
+                <p>다음은 하위의 element에 대한 설명이다.</p>
+
+                <div class="informaltable">
+                  <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">element</th><th>설명</th></tr></thead><tbody><tr><td align="left">signed-part</td><td>서명(검증)할 부분을 설정할 때 사용한다.</td></tr><tr><td align="left">encrypted-part</td><td>암호화 혹은 복호화할 부분을 설정할 때 사용한다.</td></tr><tr><td align="left">signed-element</td><td><p>서명(검증)할 부분을 설정할 때 사용한다. 특정 element를 부분
+                        서명할 때 사용하면 유용하다.</p><p> 'signed-element' element
+                        설정하는 경우 'disable-streaming-security' element의 값을
+                        'true'로 함께 설정해야 한다. 자세한 사항은 샘플을 참고한다.</p></td></tr><tr><td align="left">encrypted-element</td><td><p>암호화 혹은 복호화할 부분을 설정할 때 사용한다. 특정 element를
+                        부분 암호화할 때 사용하면 유용하다. </p><p>'encrypted-element'
+                        element를 설정하는 경우 'disable-streaming-security' element의
+                        값을 'true'로 함께 설정해야 한다. 자세한 사항은 샘플을
+                        참고한다.</p></td></tr></tbody></table>
+                </div>
+              </li></ul></div>
+          </li></ul></div>
+
+        <h5><a id="d4e4006"></a> </h5>
+
+        <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">'operation-policy-subject' element의 보안
+            설정</strong></span></p>
+
+            <p>서비스 구현 클래스의 메소드 단위로 보안 설정을 할 수 있다. 서명 및 암호화, 이를 뒷받침하는 보안
+            토큰들을 추가로 설정할 수 있다.</p>
+
+            <p>'operation-policy-subject' element 보안 설정은 서비스 구현 클래스의 메소드
+            단위의 보안 설정으로 다음과 같이 크게 2가지로 구분할 수 있다.</p>
+
+            <div class="example"><a id="d4e4013"></a><p class="title"><b>[예 17.11] &lt;&lt; jeus-webservices-config.xsd &gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;xs:schema xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+targetNamespace="http://www.tmaxsoft.com/xml/ns/jeus"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified" version="7.0"&gt;
+    ......
+  <span class="bold"><strong>  &lt;xs:complexType name="operationSecurityPolicyType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="supporting-token" type="supportingTokenType"
+            minOccurs="0" /&gt;
+            &lt;xs:element name="protection" type="protectionType" minOccurs="0" /&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;</strong></span>
+    ......
+&lt;/xs:schema&gt;</pre>
+            </div></div><br class="example-break"/>
+
+            <p>다음은 하위의 element에 대한 설명이다.</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">element</th><th>설명</th></tr></thead><tbody><tr><td align="left">supporting-token</td><td>이 설정은 'endpoint-policy-subject' element의 <a href="chapter_jaxws_security.html#supportingToken">'token'</a> element와 같다. 단, 이
+                    설정은 이 메소드에만 설정되는 값이다.</td></tr><tr><td align="left">protection</td><td>이 설정은 'endpoint-policy-subject' element의 <a href="chapter_jaxws_security.html#protection">'protection'</a> element와 같다. 단, 이
+                    설정은 이 메소드에만 설정되는 값이다.</td></tr></tbody></table>
+            </div>
+          </li></ul></div>
+
+        <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">'input(output)-message-policy-subject' element의
+            보안 설정</strong></span></p>
+
+            <p>서비스 구현 클래스 메소드의 매개변수 및 반환값 단위로 보안 설정을 한다. 서명 및 암호화와 이를 뒷받침하는
+            보안 토큰들을 추가로 설정할 수 있다.</p>
+
+            <p>'input(output)-message-policy-subject' element 보안 설정은 서비스 구현
+            클래스 메소드의 매개변수 및 반환값 단위 보안 설정으로 다음과 같이 크게 2가지로 구분할 수 있다.</p>
+
+            <div class="example"><a id="d4e4041"></a><p class="title"><b>[예 17.12] &lt;&lt; jeus-webservices-config.xsd &gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;xs:schema xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+targetNamespace="http://www.tmaxsoft.com/xml/ns/jeus"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified" version="7.0"&gt;
+    ......
+    <span class="bold"><strong>&lt;xs:complexType name="messageSecurityPolicyType"&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="supporting-token" type="supportingTokenType"
+            minOccurs="0" /&gt;
+            &lt;xs:element name="protection" type="protectionType" minOccurs="0" /&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;</strong></span>
+    ......
+&lt;/xs:schema&gt;</pre>
+            </div></div><br class="example-break"/>
+
+            <p/>
+
+            <p>다음은 하위의 element에 대한 설명이다.</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">element</th><th>설명</th></tr></thead><tbody><tr><td align="left">supporting-token</td><td>이 설정은 'endpoint-policy-subject' element의 <a href="chapter_jaxws_security.html#supportingToken">'token'</a> element와 같다. 단, 이
+                    설정은 이 메소드의 매개변수 및 반환값에만 설정되는 값이다.</td></tr><tr><td align="left">protection</td><td>이 설정은 'endpoint-policy-subject' element의 <a href="chapter_jaxws_security.html#protection">'protection'</a> element와 같다. 단, 이
+                    설정은 이 메소드의 매개변수 및 반환값에만 설정되는 값이다.</td></tr></tbody></table>
+            </div>
+          </li></ul></div>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        
+
+        <h5><a id="d4e4069"></a>WSDL로부터 웹 서비스 구현</h5>
+
+        <p>WSDL로부터 구현하기 위해서는 WSDL 문서에 직접 메시지 보안 정책 설정을 하고
+        <span><strong class="guibutton">wsimport</strong></span> 툴을 사용하여 웹 서비스를 구성한다. WSDL로부터 구현하려면
+        WS-Policy의 하부 스펙인 WS-SecurityPolicy의 내용을 정확하게 이해하여 WSDL에 적용하면 간단히 웹
+        서비스 메시지 보안을 구현할 수 있다.</p>
+
+        <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+            <p>WS-SecurityPolicy의 내용은 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/ws-securitypolicy-1.2-spec-os.html" target="_top">http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/ws-securitypolicy-1.2-spec-os.html</a>에서
+            확인한다.</p>
+          </div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <p>다음은 메시지 보안이 설정된 웹 서비스를 구현하기 위한 WSDL 예이다.</p>
+
+        <p>Keystore에 대한 설정은 절대 경로 또는 상대 경로를 포함한 실제 Keystore 파일의 위치를 지정한다.
+        상대 경로로 지정할 때는 서비스 구현 클래스가 포함된 classes 디렉터리 하위의 META-INF 디렉터리에 Keystore
+        파일이 위치해야 한다.</p>
+
+        <div class="example"><a id="d4e4081"></a><p class="title"><b>[예 17.13] &lt;&lt; jeus-webservices-config.xsd &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;definitions
+...
+targetNamespace="http://tmax.com/" name="NewWebServiceService"&gt;
+&lt;ns1:Policy xmlns:ns1="http://schemas.xmlsoap.org/ws/2004/09/policy"
+ wsu:Id="NewWebServicePortBindingPolicy"&gt;
+  &lt;ns1:ExactlyOne&gt;
+    &lt;ns1:All&gt;
+      &lt;ns7:SymmetricBindingxmlns:ns7="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"&gt;
+          &lt;ns1:Policy&gt;
+            &lt;ns1:ExactlyOne&gt;
+              &lt;ns1:All&gt;
+                &lt;ns7:AlgorithmSuite&gt;
+                  &lt;ns1:Policy&gt;
+                    &lt;ns1:ExactlyOne&gt;
+                      &lt;ns1:All&gt;
+                        &lt;ns7:TripleDes /&gt;
+                      &lt;/ns1:All&gt;
+                    &lt;/ns1:ExactlyOne&gt;
+                  &lt;/ns1:Policy&gt;
+                &lt;/ns7:AlgorithmSuite&gt;
+                &lt;ns7:IncludeTimestamp /&gt;
+                &lt;ns7:Layout&gt;
+                  &lt;ns1:Policy&gt;
+                    &lt;ns1:ExactlyOne&gt;
+                      &lt;ns1:All&gt;
+                        &lt;ns7:Strict /&gt;
+                      &lt;/ns1:All&gt;
+                    &lt;/ns1:ExactlyOne&gt;
+                  &lt;/ns1:Policy&gt;
+                &lt;/ns7:Layout&gt;
+                &lt;ns7:OnlySignEntireHeadersAndBody /&gt;
+                &lt;ns7:ProtectionToken&gt;
+                  &lt;ns1:Policy&gt;
+                    &lt;ns1:ExactlyOne&gt;
+                      &lt;ns1:All&gt;
+                        &lt;ns7:X509Tokenns7:IncludeToken=
+            "http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never"&gt;
+                          &lt;ns1:Policy&gt;
+                            &lt;ns1:ExactlyOne&gt;
+                              &lt;ns1:All&gt;
+                              &lt;ns7:WssX509V3Token10/&gt;
+                              &lt;/ns1:All&gt;
+                            &lt;/ns1:ExactlyOne&gt;
+                          &lt;/ns1:Policy&gt;
+                        &lt;/ns7:X509Token&gt;
+                      &lt;/ns1:All&gt;
+                    &lt;/ns1:ExactlyOne&gt;
+                  &lt;/ns1:Policy&gt;
+                &lt;/ns7:ProtectionToken&gt;
+              &lt;/ns1:All&gt;
+            &lt;/ns1:ExactlyOne&gt;
+          &lt;/ns1:Policy&gt;
+      &lt;/ns7:SymmetricBinding&gt;
+      &lt;ns8:Wss11xmlns:ns8="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"&gt;
+          &lt;ns1:Policy&gt;
+              &lt;ns1:ExactlyOne&gt;
+                  &lt;ns1:All&gt;
+                      &lt;ns8:MustSupportRefEncryptedKey /&gt;
+                      &lt;ns8:MustSupportRefIssuerSerial /&gt;
+                      &lt;ns8:MustSupportRefThumbprint /&gt;
+                  &lt;/ns1:All&gt;
+              &lt;/ns1:ExactlyOne&gt;
+          &lt;/ns1:Policy&gt;
+      &lt;/ns8:Wss11&gt;
+      &lt;sc:KeyStore wspp:visibility="private"
+      alias="xws-security-server"
+      storepass="changeit" type="JKS"
+      location="keystore.jks" /&gt;
+      &lt;sc:TrustStore wspp:visibility="private"
+      peeralias="xws-security-client"
+      storepass="changeit" type="JKS"
+      location="cacerts.jks" /&gt;
+      &lt;sc:ValidatorConfigurationxmlns:sc=
+            "http://schemas.sun.com/2006/03/wss/server"&gt;
+        &lt;sc:Validator name="usernameValidator" 
+             classname="com.tmax.UsernamePasswordValidator" /&gt;
+      &lt;/sc:ValidatorConfiguration&gt;
+      &lt;ns9:UsingAddressingxmlns:ns9="http://www.w3.org/2006/05/addressing/wsdl" /&gt;
+    &lt;/ns1:All&gt;
+  &lt;/ns1:ExactlyOne&gt;
+&lt;/ns1:Policy&gt;
+&lt;ns10:Policy xmlns:ns10="http://schemas.xmlsoap.org/ws/2004/09/policy" 
+       wsu:Id="NewWebServicePortBinding_add_Input_Policy"&gt;
+  &lt;ns10:ExactlyOne&gt;
+    &lt;ns10:All&gt;
+      &lt;ns11:EncryptedPartsxmlns:ns11=
+           "http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"&gt;
+        &lt;ns11:Body /&gt;
+      &lt;/ns11:EncryptedParts&gt;
+      &lt;ns12:SignedPartsxmlns:ns12=
+           "http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"&gt;
+        &lt;ns12:Body /&gt;
+        &lt;ns12:Header Name="ReplyTo"
+            Namespace="http://www.w3.org/2005/08/addressing" /&gt;
+        &lt;ns12:HeaderNamespace="http://www.w3.org/2005/08/addressing" Name="To"/&gt;
+        &lt;ns12:Header Name="From" 
+            Namespace="http://www.w3.org/2005/08/addressing"/&gt;
+        &lt;ns12:Header Name="MessageId" 
+            Namespace="http://www.w3.org/2005/08/addressing"/&gt;
+        &lt;ns12:Header Name="FaultTo" 
+            Namespace="http://www.w3.org/2005/08/addressing"/&gt;
+        &lt;ns12:Header Name="Action" 
+            Namespace="http://www.w3.org/2005/08/addressing"/&gt;
+        &lt;ns12:Header Name="RelatesTo" 
+            Namespace="http://www.w3.org/2005/08/addressing"/&gt;
+      &lt;/ns12:SignedParts&gt;
+      &lt;ns13:SignedSupportingTokensxmlns:ns13=
+         "http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"&gt;
+        &lt;ns10:Policy&gt;
+          &lt;ns10:ExactlyOne&gt;
+            &lt;ns10:All&gt;
+             &lt;ns13:UsernameToken ns13:
+               IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/
+               IncludeToken/AlwaysToRecipient"&gt;
+               &lt;ns10:Policy&gt;
+                 &lt;ns10:ExactlyOne&gt;
+                   &lt;ns10:All&gt;
+                   &lt;ns13:WssUsernameToken10/&gt;
+                   &lt;/ns10:All&gt;
+                 &lt;/ns10:ExactlyOne&gt;
+               &lt;/ns10:Policy&gt;
+             &lt;/ns13:UsernameToken&gt;
+            &lt;/ns10:All&gt;
+          &lt;/ns10:ExactlyOne&gt;
+        &lt;/ns10:Policy&gt;
+      &lt;/ns13:SignedSupportingTokens&gt;
+    &lt;/ns10:All&gt;
+  &lt;/ns10:ExactlyOne&gt;
+&lt;/ns10:Policy&gt;
+&lt;ns14:Policy xmlns:ns14="http://schemas.xmlsoap.org/ws/2004/09/policy"
+  wsu:Id="NewWebServicePortBinding_add_Output_Policy"&gt;
+  &lt;ns14:ExactlyOne&gt;
+    &lt;ns14:All&gt;
+      &lt;ns15:EncryptedPartsxmlns:ns15="http://schemas.xmlsoap.org/ws/
+        2005/07/securitypolicy"&gt;
+        &lt;ns15:Body /&gt;
+      &lt;/ns15:EncryptedParts&gt;
+      &lt;ns16:SignedPartsxmlns:ns16="http://schemas.xmlsoap.org/ws/
+        2005/07/securitypolicy"&gt;
+        &lt;ns16:Body /&gt;
+        &lt;ns16:Header Name="ReplyTo"
+              Namespace="http://www.w3.org/2005/08/addressing"/&gt;
+        &lt;ns16:HeaderNamespace="http://www.w3.org/2005/08/addressing" 
+              Name="To"/&gt;
+        &lt;ns16:Header Name="From" 
+              Namespace="http://www.w3.org/2005/08/addressing"/&gt;
+        &lt;ns16:Header Name="MessageId" 
+              Namespace="http://www.w3.org/2005/08/addressing"/&gt;
+        &lt;ns16:Header Name="FaultTo" 
+              Namespace="http://www.w3.org/2005/08/addressing"/&gt;
+        &lt;ns16:Header Name="Action" 
+              Namespace="http://www.w3.org/2005/08/addressing"/&gt;
+        &lt;ns16:Header Name="RelatesTo" 
+              Namespace="http://www.w3.org/2005/08/addressing"/&gt;
+      &lt;/ns16:SignedParts&gt;
+    &lt;/ns14:All&gt;
+  &lt;/ns14:ExactlyOne&gt;
+&lt;/ns14:Policy&gt;
+&lt;types&gt;
+    ...
+&lt;/types&gt;
+&lt;message name="add"&gt;
+    ...
+&lt;/message&gt;
+&lt;portType name="NewWebService"&gt;
+    ...
+&lt;/portType&gt;
+&lt;binding name="NewWebServicePortBinding" type="tns:NewWebService"&gt;
+  &lt;ns17:PolicyReferencexmlns:ns17="http://schemas.xmlsoap.org/ws/2004/09/policy" 
+       URI="#NewWebServicePortBindingPolicy" /&gt;
+  &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" /&gt;
+  &lt;operation name="add"&gt;
+    &lt;soap:operation soapAction="" /&gt;
+    &lt;input&gt;
+      &lt;ns18:PolicyReferencexmlns:ns18="http://schemas.xmlsoap.org/ws/2004/09/policy" 
+          URI="#NewWebServicePortBinding_add_Input_Policy" /&gt;
+      &lt;soap:body use="literal" /&gt;
+    &lt;/input&gt;
+    &lt;output&gt;
+      &lt;ns19:PolicyReferencexmlns:ns19="http://schemas.xmlsoap.org/ws/2004/09/policy"
+         URI="#NewWebServicePortBinding_add_Output_Policy" /&gt;
+      &lt;soap:body use="literal" /&gt;
+    &lt;/output&gt;
+  &lt;/operation&gt;
+&lt;/binding&gt;
+&lt;service name="NewWebServiceService"&gt;
+ &lt;port name="NewWebServicePort" binding="tns:NewWebServicePortBinding"&gt;
+   &lt;soap:addresslocation="http://localhost:8088/usernameAuthentication_war/
+   NewWebServiceService"/&gt;
+ &lt;/port&gt;
+ &lt;/service&gt;
+&lt;/definitions&gt;</pre>
+        </div></div><br class="example-break"/>
+
+        <div class="literallayout"><p/></div>
+
+        <p/>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e4088"></a>17.4.1.2. 클라이언트 설정</h4></div></div></div>
+        
+
+        <p>메시지 보안이 설정된 웹 서비스의 클라이언트는 wsit-client.xml 파일을 통해 다음과 같이 부가적으로
+        Keystore 및 Callback 핸들러 등을 설정해야 한다. 그 밖의 다른 메시지 보안 설정은 서버의 WSDL에 설정된
+        메시지 보안 정책을 런타임에 해석하여 메시지 보안 환경을 자동으로 구성한다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p>Keystore에 대한 설정은 절대 경로 또는 상대 경로를 포함한 실제 Keystore 파일의 위치를 지정한다.
+        상대 경로로 지정할 때는 서비스 구현 클래스가 포함된 classes 디렉터리 하위의 META-INF 디렉터리에 Keystore
+        파일이 위치해야 한다.</p>
+
+        <div class="example"><a id="d4e4093"></a><p class="title"><b>[예 17.14] &lt;&lt; jeus-webservices-config.xsd &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+...
+targetNamespace="http://server.fromjava/"&gt;
+  &lt;wsp:UsingPolicy /&gt;
+    &lt;wsp:Policy wsu:Id="TmaxBP0"&gt;
+        &lt;wsp:ExactlyOne&gt;
+            &lt;wsp:All&gt;
+                &lt;CallbackHandlerConfiguration
+                xmlns="http://schemas.sun.com/2006/03/wss/client"&gt;
+                    &lt;CallbackHandler default="user_jeus" name="usernameHandler" /&gt;
+                    &lt;CallbackHandler default="password_jeus"
+                    name="passwordHandler" /&gt;
+                &lt;/CallbackHandlerConfiguration&gt;
+                &lt;TrustStore location="cacerts.jks" peeralias="xws-security-server"
+                storepass="changeit" type="JKS"
+                xmlns:ns0="http://java.sun.com/xml/ns/wsit/policy"
+                ns0:visibility="private"
+                xmlns="http://schemas.sun.com/2006/03/wss/client" /&gt;
+            &lt;/wsp:All&gt;
+        &lt;/wsp:ExactlyOne&gt;
+    &lt;/wsp:Policy&gt;
+    &lt;types&gt;
+        ...
+    &lt;/types&gt;
+    &lt;message name="addNumbers"&gt;
+        ...
+    &lt;/message&gt;
+    &lt;portType name="AddNumbersImpl"&gt;
+        ...
+    &lt;/portType&gt;
+    &lt;binding name="AddNumbersImplPortBinding" type="tns:AddNumbersImpl"&gt;
+        &lt;wsp:PolicyReference URI="#TmaxBP0" /&gt;
+        &lt;soap:binding style="document"
+        transport="http://schemas.xmlsoap.org/soap/http" /&gt;
+        &lt;operation name="addNumbers"&gt;
+            &lt;soap:operation soapAction="" /&gt;
+            &lt;input&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/input&gt;
+            &lt;output&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/output&gt;
+        &lt;/operation&gt;
+    &lt;/binding&gt;
+    &lt;service name="AddNumbersImplService"&gt;
+        &lt;port binding="tns:AddNumbersImplPortBinding" name="AddNumbersImplPort"&gt;
+            &lt;soap:address
+location="http://localhost:8088/DocLitEchoService/AddNumbersImplService" /&gt;
+        &lt;/port&gt;
+    &lt;/service&gt;
+&lt;/definitions&gt;</pre>
+        </div></div><br class="example-break"/>
+
+        <p/>
+
+        <p/>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4099"></a>17.4.2. 사용자명 인증을 통한 대칭 바인딩의 인증 기능 강화</h3></div></div></div>
+      
+
+      <p>본 절에서는 서버와 클라이언트에서 사용자명 인증을 통한 대칭 바인딩의 인증 기능 강화 방법에 대해서
+      설명한다.</p>
+
+      <p/>
+
+      <p/>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e4104"></a>17.4.2.1. 서버 설정</h4></div></div></div>
+        
+
+        <p>서버 웹 서비스의 설정은 service-config.xml 파일을 작성하고 사용자명의 유효자(Validator)
+        클래스를 작성한다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p/>
+
+        <h5><a id="d4e4110"></a>웹 서비스 설정 파일 작성</h5>
+
+        <p>다음은 웹 서비스 설정 파일 작성에 대한 예이다.</p>
+
+        <p/>
+
+        <div class="example"><a id="d4e4114"></a><p class="title"><b>[예 17.15] &lt;&lt;service-config.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-services-config xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;policy&gt;
+        &lt;endpoint-policy-subject&gt;
+            &lt;security-policy&gt;
+                &lt;security-binding&gt;
+                    &lt;symmetric-binding&gt;
+                        &lt;protection-token&gt;
+                            &lt;x509-token&gt;
+                                &lt;include-token&gt;true&lt;/include-token&gt;
+                            &lt;/x509-token&gt;
+                        &lt;/protection-token&gt;
+                    &lt;/symmetric-binding&gt;
+                &lt;/security-binding&gt;
+                &lt;token&gt;
+                    &lt;signed-supporting-token&gt;
+                        &lt;username-token&gt;
+                            &lt;username-password-validator&gt;
+                                fromjava.server.UsernamePasswordValidator
+                            &lt;/username-password-validator&gt;
+                            &lt;include-token&gt;true&lt;/include-token&gt;
+                        &lt;/username-token&gt;
+                    &lt;/signed-supporting-token&gt;
+                &lt;/token&gt;
+                &lt;protection&gt;
+                    &lt;signed-part&gt;...&lt;/signed-part&gt;
+                    &lt;encrypted-part&gt;...&lt;/encrypted-part&gt;
+                &lt;/protection&gt;
+                &lt;wss-version&gt;11&lt;/wss-version&gt;
+                &lt;keystore&gt;...&lt;/keystore&gt;
+            &lt;/security-policy&gt;
+        &lt;/endpoint-policy-subject&gt;
+    &lt;/policy&gt;
+&lt;/web-services-config&gt;</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e4119"></a>사용자명의 유효자(Validator) 클래스 작성</h5>
+
+        <p>com.sun.xml.wss.impl.callback.PasswordValidationCallback.PasswordValidator을
+        구현하여 username token을 사용해서 접근한 사용자의 username과 password를
+        validate한다.<a id="d4e4121" class="indexterm"></a></p>
+
+        <p/>
+
+        <div class="example"><a id="d4e4124"></a><p class="title"><b>[예 17.16] &lt;&lt; UsernamePasswordValidator.java &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">public class UsernamePasswordValidator implements
+        PasswordValidationCallback.PasswordValidator {
+
+   public boolean validate(PasswordValidationCallback.Request request)
+           throws PasswordValidationCallback.PasswordValidationException {
+       ...
+       return false;
+   }
+
+   private boolean validateUserFromDB(String username, String password) {
+       ...
+       return false;
+   }
+}</pre>
+        </div></div><br class="example-break"/>
+
+        <div class="literallayout"><p/></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e4130"></a>17.4.2.2. 클라이언트 설정</h4></div></div></div>
+        
+
+        <p>클라이언트 웹 서비스의 설정은 추가적으로 wsit-client.xml에 Keystore(Truststore) 설정과
+        함께 사용자명 핸들러를 설정해야 한다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e4136"></a>Keystore(Truststore) 설정 및 사용자명 핸들러의
+        설정</h5>
+
+        <p>wsit-client.xml 파일에 다음과 같이 설정한다.</p>
+
+        <div class="example"><a id="d4e4139"></a><p class="title"><b>[예 17.17] &lt;&lt;wsit-client.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+...
+targetNamespace="http://server.fromjava/"&gt;
+    &lt;wsp:UsingPolicy /&gt;
+    &lt;wsp:Policy wsu:Id="TmaxBP0"&gt;
+        &lt;wsp:ExactlyOne&gt;
+            &lt;wsp:All&gt;
+                &lt;CallbackHandlerConfiguration
+                xmlns="http://schemas.sun.com/2006/03/wss/client"&gt;
+                    &lt;CallbackHandler default="user_jeus" name="usernameHandler" /&gt;
+                    &lt;CallbackHandler default="password_jeus"
+                    name="passwordHandler" /&gt;
+                &lt;/CallbackHandlerConfiguration&gt;
+                &lt;TrustStore location="cacerts.jks" peeralias="xws-security-server"
+                storepass="changeit" type="JKS"
+                xmlns:ns0="http://java.sun.com/xml/ns/wsit/policy"
+                ns0:visibility="private"
+                xmlns="http://schemas.sun.com/2006/03/wss/client" /&gt;
+            &lt;/wsp:All&gt;
+        &lt;/wsp:ExactlyOne&gt;
+    &lt;/wsp:Policy&gt;
+    ...
+    &lt;binding name="AddNumbersImplPortBinding" type="tns:AddNumbersImpl"&gt;
+        &lt;wsp:PolicyReference URI="#TmaxBP0" /&gt;
+        ...
+    &lt;/binding&gt;
+    ...
+&lt;/definitions&gt;</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e4144"></a>사용자명의 핸들러 클래스 작성</h5>
+
+        <p><a id="d4e4146" class="indexterm"></a>javax.security.auth.callback.CallbackHandler을 구현하여 각각의
+        Callback을 CallbackHandler에 전달하면 여러 가지 설정을 해 줄 수 있다. 전달받은 Callback의 종류에
+        맞추어 정책에 따른 설정을 한다.</p>
+
+        <p>위 예제에서는 NameCallback과 PasswordCallback을 전달받아 Callback에 username과
+        password를 설정하는 CallbackHandler를 구성한다.</p>
+
+        <p>다음의 예제에서는 클래스 파일 내에서 username과 password를 미리 입력해 놓았지만 경우에 따라서 다양한
+        reader객체를 사용하여 사용자로부터 직접 입력받을 수도 있다.</p>
+
+        <div class="example"><a id="d4e4150"></a><p class="title"><b>[예 17.18] &lt;&lt; UsernamePasswordCallbackHandler.java
+          &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">public class UsernamePasswordCallbackHandler implements CallbackHandler {
+
+    public void handle(Callback[] callbacks) throws IOException,
+            UnsupportedCallbackException {
+        for (int i = 0; i &lt; callbacks.length; i++) {
+            Callback callback = callbacks[i];
+            if (callback instanceof NameCallback) {
+                ((NameCallback) callback).setName("user_jeus");
+            } else if (callback instanceof PasswordCallback) {
+                ((PasswordCallback) callback).setPassword((
+                        new String("password_jeus")).toCharArray());
+            } else {
+                throw new UnsupportedCallbackException(callback,
+                        "Unknow callback for username or password");
+            }
+        }
+    }
+}</pre>
+        </div></div><br class="example-break"/>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4157"></a>17.4.3. 상호 인증 보안(Mutual Certificates Security)</h3></div></div></div>
+      
+
+      <p>본 절에서는 서버와 클라이언트에서 상호 인증 보안을 설정하는 방법에 대해 설명한다.</p>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e4160"></a>17.4.3.1. 서버 설정</h4></div></div></div>
+        
+
+        <p>서버의 웹 서비스 설정은 service-config.xml 설정 파일로 구성한다.</p>
+
+        <div class="example"><a id="d4e4164"></a><p class="title"><b>[예 17.19] &lt;&lt; service-config.xml &gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-services-config xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;policy&gt;
+        &lt;endpoint-policy-subject&gt;
+            &lt;security-policy&gt;
+                &lt;security-binding&gt;
+                    &lt;asymmetric-binding&gt;
+                        &lt;initiator-token&gt;
+                            &lt;x509-token&gt;
+                                &lt;include-token&gt;true&lt;/include-token&gt;
+                            &lt;/x509-token&gt;
+                        &lt;/initiator-token&gt;
+                        &lt;recipient-token&gt;
+                            &lt;x509-token&gt;
+                                &lt;include-token&gt;false&lt;/include-token&gt;
+                            &lt;/x509-token&gt;
+                        &lt;/recipient-token&gt;
+                    &lt;/asymmetric-binding&gt;
+                &lt;/security-binding&gt;
+                &lt;protection&gt;
+                    &lt;signed-part&gt;...&lt;/signed-part&gt;
+                    &lt;encrypted-part&gt;...&lt;/encrypted-part&gt;
+                &lt;/protection&gt;
+                &lt;keystore&gt;...&lt;/keystore&gt;
+                &lt;truststore&gt;...&lt;/truststore&gt;
+            &lt;/security-policy&gt;
+        &lt;/endpoint-policy-subject&gt;
+    &lt;/policy&gt;
+&lt;/web-services-config&gt;</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <div class="literallayout"><p/></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e4169"></a>17.4.3.2. 클라이언트 설정</h4></div></div></div>
+        
+
+        <p>클라이언트의 웹 서비스 설정은 추가적으로 wsit-client.xml에 Keystore(Truststore) 설정을
+        해야 한다.</p>
+
+        <div class="example"><a id="d4e4173"></a><p class="title"><b>[예 17.20] &lt;&lt; wsit-client.xml &gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+...
+targetNamespace="http://server.fromjava/"&gt;
+    &lt;wsp:UsingPolicy/&gt;
+    &lt;wsp:Policy wsu:Id="TmaxBP0"&gt;
+        &lt;wsp:ExactlyOne&gt;
+            &lt;wsp:All&gt;
+                &lt;KeyStore
+                    alias="xws-security-client"
+                    location="keystore.jks"
+                    storepass="changeit" type="JKS"
+                    xmlns:ns0="http://java.sun.com/xml/ns/wsit/policy"
+                    ns0:visibility="private"
+                    xmlns="http://schemas.sun.com/2006/03/wss/client"/&gt;
+                &lt;TrustStore
+                    location="cacerts.jks"
+                    peeralias="xws-security-server"
+                    storepass="changeit"
+                    type="JKS"
+                    xmlns:ns0="http://java.sun.com/xml/ns/wsit/policy"
+                    ns0:visibility="private"
+                    xmlns="http://schemas.sun.com/2006/03/wss/client"/&gt;
+            &lt;/wsp:All&gt;
+        &lt;/wsp:ExactlyOne&gt;
+    &lt;/wsp:Policy&gt;
+    ...
+    &lt;binding name="AddNumbersImplPortBinding" type="tns:AddNumbersImpl"&gt;
+        &lt;wsp:PolicyReference URI="#TmaxBP0"/&gt;
+        ...
+    &lt;/binding&gt;
+    ...
+&lt;/definitions&gt;</pre>
+          </div></div><p><br class="example-break"/></p>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4176"></a>17.4.4. SSL을 통한 SAML 인증</h3></div></div></div>
+      
+
+      <p>본 절에서는 서버와 클라이언트에서 SSL을 통한 SAML 인증을 설정하는 방법에 대해서 설명한다.</p>
+
+      <p/>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e4180"></a>17.4.4.1. 서버 설정</h4></div></div></div>
+        
+
+        <p>서버의 웹 서비스 설정은 service-config.xml 설정 파일로 구성한다.</p>
+
+        <div class="example"><a id="d4e4184"></a><p class="title"><b>[예 17.21] &lt;&lt; service-config.xml &gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-services-config xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;policy&gt;
+        &lt;endpoint-policy-subject&gt;
+            &lt;security-policy&gt;
+                &lt;security-binding&gt;
+                    &lt;transport-binding&gt;
+                        &lt;transport-token&gt;
+                            &lt;https-token/&gt;
+                        &lt;/transport-token&gt;
+                    &lt;/transport-binding&gt;
+                &lt;/security-binding&gt;
+            &lt;/security-policy&gt;
+            &lt;operation-policy-subject&gt;
+                &lt;operation-java-name&gt;addNumbers&lt;/operation-java-name&gt;
+                &lt;input-message-policy-subject&gt;
+                    &lt;security-policy&gt;
+                        &lt;supporting-token&gt;
+                            &lt;signed-supporting-token&gt;
+                                &lt;saml-token&gt;
+                                &lt;/saml-token&gt;
+                            &lt;/signed-supporting-token&gt;
+                        &lt;/supporting-token&gt;
+                    &lt;/security-policy&gt;
+                &lt;/input-message-policy-subject&gt;
+            &lt;/operation-policy-subject&gt;
+        &lt;/endpoint-policy-subject&gt;
+    &lt;/policy&gt;
+&lt;/web-services-config&gt;</pre>
+
+            <div class="literallayout"><p/></div>
+          </div></div><p><br class="example-break"/></p>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e4189"></a>17.4.4.2. 클라이언트 설정</h4></div></div></div>
+        
+
+        <p>클라이언트의 웹 서비스 설정은 추가적으로 wsit-client.xml에 SAML 메시지 처리를 위한 Callback
+        핸들러 클래스 설정을 해야 한다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        
+
+        <h5><a id="d4e4195"></a>SAML 메시지 처리를 위한 Callback 핸들러 클래스
+        설정</h5>
+
+        <p>wsit-client.xml 파일에 다음과 SAML 메시지 처리를 위한 Callback 핸들러 클래스를
+        설정한다.</p>
+
+        <div class="example"><a id="d4e4198"></a><p class="title"><b>[예 17.22] &lt;&lt; wsit-client.xml &gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+...
+targetNamespace="http://server.fromjava/"&gt;
+    &lt;ns5:Policy xmlns:ns5="http://schemas.xmlsoap.org/ws/2004/09/policy"
+    wsu:Id="TmaxBO1TmaxIn1"&gt;
+        &lt;ns5:ExactlyOne&gt;
+            &lt;ns5:All&gt;
+                &lt;CallbackHandlerConfiguration
+                xmlns="http://schemas.sun.com/2006/03/wss/client"&gt;
+                    &lt;CallbackHandler classname="xwss.saml.SamlCallbackHandler"
+                    name="samlHandler" /&gt;
+                &lt;/CallbackHandlerConfiguration&gt;
+            &lt;/ns5:All&gt;
+        &lt;/ns5:ExactlyOne&gt;
+    &lt;/ns5:Policy&gt;
+    ...
+    &lt;binding name="AddNumbersImplPortBinding" type="tns:AddNumbersImpl"&gt;
+        ...
+        &lt;operation name="addNumbers"&gt;
+            &lt;soap:operation soapAction="" /&gt;
+            &lt;input&gt;
+                &lt;ns10:PolicyReference
+                xmlns:ns10="http://schemas.xmlsoap.org/ws/2004/09/policy"
+                URI="#TmaxBO1TmaxIn1" /&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/input&gt;
+            &lt;output&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/output&gt;
+        &lt;/operation&gt;
+    &lt;/binding&gt;
+    ...
+&lt;/definitions&gt;</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e4204"></a>SAML 메시지 처리를 위한 Callback 핸들러 클래스
+        작성</h5>
+
+        <p><a id="d4e4206" class="indexterm"></a>SAML 표준에 따라 SOAP 요청 메시지에 정보를 담기 위해 예제에서는
+        javax.security.auth.callback.CallbackHandler를 구현하는
+        SamlCallbackHandler를 사용한다. SamlCallbackHandler에서는 Callback의 종류에 따라 필요한
+        assertion을 저장하는 역할을 한다.</p>
+
+        <p/>
+
+        <p>다음은 이 예제에서 사용되는 SamlCallbackHandler이다.</p>
+
+        <div class="example"><a id="d4e4210"></a><p class="title"><b>[예 17.23] &lt;&lt; SamlCallbackHandler.java &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">public class SamlCallbackHandler implements CallbackHandler {
+  ...
+  public void handle(Callback[] callbacks) throws IOException,
+          UnsupportedCallbackException {
+    for (int i = 0; i &lt; callbacks.length; i++) {
+        if (callbacks[i] instanceof SAMLCallback) {
+            try {
+                SAMLCallback samlCallback = (SAMLCallback) callbacks[i];
+                if (samlCallback.getConfirmationMethod().equals(
+                        samlCallback.SV_ASSERTION_TYPE)) {
+                    samlCallback.setAssertionElement(createSVSAMLAssertion());
+                    svAssertion = samlCallback.getAssertionElement();
+                } else if (samlCallback.getConfirmationMethod().equals(
+                        samlCallback.HOK_ASSERTION_TYPE)) {
+                    samlCallback.setAssertionElement(createHOKSAMLAssertion());
+                    hokAssertion = samlCallback.getAssertionElement();
+                } else {
+                    throw new Exception("SAML Assertion Type is not matched.");
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            throw unsupported;
+        }
+     }
+  }
+
+  private static Element createSVSAMLAssertion() {...}
+  private static Element createSVSAMLAssertion20() {...}
+  private Element createHOKSAMLAssertion() {...}
+  private Element createHOKSAMLAssertion20() {...}
+  ...
+}</pre>
+        </div></div><br class="example-break"/>
+
+        <p/>
+
+        <p/>
+
+        
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4216"></a>17.4.5. 보안 대화(Secure Conversation)</h3></div></div></div>
+      
+
+      <p>본 절에서는 서버와 클라이언트에서 보안 대화를 설정하는 방법에 대해서 설명한다.</p>
+
+      <p/>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e4220"></a>17.4.5.1. 서버 설정</h4></div></div></div>
+        
+
+        <p>웹 서비스의 서버 설정은 service-config.xml 설정 파일로 구성한다.</p>
+
+        <div class="example"><a id="d4e4224"></a><p class="title"><b>[예 17.24] &lt;&lt;service-config.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-services-config xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;policy&gt;
+        &lt;endpoint-policy-subject&gt;
+            &lt;portcomponent-wsdl-name&gt;AddNumbersPort&lt;/portcomponent-wsdl-name&gt;
+            &lt;addressing-policy&gt;
+                &lt;www-w3-org /&gt;
+            &lt;/addressing-policy&gt;
+            &lt;security-policy&gt;
+                &lt;security-binding&gt;
+                    &lt;symmetric-binding&gt;
+                        &lt;protection-token&gt;
+                            &lt;secure-conversation-token&gt;
+                                &lt;asymmetric-binding-initiator-token&gt;
+                                    &lt;include-token&gt;true&lt;/include-token&gt;
+                                &lt;/asymmetric-binding-initiator-token&gt;
+                                &lt;asymmetric-binding-recipient-token&gt;
+                                &lt;/asymmetric-binding-recipient-token&gt;
+                                &lt;include-token&gt;true&lt;/include-token&gt;
+                            &lt;/secure-conversation-token&gt;
+                        &lt;/protection-token&gt;
+                        &lt;encrypt-signature&gt;true&lt;/encrypt-signature&gt;
+                    &lt;/symmetric-binding&gt;
+                &lt;/security-binding&gt;
+                &lt;trust&gt;true&lt;/trust&gt;
+                &lt;keystore&gt;...&lt;/keystore&gt;
+                &lt;truststore&gt;...&lt;/truststore&gt;
+            &lt;/security-policy&gt;
+            &lt;operation-policy-subject&gt;
+                &lt;operation-wsdl-name&gt;addNumbers&lt;/operation-wsdl-name&gt;
+                &lt;input-message-policy-subject&gt;
+                    &lt;security-policy&gt;
+                        &lt;protection&gt;
+                            &lt;signed-part&gt;...&lt;/signed-part&gt;
+                            &lt;encrypted-part&gt;...&lt;/encrypted-part&gt;
+                        &lt;/protection&gt;
+                    &lt;/security-policy&gt;
+                &lt;/input-message-policy-subject&gt;
+            &lt;/operation-policy-subject&gt;
+        &lt;/endpoint-policy-subject&gt;
+    &lt;/policy&gt;
+&lt;/web-services-config&gt;</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <div class="literallayout"><p/></div>
+
+        <p/>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e4230"></a>17.4.5.2. 클라이언트 설정</h4></div></div></div>
+        
+
+        <p>클라이언트의 웹 서비스 설정은 추가적으로 wsit-client.xml에 Keystore(Truststore) 설정을
+        해야 한다.</p>
+
+        <div class="example"><a id="d4e4234"></a><p class="title"><b>[예 17.25] &lt;&lt;wsit-client.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+...
+xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"&gt;
+    &lt;message name="add" /&gt;
+    &lt;message name="addResponse" /&gt;
+    &lt;portType name="NewWebService"&gt;
+        &lt;wsdl:operation name="add"&gt;
+            &lt;wsdl:input message="tns:add" /&gt;
+            &lt;wsdl:output message="tns:addResponse" /&gt;
+        &lt;/wsdl:operation&gt;
+    &lt;/portType&gt;
+    &lt;binding name="NewWebServicePortBinding" type="tns:NewWebService"&gt;
+        &lt;wsp:PolicyReference URI="#NewWebServicePortBindingPolicy" /&gt;
+        &lt;soap12:binding style="document"
+            transport="http://schemas.xmlsoap.org/soap/http" /&gt;
+        &lt;wsdl:operation name="add"&gt;
+            &lt;soap12:operation soapAction="http://xmlsoap.org/Ping"
+                style="document" /&gt;
+            &lt;wsdl:input&gt;
+                &lt;soap12:body use="literal" /&gt;
+            &lt;/wsdl:input&gt;
+            &lt;wsdl:output&gt;
+                &lt;soap12:body use="literal" /&gt;
+            &lt;/wsdl:output&gt;
+        &lt;/wsdl:operation&gt;
+    &lt;/binding&gt;
+    &lt;service name="NewWebServiceService"&gt;
+        &lt;wsdl:port name="NewWebServicePort" binding="tns:NewWebServicePortBinding"&gt;
+            &lt;soap12:address location="REPLACE_WITH_ACTUAL_ADDRESS" /&gt;
+        &lt;/wsdl:port&gt;
+    &lt;/service&gt;
+    &lt;wsp:Policy wsu:Id="NewWebServicePortBindingPolicy"
+    xmlns:scc="http://schemas.sun.com/ws/2006/05/sc/client"&gt;
+        &lt;wsp:ExactlyOne&gt;
+            &lt;wsp:All&gt;
+                &lt;sc:KeyStore wspp:visibility="private"
+                    location="./keystore.jks" type="JKS"
+                    alias="xws-security-client" storepass="changeit"&gt;
+                &lt;/sc:KeyStore&gt;
+                &lt;sc:TrustStore wspp:visibility="private"
+                    location="./cacerts.jks" type="JKS"
+                    storepass="changeit" peeralias="xws-security-server"
+                    stsalias="wssip"&gt;
+                &lt;/sc:TrustStore&gt;
+                &lt;scc:SCClientConfiguration wspp:visibility="private"&gt;
+                    &lt;scc:LifeTime&gt;36000&lt;/scc:LifeTime&gt;
+                &lt;/scc:SCClientConfiguration&gt;
+            &lt;/wsp:All&gt;
+        &lt;/wsp:ExactlyOne&gt;
+    &lt;/wsp:Policy&gt;
+&lt;/definitions&gt;</pre>
+          </div></div><p><br class="example-break"/></p>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4237"></a>17.4.6. 웹 서비스 신뢰(WS-Trust)</h3></div></div></div>
+      
+
+      <p>본 절에서는 웹 서비스 신뢰를 위한 서버와 STS, 클라이언트의 설정 방법에 대해서 설명한다.</p>
+
+      <p/>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e4241"></a>17.4.6.1. 서버 설정</h4></div></div></div>
+        
+
+        <p>웹 서비스의 서버 설정은 service-config.xml 설정 파일로 구성한다.</p>
+
+        <div class="example"><a id="d4e4245"></a><p class="title"><b>[예 17.26] &lt;&lt;service-config.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-services-config xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;policy&gt;
+        &lt;endpoint-policy-subject&gt;
+&lt;!--
+웹 서비스 신뢰는 WS-Addressing 프레임워크 위에서 동작한다
+--&gt;
+            &lt;addressing-policy&gt;
+                &lt;www-w3-org /&gt;
+            &lt;/addressing-policy&gt;
+            &lt;security-policy&gt;
+&lt;!--
+웹 서비스는 x509 토큰을 보안 토큰으로 사용할 것을 명시한다
+--&gt;
+                &lt;security-binding&gt;
+                    &lt;symmetric-binding&gt;
+                        &lt;protection-token&gt;
+                            &lt;x509-token /&gt;
+                        &lt;/protection-token&gt;
+                        &lt;layout&gt;Strict&lt;/layout&gt;
+                    &lt;/symmetric-binding&gt;
+                &lt;/security-binding&gt;
+&lt;!--
+웹 서비스는 추가적으로 다음 주소의 STS로부터 보안 토큰을 발급 받을 것을 명시한다
+--&gt;
+                &lt;token&gt;
+                    &lt;endorsing-supporting-token&gt;
+                        &lt;issued-token&gt;
+                            &lt;issuer-address&gt;
+                             http://localhost:8088/trust_sts/SecurityTokenService
+                            &lt;/issuer-address&gt;
+                        &lt;/issued-token&gt;
+                    &lt;/endorsing-supporting-token&gt;
+                &lt;/token&gt;
+                &lt;wss-version&gt;11&lt;/wss-version&gt;
+                &lt;trust&gt;true&lt;/trust&gt;
+                ...
+            &lt;/security-policy&gt;
+            ...
+        &lt;/endpoint-policy-subject&gt;
+    &lt;/policy&gt;
+&lt;/web-services-config&gt;</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e4251"></a>17.4.6.2. STS 설정</h4></div></div></div>
+        
+
+        <p><a id="d4e4254" class="indexterm"></a>STS를 위해 WS-SecurityPolicy 설정을 WSDL의 WS-Policy 프레임워크을 통해
+        설정해야 한다.</p>
+
+        <p>다음은 WS-SecurityPolicy 설정에 대한 예이다.</p>
+
+        <div class="example"><a id="d4e4258"></a><p class="title"><b>[예 17.27] WS-SecurityPolicy 설정 : &lt;&lt;sts.wsdl&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;wsdl:definitions ...&gt;
+    &lt;wsp:Policy wsu:Id="TmaxSTSServerPolicy"&gt;
+        &lt;wsp:ExactlyOne&gt;
+            &lt;wsp:All&gt;
+                &lt;sp:SymmetricBinding
+                xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"&gt;
+                    &lt;wsp:Policy&gt;
+                        &lt;sp:ProtectionToken&gt;
+                            &lt;wsp:Policy&gt;
+                                &lt;sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never"&gt;
+                                    &lt;wsp:Policy&gt;
+                                        &lt;sp:RequireDerivedKeys /&gt;
+                                        &lt;sp:RequireThumbprintReference /&gt;
+                                        &lt;sp:WssX509V3Token10 /&gt;
+                                    &lt;/wsp:Policy&gt;
+                                &lt;/sp:X509Token&gt;
+                            &lt;/wsp:Policy&gt;
+                        &lt;/sp:ProtectionToken&gt;
+                        &lt;sp:AlgorithmSuite&gt;
+                            &lt;wsp:Policy&gt;
+                                &lt;sp:Basic128 /&gt;
+                            &lt;/wsp:Policy&gt;
+                        &lt;/sp:AlgorithmSuite&gt;
+                        &lt;sp:Layout&gt;
+                            &lt;wsp:Policy&gt;
+                                &lt;sp:Lax /&gt;
+                            &lt;/wsp:Policy&gt;
+                        &lt;/sp:Layout&gt;
+                        &lt;sp:IncludeTimestamp /&gt;
+                        &lt;sp:EncryptSignature /&gt;
+                        &lt;sp:OnlySignEntireHeadersAndBody /&gt;
+                    &lt;/wsp:Policy&gt;
+                &lt;/sp:SymmetricBinding&gt;
+                &lt;sp:SignedSupportingTokens
+                xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"&gt;
+                    &lt;wsp:Policy&gt;
+                        &lt;sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient"&gt;
+                            &lt;wsp:Policy&gt;
+                                &lt;sp:WssUsernameToken10 /&gt;
+                            &lt;/wsp:Policy&gt;
+                        &lt;/sp:UsernameToken&gt;
+                    &lt;/wsp:Policy&gt;
+                &lt;/sp:SignedSupportingTokens&gt;
+                &lt;sp:Wss11
+                xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"&gt;
+                    &lt;wsp:Policy&gt;
+                        &lt;sp:MustSupportRefKeyIdentifier /&gt;
+                        &lt;sp:MustSupportRefIssuerSerial /&gt;
+                        &lt;sp:MustSupportRefThumbprint /&gt;
+                        &lt;sp:MustSupportRefEncryptedKey /&gt;
+                    &lt;/wsp:Policy&gt;
+                &lt;/sp:Wss11&gt;
+                &lt;sp:Trust10
+                xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"&gt;
+                    &lt;wsp:Policy&gt;
+                        &lt;sp:MustSupportIssuedTokens /&gt;
+                        &lt;sp:RequireClientEntropy /&gt;
+                        &lt;sp:RequireServerEntropy /&gt;
+                    &lt;/wsp:Policy&gt;
+                &lt;/sp:Trust10&gt;
+                ...
+                &lt;sc:ValidatorConfiguration
+                    xmlns:sc="http://schemas.sun.com/2006/03/wss/server"&gt;
+                    &lt;sc:Validator name="usernameValidator"
+                        classname="trust.sts.UsernamePasswordValidator" /&gt;
+                &lt;/sc:ValidatorConfiguration&gt;
+                &lt;tc:STSConfiguration
+                    xmlns:tc="http://schemas.sun.com/ws/2006/05/trust/server"
+                    encryptIssuedKey="true" encryptIssuedToken="false"&gt;
+                    &lt;tc:LifeTime&gt;36000&lt;/tc:LifeTime&gt;
+                    &lt;tc:Contract&gt;
+                    com.sun.xml.ws.security.trust.impl.IssueSamlTokenContractImpl
+                    &lt;/tc:Contract&gt;
+                    &lt;tc:Issuer&gt;TmaxsoftSTS&lt;/tc:Issuer&gt;
+                    &lt;tc:ServiceProviders&gt;
+                       &lt;tc:ServiceProviderendPoint="http://localhost:8088/trust_server/FinancialService"&gt;
+                            &lt;tc:CertAlias&gt;bob&lt;/tc:CertAlias&gt;
+                            &lt;tc:TokenType&gt;
+                              http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV1.1
+                            &lt;/tc:TokenType&gt;
+                       &lt;/tc:ServiceProvider&gt;
+                       &lt;tc:ServiceProvider endPoint="default"&gt;
+                            &lt;tc:CertAlias&gt;bob&lt;/tc:CertAlias&gt;
+                            &lt;tc:TokenType&gt;
+                              http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV1.1
+                            &lt;/tc:TokenType&gt;
+                       &lt;/tc:ServiceProvider&gt;
+                    &lt;/tc:ServiceProviders&gt;
+                &lt;/tc:STSConfiguration&gt;
+                &lt;wsap10:UsingAddressing /&gt;
+            &lt;/wsp:All&gt;
+        &lt;/wsp:ExactlyOne&gt;
+    &lt;/wsp:Policy&gt;
+    ...
+    &lt;wsdl:binding name="ISecurityTokenService_Binding"
+        type="tns:ISecurityTokenService"&gt;
+        &lt;wsp:PolicyReference URI="#TmaxSTSServerPolicy" /&gt;
+        ...
+    &lt;/wsdl:binding&gt;
+    ...
+&lt;/wsdl:definitions&gt;</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e4264"></a>17.4.6.3. 클라이언트 설정</h4></div></div></div>
+        
+
+        <p>클라이언트의 웹 서비스 설정은 wsit-client.xml에 서버, STS 각각을 위한
+        Keystore(Truststore) 설정을 해야 한다.</p>
+
+        <div class="example"><a id="d4e4268"></a><p class="title"><b>[예 17.28] &lt;&lt;wsit-client.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;wsdl:definitions targetNamespace="http://tempuri.org/" ...&gt;
+    &lt;!-- FinancialService WSDL --&gt;
+    &lt;wsp:Policy wsu:Id="TmaxFSClientPolicy" ...&gt;
+        &lt;wsp:ExactlyOne&gt;
+            &lt;wsp:All&gt;
+                &lt;sc:KeyStore ... /&gt;
+                &lt;sc:TrustStore  ... /&gt;
+                &lt;scc:SCClientConfiguration wspp:visibility="private"&gt;
+                    &lt;scc:LifeTime&gt;36000&lt;/scc:LifeTime&gt;
+                &lt;/scc:SCClientConfiguration&gt;
+            &lt;/wsp:All&gt;
+        &lt;/wsp:ExactlyOne&gt;
+    &lt;/wsp:Policy&gt;
+    ...
+    &lt;wsdl:binding name="IFinancialService_Binding"
+        type="tns:IFinancialService"&gt;
+        &lt;wsp:PolicyReference URI="#TmaxFSClientPolicy" /&gt;
+        ...
+    &lt;/wsdl:binding&gt;
+    &lt;wsdl:service name="FinancialService"&gt;
+        &lt;wsdl:port name="IFinancialService_Port"
+            binding="tns:IFinancialService_Binding"&gt;
+            &lt;soap:address
+                location="http://localhost:8088/trust_server/FinancialService" /&gt;
+        &lt;/wsdl:port&gt;
+    &lt;/wsdl:service&gt;
+
+    &lt;!-- STSService WSDL --&gt;
+    &lt;wsp:Policy wsu:Id="TmaxSTSClientPolicy" ...&gt;
+        &lt;wsp:ExactlyOne&gt;
+            &lt;wsp:All&gt;
+                &lt;sc:KeyStore ... /&gt;
+                &lt;sc:TrustStore ... /&gt;
+                &lt;sc:CallbackHandlerConfiguration
+                    xmlns:sc="http://schemas.sun.com/2006/03/wss/client"&gt;
+                    &lt;sc:CallbackHandler default="alice" name="usernameHandler" /&gt;
+                    &lt;sc:CallbackHandler default="alice" name="passwordHandler" /&gt;
+                &lt;/sc:CallbackHandlerConfiguration&gt;
+            &lt;/wsp:All&gt;
+        &lt;/wsp:ExactlyOne&gt;
+    &lt;/wsp:Policy&gt;
+    ...
+    &lt;wsdl:binding name="ISecurityTokenService_Binding"
+        type="tns:ISecurityTokenService"&gt;
+        &lt;wsp:PolicyReference URI="#TmaxSTSClientPolicy" /&gt;
+        ...
+    &lt;/wsdl:binding&gt;
+    &lt;wsdl:service name="SecurityTokenService"&gt;
+        &lt;wsdl:port name="ISecurityTokenService_Port"
+            binding="tns:ISecurityTokenService_Binding"&gt;
+            &lt;soap:address
+                location="http://localhost:8088/trust_sts/STSImplService" /&gt;
+        &lt;/wsdl:port&gt;
+    &lt;/wsdl:service&gt;
+&lt;/wsdl:definitions&gt;</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <p/>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4272"></a>17.4.7. 실행</h3></div></div></div>
+      
+
+      <p>다음은 실행 화면이다.</p>
+
+      <pre class="programlisting">&lt;&lt;__Exception__&gt;&gt;
+com.sun.xml.ws.server.UnsupportedMediaException: Unsupported Content-Type:
+ application/soap+xml Supported ones are: [text/xml]
+  at com.sun.xml.ws.encoding.StreamSOAPCodec.decode(StreamSOAPCodec.java:295)
+  at com.sun.xml.ws.encoding.StreamSOAPCodec.decode(StreamSOAPCodec.java:129)
+  at com.sun.xml.ws.encoding.SOAPBindingCodec.decode(SOAPBindingCodec.java:287)
+  at jeus.webservices.jaxws.transport.http.HttpAdapter.decodePacket
+(HttpAdapter.java:322)
+  at jeus.webservices.jaxws.transport.http.HttpAdapter.access$3
+(HttpAdapter.java:287)
+  at jeus.webservices.jaxws.transport.http.HttpAdapter$HttpToolkit.handle
+(HttpAdapter.java:517)
+  at jeus.webservices.jaxws.transport.http.HttpAdapter.handle
+(HttpAdapter.java:272)
+  at jeus.webservices.jaxws.transport.http.EndpointAdapter.handle
+(EndpointAdapter.java:149)
+  at jeus.webservices.jaxws.transport.http.servlet.WSServletDelegate.doGet
+(WSServletDelegate.java:139)
+  at jeus.webservices.jaxws.transport.http.servlet.WSServletDelegate.doPost
+(WSServletDelegate.java:170)
+  at jeus.webservices.jaxws.transport.http.servlet.WSServlet.doPost
+(WSServlet.java:23)
+  at javax.servlet.http.HttpServlet.service(HttpServlet.java:725)
+  at javax.servlet.http.HttpServlet.service(HttpServlet.java:818)
+  at jeus.servlet.engine.ServletWrapper.executeServlet(ServletWrapper.java:328)
+  at jeus.servlet.engine.ServletWrapper.execute(ServletWrapper.java:222)
+  at jeus.servlet.engine.HttpRequestProcessor.run(HttpRequestProcessor.java:278)
+&lt;&lt;__!Exception__&gt;&gt;
+[2999.01.01 00:00:00][0][bxxx] [TMAX-xx] Unsupported Content-Type:
+ application/soap+xml Supported ones are: [text/xml]
+&lt;&lt;__Exception__&gt;&gt;
+com.sun.xml.ws.server.UnsupportedMediaException: Unsupported Content-Type:
+ application/soap+xml Supported ones are: [text/xml]
+  at com.sun.xml.ws.encoding.StreamSOAPCodec.decode(StreamSOAPCodec.java:295)
+  at com.sun.xml.ws.encoding.StreamSOAPCodec.decode(StreamSOAPCodec.java:129)
+  at com.sun.xml.ws.encoding.SOAPBindingCodec.decode(SOAPBindingCodec.java:287)
+  at jeus.webservices.jaxws.transport.http.HttpAdapter.decodePacket
+(HttpAdapter.java:322)
+  at jeus.webservices.jaxws.transport.http.HttpAdapter.access$3
+(HttpAdapter.java:287)
+  at jeus.webservices.jaxws.transport.http.HttpAdapter$HttpToolkit.handle
+(HttpAdapter.java:517)
+  at jeus.webservices.jaxws.transport.http.HttpAdapter.handle(HttpAdapter.java:272)
+  at jeus.webservices.jaxws.transport.http.EndpointAdapter.handle
+(EndpointAdapter.java:149)
+  at jeus.webservices.jaxws.transport.http.servlet.WSServletDelegate.doGet
+(WSServletDelegate.java:139)
+  at jeus.webservices.jaxws.transport.http.servlet.WSServletDelegate.doPost
+(WSServletDelegate.java:170)
+  at jeus.webservices.jaxws.transport.http.servlet.WSServlet.doPost
+(WSServlet.java:23)
+  at javax.servlet.http.HttpServlet.service(HttpServlet.java:725)
+  at javax.servlet.http.HttpServlet.service(HttpServlet.java:818)
+  at jeus.servlet.engine.ServletWrapper.executeServlet(ServletWrapper.java:328)
+  at jeus.servlet.engine.ServletWrapper.execute(ServletWrapper.java:222)
+  at jeus.servlet.engine.HttpRequestProcessor.run(HttpRequestProcessor.java:278)
+&lt;&lt;__!Exception__&gt;&gt;
+user alice is a validate user.
+your company : Tmaxsoft
+your department : Infra</pre>
+
+      <p>클라이언트를 실행하면 클라이언트가 STS의 URL 정보를 얻기 위해 여러 가지 접미 URL을 통해 연결을 시도한다.
+      여기서 로그 레벨이 'FINE' 이상인 경우 위와 같은 Exception이 발생하는 것을 확인할 수 있다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4279"></a>17.5. JAX-RPC(JEUS 5) 웹 서비스 보안 이전 방법</h2></div></div></div>
+    
+
+    <p>JEUS 웹 서비스의 메시지 수준 보안은 웹 서비스 보안 정책(Web Service Secure Policy)을 통해
+    동작한다. 즉, WSDL 문서 내에 직접적으로 웹 서비스 보안 정책을 설정하거나 wsit-endpoint.xml에 웹 서비스 보안
+    정책을 설정한다.</p>
+
+    <p>JEUS에서는 추가적으로 service-config.xml을 통해 웹 서비스 정책 설정을 지원하며 이는 웹 서비스 보안
+    정책을 지원한다. 따라서 사용자가 웹 서비스 정책 및 웹 서비스 정책에 대해 모르더라도 서버와 클라이언트 간에 이러한
+    service-config.xml 파일의 공유가 가능하다면 이 파일을 통해 양 끝단의 메시지 수준의 보안을 간단하게 처리할 수 있다.
+    이는 JAX-RPC(JEUS 5) 웹 서비스의 메시지 수준 보안 방식과 유사하다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4284"></a>17.5.1. 암호화(Encryption)</h3></div></div></div>
+      
+
+      <p>웹 서비스 메시지 수준 보안에서 암호화에 대한 설정은 다음과 같이 구분된다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>JAX-RPC 웹 서비스 설정</p>
+          </li><li>
+            <p>JAX-WS 웹 서비스 설정</p>
+          </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e4295"></a>JAX-RPC 웹 서비스 설정</h4>
+
+      <p>JAX-RPC 웹 서비스 메시지 수준 보안에서 암호화를 설정하는 방식은 다음과 같이
+      jeus-webservices-dd.xml(서버)와 jeus-web-dd.xml(클라이언트)를 설정한다.</p>
+
+      <div class="example"><a id="d4e4297"></a><p class="title"><b>[예 17.29] &lt;&lt; jeus-webservices-dd.xml &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;jeus-webservices-dd xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;service&gt;
+        &lt;webservice-description-name&gt;
+            PingSecurityService
+        &lt;/webservice-description-name&gt;
+        &lt;port&gt;
+            &lt;port-component-name&gt;PingPort&lt;/port-component-name&gt;            
+            &lt;security&gt;
+                &lt;request-receiver&gt;
+                    &lt;action-list&gt;Encrypt&lt;/action-list&gt;
+                    &lt;password-callback-class&gt;
+                        ping.PingPWCallback
+                    &lt;/password-callback-class&gt;
+                    &lt;decryption&gt;
+                        &lt;keystore&gt;
+                            &lt;key-type&gt;jks&lt;/key-type&gt;
+                            &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                            &lt;keystore-filename&gt;
+                                server-keystore.jks
+                            &lt;/keystore-filename&gt;
+                        &lt;/keystore&gt;
+                    &lt;/decryption&gt;
+                &lt;/request-receiver&gt;
+                &lt;response-sender&gt;
+                    &lt;action-list&gt;Encrypt&lt;/action-list&gt;
+                    &lt;password-callback-class&gt;
+                        ping.PingPWCallback
+                    &lt;/password-callback-class&gt;
+                    &lt;encryption-infos&gt;
+                        &lt;encryption-info&gt;
+                            &lt;encryptionUser&gt;xws-security-client&lt;/encryptionUser&gt;
+                            &lt;keyIdentifier&gt;DirectReference&lt;/keyIdentifier&gt;
+                            &lt;keystore&gt;
+                                &lt;key-type&gt;jks&lt;/key-type&gt;
+                                &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                                &lt;keystore-filename&gt;
+                                    server-truststore.jks
+                                &lt;/keystore-filename&gt;
+                            &lt;/keystore&gt;
+                        &lt;/encryption-info&gt;
+                    &lt;/encryption-infos&gt;
+                &lt;/response-sender&gt;
+            &lt;/security&gt;
+        &lt;/port&gt;
+    &lt;/service&gt;
+&lt;/jeus-webservices-dd&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e4306"></a>JAX-WS(JEUS 8) 웹 서비스 설정</h4>
+
+      <p>JAX-WS(JEUS 8) 웹 서비스의 메시지 수준 보안은 웹 서비스를 생성(wsgen 또는 wsimport 통해 웹
+      서비스를 생성)할 때 service-config.xml 파일을 추가적으로 -policy 인자와 함께 명령문에
+      설정한다.</p>
+
+      <div class="example"><a id="d4e4308"></a><p class="title"><b>[예 17.30] &lt;&lt; service-config.xml &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;web-services-config xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;policy&gt;
+        &lt;endpoint-policy-subject&gt;
+            &lt;portcomponent-wsdl-name&gt;PingPort&lt;/portcomponent-wsdl-name&gt;
+            &lt;security-policy&gt;
+                &lt;security-binding&gt;
+                    &lt;asymmetric-binding&gt;
+                        &lt;initiator-token&gt;
+                            &lt;x509-token/&gt;
+                        &lt;/initiator-token&gt;
+                        &lt;recipient-token&gt;
+                            &lt;x509-token/&gt;
+                        &lt;/recipient-token&gt;
+                    &lt;/asymmetric-binding&gt;
+                &lt;/security-binding&gt;
+                &lt;keystore&gt;
+                    &lt;keystore-file&gt;
+                        &lt;alias&gt;xws-security-client&lt;/alias&gt;
+                        &lt;key-type&gt;JKS&lt;/key-type&gt;
+                        &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                        &lt;keystore-filename&gt;
+                            client-keystore.jks
+                        &lt;/keystore-filename&gt;
+                    &lt;/keystore-file&gt;
+                &lt;/keystore&gt;
+                &lt;truststore&gt;
+                    &lt;keystore-file&gt;
+                        &lt;alias&gt;xws-security-server&lt;/alias&gt;
+                        &lt;key-type&gt;JKS&lt;/key-type&gt;
+                        &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                        &lt;keystore-filename&gt;
+                            client-truststore.jks
+                        &lt;/keystore-filename&gt;
+                    &lt;/keystore-file&gt;
+                &lt;/truststore&gt;
+            &lt;/security-policy&gt;
+            &lt;operation-policy-subject&gt;
+                &lt;operation-wsdl-name&gt;ping&lt;/operation-wsdl-name&gt;
+                &lt;input-message-policy-subject&gt;
+                    &lt;security-policy&gt;
+                        &lt;protection&gt;
+                            &lt;encrypted-part&gt;
+                                &lt;body/&gt;
+                            &lt;/encrypted-part&gt;
+                        &lt;/protection&gt;
+                    &lt;/security-policy&gt;
+                &lt;/input-message-policy-subject&gt;
+                &lt;output-message-policy-subject&gt;
+                    &lt;security-policy&gt;
+                        &lt;protection&gt;
+                            &lt;encrypted-part&gt;
+                                &lt;body/&gt;
+                            &lt;/encrypted-part&gt;
+                        &lt;/protection&gt;
+                    &lt;/security-policy&gt;
+                &lt;/output-message-policy-subject&gt;
+            &lt;/operation-policy-subject&gt;
+        &lt;/endpoint-policy-subject&gt;
+    &lt;/policy&gt;
+&lt;/web-services-config&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4314"></a>17.5.2. 서명(Signature)</h3></div></div></div>
+      
+
+      <p>웹 서비스 메시지 수준 보안에서 서명에 대한 설정은 다음과 같이 구분된다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>JAX-RPC 웹 서비스 설정</p>
+          </li><li>
+            <p>JAX-WS 웹 서비스 설정</p>
+          </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e4326"></a>JAX-RPC 웹 서비스 설정</h4>
+
+      <p>JAX-RPC 웹 서비스 메시지 수준 보안에서는 다음과 같이 jeus-webservices-dd.xml(서버) 또는
+      jeus-web-dd.xml(클라이언트)으로 서명을 설정한다.</p>
+
+      <p/>
+
+      <div class="example"><a id="d4e4329"></a><p class="title"><b>[예 17.31] &lt;&lt; jeus-webservices-dd.xml &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;jeus-webservices-dd xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;service&gt;
+        &lt;webservice-description-name&gt;
+            PingSecurityService
+        &lt;/webservice-description-name&gt;
+        &lt;port&gt;
+            &lt;port-component-name&gt;PingPort&lt;/port-component-name&gt;            
+            &lt;security&gt;
+                &lt;request-receiver&gt;
+                    &lt;action-list&gt;Signature&lt;/action-list&gt;
+                    &lt;password-callback-class&gt;
+                        ping.PingPWCallback
+                    &lt;/password-callback-class&gt;
+                    &lt;signature-verification&gt;
+                        &lt;keystore&gt;
+                            &lt;key-type&gt;jks&lt;/key-type&gt;
+                            &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                            &lt;keystore-filename&gt;
+                                server-truststore.jks
+                            &lt;/keystore-filename&gt;
+                        &lt;/keystore&gt;
+                    &lt;/signature-verification&gt;
+                &lt;/request-receiver&gt;
+                &lt;response-sender&gt;
+                    &lt;action-list&gt;Signature&lt;/action-list&gt;
+                    &lt;password-callback-class&gt;
+                        ping.PingPWCallback
+                    &lt;/password-callback-class&gt;
+                    &lt;user&gt;xws-security-server&lt;/user&gt;
+                    &lt;signature-infos&gt;
+                        &lt;signature-info&gt;
+                            &lt;keyIdentifier&gt;DirectReference&lt;/keyIdentifier&gt;
+                            &lt;keystore&gt;
+                                &lt;key-type&gt;jks&lt;/key-type&gt;
+                                &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                                &lt;keystore-filename&gt;
+                                    server-keystore.jks
+                                &lt;/keystore-filename&gt;
+                            &lt;/keystore&gt;
+                        &lt;/signature-info&gt;
+                    &lt;/signature-infos&gt;
+                &lt;/response-sender&gt;
+            &lt;/security&gt;
+        &lt;/port&gt;
+    &lt;/service&gt;
+&lt;/jeus-webservices-dd&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e4336"></a>JAX-WS 웹 서비스 설정</h4>
+
+      <p>JAX-WS(JEUS 8) 웹 서비스의 메시지 수준 보안은 웹 서비스를 생성(wsgen 혹은 wsimport 통해 웹
+      서비스를 생성)할 때 service-config.xml 파일을 추가적으로 -policy 인자와 함께 명령문에
+      설정한다.</p>
+
+      <div class="example"><a id="d4e4338"></a><p class="title"><b>[예 17.32] &lt;&lt; service-config.xml &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;web-services-config xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;policy&gt;
+        &lt;endpoint-policy-subject&gt;
+            &lt;portcomponent-wsdl-name&gt;PingPort&lt;/portcomponent-wsdl-name&gt;
+            &lt;security-policy&gt;
+                &lt;security-binding&gt;
+                    &lt;asymmetric-binding&gt;
+                        &lt;initiator-token&gt;
+                            &lt;x509-token/&gt;
+                        &lt;/initiator-token&gt;
+                        &lt;recipient-token&gt;
+                            &lt;x509-token/&gt;
+                        &lt;/recipient-token&gt;
+                    &lt;/asymmetric-binding&gt;
+                &lt;/security-binding&gt;
+                &lt;keystore&gt;
+                    &lt;keystore-file&gt;
+                        &lt;alias&gt;xws-security-client&lt;/alias&gt;
+                        &lt;key-type&gt;JKS&lt;/key-type&gt;
+                        &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                        &lt;keystore-filename&gt;
+                            client-keystore.jks
+                        &lt;/keystore-filename&gt;
+                    &lt;/keystore-file&gt;
+                &lt;/keystore&gt;
+                &lt;truststore&gt;
+                    &lt;keystore-file&gt;
+                        &lt;alias&gt;xws-security-server&lt;/alias&gt;
+                        &lt;key-type&gt;JKS&lt;/key-type&gt;
+                        &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                        &lt;keystore-filename&gt;
+                            client-truststore.jks
+                        &lt;/keystore-filename&gt;
+                    &lt;/keystore-file&gt;
+                &lt;/truststore&gt;
+            &lt;/security-policy&gt;
+            &lt;operation-policy-subject&gt;
+                &lt;operation-wsdl-name&gt;ping&lt;/operation-wsdl-name&gt;
+                &lt;input-message-policy-subject&gt;
+                    &lt;security-policy&gt;
+                        &lt;protection&gt;
+                            &lt;signed-part&gt;
+                                &lt;body/&gt;
+                            &lt;/signed-part&gt;
+                        &lt;/protection&gt;
+                    &lt;/security-policy&gt;
+                &lt;/input-message-policy-subject&gt;
+                &lt;output-message-policy-subject&gt;
+                    &lt;security-policy&gt;
+                        &lt;protection&gt;
+                            &lt;signed-part&gt;
+                                &lt;body/&gt;
+                            &lt;/signed-part&gt;
+                        &lt;/protection&gt;
+                    &lt;/security-policy&gt;
+                &lt;/output-message-policy-subject&gt;
+            &lt;/operation-policy-subject&gt;
+        &lt;/endpoint-policy-subject&gt;
+    &lt;/policy&gt;
+&lt;/web-services-config&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4344"></a>17.5.3. Timestamp</h3></div></div></div>
+      
+
+      <p>웹 서비스 메시지 수준 보안에서 Timestamp의 설정은 다음과 같이 구분된다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>JAX-RPC 웹 서비스 설정</p>
+          </li><li>
+            <p>JAX-WS 웹 서비스 설정</p>
+          </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e4356"></a>JAX-RPC 웹 서비스 설정</h4>
+
+      <p>JAX-RPC 웹 서비스 메시지 수준 보안에서는 다음과 같이 jeus-webservices-dd.xml(서버) 또는
+      jeus-web-dd.xml(클라이언트)로 Timestamp를 설정한다.</p>
+
+      <div class="example"><a id="d4e4358"></a><p class="title"><b>[예 17.33] &lt;&lt; jeus-webservices-dd.xml &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;jeus-webservices-dd xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;service&gt;
+        &lt;webservice-description-name&gt;
+            PingSecurityService
+        &lt;/webservice-description-name&gt;
+        &lt;port&gt;
+            &lt;port-component-name&gt;PingPort&lt;/port-component-name&gt;            
+            &lt;security&gt;
+                &lt;request-receiver&gt;
+                    &lt;action-list&gt;Signature Timestamp&lt;/action-list&gt;
+                    &lt;password-callback-class&gt;
+                        ping.PingPWCallback
+                    &lt;/password-callback-class&gt;
+                    &lt;signature-verification&gt;
+                        &lt;keystore&gt;
+                            &lt;key-type&gt;jks&lt;/key-type&gt;
+                            &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                            &lt;keystore-filename&gt;
+                                server-truststore.jks
+                            &lt;/keystore-filename&gt;
+                        &lt;/keystore&gt;
+                    &lt;/signature-verification&gt;
+                &lt;/request-receiver&gt;
+                &lt;response-sender&gt;
+                    &lt;action-list&gt;Signature&lt;/action-list&gt;
+                    &lt;password-callback-class&gt;
+                        ping.PingPWCallback
+                    &lt;/password-callback-class&gt;
+                    &lt;user&gt;xws-security-server&lt;/user&gt;
+                    &lt;signature-infos&gt;
+                        &lt;signature-info&gt;
+                            &lt;keyIdentifier&gt;DirectReference&lt;/keyIdentifier&gt;
+                            &lt;keystore&gt;
+                                &lt;key-type&gt;jks&lt;/key-type&gt;
+                                &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                                &lt;keystore-filename&gt;
+                                    server-keystore.jks
+                                &lt;/keystore-filename&gt;
+                            &lt;/keystore&gt;
+                        &lt;/signature-info&gt;
+                    &lt;/signature-infos&gt;
+                &lt;/response-sender&gt;
+            &lt;/security&gt;
+        &lt;/port&gt;
+    &lt;/service&gt;
+&lt;/jeus-webservices-dd&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e4366"></a>JAX-WS(JEUS 8) 웹 서비스 설정</h4>
+
+      <p>JAX-WS(JEUS 8) 웹 서비스의 메시지 수준 보안은 웹 서비스를 생성할 때, 즉 wsgen 또는
+      wsimport로 웹 서비스를 생성할 때 service-config.xml 파일을 추가적으로 -policy 인자와 함께 명령문에
+      설정한다.</p>
+
+      <div class="example"><a id="d4e4368"></a><p class="title"><b>[예 17.34] &lt;&lt; service-config.xml &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;web-services-config xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;policy&gt;
+        &lt;endpoint-policy-subject&gt;
+            &lt;portcomponent-wsdl-name&gt;PingPort&lt;/portcomponent-wsdl-name&gt;
+            &lt;security-policy&gt;
+                &lt;security-binding&gt;
+                    &lt;asymmetric-binding&gt;
+                        &lt;initiator-token&gt;
+                            &lt;x509-token/&gt;
+                        &lt;/initiator-token&gt;
+                        &lt;recipient-token&gt;
+                            &lt;x509-token/&gt;
+                        &lt;/recipient-token&gt;
+                    &lt;/asymmetric-binding&gt;
+                    <span class="bold"><strong>&lt;timestamp&gt;true&lt;/timestamp&gt;</strong></span>
+                &lt;/security-binding&gt;
+                &lt;keystore&gt;
+                    &lt;keystore-file&gt;
+                        &lt;alias&gt;xws-security-client&lt;/alias&gt;
+                        &lt;key-type&gt;JKS&lt;/key-type&gt;
+                        &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                        &lt;keystore-filename&gt;
+                            client-keystore.jks
+                        &lt;/keystore-filename&gt;
+                    &lt;/keystore-file&gt;
+                &lt;/keystore&gt;
+                &lt;truststore&gt;
+                    &lt;keystore-file&gt;
+                        &lt;alias&gt;xws-security-server&lt;/alias&gt;
+                        &lt;key-type&gt;JKS&lt;/key-type&gt;
+                        &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                        &lt;keystore-filename&gt;
+                            client-truststore.jks
+                        &lt;/keystore-filename&gt;
+                    &lt;/keystore-file&gt;
+                &lt;/truststore&gt;
+            &lt;/security-policy&gt;
+            &lt;operation-policy-subject&gt;
+                &lt;operation-wsdl-name&gt;ping&lt;/operation-wsdl-name&gt;
+                &lt;input-message-policy-subject&gt;
+                    &lt;security-policy&gt;
+                        &lt;protection&gt;
+                            &lt;signed-part&gt;
+                                &lt;body/&gt;
+                            &lt;/signed-part&gt;
+                        &lt;/protection&gt;
+                    &lt;/security-policy&gt;
+                &lt;/input-message-policy-subject&gt;
+                &lt;output-message-policy-subject&gt;
+                    &lt;security-policy&gt;
+                        &lt;protection&gt;
+                            &lt;signed-part&gt;
+                                &lt;body/&gt;
+                            &lt;/signed-part&gt;
+                        &lt;/protection&gt;
+                    &lt;/security-policy&gt;
+                &lt;/output-message-policy-subject&gt;
+            &lt;/operation-policy-subject&gt;
+        &lt;/endpoint-policy-subject&gt;
+    &lt;/policy&gt;
+&lt;/web-services-config&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4375"></a>17.5.4. 사용자명 토큰(Username Token)</h3></div></div></div>
+      
+
+      <p>웹 서비스 메시지 수준 보안에서 사용자명 토큰(Username Token)의 설정은 다음과 같이 구분된다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>JAX-RPC 웹 서비스 설정</p>
+          </li><li>
+            <p>JAX-WS 웹 서비스 설정</p>
+          </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e4387"></a>JAX-RPC 웹 서비스 설정</h4>
+
+      <p>JAX-RPC 웹 서비스 메시지 수준 보안에서는 다음과 같이 jeus-webservices-dd.xml(서버) 또는
+      jeus-web-dd.xml(클라이언트)로 Timestamp를 설정한다.</p>
+
+      <div class="example"><a id="d4e4389"></a><p class="title"><b>[예 17.35] &lt;&lt; jeus-webservices-dd.xml &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;jeus-webservices-dd xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;service&gt;
+        &lt;webservice-description-name&gt;
+            PingSecurityService
+        &lt;/webservice-description-name&gt;
+        &lt;port&gt;
+            &lt;port-component-name&gt;PingPort&lt;/port-component-name&gt;            
+            &lt;security&gt;
+                &lt;request-receiver&gt;
+                    &lt;action-list&gt;Signature UsernameToken&lt;/action-list&gt;
+                    &lt;password-callback-class&gt;
+                        ping.PingPWCallback
+                    &lt;/password-callback-class&gt;
+                    &lt;signature-verification&gt;
+                        &lt;keystore&gt;
+                            &lt;key-type&gt;jks&lt;/key-type&gt;
+                            &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                            &lt;keystore-filename&gt;
+                                server-truststore.jks
+                            &lt;/keystore-filename&gt;
+                        &lt;/keystore&gt;
+                    &lt;/signature-verification&gt;
+                &lt;/request-receiver&gt;
+                &lt;response-sender&gt;
+                    &lt;action-list&gt;Signature UsernameToken&lt;/action-list&gt;
+                    &lt;user&gt;xws-security-server&lt;/user&gt;
+                    &lt;password-callback-class&gt;
+                        ping.PingPWCallback
+                    &lt;/password-callback-class&gt;
+                    &lt;signature-infos&gt;
+                        &lt;signature-info&gt;
+                            &lt;keyIdentifier&gt;DirectReference&lt;/keyIdentifier&gt;
+                            &lt;keystore&gt;
+                                &lt;key-type&gt;jks&lt;/key-type&gt;
+                                &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                                &lt;keystore-filename&gt;
+                                    server-keystore.jks
+                                &lt;/keystore-filename&gt;
+                            &lt;/keystore&gt;
+                        &lt;/signature-info&gt;
+                    &lt;/signature-infos&gt;
+                &lt;/response-sender&gt;
+            &lt;/security&gt;
+        &lt;/port&gt;
+    &lt;/service&gt;
+&lt;/jeus-webservices-dd&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e4396"></a>JAX-WS(JEUS 8) 웹 서비스 설정</h4>
+
+      <p>JAX-WS(JEUS 8) 웹 서비스의 메시지 수준 보안은 웹 서비스를 생성(wsgen 또는 wsimport 통해 웹
+      서비스를 생성)할 때 service-config.xml 파일을 추가적으로 -policy 인자와 함께 명령문에
+      설정한다.</p>
+
+      <div class="example"><a id="d4e4398"></a><p class="title"><b>[예 17.36] &lt;&lt; service-config.xml &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;web-services-config xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;policy&gt;
+        &lt;endpoint-policy-subject&gt;
+            &lt;security-policy&gt;
+                &lt;security-binding&gt;
+                    &lt;symmetric-binding&gt;
+                        &lt;protection-token&gt;
+                            &lt;x509-token&gt;
+                                &lt;include-token&gt;true&lt;/include-token&gt;
+                            &lt;/x509-token&gt;
+                        &lt;/protection-token&gt;
+                    &lt;/symmetric-binding&gt;
+                &lt;/security-binding&gt;
+<span class="bold"><strong>                &lt;token&gt;
+                    &lt;signed-supporting-token&gt;
+                        &lt;username-token&gt;
+                            &lt;username-password-validator&gt;
+                                fromjava.server.UsernamePasswordValidator
+                            &lt;/username-password-validator&gt;
+                            &lt;include-token&gt;true&lt;/include-token&gt;
+                        &lt;/username-token&gt;
+                    &lt;/signed-supporting-token&gt;
+                &lt;/token&gt;
+</strong></span>                &lt;keystore&gt;
+                    &lt;keystore-file&gt;
+                        &lt;alias&gt;xws-security-server&lt;/alias&gt;
+                        &lt;key-type&gt;JKS&lt;/key-type&gt;
+                        &lt;keystore-password&gt;changeit&lt;/keystore-password&gt;
+                        &lt;keystore-filename&gt;
+                            keystore.jks
+                        &lt;/keystore-filename&gt;
+                    &lt;/keystore-file&gt;
+                &lt;/keystore&gt;
+                &lt;wss-version&gt;11&lt;/wss-version&gt;
+                &lt;protection&gt;
+                    &lt;signed-part&gt;
+                        &lt;body/&gt;
+                    &lt;/signed-part&gt;
+                    &lt;encrypted-part&gt;
+                        &lt;body/&gt;
+                    &lt;/encrypted-part&gt;
+                &lt;/protection&gt;
+            &lt;/security-policy&gt;
+        &lt;/endpoint-policy-subject&gt;
+    &lt;/policy&gt;
+&lt;/web-services-config&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4406"></a>17.6. 접근 제어 설정된 웹 서비스 호출 방법</h2></div></div></div>
+    
+
+    <p>JEUS 웹 서비스는 접근이 허용된 사용자만이 웹 서비스를 호출할 수 있도록 접근 제어 설정을 할 수 있으며, 웹 서비스
+    Back-end에 따라 각각 설정법이 다르다. JEUS 웹 서비스의 접근 제어 설정 방법은 <a href="chapter_jaxrpc_security.html#sect_configure_jeus_webservice_domain" title="27.4. 접근 제어 설정">“27.4. 접근 제어 설정”</a>과 동일하며 클라이언트의 호출 방식만
+    다르다.</p>
+
+    <p>접근 제어(Basic Authentication)가 설정된 웹 서비스의 호출을 하기 위해서는 WSDL에 접근하여 그 내용을
+    바탕으로 Portable Artifact를 생성하고, 그것을 사용하여 웹 서비스를 호출해야 하는데, 이 경우에 사용자 이름과 암호를
+    요구할 경우 설정하는 작업이 필요하다.</p>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_configure_jeus_webservice_domain_wsit"></a>17.6.1. Portable Artifact의 생성</h3></div></div></div>
+      
+
+      <p>접근 제어가 설정된 웹 서비스의 클라이언트를 위한 Portable Artifact의 생성하는 과정이
+      필요한다.</p>
+
+      <p><span><strong class="guibutton">wsimport</strong></span> 툴을 사용하여 Portable Artifact를 생성하기
+      위해서는 다음과 같이 콘솔 창에 입력한다.</p>
+
+      <pre class="screen">$ <span class="bold"><strong>wsimport</strong></span> -Xauthfile authorization.txt
+http://localhost:8088/AddNumbers/AddNumbersImplService?wsdl</pre>
+
+      <p>"authorization.txt" 파일은 실제 WSDL에 접근하기 위한 권한 설정 파일이다. 권한 설정 파일의 예는
+      다음과 같다.</p>
+
+      <div class="example"><a id="d4e4421"></a><p class="title"><b>[예 17.37] &lt;&lt; authorization.txt &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">http://jeus:jeus@localhost:8088/AddNumbers/AddNumbersImplService?wsdl</pre>
+      </div></div><br class="example-break"/>
+
+      <p>여기에서 사용자명은 'jeus', 암호는 'jeus'이다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_configure_jeus_webservice_domain_wsit"></a>17.6.2. 웹 서비스의 클라이언트 작성</h3></div></div></div>
+      
+
+      <p>JAX-WS 웹 서비스 클라이언트가 스스로 인증하기 위해서는 다음과 같은 2가지의 설정이 클라이언트 프로그램 내에
+      삽입되어야 한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>javax.xml.ws.BindingProvider.USERNAME_PROPERTY<a id="d4e4434" class="indexterm"></a></p>
+          </li><li>
+            <p>javax.xml.ws.BindingProvider.PASSWORD_PROPERTY<a id="d4e4438" class="indexterm"></a></p>
+          </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음 예는 실제로 프로그램에서 위 설정을 구현한 예이다. </p><pre class="programlisting">Echo port = // … SEI(Service Endpoint Interface)의 획득
+<span class="bold"><strong>((javax.xml.ws.BindingProvider) port).getRequestContext().
+    put(javax.xml.ws.BindingProvider.USERNAME_PROPERTY, "jeus");
+((javax.xml.ws.BindingProvider) port).getRequestContext().
+    put(javax.xml.ws.BindingProvider.PASSWORD_PROPERTY, "jeus");</strong></span>
+String s = port.echoString("JEUS");</pre>
+
+      <p><a id="d4e4447" class="indexterm"></a>런타임에 JAX-WS 웹 서비스 클라이언트 엔진은 동적 Stub을 생성하기 위해 원격 WSDL에 한 번
+      접근하는데, 이때 부가적인 권한 설정이 필요하다. 이러한 권한 설정은 java.net.Authenticator 클래스를 사용하여
+      클라이언트 프로그램에 설치한다.</p>
+
+      <p>다음은 java.net.Authenticator 클래스를 사용한 클라이언트 프로그램의 예이다.</p>
+
+      <div class="example"><a id="d4e4450"></a><p class="title"><b>[예 17.38] &lt;&lt; AddNumberClient.java &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">public class AddNumbersClient {
+  ...
+  public void execute() {
+      Authenticator.setDefault(new MyAuthenticator());
+        
+      AddNumbersImpl port = new AddNumbersImplService().getAddNumbersImplPort();
+      ((javax.xml.ws.BindingProvider) port).getRequestContext().
+            put(javax.xml.ws.BindingProvider.USERNAME_PROPERTY, "jeus");
+      ((javax.xml.ws.BindingProvider) port).getRequestContext().
+            put(javax.xml.ws.BindingProvider.PASSWORD_PROPERTY, "jeus");
+
+      int number1 = 10;
+      int number2 = 20;
+
+      port.addNumbers(number1, number2);
+      ...
+  }
+    
+  class MyAuthenticator extends Authenticator {
+      protected PasswordAuthentication getPasswordAuthentication() {
+          return new PasswordAuthentication("jeus", "jeus".toCharArray());
+      }
+  }
+}</pre>
+      </div></div><br class="example-break"/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jaxws_tx.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="pt01.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="chapter_jaxrs_server_sent_events.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제16장 웹 서비스 트랜잭션 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제18장 Server-Sent Event</td></tr></table></div><div xmlns="" align="center"/></body></html>

@@ -1,0 +1,371 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>TCPServletResponse</title>
+      <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="TCPServletResponse (JEUS Servlet API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Servlet API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.servlet.tcp</font><br>Class TCPServletResponse
+      </h2><pre>java.lang.Object<br>  <img src="../../../resource/inherit.gif" alt="extended by">jeus.servlet.engine.HttpServletResponseImpl<br>     <img src="../../../resource/inherit.gif" alt="extended by"><b>jeus.servlet.tcp.TCPServletResponse</b></pre><dl>
+         <dt><b>All Implemented Interfaces:</b><dd>java.io.Serializable, javax.servlet.http.HttpServletResponse, javax.servlet.ServletResponse</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public class <b>TCPServletResponse</b><dt>extends jeus.servlet.engine.HttpServletResponseImpl</dt></pre></dl> <a href="TCPServlet.html#service(TCPServletRequest,TCPServletResponse)"><code>TCPServlet.service(TCPServletRequest,TCPServletResponse)</code></a>의 인자로 사용되는 클래스이다.
+      javax.servlet.http.HttpServletResponse를 implements한 클래스로서
+      javax.servlet.ServletResponse, javax.servlet.http.HttpServletResponse 의 모든 method를 호출할 수 있다.
+      그러나 TCPServlet의 특성상 method의 동작이 다를 수 있다.<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+         </table>
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.servlet.engine.HttpServletResponseImpl"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.servlet.engine.HttpServletResponseImpl</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>CHAR_CONVERSION_THRESHOLD_ATTR_NAME, CONTENT_LENGTH_STRING, CONTENT_TYPE_STRING, DEFAULT_HTTP_CHARSET, TEST_FORCE_SELECTOR_TO_WRITE_ATTR_NAME</code></td>
+            </tr>
+         </table>&nbsp;
+         &nbsp;
+         <a name="fields_inherited_from_class_javax.servlet.http.HttpServletResponse"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class javax.servlet.http.HttpServletResponse</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>SC_ACCEPTED, SC_BAD_GATEWAY, SC_BAD_REQUEST, SC_CONFLICT, SC_CONTINUE, SC_CREATED, SC_EXPECTATION_FAILED, SC_FORBIDDEN, SC_FOUND, SC_GATEWAY_TIMEOUT, SC_GONE, SC_HTTP_VERSION_NOT_SUPPORTED, SC_INTERNAL_SERVER_ERROR, SC_LENGTH_REQUIRED, SC_METHOD_NOT_ALLOWED, SC_MOVED_PERMANENTLY, SC_MOVED_TEMPORARILY, SC_MULTIPLE_CHOICES, SC_NO_CONTENT, SC_NON_AUTHORITATIVE_INFORMATION, SC_NOT_ACCEPTABLE, SC_NOT_FOUND, SC_NOT_IMPLEMENTED, SC_NOT_MODIFIED, SC_OK, SC_PARTIAL_CONTENT, SC_PAYMENT_REQUIRED, SC_PRECONDITION_FAILED, SC_PROXY_AUTHENTICATION_REQUIRED, SC_REQUEST_ENTITY_TOO_LARGE, SC_REQUEST_TIMEOUT, SC_REQUEST_URI_TOO_LONG, SC_REQUESTED_RANGE_NOT_SATISFIABLE, SC_RESET_CONTENT, SC_SEE_OTHER, SC_SERVICE_UNAVAILABLE, SC_SWITCHING_PROTOCOLS, SC_TEMPORARY_REDIRECT, SC_UNAUTHORIZED, SC_UNSUPPORTED_MEDIA_TYPE, SC_USE_PROXY</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="TCPServletResponse.html#TCPServletResponse(jeus.servlet.common.WebContainerManager, jeus.servlet.engine.io.WebServerOutputStream)">TCPServletResponse</a></b>(jeus.servlet.common.WebContainerManager webContainerMngr, jeus.servlet.engine.io.WebServerOutputStream out)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="TCPServletResponse.html#clearing()">clearing</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="TCPServletResponse.html#clearing(boolean)">clearing</a></b>(boolean socketReused)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="TCPServletResponse.html#closeOnExit()">closeOnExit</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="TCPServletResponse.html#isCloseOnExit()">isCloseOnExit</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   true if  <a href="../../../jeus/servlet/tcp/TCPServletResponse.html#closeOnExit()"><code>TCPServletResponse.closeOnExit()</code></a> is called, false otherwise
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="TCPServletResponse.html#sendError(int)">sendError</a></b>(int sc)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   javax.servlet.http.HttpServletResponse.sendError(int)을
+                  override한 함수이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="TCPServletResponse.html#sendError(int, java.lang.String)">sendError</a></b>(int sc, java.lang.String msg)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   javax.servlet.http.HttpServletResponse.sendError(int, String)을
+                  override한 함수이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="TCPServletResponse.html#sendError(int, java.lang.String, java.lang.Throwable)">sendError</a></b>(int sc, java.lang.String msg, java.lang.Throwable t)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="TCPServletResponse.html#sendRedirect(java.lang.String)">sendRedirect</a></b>(java.lang.String location)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   javax.servlet.http.HttpServletResponse.sendRedirect(String)을
+                  override한 함수이다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_jeus.servlet.engine.HttpServletResponseImpl"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class jeus.servlet.engine.HttpServletResponseImpl</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>addCookie, addDateHeader, addHeader, addHeaderInternal, addIntHeader, containsHeader, encodeRedirectUrl, encodeRedirectURL, encodeUrl, encodeURL, errorSent, finish, flushBuffer, getBufferSize, getCharacterEncoding, getConnection, getContentLengthLong, getContentType, getCookies, getCurrentContentCount, getHeader, getHeaderNames, getHeaders, getHeaders, getLocale, getLowerCaseHeaderNameToActualHeaderNameMap, getOutputStream, getOutputStreamInternal, getRequest, getSocket, getStatus, getStatusLine, getWriter, hasPersistentConnection, isCommitted, isFinished, isUsingWriter, makeAbsolute, prepareEmulatedBlockingWrite, removeHeader, reset, resetBuffer, sendRedirectInternal, setAuthContext, setBufferSize, setCharacterEncoding, setContentLength, setContentLengthLong, setContentType, setDateHeader, setHasPersistentConnection, setHeader, setHeaderInternal, setIntHeader, setKeepAlive, setLocale, setMessageInfo, setRequest, setSocket, setStatus, setStatus, unclose, unsetKeepAlive</code></td>
+            </tr>
+         </table>&nbsp;<a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></td>
+            </tr>
+         </table>&nbsp;
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="TCPServletResponse(jeus.servlet.common.WebContainerManager, jeus.servlet.engine.io.WebServerOutputStream)"></a><h3>TCPServletResponse</h3><pre>public <b>TCPServletResponse</b>(<code>jeus.servlet.common.WebContainerManager</code> webContainerMngr,<br>                          <code>jeus.servlet.engine.io.WebServerOutputStream</code> out)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="closeOnExit()"></a><h3>closeOnExit</h3><pre>public void <b>closeOnExit</b>()<br></pre><dl>
+            <dd></dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="isCloseOnExit()"></a><h3>isCloseOnExit</h3><pre>public boolean <b>isCloseOnExit</b>()<br></pre><dl>
+            <dd>true if  <a href="../../../jeus/servlet/tcp/TCPServletResponse.html#closeOnExit()"><code>TCPServletResponse.closeOnExit()</code></a> is called, false otherwise</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Overrides:</b><dd><code>isCloseOnExit</code> in class <code>HttpServletResponseImpl</code></dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>closeOnExit flag</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="clearing()"></a><h3>clearing</h3><pre>public void <b>clearing</b>()<br></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i><br><br>&nbsp;
+            </dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="clearing(boolean)"></a><h3>clearing</h3><pre>public void <b>clearing</b>(<code>boolean</code> socketReused)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Overrides:</b><dd><code>clearing</code> in class <code>HttpServletResponseImpl</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="sendError(int)"></a><h3>sendError</h3><pre>public void <b>sendError</b>(<code>int</code> sc)<br>                    throws <code>java.io.IOException</code></pre><dl>
+            <dd>javax.servlet.http.HttpServletResponse.sendError(int)을
+               override한 함수이다. <p>
+               아무런 기능도 하지 않는다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>sendError</code> in class <code>HttpServletResponse</code></dd>
+                  </dt>
+                  <dt><b>Overrides:</b><dd><code>sendError</code> in class <code>HttpServletResponseImpl</code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="sendError(int, java.lang.String)"></a><h3>sendError</h3><pre>public void <b>sendError</b>(<code>int</code> sc,<br>                      <code>java.lang.String</code> msg)<br>                    throws <code>java.io.IOException</code></pre><dl>
+            <dd>javax.servlet.http.HttpServletResponse.sendError(int, String)을
+               override한 함수이다. <p>
+               아무런 기능도 하지 않는다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>sendError</code> in class <code>HttpServletResponse</code></dd>
+                  </dt>
+                  <dt><b>Overrides:</b><dd><code>sendError</code> in class <code>HttpServletResponseImpl</code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="sendError(int, java.lang.String, java.lang.Throwable)"></a><h3>sendError</h3><pre>public void <b>sendError</b>(<code>int</code> sc,<br>                      <code>java.lang.String</code> msg,<br>                      <code>java.lang.Throwable</code> t)<br>                    throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Overrides:</b><dd><code>sendError</code> in class <code>HttpServletResponseImpl</code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="sendRedirect(java.lang.String)"></a><h3>sendRedirect</h3><pre>public void <b>sendRedirect</b>(<code>java.lang.String</code> location)<br>                       throws <code>java.io.IOException</code></pre><dl>
+            <dd>javax.servlet.http.HttpServletResponse.sendRedirect(String)을
+               override한 함수이다. <p>
+               현재 sendRedirect는 구현되어 있지 않다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>sendRedirect</code> in class <code>HttpServletResponse</code></dd>
+                  </dt>
+                  <dt><b>Overrides:</b><dd><code>sendRedirect</code> in class <code>HttpServletResponseImpl</code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code><br><code>java.lang.IllegalStateException</code> - 현재 sendRedirect는 구현되어
+                        있지 않다.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Servlet API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

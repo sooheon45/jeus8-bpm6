@@ -1,0 +1,412 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>SnmpAgentServiceMBean</title>
+      <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="SnmpAgentServiceMBean (JEUS API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.management.snmp.agent</font><br>Interface SnmpAgentServiceMBean
+      </h2><pre></pre><dl>
+         <dt><b>All Superinterfaces:</b><dd>jeus.management.j2ee.J2EEManagedObjectMBean</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public interface <b>SnmpAgentServiceMBean</b><dt>extends jeus.management.j2ee.J2EEManagedObjectMBean</dt></pre></dl>JEUS의 SNMP Service에 해당하는 MBean interface이다.
+      <p/>
+      <h4>이 MBean의 ObjectName의 요소</h4>
+      <ul>
+      <li>name key의 값 : 이 Service가 동작하는 JEUS Manager의 virtual host 이름이나 Engine Container의 이름
+      <li>j2eeType key의 값 : JeusService
+      <li>isTargetable key의 유무 : false
+      <li>parent key list: J2EEServer,
+      </ul>
+      <p/>
+      <p/><br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/snmp/agent/SnmpAgentServiceMBean.html#J2EE_TYPE">J2EE_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/snmp/agent/SnmpAgentServiceMBean.html#JEUS_TYPE">JEUS_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String[]</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/snmp/agent/SnmpAgentServiceMBean.html#parentKeyMap">parentKeyMap</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>SYSTEM_DOMAIN</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td><code><b><a href="SnmpAgentServiceMBean.html#getMaxPacketSize()">getMaxPacketSize</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SNMP 패킷에 대한 최대값 설정 정보를 준다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td><code><b><a href="SnmpAgentServiceMBean.html#getSnmpVersion()">getSnmpVersion</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   현재 Agent가 서비스하고 있는 SNMP version 정보를 준다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.Vector</code></font></td>
+               <td><code><b><a href="SnmpAgentServiceMBean.html#getTrapDemonIpAddress()">getTrapDemonIpAddress</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   장애 상황 발생 시에 Trap메세지를 보낼 서버들의 IP Address를 알 수 있다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.Vector</code></font></td>
+               <td><code><b><a href="SnmpAgentServiceMBean.html#getTrapDemonPorts()">getTrapDemonPorts</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   장애 상화 발생 시에 Trap메세지를 보낼 서버들의 port 정보를 알 수 있다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SnmpAgentServiceMBean.html#isSecurityEnabled()">isSecurityEnabled</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SNMP 서비스에 보안이 적용되어 있는지 유무를 알려준다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SnmpAgentServiceMBean.html#setMaxPacketSize(int)">setMaxPacketSize</a></b>(int maxPacketSize)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SNMP 패킷에 대한 최대 크기를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SnmpAgentServiceMBean.html#setSecurityEnable(boolean)">setSecurityEnable</a></b>(boolean securityEnable)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SNMP Agent의 보안설정 유무를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SnmpAgentServiceMBean.html#setSnmpVersion(long)">setSnmpVersion</a></b>(long snmpVersion)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Agent가 사용할 SNMP version을 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SnmpAgentServiceMBean.html#setTrapDemonIpAddresses(java.util.Vector)">setTrapDemonIpAddresses</a></b>(java.util.Vector tdIpAddresses)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   장애 상황 발생시에 Trap 메세지를 보낼 서버들의 주소를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SnmpAgentServiceMBean.html#setTrapDemonPorts(java.util.Vector)">setTrapDemonPorts</a></b>(java.util.Vector tdPorts)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   장애 상황 발생시에 Trap 메세지를 보낼 서버들의 포트를 설정한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>addChild, getJ2EEType, getJeusType, getobjectName, getObjectName, getParentObjectName, getPermissionName, iseventProvider, isstateManageable, isstatisticsProvider, refreshMonitoring, removeChild</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="J2EE_TYPE"></a><h3>J2EE_TYPE</h3><pre>public static final java.lang.String <b>J2EE_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="JEUS_TYPE"></a><h3>JEUS_TYPE</h3><pre>public static final java.lang.String <b>JEUS_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="parentKeyMap"></a><h3>parentKeyMap</h3><pre>public static final java.lang.String[] <b>parentKeyMap</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getSnmpVersion()"></a><h3>getSnmpVersion</h3><pre>public long <b>getSnmpVersion</b>()<br></pre><dl>
+            <dd>현재 Agent가 서비스하고 있는 SNMP version 정보를 준다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>SNMP version</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="isSecurityEnabled()"></a><h3>isSecurityEnabled</h3><pre>public boolean <b>isSecurityEnabled</b>()<br></pre><dl>
+            <dd>SNMP 서비스에 보안이 적용되어 있는지 유무를 알려준다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>보안 적용 유무</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMaxPacketSize()"></a><h3>getMaxPacketSize</h3><pre>public int <b>getMaxPacketSize</b>()<br></pre><dl>
+            <dd>SNMP 패킷에 대한 최대값 설정 정보를 준다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>SNMP 패킷에 대한 최대값</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getTrapDemonIpAddress()"></a><h3>getTrapDemonIpAddress</h3><pre>public java.util.Vector <b>getTrapDemonIpAddress</b>()<br></pre><dl>
+            <dd>장애 상황 발생 시에 Trap메세지를 보낼 서버들의 IP Address를 알 수 있다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>Trap 메세지를 보낼 서버들의 IP Address 들</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getTrapDemonPorts()"></a><h3>getTrapDemonPorts</h3><pre>public java.util.Vector <b>getTrapDemonPorts</b>()<br></pre><dl>
+            <dd>장애 상화 발생 시에 Trap메세지를 보낼 서버들의 port 정보를 알 수 있다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>Trap 메세지를 보낼 서버들의 port들</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setSecurityEnable(boolean)"></a><h3>setSecurityEnable</h3><pre>public void <b>setSecurityEnable</b>(<code>boolean</code> securityEnable)<br></pre><dl>
+            <dd>SNMP Agent의 보안설정 유무를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>securityEnable</code> - 보안 설정 유무
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setMaxPacketSize(int)"></a><h3>setMaxPacketSize</h3><pre>public void <b>setMaxPacketSize</b>(<code>int</code> maxPacketSize)<br></pre><dl>
+            <dd>SNMP 패킷에 대한 최대 크기를 설정한다. 패킷의 최소 크기는 256바이트이다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>maxPacketSize</code> - SNMP 패킷의 최대 크기
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setTrapDemonIpAddresses(java.util.Vector)"></a><h3>setTrapDemonIpAddresses</h3><pre>public void <b>setTrapDemonIpAddresses</b>(<code>java.util.Vector</code> tdIpAddresses)<br></pre><dl>
+            <dd>장애 상황 발생시에 Trap 메세지를 보낼 서버들의 주소를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>tdIpAddresses</code> - Trap 메세지를 보낼 서버들의 IP Address 들의 집합
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setTrapDemonPorts(java.util.Vector)"></a><h3>setTrapDemonPorts</h3><pre>public void <b>setTrapDemonPorts</b>(<code>java.util.Vector</code> tdPorts)<br></pre><dl>
+            <dd>장애 상황 발생시에 Trap 메세지를 보낼 서버들의 포트를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>tdPorts</code> - Trap 메세지를 보낼 서버들의 port들
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setSnmpVersion(long)"></a><h3>setSnmpVersion</h3><pre>public void <b>setSnmpVersion</b>(<code>long</code> snmpVersion)<br></pre><dl>
+            <dd>Agent가 사용할 SNMP version을 설정한다. 1,2,3 중 하나</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>snmpVersion</code> - Agent가 사용할 SNMP version
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

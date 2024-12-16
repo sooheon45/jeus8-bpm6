@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config SYSTEM "proxy-config.dtd">
+
+<config>
+	<!-- proxy server의 주소가 www.proxy.com 이라고 가정 -->
+	<!-- 아래는 www.proxy.com/server1/ 이하의 요청이 www.server1.com/content1 으로 전달 -->
+	<single-server>
+		<domain-name>www.server1.com</domain-name>
+		<rewriting>true</rewriting>
+		<path>/content1</path>
+		<directory-rule>
+			<path>/server1</path>
+		</directory-rule>
+	</single-server>
+
+	<!-- 아래는 www.proxy.com/server2/ 이하의 요청이 www.server2.com의 8080 포트로 전달 -->
+	<single-server>
+		<domain-name>www.server2.com:8080</domain-name>
+		<rewriting>true</rewriting>
+		<directory-rule>
+			<path>/server2</path>
+		</directory-rule>
+	</single-server>
+	
+	<!-- 아래는 위에서 설정한 요청을 제외한 요청에 대해서 www.server3.com 으로 전달 -->
+	<single-server>
+		<domain-name>www.server3.com</domain-name>
+		<rewriting>true</rewriting>
+		<accept-everything-rule/>
+	</single-server>
+</config>

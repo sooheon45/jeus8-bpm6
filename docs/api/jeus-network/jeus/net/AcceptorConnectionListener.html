@@ -1,0 +1,198 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>AcceptorConnectionListener</title>
+      <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="AcceptorConnectionListener (JEUS Network Library)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.net</font><br>Interface AcceptorConnectionListener
+      </h2><pre></pre><dl>
+         <dt><b>All Superinterfaces:</b><dd><a href="../../jeus/net/ConnectionListener.html">ConnectionListener</a>, <a href="../../jeus/net/MessageHandler.html">MessageHandler</a></dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public interface <b>AcceptorConnectionListener</b><dt>extends <a href="../../jeus/net/MessageHandler.html">MessageHandler</a></dt></pre></dl>Acceptor를 사용하는 Endpoint에 대해 사용하는 ConnectionListener이다. ConnectionListener의 method 외에
+      acceptor를 통해 들어오는 connection에 대한 event callback이 추가되어 있다.
+      <p>
+      이 method들에서 공통으로 해야 할일은 다음과 같다.
+      <p>
+      1. 주어진 packet write, 이를 callback method 내에서 강제하는 이유는 write 전후에 해야 할일이 있을수 있고
+      packet에 대한 piggyback data를 추가할 시점도 각각 다르기 때문이다.
+      <p>
+      2. connection 요청 packet에 piggyback되어 들어오는 data를 얻을 수 있다.<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="AcceptorConnectionListener.html#connectionAllowed(jeus.net.SocketStream, jeus.net.NetworkControlPacket, int, java.lang.Object)">connectionAllowed</a></b>(<a href="../../jeus/net/SocketStream.html">SocketStream</a> sockStream, jeus.net.NetworkControlPacket packet, int connectionType, java.lang.Object piggybackedData)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   상대 JEUS Manager에서 connection 연결이 들어와서 이를 허용하는 경우에 호출된다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="AcceptorConnectionListener.html#connectionEstablished(jeus.net.SocketStream)">connectionEstablished</a></b>(<a href="../../jeus/net/SocketStream.html">SocketStream</a> sockStream)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JEUS Manager나 Terminal에서 connection 연결이 들어온 경우에 호출된다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_jeus.net.ConnectionListener"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class jeus.net.<a href="../../jeus/net/ConnectionListener.html">ConnectionListener</a></b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><a href="../../jeus/net/ConnectionListener.html#connectionAccepted(jeus.net.SocketStream, int, java.lang.Object)">connectionAccepted</a>, <a href="../../jeus/net/ConnectionListener.html#connectionConnected(jeus.net.SocketStream)">connectionConnected</a>, <a href="../../jeus/net/ConnectionListener.html#getPiggybackData(int, jeus.net.SocketStream, java.lang.Object)">getPiggybackData</a>, <a href="../../jeus/net/ConnectionListener.html#runDelegatedTask(java.lang.Runnable, boolean, java.lang.Object)">runDelegatedTask</a></code></td>
+            </tr>
+         </table>&nbsp;<a name="methods_inherited_from_class_jeus.net.MessageHandler"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class jeus.net.<a href="../../jeus/net/MessageHandler.html">MessageHandler</a></b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><a href="../../jeus/net/MessageHandler.html#connectionClosed(java.lang.Exception, jeus.net.SocketStream)">connectionClosed</a>, <a href="../../jeus/net/MessageHandler.html#receiveMessage(java.lang.Object, jeus.net.SocketStream, java.lang.Object)">receiveMessage</a></code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="connectionEstablished(jeus.net.SocketStream)"></a><h3>connectionEstablished</h3><pre>public void <b>connectionEstablished</b>(<code><a href="../../jeus/net/SocketStream.html">SocketStream</a></code> sockStream)<br></pre><dl>
+            <dd>JEUS Manager나 Terminal에서 connection 연결이 들어온 경우에 호출된다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>sockStream</code> - 연결이 들어온 connection의 socket stream
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="connectionAllowed(jeus.net.SocketStream, jeus.net.NetworkControlPacket, int, java.lang.Object)"></a><h3>connectionAllowed</h3><pre>public void <b>connectionAllowed</b>(<code><a href="../../jeus/net/SocketStream.html">SocketStream</a></code> sockStream,<br>                              <code>jeus.net.NetworkControlPacket</code> packet,<br>                              <code>int</code> connectionType,<br>                              <code>java.lang.Object</code> piggybackedData)<br>                            throws <code>java.io.IOException</code></pre><dl>
+            <dd>상대 JEUS Manager에서 connection 연결이 들어와서 이를 허용하는 경우에 호출된다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>sockStream</code> - 연결이 허용된 connection의 socket stream<br><code>packet</code> - 연결을 허용한다는 packet, 이 method 안에서 이 packet을 해당 socket stream에 write해야 한다.<br><code>connectionType</code> - &nbsp;<br><code>piggybackedData</code> - 연결 요청 packet에 piggyback되어 들어온 data
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

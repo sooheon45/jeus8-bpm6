@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제3장 애플리케이션</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Applications &amp; Deployment 안내서"/><link rel="up" href="index.html" title="JEUS Applications &amp; Deployment 안내서"/><link rel="prev" href="chapter_graceful_undeploy_and_redeploy.html" title="제2장 Graceful Undeployment와 Redeployment"/><link rel="next" href="chapter_assembling_and_deploying_applications.html" title="제4장 애플리케이션 작성 및 Deploy"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제3장 애플리케이션</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_graceful_undeploy_and_redeploy.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_assembling_and_deploying_applications.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_overview_of_javaee_application"></a>제3장 애플리케이션</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_overview_of_javaee_application.html#sect_about_modules_and_application">3.1. 모듈과 애플리케이션</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_overview_of_javaee_application.html#d4e1296">3.1.1. 모듈</a></span></dt><dt><span class="section"><a href="chapter_overview_of_javaee_application.html#d4e1338">3.1.2. 애플리케이션</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_overview_of_javaee_application.html#sect_application_deployment_descriptor">3.2. Deployment Descriptor(DD)</a></span></dt><dt><span class="section"><a href="chapter_overview_of_javaee_application.html#sect_use_application_library">3.3. 애플리케이션에서 라이브러리 사용</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_overview_of_javaee_application.html#sect_lib_application_dir">3.3.1. lib/application 디렉터리</a></span></dt><dt><span class="section"><a href="chapter_overview_of_javaee_application.html#sect_shared_library">3.3.2. 공유 라이브러리(Shared Library)</a></span></dt><dt><span class="section"><a href="chapter_overview_of_javaee_application.html#sect_library_deployment">3.3.3. Library Deployment</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 실제로 모듈과 애플리케이션이 어떻게 구성되어 있으며, 각각의 구성 요소에는 무엇이 있는지에 대해 설명한다. 또한
+  이렇게 작성된 애플리케이션을 deploy하기 위해 JEUS에서 제공하는 기능에 대해 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_about_modules_and_application"></a>3.1. 모듈과 애플리케이션</h2></div></div></div>
+    
+
+    <p><a id="d4e1283" class="indexterm"></a><a id="d4e1285" class="indexterm"></a></p>
+
+    <p>Java EE 애플리케이션은 하나 이상의 모듈로 구성되어 있다. Java EE 모듈은 하나 이상의 동일한 타입인 Java
+    EE 컴포넌트(EJB, 웹 애플리케이션, 애플리케이션 클라이언트, connector)와 Deployment Descriptor(이하
+    DD)로 구성된다.</p>
+
+    <p>DD는 Java EE 표준 DD(application.xml 등)와 JEUS
+    DD(jeus-application-dd.xml 등)가 있으며, Java EE 5 이후에서는 표준 DD에 존재하는 대부분의 설정을
+    Annotation으로 대체할 수 있다.</p>
+
+    <p>다음은 Java EE 모듈 및 애플리케이션 구성이다. </p><div class="figure"><a id="figure_javaee_modules_and_application"></a><p class="title"><b>[그림 3.1] Java EE 모듈 및 애플리케이션 구성</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="431"><tr><td align="left"><img src="resources/figure_java_ee_application.png" align="top" width="431" alt="Java EE 모듈 및 애플리케이션 구성"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1296"></a>3.1.1. 모듈</h3></div></div></div>
+      
+
+      <p>Java EE 모듈에는 다음의 4종류가 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">EJB 모듈 (.jar file)</strong></span><a id="d4e1303" class="indexterm"></a></p>
+
+          <p>EJB(Enterprise JavaBeans)는 트랜잭션 및 보안 서비스를 이용하는 비즈니스 로직을 구현하기
+          위한 표준 서버 측 컴포넌트 모델이다. EJB 모듈은 이러한 EJB들을 표현하고 그룹화하기 위한 개념으로 JEUS에서는
+          JEUS EJB 엔진에 배치할 수 있는 가장 작은 단위를 의미한다.</p>
+
+          <p>따라서 1개의 EJB가 배치되어도 반드시 EJB 모듈로 패키지화(.jar file)되어야 한다. EJB 모듈의
+          자세한 내용은 <a xmlns="" href="../ejb/index.html" class="olink">"JEUS EJB
+          안내서"</a>를 참고한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">웹(Web) 모듈 (.war file)</strong></span><a id="d4e1312" class="indexterm"></a></p>
+
+          <p>웹 모듈은 클라이언트의 요청에 의한 웹 기반의 서비스(예를 들면, 장바구니에 물품을 추가하거나, 장바구니 안의
+          물품을 구매하거나 웹 기반의 경매 사이트에서 물건을 사기 위해 브라우징하는 등)를 실행하기 위한 정적 콘텐츠(static
+          content)와 동적 콘텐츠(dynamic content)의 집합이라고 할 수 있다.</p>
+
+          <p>웹 애플리케이션 모듈에 대한 자세한 내용은 <a xmlns="" href="../web-engine/index.html" class="olink">"JEUS Web Engine 안내서"</a>를 참고한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">애플리케이션 클라이언트(Application Client) 모듈 (.jar
+          file)<a id="d4e1321" class="indexterm"></a></strong></span></p>
+
+          <p>애플리케이션 클라이언트는 별도의 JVM에서 실행되는 클라이언트 프로그램이다. 애플리케이션 클라이언트는
+          main() 메소드를 호출해서 실행하고, 가상 머신이 종료되면 실행을 마친다.</p>
+
+          <p>다른 Java EE 애플리케이션 컴포넌트처럼 애플리케이션 클라이언트는 시스템 서비스를 제공하는 클라이언트
+          컨테이너(Client Container)에서 동작한다. 클라이언트 컨테이너는 다른 Java EE 컨테이너에 비해서 매우
+          적은 양의 시스템 리소스를 사용한다.</p>
+
+          <p>애플리케이션 클라이언트 모듈에 대한 자세한 내용은 <a xmlns="" href="../client-application/index.html" class="olink">"JEUS Application
+          Client 안내서"</a>를 참고한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">리소스 어댑터(Resource adapter) 모듈 (.rar
+          file)</strong></span><a id="d4e1331" class="indexterm"></a></p>
+
+          <p>리소스 어댑터는 Java EE 커넥터 아키텍처의 중심 컴포넌트로 특정 EIS(Enterprise
+          Information System)용으로 개발되어서 EIS와 상호작용하기 위한 API를 제공한다. 또한 Java EE
+          애플리케이션 서버와 연동하기 위한 시스템 API도 제공한다. 관리자의 관점에서는 모든 작업이 리소스 어댑터의 설정과
+          배치만으로 종료된다.</p>
+
+          <p>리소스 어댑터 모듈에 대한 자세한 내용은 <a xmlns="" href="../jca/index.html" class="olink">"JEUS JCA 안내서"</a>를 참고한다.</p>
+        </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1338"></a>3.1.2. 애플리케이션</h3></div></div></div>
+      
+
+      <p><a id="d4e1341" class="indexterm"></a></p>
+
+      <p><a href="chapter_overview_of_javaee_application.html#figure_javaee_modules_and_application" title="[그림 3.1] Java EE 모듈 및 애플리케이션 구성">[그림 3.1]</a>을 보면 Java
+      EE 애플리케이션은 하나 이상의 Java EE 모듈과 2개의 DD로 구성된다. DD는 Java EE
+      DD(application.xml)와 JEUS DD(jeus-application-dd.xml)로 구성된다. 이때 Java EE
+      모듈은 1개 이상의 동일한 타입인 컴포넌트들과 DD들로 구성되기 때문에 하나의 컴포넌트만으로도 애플리케이션을 생성할 수
+      있다.</p>
+
+      <p>Java EE 애플리케이션은 확장자가 .ear인 일반적인 JAR Archive 형식의 파일로 다음은 EAR 구성의
+      간단한 예이다. EAR 파일의 루트 디렉터리에는 애플리케이션에 포함된 각 모듈의 Archive 파일들과 lib, META-INF
+      디렉터리가 존재한다.</p>
+
+      <div class="figure"><a id="figure_schematic_of_a_sample_.ear_archive"></a><p class="title"><b>[그림 3.2] .ear archive의 구성</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="298"><tr><td align="left"><img src="resources/figure_ear_archive.png" align="top" width="298" alt=".ear archive의 구성"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>다음은 각 디렉터리에 대한 설명이다.</p>
+
+      <div class="variablelist"><dl><dt><span class="term">lib</span></dt><dd>
+            <p><a id="d4e1359" class="indexterm"></a><a id="d4e1361" class="indexterm"></a>lib 디렉터리는 EAR 애플리케이션의 공통 라이브러리 디렉터리이다. 디렉터리 하위에는
+            라이브러리 .jar 파일이 올 수 있다. 이렇게 위치한 라이브러리들은 EAR 애플리케이션의 하위 모듈에서 자동으로
+            클래스 패스에 추가된다. 이 디렉터리는 설정에 의해 다른 디렉터리로 대체될 수 있다.</p>
+
+            <p>Java EE 5에서부터는 <span class="bold"><strong>library
+            directory</strong></span>를 지원하는데 이는 EAR 애플리케이션 표준 DD인 application.xml에
+            &lt;library-directory&gt; 태그로 설정하여 사용할 수 있다. 만약 application.xml
+            파일이 없거나 application.xml에 &lt;library-directory&gt; 설정을 하지 않은 경우에는
+            기본적으로 lib 디렉터리가 사용된다.</p><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+                <p>JEUS 5부터 지원하는 APP-INF 디렉터리는 공통 라이브러리 디렉터리로 웹 애플리케이션 모듈의
+                WEB-INF 디렉터리와 비슷한 기능을 제공한다. WEB-INF와 마찬가지로 APP-INF 또한 하위에
+                classes와 lib 디렉터리를 가지고 있으며, 각각 클래스 파일과 .jar 파일을 포함한다.</p>
+
+                <p>APP-INF 아래에 존재하는 classes 디렉터리의 클래스들과 lib 디렉터리의 .jar 파일들은
+                이 애플리케이션에서 라이브러리로 사용할 수 있다. 하지만 라이브러리 디렉터리를 사용하는 것이 표준이므로 JEUS
+                6 이후에서는 APP-INF 디렉터리보다는 라이브러리 디렉터리를 사용할 것을 권장한다.</p>
+              </div>
+
+            <p/>
+
+            <div class="literallayout"><p/></div>
+          </dd><dt><span class="term">META-INF</span></dt><dd>
+            <p><a id="d4e1374" class="indexterm"></a>META-INF 디렉터리에는 2개의 DD가 존재한다. Java EE DD인
+            application.xml과 JEUS DD인 jeus-application-dd.xml이며, 이 파일들은 없어도
+            무방하다. 이 디렉터리에는 DD 이외에 MANIFEST.MF라는 파일이 존재한다. archive된 EAR 파일의 정보나
+            클래스 패스를 명시할 수 있다.</p>
+          </dd></dl></div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_application_deployment_descriptor"></a>3.2. Deployment Descriptor(DD)</h2></div></div></div>
+    
+
+    <p><a id="d4e1379" class="indexterm"></a><a id="d4e1381" class="indexterm"></a><a id="d4e1384" class="indexterm"></a></p>
+
+    <p>Java EE 애플리케이션은 EAR(Enterprise ARchive .ear 파일) 형태로 배포된다.</p>
+
+    <p>이 파일에는 EJB 모듈(EJB .jar 파일), 웹 애플리케이션 모듈(.war 파일), 리소스 어댑터 모듈(.rar
+    파일), 클라이언트 모듈(클라이언트 .jar 파일)과 기타 필요한 Java 클래스를 포함하고 있다. 또한 하나의 모듈로 구성된
+    Standalone 모듈도 Java EE 애플리케이션의 한 종류이다. 이러한 애플리케이션의 서비스들을 시작하기 위해 JEUS에 모듈
+    파일을 올리고 제어하는 모든 동작을 <span><strong class="guibutton">Deployment</strong></span>라고 한다.<a id="d4e1390" class="indexterm"></a></p>
+
+    <p>애플리케이션 서버에 배치를 하기 위한 모듈 또는 애플리케이션을 생성하기 위해서는 DD가 필요하다. DD는 Java EE
+    표준 DD와 JEUS DD가 있다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>표준 DD에서 사용가능한 설정들은 Annotation으로 모두 표현가능해졌기 때문에 EJB와 EAR의 경우 표준
+        DD와 JEUS DD는 Java EE 5를 만족하는 JEUS 6부터 생략 가능하다. 웹의 경우는 Java EE 6를 만족하는
+        JEUS 7부터 표준 DD와 JEUS DD를 생략 가능하다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>각 모듈과 애플리케이션에 필요한 DD는 다음과 같다.</p>
+
+    <div class="informaltable"><a id="table_deployment_descriptor"></a>
+      <table border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th> </th><th><span class="bold"><strong>Java EE 표준 DD<a id="d4e1405" class="indexterm"></a></strong></span></th><th><span class="bold"><strong>JEUS DD<a id="d4e1409" class="indexterm"></a></strong></span></th></tr></thead><tbody><tr><td><span class="bold"><strong>애플리케이션<a id="d4e1415" class="indexterm"></a></strong></span></td><td valign="middle">application.xml</td><td valign="middle">jeus-application-dd.xml</td></tr><tr><td><span class="bold"><strong>EJB 모듈<a id="d4e1423" class="indexterm"></a></strong></span></td><td valign="middle">ejb-jar.xml</td><td valign="middle">jeus-ejb-dd.xml</td></tr><tr><td><span class="bold"><strong>웹 애플리케이션 모듈<a id="d4e1431" class="indexterm"></a></strong></span></td><td valign="middle">web.xml</td><td valign="middle">jeus-web-dd.xml</td></tr><tr><td><span class="bold"><strong>애플리케이션 클라이언트<a id="d4e1439" class="indexterm"></a></strong></span></td><td valign="middle">application-client.xml</td><td valign="middle">jeus-client-dd.xml</td></tr><tr><td><span class="bold"><strong>리소스 어댑터 모듈 <a id="d4e1447" class="indexterm"></a></strong></span></td><td valign="middle">ra.xml</td><td valign="middle">jeus-connector-dd.xml</td></tr><tr><td><span class="bold"><strong>웹 서비스<a id="d4e1455" class="indexterm"></a></strong></span></td><td>webservices.xml</td><td>jeus-webservices-dd.xml</td></tr></tbody></table>
+    </div>
+
+    <p>각 모듈마다 Java EE 표준 DD 이외에 JEUS를 위한 DD를 별도로 가지고 있는 것처럼 Application
+    descriptor에 대해서도 이에 대응하는 jeus-application-dd.xml이 존재한다. 이 파일은 EAR의
+    META-INF에 위치한다. 이 파일은 애플리케이션에 대한 부가적인 설정을 하기 위해 사용한다. 만약 이 파일이 EAR이나
+    Standalone 모듈에 포함되어 있지 않으면 기본 설정으로 deploy가 된다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>Java EE 표준 DD에 대한 보다 자세한 내용은 Java EE 7의 스펙을 참고한다. 각 모듈에 해당하는 JEUS
+      DD 역시 JEUS의 해당 안내서를 참고한다.</p>
+    </div>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p><a id="d4e1466" class="indexterm"></a>jeus-application-dd.xml에는 애플리케이션이 서비스되기 위한 부가적인 정보를 설정할 수
+    있다. 서버의 deploy에서는 애플리케이션을 deploy할 때 해당 파일에 설정된 정보를 읽어서 애플리케이션을 서비스하기 위한
+    환경을 구성한다.</p>
+
+    <p>다음은 &lt;application&gt; 태그의 설정 항목에 대한 설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>보안 설정</p>
+
+        <p>애플리케이션에 적용될 보안관련 설정은 다음과 같다. 항목에 대한 자세한 설명은 <a xmlns="" href="../security/index.html" class="olink">"JEUS Security 안내서"</a>를
+        참고한다.</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col width="160" align="left"/><col/></colgroup><thead><tr><th align="left">Element</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;role-permission&gt;<a id="d4e1484" class="indexterm"></a></td><td>애플리케이션에서 사용할 principal-role mapping을 지정한다. 이 설정은 애플리케이션
+                하위의 모든 모듈에 적용된다.</td></tr><tr><td align="left">&lt;java-security-permission&gt;<a id="d4e1490" class="indexterm"></a></td><td>J2SE security manager를 사용할 경우 애플리케이션에게 허용할 permission들을
+                지정한다.</td></tr></tbody></table>
+        </div>
+      </li><li>
+        <p>라이브러리 설정</p>
+
+        <p>애플리케이션에서 공유 라이브러리를 사용하려고 할 때 아래의 설정을 통해 라이브러리를 지정할 수 있다. 항목에 대한
+        자세한 설명은 <a href="chapter_overview_of_javaee_application.html#sect_shared_library" title="3.3.2. 공유 라이브러리(Shared Library)">“3.3.2. 공유 라이브러리(Shared Library)”</a>를 참고한다.</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col width="160" align="left"/><col/></colgroup><thead><tr><th align="left">Element</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;library-ref&gt;<a id="d4e1508" class="indexterm"></a></td><td>애플리케이션에서 사용할 공유 라이브러리를 지정한다.</td></tr></tbody></table>
+        </div>
+      </li><li>
+        <p>Java EE Name Space 관련 설정</p>
+
+        <p>애플리케이션에서 사용할 Name Space에 대한 정보는 application.xml이나 Annotation에
+        명시할 수 있다. 그에 따른 매핑 정보는 jeus-application-dd.xml에 적을 수 있다. 이 정보들은
+        Annotation으로 모두 대체 가능하다. Naming 환경에 대한 자세한 내용은 Java EE 7의 스펙을 참고한다. 이
+        설정에 대한 자세한 설명은 "JEUS XML Reference"의 "제23장 jeus-application-dd.xml
+        설정"을 참고한다.</p>
+      </li><li>
+        <p>Classloading 설정</p>
+
+        <p>EAR 애플리케이션에 포함된 라이브러리들을 로딩하는 순서를 설정한다. 기본적으로 JAVA의 클래스 로더에 따라 부모
+        클래스 로더로부터 클래스 로딩을 시도하나 애플리케이션 설정에 의하여 애플리케이션이 가지고 있는 라이브러리를 부모에 우선해
+        로딩할 필요가 있을 수 있다. 이런 경우 설정을 통해 클래스 로딩의 순서를 변경할 수 있다.</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col width="160" align="left"/><col/></colgroup><thead><tr><th align="left">Element</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;classloading&gt;<a id="d4e1528" class="indexterm"></a></td><td><p>EAR 애플리케이션의 내부 라이브러리를 로딩하는 방식을 설정한다.
+                </p><p>true로 설정할 경우 EAR 내부에 포함된 라이브러리를 먼저 로딩 후 없을 경우에 부모
+                클래스 로더의 클래스 로더를 통해 클래스 로딩을 시도한다.</p></td></tr></tbody></table>
+        </div>
+      </li></ul></div>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_use_application_library"></a>3.3. 애플리케이션에서 라이브러리 사용</h2></div></div></div>
+    
+
+    <p>본 절에서는 여러 애플리케이션에서 사용할 수 있는 애플리케이션 라이브러리(lib/application)와 공유
+    라이브러리(Shared Library)를 추가하고, 사용하는 기능에 대해 설명한다. 또한, JEUS 8부터 새롭게 추가된 라이브러리
+    배포(Library Deployment) 기능에 대해서도 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_lib_application_dir"></a>3.3.1. lib/application 디렉터리</h3></div></div></div>
+      
+
+      <p/>
+
+      <p>애플리케이션 라이브러리(lib/application)는 애플리케이션 간에 공유되는 라이브러리로 JEUS 시스템에
+      추가되는 시스템 라이브러리(JEUS_HOME/lib/system)와는 구별된다.</p>
+
+      <p>시스템 라이브러리에는 시스템에서 사용하는 라이브러리들이 위치하는 것이고, lib/application에는
+      애플리케이션이나 기타 사용자가 설정한 클래스(서버 Lifecycle 호출 기능, 사용자 로거, 로거의 필터, 로거의 포맷터
+      등)에서 사용할 라이브러리를 위한 용도이다.</p>
+
+      <p>lib/application에 라이브러리를 위치시키면 라이브러리 파일이 애플리케이션 간에 공유될 수 있다. 따라서
+      사용자가 항상 애플리케이션에 라이브러리를 함께 패키징(packaging)하지 않아도 된다. 주로 도메인이나 서버에 있는 모든
+      애플리케이션에서 공통으로 사용될 라이브러리를 여기에 위치시킨다. 라이브러리 형태인 JAR 파일이 올 수도 있다.</p>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+        <p>lib/application에 같은 라이브러리를 여러 개의 버전으로 설치한 경우 애플리케이션의 의도대로 라이브러리가
+        선택되지 않을 수 있다. 이 경우 애플리케이션에서 사용할 라이브러리의 버전을 명시할 수 있는 공유 라이브러리를 사용하기
+        바란다. 공유 라이브러리에 대한 자세한 설명은 <a href="chapter_overview_of_javaee_application.html#sect_shared_library" title="3.3.2. 공유 라이브러리(Shared Library)">“3.3.2. 공유 라이브러리(Shared Library)”</a>를
+        참고한다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>lib/application은 DOMAIN_HOME과 SERVER_HOME에 위치할 수 있다.</p>
+
+      <p>DOMAIN_HOME/lib/application에는 도메인 전체에서 공유할 수 있는 라이브러리를 위치시킨다. 도메인에
+      설치된 애플리케이션 라이브러리를 다른 머신에 있는 서버에 전달하고 싶다면 다른 머신에서 최초 도메인을 구성할 때
+      pack-domain 명령을 통해서 구성하면 DOMAIN_HOME/lib/application도 함께 복사된다. 그 후에
+      애플리케이션 라이브러리가 추가되거나 변경되는 것은 사용자가 수동으로 동기화해주어야 한다.</p>
+
+      <p>특정 서버에서만 사용할 애플리케이션 라이브러리를 설치하고 싶다면 SERVER_HOME/lib/application에
+      사용할 라이브러리를 위치시킨다. 이는 명령으로 제공하지 않고 있으니 수동으로 위치시켜주어야 한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>SERVER_HOME/lib/application 디렉터리는 JEUS를 설치할 때 생성되어 있지 않으나 필요하면
+          직접 생성해서 라이브러리를 위치시킬 수 있다.</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e1561"></a>클래스 로딩 방식</h4>
+
+      <p>애플리케이션 라이브러리(lib/application)의 클래스는 JEUS 루트 클래스 로더에 의해서 로딩된다. 따라서
+      서버에 deploy되는 모든 애플리케이션에서 사용할 수 있다.</p>
+
+      <p>시스템 라이브러리(JEUS_HOME/lib/system)와 동일한 클래스 로더에서 로딩되지만, 시스템 라이브러리는
+      사용자가 접근해서는 안 되는 디렉터리에 존재한다. 하지만 애플리케이션 라이브러리는 사용자를 위해서 사용자가 참조해야 하는
+      라이브러리를 위치시키는 디렉터리로 두 디렉터리의 역할이 다르다 볼 수 있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>서버의 클래스 로딩 방식에 대한 자세한 설명은 <a xmlns="" href="../server/chapter_server_structure.html#sect_class_loader_hierarchy" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “1.4. 클래스 로더의 구조”</a>를 참고한다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>애플리케이션 라이브러리는 SERVER_HOME과 DOMAIN_HOME에 존재한다.</p>
+
+      <p>클래스 로더에서 클래스 패스에 추가하는 순서는 SERVER_HOME/lib/application이 먼저이고,
+      DOMAIN_HOME/lib/application이 나중이다. 따라서 SERVER_HOME과 DOMAIN_HOME에 같은
+      라이브러리가 존재할 경우에는 SERVER_HOME에 설치되어 있는 것이 로딩되기 때문에 DOMAIN_HOME에 존재하는
+      라이브러리는 무시될 수 있다.</p>
+
+      <p>클래스 로더에 라이브러리를 클래스 패스로 추가할 때 라이브러리 파일 이름이 같은 경우에는 서버를 부팅할 때 다음과 같은
+      WARNING 메시지를 출력한다.</p>
+
+      <pre class="programlisting">Warning [same classpath-name] : [JEUS_HOME/domains/domain1/servers/adminServer/lib/application/applib.jar] is registered earlier than [JEUS_HOME/domains/domain1/lib/application/applib.jar] in JEUSClassLoader.</pre>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>위 로그 메시지는 lib/application을 JEUS 루트 클래스 로더에 클래스 패스로 추가할 때 발생한다.
+          이는 서버를 부팅할 때 클래스 로더를 구성하는 단계에서 진행하는 작업으로 서버 부팅 단계 중 제일 첫 번째 단계이다. 아직
+          서버 로거가 설정되기 이전의 시점이다. 따라서 이 메시지는 Launcher 로그를 통해서 확인해야 한다.</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>애플리케이션 라이브러리는 애플리케이션뿐만 아니라 서버에 특정 클래스를 설정해서 사용할 수 있는 부분에서는 모두 사용
+      가능하다. 그 예로는 서버 Lifecycle 호출 기능과 사용자 로거, 로그 메시지 필터 클래스, 로그 메시지 포맷터 클래스가
+      있다. 여기에 설정한 클래스에서는 애플리케이션 라이브러리의 라이브러리를 참조하는 것이 아니라 해당 클래스가
+      lib/application에 위치해야 한다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_shared_library"></a>3.3.2. 공유 라이브러리(Shared Library)</h3></div></div></div>
+      
+
+      <p>공유 라이브러리는 애플리케이션 간에 공유되는 라이브러리로 JEUS 시스템
+      라이브러리(JEUS_HOME/lib/system)와 애플리케이션 라이브러리(DOMAIN_HOME/lib/application,
+      SERVER_HOME/lib/application)와는 구별된다.</p>
+
+      <p>공유 라이브러리는 JEUS 전체 시스템에 영향을 주지 않고 각 애플리케이션에서 해당 라이브러리를 사용할 것인지 여부를
+      설정할 수 있으며, JEUS 재기동 없이 동적으로 추가할 수도 있고, 같은 라이브러리를 여러 개의 버전으로 설치하여 선택적으로
+      사용할 수 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>공유 라이브러리는 다음과 같은 특징을 가진다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>라이브러리 파일이 애플리케이션 간에 공유될 수 있고 따라서 사용자가 항상 함께 패키징(packaging)하지
+            않아도 된다.</p>
+          </li><li>
+            <p>라이브러리는 서버가 운영 중일 때도 동적으로 추가, 삭제될 수 있다.</p>
+          </li><li>
+            <p>새로운 버전으로 라이브러리를 추가하고 애플리케이션을 redeploy해서 업그레이드된 라이브러리를 사용할 수
+            있다.</p>
+          </li><li>
+            <p>해당 라이브러리의 여러 버전의 구현체를 등록할 수 있고, 어떤 구현체를 사용할지는 Deployment
+            Time에 결정할 수 있다.</p>
+          </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>각 라이브러리는 2개의 버전(specification, implementation)을 가질 수 있다. 이렇게 함으로써
+      사용자들은 같은 라이브러리의 여러 개의 버전을 설치할 수 있고, 애플리케이션이 필요한 버전을(highest, minimum or
+      exact) Deployment Time에 동적으로 선택하게 한다.</p>
+
+      <p>추후에 여러 버전의 라이브러리를 지원하기 위해서는 처음부터 항상 버전을 명기하는 것을 권장하며, 단순한 use
+      case를 위해서는 버전을 전혀 사용하지 않아도 무방하다. 버전이 명기되지 않았다면 기본적으로 0라는 버전 값으로 내부적으로
+      해석한다.</p>
+
+      <div class="literallayout"><p/></div><h4><a id="d4e1603"></a>라이브러리 설치 및
+      설정</h4>
+
+      <p>하나의 라이브러리는 여러 개의 JAR 파일로 구성될 수 있는데 이는 보통 공유 라이브러리 디렉터리인
+      JEUS_HOME/lib/shared 하위에 위치한다. 그리고 JAR 파일들은
+      JEUS_HOME/lib/shared/libraries.xml 설정 파일에 다음과 같이 라이브러리로 등록한다.</p>
+
+      <p>다음 예에서 'myLibrary'는 2.0 스펙을 구현하는 2.1 버전의 구현체로 정의하여 등록되었다. 이 라이브러리는
+      여러 개의 JAR 파일(commons-logging.jar, commons-util.jar 그리고 myLib -2.1 서브
+      디렉터리에 있는 모든 JAR 파일)로 구성되어 있다.</p>
+
+      <div class="example"><a id="d4e1607"></a><p class="title"><b>[예 3.1] 공유 라이브러리 등록 : &lt;&lt;libraries.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;library&gt;
+     &lt;library-name&gt;myLibrary&lt;/library-name&gt;
+     &lt;specification-version&gt;2.0&lt;/specification-version&gt;
+     &lt;implementation-version&gt;2.1&lt;/implementation-version&gt;
+     &lt;files dir="."&gt;
+         &lt;include name="commons-logging.jar"/&gt;
+         &lt;include name="commons-util.jar"/&gt;
+     &lt;/files&gt;
+     &lt;files dir="myLib-2.1"/&gt;
+&lt;/library&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+
+      <p>다음은 설정 태그에 대한 설명이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>&lt;library-name&gt;, &lt;specification-version&gt;,
+          &lt;implementation-version&gt;</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>애플리케이션이 해당 라이브러리를 참조할 때 사용한다.</p>
+            </li><li>
+              <p>&lt;*-version&gt; 필드는 같은 이름의 라이브러리가 여러 버전으로 관리되는 경우에 사용될 수
+              있다.</p>
+            </li></ul></div>
+        </li><li>
+          <p>&lt;files&gt;</p>
+
+          <p>실제 라이브러리의 클래스 패스를 설정한다. &lt;files&gt; 태그는 다음의 예와 같이 여러 가지 방식으로
+          클래스 패스를 설정할 수 있다.</p>
+
+          <div class="example"><a id="d4e1623"></a><p class="title"><b>[예 3.2] 공유 라이브러리 &lt;files&gt; 태그</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;files dir="."&gt;
+    &lt;include name="a.jar"/&gt;
+    &lt;include name="b.jar"/&gt;
+&lt;/files&gt;
+
+&lt;files dir="testa"/&gt;
+
+&lt;files dir="/home/works/lib/testc" /&gt;
+
+&lt;files dir="/home/works/lib/testd" mode="classes"/&gt;</pre>
+          </div></div><br class="example-break"/>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>dir 값은 JAR 파일이 담긴 디렉터리 또는 classes 디렉터리가 주어질 수 있으며 상대 경로와
+              절대 경로 모두 사용할 수 있다. 이때 상대 경로의 경우 기반(base) 디렉터리로 공유 라이브러리 디렉터리인
+              JEUS_HOME/lib/shared에 대한 상대 경로로 해석된다.</p>
+            </li><li>
+              <p>&lt;include&gt; 서브 태그를 이용하여 어떤 JAR 파일들을 포함시킬지 지정할 수 있다.
+              &lt;include&gt; 태그를 설정하지 않으면 해당 디렉터리의 모든 JAR 파일이 포함된다. 이 경우 해당
+              디렉터리는 deploy 시간에 JAR 파일을 동적으로 검색하게 된다. 따라서, 추후에 설정 변경 없이 JAR 파일을
+              디렉터리에 추가할 수 있다. JAR 파일 디렉터리가 아니라 클래스 디렉터리를 지정하려면 mode 값을
+              "classes"로 설정해야 한다.</p>
+            </li><li>
+              <p>새로운 애플리케이션이 deploy될 때 해당 설정이 수정되었다면 다시 읽어서 처리하기 때문에,
+              라이브러리는 JEUS가 구동 중에도 동적으로 추가될 수 있다. 따라서, JEUS 재기동 없이도 새로운 라이브러리
+              혹은 업그레이드된 버전의 라이브러리를 추가할 수 있다.</p>
+
+              <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+                  <p>위에 설명한 설정은 해당 XML을 직접 수정해서 사용해야 한다. JEUS 6에서는
+                  WebAdmin을 통해서 수정이 가능했지만 JEUS 7 이후 버전에서는 지원하지 않는다.</p>
+                </div>
+            </li></ul></div>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e1639"></a>애플리케이션에서 라이브러리 참조</h4>
+
+      <p>Java EE 애플리케이션이나 Standalone 모듈은 jeus-application-dd.xml,
+      jeus-web-dd.xml 또는 jeus-ejb-dd.xml의 Entry를 통해 등록된 공유 라이브러리를 사용할 수
+      있다.</p>
+
+      <p>다음은 공유 라이브러리 'myLibrary'를 참조하는 예이다. </p><pre class="programlisting">&lt;library-ref&gt;
+     &lt;library-name&gt;myLibrary&lt;/library-name&gt;
+&lt;/library-ref&gt;</pre><p>위의 예에서 애플리케이션은 deploy될 때 라이브러리 이름이
+      'myLibrary'인 라이브러리를 찾고 해당 클래스 패스를 애플리케이션 클래스 패스에 추가한다. 여러 버전의
+      'myLibrary'가 있는 경우 가장 높은(highest) 버전을 선택하게 된다. 참조되는 라이브러리 버전이 설정되지 않으면,
+      항상 <a href="chapter_overview_of_javaee_application.html#sect_version_ordering_rule" title="3.3.2. Version Ordering Rule">절 3.3.2. “Version Ordering
+      Rule”</a>에 따라 최상위 버전을 찾게
+      된다.</p>
+
+      <p>다음은 최소 버전이 필요한 경우의 예이다. </p><pre class="programlisting">&lt;library-ref&gt;
+     &lt;library-name&gt;myLibrary&lt;/library-name&gt;
+     &lt;specification-version&gt;
+          &lt;value&gt;2.0&lt;/value&gt;
+     &lt;/specification-version&gt;
+     &lt;implementation-version&gt;
+          &lt;value&gt;2.0&lt;/value&gt;
+     &lt;/implementation-version&gt;
+&lt;/library-ref&gt;</pre>
+
+      <p>다음은 정확한 버전이 필요한 경우의 예이다. </p><pre class="programlisting">&lt;library-ref&gt;
+     &lt;library-name&gt;myLibrary&lt;/library-name&gt;
+        &lt;specification-version&gt;
+             &lt;value&gt;2.0&lt;/value&gt;
+             &lt;exact-match&gt;true&lt;/exact-match&gt;
+        &lt;/specification-version&gt;
+        &lt;implementation-version&gt;
+             &lt;value&gt;2.0&lt;/value&gt;
+             &lt;exact-match&gt;true&lt;/exact-match&gt;
+        &lt;/implementation-version&gt;
+&lt;/library-ref&gt;</pre>
+
+      <p>다음은 정해진 스펙 버전만 설정하는 경우의 예이다. 이렇게 되면 해당 스펙 버전의 최상의 implementation
+      버전을 찾게 된다. </p><pre class="programlisting">&lt;library-ref&gt;
+     &lt;library-name&gt;myLibrary&lt;/library-name&gt;
+          &lt;specification-version&gt;
+               &lt;value&gt;2.0&lt;/value&gt;
+               &lt;exact-match&gt;true&lt;/exact-match&gt;
+          &lt;/specification-version&gt;
+&lt;/library-ref&gt;</pre>
+
+      <p/>
+
+      <p>기본적으로 애플리케이션이 deploy될 때 참조하고 있는 라이브러리를 찾을 수 없다면 WARNING 로그를 보여주지만,
+      deploy는 계속 진행된다. 만약 이런 동작을 원하지 않는다면 다음과 같이 &lt;failon-error&gt; 속성을 설정하여
+      deploy를 실패시킬 수 있다.</p><pre class="programlisting">&lt;library-ref&gt;
+     &lt;library-name&gt;myLibrary&lt;/library-name&gt;
+     &lt;failon-error&gt;true&lt;/failon-error&gt;
+&lt;/library-ref&gt;</pre>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1657"></a>클래스 로딩 방식</h4>
+
+      <p>공유 라이브러리의 클래스는 어느 곳에서 라이브러리 레퍼런스(reference)를 정의하고 있느냐에 따라서 애플리케이션
+      클래스 로더 혹은 모듈 클래스 로더에 의해서 로딩된다. 예를 들어 'lib1'이 jeus-application-dd.xml에서
+      레퍼런스로 정의되었다면 EAR 레벨의 애플리케이션 클래스 로더에 의해서 로딩된다. 하지만 jeus-web-dd.xml에 레퍼런스로
+      정의되었다면 웹 레벨 클래스 로더에 의해서 로딩된다. 각 애플리케이션 클래스 로더에 의해 로딩된 클래스의 경우 해당
+      애플리케이션에서만 국한(isolated)되며, 이는 라이브러리도 동일하게 적용된다. 따라서 클래스 인스턴스는 애플리케이션 간에
+      공유되지 않는다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>서버의 클래스 로딩 방식에 대한 자세한 설명은 <a xmlns="" href="../server/chapter_server_structure.html#sect_class_loader_hierarchy" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “1.4. 클래스 로더의 구조”</a>를 참고한다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="sect_version_ordering_rule"></a>Version Ordering
+      Rule</h4>
+
+      <p>Version은 "6.2.3-b12"처럼 &lt;fraction_part&gt;(6.2.3)와
+      &lt;string(non-fraction)_part&gt;(-b12)를 가질 수 있다. </p><pre class="programlisting">Version ::= &lt;fraction_part&gt; | &lt;string_part&gt; | &lt;fraction_part&gt; &lt;string_part&gt;
+fraction_part ::= &lt;integer&gt; | &lt;integer&gt; "." &lt;fraction_part&gt;
+string_part ::= &lt;non-numeric&gt; &lt;character&gt;*</pre><p>Version을
+      ordering하는 규칙은 다음과 같다. </p><div class="itemizedlist"><ul type="circle"><li style="list-style-type: circle">
+            <p>&lt;fraction_part&gt;를 먼저 수치적으로 비교한다. major, minor 순서로
+            비교된다.</p>
+          </li><li style="list-style-type: circle">
+            <p>&lt;fraction_part&gt;가 동일하면 &lt;string_part&gt;를 비교한다. 이때
+            비교는 string 비교 방식을 따른다.</p>
+          </li></ul></div>
+
+      <p/>
+
+      <p>다음은 ordering 규칙에 따른 순서의 예이다.</p>
+
+      <pre class="programlisting">6.0 &lt; 6.2.3 &lt; 6.2.3-b12 &lt; 6.2.3-beta &lt; 6.2.4</pre>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_library_deployment"></a>3.3.3. Library Deployment</h3></div></div></div>
+      
+
+      <p>JEUS 8부터는 라이브러리를 DAS를 통해 관리할 수 있도록 라이브러리 배포(Library Deployment)
+      기능을 제공한다. 라이브러리 배포 기능을 사용하면 사용자는 참조할 라이브러리를 콘솔 툴이나 WebAdmin를 통해 도메인에 배포한
+      후 설정을 통해 애플리케이션이 이를 참조하도록 할 수 있다. 이를 통해 서로 다른 애플리케이션이 서로 다른 버전의 동일한
+      라이브러리를 참조할 때 발생할 수 있는 클래스 충돌 문제 등을 최소화 할 수 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>라이브러리 배포 기능을 사용하여 얻을 수 있는 장점은 아래와 같다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>애플리케이션마다 사용하는 라이브러리를 같이 패키징할 필요가 없다. 이는 같은 라이브러리를 여러 애플리케이션에서
+          사용하고자 할 때, 각각 패키징을 할 경우 발생하는 편의성 문제나 중복 클래스 로딩으로 인한 리소스 사용 문제를 해결할 수
+          있다.</p>
+        </li><li>
+          <p>애플리케이션 배포할 때 사용할 라이브러리를 지정할 수 있다. 동일한 라이브러리가 복수 배포되어 있는 경우 버전을
+          지정함으로서 사용할 라이브러리를 지정할 수 있다.</p>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1696"></a>주요 기능</h4>
+
+      <p>애플리케이션에서 라이브러리를 사용하기 위해서는 설치 및 배포 과정을 거쳐야 한다. 라이브러리 배포를 위해 제공하는 주요
+      기능들은 다음과 같다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p><span><strong class="guibutton">라이브러리 설치(Install)</strong></span></p>
+
+          <p>라이브러리를 배포하기 위해서는 먼저 DAS가 있는 장비의 도메인 디렉터리에 해당 라이브러리를 설치해야 한다.
+          설치는 콘솔 명령어나 WebAdmin를 통해 이루어지며, 설치 작업에 필요한 정보들은 다음과 같다.</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">라이브러리 식별자(ID)</td><td>배포, 삭제 및 참조할 때 사용할 라이브러리에 대한 이름이다. 도메인 내에서 고유한 값이어야
+                    하며, 지정하지 않은 경우 설치가 되지 않는다.</td></tr><tr><td align="left">라이브러리 버전</td><td>설치할 라이브러리에 대한 버전을 지정할 수 있다. 지정하지 않은 경우에는 1.0으로
+                    간주한다.</td></tr><tr><td align="left">라이브러리 경로</td><td>설치할 라이브러리가 위치한 경로를 지정한다. 지정하지 않은 경우 설치가 되지
+                    않는다.</td></tr></tbody></table>
+            </div>
+
+          <p>설치 작업이 완료되면 라이브러리 파일(들)은
+          DOMAIN_HOME/.libraries/LIBRARY_ID/VERSION 아래에 위치한다.</p>
+
+          <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+            <p>설치한 라이브러리에 대한 정보는 domain.xml에 기록하지 않는다. DAS가 라이브러리 설치 상태를
+            파악할 필요가 있을 경우에는 DOMAIN_HOME/.libraries 아래에 디렉터리 구조를 탐색한다. 따라서 임의로
+            해당 디렉터리를 변경하는 것은 권장하지 않는다.</p>
+          </div>
+        </li><li>
+          <p><span><strong class="guibutton">라이브러리 배포(deployment)</strong></span></p>
+
+          <p>설치한 라이브러리는 콘솔 명령어나 WebAdmin를 사용하여 배포할 수 있다. 배포할 때 해당 라이브러리를
+          사용할 서버나 클러스터를 명시하거나, 모든 서버를 대상으로 하도록 명시할 수 있다. 배포가 성공적으로 이루어지면 DAS는
+          해당 내용을 domain.xml에 기록하여 추후 재기동 할 때에도 라이브러리 설치 상태를 유지할 수 있도록
+          한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">라이브러리 비활성화(undeployment)</strong></span></p>
+
+          <p>라이브러리를 더 이상 사용하지 않을 경우, 콘솔 명령어나 WebAdmin를 통해 해당 라이브러리를 비활성화할 수
+          있다. 작업이 완료되면 DAS는 비활성화한 라이브러리에 대한 정보를 domain.xml에서 제거하나, 라이브러리 파일
+          자체는 삭제하지 않고 유지한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">라이브러리 삭제(Uninstall)</strong></span></p>
+
+          <p>콘솔 명령어나 WebAdmin를 통해 라이브러리 파일을 삭제할 수 있다.</p>
+        </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e1742"></a>3.3.3.1. 라이브러리 설치 및 삭제</h4></div></div></div>
+        
+
+        <p>본 절에서는 WebAdmin과 콘솔 툴을 사용해서 라이브러리를 설치하고 삭제하는 방법을 설명한다.</p>
+
+        <p/>
+
+        <h5><a id="d4e1747"></a>WebAdmin 사용</h5>
+
+        <p>WebAdmin 메인 화면 왼쪽에 위치한 <span><strong class="guibutton">[Applications]</strong></span> 메뉴를
+        선택하면 애플리케이션과 라이브러리를 관리할 수 있는 화면으로 이동한다. 이 화면을 통해 라이브러리 설치 및 삭제를 진행할 수
+        있다.</p>
+
+        <div class="figure"><a id="d4e1750"></a><p class="title"><b>[그림 3.3] 라이브러리 관리</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_webadmin_deploy_library.png" align="top" width="711" alt="라이브러리 관리"/></td></tr></table></div>
+        </div></div><br class="figure-break"/>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e1757"></a>콘솔 툴 사용 </h5>
+
+        <p>다음은 콘솔 툴(jeusadmin)을 사용하여 라이브러리를 설치 및 삭제하는 방법에 대해 설명이다.</p>
+
+        <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">현재 설치되어 있는 라이브러리에 대한 정보 확인</strong></span></p>
+
+            <p><span><strong class="guibutton">library-info</strong></span> 명령어를 사용하면 현재 설치 및 배포되어
+            있는 라이브러리에 대한 목록을 확인할 수 있다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>library-info</strong></span>
+Library information
+================================================================================
++-----------+--------+-------+---------------+-------------------+-------------+
+| Library ID| Version| State | Target Servers|  Target Clusters  | Applications|
++-----------+--------+-------+---------------+-------------------+-------------+
+(No data available)
+================================================================================</pre>
+          </li><li>
+            <p><span><strong class="guibutton">라이브러리 설치</strong></span></p>
+
+            <p><span><strong class="guibutton">install-library</strong></span> 명령어를 사용하여 라이브러리를 설치할
+            수 있다. 라이브러리 식별자(ID) 및 경로를 지정하지 않는 경우 설치가 되지 않으므로 반드시 입력하여야
+            한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>install-library log4j -path /usr/lib/apache-log4j-1.2.17/log4j-1.2.17.jar -version 1.2.17</strong></span>
+Successfully installed the library [log4j] version [1.2.17].
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>library-info</strong></span>
+Library information
+================================================================================
++-----------+--------+----------+--------------+------------------+------------+
+| Library ID| Version|   State  |    Target    |  Target Clusters | Applicatio |
+|           |        |          |   Servers    |                  |     ns     |
++-----------+--------+----------+--------------+------------------+------------+
+| log4j     | 1.2.17 | INSTALLED|              |                  |            |
++-----------+--------+----------+--------------+------------------+------------+
+================================================================================</pre>
+          </li><li>
+            <p><span><strong class="guibutton">라이브러리 배포</strong></span></p>
+
+            <p>라이브러리를 배포하기 위해서는 <span><strong class="guibutton">deploy-library</strong></span> 명령어를
+            사용한다. 배포할 때 라이브러리를 사용할 대상(서버, 클러스터 또는 모든 서버)를 지정해야 한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>deploy-library log4j -servers adminServer</strong></span>
+deploy the library [log4j] succeeded.
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>library-info</strong></span>
+Library information
+================================================================================
++-----------+--------+--------+---------------+------------------+-------------+
+| Library ID| Version|  State | Target Servers|  Target Clusters | Applications|
++-----------+--------+--------+---------------+------------------+-------------+
+| log4j     | 1.2.17 | RUNNING| adminServer   |                  |             |
++-----------+--------+--------+---------------+------------------+-------------+
+================================================================================</pre>
+          </li><li>
+            <p><span><strong class="guibutton">라이브러리 비활성화</strong></span></p>
+
+            <p>배포한 라이브러리를 더 이상 사용하지 않게 된 경우
+            <span><strong class="guibutton">undeploy-library</strong></span> 명령어를 통해 해당 라이브러리를 비활성화할 수
+            있다. 사용하지 않는 라이브러리를 비활성화하지 않아도 서버의 기능에는 문제가 없으나, 서버를 기동할 때 라이브러리
+            동기화 등 불필요한 작업이 발생할 수 있다.</p><pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>undeploy-library log4j</strong></span>
+undeploy the library [log4j] succeeded.
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>library-info</strong></span>
+Library information
+================================================================================
++-----------+--------+----------+--------------+------------------+------------+
+| Library ID| Version|   State  |    Target    |  Target Clusters | Applicatio |
+|           |        |          |   Servers    |                  |     ns     |
++-----------+--------+----------+--------------+------------------+------------+
+| log4j     | 1.2.17 | INSTALLED|              |                  |            |
++-----------+--------+----------+--------------+------------------+------------+
+================================================================================</pre>
+          </li><li>
+            <p><span><strong class="guibutton">라이브러리 삭제</strong></span></p>
+
+            <p>라이브러리를 도메인에서 완전히 제거하고자 하는 경우
+            <span><strong class="guibutton">uninstall-library</strong></span> 명령어를 사용한다. 이미 배포가 되어 있는
+            라이브러리는 삭제할 수 없으며, 삭제를 하기 위해서는 비활성화 과정을 거쳐야 한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>uninstall-library log4j</strong></span>
+uninstall the library [log4j] succeeded. : Successfully deleted [log4j].
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>library-info</strong></span>
+Library information
+================================================================================
++-----------+--------+-------+---------------+-------------------+-------------+
+| Library ID| Version| State | Target Servers|  Target Clusters  | Applications|
++-----------+--------+-------+---------------+-------------------+-------------+
+(No data available)
+================================================================================ </pre>
+          </li></ul></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e1799"></a>3.3.3.2. 애플리케이션에서 라이브러리 참조</h4></div></div></div>
+        
+
+        <p>애플리케이션을 배포할 때 참조할 라이브러리를 지정할 수 있다. 콘솔 툴이나 WebAdmin을 통해 배포 작업을
+        진행할 때 참조할 라이브러리의 식별자와 버전을 지정할 수 있다. 버전을 지정하지 않은 경우에는 가장 높은(최신) 버전의
+        라이브러리를 지정한 것으로 간주한다.</p>
+
+        <p>JEUS는 배포할 때 지정한 정보를 사용하여 해당 라이브러리를 애플리케이션이 참조할 수 있도록 연결하는 작업을
+        수행한다. 애플리케이션이 참조하는 라이브러리에 대한 정보는 다른 배포 정보와 같이 domain.xml에 기록된다.</p>
+
+        <p/>
+
+        <p/>
+
+        <h5><a id="d4e1806"></a>WebAdmin 사용</h5>
+
+        <p>WebAdmin를 통해 배포할 때 배포 관련 설정을 입력하는 팝업창에서 어떤 라이브러리를 사용할지를 지정할 수
+        있다.</p>
+
+        <div class="figure"><a id="d4e1808"></a><p class="title"><b>[그림 3.4] 의존 라이브러리 설정</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="474"><tr><td><img src="resources/figure_webadmin_deployment_reference_library.png" width="474" alt="의존 라이브러리 설정"/></td></tr></table></div>
+        </div></div><br class="figure-break"/>
+
+        <p/>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        
+
+        <h5><a id="d4e1818"></a>콘솔 툴 사용</h5>
+
+        <p><span><strong class="guibutton">deploy-application</strong></span> 명령을 수행할 때 참조할 라이브러리의
+        식별자와 버전을 지정한다.</p>
+
+        <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>deploy-application sample -lib log4j -version 1.2.17 -servers adminServer</strong></span>
+deploy the application for the application [sample] succeeded.
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>library-info</strong></span>
+Library information
+================================================================================
++-----------+--------+--------+---------------+------------------+-------------+
+| Library ID| Version|  State | Target Servers|  Target Clusters | Applications|
++-----------+--------+--------+---------------+------------------+-------------+
+| log4j     | 1.2.17 | RUNNING| adminServer   |                  | sample      |
++-----------+--------+--------+---------------+------------------+-------------+
+================================================================================</pre>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+      </div>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_graceful_undeploy_and_redeploy.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_assembling_and_deploying_applications.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제2장 Graceful Undeployment와 Redeployment </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제4장 애플리케이션 작성 및 Deploy</td></tr></table></div><div xmlns="" align="center"/></body></html>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제1장 Concurrency Utilities for Java EE 표준</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Concurrency Utilities 안내서"/><link rel="up" href="index.html" title="JEUS Concurrency Utilities 안내서"/><link rel="prev" href="about.html" title="안내서에 대하여"/><link rel="next" href="chapter_managed_objects.html" title="제2장 Managed Objects"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제1장 Concurrency Utilities for Java EE 표준</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_managed_objects.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_intro"></a>제1장 Concurrency Utilities for Java EE 표준</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_intro.html#sect_intro">1.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_intro.html#sect_intro_managedTask">1.2. Managed Task</a></span></dt><dt><span class="section"><a href="chapter_intro.html#sect_intro_threadContext">1.3. 컨테이너 스레드 컨텍스트</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 Concurrency Utilities for Java EE의 등장 배경 및 기술에 대해서 간략하게
+  설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_intro"></a>1.1. 개요</h2></div></div></div>
+    
+
+    <p>애플리케이션 서버에서는 EJB나 웹 컴포넌트에서 Java SE에서 제공하는 Concurrency API (Thread,
+    Timer, ExecutorService, ...)를 이용하는 것을 권하지 않는다. Java EE 애플리케이션 컴포넌트
+    (Servlet, EJB 등)는 애플리케이션 서버가 관리하는 스레드에서 실행되고, 같은 스레드에서 컨테이너가 제공하는 기능들이
+    동작하는 것을 가정한다.</p>
+
+    <p>이러한 이유로 APP components는 컨테이너가 관리하지 않는 스레드에서는 Java EE 서비스들을 안전하게 사용할
+    수 없다. 또한, 컨테이너가 관리하지 않는 스레드에서 리소스를 이용하게 되면 EE에서 사용성, 보안, 신뢰성, 확장성에 잠재적으로
+    문제를 일으킬 수 있다.</p>
+
+    <p>이와 같은 관리되지 않는(unmanaged) 스레드에 의해 발생하는 문제를 해결하기 위해서 기존 Java SE의
+    Concurrency Utilities를 확장한 표준화된 Concurrency Utilities for Java EE(JSR-236)
+    스펙이 제공된다.</p>
+
+    <p>이 표준화된 기술을 통해 애플리케이션이 Java EE 환경에서 컨테이너의 integrity를 해치지 않고 동작하는 것을
+    보장할 수 있다.</p>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_intro_managedTask"></a>1.2. Managed Task</h2></div></div></div>
+    
+
+    <p>컨테이너는 필요없는 리소스의 소모를 줄이기 위해 리소스를 풀링(pooling)하고 생명주기를 관리한다. 그런데 컴포넌트
+    내에서 Java SE에서 제공되는 Concurrency API를 이용하여 비동기 작업을 수행하면, 컨테이너가 해당 리소스에 대해서
+    인지할 수 없기 때문에 관리할 수가 없다.</p>
+
+    <p>따라서 본 스펙에서는 기존 Java SE의 java.util.concurrent에 정의된 Task를 확장하여 Managed
+    Task를 정의하였다. 이를 통해 컨테이너가 해당 일반 task를 Managed Task로 관리할 수 있게 되고, 비동기로 작업이
+    실행될 때 Execution Context를 유지하여 실행될 수 있도록 한다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_intro_threadContext"></a>1.3. 컨테이너 스레드 컨텍스트</h2></div></div></div>
+    
+
+    <p>Java EE 환경에서는 서비스를 실행할 때 각 서비스의 컨텍스트 정보를 가지고 있다. 예를 들면 JDBC에서의 data
+    sources, JMS에서의 프로바이더와 EJB 등이 있다.</p>
+
+    <p>컴포넌트 내에서 Java SE의 Concurrency API를 이용하게 되면, 컨테이너가 새롭게 생성된 스레드에서 서비스의
+    컨텍스트 정보를 유지하기 위해 애플리케이션 개발자는 다음과 같은 방식으로 컨텍스트를 전파해야 한다.</p>
+
+    <div class="orderedlist"><ol type="1"><li>
+          <p>애플리케이션 컴포넌트 스레드의 컨테이너 컨텍스트를 저장한다.</p>
+        </li><li>
+          <p>어떤 컨테이너 컨텍스트를 저장하고 전파할지 판단한다.</p>
+        </li><li>
+          <p>새롭게 생성된 스레드에 컨테이너 컨텍스트를 적용한다.</p>
+        </li><li>
+          <p>원래 컴포넌트 스레드의 컨텍스트를 복구한다.</p>
+        </li></ol></div>
+
+    <p/>
+
+    <p>이와 같은 방식으로 작업이 Java SE의 Concurrency API에서 컨텍스트를 유지하면서 동작할 수 있지만,
+    Concurrency Utilities for Java EE 서비스를 이용하면 간단하게 사용자가 정의한 Task를 Managed
+    Objects로 전달하여 내부에서 컨텍스트를 알아서 유지/복구하기 때문에 편리하고 안전하다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <h3><a id="d4e402"></a>컨텍스트를 유지하여 작업을 수행하는 지점</h3><div class="itemizedlist"><ul type="disc"><li>
+          <p>java.util.concurrent.Callable</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+                <p>call()</p>
+              </li></ul></div>
+        </li><li>
+          <p>java.lang.Runnable</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+                <p>run()</p>
+              </li></ul></div>
+        </li><li>
+          <p>javax.enterprise.concurrent.ManagedTaskListener</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+                <p>taskAborted</p>
+              </li><li>
+                <p>taskSubmitted</p>
+              </li><li>
+                <p>taskStarting</p>
+              </li></ul></div>
+        </li><li>
+          <p>javax.enterprise.concurrent.ManagedTaskListener</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+                <p>taskAborted</p>
+              </li><li>
+                <p>taskSubmitted</p>
+              </li><li>
+                <p>taskStarting</p>
+              </li></ul></div>
+        </li><li>
+          <p>javax.enterprise.concurrent.Trigger</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+                <p>getNextRuntime()</p>
+              </li><li>
+                <p>skipRun()</p>
+              </li></ul></div>
+        </li></ul></div>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_managed_objects.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">안내서에 대하여 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제2장 Managed Objects</td></tr></table></div><div xmlns="" align="center"/></body></html>

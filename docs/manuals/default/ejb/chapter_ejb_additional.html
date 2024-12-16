@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제12장 부가 기능</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS EJB 안내서"/><link rel="up" href="index.html" title="JEUS EJB 안내서"/><link rel="prev" href="chapter_ejb_client.html" title="제11장 EJB 클라이언트"/><link rel="next" href="appendix_mapping_javatype_to_dbfield.html" title="Appendix A. 기본 Java 타입과 DB 필드 매핑"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제12장 부가 기능</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_ejb_client.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="appendix_mapping_javatype_to_dbfield.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_ejb_additional"></a>제12장 부가 기능</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_ejb_additional.html#sect_workarea_service">12.1. WorkArea 서비스</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_ejb_additional.html#d4e6027">12.1.1. UserWorkArea 인터페이스</a></span></dt><dt><span class="section"><a href="chapter_ejb_additional.html#d4e6037">12.1.2. PropertyMode 타입</a></span></dt><dt><span class="section"><a href="chapter_ejb_additional.html#d4e6062">12.1.3. 예외</a></span></dt><dt><span class="section"><a href="chapter_ejb_additional.html#d4e6093">12.1.4. Nested UserWorkArea</a></span></dt><dt><span class="section"><a href="chapter_ejb_additional.html#d4e6103">12.1.5. UserWorkArea를 사용하는 응용 프로그램 개발</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 JEUS에서 EJB를 개발할 때 사용할 수 있는 부가 기능들에 대해 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_workarea_service"></a>12.1. WorkArea 서비스</h2></div></div></div>
+    
+
+    <p><a id="d4e6019" class="indexterm"></a>WorkArea 서비스는 프로그램이 어떤 묵시적(implicit)인 컨텍스트를 계속 전달할 때 사용할 수
+    있는 기능이다. 마치 Security 컨텍스트나 트랜잭션 컨텍스트와 같이 별도의 인자로 전달하지 않아도 로컬 또는 원격 메소드를
+    호출할 때 계속 전달된다. 어떤 컨텍스트를 전달해야 하는 경우나 메소드의 인자수가 많아지는 경우에 WorkArea를 사용할 수
+    있다.</p>
+
+    <p>WorkArea는 일종의 사용자 저장 공간으로 name-value pair 형태의 맵(Map)으로 저장된다.
+    WorkArea를 새로 시작하면 현재의 스레드와 함께 이동하기 때문에 호출된 메소드나 EJB와 같은 컴포넌트에서 계속 사용할 수가
+    있다. 또한, 원격 EJB를 호출하는 경우에도 전달(propagation)되는 특성이 있다.</p>
+
+    <p>WorkArea 서비스를 이용하기 위해 UserWorkArea 인터페이스인
+    jeus.workarea.UserWorkArea를 사용한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>자세한 API 정보는 JEUS API Javadoc 문서의 jeus.workarea 패키지를 참조한다.</p>
+
+      <p>현재 원격 WorkArea 전달(propagation) 기능은 EJB 3.0 비즈니스(business) 인터페이스를
+      사용하는 경우에만 전달된다. EJBObject 원격 컴포넌트 인터페이스를 사용하거나 JEUS 기본 RMI 호출이 아닌 IIOP
+      호출을 하는 경우에는 전달되지 않는다.</p>
+    </div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6027"></a>12.1.1. UserWorkArea 인터페이스</h3></div></div></div>
+      
+
+      <p>UserWorkArea 인터페이스는 UserWorkArea의 시작, 종료 및 각 조작에 필요한 모든 메소드를 정의하며
+      다음과 같다.</p>
+
+      <div class="example"><a id="d4e6030"></a><p class="title"><b>[예 12.1] &lt;&lt;UserWorkArea 인터페이스&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">public interface UserWorkArea {
+   public void begin(String name);
+   public void complete() 
+          throws NoWorkAreaException, NotOriginatorException;
+   public String getName();
+   public String[] retrieveAllKeys();
+   public void set(String key, java.io.Serializable value)
+          throws NoWorkAreaException, NotOriginatorException, 
+                 PropertyReadOnlyException;
+   public void set(String key, java.io.Serializable value, PropertyModeType mode)
+          throws NoWorkAreaException, NotOriginatorException, 
+                 PropertyReadOnlyException;
+   public java.io.Serializable get(String key);
+   public PropertyModeType getMode(String key);
+   public void remove(String key) 
+          throws NoWorkAreaException, NotOriginatorException, 
+                 PropertyReadOnlyException;
+}</pre>
+      </div></div><br class="example-break"/>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>메소드 정의에 대한 자세한 정보는 Javadoc을 참고한다.</p>
+        </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6037"></a>12.1.2. PropertyMode 타입</h3></div></div></div>
+      
+
+      <p>WorkArea에 저장되는 값들은 각각의 PropertyMode를 갖는다.</p>
+
+      <p>각 PropertyMode 타입은 다음과 같다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">타입</th><th>설명</th></tr></thead><tbody><tr><td align="left">NORMAL<a id="d4e6052" class="indexterm"></a></td><td>등록된 값에 대해 수정과 삭제가 모두 가능하다.</td></tr><tr><td align="left">READ_ONLY<a id="d4e6058" class="indexterm"></a></td><td>UserWorkArea에 등록된 값에 대해 수정과 삭제가 모두 불가능하다.</td></tr></tbody></table>
+        </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6062"></a>12.1.3. 예외</h3></div></div></div>
+      
+
+      <p>UserWorkArea에서 정의된 예외는 다음과 같다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">예외</th><th>설명</th></tr></thead><tbody><tr><td align="left">WorkAreaException<a id="d4e6076" class="indexterm"></a></td><td>WorkArea에서 발생하는 Exception의 최상위 Exception이다.</td></tr><tr><td align="left">NotOriginatorException<a id="d4e6082" class="indexterm"></a></td><td>작업 영역을 시작한 스레드가 아닐 경우 값을 수정하거나 삭제 또는 작업 영역을 닫으려고 할 경우
+                발생한다.</td></tr><tr><td align="left">PropertyReadOnlyException<a id="d4e6088" class="indexterm"></a></td><td>PropertyMode가 READ_ONLY로 설정된 값을 변경하는 경우 발생한다.</td></tr></tbody></table>
+        </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6093"></a>12.1.4. Nested UserWorkArea</h3></div></div></div>
+      
+
+      <p>UserWorkArea는 중첩되어 사용될 수 있다. 이미 UserWorkArea가 존재하는 상황에서 새로운
+      UserWorkArea를 시작하면 그 UserWorkArea는 기존 UserWorkArea에 내포되게 된다.</p>
+
+      <p>내포된 UserWorkArea는 상위 UserWorkArea에 저장된 값들을 그대로 이용할 수 있으며 새로운 값들을
+      추가할 수 있다. 내포된 UserWorkArea에서 추가된 값들은 단지 그 UserWorkArea에서만 값을 갖게 되며 내포된
+      UserWorkArea가 완료되면 사라진다.</p>
+
+      <p>중첩된 UserWorkArea에서의 등록 정보는 다음 그림과 같다.</p>
+
+      <div class="figure"><a id="figure_nested_userworkarea"></a><p class="title"><b>[그림 12.1] 중첩된 UserWorkArea에서의 등록 정보</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><img src="resources/figure_30_user_workarea_nested.png" align="top" alt="중첩된 UserWorkArea에서의 등록 정보"/></div>
+      </div></div><br class="figure-break"/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6103"></a>12.1.5. UserWorkArea를 사용하는 응용 프로그램 개발</h3></div></div></div>
+      
+
+      <p>본 절에서는 실제로 UserWorkArea를 사용하는 EJB 예제를 작성하며 UserWorkArea 인터페이스를
+      사용하는 방법을 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>EJB 예제는 UserWorkAreaSampleSender와 UserWorkAreaSampleReceiver 2개의
+      EJB로 이루어져 있다. Sender에서 UserWorkArea를 생성하여 데이터를 전달하고, Receiver에서
+      UserWorkArea에 설정된 값을 이용하여 메시지를 생성하여 원래 Sender에서 리턴하는 예제로 과정은 다음과
+      같다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p><span><strong class="guibutton">UserWorkArea 액세스</strong></span></p>
+
+            <p>UserWorkArea를 사용하기 위해서는 먼저 JNDI에서 UserWorkArea를 lookup해야
+            한다.</p>
+
+            <p>다음은 JNDI에서 UserWorkArea를 lookup하는 방법에 대한 예이다.</p>
+
+            <div class="example"><a id="d4e6116"></a><p class="title"><b>[예 12.2] UserWorkArea 액세스 :
+              &lt;&lt;UserWorkAreaSampleSenderBean.java&gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">public class UserWorkAreaSampleSenderBean implements UserWorkAreaSampleSender {
+    public String getMessage() {
+        InitialContext ic;
+        String message = null;
+        try {
+           ic = new InitialContext();<span class="bold"><strong>
+           //UserWorkArea를 JNDI에서 가져온다.
+           UserWorkArea userWorkArea
+             = (UserWorkArea) ic.lookup("java:comp/UserWorkArea");
+</strong></span>        } catch (NamingException e) {
+            // Do Something...
+        }
+        return message;
+    }
+}</pre>
+            </div></div><br class="example-break"/>
+          </li><li>
+            <p><span><strong class="guibutton">새 UserWorkArea 시작</strong></span></p>
+
+            <p>JNDI에서 처음 lookup해온 UserWorkArea는 아무런 정보가 없기 때문에 새로운
+            UserWorkArea를 시작해야 한다. 만약, UserWorkArea의 이름이 null이면
+            NullPointException이 발생한다.</p>
+
+            <div class="example"><a id="d4e6124"></a><p class="title"><b>[예 12.3] 새 UserWorkArea 시작 :
+              &lt;&lt;UserWorkAreaSampleSenderBean.java&gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">public class UserWorkAreaSampleSenderBean implements UserWorkAreaSampleSender {
+    public String getMessage() {
+        InitialContext ic;
+        String message = null;
+        try {
+          ic = new InitialContext();
+          UserWorkArea userWorkArea
+            = (UserWorkArea) ic.lookup("java:comp/UserWorkArea");
+<span class="bold"><strong>          // 새로운 UserWorkArea를 시작한다.
+          userWorkArea.begin("UserWorkArea1");   
+</strong></span>        } catch (NamingException e) {
+            // Do Something...
+        }
+        return message;
+    }
+}</pre>
+            </div></div><br class="example-break"/>
+          </li><li>
+            <p><span><strong class="guibutton">WorkArea에 등록 정보 설정</strong></span></p>
+
+            <p>새로 시작한 UserWorkArea에 등록 정보를 설정한다. 등록 정보는 &lt;key, value,
+            mode&gt;로 이루어진다. 'key'는 String이며 'value'는 직렬화(Serialization)가 가능한
+            객체이다.</p>
+
+            <p>값을 설정할 때 현재 UserWorkArea가 없으면 NoWorkAreaException이 발생한다. 시작한
+            UserWorkArea가 아니면 NotOriginatorException이 발생하며, 이미 READ_ONLY로 설정된
+            값을 수정할 경우 PropertyReadOnlyException이 발생한다.</p>
+
+            <div class="example"><a id="d4e6133"></a><p class="title"><b>[예 12.4] WorkArea에 등록 정보 설정 :
+              &lt;&lt;UserWorkAreaSampleSenderBean.java&gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">public class UserWorkAreaSampleSenderBean implements UserWorkAreaSampleSender {
+    public String getMessage() {
+        InitialContext ic;
+        String message = null;
+        try {
+            ic = new InitialContext();
+            UserWorkArea userWorkArea
+              = (UserWorkArea) ic.lookup("java:comp/UserWorkArea");
+            userWorkArea.begin("UserWorkArea1");
+<span class="bold"><strong>            // userWorkArea에 값을 NORMAL로 설정한다.
+            userWorkArea.set("name", "johan");
+<span class="bold"><strong>            // userWorkArea에 값을 READ_ONLY로 설정한다.</strong></span> 
+            userWorkArea.set("company", "TmaxSoft", PropertyModeType.READ_ONLY);</strong></span>
+            UserWorkAreaSampleReceiver receiver 
+              = (UserWorkAreaSampleReceiver) ic.lookup("receiver");
+            message = receiver.createMessage();
+        } catch (NamingException e) {
+            // Do Something...
+        } catch (NoWorkAreaException e) {
+            // Do Something...
+        } catch (PropertyReadOnlyException e) {
+            // Do Something...
+        } catch (NotOriginatorException e) {
+            // Do Something...
+        }
+
+        return message;
+    }
+}</pre>
+            </div></div><br class="example-break"/>
+          </li><li>
+            <p><span><strong class="guibutton">WorkArea에 설정된 등록 정보 가져오기</strong></span></p>
+
+            <p>Receiver에서 전파된 UserWorkArea에서 설정된 등록 정보를 가져와 메시지를 생성한다. 저장된
+            정보를 가져올 때 UserWorkArea에 존재하지 않는 key를 사용하면 null이 리턴된다.</p>
+
+            <div class="example"><a id="d4e6142"></a><p class="title"><b>[예 12.5] WorkArea에 설정된 등록 정보 가져오기 :
+              &lt;&lt;UserWorkAreaSampleReceiverBean.java&gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">public class UserWorkAreaSampleReceiverBean implements UserWorkAreaSampleReceiver {
+    public String createMessage() {
+        InitialContext ic;
+        String message = null;
+        try {
+            ic = new InitialContext();
+            UserWorkArea userWorkArea 
+              = (UserWorkArea) ic.lookup("java:comp/UserWorkArea");
+<span class="bold"><strong>            // UserWorkArea에 저장한 값을 가져온다.
+            String name = (String)userWorkArea.get("name");
+            String company = (String)userWorkArea.get("company");</strong></span>
+            message = "Hello " + name + " from " + company;
+
+        } catch (NamingException e) {
+            // Do Something...
+        }
+
+        return message;
+    }
+}</pre>
+            </div></div><br class="example-break"/>
+          </li><li>
+            <p><span><strong class="guibutton">UserWorkArea 완료하기</strong></span></p>
+
+            <p>시작한 UserWorkArea를 완료한다. 완료하는 것은 반드시 시작된 Originator에서만 가능하며 그
+            이외에서 완료하려면 NotOriginatorException이 발생한다.</p>
+
+            <div class="example"><a id="d4e6150"></a><p class="title"><b>[예 12.6] UserWorkArea 완료하기 :
+              &lt;&lt;UserWorkAreaSampleSenderBean.java&gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">public class UserWorkAreaSampleSenderBean implements UserWorkAreaSampleSender {
+    public String getMessage() {
+        InitialContext ic;
+        String message = null;
+        try {
+            ic = new InitialContext();
+            UserWorkArea userWorkArea 
+              = (UserWorkArea) ic.lookup("java:comp/UserWorkArea");
+            userWorkArea.begin("UserWorkArea1");
+            userWorkArea.set("name", "user1"); 
+            userWorkArea.set("company", "TmaxSoft", PropertyModeType.READ_ONLY);             
+            UserWorkAreaSampleReceiver receiver 
+              = (UserWorkAreaSampleReceiver) ic.lookup("receiver");
+            message = receiver.createMessage();
+<span class="bold"><strong>            userWorkArea.complete(); // UserWorkArea를 종료한다.</strong></span> 
+
+        } catch (NamingException e) {
+            // Do Something...
+        } catch (NoWorkAreaException e) {
+            // Do Something...
+        } catch (PropertyReadOnlyException e) {
+            // Do Something...
+        } catch (NotOriginatorException e) {
+            // Do Something...
+        }
+
+        return message;
+    }
+}</pre>
+            </div></div><br class="example-break"/>
+          </li></ol></div>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_ejb_client.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="appendix_mapping_javatype_to_dbfield.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제11장 EJB 클라이언트 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> Appendix A. 기본 Java 타입과 DB 필드 매핑</td></tr></table></div><div xmlns="" align="center"/></body></html>

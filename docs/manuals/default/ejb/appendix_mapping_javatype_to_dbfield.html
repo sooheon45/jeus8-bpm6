@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Appendix A. 기본 Java 타입과 DB 필드 매핑</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS EJB 안내서"/><link rel="up" href="index.html" title="JEUS EJB 안내서"/><link rel="prev" href="chapter_ejb_additional.html" title="제12장 부가 기능"/><link rel="next" href="appendix_Instant_ejbql_api_ref.html" title="Appendix B. Instant EJB QL API Reference"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">Appendix A. 기본 Java 타입과 DB 필드 매핑</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_ejb_additional.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="appendix_Instant_ejbql_api_ref.html">다음</a></td></tr></table><hr/></div><div class="appendix" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="appendix_mapping_javatype_to_dbfield"></a>Appendix A. 기본 Java 타입과 DB 필드 매핑</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="appendix_mapping_javatype_to_dbfield.html#d4e6160">A.1. 개요</a></span></dt><dt><span class="section"><a href="appendix_mapping_javatype_to_dbfield.html#d4e6178">A.2. Tibero 필드 - 컬럼 타입 매핑</a></span></dt><dt><span class="section"><a href="appendix_mapping_javatype_to_dbfield.html#d4e6284">A.3. Oracle 필드 - 컬럼 타입 매핑</a></span></dt><dt><span class="section"><a href="appendix_mapping_javatype_to_dbfield.html#d4e6391">A.4. Sybase 필드 - 컬럼 타입 매핑</a></span></dt><dt><span class="section"><a href="appendix_mapping_javatype_to_dbfield.html#d4e6497">A.5. MSSQL 필드 - 컬럼 타입 매핑</a></span></dt><dt><span class="section"><a href="appendix_mapping_javatype_to_dbfield.html#d4e6603">A.6. DB2 필드 - 컬럼 타입 매핑</a></span></dt><dt><span class="section"><a href="appendix_mapping_javatype_to_dbfield.html#d4e6709">A.7. Cloudscape 필드 - 컬럼 타입 매핑</a></span></dt><dt><span class="section"><a href="appendix_mapping_javatype_to_dbfield.html#d4e6815">A.8. Informix 필드 - 컬럼 타입 매핑</a></span></dt></dl></div>
+  
+
+  <p>본 부록에서는 JEUS 특징인 Java 필드 종류와 JEUS에서 지원하는 주요 DB 벤더의 DB 컬럼 종류와의 기본 매핑을
+  설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e6160"></a>A.1. 개요</h2></div></div></div>
+    
+
+    <p>이 기본 매핑은 CMP Bean의 &lt;schema-info&gt;&lt;cm-field&gt;&lt;type&gt;이
+    jeus-ejb-dd.xml에 지정되어 있지 않을 때 사용한다. 이런 경우에는 EJB 시스템은 Bean의 CMP 필드 중 Java
+    필드를 검색하여 Java 타입을 얻어 오고 &lt;type&gt;은 다음의 각 절에 나오는 기본 매핑에 지정된 것과 같다고
+    여긴다.</p>
+
+    <p>다음의 테이블에서는 3가지의 컬럼들을 보여주고 있다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p><span class="bold"><strong>Java 필드 타입</strong></span></p>
+
+          <p>검색을 통해 발견된 EJB CMP 필드의 종류</p>
+        </li><li>
+          <p><span class="bold"><strong>SQL 타입</strong></span></p>
+
+          <p>java.sql.Types 클래스에서 정의된 일반적인 SQL 종류</p>
+        </li><li>
+          <p><span class="bold"><strong>DB 컬럼 타입</strong></span></p>
+
+          <p>발견된 Java 필드 종류에 기반하여 새로운 테이블을 생성할 때 JEUS가 사용할 DB 컬럼 종류의
+          이름</p>
+        </li></ul></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e6178"></a>A.2. Tibero 필드 - 컬럼 타입 매핑</h2></div></div></div>
+    
+
+    <p>다음은 Tibero를 위한 EJB CMP 필드와 DB 컬럼 타입 매핑 정보이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="200"/><col width="200"/><col/></colgroup><thead><tr><th>Java 필드 타입</th><th>SQL 타입(java.sql.Types)</th><th>Tibero DB 컬럼 타입</th></tr></thead><tbody><tr><td>java.lang.String</td><td>VARCHAR</td><td>VARCHAR(255)</td></tr><tr><td>java.math.BigDecimal</td><td>NUMERIC</td><td>NUMERIC(15,5)</td></tr><tr><td>java.lang.Boolean</td><td>BIT</td><td>SMALLINT</td></tr><tr><td>Boolean</td><td>BIT</td><td>SMALLINT</td></tr><tr><td>java.lang.Byte</td><td>TINYINT</td><td>SMALLINT</td></tr><tr><td>Byte</td><td>TINYINT</td><td>SMALLINT</td></tr><tr><td>java.lang.Character</td><td>CHAR</td><td>CHAR(4)</td></tr><tr><td>Char</td><td>CHAR</td><td>CHAR(4)</td></tr><tr><td>java.lang.Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>java.lang.Integer</td><td>INTEGER</td><td>INTEGER</td></tr><tr><td>Int</td><td>INTEGER</td><td>INTEGER</td></tr><tr><td>java.lang.Long</td><td>BIGINT</td><td>NUMERIC(22,0)</td></tr><tr><td>Long</td><td>BIGINT</td><td>NUMERIC(22,0)</td></tr><tr><td>java.lang.Float</td><td>REAL</td><td>REAL</td></tr><tr><td>Float</td><td>REAL</td><td>REAL</td></tr><tr><td>java.lang.Double</td><td>DOUBLE</td><td>DOUBLE PRECISION</td></tr><tr><td>Double</td><td>DOUBLE</td><td>DOUBLE PRECISION</td></tr><tr><td>byte[]</td><td>LONGVARBINARY</td><td>LONG RAW</td></tr><tr><td>java.sql.Date</td><td>DATE</td><td>DATE</td></tr><tr><td>java.sql.Time</td><td>TIME</td><td>DATE</td></tr><tr><td>java.sql.Timestamp</td><td>TIMESTAMP</td><td>DATE</td></tr><tr><td>&lt;Java object&gt;</td><td>JAVA OBJECT</td><td>LONG RAW</td></tr></tbody></table>
+    </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e6284"></a>A.3. Oracle 필드 - 컬럼 타입 매핑</h2></div></div></div>
+    
+
+    <p/>
+
+    <p>다음은 Oracle를 위한 EJB CMP 필드와 DB 컬럼 타입 매핑 정보이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="200"/><col width="200"/><col/></colgroup><thead><tr><th>Java 필드 타입</th><th>SQL 타입(java.sql.Types)</th><th>Oracle DB 컬럼 타입</th></tr></thead><tbody><tr><td>java.lang.String</td><td>VARCHAR</td><td>VARCHAR(255)</td></tr><tr><td>java.math.BigDecimal</td><td>NUMERIC</td><td>NUMERIC(15,5)</td></tr><tr><td>java.lang.Boolean</td><td>BIT</td><td>SMALLINT</td></tr><tr><td>Boolean</td><td>BIT</td><td>SMALLINT</td></tr><tr><td>java.lang.Byte</td><td>TINYINT</td><td>SMALLINT</td></tr><tr><td>Byte</td><td>TINYINT</td><td>SMALLINT</td></tr><tr><td>java.lang.Character</td><td>CHAR</td><td>CHAR(4)</td></tr><tr><td>Char</td><td>CHAR</td><td>CHAR(4)</td></tr><tr><td>java.lang.Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>java.lang.Integer</td><td>INTEGER</td><td>INTEGER</td></tr><tr><td>Int</td><td>INTEGER</td><td>INTEGER</td></tr><tr><td>java.lang.Long</td><td>BIGINT</td><td>NUMERIC(22,0)</td></tr><tr><td>Long</td><td>BIGINT</td><td>NUMERIC(22,0)</td></tr><tr><td>java.lang.Float</td><td>REAL</td><td>REAL</td></tr><tr><td>Float</td><td>REAL</td><td>REAL</td></tr><tr><td>java.lang.Double</td><td>DOUBLE</td><td>DOUBLE PRECISION</td></tr><tr><td>Double</td><td>DOUBLE</td><td>DOUBLE PRECISION</td></tr><tr><td>byte[]</td><td>LONGVARBINARY</td><td>LONG RAW</td></tr><tr><td>java.sql.Date</td><td>DATE</td><td>DATE</td></tr><tr><td>java.sql.Time</td><td>TIME</td><td>DATE</td></tr><tr><td>java.sql.Timestamp</td><td>TIMESTAMP</td><td>DATE</td></tr><tr><td>&lt;Java object&gt;</td><td>JAVA OBJECT</td><td>LONG RAW</td></tr></tbody></table>
+    </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e6391"></a>A.4. Sybase 필드 - 컬럼 타입 매핑</h2></div></div></div>
+    
+
+    <p>다음은 Sybase를 위한 EJB CMP 필드와 DB 컬럼 타입 매핑 정보이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="200"/><col width="200"/><col/></colgroup><thead><tr><th>Java 필드 타입</th><th>SQL 타입(java.sql.Types)</th><th>Sybase DB 컬럼 타입</th></tr></thead><tbody><tr><td>java.lang.String</td><td>VARCHAR</td><td>VARCHAR(255)</td></tr><tr><td>java.math.BigDecimal</td><td>NUMERIC</td><td>NUMERIC(15,5)</td></tr><tr><td>java.lang.Boolean</td><td>BIT</td><td>BIT</td></tr><tr><td>Boolean</td><td>BIT</td><td>BIT</td></tr><tr><td>java.lang.Byte</td><td>TINYINT</td><td>TINYINT</td></tr><tr><td>Byte</td><td>TINYINT</td><td>TINYLINT</td></tr><tr><td>java.lang.Character</td><td>CHAR</td><td>CHAR(4)</td></tr><tr><td>Char</td><td>CHAR</td><td>CHAR(4)</td></tr><tr><td>java.lang.Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>java.lang.Integer</td><td>INTEGER</td><td>INT</td></tr><tr><td>Int</td><td>INTEGER</td><td>INT</td></tr><tr><td>java.lang.Long</td><td>BIGINT</td><td>NUMERIC(22,0)</td></tr><tr><td>Long</td><td>BIGINT</td><td>NUMERIC(22,0)</td></tr><tr><td>java.lang.Float</td><td>REAL</td><td>REAL</td></tr><tr><td>Float</td><td>REAL</td><td>REAL</td></tr><tr><td>java.lang.Double</td><td>DOUBLE</td><td>DOUBLE PRECISION</td></tr><tr><td>Double</td><td>DOUBLE</td><td>DOUBLE PRECISION</td></tr><tr><td>byte[]</td><td>LONGVARBINARY</td><td>IMAGE</td></tr><tr><td>java.sql.Date</td><td>DATE</td><td>DATETIME</td></tr><tr><td>java.sql.Time</td><td>TIME</td><td>DATETIME</td></tr><tr><td>java.sql.Timestamp</td><td>TIMESTAMP</td><td>Not spported</td></tr><tr><td>&lt;Java object&gt;</td><td>JAVA OBJECT</td><td>IMAGE</td></tr></tbody></table>
+    </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e6497"></a>A.5. MSSQL 필드 - 컬럼 타입 매핑</h2></div></div></div>
+    
+
+    <p>다음은 MSSQL을 위한 EJB CMP 필드와 DB 컬럼 타입 매핑 정보이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="200"/><col width="200"/><col/></colgroup><thead><tr><th>Java 필드 타입</th><th>SQL 타입(java.sql.Types)</th><th>MSSQL DB 컬럼 타입</th></tr></thead><tbody><tr><td>java.lang.String</td><td>VARCHAR</td><td>VARCHAR(255)</td></tr><tr><td>java.math.BigDecimal</td><td>NUMERIC</td><td>NUMERIC(15,5)</td></tr><tr><td>java.lang.Boolean</td><td>BIT</td><td>BIT</td></tr><tr><td>Boolean</td><td>BIT</td><td>BIT</td></tr><tr><td>java.lang.Byte</td><td>TINYINT</td><td>TINYINT</td></tr><tr><td>Byte</td><td>TINYINT</td><td>TINYINT</td></tr><tr><td>java.lang.Character</td><td>CHAR</td><td>CHAR(4)</td></tr><tr><td>Char</td><td>CHAR</td><td>CHAR(4)</td></tr><tr><td>java.lang.Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>java.lang.Integer</td><td>INTEGER</td><td>INT</td></tr><tr><td>Int</td><td>INTEGER</td><td>INT</td></tr><tr><td>java.lang.Long</td><td>BIGINT</td><td>NUMERIC(22,0)</td></tr><tr><td>Long</td><td>BIGINT</td><td>NUMERIC(22,0)</td></tr><tr><td>java.lang.Float</td><td>REAL</td><td>REAL</td></tr><tr><td>Float</td><td>REAL</td><td>REAL</td></tr><tr><td>java.lang.Double</td><td>DOUBLE</td><td>FLOAT</td></tr><tr><td>Double</td><td>DOUBLE</td><td>FLOAT</td></tr><tr><td>byte[]</td><td>LONGVARBINARY</td><td>IMAGE</td></tr><tr><td>java.sql.Date</td><td>DATE</td><td>DATETIME</td></tr><tr><td>java.sql.Time</td><td>TIME</td><td>DATETIME</td></tr><tr><td>java.sql.Timestamp</td><td>TIMESTAMP</td><td>DATETIME</td></tr><tr><td>&lt;Java object&gt;</td><td>JAVA OBJECT</td><td>IMAGE</td></tr></tbody></table>
+    </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e6603"></a>A.6. DB2 필드 - 컬럼 타입 매핑</h2></div></div></div>
+    
+
+    <p>다음은 DB2를 위한 EJB CMP 필드와 DB 컬럼 타입 매핑 정보이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="200"/><col width="200"/><col/></colgroup><thead><tr><th>Java 필드 타입</th><th>SQL 타입(java.sql.Types)</th><th>DB2 DB 컬럼 타입</th></tr></thead><tbody><tr><td>java.lang.String</td><td>VARCHAR</td><td>VARCHAR(255)</td></tr><tr><td>java.math.BigDecimal</td><td>NUMERIC</td><td>NUMERIC(15,5)</td></tr><tr><td>java.lang.Boolean</td><td>BIT</td><td>SMALLINT</td></tr><tr><td>Boolean</td><td>BIT</td><td>SMALLINT</td></tr><tr><td>java.lang.Byte</td><td>TINYINT</td><td>SMALLINT</td></tr><tr><td>Byte</td><td>TINYINT</td><td>SMALLINT</td></tr><tr><td>java.lang.Character</td><td>CHAR</td><td>CHARACTER(4)</td></tr><tr><td>Char</td><td>CHAR</td><td>CHARACTER(4)</td></tr><tr><td>java.lang.Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>java.lang.Integer</td><td>INTEGER</td><td>INTEGER</td></tr><tr><td>Int</td><td>INTEGER</td><td>INTEGER</td></tr><tr><td>java.lang.Long</td><td>BIGINT</td><td>BIGINT</td></tr><tr><td>Long</td><td>BIGINT</td><td>BIGINT</td></tr><tr><td>java.lang.Float</td><td>REAL</td><td>REAL</td></tr><tr><td>Float</td><td>REAL</td><td>REAL</td></tr><tr><td>java.lang.Double</td><td>DOUBLE</td><td>DOUBLE</td></tr><tr><td>Double</td><td>DOUBLE</td><td>DOUBLE</td></tr><tr><td>byte[]</td><td>LONGVARBINARY</td><td>VARCHAR(255)</td></tr><tr><td>java.sql.Date</td><td>DATE</td><td>DATE</td></tr><tr><td>java.sql.Time</td><td>TIME</td><td>TIME</td></tr><tr><td>java.sql.Timestamp</td><td>TIMESTAMP</td><td>TIMESTAMP</td></tr><tr><td>&lt;Java object&gt;</td><td>JAVA OBJECT</td><td>LONG VARCHAR</td></tr></tbody></table>
+    </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e6709"></a>A.7. Cloudscape 필드 - 컬럼 타입 매핑</h2></div></div></div>
+    
+
+    <p>다음은 Cloudscape를 위한 EJB CMP 필드와 DB 컬럼 타입 매핑 정보이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="200"/><col width="200"/><col/></colgroup><thead><tr><th>Java 필드 타입</th><th>SQL 타입(java.sql.Types)</th><th>Cloudscape DB 컬럼 타입</th></tr></thead><tbody><tr><td>java.lang.String</td><td>VARCHAR</td><td>VARCHAR(255)</td></tr><tr><td>java.math.BigDecimal</td><td>NUMERIC</td><td>DECIMAL(15,5)</td></tr><tr><td>java.lang.Boolean</td><td>BIT</td><td>BOOLEAN</td></tr><tr><td>Boolean</td><td>BIT</td><td>BOOLEAN</td></tr><tr><td>java.lang.Byte</td><td>TINYINT</td><td>TINYINT</td></tr><tr><td>Byte</td><td>TINYINT</td><td>TINYINT</td></tr><tr><td>java.lang.Character</td><td>CHAR</td><td>CHAR(4)</td></tr><tr><td>Char</td><td>CHAR</td><td>CHAR(4)</td></tr><tr><td>java.lang.Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>java.lang.Integer</td><td>INTEGER</td><td>INTEGER</td></tr><tr><td>Int</td><td>INTEGER</td><td>INTEGER</td></tr><tr><td>java.lang.Long</td><td>BIGINT</td><td>LONGINT</td></tr><tr><td>Long</td><td>BIGINT</td><td>LONGINT</td></tr><tr><td>java.lang.Float</td><td>REAL</td><td>REAL</td></tr><tr><td>Float</td><td>REAL</td><td>REAL</td></tr><tr><td>java.lang.Double</td><td>DOUBLE</td><td>DOUBLE PRECISION</td></tr><tr><td>Double</td><td>DOUBLE</td><td>DOUBLE PRECISION</td></tr><tr><td>byte[]</td><td>LONGVARBINARY</td><td>LONG BIT VARYING</td></tr><tr><td>java.sql.Date</td><td>DATE</td><td>DATE</td></tr><tr><td>java.sql.Time</td><td>TIME</td><td>TIME</td></tr><tr><td>java.sql.Timestamp</td><td>TIMESTAMP</td><td>TIMESTAMP</td></tr><tr><td>&lt;Java object&gt;</td><td>JAVA OBJECT</td><td>LONG BIT VARYING</td></tr></tbody></table>
+    </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e6815"></a>A.8. Informix 필드 - 컬럼 타입 매핑</h2></div></div></div>
+    
+
+    <p>다음은 Informix를 위한 EJB CMP 필드와 DB 컬럼 타입 매핑 정보이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="200"/><col width="200"/><col/></colgroup><thead><tr><th>Java 필드 타입</th><th>SQL 타입(java.sql.Types)</th><th>Informix DB 컬럼 타입</th></tr></thead><tbody><tr><td>java.lang.String</td><td>VARCHAR</td><td>VARCHAR(255)</td></tr><tr><td>java.math.BigDecimal</td><td>NUMERIC</td><td>NUMERIC(15,5)</td></tr><tr><td>java.lang.Boolean</td><td>BIT</td><td>VARCHAR</td></tr><tr><td>Boolean</td><td>BIT</td><td>VARCHAR</td></tr><tr><td>java.lang.Byte</td><td>TINYINT</td><td>SMALLINT</td></tr><tr><td>Byte</td><td>TINYINT</td><td>SMALLINT</td></tr><tr><td>java.lang.Character</td><td>CHAR</td><td>CHAR</td></tr><tr><td>Char</td><td>CHAR</td><td>CHAR</td></tr><tr><td>java.lang.Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>Short</td><td>SMALLINT</td><td>SMALLINT</td></tr><tr><td>java.lang.Integer</td><td>INTEGER</td><td>INTEGER</td></tr><tr><td>Int</td><td>INTEGER</td><td>INTEGER</td></tr><tr><td>java.lang.Long</td><td>BIGINT</td><td>SERIAL8</td></tr><tr><td>Long</td><td>BIGINT</td><td>SERIAL8</td></tr><tr><td>java.lang.Float</td><td>REAL</td><td>REAL</td></tr><tr><td>Float</td><td>REAL</td><td>REAL</td></tr><tr><td>java.lang.Double</td><td>DOUBLE</td><td>DOUBLE PRECISION</td></tr><tr><td>Double</td><td>DOUBLE</td><td>DOUBLE PRECISION</td></tr><tr><td>byte[]</td><td>LONGVARBINARY</td><td>VARCHAR(255)</td></tr><tr><td>java.sql.Date</td><td>DATE</td><td>DATE</td></tr><tr><td>java.sql.Time</td><td>TIME</td><td>DATETIME HOUR TO SECOND</td></tr><tr><td>java.sql.Timestamp</td><td>TIMESTAMP</td><td>DATETIME YEAR TO SECOND</td></tr><tr><td>&lt;Java object&gt;</td><td>JAVA OBJECT</td><td>BYTE</td></tr></tbody></table>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_ejb_additional.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="appendix_Instant_ejbql_api_ref.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제12장 부가 기능 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> Appendix B. Instant EJB QL API Reference</td></tr></table></div><div xmlns="" align="center"/></body></html>

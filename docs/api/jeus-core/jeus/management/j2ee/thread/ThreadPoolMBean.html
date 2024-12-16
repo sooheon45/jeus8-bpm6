@@ -1,0 +1,731 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>ThreadPoolMBean</title>
+      <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="ThreadPoolMBean (JEUS API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.management.j2ee.thread</font><br>MBean ThreadPoolMBean
+      </h2>
+      <dl>
+         <dt><b>ObjectName Pattern:</b><dd><code>JEUS:j2eeType=JeusService,jeusType=ThreadPool,*</code></dd>
+         </dt>
+         <dt><b>Permission Name:</b><dd><code><i>{parent-permission-name}</i>.threadpool.<i>{threadpool-name}</i></code></dd>
+         </dt>
+         <dt></dt>
+         <dt></dt>
+      </dl>
+      <hr>
+      <dl>
+         <dt><b>All Superinterfaces:</b><dd>jeus.management.j2ee.J2EEManagedObjectMBean, jeus.management.j2ee.StatisticsProvider</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>MBean <b>ThreadPoolMBean</b></pre></dl>JEUS에서 사용하는 쓰레드 풀을 관리한다.
+      
+      <p>기본적으로 JDK에 존재하는 <code>java.util.concurrent.ThreadPoolExecutor</code>의 의미를 따른다.</p><br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#J2EE_TYPE">J2EE_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#JEUS_TYPE">JEUS_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String[]</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#parentKeyMap">parentKeyMap</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>SYSTEM_DOMAIN</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attribute_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="3"><font size="+2"><b>Attribute Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#ActiveCount">ActiveCount</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   태스크들을 수행하고 있는 active상태의 쓰레드들의 대략적 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.List</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#ActiveThreadInfo">ActiveThreadInfo</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i> <a href="ThreadPoolMBean.html#getThreadInfoList()"><code>ThreadPoolMBean.getThreadInfoList()</code></a>로 대체되었음.</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#CompletedTaskCount">CompletedTaskCount</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   수행이 완료된 태스크들의 대략적 총 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RW</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#CorePoolSize">CorePoolSize</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   core pool size.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RW</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#KeepAliveTime">KeepAliveTime</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   쓰레드의 keep-alive time
+                  
+                  <p>keep-alive time은 core pool size를 넘어선 쓰레드들이 idle상태일 때,
+                  타임아웃이 발생할 경우 그 쓰레드를 종료시키기 위한 설정이며, 이 값을 반환한다.</p>
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#LargestPoolSize">LargestPoolSize</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   쓰레드 풀에서 지금까지 유지해 온 쓰레드들의 개수 중 가장 많이 유지했던 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RW</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#MaximumPoolSize">MaximumPoolSize</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   최대의 허용 가능한 쓰레드 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#PoolSize">PoolSize</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   쓰레드 풀에서 유지하고 있는 현재 쓰레드들의 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.List&lt;jeus.util.pool.ThreadInfo&gt;</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#SnapshotOfThreads">SnapshotOfThreads</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   쓰레드 풀이 운용하고 있는 쓰레드들에 대한 상세 정보.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#TaskCount">TaskCount</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   수행하기 위해 스케줄된 태스크들의 대략적 총 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.List&lt;jeus.util.pool.ThreadInfo&gt;</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#ThreadInfoList">ThreadInfoList</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   쓰레드 풀이 운용하고 있는 쓰레드들에 대한 상세 정보.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#WorkQueueName">WorkQueueName</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   쓰레드 풀에서 유지하고 있는 work queue의 이름.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#WorkQueueRemainingCapacity">WorkQueueRemainingCapacity</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   work queue가 이상적으로 blocking없이(메모리, 리소스의 제약이 없는 상태에서)
+                  받아 들일 수 있는 추가적인 element(태스크)들의 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#WorkQueueSize">WorkQueueSize</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   현재 보유하고 있는 work queue의 element(task)들의 개수.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attributes_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>J2EEType, JeusType, objectName, ObjectName, ParentObjectName, PermissionName, eventProvider, stateManageable, statisticsProvider</code></td>
+            </tr>
+         </table>&nbsp;<a name="attributes_inherited_from_class_jeus.management.j2ee.StatisticsProvider"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.StatisticsProvider</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>stats</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operation_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Operation Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="ThreadPoolMBean.html#allowCoreThreadTimeOut(boolean)">allowCoreThreadTimeOut</a></b>(boolean value)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   core 쓰레드들에 타임아웃을 적용하여 쓰레드의 상태가 idle일 때,
+                  keep-alive time에 따라 쓰레드를 종료, 정리할지의 정책 여부를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> boolean</code></font></td>
+               <td><code><b><a href="ThreadPoolMBean.html#allowsCoreThreadTimeOut()">allowsCoreThreadTimeOut</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   keep-alive 타임아웃이 발생하면서 쓰레드가 idle상태일 때, core pool size 아래로까지 쓰레드들을 종료, 정리할지의 여부를 나타낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> java.lang.String</code></font></td>
+               <td><code><b><a href="ThreadPoolMBean.html#getStackTrace(long)">getStackTrace</a></b>(long tid)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   쓰레드 아이디(tid)에 해당하는 해당 쓰레드의 stack trace를 제공한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="ThreadPoolMBean.html#interruptWorker(long, boolean)">interruptWorker</a></b>(long tid, boolean forcefully)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   쓰레드 아이디(tid)에 해당하는 해당 쓰레드에 인터럽트(Interrupt)를 일으킨다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operations_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Operations inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>addChild, refreshMonitoring, removeChild</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="J2EE_TYPE"></a><h3>J2EE_TYPE</h3><pre>public static final java.lang.String <b>J2EE_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="JEUS_TYPE"></a><h3>JEUS_TYPE</h3><pre>public static final java.lang.String <b>JEUS_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="parentKeyMap"></a><h3>parentKeyMap</h3><pre>public static final java.lang.String[] <b>parentKeyMap</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="attribute_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Attribute Detail</b></font></th>
+            </tr>
+         </table><a name="ActiveCount"></a><a name="getActiveCount(java.lang.String, java.lang.String)"></a><h3>ActiveCount</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getActiveCount</b>()</pre><dl>
+               <dd>태스크들을 수행하고 있는 active상태의 쓰레드들의 대략적 개수.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>쓰레드들의 개수</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="ActiveThreadInfo"></a><a name="getActiveThreadInfo(java.lang.String, java.lang.String)"></a><h3>ActiveThreadInfo</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.util.List <b>getActiveThreadInfo</b>()</pre><b>Deprecated.</b>&nbsp;
+            
+            <dl>
+               <dd><i> <a href="ThreadPoolMBean.html#getThreadInfoList()"><code>ThreadPoolMBean.getThreadInfoList()</code></a>로 대체되었음.</i></dd>
+               <p></p>&nbsp;
+               <dd>
+                  <dl></dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="CompletedTaskCount"></a><a name="getCompletedTaskCount(java.lang.String, java.lang.String)"></a><h3>CompletedTaskCount</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getCompletedTaskCount</b>()</pre><dl>
+               <dd>수행이 완료된 태스크들의 대략적 총 개수.
+                  
+                  </p>태스크 및 쓰레드들의 상태는 이 통계치를 계산할 때 동적으로 변화될 수 있기 때문에 오직 대략적 추정치를 반환한다.
+                  하지만 이 통계치의 잇따른 호출로 반환된 값들은 결코 줄어들 수 없다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>태스크들의 개수</dd>
+                     </dt>
+                     <dt><b>Since:</b><dd>JEUS 6 Fix#6</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="CorePoolSize"></a><a name="getCorePoolSize(java.lang.String, java.lang.String)setCorePoolSize(java.lang.String, java.lang.String)"></a><h3>CorePoolSize</h3>
+         <ul><code><font size="+1">Read-Write Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getCorePoolSize</b>()</pre><dl>
+               <dd>core pool size.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>core pool size의 값을 반환한다.</dd>
+                     </dt>
+                     <dt><b>See Also:</b><dd><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#setCorePoolSize"><code>setCorePoolSize</code></a></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+            <h3>Setter : </h3><pre>public void <b>setCorePoolSize</b>(int corePoolSize)</pre><dl>
+               <dd>core pool size.
+                  
+                  <p>만약 새로 설정된 값이 현재의 core pool size보다 작을 경우,
+                  현재와 새로 설정된 core pool size의 차이만큼 idle 상태의 쓰레드들을 종료 시킨다.
+                  만약 새로 설정된 값이 현재의 core pool size보다 클 경우, 필요시 그 값의 차이만큼 새로운 쓰레드들을 생성한다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Parameters:</b><dd><code>corePoolSize</code> - 새로 적용할 core pool size
+                        </dd>
+                     </dt>
+                     <dt><b>See Also:</b><dd><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#getCorePoolSize"><code>getCorePoolSize</code></a></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="KeepAliveTime"></a><a name="getKeepAliveTime(java.lang.String, java.lang.String)setKeepAliveTime(java.lang.String, java.lang.String)"></a><h3>KeepAliveTime</h3>
+         <ul><code><font size="+1">Read-Write Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getKeepAliveTime</b>()</pre><dl>
+               <dd>쓰레드의 keep-alive time
+                  
+                  <p>keep-alive time은 core pool size를 넘어선 쓰레드들이 idle상태일 때,
+                  타임아웃이 발생할 경우 그 쓰레드를 종료시키기 위한 설정이며, 이 값을 반환한다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>milli-seconds단위의 타임아웃 한계치</dd>
+                     </dt>
+                     <dt><b>See Also:</b><dd><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#setKeepAliveTime"><code>setKeepAliveTime</code></a></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+            <h3>Setter : </h3><pre>public void <b>setKeepAliveTime</b>(long keepAliveTime)</pre><dl>
+               <dd>쓰레드의 keep-alive time
+                  
+                  <p>keep-alive time은 core size를 넘어선 쓰레드들이 idle상태일 때,
+                  타임아웃이 발생할 경우 그 쓰레드를 종료시키기 위한 설정이며, 이 값을 설정한다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Parameters:</b><dd><code>keepAliveTime</code> - milli-seconds단위의 기다리기위한 time.
+                           0일 경우 태스크 수행을 마친 후 즉시 core pool size를 넘어선 쓰레드들을 종료한다.
+                        </dd>
+                     </dt>
+                     <dt><b>See Also:</b><dd><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#getKeepAliveTime"><code>getKeepAliveTime</code></a></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="LargestPoolSize"></a><a name="getLargestPoolSize(java.lang.String, java.lang.String)"></a><h3>LargestPoolSize</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getLargestPoolSize</b>()</pre><dl>
+               <dd>쓰레드 풀에서 지금까지 유지해 온 쓰레드들의 개수 중 가장 많이 유지했던 개수.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>쓰레드들의 개수</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="MaximumPoolSize"></a><a name="getMaximumPoolSize(java.lang.String, java.lang.String)setMaximumPoolSize(java.lang.String, java.lang.String)"></a><h3>MaximumPoolSize</h3>
+         <ul><code><font size="+1">Read-Write Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getMaximumPoolSize</b>()</pre><dl>
+               <dd>최대의 허용 가능한 쓰레드 개수.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>허용 가능한 최대치의 쓰레드 개수를 반환한다.</dd>
+                     </dt>
+                     <dt><b>See Also:</b><dd><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#setMaximumPoolSize"><code>setMaximumPoolSize</code></a></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+            <h3>Setter : </h3><pre>public void <b>setMaximumPoolSize</b>(int maximumPoolSize)</pre><dl>
+               <dd>최대의 허용 가능한 쓰레드 개수.
+                  
+                  <p>이 설정을 동적으로 변경 적용할 때, 새로 설정된 값이 기존 설정의 값보다 작을 경우,
+                  기존 설정의 값과 새로 설정된 값의 차이만큼의 쓰레드 개수에 대해 그 차이만큼 idle상태의 쓰레드들을 경우 종료시킨다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Parameters:</b><dd><code>maximumPoolSize</code> - 새롭게 적용할 허용 가능한 쓰레드 개수의 최대치
+                        </dd>
+                     </dt>
+                     <dt><b>See Also:</b><dd><a href="../../../../jeus/management/j2ee/thread/ThreadPoolMBean.html#getMaximumPoolSize"><code>getMaximumPoolSize</code></a></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="PoolSize"></a><a name="getPoolSize(java.lang.String, java.lang.String)"></a><h3>PoolSize</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getPoolSize</b>()</pre><dl>
+               <dd>쓰레드 풀에서 유지하고 있는 현재 쓰레드들의 개수.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>쓰레드들의 개수</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="SnapshotOfThreads"></a><a name="getSnapshotOfThreads(java.lang.String, java.lang.String)"></a><h3>SnapshotOfThreads</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.util.List&lt;jeus.util.pool.ThreadInfo&gt; <b>getSnapshotOfThreads</b>()</pre><dl>
+               <dd>쓰레드 풀이 운용하고 있는 쓰레드들에 대한 상세 정보.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>쓰레드들의 정보를 담은 <code>jeus.util.pool.ThreadInfo</code> 형식의 list. 이 정보에는 active 쓰레드들에 한해 stack trace까지 제공된다.</dd>
+                     </dt>
+                     <dt><b>Since:</b><dd>JEUS 6 Fix#6</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="TaskCount"></a><a name="getTaskCount(java.lang.String, java.lang.String)"></a><h3>TaskCount</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getTaskCount</b>()</pre><dl>
+               <dd>수행하기 위해 스케줄된 태스크들의 대략적 총 개수.
+                  
+                  <p>태스크 및 쓰레드들의 상태는 이 통계치를 계산할 때 동적으로 변화될 수 있기 때문에 오직 대략적 추정치를 반환한다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>태스크들의 개수</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="ThreadInfoList"></a><a name="getThreadInfoList(java.lang.String, java.lang.String)"></a><h3>ThreadInfoList</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.util.List&lt;jeus.util.pool.ThreadInfo&gt; <b>getThreadInfoList</b>()</pre><dl>
+               <dd>쓰레드 풀이 운용하고 있는 쓰레드들에 대한 상세 정보.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>쓰레드들의 정보를 담은 <code>jeus.util.pool.ThreadInfo</code> 형식의 list. 단, 쓰레드들의 stack trace는 제공하지 않는다.</dd>
+                     </dt>
+                     <dt><b>Since:</b><dd>JEUS 6 Fix#6</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="WorkQueueName"></a><a name="getWorkQueueName(java.lang.String, java.lang.String)"></a><h3>WorkQueueName</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.lang.String <b>getWorkQueueName</b>()</pre><dl>
+               <dd>쓰레드 풀에서 유지하고 있는 work queue의 이름.
+                  
+                  <p>보통 work queue의 클래스 이름을 반환하여 어떤 종류의 work queue를 사용하고 있는지 알 수 있다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>work queue의 이름</dd>
+                     </dt>
+                     <dt><b>Since:</b><dd>JEUS 6 Fix#6</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="WorkQueueRemainingCapacity"></a><a name="getWorkQueueRemainingCapacity(java.lang.String, java.lang.String)"></a><h3>WorkQueueRemainingCapacity</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getWorkQueueRemainingCapacity</b>()</pre><dl>
+               <dd>work queue가 이상적으로 blocking없이(메모리, 리소스의 제약이 없는 상태에서)
+                  받아 들일 수 있는 추가적인 element(태스크)들의 개수.
+                  
+                  <p>만약 개수의 제한이 없는 즉, 한계치가 없는 work queue라면 <tt>Integer.MAX_VALUE</tt>가 반환될 수 있다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>work queue의 남아있는 허용치 개수</dd>
+                     </dt>
+                     <dt><b>Since:</b><dd>JEUS 6 Fix#6</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="WorkQueueSize"></a><a name="getWorkQueueSize(java.lang.String, java.lang.String)"></a><h3>WorkQueueSize</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getWorkQueueSize</b>()</pre><dl>
+               <dd>현재 보유하고 있는 work queue의 element(task)들의 개수.
+                  
+                  </p>만약 work queue가 <tt>Integer.MAX_VALUE</tt>이상의 element들을 보유하고 있다면 <tt>Integer.MAX_VALUE</tt>가 반환된다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>work queue에 있는 element들의 개수</dd>
+                     </dt>
+                     <dt><b>Since:</b><dd>JEUS 6 Fix#6</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+      </p>
+      <p><a name="operation_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Operation Detail</b></font></th>
+            </tr>
+         </table><a name="allowCoreThreadTimeOut(boolean)"></a><h3>allowCoreThreadTimeOut</h3><pre> void <b>allowCoreThreadTimeOut</b>(boolean value)</pre><dl>
+            <dd>core 쓰레드들에 타임아웃을 적용하여 쓰레드의 상태가 idle일 때,
+               keep-alive time에 따라 쓰레드를 종료, 정리할지의 정책 여부를 설정한다.
+               
+               <p>true로 설정할 경우 non-core 쓰레드들에 적용되는 keep-alive정책이 그대로 적용이 되어,
+               core pool size 아래로까지 쓰레드들이 줄어 들 수 있다.</p>
+               
+               <p>false로 설정할 경우 core 쓰레드들은 결코 종료되지 않고, 비록 idle상태일지라도 core 쓰레드들은 계속 유지된다.</p>
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>value</code> - <tt>true</tt> core 쓰레드들에 타임아웃을 적용하고자 할 경우, 그렇지 않다면 <tt>false</tt>
+                     </dd>
+                  </dt>
+                  <dt><b>Since:</b><dd>JEUS 6 Fix#6</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="allowsCoreThreadTimeOut()"></a><h3>allowsCoreThreadTimeOut</h3><pre> boolean <b>allowsCoreThreadTimeOut</b>()</pre><dl>
+            <dd>keep-alive 타임아웃이 발생하면서 쓰레드가 idle상태일 때, core pool size 아래로까지 쓰레드들을 종료, 정리할지의 여부를 나타낸다.
+               
+               <p>리턴 값이 true일 경우 non-core 쓰레드들에 적용되는 keep-alive 정책이 그대로 적용이 되어,
+               core pool size 아래로까지 쓰레드들이 줄어 들 수 있다.</p>
+               
+               <p>리턴 값이 false일 경우 core 쓰레드들은 결코 종료되지 않고, 비록 idle상태일지라도 core 쓰레드들은 계속 유지된다.</p>
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd><tt>true</tt> core 쓰레드들에 다임아웃을 적용할 경우, 그렇지 않다면 <tt>false</tt></dd>
+                  </dt>
+                  <dt><b>Since:</b><dd>JEUS 6 Fix #6</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getStackTrace(long)"></a><h3>getStackTrace</h3><pre> java.lang.String <b>getStackTrace</b>(long tid)</pre><dl>
+            <dd>쓰레드 아이디(tid)에 해당하는 해당 쓰레드의 stack trace를 제공한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>tid</code> - stack trace를 얻고자 하는 쓰레드의 <code>tid</code>
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>stack trace에 대한 string값</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="interruptWorker(long, boolean)"></a><h3>interruptWorker</h3><pre> void <b>interruptWorker</b>(long tid, boolean forcefully)</pre><dl>
+            <dd>쓰레드 아이디(tid)에 해당하는 해당 쓰레드에 인터럽트(Interrupt)를 일으킨다.
+               
+               <p>인터럽트 대상은 태스크를 수행하고 있는 쓰레드일 수도 있고, 조건에 따라 idle 상태의 쓰레드만 인터럽트를 허용할 수 있다.
+               보통, 문제가 있는 블럭된(blocked) 쓰레드에 대해 사용자가 명시적으로 해당 쓰레드를 강제 종료시키기 위해 사용될 수 있다.</p>
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>tid</code> - 인터럽트를 일으키려는 쓰레드의 <code>tid</code><br><code>forcefully</code> - true일 경우 해당 쓰레드가 비록 태스크를 수행하고 있더라도 즉시 그 쓰레드에 대해 인터럽트를 수행한다.
+                        false일 경우 오직 해당 쓰레드가 idle 상태일 경우만 인터럽트를 수행한다.
+                     </dd>
+                  </dt>
+                  <dt><b>Since:</b><dd>JEUS 6 Fix#6</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

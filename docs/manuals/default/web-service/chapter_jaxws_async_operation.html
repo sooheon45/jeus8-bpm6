@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제9장 비동기 웹 서비스</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Service 안내서"/><link rel="up" href="pt01.html" title="Part I. JEUS 8 웹 서비스"/><link rel="prev" href="chapter_jaxws_provider_dispatch.html" title="제8장 프로바이더와 디스패치 인터페이스"/><link rel="next" href="chapter_jaxws_mtomxopswaref.html" title="제10장 MIME Attachment 메시지 전송"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제9장 비동기 웹 서비스</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jaxws_provider_dispatch.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part I. JEUS 8 웹 서비스</td><td width="20%" align="right"> <a accesskey="n" href="chapter_jaxws_mtomxopswaref.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jaxws_async_operation"></a>제9장 비동기 웹 서비스</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jaxws_async_operation.html#d4e2314">9.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jaxws_async_operation.html#d4e2324">9.2. 클라이언트 비동기 오퍼레이션</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_async_operation.html#d4e2327">9.2.1. 비동기 메소드를 가진 SEI Stub 이용 방법</a></span></dt><dt><span class="section"><a href="chapter_jaxws_async_operation.html#d4e2431">9.2.2. 디스패치 인터페이스 이용하는 방법</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxws_async_operation.html#d4e2440">9.3. 비동기 웹 서비스</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_async_operation.html#d4e2445">9.3.1. 비동기 웹 서비스 설정</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 클라이언트의 비동기 오퍼레이션과 비동기 프로바이더를 이용한 비동기 웹 서비스 설정 방법에 대해서
+  설명한다.</p>
+
+  <p/>
+
+  <p/>
+
+  <p/>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2314"></a>9.1. 개요</h2></div></div></div>
+    
+
+    <p>서비스와 클라이언트 간의 웹 서비스 호출에서 클라이언트는 서버의 응답을 받을 때까지 그 스레드를 블록시키고 기다리고 있다.
+    이와 같은 비효율성을 개선하기 위해 JAX-WS 웹 서비스는 다음과 같은 비동기 오퍼레이션(Operation)을
+    구성한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>클라이언트 측면에서 JAX-WS API를 사용한 비동기 오퍼레이션</p>
+
+        <p>JAX-WS 웹 서비스의 클라이언트를 구성하기 위해서는 호출할 서비스의 WSDL 파일을 이용한다. 서비스 WSDL
+        파일을 바인딩 사용자화 선언을 통해 정적인 비동기 메소드를 가진 서비스 Endpoint 인터페이스 Stub을 생성하고 그것을
+        구현하는 클라이언트 클래스를 구성함으로써 클라이언트의 비동기 오퍼레이션을 구성하는 방법이다.</p>
+      </li><li>
+        <p>서비스 측면에서 JEUS가 제공하는 비표준적인 비동기 오퍼레이션</p>
+
+        <p>웹 서비스 Endpoint를 Servelet 3.0의 비동기 처리 방식으로 동작하는 비동기 웹 서비스로 구성하는
+        방법이다. JAX-WS 표준은 서비스 측면의 비동기 오퍼레이션을 규정하고 있지 않다.</p>
+      </li></ul></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2324"></a>9.2. 클라이언트 비동기 오퍼레이션</h2></div></div></div>
+    
+
+    <p>본 절에서는 클라이언트 측면에서 JAX-WS API를 사용한 비동기 오퍼레이션에 대해 설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2327"></a>9.2.1. 비동기 메소드를 가진 SEI Stub 이용 방법</h3></div></div></div>
+      
+
+      <p><a id="d4e2330" class="indexterm"></a><a id="d4e2332" class="indexterm"></a>비동기화 wsdl:operation은 Polling과 Callback 메소드로 매핑된다. Polling
+      메소드는 javax.xml.ws.Response 인터페이스를 리턴하고, Callback 메소드는
+      javax.xml.ws.AsyncHandler 인터페이스를 리턴한다. 우선 서비스의 WSDL로부터 이러한 비동기 메소드를 가진
+      SEI(Service Endpoint Interface) Stub을 얻기 위해 사용하는 비동기화 바인딩 선언에 대해
+      알아본다.</p>
+
+      <p/>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e2335"></a>9.2.1.1. 비동기화 바인딩 선언</h4></div></div></div>
+        
+
+        <p>WSDL에서 명시된 wsdl:operation element를 비동기화된 매핑으로 사용하기 위해서는 JEUS 웹
+        서비스의 wsimport와 같은 툴을 이용하여 비동기화 wsdl:operation 매핑에 기반한 SEI를 생성해야
+        한다.</p>
+
+        <p>본 절에서는 이러한 비동기화 wsdl:operation 매핑을 생성하는 방법에 대해 설명한다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        
+
+        <p>비동기화 wsdl:operation 매핑을 생성하기 위해서는 wsimport 툴에 의한 바인딩 사용자화 설정 작업을
+        해야 한다. 다음은 바인딩 설정 파일인 custom-schema.xml의 한 예이다.</p>
+
+        <div class="example"><a id="d4e2341"></a><p class="title"><b>[예 9.1] &lt;&lt; custom-schema.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;bindings xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    wsdlLocation="http://localhost:8088/AddNumbers/addnumbers?wsdl"
+    xmlns="http://java.sun.com/xml/ns/jaxws"&gt;
+    &lt;bindings node="wsdl:definitions"&gt;
+        &lt;enableAsyncMapping&gt;true&lt;/enableAsyncMapping&gt;
+    &lt;/bindings&gt;
+&lt;/bindings&gt;</pre>
+        </div></div><br class="example-break"/>
+
+        <p>위와 같이 wsdl:definitions에 대해 바인딩을 설정하면 이 WSDL 문서 내의 모든
+        wsdl:operation element들에 대해 비동기화 설정이 된다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p>다음은 custom-schema.xml 파일을 사용하는 build.xml의 한 부분이다.</p>
+
+        <div class="example"><a id="d4e2348"></a><p class="title"><b>[예 9.2] &lt;&lt; build.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">...
+&lt;target name="build_client" depends="do-deploy-success, init"&gt;
+    &lt;antcall target="wsimport"&gt;
+        &lt;param name="package.name" value="async.client" /&gt;
+        &lt;param name="binding.file" value="-b ${src.conf}/custom-client.xml" /&gt;
+        &lt;param name="wsdl.file"
+            value="http://localhost:8088/AddNumbers/addnumbers?wsdl" /&gt;
+    &lt;/antcall&gt;
+    &lt;antcall target="do-compile"&gt;
+        &lt;param name="javac.excludes" value="fromjava/server/" /&gt;
+    &lt;/antcall&gt;
+&lt;/target&gt;
+...</pre>
+        </div></div><br class="example-break"/>
+
+        <p>이와 같이 바인딩 사용자 선언으로 wsimport 툴을 이용하여 Portable Artifact들을 생성하면 생성된
+        비동기 메소드들을 가진 SEI는 다음과 같다.</p>
+
+        <pre class="programlisting">public int addNumbers(int number1, int number2)
+    throws java.rmi.RemoteException;
+<span class="bold"><strong>public Response&lt;AddNumbersResponse&gt; addNumbers(int number1, int number2);
+public Future&lt;?&gt; addNumbers(int number1, int number2, 
+                           AsyncHandler&lt;AddNumbersResponse&gt;);</strong></span></pre>
+
+        <p>위와 같이 Response&lt;AddNumbersResponse&gt;와 Future&lt;?&gt;를 리턴값으로
+        갖는 메소드가 2개 생성된다. 이는 각각 Polling 방식과 Callback 방식의 메소드인데 이들을 사용해서 클라이언트
+        Java 클래스를 어떻게 구성하는지에 대해 다음 절에서 설명한다.</p>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e2360"></a>9.2.1.2. 비동기화 클라이언트 구성</h4></div></div></div>
+        
+
+        <p/>
+
+        <p>비동기화 클라이언트는 Polling 메소드를 사용하거나 Callback 메소드를 사용해서 구성할 수
+        있다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e2367"></a>Polling 메소드를 사용하는 클라이언트의 구성 방법</h5>
+
+        <p>wsimport 툴로부터 얻은 비동기 SEI의 Polling 메소드는 다음과 같다.</p>
+
+        <pre class="programlisting">public Response&lt;AddNumbersResponse&gt; addNumbers(int number1, int number2);</pre>
+
+        <div class="literallayout"><p/></div>
+
+        <p>다음은 이러한 Polling 메소드로 매핑된 메소드를 사용하여 구현한 클라이언트 웹 서비스 예의 일부분이다.
+        클라이언트 애플리케이션은 SEI의 비동기 Polling 메소드를 호출하게 되고 언제 결과값이 반환되는지를 확인할 수
+        있다.</p>
+
+        <pre class="programlisting">javax.xml.ws.Response&lt;AddNumbersResponse&gt; resp = port.addNumbersAsync(10, 20);
+while(!resp.isDone()){
+}
+System.out.println(resp.get().getReturn());
+...</pre>
+
+        <p>위와 같이 Polling 메소드로 매핑된 메소드는 javax.xml.ws.Response 타입의 객체를 리턴한다.
+        이는 java.util.concurrent.Future&lt;T&gt;로부터 상속된 isDone() 메소드를 통해서 언제 이
+        오퍼레이션이 완료되어 결과를 반환하는지를 결정할 수 있다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p>다음은 Polling 메소드를 지원하는 클라이언트 애플리케이션 예제 코드의 일부분이다.</p>
+
+        <div class="example"><a id="d4e2380"></a><p class="title"><b>[예 9.3] &lt;&lt; AddNumbersClient.java &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">public class AddNumbersClient {
+
+   ...
+
+   public static void main(String[] args) {
+       try {
+           AddNumbersImpl port = new AddNumbersService().getAddNumbersImplPort();
+
+           // Asynchronous polling
+           Response&lt;AddNumbersResponse&gt; resp = port.addNumbersAsync(10, 20);
+           Thread.sleep(2000);
+           AddNumbersResponse output = resp.get();
+           System.out.println("#############################################");
+           System.out.println("### JAX-WS Webservices examples - polling ###");
+           System.out.println("#############################################");
+           System.out.printf("call webservices in an Asynchronous Polling way...");
+           System.out.printf("result : %d\n", output.getReturn());
+
+           ...
+
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+   }
+
+    ...
+
+}</pre>
+        </div></div><br class="example-break"/>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e2387"></a>Callback 메소드를 사용하는 클라이언트의 구성 방법</h5>
+
+        <p>wsimport 툴로부터 얻은 비동기 SEI의 Callback 메소드는 다음과 같다.</p>
+
+        <pre class="programlisting">public Future&lt;?&gt; addNumbers(int number1, int number2, AsyncHandler&lt;AddNumbersResponse&gt;);</pre>
+
+        <p>Callback 메소드로 매핑된 메소드는 클라이언트 개발자가 추가적인 파라미터로써
+        javax.xml.ws.AsyncHandler를 구현한 핸들러 객체를 제공한다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p>다음은 AsyncHandler를 구현한 핸들러 객체의 예제 코드이다.</p>
+
+        <div class="example"><a id="d4e2394"></a><p class="title"><b>[예 9.4] &lt;&lt; AddNumbersClient.java &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">public class AddNumbersClient {
+    ...
+    static class AddNumbersCallbackHandler implements
+           AsyncHandler&lt;AddNumbersResponse&gt; {
+
+        private AddNumbersResponse output;
+
+        public void handleResponse(Response&lt;AddNumbersResponse&gt; response) {
+            try {
+                output = response.get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        AddNumbersResponse getResponse() {
+            return output;
+        }
+    }
+}</pre>
+        </div></div><br class="example-break"/>
+
+        <p>위와 같이 추가적인 AsyncHandler를 구현한 핸들러 객체는 런타임에 서버로부터 그 웹 서비스 오퍼레이션의
+        결과를 얻을 수 있을 때 handleResponse라는 메소드를 호출하게 되고, 클라이언트 애플리케이션은
+        getResponse() 메소드를 통해 그 결과값을 얻을 수 있다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p>다음은 위에서 구현한 핸들러 객체를 이용하여 SEI의 비동기 Callback 메소드를 이용하는 클라이언트
+        애플리케이션 예제 코드의 일부분이다. 클라이언트 애플리케이션은 SEI의 비동기 Callback 메소드를 호출하게 되고 언제
+        결과값이 반환되는지를 확인할 수 있다.</p>
+
+        <pre class="programlisting">AddNumbersCallbackHandler callbackHandler = new AddNumbersCallbackHandler();
+Future&lt;?&gt; resp = port.addNumbersAsync(number1, number2, callbackHandler);
+while(!resp.isDone()){
+}
+System.out.println(callbackHandler .getResponse().getReturn());</pre>
+
+        <p>위와 같이 Callback 메소드로 매핑된 메소드는 javax.util.concurrent.Future 타입의
+        객체를 리턴한다. 이는 isDone() 메소드를 통해서 언제 이 오퍼레이션이 완료되어 결과를 반환하는지를 결정할 수
+        있다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p>다음은 SEI의 비동기 Callback 메소드를 이용하는 클라이언트 애플리케이션 예제 코드의
+        일부분이다.</p>
+
+        <div class="example"><a id="d4e2408"></a><p class="title"><b>[예 9.5] &lt;&lt; AddNumbersClient.java &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">public class AddNumbersClient {
+
+  public static void main(String[] args) {
+    try {
+        AddNumbersImpl port = new AddNumbersService().getAddNumbersImplPort();
+          ...
+
+        // Asynchronous callback
+        AddNumbersCallbackHandler callbackHandler = new AddNumbersCallbackHandler();
+        Future&lt;?&gt; response = port.addNumbersAsync(10, 20, callbackHandler);
+        Thread.sleep(2000);
+
+        output = callbackHandler.getResponse();
+        System.out.println("#############################################");
+        System.out.println("### JAX-WS Webservices examples - callback ###");
+        System.out.println("#############################################");
+        System.out.printf("call webservices in an Asynchronous Callback way...");
+        System.out.printf("result: %d\n", output.getReturn());
+     } catch (Exception e) {
+         e.printStackTrace();
+     }
+  }
+    ...
+}</pre>
+        </div></div><br class="example-break"/>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e2415"></a>9.2.1.3. 비동기화 클라이언트 실행</h4></div></div></div>
+        
+
+        <p>본 절에서는 구현한 클래스들 및 기타 설정 파일들을 가지고 핸들러 프레임워크를 실행하는 방법에 대해서
+        설명한다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p>다음과 같이 비동기화 오퍼레이션을 설정한 웹 서비스를 생성하여 JEUS에 deploy한다.</p>
+
+        <pre class="screen">$ ant build deploy</pre>
+
+        <p>위의 과정이 모두 실행되어 서비스가 정상적으로 deploy되면 클라이언트를 빌드한다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p>핸들러 프레임워크를 설정한 클라이언트를 생성하고 클라이언트로부터 서비스를 호출한다.</p>
+
+        <p>콘솔에 다음과 같이 입력하면 Polling 방식과 Callback 방식으로 2번의 응답를 정상적으로 받는 모습을
+        확인할 수 있다.</p>
+
+        <pre class="screen">$ ant run
+
+...
+
+run:
+     [java] #############################################
+     [java] ### JAX-WS Webservices examples - polling ###
+     [java] #############################################
+     [java] call webservices in an Asynchronous Polling way...result : 30
+     [java] #############################################
+     [java] ### JAX-WS Webservices examples - callback ###
+     [java] #############################################
+     [java] call webservices in an Asynchronous Callback way...result: 30
+
+...
+
+BUILD SUCCESSFUL</pre>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2431"></a>9.2.2. 디스패치 인터페이스 이용하는 방법</h3></div></div></div>
+      
+
+      <p>디스패치 인터페이스를 이용하여 클라이언트의 비동기 오퍼레이션을 사용하는 것은 기본적으로 비동기 메소드를 가진 SEI
+      Stub 이용하는 것과 개념은 동일하다. 다만 생성된 디스패치 객체에서 제공하는 invokeAsync 메소드를
+      사용한다.</p>
+
+      <p>다음은 invokeAsync 메소드를 사용하는 예제이다.</p>
+
+      <pre class="programlisting">Response&lt;T&gt; response = dispatch.invokeAsync(T);
+Future&lt;?&gt; response = dispatch.invokeAsync(T, AsyncHandler);</pre>
+
+      <p>위에서와 같이 invokeAsync(T)는 Polling 방식의 비동기를 지원하는 메소드이고,
+      invokeAsync(T, AsyncHandelr)는 Callback 방식의 비동기를 지원하는 메소드이다.
+      AsyncHandler는 Callback 방식으로 사용하기 위해 사용자 핸들러를 구현한 것이다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2440"></a>9.3. 비동기 웹 서비스</h2></div></div></div>
+    
+
+    <p>JEUS JAX-WS는 Servelet 3.0 비동기 처리 기반의 비동기 웹 서비스 구성 방법을 제공한다. 웹 서비스
+    Endpoint는 요청을 받고 응답을 보낼 때까지 동기화되어 서블릿 컨테이너가 할당한 요청 처리 스레드를 점유하고, 서비스에서의 처리
+    시간이 길어진다. 이로 인하여 다른 요청들이 대기하는 상황이 자주 발생할 수 있다. 이 경우 처리 시간이 긴 서비스에는 별도의
+    스레드를 할당하고, 요청 처리 스레드는 컨테이너에 반환하여 대기 요청을 효율적으로 처리하게 할 수 있다.</p>
+
+    <p>본 절에서는 비동기 웹 서비스의 설정방법에 대해서 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2445"></a>9.3.1. 비동기 웹 서비스 설정</h3></div></div></div>
+      
+
+      <p>JEUS는 JAX-WS 웹 서비스를 비동기 웹 서비스로 구성하기 위해서는 다음과 같은 방법을 제공한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">@jeus.webservices.jaxws.api.AsyncWebService
+          Annotation을 사용하는 경우</strong></span><a id="d4e2452" class="indexterm"></a></p>
+
+          <p>다음은 Annotation을 사용하여 웹 서비스를 비동기 웹 서비스로 설정하는 예제이다.</p>
+
+          <div class="example"><a id="d4e2456"></a><p class="title"><b>[예 9.6] &lt;&lt; AddNumbersImpl.java &gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">@WebService(serviceName="AddNumbers")
+<span class="bold"><strong>@AsyncWebService</strong></span>        
+public class AddNumbersImpl {
+
+    public int addNumbers(int number1, int number2) {
+        return number1 + number2;
+    }
+}</pre>
+            </div></div><p><br class="example-break"/></p>
+        </li><li>
+          <p><span><strong class="guibutton">web.xml의 &lt;async-supported&gt;를 사용하는
+          경우</strong></span><a id="d4e2463" class="indexterm"></a></p>
+
+          <p/>
+
+          <p>이미 구현된 웹 서비스는 web.xml에 Servlet 3.0이 지원하는 async-supported 사용하여
+          비동기 웹 서비스로 설정할 수 있다.</p>
+
+          <div class="example"><a id="d4e2468"></a><p class="title"><b>[예 9.7] &lt;&lt; web.xml &gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">&lt;web-app&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;AddNumbers&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;fromwsdl.server.AddNumbersImpl&lt;/servlet-class&gt;
+<span class="bold"><strong>        &lt;async-supported&gt;true&lt;/async-supported&gt;</strong></span>
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;AddNumbers&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/addnumbers&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+&lt;/web-app&gt; </pre>
+            </div></div><p><br class="example-break"/></p>
+        </li></ul></div>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jaxws_provider_dispatch.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="pt01.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="chapter_jaxws_mtomxopswaref.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제8장 프로바이더와 디스패치 인터페이스 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제10장 MIME Attachment 메시지 전송</td></tr></table></div><div xmlns="" align="center"/></body></html>

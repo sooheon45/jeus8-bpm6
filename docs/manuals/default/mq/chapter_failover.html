@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제5장 JEUS MQ 장애 극복</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS MQ 안내서"/><link rel="up" href="index.html" title="JEUS MQ 안내서"/><link rel="prev" href="chapter_clustering.html" title="제4장 JEUS MQ 클러스터링"/><link rel="next" href="chapter_jeus-mq-special-func.html" title="제6장 JEUS MQ 특수 기능"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제5장 JEUS MQ 장애 극복</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_clustering.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_jeus-mq-special-func.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_failover"></a>제5장 JEUS MQ 장애 극복</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_failover.html#sect_mq-failover-introduction">5.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_failover.html#mq-server-failover">5.2. 서버 장애 극복</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_failover.html#mq-server-failover-network">5.2.1. 네트워크 구성</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-server-failover-connection-factory">5.2.2. Connection Factory 설정</a></span></dt><dt><span class="section"><a href="chapter_failover.html#mq-server-failover-persistence-store">5.2.3. Persistence Store 설정</a></span></dt><dt><span class="section"><a href="chapter_failover.html#mq-server-failover-failback">5.2.4. 자동 복원(Fail-Back)</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_failover.html#mq-client-failover">5.3. 클라이언트 장애 극복</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_failover.html#mq-client-failover-reconnect">5.3.1. 재연결</a></span></dt><dt><span class="section"><a href="chapter_failover.html#mq-client-failover-connection-factory-reuse">5.3.2. Connection Factory 재사용</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-destination-reuse">5.3.3. Destination 재사용</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-request-blocking-time">5.3.4. 응답 대기시간</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-connection">5.3.5. 커넥션 복구</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-session">5.3.6. 세션 복구</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-production">5.3.7. 메시지 전송 복구</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-consumption">5.3.8. 메시지 수신 복구</a></span></dt><dt><span class="section"><a href="chapter_failover.html#sect_mq-client-failover-transaction">5.3.9. 메시지 유실 방지와 트랜잭션</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 JEUS MQ에서 서버나 네트워크에 장애가 발생해서 더 이상 메시징 서비스를 할 수 없을 때 JMS 클라이언트가
+  다시 연결을 맺고 클라이언트 상태를 복구하는 방법에 대해서 설명한다. 또한 JMS 클라이언트의 복구를 위해서 필요한 서버 구성과 서버
+  장애 극복에 대해서 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_mq-failover-introduction"></a>5.1. 개요</h2></div></div></div>
+    
+
+    <p>JEUS MQ에서의 장애 극복이란 장애가 발생했을 때 클라이언트 애플리케이션이 자동으로 연결을 다시 맺고 클라이언트의 모든
+    상태를 장애가 발생하기 이전으로 복구하는 것을 의미한다.</p>
+
+    <p>장애가 발생하는 원인은 다음과 같이 크게 2가지로 나눌 수 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>네트워크 장애</p>
+
+        <p>네트워크 장애는 JEUS MQ 서버와 클라이언트 사이의 네트워크에 문제가 발생해서 더 이상 통신을 할 수 없는
+        상태를 의미한다. </p>
+
+        <p>네트워크 장애는 일시적인 장애일 수도 있고 서버가 다운되거나 네트워크가 완전히 사용 불가능할 경우도 포함된다.
+        네트워크 장애가 발생하면 JEUS MQ 클라이언트들은 네트워크에 장애가 발생한 서버나 해당 서버와 클러스터링 관계에 있는 다른
+        서버에 재연결을 시도하고 재연결이 완료되면 클라이언트의 상태를 자동 복구하여 서비스를 계속하게 된다.</p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>서버 장애</p>
+
+        <p>서버 장애는 네트워크 장애를 제외하고 서버에 발생하는 모든 장애를 포함한다. 일반적으로 메시징 데이터를 저장하는
+        디스크나 데이터베이스 작업을 수행할 때 오류가 발생하거나 메모리 부족 등이 이에 해당한다. 현재 서비스 중인 서버에 장애가
+        발생하면 대기 중이던 백업 서버는 이전에 사용하던 데이터들을 자동으로 복구하고 서비스를 계속 이어서 하게 된다.</p>
+      </li></ul></div>
+
+    <p/>
+
+    <p>이러한 장애를 극복하기 위해서는 JEUS MQ 서버들 간에 네트워크을 구성하고 JEUS MQ 클라이언트에 필요한 설정들을
+    해야 한다. 그리고 클라이언트들은 장애 극복을 위해서 JEUS MQ에서 제공하는 Client API를 호출하여 장애 극복에 필요한
+    여러 속성들을 직접 설정할 수 있다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="mq-server-failover"></a>5.2. 서버 장애 극복</h2></div></div></div>
+    
+
+    <p>본 절에서는 JEUS MQ의 장애 극복을 이용하기 위해서 필요한 서버들 간의 네트워크 구성과 기타 설정들에 대해서
+    설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="mq-server-failover-network"></a>5.2.1. 네트워크 구성</h3></div></div></div>
+      
+
+      <p>JEUS MQ 장애 극복을 위해서는 한 대 이상의 Active 서버가 필요하고, 그 서버들은 클러스터링되어 있어야
+      한다. Standby 서버는 선택 사항이며, 장애가 발생할 때 전체 처리 가능 용량에 여유를 두기 위해서 설정한다. JEUS
+      클러스터링 설정은 <a xmlns="" href="../domain/chapter_clustering.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Domain 안내서</span>”의 “제5장 JEUS 클러스터링”</a>을 참고한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Active 서버</p>
+
+          <p>장애가 없을 때 클라이언트의 요청을 받아서 처리하는 메인 서버이다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Standby 서버</p>
+
+          <p>Active 서버에 장애가 발생하면 서버가 수행하던 서비스들을 이어받아서 수행하는 백업 서버이다.</p>
+        </li></ul></div>
+
+      <p>JEUS MQ 클러스터링과 JEUS MQ 장애 극복은 통합된 기능으로 JEUS MQ 클러스터링을 설정하면 JEUS MQ
+      장애 극복 기능도 함께 동작한다. 이는 예전의 Active 서버와 Standby 서버를 쌍으로 구성해야 했던 점을 개선하여
+      자유롭고 다양한 구성을 가능하게 하고 Active 서버의 수와 Standby 서버의 수 역시 자유롭게 설정할 수 있다. 일반적으로
+      다수의 Active 서버에 소수의 Standby 서버를 두는 구성을 하거나 Standby 서버 없이 Active 서버만으로
+      구성한다.</p>
+
+      <p>다음은 장애 극복을 위한 MQ 서버들 간의 네트워크 구성이다. </p><div class="figure"><a id="figure_of-mq-server-failover-network"></a><p class="title"><b>[그림 5.1] 3대의 Active 서버와 2대의 Standby 서버를 이용한 JEUS MQ 클러스터링 구성</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="407"><tr><td align="left"><img src="resources/figure_mq-server-failover-network.png" align="top" width="407" alt="3대의 Active 서버와 2대의 Standby 서버를 이용한 JEUS MQ 클러스터링 구성"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p/>
+
+      <p>위와 같은 구성에서 Active 서버들 중 하나에 장애가 발생하면 우선 아무런 서비스를 하고 있지 않은 Standby
+      서버들 중 하나가 그 역할을 이어받아서 서비스한다. 서비스를 수행하고 있는 Active 서버들과 Standby 서버들 중 하나에
+      추가적으로 장애가 발생하면 마찬가지로 서비스를 하고 있지 않은 Standby 서버들 중 하나가 이어받게 되며, 더 이상 서비스를
+      수행하고 있지 않은 서버가 없다면 서비스를 수행하고 있는 Active 서버들 중의 하나가 이어받아서 한 서버가 두 개 이상의 서버
+      역할을 하게 된다. 이는 해당 구성에서 마지막 하나의 서버만 남을 때까지 계속되며 마지막 남은 서버에도 장애가 발생하면 JEUS
+      MQ 클러스터링 서비스는 더 이상 동작하지 않는다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e2072"></a> Active 서버와 Standby 서버 구성</h4><p>다음은 Active 서버와
+      Standby 서버의 장애 극복 설정을 하는 예제이다. WebAdmin에서 <span><strong class="guibutton">[Servers] &gt;
+      [서버명] &gt; [Engine] &gt; [Jms Engine] &gt;</strong></span>
+      <span><strong class="guibutton">[Basic]</strong></span> 메뉴를 선택하면, <span><strong class="guibutton">Jms Failover 설정
+      화면</strong></span>이 나타난다.</p>
+
+      <div class="figure"><a id="figure_jms-engine-configuration"></a><p class="title"><b>[그림 5.2] Jms Failover 설정 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_jms-engine-configuration.png" align="top" width="711" alt="Jms Failover 설정 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Active 서버 설정</strong></span></p>
+
+          <p>Active 서버 설정은 <span><strong class="guibutton">Jms Failover 설정 화면</strong></span>에서 다음과
+          같이 <span><strong class="guibutton">'Active'</strong></span>를 선택한다.</p>
+
+          <div class="figure"><a id="failover-config-active-alter"></a><p class="title"><b>[그림 5.3] 장애 극복 설정 - Active 서버 설정</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_failover-config-active.png" align="top" width="711" alt="장애 극복 설정 - Active 서버 설정"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Standby 서버 설정</strong></span></p>
+
+          <p>Standby 서버 설정은 <span><strong class="guibutton">Jms Failover 설정 화면</strong></span>에서 다음과
+          같이 <span><strong class="guibutton">'Standby'</strong></span>를 선택한다. </p>
+
+          <div class="figure"><a id="failover-config-standby"></a><p class="title"><b>[그림 5.4] 장애 극복 설정 - Standby 서버 설정</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_failover-config-standby.png" align="top" width="711" alt="장애 극복 설정 - Standby 서버 설정"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <p/>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_mq-server-failover-connection-factory"></a>5.2.2. Connection Factory 설정</h3></div></div></div>
+      
+
+      <p>Connection Factory 설정은 JEUS MQ에 장애가 발생했을 때 클라이언트가 다른 Active 서버나
+      Standby 서버로 시도하는 재연결과 관련된 설정이다.</p>
+
+      <p>WebAdmin에서 <span><strong class="guibutton">[Servers] &gt; [서버명] &gt; [Engine] &gt; [Jms
+      Engine] &gt;</strong></span> <span><strong class="guibutton">[Connection Factory]</strong></span> 메뉴를
+      선택한다. Connection Factory 목록에서 설정할 대상을 클릭하면 설정 화면이 나타난다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="failover-config-connection-factory"></a><p class="title"><b>[그림 5.5] Connection Factory 설정</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_failover-config-connection-factory.png" align="top" width="711" alt="Connection Factory 설정"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p>기본적으로는 재연결을 하지 않기 때문에 화면에서 <span><strong class="guibutton">'Reconnect
+      Enabled'</strong></span> 항목을 체크해서 true로 설정한다. <span><strong class="guibutton">'Reconnect
+      Enabled'</strong></span> 항목이 활성화되면 JEUS MQ 클라이언트는 Active 서버와 Standby 서버에
+      반복해서 재연결을 시도한다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="mq-server-failover-persistence-store"></a>5.2.3. Persistence Store 설정</h3></div></div></div>
+      
+
+      <p>Persistence Store는 DeliveryMode가 PERSISTENT일 때 메시지를 저장하는 역할을
+      한다.</p>
+
+      <p>장애가 발생했을 때 다른 Active 서버나 Standby 서버가 이 Persistence Store에 저장된 메시지를
+      복구하기 때문에 메시지의 유실 없이 서비스를 계속할 수 있다. 따라서, JEUS MQ 서버의 장애 극복의 가장 핵심적인
+      리소스이다.</p>
+
+      <p>JEUS MQ 장애 극복에서 Persistence Store를 설정하기 위해서는 가능하면 Persistence
+      Store가 각 Active 서버나 Standby 서버에서 모두 접근 가능한 곳에 위치해야 한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>저널 로그 Persistence Store<a id="d4e2133" class="indexterm"></a></p>
+
+          <p>저널 로그를 Persistence Store로 사용할 경우에는 저널 로그 베이스 디렉터리(저널 로그 설정의
+          'Base Dir'의 값)는 Active 서버와 Standby 서버가 모두 접근 가능한 곳에 위치해야 한다. 이를 위해서
+          SAN과 같은 디스크 공유 하드웨어를 구성하고 그 위에 저널 로그의 베이스 디렉터리를 생성해야 한다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>JDBC Persistence Store<a id="d4e2139" class="indexterm"></a></p>
+
+          <p>JDBC를 Persistence Store로 사용할 경우에는 단순히 WebAdmin에 설정된 데이터소스를
+          지정하면 된다. 다만, 데이터베이스도 장애가 발생하여 서비스를 할 수 없는 경우가 있기 때문에 Tibero의 TAC이나
+          OracleDB의 RAC같은 클러스터링 기술을 사용하여 데이터베이스도 장애 극복을 위한 구성을 해야 한다.</p>
+        </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>만일 일부 서버 간에 Persistence Store에 서로 접근할 수 없는 경우는 최대한 접근 가능한 서버를
+        찾아서 장애 극복을 시도한다.</p>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="mq-server-failover-failback"></a>5.2.4. 자동 복원(Fail-Back)</h3></div></div></div>
+      
+
+      <p>Active 서버의 장애로 인해 다른 Active 서버나 Standby 서버의 장애 극복 기능이 활성화되었을 때 서버
+      관리자는 Active 서버에 발생한 장애가 무엇인지를 파악하고 가능한 빨리 장애 요인을 해결하여 Active 서버를 다시 기동해야
+      한다.</p>
+
+      <p>장애가 있었던 Active 서버가 다시 기동되면 해당 서버의 서비스를 대신하고 있던 서버로부터 데이터를 마이그레이션하고
+      접속해있는 클라이언트들을 되살아난 Active 서버로 옮겨야 한다. 이런 작업을 복원(Fail-Back)이라 한다. 이 작업은
+      항상 자동으로 이루어진다.<a id="d4e2148" class="indexterm"></a></p>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="mq-client-failover"></a>5.3. 클라이언트 장애 극복</h2></div></div></div>
+    
+
+    <p>서버나 네트워크에 장애가 발생하여 JEUS MQ 클라이언트와 서버 간의 연결이 끊어지면 클라이언트는 클러스터 내의
+    Active 서버와 Standby 서버들을 교대로 재연결을 시도한다. 재연결이 성공하면 클라이언트는 연결이 끊어지기 이전 상태로
+    복구를 시도한다. 이런 클라이언트 장애 극복 과정은 클라이언트 애플리케이션에 대한 수정 없이 JEUS MQ 설정을 통해서 자동으로
+    수행된다.</p>
+
+    <p>본 절에서는 클라이언트의 장애 극복에 대해서 자세히 알아보고 그에 따른 제약 사항과 메시지 유실 없이 장애를 극복하기 위한
+    방법에 대해서 설명한다.</p>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="mq-client-failover-reconnect"></a>5.3.1. 재연결</h3></div></div></div>
+      
+
+      <p>JEUS MQ 클라이언트와 서버의 연결이 끊어질 경우 재연결 여부를 결정하는 <span><strong class="guibutton">'Reconnect
+      Enabled'</strong></span> 항목과 관련 설정 항목들은 해당 Connection Factory를 이용하여 생성하는 모든
+      커넥션에 적용된다. 이에 대한 자세한 내용은 <a href="chapter_failover.html#sect_mq-server-failover-connection-factory" title="5.2.2. Connection Factory 설정">“5.2.2. Connection Factory 설정”</a>을 참고한다.</p>
+
+      <p>만약 특정 커넥션에 대해서 이 설정을 변경하려면 다음의 예제와 같이 JEUS MQ Client API인
+      "jeus.jms.client.facility.connection.JeusConnection" 클래스를 이용하여 설정을 변경할 수
+      있다. </p><pre class="programlisting">. . .
+import jeus.jms.client.facility.connection.JeusConnection;
+. . .
+Context ctx = new InitialContext();
+ConnectionFactory factory = ctx.lookup("connection-factory");
+JeusConnection connection = (JeusConnection)factory.createConnection("jeus", "jeus");
+connection.setReconnectEnabled(true);
+connection.setReconnectInterval(1000); // 1초
+connection.setReconnectPeriod(3600000); // 1시간
+. . .</pre><p>서버의 Connection Factory 설정을 통해 <span><strong class="guibutton">'Reconnect
+      Enabled'</strong></span>의 값을 true로 설정하였다면 모든 재연결 과정은 클라이언트 애플리케이션에 자동으로 수행되어
+      클라이언트 코드는 수정할 필요가 없다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="mq-client-failover-connection-factory-reuse"></a>5.3.2. Connection Factory 재사용</h3></div></div></div>
+      
+
+      <p>JEUS MQ 클러스터 내의 Active 서버와 Standby 서버들은 동일한 이름의 Connection
+      Factory를 가지고 있기 때문에 한 번 JNDI Lookup을 통해서 얻은 Connection Factory는 서버나
+      네트워크의 장애가 발생한 경우에 다시 Lookup할 필요없이 재사용할 수 있다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_mq-client-failover-destination-reuse"></a>5.3.3. Destination 재사용</h3></div></div></div>
+      
+
+      <p>Connection Factory와 마찬가지로 JEUS MQ 클러스터 내의 Active 서버와 Standby 서버들은
+      동일한 이름의 Destination을 가지고 있다. 따라서 한 번 JNDI Lookup을 통해서 얻은 Destination은
+      서버나 네트워크에 장애가 발생해도 다시 JNDI를 Lookup할 필요없이 재사용할 수 있다.</p>
+
+      <p>장애 발생 이전에 Destination에 저장되었던 메시지들은 서버 장애가 발생한 경우 모두 자동 복구되므로
+      클라이언트는 해당 Destination을 통해서 메시징 작업을 계속할 수 있다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_mq-client-failover-request-blocking-time"></a>5.3.4. 응답 대기시간</h3></div></div></div>
+      
+
+      <p/>
+
+      <p>JEUS MQ의 클라이언트에서 보내는 모든 요청들은 <span><strong class="guibutton">'Request Blocking
+      Time'</strong></span>이라는 응답이 오기까지 기다리는 요청 응답시간을 갖는다. (기본값: 200000, 단위:
+      ms)<a id="d4e2184" class="indexterm"></a> 이 시간은 JEUS MQ 서버의 <span><strong class="guibutton">Connection Factory 설정
+      화면</strong></span>에서 <span><strong class="guibutton">'Request Blocking Time'</strong></span> 항목으로 설정할
+      수 있다.</p>
+
+      <div class="figure"><a id="failover-config-request-block"></a><p class="title"><b>[그림 5.6] 장애 극복 설정 - Request Blocking Time</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_failover-config-request-block.png" align="top" width="711" alt="장애 극복 설정 - Request Blocking Time"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>서버뿐만 아니라 각 커넥션별로 다른 설정을 하는 경우 JEUS MQ Client API인
+      "jeus.jms.client.facility.connection.JeusConnection" 클래스를 이용하여 설정을 변경할 수
+      있다. </p><pre class="programlisting">. . .
+import jeus.jms.client.facility.connection.JeusConnection;
+. . .
+Context ctx = new InitialContext();
+ConnectionFactory factory = ctx.lookup("connection-factory");
+JeusConnection connection = (JeusConnection)factory.createConnection("jeus", "jeus");
+connection.setRequestBlockingTime(300000); // 5분
+. . .</pre><p>RequestBlockingTime은 세션 트랜잭션이나 XA의 경우에 트랜잭션 타임아웃의 기본값으로도
+      사용된다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_mq-client-failover-connection"></a>5.3.5. 커넥션 복구</h3></div></div></div>
+      
+
+      <p>커넥션 복구가 설정되지 않은 JEUS MQ의 커넥션들은 기본적으로 물리적 연결(Socket)을 공유한다. 그러나
+      domain.xml의 Connection Factory 설정에서 &lt;reconnect-enabled&gt;의 값이 true로
+      설정된 경우에는 장애 극복을 위해 각각의 커넥션과 물리적 연결이 1대 1 관계가 된다. </p><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>물리적 연결과 커넥션이 1대 1 관계가 되면 매번 연결을 맺을 때 마다 새로운 물리적 연결을 생성하게 되므로
+          성능이 다소 저하될 수 있다. 이 문제는 매번 커넥션을 생성하지 않고 재사용하도록 클라이언트 애플리케이션을 작성함으로써
+          해결이 가능하다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>연결이 복구될 때 커넥션이 재연결될 뿐만 아니라 커넥션의 상태도 모두 복구된다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>시작(start) 상태</p>
+
+          <p>메시지 수신을 위해서 Connection.start()를 호출한 경우 발생한 장애가 복구되면 시작 상태가
+          복구되어 메시지 수신을 계속할 수 있다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>정지(stop) 상태</p>
+
+          <p>메시지 수신을 중지하기 위해서 Connection.stop()을 호출한 경우 장애가 복구되면 정지 상태가
+          복구되어 더 이상 메시지 수신을 하지 않는다.</p>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>커넥션 상태뿐만 아니라 커넥션 이하의 세션과 커넥션 메시지 수신자(ConnectionConsumer)들도 모두
+      복구된다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>세션(Session) 복구<a id="d4e2221" class="indexterm"></a></p>
+
+          <p>커넥션을 통해서 생성된 세션은 장애 발생 이전에 Session.close()가 호출되지 않은 경우에 커넥션
+          장애가 복구되면 같이 복구된다. 자세한 내용은 <a href="chapter_failover.html#sect_mq-client-failover-session" title="5.3.6. 세션 복구">“5.3.6. 세션 복구”</a>를 참고한다</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>커넥션 메시지 수신자(ConnectionConsumer) 복구<a id="d4e2228" class="indexterm"></a></p>
+
+          <p>커넥션을 통해서 생성된 커넥션 메시지 수신자는 장애 발생 이전에
+          ConnectionConsumer.close()가 호출되지 않았다면 커넥션이 복구될 때 같이 복구되며 커넥션이 시작 상태인
+          경우 메시지 수신을 계속하게 된다. 단, 장애 이전에 수신했던 메시지들은 모두 서버로 되돌려 보내지고 새로 받게 되므로
+          이후 수신된 메시지들의 Message.getJMSRedelived()가 true가 될 수 있다.</p>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <p>이 외에도 세션이나 커넥션 메시지 수신자를 생성하는 메소드들은 장애가 복구되면 요청을 재전송하여 응답이 오기까지
+      기다리게 된다. Connection.close가 호출되는 경우에는 응답이 오는 것에 상관없이 발생한 장애를 복구하지
+      않는다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_mq-client-failover-session"></a>5.3.6. 세션 복구</h3></div></div></div>
+      
+
+      <p>세션은 Session.close()가 호출되지 않은 경우라면 커넥션이 복구될 때 같이 복구된다. 또한, 세션 이하의
+      메시지 수신자(MessageConsumer)나 메시지 송신자(MessageProducer)들도 세션이 복구될 때 모두
+      복구된다.</p>
+
+      <p>세션에는 여러 가지 객체를 생성하는 메소드들을 가지고 있는데 각 메소드는 발생한 장애를 복구할 때 다음과 같이
+      동작한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>메시지 생성 메소드<a id="d4e2243" class="indexterm"></a></p>
+
+          <p>메시지를 생성하는 메소드들은 장애 여부와 상관없이 항상 바로 생성이 된다.</p>
+
+          <pre class="programlisting">createBytesMessage()
+createMapMessage()
+createMessage()
+createObjectMessage()
+createObjectMessage(Serializable object)
+createStreamMessage()
+createTextMessage()
+createTextMessage(String text)</pre>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>큐 브라우저 생성 메소드<a id="d4e2251" class="indexterm"></a></p>
+
+          <p>큐 브라우저를 생성하는 메소드는 장애가 복구된 후에도 요청을 완료한다. 만약
+          RequestBlockingTime이 지난 후에도 장애가 복구되지 않는다면 JMSException이 발생한다.</p>
+
+          <pre class="programlisting">createBrowser(Queue queue)
+createBrowser(Queue queue,String messageSelector)</pre>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Destination 생성 메소드<a id="d4e2259" class="indexterm"></a></p>
+
+          <p>Destination을 생성하는 메소드들은 장애가 복구된 후에도 생성 요청을 완료한다. 만약
+          RequestBlockingTime이 지난 후에도 장애가 복구되지 않는다면 JMSException이 발생한다.</p>
+
+          <pre class="programlisting">createQueue(String queueName)
+createTopic(String topicName)</pre>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>임시 Destination 생성 메소드<a id="d4e2267" class="indexterm"></a></p>
+
+          <p>임시 Destination을 생성하는 메소드들은 장애와 상관없이 생성 요청을 완료한다.</p>
+
+          <pre class="programlisting">createTemporaryQueue()
+createTemporaryTopic()</pre>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>메시지 수신자 생성 메소드<a id="d4e2275" class="indexterm"></a></p>
+
+          <p>메시지 수신자를 생성하는 메소드들은 장애가 복구된 후에도 생성 요청을 완료한다. 만약
+          RequestBlockingTime이 지난 후에도 장애가 복구되지 않는다면 JMSException이 발생한다.</p>
+
+          <pre class="programlisting">createConsumer(Destination destination)
+createConsumer(Destination destination, java.lang.String messageSelector)
+createConsumer(Destination destination, java.lang.String messageSelector,boolean NoLocal)</pre>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Durable 메시지 수신자 생성 메소드<a id="d4e2283" class="indexterm"></a></p>
+
+          <p>Durable 메시지 수신자를 생성하는 메소드들은 장애가 복구된 후에도 생성 요청을 완료한다. 만약
+          RequestBlockingTime이 지난 후에도 장애가 복구되지 않는다면 JMSException이 발생한다.</p>
+
+          <pre class="programlisting">createDurableSubscriber(Topic topic, String name)
+createDurableSubscriber(Topic topic,String name, String messageSelector,boolean noLocal)</pre>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>메시지 송신자 생성 메소드<a id="d4e2291" class="indexterm"></a></p>
+
+          <p>메시지 송신자를 생성하는 메소드는 장애가 복구된 후에도 생성 요청을 완료한다. 만약
+          RequestBlockingTime이 지난 후에도 장애가 복구되지 않는다면 JMSException이 발생한다.</p>
+
+          <pre class="programlisting">createProducer(Destination destination)</pre>
+        </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p/>
+
+      <p>세션에 장애가 발생하면 세션 트랜잭션은 다음과 같은 영향을 받는다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">commit()</strong></span></p>
+
+          <p>트랜잭션 세션에서 생성한 메시지 수신자와 메시지 송신자를 이용하여 메시지를 수신하거나 전송하는 중에 장애가
+          발생한 경우 이후 첫 번째로 호출되는 commit은
+          "javax.jms.TransactionRolledBackException"을 발생하며 rollback된다. commit
+          시점에 commit할 메시지가 없다면 이 예외는 발생하지 않는다. 장애에 의해 commit이 실패된 후 호출되는
+          commit은 모두 정상적으로 동작한다.</p>
+
+          <p>만약 commit 중에 장애가 발생했는데 RequestBlockingTime이 지난 후에도 장애가 복구되지
+          않는다면 JMSException이 발생한다. 이 경우 commit 여부는 알 수 없으며 관리 도구를 통해서 commit
+          여부를 확인해야 한다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">rollback()</strong></span></p>
+
+          <p>rollback은 장애 극복 후에도 rollback 요청을 완료한다. 만약 rollback 중에 장애가
+          발생했는데 RequestBlockingTime이 지난 후에도 장애가 복구되지 않는다면 JMSException이 발생한다.
+          rollback의 경우 JMSException이 발생해도 rollback되는 것을 보장할 수 있다.</p>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>Session.recover() 메소드의 경우 장애가 복구된 후에도 recover 요청을 완료한다. 만약 recover
+      호출 후에 장애가 발생했는데 RequestBlockingTime이 지난 후에도 장애가 복구되지 않는다면 JMSException이
+      발생한다.</p>
+
+      <p>세션의 ACKNOWLEDGE Mode를 Session.CLIENT_ACKNOWLEDGE로 설정한 경우
+      Message.acknowledge()를 통해서 세션 내에 존재하는 acknowledge가 안 된 메시지들에 대해서
+      acknowledge를 호출할 수 있다. 만약 acknowledge 중에 장애가 발생하면 각 메시지에 대해서
+      ExceptionListener를 통해서
+      jeus.jms.common.message.MessageAcknowledgeException을 통보받게 된다. 이 예외는 메시지
+      acknowledge 중에 장애가 발생하여 메시지가 재전송(Redelivered)될 수 있음을 알려준다. </p><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>MessageAcknowledgeException.getErrorCode()를 호출하면 실패한 메시지의
+          MessageID를 얻을 수 있다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_mq-client-failover-production"></a>5.3.7. 메시지 전송 복구</h3></div></div></div>
+      
+
+      <p>본 절에서는 메시지 전송자를 통해서 메시지를 전송할 때 장애가 발생할 경우에 대해서 설명한다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>메시지 송신자의 send 메소드는 메시지가 서버에 전달되어 응답되기까지 blocking된다. 만약, 도중에 장애가
+      발생할 경우 다음과 같은 상황이 발생한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">send를 호출했지만 메시지가 아직 전송되지 않은 경우</strong></span></p>
+
+          <p>이 경우 장애가 복구된 후에 메시지는 서버로 전송되고 정상 처리된다. 만약 RequestBlockingTime이
+          지난 후에도 장애가 복구되지 않는다면 JMSException이 발생한다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">send를 호출하고 메시지가 서버에서 처리된 후에 네트워크에 장애가 발생한
+          경우</strong></span></p>
+
+          <p>이 경우 장애가 복구되어 다시 서버에 접속하면 응답 메시지를 받아 정상적으로 처리된다. 만약
+          RequestBlockingTime이 지난 후에도 장애가 복구되지 않는다면 JMSException이 발생한다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">send를 호출하고 메시지가 서버에서 처리된 후에 서버에서 장애가 발생하였고 그 장애가
+          복구된 경우</strong></span></p>
+
+          <p>이 경우 장애가 복구되어 다시 서버에 접속해도 메시지 전송 여부를 알 수 없으므로
+          RequestBlockingTime만큼 기다리다가 ExceptionListener를 통해서
+          "jeus.jms.common.message.MessageSendException"을 통보한다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">send를 호출하고 메시지가 서버에서 처리되기 전에 네트워크나 서버에 장애가 발생한
+          경우</strong></span></p>
+
+          <p>이 경우에도 위의 경우와 마찬가지로 복구된 서버에 다시 접속해도 메시지 전송 여부를 알 수 없으므로
+          RequestBlockingTime만큼 기다리다가 ExceptionListener를 통해서
+          "jeus.jms.common.message.MessageSendException"을 통보한다. </p><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+              <p>MessageSendException.getErrorCode()를 호출하면 실패한 메시지의
+              MessageID를 얻을 수 있다.</p>
+            </div>
+
+          <p/>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_mq-client-failover-consumption"></a>5.3.8. 메시지 수신 복구</h3></div></div></div>
+      
+
+      <p>메시지 수신은 크게 동기와 비동기 방법으로 나눠지며 장애가 복구된 경우 동작 방식이 조금씩 다르다. 우선 동기식 메시지
+      수신하는 경우 장애 복구에 대해서 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2354"></a>동기식 메시지 수신 복구</h4>
+
+      <p>메시지 수신자에는 MessageConsumer.receive()와 MessageConsumer.receive(long
+      timeout), MessageConsumer.receiveNoWait() 3가지 동기식 메시지 수신 메소드가 있다.</p>
+
+      <p>각 메소드 호출할 때 장애가 발생하면 다음과 같이 동작한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">receive()</strong></span></p>
+
+          <p>receive() 메소드의 경우 원래 메시지를 수신할 때까지 blocking되지만, 장애가 발생하면 언제 복구될
+          지 알 수 없으므로 대기시간을 RequestBlockingTime으로 변경한다. 만약 시간 내에 장애가 복구되면 메시지
+          수신을 요청하는 메시지를 다시 보내서 메시지를 수신하고 그렇지 않으면 JMSException이 발생한다.</p>
+
+          <p>Session.AUTO_ACKNOWLEDGE로 설정한 경우에는 메시지를 수신하고 클라이언트에 메시지를 넘겨주기
+          전에 acknowledge를 서버에 전송한다. 이때 장애가 발생하면 acknowledge 실패한 메시지에 대해서
+          ExceptionListener를 통해
+          jeus.jms.common.message.MessageAcknowledgeException을 통보한다. 이
+          Exception은 메시지 acknowledge 중에 장애가 발생해서 메시지가 재전송(Redelivered)될 수 있음을
+          알려준다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">receive(long timeout)</strong></span></p>
+
+          <p>receive(long timeout) 메소드는 원래 메시지를 수신할 때까지 blocking되지만, 장애가
+          발생하면 언제 복구될지 알 수 없으므로 타임아웃이 RequestBlockingTime보다 큰 경우 제한 시간을
+          RequestBlockingTime으로 변경한다. 만약, 제한 시한 내에 장애가 복구되면 메시지 수신을 요청하는 메시지를
+          다시 보내어 메시지를 수신하고 그렇지 않으면 JMSException이 발생한다.</p>
+
+          <p>Session.AUTO_ACKNOWLEDGE로 설정한 경우 메시지를 수신하고 클라이언트에 메시지를 넘겨주기 전에
+          acknowledge를 서버에 전송한다. 이때 장애가 발생하면 acknowledge 실패한 메시지에 대해서
+          ExceptionListener를 통해서
+          jeus.jms.common.message.MessageAcknowledgeException을 통보한다. 이
+          Exception은 메시지 acknowledge 중에 장애가 발생하여 메시지가 재전송(Redelivered)될 수 있음을
+          알려준다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">receiveNoWait()</strong></span></p>
+
+          <p>receiveNoWait() 메소드는 원래 메시지를 수신하지 않아도 blocking되지 않는다. 따라서 장애가
+          발생해도 바로 반환된다.</p>
+        </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p/>
+
+      <h4><a id="d4e2377"></a>비동기식 메시지 수신 복구</h4>
+
+      <p>비동기식 메시지 수신 복구 방법으로 수신한 메시지들은 MessageListener.onMessage 중이거나
+      MessageListener.onMessage에서 처리되어 acknoweldge 중이거나 미리 가져오기를 통해 클라이언트 큐에
+      쌓여 있는 메시지들로 나눌 수 있다.</p>
+
+      <p>각각의 메시지들에 대해서 JEUS MQ는 다음과 같이 장애를 복구한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>onMessage 중에 장애가 발생하면 장애가 복구된 후에 acknoweldge가 전송되므로 정상적으로
+            처리된다.</p>
+          </li><li>
+            <p>onMessage가 완료된 후 acknoweldge가 전송되는 중에 장애가 발생하면 acknowledge
+            실패한 메시지에 대해서 ExceptionListener를 통해서
+            jeus.jms.common.message.MessageAcknowledgeException을 통보한다. 이
+            Exception은 메시지 acknowledge 중에 장애가 발생하여 메시지가 재전송(Redelivered)될 수
+            있음을 알려준다.</p>
+          </li><li>
+            <p>미리 가져오기로 클라이언트 큐에 쌓여 있는 메시지들은 장애 극복 후에 모두 서버로 되돌려 보내지며 나중에
+            다시 클라이언트로 전송된다. 이 메시지들의 Message.getJMSRedelivered()의 값은 true가 될 수
+            있다.</p>
+          </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>MessageAcknowledgeException.getErrorCode()를 호출하면 실패한 메시지의
+          MessageID를 얻을 수 있다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_mq-client-failover-transaction"></a>5.3.9. 메시지 유실 방지와 트랜잭션</h3></div></div></div>
+      
+
+      <p>JEUS MQ의 장애 극복이 클라이언트 애플리케이션에 명확하게 자동으로 처리된다. 그러나 메시지 송수신 과정에서
+      메시지를 유실할 위험이 있으므로 ExceptionListener를 통해서 이런 메시지들에 대해서 별도로 처리해야 하는 문제점이
+      있다.</p>
+
+      <p>엔터프라이즈 메시징 애플리케이션에서 메시지 유실은 치명적인 문제를 일으킬 수 있다. 메시지 유실을 방지하면서 완벽하게
+      장애를 극복할 수 있는 유일한 방법은 트랜잭션을 사용하는 것이다.</p>
+
+      <p>따라서 다음에 제시하는 방법을 통해서 애플리케이션을 작성할 것을 적극 권장한다.</p>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>J2EE 환경에서는 반드시 트랜잭션 내에서 메시지를 송수신한다.</p>
+        </li><li>
+          <p>서블릿의 경우 UserTransaction을 JNDI로부터 Lookup하여 UserTransaction 내에서
+          메시지를 송수신한다.</p>
+        </li><li>
+          <p>EJB의 경우 EJB 메소드의 트랜잭션 속성(TransactionAttribute)을 "Required"나
+          "RequireNew"로 설정해서 항상 트랜잭션 내에서 메시지를 송수신한다.</p>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <p>일반 Java 클라이언트에서는 세션을 생성할 때 Connection.createSession(true,
+      Session.SESSION_TRANSACTED)를 호출하여 생성한다. 이렇게 생성한 세션은 commit()이나
+      rollback() 호출을 통해서 트랜잭션 내에서 메시지를 송수신할 수 있다.</p>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_clustering.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_jeus-mq-special-func.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제4장 JEUS MQ 클러스터링 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제6장 JEUS MQ 특수 기능</td></tr></table></div><div xmlns="" align="center"/></body></html>

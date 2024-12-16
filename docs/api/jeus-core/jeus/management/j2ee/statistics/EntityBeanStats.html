@@ -1,0 +1,273 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>EntityBeanStats</title>
+      <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="EntityBeanStats (JEUS API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.management.j2ee.statistics</font><br>Interface EntityBeanStats
+      </h2><pre></pre><dl>
+         <dt><b>All Superinterfaces:</b><dd>javax.management.j2ee.statistics.EJBStats, javax.management.j2ee.statistics.EJBStats, javax.management.j2ee.statistics.EntityBeanStats, javax.management.j2ee.statistics.Stats, javax.management.j2ee.statistics.Stats, <a href="../../../../jeus/management/j2ee/statistics/EJBStats.html">EJBStats</a></dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public interface <b>EntityBeanStats</b><dt>extends javax.management.j2ee.statistics.Stats</dt></pre></dl>EJB 엔터티 빈에 대한 통계 정보를 나타내며,  <a href="../../../../jeus/management/j2ee/EntityBeanMBean.html"><code>EntityBeanMBean</code></a>에서 이용한다.<br><p>
+         <dl>
+            <dt></dt>
+            <dt><b>See Also:</b><dd><a href="../../../../jeus/management/j2ee/EntityBeanMBean.html"><code>EntityBeanMBean</code></a></dd>
+            </dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.RangeStatistic</code></font></td>
+               <td><code><b><a href="EntityBeanStats.html#getActiveEJBObjectCount()">getActiveEJBObjectCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   총 컨넥션 중에 요청 처리를 위해 client와 빈 인스턴스를 연결하고 있는 컨넥션의 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.RangeStatistic</code></font></td>
+               <td><code><b><a href="EntityBeanStats.html#getActiveThreadCount()">getActiveThreadCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   현재 요청을 처리 중인 쓰레드 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="EntityBeanStats.html#getAutoRemovedEJBObjectCount()">getAutoRemovedEJBObjectCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   명시적으로 remove를 호출해서가 아닌, 설정한 disconnect-timout 시간이 지나 타임아웃으로 삭제된 빈 인스턴스 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.RangeStatistic</code></font></td>
+               <td><code><b><a href="EntityBeanStats.html#getPassiveCount()">getPassiveCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   메모리에서 삭제된(passivated) 빈 인스턴스 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.RangeStatistic</code></font></td>
+               <td><code><b><a href="EntityBeanStats.html#getTotalEJBObjectCount()">getTotalEJBObjectCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   client와 빈 인스턴스를 연결해 주는 컨넥션의 총 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.RangeStatistic</code></font></td>
+               <td><code><b><a href="EntityBeanStats.html#getTotalThreadCount()">getTotalThreadCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   이 빈이 동시에 수행될 수 있는 최대 요청 개수.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_jeus.management.j2ee.statistics.EJBStats"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class jeus.management.j2ee.statistics.<a href="../../../../jeus/management/j2ee/statistics/EJBStats.html">EJBStats</a></b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><a href="../../../../jeus/management/j2ee/statistics/EJBStats.html#getActiveEJBBeanCount()">getActiveEJBBeanCount</a>, <a href="../../../../jeus/management/j2ee/statistics/EJBStats.html#getTotalEJBBeanCount()">getTotalEJBBeanCount</a></code></td>
+            </tr>
+         </table>&nbsp;<a name="methods_inherited_from_class_javax.management.j2ee.statistics.EntityBeanStats"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class javax.management.j2ee.statistics.EntityBeanStats</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>getPooledCount, getReadyCount</code></td>
+            </tr>
+         </table>&nbsp;<a name="methods_inherited_from_class_javax.management.j2ee.statistics.EJBStats"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class javax.management.j2ee.statistics.EJBStats</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>getCreateCount, getRemoveCount</code></td>
+            </tr>
+         </table>&nbsp;<a name="methods_inherited_from_class_javax.management.j2ee.statistics.Stats"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class javax.management.j2ee.statistics.Stats</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>getStatistic, getStatisticNames, getStatistics</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getAutoRemovedEJBObjectCount()"></a><h3>getAutoRemovedEJBObjectCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getAutoRemovedEJBObjectCount</b>()<br></pre><dl>
+            <dd>명시적으로 remove를 호출해서가 아닌, 설정한 disconnect-timout 시간이 지나 타임아웃으로 삭제된 빈 인스턴스 개수.
+               
+               <p> 엔터티 빈의 경우 사용자가 remove를 호출 하지 않아도 disconnect-timeout이 지나면 자동으로 빈 인스턴스를 삭제해 준다.</p>
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>타임아웃으로 삭제된 빈 인스턴스 개수.</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getTotalThreadCount()"></a><h3>getTotalThreadCount</h3><pre>public javax.management.j2ee.statistics.RangeStatistic <b>getTotalThreadCount</b>()<br></pre><dl>
+            <dd>이 빈이 동시에 수행될 수 있는 최대 요청 개수.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>이 EJB에게 할당될 수 있는 최대 쓰레드 개수.</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getActiveThreadCount()"></a><h3>getActiveThreadCount</h3><pre>public javax.management.j2ee.statistics.RangeStatistic <b>getActiveThreadCount</b>()<br></pre><dl>
+            <dd>현재 요청을 처리 중인 쓰레드 개수.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>현재 이 EJB를 실행하고 있는 쓰레드의 개수.</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getTotalEJBObjectCount()"></a><h3>getTotalEJBObjectCount</h3><pre>public javax.management.j2ee.statistics.RangeStatistic <b>getTotalEJBObjectCount</b>()<br></pre><dl>
+            <dd>client와 빈 인스턴스를 연결해 주는 컨넥션의 총 개수.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="getActiveEJBObjectCount()"></a><h3>getActiveEJBObjectCount</h3><pre>public javax.management.j2ee.statistics.RangeStatistic <b>getActiveEJBObjectCount</b>()<br></pre><dl>
+            <dd>총 컨넥션 중에 요청 처리를 위해 client와 빈 인스턴스를 연결하고 있는 컨넥션의 개수.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>사용중인 컨넥션 개수.</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getPassiveCount()"></a><h3>getPassiveCount</h3><pre>public javax.management.j2ee.statistics.RangeStatistic <b>getPassiveCount</b>()<br></pre><dl>
+            <dd>메모리에서 삭제된(passivated) 빈 인스턴스 개수.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>passivation된 빈 인스턴스 개수.</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

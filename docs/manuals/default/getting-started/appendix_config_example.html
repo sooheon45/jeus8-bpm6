@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Appendix C. Windows 서비스 설정</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS 설치 및 시작하기"/><link rel="up" href="index.html" title="JEUS 설치 및 시작하기"/><link rel="prev" href="appendix_ipv6_conf.html" title="Appendix B. IPv6 설정"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">Appendix C. Windows 서비스 설정</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="appendix_ipv6_conf.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> </td></tr></table><hr/></div><div class="appendix" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="appendix_config_example"></a>Appendix C. Windows 서비스 설정</h2></div></div></div>
+  
+
+  <p>본 부록에서는 Windows 서비스를 등록할 때 필요한 파일 설정에 대해 설명한다.</p>
+
+  <div class="literallayout"><p/></div>
+
+  <p/>
+
+  <p>다음은 서비스명이 'jeus'인 경우 Windows 서비스 등록 파일에 대한 예이다(서비스명에 따라 파일명이
+  설정된다).</p>
+
+  <div class="example"><a id="d4e4912"></a><p class="title"><b>[예 C.1] &lt;&lt;jeus.ini&gt;&gt;</b></p><div class="example-contents">
+    
+
+    <pre class="programlisting">[jeus]
+jeus.home=C:\TmaxSoft\JEUS8
+jeus.description=JEUS8 Windows service
+java.home=C:\Java\jdk1.7.0_21
+java.vm.type=hotspot
+java.vm.option=-server
+jeus.nm.classpath=C:\TmaxSoft\JEUS8\lib\system\jeus-nodemanager.jar;
+                  C:\TmaxSoft\JEUS8\lib\system\jeusapi.jar;
+                  C:\TmaxSoft\JEUS8\lib\system\jeusutil.jar;
+                  C:\TmaxSoft\JEUS8\lib\system\jeus-network.jar;
+                  C:\TmaxSoft\JEUS8\lib\system\jmxremote.jar;
+                  C:\TmaxSoft\JEUS8\lib\system\jeusjaxb.jar;
+                  C:\TmaxSoft\JEUS8\lib\system\jmx-description.jar;
+                  C:\TmaxSoft\JEUS8\lib\system\javaee.jar;
+                  C:\TmaxSoft\JEUS8\lib\system\tmaxjce_jdk15x.jar;
+                  C:\TmaxSoft\JEUS8\lib\system\commons-cli.jar
+jeus.nm.boot.param=-domain jeus_domain -server adminServer
+jeus.nm.down.param=-stopServer
+shutdown.previous.nodemanager=true
+-Xmx1024m</pre>
+  </div></div><br class="example-break"/>
+
+  <p/>
+
+  <p/>
+
+  <p/>
+
+  <p>다음은 각 설정 항목에 대한 설명이다. </p><div class="informaltable">
+      <table border="1"><colgroup><col width="200" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">jeus.home</td><td>JEUS가 설치된 디렉터리 경로이다.</td></tr><tr><td align="left">jeus.description</td><td>해당 Windows 서비스에 대한 설명이다.</td></tr><tr><td align="left">java.home</td><td>Java가 설치된 디렉터리 경로이다.</td></tr><tr><td align="left">java.vm.type</td><td><p>Java HotSpot JVM 사용 유무를 설정한다.</p><p>다음 값으로
+            설정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                  <p>hotspot : Java HotSpot JVM을 사용하는 경우 설정하는 옵션이며,
+                  java.vm.option의 -server 옵션으로 동작한다.</p>
+                </li><li style="list-style-type: circle">
+                  <p>old : Java HotSpot JVM을 사용하지 않을 경우에 설정하는 옵션이며,vm 옵션이
+                  들어가지 않는다. vm option이 동작하지 않는 장비는 'old'로 설정해야 한다.</p>
+                </li></ul></div></td></tr><tr><td align="left">java.vm.option</td><td><p>Java HotSpot JVM 사용 유무에 따른 옵션을 설정한다.</p><p>다음
+            값으로 설정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                  <p>HotSpot JVM을 사용할 경우 : -server</p>
+                </li><li style="list-style-type: circle">
+                  <p>HotSpot JVM을 사용하지 않을 경우 :
+                  -Djeus.dispatcher.blocking=true</p>
+                </li></ul></div></td></tr><tr><td align="left">jeus.nm.classpath</td><td>Node Manager를 부팅할 때 필요한 classpath 경로를 설정한다.</td></tr><tr><td align="left">jeus.nm.boot.param</td><td><p>Windows 서비스 시작과 함께 Node Manager가 부팅되는데, 이때 사용할 추가적인
+            옵션을 설정한다.</p><p>현재는 Windows 서비스를 시작과 동시에 JEUS에서 기동할 DAS 서버를
+            설정할 수 있다. 도메인 이름과 서버 이름을 함께 설정한다.</p><p>(예: -domain
+            jeus_domain -server adminServer)</p><p>
+                </p><p>아무런 설정이 없을 때에는 Node Manager만 기동된다.</p><p>
+              </p></td></tr><tr><td align="left">jeus.nm.down.param</td><td><p>Windows 서비스를 종료할 때 사용되는 추가적인 옵션을
+            설정한다.</p><p>현재는 Windows 서비스 종료와 함께 JEUS를 종료하는 옵션을 설정 할 수
+            있다.</p><p>(예: -stopServer)</p></td></tr><tr><td align="left">shutdown.previous.nodemanager</td><td><p>Windows 서비스를 시작할 때 기존에 실행 되 있던 JEUS를 종료하고 Windows
+            서비스를 실행할지 여부를 설정한다.</p><p> false로 설정되어 있다면 이미 JEUS가 실행되고 있는
+            상태에서 Windows 서비스를 시작할 수 없다. </p></td></tr></tbody></table>
+    </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="appendix_ipv6_conf.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">Appendix B. IPv6 설정 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div><div xmlns="" align="center"/></body></html>

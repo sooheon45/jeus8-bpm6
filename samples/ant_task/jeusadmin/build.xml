@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="check-server-state-example" default="check-server-state">
+    <property environment="env"/>
+    <property name="jeus.home" value="${env.JEUS_HOME}"/>
+    <property name="jeus.home.bin" value="${jeus.home}/bin"/>
+    <property name="unix.jeusadmin" value="${jeus.home.bin}/jeusadmin"/>
+    <property name="windows.jeusadmin" value="${jeus.home.bin}/jeusadmin.cmd"/>
+    <property name="jeusadmin.args" value="-u jeus -p jeus -host localhost -port 9736 -verbose"/>
+    <property name="server.name" value="adminServer"/>
+    <property name="cmd.target" value="server-info -server ${server.name} -state"/>
+    
+    <condition property="isWindows">
+        <os family="windows"/>
+    </condition>
+    <condition property="isUnix">
+        <os family="unix"/>
+    </condition>
+    
+    <target name="check-server-state">
+        <antcall target="check-server-state-unix"/>
+        <antcall target="check-server-state-windows"/>
+    </target>
+    
+    <target name="check-server-state-windows" if="isWindows">
+        <echo>${windows.jeusadmin} ${jeusadmin.args} ${cmd.target}</echo>
+        <exec executable="${windows.jeusadmin}" osfamily="windows" spawn="false" failonerror="true">
+            <arg line="${jeusadmin.args}"/>
+            <arg value="${cmd.target}"/>
+        </exec>         
+    </target>
+    
+    <target name="check-server-state-unix" if="isUnix">
+        <echo>${unix.jeusadmin} ${jeusadmin.args} ${cmd.target}</echo>
+        <exec executable="${unix.jeusadmin}" osfamily="unix" spawn="false" failonerror="true">
+            <arg line="${jeusadmin.args}"/>
+            <arg value="${cmd.target}"/>
+        </exec>
+    </target>
+</project>

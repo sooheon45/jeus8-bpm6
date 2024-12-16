@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제1장 보안 시스템 소개</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Security 안내서"/><link rel="up" href="index.html" title="JEUS Security 안내서"/><link rel="prev" href="about.html" title="안내서에 대하여"/><link rel="next" href="chapter_security_system_setup.html" title="제2장 보안 시스템 설정"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제1장 보안 시스템 소개</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_security_system_setup.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_security_system_synopsis"></a>제1장 보안 시스템 소개</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_security_system_synopsis.html#d4e437">1.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_security_system_synopsis.html#d4e464">1.2. 주요 특징</a></span></dt><dt><span class="section"><a href="chapter_security_system_synopsis.html#d4e496">1.3. 시스템 구조</a></span></dt><dt><span class="section"><a href="chapter_security_system_synopsis.html#d4e542">1.4. 주요 개념</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_security_system_synopsis.html#sect_login_concept">1.4.1. 로그인</a></span></dt><dt><span class="section"><a href="chapter_security_system_synopsis.html#sect_certification">1.4.2. 인증</a></span></dt><dt><span class="section"><a href="chapter_security_system_synopsis.html#sect_authority">1.4.3. 권한 체크(부여)</a></span></dt><dt><span class="section"><a href="chapter_security_system_synopsis.html#sect_security_inspection">1.4.4. 보안 감사</a></span></dt><dt><span class="section"><a href="chapter_security_system_synopsis.html#sect_service_spi">1.4.5. 서비스와 SPI</a></span></dt><dt><span class="section"><a href="chapter_security_system_synopsis.html#sect_domain_concept">1.4.6. 도메인</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_security_system_synopsis.html#d4e920">1.5. 성능 향상과 수준 향상</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_security_system_synopsis.html#d4e923">1.5.1. 성능 향상</a></span></dt><dt><span class="section"><a href="chapter_security_system_synopsis.html#d4e952">1.5.2. 수준 향상</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 보안 시스템에 대한 소개와 주요 특징, 구조에 대해 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e437"></a>1.1. 개요</h2></div></div></div>
+    
+
+    <p>일상 생활에서 보안이라는 개념은 중요한 무엇인가가 외부 또는 내부로부터의 침입이나 훼손 등의 우려가 있을 때에 이를
+    차단하고 예방하기 위해서 사용된다. 이러한 보안의 개념은 컴퓨터를 사용하거나 엔터프라이즈 환경에서 사용자들의 정보를 다루고 서비스를
+    제공하는 데에도 유사하게 적용될 수 있다.</p>
+
+    <p>이때 보안의 대상이 되는 것은 사용자들의 이름과 비밀번호, 주소 등의 개인적인 정보와 함께 서비스를 제공하거나 시스템을
+    동작시키는 리소스로 볼 수 있으며, 각각의 시스템에서는 중요한 정보와 시스템의 리소스를 보호하기 위해서 보안 관련 소프트웨어를
+    사용하거나 하드웨어적인 보안 시스템을 구축하게 된다.</p>
+
+    <p>JEUS의 보안 서비스는 기본적으로 SPI(Service Provider Interface)에 근거하여 서비스되고 있으며,
+    JEUS에 등록된 리소스와 사용자의 정보를 보호하기 위해서 다양한 보안 서비스를 제공한다.</p>
+
+    <p>본 안내서는 JEUS 보안 구조와 보안 정보 관리에 대한 일반적인 정보에 대해 자세히 설명하고 있다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JEUS 보안 시스템은 다음의 목표를 두고 설계되었다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>유연하고 교체하기 쉬운 프레임워크여야 한다.</p>
+
+          <p>기존의 3rd-party 보안 메커니즘을 장착한 보안 시스템과 효율적으로 통합되고, 다양한 데이터 스토리지를
+          지원해야 한다.</p>
+        </li><li>
+          <p>기밀성이 유지되어야 한다.</p>
+
+          <p>뛰어난 해커가 좋지 않은 의도를 가지고 보안 시스템 소스를 디컴파일해도 권한이 없는 시스템에는 결코 접근할 수
+          없어야 한다.</p>
+        </li><li>
+          <p>성능에 무리가 없어야 한다.</p>
+
+          <p>시스템과 애플리케이션 코드에 보안 시스템이 관여해도 전체 성능에는 최소한의 영향만 미쳐야 한다. 일반적으로
+          보안이 강화될수록 성능이 떨어지는 경향이 있다. 최대한의 보안 기능을 제공하면서 가능한 한 빨리 처리할 수 있어야
+          한다.</p>
+        </li><li>
+          <p>유지 보수를 쉽게 하고 3rd-party 보안 서비스를 쉽게 생성하기 위해 간결하고 명료한 API와 SPI가
+          제공되어야 한다.</p>
+        </li><li>
+          <p>데이터의 내용이 보전되고 무결성이 보장되어야 한다.</p>
+        </li><li>
+          <p>표준을 준수해야 한다.</p>
+        </li></ul></div>
+
+    <p>JEUS 보안 시스템은 위에서 언급한 설계상의 목적을 상당히 충족하고 있다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e464"></a>1.2. 주요 특징</h2></div></div></div>
+    
+
+    <p>JEUS 보안 시스템의 주요 특징은 다음과 같다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>공개된 아키텍처와 유연한 프레임워크를 가지고 있어서 기존에 사용 중인 3rd-party 보안 시스템과 효과적으로
+          통합할 수 있다.</p>
+        </li><li>
+          <p>동적인 Principal-to-Role, Role-to-Resource 매핑을 지원한다.</p>
+
+          <p>동적인 매핑은 실제 권한 부여 매핑(Principal-to-Role, Role-to-Resource 매핑)이
+          런타임에 적용된다는 것을 의미한다.</p>
+
+          <p>이는 다음과 같은 보안 정책을 가능하게 한다.</p>
+
+          <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+              <p>사용자 U는 월요일부터 금요일까지 업무시간인 9시부터 5시까지 R이란 Role을 부여받는다.</p>
+            </li><li>
+              <p>모든 사람이 R이란 Role을 부여받는다.</p>
+            </li><li>
+              <p>아무도 R이란 Role을 부여받을 수 없다</p>
+            </li></ul></div>
+        </li><li>
+          <p>보안 도메인(이하 도메인) 개념을 지원한다. 이는 서로 다른 J2EE 애플리케이션들이 각각의 특성에 맞는 별도의
+          보안 서비스를 이용할 수 있게 한다.</p>
+
+          <p>JEUS 시스템에서의 도메인과 보안 도메인은 서로 다른 개념이므로 혼동하지 않도록 주의한다. 시스템에서의
+          도메인은 서버 관리 단위를 의미하고, 보안 도메인은 보안 관리 단위를 의미한다.</p>
+        </li><li>
+          <p>인증, 권한 부여, Repositories, 감사, 클러스터링 등과 같은 중요한 보안 기능에 대한 디폴트 구현을
+          제공한다.</p>
+        </li><li>
+          <p>유연한 이벤트 핸들링 모델을 통한 보안 감사 메커니즘을 지원한다.</p>
+        </li><li>
+          <p>서블릿, EJB, 애플리케이션 소스 코드 내에 직접 보안 기능을 추가할 수 있다. 이는 Subject와
+          Policy를 추가하는 것과 같은 단순한 보안 기능에 한해 가능하다.</p>
+        </li><li>
+          <p>JDK 7과 JACC 1.5 스펙을 완벽히 지원한다.</p>
+        </li><li>
+          <p>본 안내서와 추가적인 JavaDoc을 통해 문서화를 충분히 지원하고 있다.</p>
+        </li><li>
+          <p>다른 JEUS 모듈과 독립적이다. 따라서, JEUS 시스템에서 보안 시스템만 따로 분리하여 다른 context에
+          적용하기가 상대적으로 쉽다.</p>
+        </li></ul></div>
+  </div>
+
+  
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e496"></a>1.3. 시스템 구조</h2></div></div></div>
+    
+
+    <p>다음은 보안 시스템의 기본 아키텍처이다. </p><div class="figure"><a id="figure_security_system_structure"></a><p class="title"><b>[그림 1.1] 보안 시스템 구조</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_security_system_structure.png" align="top" width="711" alt="보안 시스템 구조"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p/>
+
+    <p>위의 그림에서 주요 컴포넌트(Package)는 다음과 같다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.spi<a id="d4e509" class="indexterm"></a></p>
+
+        <p>보안 시스템의 가장 핵심 부분인 보안 SPI 클래스로 중앙에 큰 박스로 구분되어 있다. 이 추상 클래스들에는
+        3rd-party 제품에서 구현해야 하는 추상 메소드뿐 아니라 JEUS 컨테이너를 포함한 사용자 코드에서 호출하는 메소드들도
+        포함되어 있다.</p>
+
+        <p>현재 11개의 사용 가능한 SPI 클래스가 있으며, 각각은 인증, 권한 부여와 같은 보안의 핵심적인 기능을 담당하고
+        있다.</p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.base<a id="d4e516" class="indexterm"></a></p>
+
+        <p>왼쪽의 작은 박스로 구분되어 있으며 보안 SPI 가 참조하는 인터페이스와 구현 클래스가 포함되어 있다. 이
+        패키지에서 중요한 2가지 클래스는 Subject와 Policy이다.</p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.impl.*<a id="d4e522" class="indexterm"></a></p>
+
+        <p>아래쪽 가운데 박스로 구분되어 있으며 JEUS에서 제공하는 SPI 클래스의 디폴트 구현 클래스가 포함되어 있다.
+        디폴트 구현 클래스는 현재 XML 파일 Repository와 JACC Provider를 지원하고 있다.</p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.admin, jeus.security.container<a id="d4e528" class="indexterm"></a><a id="d4e530" class="indexterm"></a></p>
+
+        <p>위쪽 가운데 있는 박스로 구분되어 있으며 SPI 클래스를 호출하는 코드를 포함하고 있다.</p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>Repository와 외부 보안 메커니즘<a id="d4e536" class="indexterm"></a></p>
+
+        <p>그림의 가장 하단에 있는 것은 Repository와 외부 보안 메커니즘을 나타내고 있다.</p>
+
+        <p>Repository로는 데이터베이스, LDAP 서버, XML 파일이 있다. Repository는 Subject와
+        Policy와 같은 보안 요소들을 영구적으로 저장할 때 사용된다.</p>
+
+        <p>외부 보안 메커니즘은 인증 또는 권한 부여가 실행되는 메커니즘을 의미한다. 외부 보안 메커니즘의 대표적인 예는
+        JACC Provider이다. 일반적으로 Repository와 보안 메커니즘 사이의 경계를 명확히 나누기는 힘들다. SPI
+        구현 클래스(여기서는 jeus.security.impl.* 패키지에 포함된 클래스)가 실제 어떤 Repository와 보안
+        메커니즘을 적용할지 결정한다.</p>
+      </li></ul></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e542"></a>1.4. 주요 개념</h2></div></div></div>
+    
+
+    <p>본 절에서는 보안 시스템을 이해하는 데 필수적인 보안 시스템 아키텍처와 관련된 중요한 개념에 대해 설명한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><a href="chapter_security_system_synopsis.html#sect_login_concept" title="1.4.1. 로그인">로그인</a></p>
+        </li><li>
+          <p><a href="chapter_security_system_synopsis.html#sect_certification" title="1.4.2. 인증">인증</a></p>
+        </li><li>
+          <p><a href="chapter_security_system_synopsis.html#sect_authority" title="1.4.3. 권한 체크(부여)">권한 체크(부여)</a></p>
+        </li><li>
+          <p><a href="chapter_security_system_synopsis.html#sect_security_inspection" title="1.4.4. 보안 감사">보안 감사</a></p>
+        </li><li>
+          <p><a href="chapter_security_system_synopsis.html#sect_service_spi" title="1.4.5. 서비스와 SPI">서비스와 SPI</a></p>
+        </li><li>
+          <p><a href="chapter_security_system_synopsis.html#sect_domain_concept" title="1.4.6. 도메인">도메인</a></p>
+        </li></ul></div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_login_concept"></a>1.4.1. 로그인<a id="d4e567" class="indexterm"></a></h3></div></div></div>
+      
+
+      <p>JEUS 보안 시스템에서 로그인은 Subject를 실행 Thread(Java Thread)에 결합시키는 것을 의미한다.
+      이 개념은 인증과는 다르다. 일반적으로 Subject가 실행 Thread와 결합되기 전에 인증이 일어난다. 만약 성공적으로
+      인증되면 로그인은 정상적으로 진행되어 Subject와 Thread가 결합하게 되지만, 인증에 실패하면 로그인은 더 이상 진행되지
+      않는다.</p>
+
+      <p>Subject가 성공적으로 로그인한 후에 로그인된 Subject를 대상으로 권한 체크가 이루어진다. 따라서, 로그인은
+      인증과 권한 체크, 양쪽 모두에 걸쳐있다고 할 수 있다. 로그인의 반대 개념은 로그아웃으로 현재 Subject를 실행
+      Thread로부터 분리하는 과정이다.</p>
+
+      <p>로그인 이면에는 다음과 같은 Stack 기반 오퍼레이션이 있다. 여러 개의 서로 다른 Subject로 로그인했을 경우
+      최근에 로그인한 Subject부터 Stack의 최상단에 쌓인다. 그 후 권한 체크에는 Stack의 최상단에 놓인
+      Subject(가장 최근에 로그인한 Subject)를 사용한다. 이 Subject가 로그아웃하고 나면, Stack으로부터 제거되고
+      바로 직전에 로그인한 Subject가 Export되어 활성화된다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 이 메커니즘에 대한 설명이다. </p><div class="figure"><a id="figure_stack_login_base_mechanism"></a><p class="title"><b>[그림 1.2] Stack 기반의 로그인 메커니즘</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="616"><tr><td align="left"><img src="resources/figure_stack_login_base_mechanism.png" align="top" width="616" alt="Stack 기반의 로그인 메커니즘"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>JEUS 보안 시스템에서 Java Thread마다 하나의 로그인 Stack을 가질 수 있다. 이전의 보안 아키텍처와
+      유사하게 로그인 메커니즘은 jeus.security.impl.login.CommonLoginService에 의해
+      구현된다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_certification"></a>1.4.2. 인증</h3></div></div></div>
+      
+
+      <p>인증은 호출자의 신원을 파악하는 작업으로 이는 이후 권한을 체크할 때 사용된다. <a id="d4e585" class="indexterm"></a></p>
+
+      <p>JEUS 보안 시스템에서 신원은 java.security.Principal 인터페이스로 정의한 Principal을
+      의미한다. Subject는 이러한 Principal들을 속성값으로 저장하고 있다. Subject는
+      jeus.security.base.Subject 클래스를 의미하며, 로그인할 때 실행 Thread와 결합하는 주체이기도 하다.
+      Subject는 항상 Principals과 Credentials을 보안 속성으로 포함하고 있다. <a id="d4e588" class="indexterm"></a></p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>JEUS 보안 시스템에서의 Subject는 javax.security.auth.Subject 클래스가 정의하는
+          JAAS의 Subject와는 다른 것이다. 그러나 이 두 클래스는 많은 공통점이 있어서 한 쪽에서 다른 쪽으로 전환하는
+          것이 가능하고, 일부 정보를 잃더라도 Alias로 지칭될 수 있다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      
+
+      <p>JEUS Subject는 UML로 다음과 같이 표기할 수 있다. </p><div class="figure"><a id="figure_Subject_UML_diagram"></a><p class="title"><b>[그림 1.3] Subject UML 다이어그램</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="521"><tr><td align="left"><img src="resources/figure_subject_uml_diagram.png" align="top" width="521" alt="Subject UML 다이어그램"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/>Subject는 유일한 ID인 메인 Principal을 가지고 있다. 또한 메인 Principal 외의 여러
+      개의 부가적인 Principal을 가질 수 있는데, 이러한 부가적인 Principal들은 다른 Subject와 공유할 수
+      있다(따라서, 부가적인 Principal을 그룹 Principal이라고도 한다).</p>
+
+      <p>Subject는 또한 public 또는 private credentials을 가질 수 있다. Credential은 보통
+      Subject의 신원을 확인하거나, 특정 정보를 전달하려는 목적으로 사용되는 증빙 자료이다. 대표적인 private
+      credential은 패스워드가 있고, public credential은 디지털 인증서가 있다.<a id="d4e603" class="indexterm"></a></p>
+
+      <p><a id="d4e606" class="indexterm"></a>Subject는 소위 CredentialFactory를 사용하여 Credential들을 생성한다.
+      Subject의 refresh()라는 메소드가 실제 CredentialFactory로부터 Credential을 얻어 와서, 이를
+      public 또는 private credential set에 추가한다.</p>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>Subject는 반드시 하나의 도메인에 속해야 한다는 것에 주의한다. 도메인 A에 속하는 Principal
+          "user1"은 도메인 B에 속하는 Principal "user1"과는 별개의 것이다.</p>
+        </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_authority"></a>1.4.3. 권한 체크(부여)</h3></div></div></div>
+      
+
+      <p><a id="d4e614" class="indexterm"></a>JEUS 보안 시스템에서 권한 체크는 이미 성공적으로 인증된 Subject가 특정 액션을 실행시킬 권한이
+      있는지 여부를 확인하는 것이다.</p>
+
+      <p>권한 체크는 보통 시스템 레벨에서 일어난다. 특정 Subject(보통 administrators)가 JEUS 서버를
+      기동 또는 종료시킬 권한을 가지고 있는지 여부를 체크하는 것이다. 또한 권한 체크는 애플리케이션 레벨에서도 일어난다. 원격지
+      호출자가 특정 애플리케이션 컴포넌트(특정 EJB 메소드의 실행, 특정 Servlet 호출)에 접근할 수 있는지 여부를 JEUS
+      엔진에서 확인하는 것은 여기에 해당한다.</p>
+
+      <p>J2EE에서와 마찬가지로 JEUS 보안 시스템에서 권한 부여는 Role-Based 메커니즘이다. 즉, J2EE
+      애플리케이션 Assembler 또는 개발자가 Role에 따라 보안 설정(security restriction)을 하면 시스템
+      관리자가 애플리케이션을 deploy하면서 실제 시스템의 Principal을 논리적인 Role에 매핑한다.<a id="d4e618" class="indexterm"></a></p>
+
+      <p/>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>Role-Based 접근방법은 J2EE 애플리케이션에서 뿐만 아니라 JEUS 시스템과 관련된 권한 체크에도
+          사용된다는 것에 주의한다.</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p><a id="d4e628" class="indexterm"></a>더 나아가 JEUS 보안 시스템에서 개개의 권한 매핑을 Permission(실제
+      java.security.Permission의 서브 클래스)이라 한다. 예를 들어 Principal "user1"은 "R"이라
+      불리는 Role에 접근할 수 있는 RolePermission을 가지고 있다고 가정한다(이를 "user1"은 Role "R"에
+      포함되어 있다고 한다).</p>
+
+      <p>그리고 Role "R"은 Resource "jndi" 리소스에 접근해 Action "lookup"을 실행할 수 있는
+      Resource Permission을 가지고 있다고 가정한다.</p>
+
+      <p>다음은 이러한 개념에 대한 설명이다.</p>
+
+      <div class="figure"><a id="figure_Role_base_Permission_check"></a><p class="title"><b>[그림 1.4] Role 기반 Permission 체크</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="625"><tr><td align="left"><img src="resources/figure_role_base_permission_check.png" align="top" width="625" alt="Role 기반 Permission 체크"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>위 그림에서 보듯이 Principal과 Role만이 실제 물리적 실체로서 모델링된다. 그림에서 리소스를 감싸고 있는
+      원은 점선으로 표시되어 있는데, 리소스는 실제 권한 부여 시스템에서 물리적으로 모델링되는 부분이 아닌 암시되는 부분이기
+      때문이다.</p>
+
+      <p>“RolePermission”과 “ResourcePermission”은 실제로는 각각
+      jeus.security.resource.RolePermission 클래스와
+      jeus.security.resource.ResourcePermission 클래스의 인스턴스를 나타낸다. 이 두 클래스는
+      java.security.Permission 추상 클래스로부터 확장된 대표적인 클래스들로 이들 외에도 다양한 Permission
+      클래스의 서브 클래스들이 있다.</p>
+
+      <p>다시 한 번 정리하면, Principal은 여러 개의 RolePermission을 가지고 있고 각
+      RolePermission은 특정 Role이 Principal을 포함하는 것을 허용한다. 다시 Role도 여러 개의
+      ResourcePermission을 가지고 있는데, 각 ResourcePermission은 해당 Role이 특정 리소스들에 대해
+      특정 액션들을 취할 수 있도록 허락한다. 따라서 Principal-Role-Resource를 연결해서 생각해 보면, 어떤
+      Principal이 특정 리소스에 대한 특정 액션을 실행할 수 있을지 여부를 판단할 수 있다.</p>
+
+      <p>위의 그림에서 Principal "user1"은 실선으로 RolePermission을 소유하고 있다(owns)라고
+      표시되어 있다. 그러나 RolePermission은 대각선으로 Role "R"을 암시하고 있다(implies)고 표시되어 있다.
+      "암시하다"라는 말은 둘 사이의 관계가 정적이지 않다는 뜻으로 때때로 매핑될 수도 있고, 그렇지 않을 수도 있음을 말한다. 즉,
+      런타임에 RolePermission이 해당 Role을 암시할지 여부는 동적으로 결정된다는 의미이다.</p>
+
+      <p>실제로 RolePermission의 implies(Permission p) 메소드에 의해 결정되는데 implies()
+      메소드가 true를 리턴하면 RolePermission이 Role "R"을 암시하고, false를 리턴하면 암시하지 않는다.
+      따라서 전자의 경우에는 Principal "user1"이 Role "R"에 포함되지만, 후자의 경우에는 포함되지 않는다. 같은
+      논리가 Role "R"과 Resource "jndi" 사이에도 성립된다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>Permission에 대한 자세한 내용은 J2SE JavaDoc에서 java.security.Permission
+          부분을 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>위의 정보를 바탕으로 동적인 매핑을 구현하기란 실제 어려운 일이 아니다. 단지 implies() 메소드의 구현을
+      변경하면, 특정 조건하에서만 Permission이 Role 또는 Resource를 암시하도록 만들 수 있다. 예를 들어 동적인
+      매핑을 이용해서 Principal "user1"이 업무 시간(9시부터 5시) 동안만 Role "R"에 포함되게 구현할 수 있다.
+      이는 새로운 RolePermission 서브 클래스(이하 TimeConstrainedRolePermisson)를 생성하고,
+      implies() 메소드 내에서 시간 제약과 관련된 코드만 작성하면 된다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>예로 <a href="chapter_security_system_synopsis.html#figure_AM_1h_30m_Role" title="[그림 1.5] 오전 1시 30분의 Role">[그림 1.5]</a>와 <a href="chapter_security_system_synopsis.html#figure_AM_10h_30m_Role" title="[그림 1.6] 오전 10시 30분의 Role">[그림 1.6]</a>을 보기 바란다.</p>
+
+      <div class="figure"><a id="figure_AM_1h_30m_Role"></a><p class="title"><b>[그림 1.5] 오전 1시 30분의 Role</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="568"><tr><td align="left"><img src="resources/figure_am_1h_30m_role.png" align="top" width="568" alt="오전 1시 30분의 Role"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p><a href="chapter_security_system_synopsis.html#figure_AM_1h_30m_Role" title="[그림 1.5] 오전 1시 30분의 Role">[그림 1.5]</a>에서 보듯이 오전 1시 30분에는
+      Principal "user1"은 Role "R"의 권한이 없다.</p>
+
+      <div class="figure"><a id="figure_AM_10h_30m_Role"></a><p class="title"><b>[그림 1.6] 오전 10시 30분의 Role</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="568"><tr><td align="left"><img src="resources/figure_am_10h_30m_role.png" align="top" width="568" alt="오전 10시 30분의 Role"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p><a id="d4e670" class="indexterm"></a>TimeConstrainedRolePermission은 두 가지 값인 Name과 Actions를 가지고
+      있다. Name은 Target Role의 이름인 "R"이고, Actions는 유효한 시간(9시부터 5시까지)을 나타내고 있다.
+      Name과 Actions는 대부분의 java.security.Permission 구현 클래스의 변수들로 선언된다.</p>
+
+      <p>기본적인 Permission-Based 매핑과는 별도로 권한 부여 시스템에서 모든 Permission은 다음 3가지
+      카테고리 중에 하나에 속한다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">Excluded Permission<a id="d4e684" class="indexterm"></a></td><td><p>누구도 해당 Permission에 대한 허가를 가질 수 없다.
+                </p><p>예로 Resource "RSC"에 대한 접근을 Excluded Permission으로
+                설정했다면, 아무도 Resource "RSC"에 접근할 수 없게 된다. </p><p>Excluded
+                Permission은 Unchecked Permission보다 우선순위가 높다.</p></td></tr><tr><td align="left">Unchecked Permission<a id="d4e692" class="indexterm"></a></td><td><p>누구나 해당 Permission에 대한 허가를 가질 수 있다.
+                </p><p>예로 Resource "RSC"에 대해 Unchecked Permission이 설정되어
+                있다면, Role에 상관없이 누구나 Resource "RSC"에 접근할 수 있게 된다.
+                </p><p>Unchecked Permission은 Excluded Permission보다 낮은
+                우선순위를 가지나, Checked Permission보다 높은 우선순위를 가진다.</p></td></tr><tr><td align="left">Checked Permission<a id="d4e700" class="indexterm"></a></td><td>특정 Principal이나 Role에만 허가된 Permission으로 지금까지 계속 설명한
+                Permission이 여기에 해당한다.</td></tr></tbody></table>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>이에 대한 몇 가지 예제들은 다음에 더 살펴본다.</p>
+
+      <p>JEUS 보안 시스템에서 모든 Permission 매핑들은 jeus.security.base.PermissionMap
+      클래스를 구현한 클래스이다. PermissionMap 클래스는 다시 jeus.security.base.Policy 클래스에
+      포함된다.<a id="d4e707" class="indexterm"></a></p>
+
+      <p>Policy는 2가지 종류의 PermissionMap을 가지고 있다.<a id="d4e710" class="indexterm"></a></p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Principal-to-Role Map(Role Policy0)</p>
+        </li><li>
+          <p>Role-to-Resource Map(Resource Policy)</p>
+        </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>이들은 각각 Principal-to-Role 매핑과 Role-to-Resource 매핑을 나타낸다. 각
+      PermissionMap은 다시 위에서 언급한 3가지 종류(Excluded, Unchecked, Ckecked)의
+      Permission들을 포함하고 있다. Checked Permission의 경우 Permission과
+      RolePermissionMap은 Principal이나 Role을 매개로 결합되어 있고, Policy와
+      ResourcePermissionMap은 Context ID(권한 체크가 일어나는 범위를 나타낸다)를 통해 결합되어
+      있다.</p>
+
+      <p>다음은 Policy와 PermissionMap의 UML 다이어그램을 나타낸다.<a id="d4e721" class="indexterm"></a></p>
+
+      <div class="figure"><a id="figure_Policy-to-PermissionMap_UML_diagram"></a><p class="title"><b>[그림 1.7] Policy와 PermissionMap의 UML 다이어그램<a id="d4e726" class="indexterm"></a></b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><img src="resources/figure_policy-to-permissionmap_uml_diagram.png" align="top" alt="Policy와 PermissionMap의 UML 다이어그램 PermissionMap"/></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p/>
+
+      <p>이상에서 언급한 내용이 다음 그림에 요약되어 있다.</p>
+
+      <div class="figure"><a id="d4e734"></a><p class="title"><b>[그림 1.8] 하나의 Principal-to-Role Map과 2개의 Role-to-Resource을 가진 Policy
+        예제</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_policy_example_about_principal-role_map_and_role-resource_map.png" align="top" width="711" alt="하나의 Principal-to-Role Map과 2개의 Role-to-Resource을 가진 Policy 예제"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p>해당 Policy는 하나의 Principal-to-Role Map(필수 사항)과 각각의 Context ID가 "A"와
+      "B"인 2개의 Role-to-Resource Map을 포함하고 있다. 3가지 PermissionMap은 다음과 같은
+      Permission set을 가지고 있다.<a id="d4e740" class="indexterm"></a></p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>Excluded Permissions<a id="d4e745" class="indexterm"></a></p>
+        </li><li>
+          <p>Unchecked Permissions<a id="d4e750" class="indexterm"></a></p>
+        </li><li>
+          <p>Checked Permissions<a id="d4e755" class="indexterm"></a></p>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>박스 내의 타원은 Name과 Action을 가진 실제 Permission 인스턴스(Name: Action)를 나타내고
+      있다.</p>
+
+      <p>Context ID가 "A"이고, Principal이 "user1"인 Subject가 "JNDI"에 접근해서
+      "modify"라는 액션을 실행하고 싶다고 가정했을 때 과연 "user1"은 원하는 액션을 실행할 수 있을까?</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>권한 부여 시스템은 이 요구사항을 다음과 같은 방식으로 풀어나간다.</p><div class="orderedlist"><ol type="1"><li>
+            <p>이름이 "JNDI"이고 액션이 "modify"인 새로운 ResourcePermission(RSP)을
+            생성한다.</p>
+          </li><li>
+            <p>RSP는 Context ID "A"와 Principal "user1"과 함께 Policy에
+            넘겨진다.</p>
+          </li><li>
+            <p>Context ID "A"에 대한 Role-to-ResourcePermissionMap이 Policy에서
+            선택된다.<a id="d4e772" class="indexterm"></a></p>
+          </li><li>
+            <p>Policy는 PermissionMap "A"의 Excluded Permission에 RSP가 포함되는지
+            체크한다. 체크 결과 RSP는 Excluded Permission이 아니다.</p>
+          </li><li>
+            <p>Policy는 PermissionMap "A"의 Unchecked Permission에 RSP가 포함되는지
+            체크한다. 체크 결과 RSP는Unchecked Permission이 아니다.</p>
+          </li><li>
+            <p>Policy는 PermissionMap "A"의 Checked Permission에 RSP가 포함되는지
+            체크한다. 체크 결과 RSP는 Checked Permission 중에 하나이다.</p>
+          </li><li>
+            <p>Policy는 RSP를 암시하는 Permission의 소유자를 알아낸다. "Administrator"라
+            불리는 Role이 바로 소유자이다.</p>
+          </li><li>
+            <p>Policy는 "Administrator"라는 이름을 가진 RolePermission(RLP)을
+            생성한다.</p>
+          </li><li>
+            <p>Policy는 Principal-to-RolePermissionMap을 꺼내온다.<a id="d4e786" class="indexterm"></a></p>
+          </li><li>
+            <p>Policy는 Principal-to-RolePermission의 Excluded Permission에
+            포함되는지 체크한다. 체크 결과 RLP는 Excluded Permission이다.</p>
+          </li><li>
+            <p>Policy는 "Administrator"라는 Role이 Excluded Permission이므로 누구도
+            접근할 수 없다는 결론을 내릴 수 있다. 따라서, 전체 권한 체크 과정은 종결되고, "DENIED"라는 결과가
+            리턴된다.</p>
+          </li></ol></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>"user1"이 "Administrator" Role에 매핑되어 있지만, "Administrator"
+      RolePermission이 Excluded Permission이므로 "user1"을 포함한 누구도 "Administrator"
+      Role에 접근할 수 없게 된다. 이는 Excluded Permission이 Unchecked Permission과 Checked
+      Permission보다 우선순위가 높기 때문이다.</p>
+
+      <p>위에서 설명한 대로 차근 차근 과정을 따라가 보면 다음 권한 체크 질의가 어떻게 풀릴지 알 수 있을
+      것이다.</p><div class="informaltable"><a id="table_example_about_diverse_authority_check_query_and_result"></a>
+          <table border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th>Principal</th><th>Operation</th><th>Context</th><th>Outcome</th></tr></thead><tbody><tr><td>user1</td><td>JNDI:lookup</td><td>A</td><td>GRANTED</td></tr><tr><td>user1</td><td>JNDI:modify</td><td>A</td><td>DENIED</td></tr><tr><td>user1</td><td>JEUS:boot</td><td>A</td><td>DENIED</td></tr><tr><td>user1</td><td>JEUS:boot</td><td>B</td><td>GRANTED</td></tr><tr><td>Anonymous</td><td>JNDI:lookup</td><td>A</td><td>GRANTED</td></tr><tr><td>Anonymous</td><td>JNDI:lookup</td><td>B</td><td>DENIED</td></tr><tr><td>Anonymous</td><td>JEUS:boot</td><td>A</td><td>DENIED</td></tr><tr><td>Anonymous</td><td>JEUS:boot</td><td>B</td><td>DENIED</td></tr></tbody></table>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_security_inspection"></a>1.4.4. 보안 감사</h3></div></div></div>
+      
+
+      <p><a id="d4e852" class="indexterm"></a>보안 감사는 일반적으로 보안과 관련된 이벤트(인증 실패, 런타임 예외 발생)를 포착하여 적절히
+      처리함으로써 전반적인 보안 품질을 향상시키는 것이다.</p>
+
+      <p>JEUS 보안 시스템은 보안 이벤트를 기반으로 하는 단순하지만 유연한 보안 감사 메커니즘을 특징으로 한다. 주요한
+      이벤트가 발생할 때마다(인증 실패, 권한 부여 실패, 관심도가 높은 기타 이벤트) 이벤트는 미리 등록된 이벤트 핸들러에 포착된다.
+      커스텀 핸들러 구현 클래스는 이에 적절하게 대응한다.</p>
+
+      <p>예를 들어 한 번에 연속적으로 너무 많이 인증에 실패할 경우 해당 Subject의 Credential에 Lock을
+      걸도록 할 수 있다.</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_service_spi"></a>1.4.5. 서비스와 SPI</h3></div></div></div>
+      
+
+      <p>보안 시스템에서 실제 보안 기능을 구현하고 있는 클래스를 서비스라고 한다. 즉, 서비스는 특정 보안 기능(인증, 권한
+      부여, 네트워킹, 기타)을 제공하는 SPI를 구현한 클래스이다.</p>
+
+      <p>SPI는 jeus.security.spi 패키지에 포함되어 있는 추상 클래스이다. 커스텀 보안 기능을 구현하기 위해
+      SPI 클래스를 다양하게 확장하고 구현할 수 있다. SPI를 확장한 서브 클래스가 바로 서비스이다.<a id="d4e860" class="indexterm"></a><a id="d4e862" class="indexterm"></a></p>
+
+      <p>보안 시스템에서 서비스 인스턴스는 각각이 특정 보안 기능을 제공하는 독립적인 실체로 간주된다. 그러나 종종 서비스는
+      다른 SPI를 호출하기도 하기 때문에 서비스 간의 어느 정도 의존성은 존재한다. 서비스를 초기화하기 위해 모든 서비스는
+      "key-value"로 이루어진 한 쌍의 속성값을 전달받는다. 이러한 데이터는 설정 파일을 사용해서 저장해둘 수도
+      있다.</p>
+
+      <p>모든 서비스는 선택사항으로 JEUS 관리 시스템에 보고할 JMX Bean을 정의하기도 한다. JMX MBean은 보통
+      Service.getMBeanInfo() 메소드로부터 리턴받은 MBeanInfo를 기반으로 생성된다.</p>
+
+      <p>또한 모든 서비스는 생성(created)과 소멸(destroyed) 상태를 가지고 있다 . 이 두 상태 간의 전이는
+      create()와 destroy()가 불려질 때 발생한다. 이 메소드를 호출하면 실제 추상 메소드인 doCreate()와
+      doDestroy() 메소드가 호출된다. 이 추상 메소드들은 서비스 서브 클래스에서 구현되는데, 서비스를 초기화하고 서비스를
+      정리하는 작업을 포함한다.</p><div class="figure"><a id="d4e867"></a><p class="title"><b>[그림 1.9] 서비스의 2가지 상태</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><img src="resources/figure_service_status.png" align="top" alt="서비스의 2가지 상태"/></div>
+        </div></div><p><br class="figure-break"/>다음은 jeus.security.spi 패키지에 포함되어 있는 다양한 SPI 클래스와 서비스 클래스들을 클래스
+      다이어그램을 사용해 보여주고 있다.</p><div class="figure"><a id="figure_Service_Classes_SPI_Subclasses"></a><p class="title"><b>[그림 1.10] 서비스 클래스와 SPI 서브 클래스들</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><img src="resources/figure_srvice_classes_spi_subclasses.png" align="top" alt="서비스 클래스와 SPI 서브 클래스들"/></div>
+        </div></div><p><br class="figure-break"/><a id="d4e877" class="indexterm"></a>런타임에 서비스 인스턴스는 SecurityInstaller 싱글톤 클래스에 의해 생성된다. 단순하게
+      SecurityInstaller를 구현한다면 서비스를 프로그램에서 직접 생성하는 코드만 작성하면 되겠지만, 더 유연하고 정교하게
+      서비스를 생성하는 방법이 있다. 서비스 클래스명과 속성값을 특정 설정 파일에 저장해 놓고 파일로부터 설정 정보를 읽어들여 서비스
+      인스턴스를 만들고 초기화하는 방법이다. 디폴트 SecurityInstaller 구현 클래스는 후자의 접근법을 도입하였으므로 쉽고
+      유연한 방법으로 서비스를 보안 시스템에 추가할 수 있다.</p>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+        <p>단순히 JEUS 보안 시스템 기능만을 사용할 때에는 서비스나 SPI 아키텍처를 모두 이해할 필요는
+        없다.</p>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_domain_concept"></a>1.4.6. 도메인</h3></div></div></div>
+      
+
+      <p><a id="d4e884" class="indexterm"></a>보안 도메인(Security Domain)은 보안 서비스 인스턴스의 집합이라 할 수 있다. 하나의 보안
+      시스템에 여러 개의 도메인이 동시에 있을 수 있다. 도메인 개념의 배경에는 서로 다른 애플리케이션이나 JEUS 서브 시스템이 각각
+      별도의 보안 서비스를 사용하도록 하는 데 있다. 도메인은 보안 서비스를 각 애플리케이션별로 분리하는 역할을 한다.</p>
+
+      <p>예를 들어서 JEUS 시스템만 사용하는 특별한 도메인을 설정할 수 있다. JEUS가 사용하는 도메인을
+      SYSTEM_DOMAIN이라고 한다. 이 도메인은 JEUS를 관리하는 데 사용하는 Subject와 Policy를 포함하고 있다.
+      SYSTEM_DOMAIN에 서버를 부트 또는 다운할 수 있는 "administrator"라는 메인 Subject에 대한 사용자
+      정보를 설정할 수 있을 것이다.</p>
+
+      <p>또 다른 성격의 도메인으로 deploy된 특정 J2EE 애플리케이션에서만 사용하는 도메인을 설정할 수 있다. 이를
+      APP_DOMAIN<a id="d4e888" class="indexterm"></a>이라 한다. APP_DOMAIN도 "administrator"라는 사용자 정보를 설정할 수 있지만,
+      JEUS의 "administrator"와는 Permission이 다르다. 또한 도메인별로 Repository 메커니즘을 다르게
+      설정할 수 있다. 가령 SYSTEM_DOMAIN이 사용자 정보를 XML 파일에 저장하는데 반해, APP_DOMAIN은 원격지에
+      있는 데이터베이스를 사용해서 Subject에 대한 사용자 정의를 읽고 쓰도록 설정할 수 있다.</p>
+
+      <p>다음은 도메인 개념을 보여주고 있다.</p><div class="figure"><a id="figure_Application_and_Subject_Repository_for_domains"></a><p class="title"><b>[그림 1.11] 다른 애플리케이션과 다른 Subject Repository를 사용한 2개의 도메인</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="369"><tr><td align="left"><img src="resources/figure_application_and_subject_repository_for_domains.png" align="top" width="369" alt="다른 애플리케이션과 다른 Subject Repository를 사용한 2개의 도메인"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/>도메인을 별도로 설정할지 여부는 선택사항이다. 만약 도메인을 별도로 설정하지 않는다면
+      SYSTEM_DOMAIN이 사용된다.</p>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+        <p>도메인명은 모두 대문자로 쓰고 "_DOMAIN"으로 끝나는 것이 보통이다. 이것은 반드시 지켜야 되는 것은 아니고
+        추천되는 명명법이다. 앞으로 이 문서에서 도메인이라 함은 모두 보안 도메인을 말하는 것이다. 보안 도메인은 J2EE 서버
+        도메인과는 상관없는 별개의 개념이다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음과 같이 JEUS는 기본적으로 SYSTEM_DOMAIN과 SHARED_DOMAIN 2개의 도메인을
+      사용한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>SYSTEM_DOMAIN<a id="d4e906" class="indexterm"></a></p>
+
+            <p>표준 관리 툴을 사용하여 JEUS 서버를 관리하는 데 사용되는 도메인으로 기동과 종료같은 JEUS 서버를
+            관리하는 "administrator" 계정과 Permission을 포함하고 있다. 기본적으로는 J2EE 애플리케이션도
+            이 도메인을 사용하며 설정을 통해 변경 가능하다.</p>
+          </li><li>
+            <p>SHARED_DOMAIN<a id="d4e911" class="indexterm"></a></p>
+
+            <p>특별한 도메인으로 SHARED_DOMAIN에 설정된 보안 서비스는 다른 모든 도메인과 공유된다. 따라서,
+            SHARED_DOMAIN은 모든 다른 도메인에서도 공통적으로 적용 가능한 보안 서비스를 포함하고 있어야
+            한다.</p>
+          </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>애플리케이션에 JEUS 시스템에서와 다른 보안 서비스를 사용하려면 별도의 도메인을 생성하고 domain.xml에 해당
+      내용을 적어 주어야 한다. 보안 도메인의 생성 및 설정은 <a href="chapter_security_system_setup.html" title="제2장 보안 시스템 설정">“제2장 보안 시스템 설정”</a>을 참고한다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e920"></a>1.5. 성능 향상과 수준 향상</h2></div></div></div>
+    
+
+    <p>기본적으로 성능과 보안은 항상 타협의 대상이다. 보안이 강화되면 성능이 떨어지는 경향이 있기 때문에 보안 시스템이 가져야
+    하는 특징과 충돌되는 부분도 있다. 보안과 성능의 수준을 조절하여 각 업무의 특성에 따라 합리적으로 설정한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e923"></a>1.5.1. 성능 향상</h3></div></div></div>
+      
+
+      <p>본 절에서는 보안 시스템을 사용하면서 JEUS 서버 전체에 미치는 성능의 영향력을 최소화시키는 방법을
+      설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>보안 시스템의 전반적인 성능을 향상시키는 방법은 다음과 같다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">JEUS 도메인에서 Secured Connection을 사용하지
+            않는다.<a id="d4e934" class="indexterm"></a></strong></span></p>
+
+            <p>Secured Connection은 일반 소켓에 암호화된 패킷을 담아 사용하게 된다. 그러므로 일반 소켓
+            통신을 할 때보다 더 많은 데이터를 전송하게 되어 네트워크를 많이 사용하게 된다.</p>
+
+            <p>JEUS 도메인에서는 Secured Connection을 사용하지 않도록 하는 것이 성능을
+            향상시킨다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">JEUS SecurityManager를 사용하지 않는다.<a id="d4e941" class="indexterm"></a></strong></span></p>
+
+            <p>SecurityManager를 사용하지 않으면 불필요한 연산을 수행하지 않게 된다. Security를
+            사용하지 않는다는 것은 Authorization을 사용하지 않는다는 의미이다(Authentication은 반드시
+            사용해야 한다).</p>
+          </li><li>
+            <p><span><strong class="guibutton">Non Blocking I/O를 사용한다.<a id="d4e947" class="indexterm"></a></strong></span></p>
+
+            <p>Non-Blocking I/O를 사용하여 네트워크의 블록 현상을 줄인다. Non Blocking I/O는
+            네트워크를 통하여 I/O가 발생할 때 다음 I/O가 발생하기를 기다리는 블록(Block) 현상을 없앤
+            것이다.</p>
+
+            <p>따라서, 각 커넥션마다 I/O를 위한 Thread가 별도로 필요하지 않기 때문에 CPU 사용량이나 FD의
+            개수도 줄게 된다. Non Blocking I/O는 JEUS에서 기본으로 사용하고 있다. 그러므로 Blocking
+            I/O보다 높은 성능을 낸다.</p>
+          </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e952"></a>1.5.2. 수준 향상</h3></div></div></div>
+      
+
+      <p>본 절에서는 성능을 희생하더라도 보안 시스템에서 전반적인 보안 수준을 향상시키는 방법에 대해 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>JEUS의 전반적인 보안 수준을 향상하기 위한 방법은 다음과 같다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">전역 시스템 패스워드를 설정한다.</strong></span></p>
+          </li><li>
+            <p><span><strong class="guibutton">JEUS 보안 도메인에서 Secured Connection을 사용한다.<a id="d4e965" class="indexterm"></a></strong></span></p>
+
+            <p>네트워크 보안 서비스가 Secured Connection(보통 SSL/TLS로 보호되는 커넥션)을 이용하도록
+            설정한다. 이 설정의 목적은 누군가가 네트워크를 도청하고 있다가 민감한 정보를 가져가는 것을 방지하는 것이다. 디폴트
+            네트워크 서비스를 사용할 때 Secured Connection을 설정하는 방법은 <a href="about.html#appendix_reference" title=". 참고 자료">참고 자료</a>를 확인한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">저장된 Subject와 Policy를 권한이 없는 접근으로부터
+            보호한다.</strong></span></p>
+
+            <p>Subject에 대한 사용자 정보와 Policy 저장소를 권한이 없는 접근으로부터 보호하는 것은 필수적인
+            일이다. 이는 사용하는 저장소의 종류에 따라 다음과 같이 방법이 달라진다. </p><div class="itemizedlist"><ul type="circle"><li>
+                  <p>데이터베이스를 사용하고 있다면 Subject에 대한 사용자 정보와 Policy를 저장하고 있는
+                  테이블은 데이터베이스 측에 설정된 인증과 권한 부여 과정을 통해 보호될 수 있다. 또한 JEUS 보안
+                  저장소와 데이터베이스 간의 커넥션을 SSL 등을 사용해서 보호하도록 한다. 설정하는 방법은 해당 데이터베이스
+                  문서를 참고한다.</p>
+                </li><li>
+                  <p>보안 관련 정보를 accounts.xml, policies.xml과 같이 XML 파일에 저장해
+                  두었다면, 이러한 파일에 접근할 수 있는 Permission을 별도로 생성하고, JEUS 보안 시스템과
+                  administrators만이 이 파일에 접근할 수 있도록 해야 한다. 만약 파일 저장소에 상관없이 암호화를
+                  지원한다면 이를 사용한다. 어떻게 파일에 보안을 적용할 것인가에 대한 정보는 해당 저장소에 대한 문서를
+                  참고한다. 이 파일에 대한 읽기, 쓰기 권한을 설정하는 것은 해당 운영체제의 매뉴얼을 참고한다.</p>
+                </li></ul></div>
+          </li><li>
+            <p><span><strong class="guibutton">보안 감사 메커니즘을 도입한다.</strong></span></p>
+
+            <p>시스템에서 발생한 보안 이벤트를 로그에 기록하고, 주기적으로 로그 내용을 살펴보면 전체적인 보안 수준을
+            향상시킬 수 있다. JEUS 보안 감사 메커니즘은 보통 jeus.security.spi.EventHandling
+            Service SPI 클래스를 사용해서 구현된다. 로그 파일을 권한이 없는 접근으로부터 보호해야 한다. 다양한 보안
+            감사 메커니즘에 대한 설명은 <a href="about.html#appendix_reference" title=". 참고 자료">참고 자료</a>를
+            참고한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">Java SE SecurityManager를 사용한다.</strong></span></p>
+
+            <p>JEUS 시스템의 견고성을 높이고 악의적인 EJB와 서블릿 코드로부터 JEUS를 보호하기 위해서 Java
+            SE SecurityManager를 설정한다. 자세한 내용은 <a href="chapter_security_system_setup.html#sect_JavaSE_SecurityManager_setup" title="2.7.1. Java SE SecurityManager 설정">“2.7.1. Java SE SecurityManager 설정”</a>을 참고한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">3rd-party 보안 메커니즘을 사용한다.</strong></span></p>
+
+            <p>민감한 정보가 다루어지는 실제 환경(은행 업무 애플리케이션 등)에서는 JEUS 본래의 보안 시스템과 더불어
+            방화벽이나 VPNs(Virtual Private Networks)와 같은 추가적인 보안 요소들을 설치하는 것을
+            권장한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">운영체제 자체에 보안을 설정한다.</strong></span></p>
+
+            <p>JEUS가 동작하는 운영체제의 종류에 상관없이 운영체제를 보호하는 몇 가지 가이드 라인이
+            있다.</p><div class="itemizedlist"><ul type="circle"><li>
+                  <p>JEUS가 설치된 머신들에 대한 물리적 접근을 제한한다. 예를 들면 머신들을 한 곳에 두고
+                  자물쇠로 채운다.</p>
+                </li><li>
+                  <p>신뢰가 확보된 관리자(administrator)만이 JEUS 파일과 프로세스에 접근할 수 있도록
+                  프로세스 권한이나 파일 권한을 설정한다. 자세한 내용은 해당 운영체제 매뉴얼을 참고한다.</p>
+                </li><li>
+                  <p>최신 보안 패치가 적용된 운영체제로 업그레이드한다.</p>
+                </li><li>
+                  <p>주기적으로 안티 바이러스 소프트웨어를 작동시킨다.</p>
+                </li><li>
+                  <p>모든 보안 관련 문서들을 안전하게 보관한다. 예를 들면 패스워드가 적힌 문서를 자물쇠가 달린
+                  캐비닛에 보관한다.</p>
+                </li></ul></div>
+          </li></ul></div>
+
+      <p/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_security_system_setup.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">안내서에 대하여 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제2장 보안 시스템 설정</td></tr></table></div><div xmlns="" align="center"/></body></html>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제18장 Server-Sent Event</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Service 안내서"/><link rel="up" href="pt01.html" title="Part I. JEUS 8 웹 서비스"/><link rel="prev" href="chapter_jaxws_security.html" title="제17장 웹 서비스 보안"/><link rel="next" href="chapter_uddi.html" title="제19장 UDDI 이용"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제18장 Server-Sent Event</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jaxws_security.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part I. JEUS 8 웹 서비스</td><td width="20%" align="right"> <a accesskey="n" href="chapter_uddi.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jaxrs_server_sent_events"></a>제18장 Server-Sent Event</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jaxrs_server_sent_events.html#d4e4457">18.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jaxrs_server_sent_events.html#d4e4461">18.2. JAX-RS 리소스에서 Server-Sent Events(SSE) 지원</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxrs_server_sent_events.html#d4e4463">18.2.1. 간단한 SSE 리소스 메소드</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxrs_server_sent_events.html#d4e4476">18.3. JAX-RS 클라이언트에서 SSE 이벤트 처리</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxrs_server_sent_events.html#d4e4484">18.3.1. EventInput를 사용하여 SSE 이벤트 읽기</a></span></dt><dt><span class="section"><a href="chapter_jaxrs_server_sent_events.html#d4e4495">18.3.2. EventSource를 사용하여 비동기 SSE 처리</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 JEUS에서 HTML5의 Server-Sent Event(SSE) 사용 방법에 대해서 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4457"></a>18.1. 개요</h2></div></div></div>
+    
+
+    <p>Server-Sent Events는 서버가 단방향 클라이언트-서버 연결을 통해 표준 HTTP 또는 HTTPS를 사용하여
+    웹페이지에 데이터를 푸시할 수 있도록 해 준다. Server-Sent Events 통신 모델에서 클라이언트(예: 브러우저)는 초기
+    연결을 유지하고 서버는 데이터를 제공하여 클라이언트에 전송한다.</p>
+
+    <p>Server-Sent Events은 HTML5 스펙의 일부로 제안된 표준 기술이며 JEUS에서의 Server-Sent
+    Event 지원은 JAX-RS (Java API for RESTful Web Services) 2.0을 통해서 제공된다.</p>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4461"></a>18.2. JAX-RS 리소스에서 Server-Sent Events(SSE) 지원</h2></div></div></div>
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4463"></a>18.2.1. 간단한 SSE 리소스 메소드</h3></div></div></div>
+      
+
+      <p>SSE 지원을 위하여 리소스(Resource)에 SseFeature를 추가한다.</p>
+
+      <div class="example"><a id="d4e4466"></a><p class="title"><b>[예 18.1] 간단한 SSE 리소스 메소드</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">...
+import jeus.webservices.jaxrs.media.sse.EventOutput;
+import jeus.webservices.jaxrs.media.sse.OutboundEvent;
+import jeus.webservices.jaxrs.media.sse.SseFeature;
+...
+ 
+@Path("events")
+public class SseResource {
+ 
+    @GET
+    @Produces(SseFeature.SERVER_SENT_EVENTS)
+    public EventOutput getServerSentEvents() {
+        EventOutput eventOutput = new EventOutput();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = 0; i &lt; 5; i++) {
+                        // ... code that waits a few seconds
+                        OutboundEvent.Builder eventBuilder = new OutboundEvent.Builder();
+                        eventBuilder.name("example");
+                        eventBuilder.data(String.class, "Hello world " + i + "!");
+                        OutboundEvent event = eventBuilder.build();
+                        eventOutput.write(event);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } finally {
+                    try {
+                        eventOutput.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }).start();
+        return eventOutput;
+    }
+}</pre>
+      </div></div><br class="example-break"/>
+
+      <p>위 코드는 URI "/events"로 배치(deployment)된 리소스를 정의한다. 리소스는 Output
+      chunked 메시지 처리를 위한 EventOutput 엔티티를 반환하는 한개의 @GET 리소스 메소드를 가지고
+      있다.</p>
+
+      <p>EventOutput가 메소드로부터 반환된 후, JAX-RS 런타임은 EventOutput를
+      ChunkedOutput으로 인지하여 클라이언트 연결을 즉시 끊지 않고 응답 스트림에 HTTP 헤더를 쓰고 전송한 chunks
+      (SSE events)를 기다린다. 이 시점에 클라이언트는 헤더를 읽고 개별 이벤트에 대한 리스닝을 시작한다.</p>
+
+      <p>예제에서 리소스 메소드는 일련의 5개 이벤트 전송을 위하여 쓰레드를 생성한다. 연속된 이벤트 사이에는 약간의 지연이
+      있다. 각각의 이벤트는 OutboundEvent 타입으로 표현된다. OutboundEvent는 SSE 메시지의 표준 형태를
+      반영하며 name, comment, id 를 표현하는 프로퍼티를 포함한다. data(Class) 메소드는 이벤트 데이터를
+      직렬화하기 위하여 사용된다.</p>
+
+      <p>SSE 지원 리소스에 연결한 클라이언트는 엔티티 스트림으로부터 다음 데이터를 받을 것이다.</p>
+
+      <pre class="programlisting">event: example
+data: Hello world 0!
+
+event: example
+data: Hello world 1!
+
+event: example
+data: Hello world 2!
+
+event: example
+data: Hello world 3!
+
+event: example
+data: Hello world 4!</pre>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4476"></a>18.3. JAX-RS 클라이언트에서 SSE 이벤트 처리</h2></div></div></div>
+    
+
+    <p>JEUS JAX-RS는 두가지 프로그래밍 모델을 사용하여 SSE 이벤트 수신과 처리를 지원하기 위한 클라이언트 API를
+    제공한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>Pull 모델 : EventInput으로부터 이벤트를 풀링하는 모델</p>
+      </li><li>
+        <p>Push 모델 : EventSource의 비동기 통지를 리스닝하는 모델</p>
+      </li></ul></div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4484"></a>18.3.1. EventInput를 사용하여 SSE 이벤트 읽기</h3></div></div></div>
+      
+
+      <p>클라이언트에서 이벤트는 EventInput으로부터 읽을 수 있다. 다음 코드를 살펴 보자.</p>
+
+      <div class="example"><a id="d4e4487"></a><p class="title"><b>[예 18.2] EventInput를 사용하여 SSE 이벤트 읽기</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">Client client = ClientBuilder.newBuilder().build();
+WebTarget target = client.target("http://localhost:8088/sse_example/events");
+EventInput eventInput = target.request().get(EventInput.class);
+while (!eventInput.isClosed()) {
+    final InboundEvent inboundEvent = eventInput.read();
+    if (inboundEvent == null) {
+        // connection has been closed
+        break;
+    }
+    System.out.println(inboundEvent.getName() + ": " + inboundEvent.readData(String.class));
+}</pre>
+      </div></div><br class="example-break"/>
+
+      <p>클라이언트는 "간단한 SSE 리소스 메소드" 예제의 SseResource가 배치된 서버에 연결을 한다. 먼저
+      JAX-RS client 객체를 생성한다. 그 다음에 WebTarget 객체를 client 객체로부터 얻어 HTTP 요청 호출을
+      위해 사용한다. 반환된 응답 엔티티는 EventInput으로 직접 읽을 수 있다. 예제 코드는 eventInput 응답
+      스트림으로부터 inbound SSE 이벤트를 읽기 처리를 위하여 루프(loop)를 시작한다. eventInput으로부터 읽은 개별
+      chunk는 InboundEvent 이다. InboundEvent.readData(Class) 메소드는 이벤트 데이터의 역직렬화를
+      위하여 사용하는 메소드이다.</p>
+
+      <p>클라이언트 코드는 다음 결과를 보인다.</p>
+
+      <pre class="programlisting">example: Hello world 0!
+example: Hello world 1!
+example: Hello world 2!
+example: Hello world 3!
+example: Hello world 4!</pre>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4495"></a>18.3.2. EventSource를 사용하여 비동기 SSE 처리</h3></div></div></div>
+      
+
+      <p>비동기로 SSE 이벤트를 읽기 위해 사용되는 클라이언트 API는 EventSource이다. EventSource의
+      사용법은 다음 예제에서 살펴 보자.</p>
+
+      <div class="example"><a id="d4e4498"></a><p class="title"><b>[예 18.3] EventSource를 사용하여 SSE 이벤트 읽기</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">Client client = ClientBuilder.newBuilder().build();
+WebTarget target = client.target("http://localhost:8088/sse_example/events");
+EventSource eventSource = new EventSource(target);
+EventListener listener = new EventListener() {
+        @Override
+        public void onEvent(InboundEvent inboundEvent) {
+            System.out.println(inboundEvent.getName() + ": " + inboundEvent.readData(String.class));
+        }
+    };
+eventSource.addEventListener("example", listener);
+eventSource.open();
+...
+eventSource.close();</pre>
+      </div></div><br class="example-break"/>
+
+      <p>클라이언트는 "간단한 SSE 리소스 메소드" 예제의 SseResource가 배치된 서버에 연결을 한다. 먼저
+      JAX-RS client 객체를 생성한다. 그 다음에 WebTarget 객체를 client 객체로부터 얻는다. Web
+      Target에 대한 HTTP 요청 호출은 WebTarget 객체에서 직접 만들지 않는다. EventSource 객체를 target
+      객체로 초기하여 생성하자. 생성된 EventSource 객체는 자동적으로 target 연결을 하지 않는다. 연결은 나중에
+      eventSource.open() 메소드를 사용하여 수동적으로 수행한다.</p>
+
+      <p>EventListener 구현체는 incoming SSE 이벤트를 리슨하고 처리하기 위하여 사용된다.
+      InboundEvent.readData(Class) 메소드가 inboundEvent 객체로부터 이벤트 데이터를 역직렬화하기 위하여
+      사용된다.</p>
+
+      <p>예제로부터 리스너는 다음 결과를 보인다.</p>
+
+      <pre class="programlisting">example: Hello world 0!
+example: Hello world 1!
+example: Hello world 2!
+example: Hello world 3!
+example: Hello world 4!</pre>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jaxws_security.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="pt01.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="chapter_uddi.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제17장 웹 서비스 보안 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제19장 UDDI 이용</td></tr></table></div><div xmlns="" align="center"/></body></html>

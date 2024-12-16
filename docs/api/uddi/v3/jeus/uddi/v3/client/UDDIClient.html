@@ -1,0 +1,1635 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>UDDIClient</title>
+      <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="UDDIClient (JEUS UDDI 3.0 Client API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.uddi.v3.client</font><br>Class UDDIClient
+      </h2><pre>java.lang.Object<br>  <img src="../../../../resource/inherit.gif" alt="extended by"><a href="../../../../jeus/uddi/client/CommonUDDIClient.html">jeus.uddi.client.CommonUDDIClient</a><br>     <img src="../../../../resource/inherit.gif" alt="extended by"><b>jeus.uddi.v3.client.UDDIClient</b></pre><dl>
+         <dt><b>All Implemented Interfaces:</b><dd>java.io.Serializable, <a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a>, <a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a>, <a href="../../../../jeus/uddi/v3/api/SecurityAPI.html">SecurityAPI</a>, <a href="../../../../jeus/uddi/v3/api/SubscriptionAPI.html">SubscriptionAPI</a>, jeus.uddi.v3.api.ValueSetAPI
+            </dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public class <b>UDDIClient</b><dt>extends <a href="../../../../jeus/uddi/client/CommonUDDIClient.html">CommonUDDIClient</a></dt><dt>implements <a href="../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a>, <a href="../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a>, <a href="../jeus/uddi/v3/api/SecurityAPI.html">SecurityAPI</a>, <a href="../jeus/uddi/v3/api/SubscriptionAPI.html">SubscriptionAPI</a>, jeus.uddi.v3.api.ValueSetAPI</dt></pre></dl>UDDI v3.0 Spec.을 준수하는 UDDI Client class. UDDI Client application의 entry point이다.<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../jeus/uddi/v3/client/UDDIClient.html#SUBSCRIPTION_URL_PROP_NAME">SUBSCRIPTION_URL_PROP_NAME</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../jeus/uddi/v3/client/UDDIClient.html#VERSION">VERSION</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.uddi.client.CommonUDDIClient"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.uddi.client.<a href="../../../../jeus/uddi/client/CommonUDDIClient.html">CommonUDDIClient</a></b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><a href="../../../jeus/uddi/client/CommonUDDIClient.html#INQUIRY_URL_PROP_NAME">INQUIRY_URL_PROP_NAME</a>, <a href="../../../jeus/uddi/client/CommonUDDIClient.html#PROTOCOL_HANDLER_PROP_NAME">PROTOCOL_HANDLER_PROP_NAME</a>, <a href="../../../jeus/uddi/client/CommonUDDIClient.html#PUBLISH_URL_PROP_NAME">PUBLISH_URL_PROP_NAME</a>, <a href="../../../jeus/uddi/client/CommonUDDIClient.html#SECURITY_PROVIDER_PROP_NAME">SECURITY_PROVIDER_PROP_NAME</a></code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="UDDIClient.html#UDDIClient()">UDDIClient</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   기본 생성자.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="UDDIClient.html#UDDIClient(java.net.URL, java.net.URL)">UDDIClient</a></b>(java.net.URL inquiryURL, java.net.URL publishURL)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   UDDI Registry의 inquiry URL과 publish URL을 가지고 UDDIClient 객체를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="UDDIClient.html#UDDIClient(java.util.Properties)">UDDIClient</a></b>(java.util.Properties config)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Configuration properties를 가지고 UDDIClient 객체를 생성한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#add_publisherAssertions(java.lang.String, java.util.Vector)">add_publisherAssertions</a></b>(java.lang.String authInfo, java.util.Vector publisherAssertionVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#add_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion)">add_publisherAssertions</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/assertion/PublisherAssertion.html">PublisherAssertion</a> publisherAssertion)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#add_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion, java.security.PrivateKey, java.security.cert.X509Certificate)">add_publisherAssertions</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/assertion/PublisherAssertion.html">PublisherAssertion</a> publisherAssertion, java.security.PrivateKey privateKey, java.security.cert.X509Certificate certificate)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#add_publisherAssertions(java.lang.String, org.w3c.dom.Element, java.security.PrivateKey, java.security.cert.X509Certificate)">add_publisherAssertions</a></b>(java.lang.String authInfo, org.w3c.dom.Element publisherAssertion, java.security.PrivateKey privateKey, java.security.cert.X509Certificate certificate)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#delete_binding(java.lang.String, java.lang.String)">delete_binding</a></b>(java.lang.String authInfo, java.lang.String bindingKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#delete_binding(java.lang.String, java.util.Vector)">delete_binding</a></b>(java.lang.String authInfo, java.util.Vector bindingKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#delete_business(java.lang.String, java.lang.String)">delete_business</a></b>(java.lang.String authInfo, java.lang.String businessKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#delete_business(java.lang.String, java.util.Vector)">delete_business</a></b>(java.lang.String authInfo, java.util.Vector businessKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#delete_publisherAssertions(java.lang.String, java.util.Vector)">delete_publisherAssertions</a></b>(java.lang.String authInfo, java.util.Vector publisherAssertionVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#delete_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion)">delete_publisherAssertions</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/assertion/PublisherAssertion.html">PublisherAssertion</a> publisherAssertion)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#delete_service(java.lang.String, java.lang.String)">delete_service</a></b>(java.lang.String authInfo, java.lang.String serviceKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#delete_service(java.lang.String, java.util.Vector)">delete_service</a></b>(java.lang.String authInfo, java.util.Vector serviceKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="UDDIClient.html#delete_subscription(java.lang.String, java.lang.String)">delete_subscription</a></b>(java.lang.String authInfo, java.lang.String subscriptionKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="UDDIClient.html#delete_subscription(java.lang.String, java.util.Vector)">delete_subscription</a></b>(java.lang.String authInfo, java.util.Vector subscriptionKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#delete_tModel(java.lang.String, java.lang.String)">delete_tModel</a></b>(java.lang.String authInfo, java.lang.String tModelKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#delete_tModel(java.lang.String, java.util.Vector)">delete_tModel</a></b>(java.lang.String authInfo, java.util.Vector tModelKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#discard_authToken(java.lang.String)">discard_authToken</a></b>(java.lang.String authInfo)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#find_binding(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, jeus.uddi.v3.datatype.CategoryBag, int, int)">find_binding</a></b>(java.lang.String authInfo, java.lang.String serviceKey, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, <a href="../../../../jeus/uddi/v3/datatype/TModelBag.html">TModelBag</a> tModelBag, <a href="../../../../jeus/uddi/v3/api/request/inquiry/FindTModel.html">FindTModel</a> findTModel, <a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a> categoryBag, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BusinessList.html">BusinessList</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#find_business(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, int, int)">find_business</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, java.lang.String name, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BusinessList.html">BusinessList</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#find_business(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.util.Vector, jeus.uddi.v3.datatype.IdentifierBag, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, jeus.uddi.v3.datatype.DiscoveryURLs, jeus.uddi.v3.api.request.inquiry.FindRelatedBusinesses, int, int)">find_business</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, java.util.Vector nameVector, <a href="../../../../jeus/uddi/v3/datatype/IdentifierBag.html">IdentifierBag</a> identifierBag, <a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a> categoryBag, <a href="../../../../jeus/uddi/v3/datatype/TModelBag.html">TModelBag</a> tModelBag, <a href="../../../../jeus/uddi/v3/api/request/inquiry/FindTModel.html">FindTModel</a> findTModel, <a href="../../../../jeus/uddi/v3/datatype/DiscoveryURLs.html">DiscoveryURLs</a> discoveryURLs, <a href="../../../../jeus/uddi/v3/api/request/inquiry/FindRelatedBusinesses.html">FindRelatedBusinesses</a> findRelatedBusinesses, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/RelatedBusinessesList.html">RelatedBusinessesList</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#find_relatedBusinesses(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, java.lang.String, java.lang.String, jeus.uddi.v3.datatype.KeyedReference, int, int)">find_relatedBusinesses</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, java.lang.String businessKey, java.lang.String fromKey, java.lang.String toKey, <a href="../../../../jeus/uddi/v3/datatype/KeyedReference.html">KeyedReference</a> keyedReference, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/ServiceList.html">ServiceList</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#find_service(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, int, int)">find_service</a></b>(java.lang.String authInfo, java.lang.String businessKey, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, java.lang.String name, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/ServiceList.html">ServiceList</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#find_service(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.util.Vector, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, int, int)">find_service</a></b>(java.lang.String authInfo, java.lang.String businessKey, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, java.util.Vector nameVector, <a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a> categoryBag, <a href="../../../../jeus/uddi/v3/datatype/TModelBag.html">TModelBag</a> tModelBag, <a href="../../../../jeus/uddi/v3/api/request/inquiry/FindTModel.html">FindTModel</a> findTModel, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/TModelList.html">TModelList</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#find_tModel(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.IdentifierBag, int, int)">find_tModel</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, java.lang.String name, <a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a> categoryBag, <a href="../../../../jeus/uddi/v3/datatype/IdentifierBag.html">IdentifierBag</a> identifierBag, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/AssertionStatusReport.html">AssertionStatusReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_assertionStatusReport(java.lang.String, java.lang.String)">get_assertionStatusReport</a></b>(java.lang.String authInfo, java.lang.String completionStatus)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/AssertionStatusReport.html">AssertionStatusReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_assertionStatusReport(java.lang.String, jeus.uddi.v3.api.response.CompletionStatus)">get_assertionStatusReport</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/api/response/CompletionStatus.html">CompletionStatus</a> completionStatus)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/AuthToken.html">AuthToken</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_authToken(java.lang.String, java.lang.String)">get_authToken</a></b>(java.lang.String userID, java.lang.String cred)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_bindingDetail(java.lang.String, java.lang.String)">get_bindingDetail</a></b>(java.lang.String authInfo, java.lang.String bindingKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_bindingDetail(java.lang.String, java.util.Vector)">get_bindingDetail</a></b>(java.lang.String authInfo, java.util.Vector bindingKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_businessDetail(java.lang.String, java.lang.String)">get_businessDetail</a></b>(java.lang.String authInfo, java.lang.String businessKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_businessDetail(java.lang.String, java.util.Vector)">get_businessDetail</a></b>(java.lang.String authInfo, java.util.Vector businessKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/OperationalInfos.html">OperationalInfos</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_operationalInfo(java.lang.String, java.lang.String)">get_operationalInfo</a></b>(java.lang.String authInfo, java.lang.String entityKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/OperationalInfos.html">OperationalInfos</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_operationalInfo(java.lang.String, java.util.Vector)">get_operationalInfo</a></b>(java.lang.String authInfo, java.util.Vector entityKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/PublisherAssertions.html">PublisherAssertions</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_publisherAssertions(java.lang.String)">get_publisherAssertions</a></b>(java.lang.String authInfo)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/RegisteredInfo.html">RegisteredInfo</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_registeredInfo(java.lang.String, java.lang.String)">get_registeredInfo</a></b>(java.lang.String authInfo, java.lang.String infoSelection)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_serviceDetail(java.lang.String, java.lang.String)">get_serviceDetail</a></b>(java.lang.String authInfo, java.lang.String serviceKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_serviceDetail(java.lang.String, java.util.Vector)">get_serviceDetail</a></b>(java.lang.String authInfo, java.util.Vector serviceKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/SubscriptionResultsList.html">SubscriptionResultsList</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_subscriptionResults(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.subscription.CoveragePeriod, java.lang.String)">get_subscriptionResults</a></b>(java.lang.String authInfo, java.lang.String subscriptionKey, <a href="../../../../jeus/uddi/v3/datatype/subscription/CoveragePeriod.html">CoveragePeriod</a> coveragePeriod, java.lang.String chunkToken)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/Subscriptions.html">Subscriptions</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_subscriptions(java.lang.String)">get_subscriptions</a></b>(java.lang.String authInfo)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_tModelDetail(java.lang.String, java.lang.String)">get_tModelDetail</a></b>(java.lang.String authInfo, java.lang.String tModelKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#get_tModelDetail(java.lang.String, java.util.Vector)">get_tModelDetail</a></b>(java.lang.String authInfo, java.util.Vector tModelKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.net.URL</code></font></td>
+               <td><code><b><a href="UDDIClient.html#getSubscriptionURL()">getSubscriptionURL</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   subscriptionURL 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_binding(java.lang.String, java.util.Vector)">save_binding</a></b>(java.lang.String authInfo, java.util.Vector bindingTemplateVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_binding(java.lang.String, jeus.uddi.v3.datatype.binding.BindingTemplate, java.security.PrivateKey, java.security.cert.X509Certificate)">save_binding</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/binding/BindingTemplate.html">BindingTemplate</a> bindingTemplate, java.security.PrivateKey privateKey, java.security.cert.X509Certificate certificate)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_binding(java.lang.String, org.w3c.dom.Element, java.security.PrivateKey, java.security.cert.X509Certificate)">save_binding</a></b>(java.lang.String authInfo, org.w3c.dom.Element bindingTemplate, java.security.PrivateKey privateKey, java.security.cert.X509Certificate certificate)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_business(java.lang.String, java.util.Vector)">save_business</a></b>(java.lang.String authInfo, java.util.Vector businessEntityVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_business(java.lang.String, jeus.uddi.v3.datatype.business.BusinessEntity, java.security.PrivateKey, java.security.cert.X509Certificate)">save_business</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/business/BusinessEntity.html">BusinessEntity</a> businessEntity, java.security.PrivateKey privateKey, java.security.cert.X509Certificate certificate)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_business(java.lang.String, org.w3c.dom.Element, java.security.PrivateKey, java.security.cert.X509Certificate)">save_business</a></b>(java.lang.String authInfo, org.w3c.dom.Element businessEntity, java.security.PrivateKey privateKey, java.security.cert.X509Certificate certificate)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_service(java.lang.String, java.util.Vector)">save_service</a></b>(java.lang.String authInfo, java.util.Vector businessServiceVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_service(java.lang.String, jeus.uddi.v3.datatype.service.BusinessService, java.security.PrivateKey, java.security.cert.X509Certificate)">save_service</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/service/BusinessService.html">BusinessService</a> businessService, java.security.PrivateKey privateKey, java.security.cert.X509Certificate certificate)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_service(java.lang.String, org.w3c.dom.Element, java.security.PrivateKey, java.security.cert.X509Certificate)">save_service</a></b>(java.lang.String authInfo, org.w3c.dom.Element businessService, java.security.PrivateKey privateKey, java.security.cert.X509Certificate certificate)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/Subscriptions.html">Subscriptions</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_subscription(java.lang.String, java.util.Vector)">save_subscription</a></b>(java.lang.String authInfo, java.util.Vector subscriptionVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/Subscriptions.html">Subscriptions</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_subscription(java.lang.String, jeus.uddi.v3.datatype.subscription.Subscription)">save_subscription</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/subscription/Subscription.html">Subscription</a> subscription)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_tModel(java.lang.String, java.util.Vector)">save_tModel</a></b>(java.lang.String authInfo, java.util.Vector tModelVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_tModel(java.lang.String, jeus.uddi.v3.datatype.tmodel.TModel, java.security.PrivateKey, java.security.cert.X509Certificate)">save_tModel</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/tmodel/TModel.html">TModel</a> tModel, java.security.PrivateKey privateKey, java.security.cert.X509Certificate certificate)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#save_tModel(java.lang.String, org.w3c.dom.Element, java.security.PrivateKey, java.security.cert.X509Certificate)">save_tModel</a></b>(java.lang.String authInfo, org.w3c.dom.Element tModel, java.security.PrivateKey privateKey, java.security.cert.X509Certificate certificate)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>org.w3c.dom.Element</code></font></td>
+               <td><code><b><a href="UDDIClient.html#send(jeus.uddi.datatype.RegistryObject, java.net.URL)">send</a></b>(<a href="../../../../jeus/uddi/datatype/RegistryObject.html">RegistryObject</a> uddiRequest, java.net.URL endpointURL)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint URL로 RegistryObject를 전송한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>org.w3c.dom.Element</code></font></td>
+               <td><code><b><a href="UDDIClient.html#send(org.w3c.dom.Element, java.net.URL)">send</a></b>(org.w3c.dom.Element request, java.net.URL endpointURL)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Endpoint URL로 DOM Element를 전송한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/PublisherAssertions.html">PublisherAssertions</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#set_publisherAssertions(java.lang.String, java.util.Vector)">set_publisherAssertions</a></b>(java.lang.String authInfo, java.util.Vector publisherAssertionVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/PublisherAssertions.html">PublisherAssertions</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#set_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion)">set_publisherAssertions</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/assertion/PublisherAssertion.html">PublisherAssertion</a> publisherAssertion)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/PublisherAssertions.html">PublisherAssertions</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#set_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion, java.security.PrivateKey, java.security.cert.X509Certificate)">set_publisherAssertions</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/assertion/PublisherAssertion.html">PublisherAssertion</a> publisherAssertion, java.security.PrivateKey privateKey, java.security.cert.X509Certificate certificate)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/PublisherAssertions.html">PublisherAssertions</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#set_publisherAssertions(java.lang.String, org.w3c.dom.Element, java.security.PrivateKey, java.security.cert.X509Certificate)">set_publisherAssertions</a></b>(java.lang.String authInfo, org.w3c.dom.Element publisherAssertion, java.security.PrivateKey privateKey, java.security.cert.X509Certificate certificate)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="UDDIClient.html#setSubscriptionURL(java.lang.String)">setSubscriptionURL</a></b>(java.lang.String url)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   subscriptionURL 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="UDDIClient.html#setSubscriptionURL(java.net.URL)">setSubscriptionURL</a></b>(java.net.URL url)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   subscriptionURL 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#validate_values_bindingTemplate(java.util.Vector)">validate_values_bindingTemplate</a></b>(java.util.Vector bindingTemplateVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#validate_values_businessEntity(java.util.Vector)">validate_values_businessEntity</a></b>(java.util.Vector businessEntityVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#validate_values_businessService(java.util.Vector)">validate_values_businessService</a></b>(java.util.Vector businessServiceVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#validate_values_publisherAssertion(java.util.Vector)">validate_values_publisherAssertion</a></b>(java.util.Vector publisherAssertionVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a></code></font></td>
+               <td><code><b><a href="UDDIClient.html#validate_values_TModel(java.util.Vector)">validate_values_TModel</a></b>(java.util.Vector tModelVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_jeus.uddi.client.CommonUDDIClient"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class jeus.uddi.client.<a href="../../../../jeus/uddi/client/CommonUDDIClient.html">CommonUDDIClient</a></b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><a href="../../../jeus/uddi/client/CommonUDDIClient.html#getInquiryURL()">getInquiryURL</a>, <a href="../../../jeus/uddi/client/CommonUDDIClient.html#getProtocolHandler()">getProtocolHandler</a>, <a href="../../../jeus/uddi/client/CommonUDDIClient.html#getPublishURL()">getPublishURL</a>, <a href="../../../jeus/uddi/client/CommonUDDIClient.html#getSecurityProvider()">getSecurityProvider</a>, <a href="../../../jeus/uddi/client/CommonUDDIClient.html#setInquiryURL(java.lang.String)">setInquiryURL</a>, <a href="../../../jeus/uddi/client/CommonUDDIClient.html#setInquiryURL(java.net.URL)">setInquiryURL</a>, <a href="../../../jeus/uddi/client/CommonUDDIClient.html#setProtocolHandler(java.lang.String)">setProtocolHandler</a>, <a href="../../../jeus/uddi/client/CommonUDDIClient.html#setPublishURL(java.lang.String)">setPublishURL</a>, <a href="../../../jeus/uddi/client/CommonUDDIClient.html#setPublishURL(java.net.URL)">setPublishURL</a>, <a href="../../../jeus/uddi/client/CommonUDDIClient.html#setSecurityProvider(java.lang.String)">setSecurityProvider</a></code></td>
+            </tr>
+         </table>&nbsp;<a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></td>
+            </tr>
+         </table>&nbsp;
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="VERSION"></a><h3>VERSION</h3><pre>public static final java.lang.String <b>VERSION</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="SUBSCRIPTION_URL_PROP_NAME"></a><h3>SUBSCRIPTION_URL_PROP_NAME</h3><pre>public static final java.lang.String <b>SUBSCRIPTION_URL_PROP_NAME</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="UDDIClient()"></a><h3>UDDIClient</h3><pre>public <b>UDDIClient</b>()<br></pre><dl>
+            <dd>기본 생성자.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="UDDIClient(java.net.URL, java.net.URL)"></a><h3>UDDIClient</h3><pre>public <b>UDDIClient</b>(<code>java.net.URL</code> inquiryURL,<br>                  <code>java.net.URL</code> publishURL)<br></pre><dl>
+            <dd>UDDI Registry의 inquiry URL과 publish URL을 가지고 UDDIClient 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>inquiryURL</code> - inquiry request들을 위해 사용되는 URL.<br><code>publishURL</code> - publish request들을 위해 사용되는 URL.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="UDDIClient(java.util.Properties)"></a><h3>UDDIClient</h3><pre>public <b>UDDIClient</b>(<code>java.util.Properties</code> config)<br></pre><dl>
+            <dd>Configuration properties를 가지고 UDDIClient 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>config</code> - UDDIClient를 위한 설정 정보를 담고 있는 Properties object.
+                        					이 properties object는 시스템 properties로 부터 정상적으로 얻은 세팅을 오버라이드 한다.
+                        					<P>
+                        					이 properties object에 의해 영향을 받는 현재 세팅은 다음과 같다:
+                        					<DL>
+                        					<DT>jeus.uddi.client.inquiryURL
+                        					<DD>inquiry requests를 위해 UDDIClient에 의해 사용될 URL.
+                        setInquiryURL 메소드는 이 값을 오버라이드 한다.
+                        					<DT>jeus.uddi.client.publishURL
+                        					<DD>publish requests를 위해 UDDIClient에 의해 사용될 URL.
+                        setPublishURL 메소드는 이 값을 오버라이드 한다.
+                        					</DL>
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getSubscriptionURL()"></a><h3>getSubscriptionURL</h3><pre>public java.net.URL <b>getSubscriptionURL</b>()<br></pre><dl>
+            <dd>subscriptionURL 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>uRL</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setSubscriptionURL(java.lang.String)"></a><h3>setSubscriptionURL</h3><pre>public void <b>setSubscriptionURL</b>(<code>java.lang.String</code> url)<br>                             throws <code>java.net.MalformedURLException</code></pre><dl>
+            <dd>subscriptionURL 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.net.MalformedURLException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_publisherAssertions(java.lang.String)"></a><h3>get_publisherAssertions</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/PublisherAssertions.html">PublisherAssertions</a> <b>get_publisherAssertions</b>(<code>java.lang.String</code> authInfo)<br>                                                 throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                        <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                        <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#get_publisherAssertions(java.lang.String)">get_publisherAssertions</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="discard_authToken(java.lang.String)"></a><h3>discard_authToken</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>discard_authToken</b>(<code>java.lang.String</code> authInfo)<br>                                         throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/SecurityAPI.html#discard_authToken(java.lang.String)">discard_authToken</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/SecurityAPI.html">SecurityAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_subscriptions(java.lang.String)"></a><h3>get_subscriptions</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/Subscriptions.html">Subscriptions</a> <b>get_subscriptions</b>(<code>java.lang.String</code> authInfo)<br>                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/SubscriptionAPI.html#get_subscriptions(java.lang.String)">get_subscriptions</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/SubscriptionAPI.html">SubscriptionAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_bindingDetail(java.lang.String, java.lang.String)"></a><h3>get_bindingDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a> <b>get_bindingDetail</b>(<code>java.lang.String</code> authInfo,<br>                                       <code>java.lang.String</code> bindingKey)<br>                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#get_bindingDetail(java.lang.String, java.lang.String)">get_bindingDetail</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_businessDetail(java.lang.String, java.lang.String)"></a><h3>get_businessDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a> <b>get_businessDetail</b>(<code>java.lang.String</code> authInfo,<br>                                         <code>java.lang.String</code> businessKey)<br>                                       throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#get_businessDetail(java.lang.String, java.lang.String)">get_businessDetail</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_operationalInfo(java.lang.String, java.lang.String)"></a><h3>get_operationalInfo</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/OperationalInfos.html">OperationalInfos</a> <b>get_operationalInfo</b>(<code>java.lang.String</code> authInfo,<br>                                            <code>java.lang.String</code> entityKey)<br>                                          throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                 <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                 <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#get_operationalInfo(java.lang.String, java.lang.String)">get_operationalInfo</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_serviceDetail(java.lang.String, java.lang.String)"></a><h3>get_serviceDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a> <b>get_serviceDetail</b>(<code>java.lang.String</code> authInfo,<br>                                       <code>java.lang.String</code> serviceKey)<br>                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#get_serviceDetail(java.lang.String, java.lang.String)">get_serviceDetail</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_tModelDetail(java.lang.String, java.lang.String)"></a><h3>get_tModelDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a> <b>get_tModelDetail</b>(<code>java.lang.String</code> authInfo,<br>                                     <code>java.lang.String</code> tModelKey)<br>                                   throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                          <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                          <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#get_tModelDetail(java.lang.String, java.lang.String)">get_tModelDetail</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="delete_binding(java.lang.String, java.lang.String)"></a><h3>delete_binding</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>delete_binding</b>(<code>java.lang.String</code> authInfo,<br>                                        <code>java.lang.String</code> bindingKey)<br>                                      throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                             <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                             <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#delete_binding(java.lang.String, java.lang.String)">delete_binding</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="delete_business(java.lang.String, java.lang.String)"></a><h3>delete_business</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>delete_business</b>(<code>java.lang.String</code> authInfo,<br>                                         <code>java.lang.String</code> businessKey)<br>                                       throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#delete_business(java.lang.String, java.lang.String)">delete_business</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="delete_service(java.lang.String, java.lang.String)"></a><h3>delete_service</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>delete_service</b>(<code>java.lang.String</code> authInfo,<br>                                        <code>java.lang.String</code> serviceKey)<br>                                      throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                             <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                             <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#delete_service(java.lang.String, java.lang.String)">delete_service</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="delete_tModel(java.lang.String, java.lang.String)"></a><h3>delete_tModel</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>delete_tModel</b>(<code>java.lang.String</code> authInfo,<br>                                       <code>java.lang.String</code> tModelKey)<br>                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#delete_tModel(java.lang.String, java.lang.String)">delete_tModel</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_assertionStatusReport(java.lang.String, java.lang.String)"></a><h3>get_assertionStatusReport</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/AssertionStatusReport.html">AssertionStatusReport</a> <b>get_assertionStatusReport</b>(<code>java.lang.String</code> authInfo,<br>                                                       <code>java.lang.String</code> completionStatus)<br>                                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#get_assertionStatusReport(java.lang.String, java.lang.String)">get_assertionStatusReport</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_registeredInfo(java.lang.String, java.lang.String)"></a><h3>get_registeredInfo</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/RegisteredInfo.html">RegisteredInfo</a> <b>get_registeredInfo</b>(<code>java.lang.String</code> authInfo,<br>                                         <code>java.lang.String</code> infoSelection)<br>                                       throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#get_registeredInfo(java.lang.String, java.lang.String)">get_registeredInfo</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_authToken(java.lang.String, java.lang.String)"></a><h3>get_authToken</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/AuthToken.html">AuthToken</a> <b>get_authToken</b>(<code>java.lang.String</code> userID,<br>                               <code>java.lang.String</code> cred)<br>                             throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                    <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                    <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/SecurityAPI.html#get_authToken(java.lang.String, java.lang.String)">get_authToken</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/SecurityAPI.html">SecurityAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="delete_subscription(java.lang.String, java.lang.String)"></a><h3>delete_subscription</h3><pre>public void <b>delete_subscription</b>(<code>java.lang.String</code> authInfo,<br>                                <code>java.lang.String</code> subscriptionKey)<br>                              throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/SubscriptionAPI.html#delete_subscription(java.lang.String, java.lang.String)">delete_subscription</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/SubscriptionAPI.html">SubscriptionAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_service(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, int, int)"></a><h3>find_service</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/ServiceList.html">ServiceList</a> <b>find_service</b>(<code>java.lang.String</code> authInfo,<br>                                <code>java.lang.String</code> businessKey,<br>                                <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                                <code>java.lang.String</code> name,<br>                                <code>int</code> maxRows,<br>                                <code>int</code> listHead)<br>                              throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#find_service(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, int, int)">find_service</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_service(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.util.Vector, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, int, int)"></a><h3>find_service</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/ServiceList.html">ServiceList</a> <b>find_service</b>(<code>java.lang.String</code> authInfo,<br>                                <code>java.lang.String</code> businessKey,<br>                                <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                                <code>java.util.Vector</code> nameVector,<br>                                <code><a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a></code> categoryBag,<br>                                <code><a href="../../../../jeus/uddi/v3/datatype/TModelBag.html">TModelBag</a></code> tModelBag,<br>                                <code><a href="../../../../jeus/uddi/v3/api/request/inquiry/FindTModel.html">FindTModel</a></code> findTModel,<br>                                <code>int</code> maxRows,<br>                                <code>int</code> listHead)<br>                              throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#find_service(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.util.Vector, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, int, int)">find_service</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_binding(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, jeus.uddi.v3.datatype.CategoryBag, int, int)"></a><h3>find_binding</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a> <b>find_binding</b>(<code>java.lang.String</code> authInfo,<br>                                  <code>java.lang.String</code> serviceKey,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/TModelBag.html">TModelBag</a></code> tModelBag,<br>                                  <code><a href="../../../../jeus/uddi/v3/api/request/inquiry/FindTModel.html">FindTModel</a></code> findTModel,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a></code> categoryBag,<br>                                  <code>int</code> maxRows,<br>                                  <code>int</code> listHead)<br>                                throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#find_binding(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, jeus.uddi.v3.datatype.CategoryBag, int, int)">find_binding</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_subscriptionResults(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.subscription.CoveragePeriod, java.lang.String)"></a><h3>get_subscriptionResults</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/SubscriptionResultsList.html">SubscriptionResultsList</a> <b>get_subscriptionResults</b>(<code>java.lang.String</code> authInfo,<br>                                                       <code>java.lang.String</code> subscriptionKey,<br>                                                       <code><a href="../../../../jeus/uddi/v3/datatype/subscription/CoveragePeriod.html">CoveragePeriod</a></code> coveragePeriod,<br>                                                       <code>java.lang.String</code> chunkToken)<br>                                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/SubscriptionAPI.html#get_subscriptionResults(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.subscription.CoveragePeriod, java.lang.String)">get_subscriptionResults</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/SubscriptionAPI.html">SubscriptionAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_bindingDetail(java.lang.String, java.util.Vector)"></a><h3>get_bindingDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a> <b>get_bindingDetail</b>(<code>java.lang.String</code> authInfo,<br>                                       <code>java.util.Vector</code> bindingKeyStrings)<br>                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#get_bindingDetail(java.lang.String, java.util.Vector)">get_bindingDetail</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_businessDetail(java.lang.String, java.util.Vector)"></a><h3>get_businessDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a> <b>get_businessDetail</b>(<code>java.lang.String</code> authInfo,<br>                                         <code>java.util.Vector</code> businessKeyStrings)<br>                                       throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#get_businessDetail(java.lang.String, java.util.Vector)">get_businessDetail</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_operationalInfo(java.lang.String, java.util.Vector)"></a><h3>get_operationalInfo</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/OperationalInfos.html">OperationalInfos</a> <b>get_operationalInfo</b>(<code>java.lang.String</code> authInfo,<br>                                            <code>java.util.Vector</code> entityKeyStrings)<br>                                          throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                 <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                 <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#get_operationalInfo(java.lang.String, java.util.Vector)">get_operationalInfo</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_serviceDetail(java.lang.String, java.util.Vector)"></a><h3>get_serviceDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a> <b>get_serviceDetail</b>(<code>java.lang.String</code> authInfo,<br>                                       <code>java.util.Vector</code> serviceKeyStrings)<br>                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#get_serviceDetail(java.lang.String, java.util.Vector)">get_serviceDetail</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_tModelDetail(java.lang.String, java.util.Vector)"></a><h3>get_tModelDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a> <b>get_tModelDetail</b>(<code>java.lang.String</code> authInfo,<br>                                     <code>java.util.Vector</code> tModelKeyStrings)<br>                                   throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                          <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                          <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#get_tModelDetail(java.lang.String, java.util.Vector)">get_tModelDetail</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="add_publisherAssertions(java.lang.String, java.util.Vector)"></a><h3>add_publisherAssertions</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>add_publisherAssertions</b>(<code>java.lang.String</code> authInfo,<br>                                                 <code>java.util.Vector</code> publisherAssertionVector)<br>                                               throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                      <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                      <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#add_publisherAssertions(java.lang.String, java.util.Vector)">add_publisherAssertions</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="delete_binding(java.lang.String, java.util.Vector)"></a><h3>delete_binding</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>delete_binding</b>(<code>java.lang.String</code> authInfo,<br>                                        <code>java.util.Vector</code> bindingKeyStrings)<br>                                      throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                             <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                             <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#delete_binding(java.lang.String, java.util.Vector)">delete_binding</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="delete_business(java.lang.String, java.util.Vector)"></a><h3>delete_business</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>delete_business</b>(<code>java.lang.String</code> authInfo,<br>                                         <code>java.util.Vector</code> businessKeyStrings)<br>                                       throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#delete_business(java.lang.String, java.util.Vector)">delete_business</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="delete_publisherAssertions(java.lang.String, java.util.Vector)"></a><h3>delete_publisherAssertions</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>delete_publisherAssertions</b>(<code>java.lang.String</code> authInfo,<br>                                                    <code>java.util.Vector</code> publisherAssertionVector)<br>                                                  throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                         <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                         <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#delete_publisherAssertions(java.lang.String, java.util.Vector)">delete_publisherAssertions</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="delete_service(java.lang.String, java.util.Vector)"></a><h3>delete_service</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>delete_service</b>(<code>java.lang.String</code> authInfo,<br>                                        <code>java.util.Vector</code> serviceKeyStrings)<br>                                      throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                             <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                             <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#delete_service(java.lang.String, java.util.Vector)">delete_service</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="delete_tModel(java.lang.String, java.util.Vector)"></a><h3>delete_tModel</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>delete_tModel</b>(<code>java.lang.String</code> authInfo,<br>                                       <code>java.util.Vector</code> tModelKeyStrings)<br>                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#delete_tModel(java.lang.String, java.util.Vector)">delete_tModel</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_binding(java.lang.String, java.util.Vector)"></a><h3>save_binding</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a> <b>save_binding</b>(<code>java.lang.String</code> authInfo,<br>                                  <code>java.util.Vector</code> bindingTemplateVector)<br>                                throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#save_binding(java.lang.String, java.util.Vector)">save_binding</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_business(java.lang.String, java.util.Vector)"></a><h3>save_business</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a> <b>save_business</b>(<code>java.lang.String</code> authInfo,<br>                                    <code>java.util.Vector</code> businessEntityVector)<br>                                  throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                         <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                         <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#save_business(java.lang.String, java.util.Vector)">save_business</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_service(java.lang.String, java.util.Vector)"></a><h3>save_service</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a> <b>save_service</b>(<code>java.lang.String</code> authInfo,<br>                                  <code>java.util.Vector</code> businessServiceVector)<br>                                throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#save_service(java.lang.String, java.util.Vector)">save_service</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_tModel(java.lang.String, java.util.Vector)"></a><h3>save_tModel</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a> <b>save_tModel</b>(<code>java.lang.String</code> authInfo,<br>                                <code>java.util.Vector</code> tModelVector)<br>                              throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#save_tModel(java.lang.String, java.util.Vector)">save_tModel</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="set_publisherAssertions(java.lang.String, java.util.Vector)"></a><h3>set_publisherAssertions</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/PublisherAssertions.html">PublisherAssertions</a> <b>set_publisherAssertions</b>(<code>java.lang.String</code> authInfo,<br>                                                   <code>java.util.Vector</code> publisherAssertionVector)<br>                                                 throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                        <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                        <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#set_publisherAssertions(java.lang.String, java.util.Vector)">set_publisherAssertions</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="delete_subscription(java.lang.String, java.util.Vector)"></a><h3>delete_subscription</h3><pre>public void <b>delete_subscription</b>(<code>java.lang.String</code> authInfo,<br>                                <code>java.util.Vector</code> subscriptionKeyStrings)<br>                              throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/SubscriptionAPI.html#delete_subscription(java.lang.String, java.util.Vector)">delete_subscription</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/SubscriptionAPI.html">SubscriptionAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_subscription(java.lang.String, java.util.Vector)"></a><h3>save_subscription</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/Subscriptions.html">Subscriptions</a> <b>save_subscription</b>(<code>java.lang.String</code> authInfo,<br>                                       <code>java.util.Vector</code> subscriptionVector)<br>                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/SubscriptionAPI.html#save_subscription(java.lang.String, java.util.Vector)">save_subscription</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/SubscriptionAPI.html">SubscriptionAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_assertionStatusReport(java.lang.String, jeus.uddi.v3.api.response.CompletionStatus)"></a><h3>get_assertionStatusReport</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/AssertionStatusReport.html">AssertionStatusReport</a> <b>get_assertionStatusReport</b>(<code>java.lang.String</code> authInfo,<br>                                                       <code><a href="../../../../jeus/uddi/v3/api/response/CompletionStatus.html">CompletionStatus</a></code> completionStatus)<br>                                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#get_assertionStatusReport(java.lang.String, jeus.uddi.v3.api.response.CompletionStatus)">get_assertionStatusReport</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="add_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion)"></a><h3>add_publisherAssertions</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>add_publisherAssertions</b>(<code>java.lang.String</code> authInfo,<br>                                                 <code><a href="../../../../jeus/uddi/v3/datatype/assertion/PublisherAssertion.html">PublisherAssertion</a></code> publisherAssertion)<br>                                               throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                      <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                      <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#add_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion)">add_publisherAssertions</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="delete_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion)"></a><h3>delete_publisherAssertions</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>delete_publisherAssertions</b>(<code>java.lang.String</code> authInfo,<br>                                                    <code><a href="../../../../jeus/uddi/v3/datatype/assertion/PublisherAssertion.html">PublisherAssertion</a></code> publisherAssertion)<br>                                                  throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                         <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                         <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#delete_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion)">delete_publisherAssertions</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="set_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion)"></a><h3>set_publisherAssertions</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/PublisherAssertions.html">PublisherAssertions</a> <b>set_publisherAssertions</b>(<code>java.lang.String</code> authInfo,<br>                                                   <code><a href="../../../../jeus/uddi/v3/datatype/assertion/PublisherAssertion.html">PublisherAssertion</a></code> publisherAssertion)<br>                                                 throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                        <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                        <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#set_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion)">set_publisherAssertions</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="add_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion, java.security.PrivateKey, java.security.cert.X509Certificate)"></a><h3>add_publisherAssertions</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>add_publisherAssertions</b>(<code>java.lang.String</code> authInfo,<br>                                                 <code><a href="../../../../jeus/uddi/v3/datatype/assertion/PublisherAssertion.html">PublisherAssertion</a></code> publisherAssertion,<br>                                                 <code>java.security.PrivateKey</code> privateKey,<br>                                                 <code>java.security.cert.X509Certificate</code> certificate)<br>                                               throws <code>java.security.SignatureException</code>,<br>                                                      <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                      <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                      <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#add_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion, java.security.PrivateKey, java.security.cert.X509Certificate)">add_publisherAssertions</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.security.SignatureException</code><br><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="set_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion, java.security.PrivateKey, java.security.cert.X509Certificate)"></a><h3>set_publisherAssertions</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/PublisherAssertions.html">PublisherAssertions</a> <b>set_publisherAssertions</b>(<code>java.lang.String</code> authInfo,<br>                                                   <code><a href="../../../../jeus/uddi/v3/datatype/assertion/PublisherAssertion.html">PublisherAssertion</a></code> publisherAssertion,<br>                                                   <code>java.security.PrivateKey</code> privateKey,<br>                                                   <code>java.security.cert.X509Certificate</code> certificate)<br>                                                 throws <code>java.security.SignatureException</code>,<br>                                                        <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                        <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                        <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#set_publisherAssertions(java.lang.String, jeus.uddi.v3.datatype.assertion.PublisherAssertion, java.security.PrivateKey, java.security.cert.X509Certificate)">set_publisherAssertions</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.security.SignatureException</code><br><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_binding(java.lang.String, jeus.uddi.v3.datatype.binding.BindingTemplate, java.security.PrivateKey, java.security.cert.X509Certificate)"></a><h3>save_binding</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a> <b>save_binding</b>(<code>java.lang.String</code> authInfo,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/binding/BindingTemplate.html">BindingTemplate</a></code> bindingTemplate,<br>                                  <code>java.security.PrivateKey</code> privateKey,<br>                                  <code>java.security.cert.X509Certificate</code> certificate)<br>                                throws <code>java.security.SignatureException</code>,<br>                                       <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#save_binding(java.lang.String, jeus.uddi.v3.datatype.binding.BindingTemplate, java.security.PrivateKey, java.security.cert.X509Certificate)">save_binding</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.security.SignatureException</code><br><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_business(java.lang.String, jeus.uddi.v3.datatype.business.BusinessEntity, java.security.PrivateKey, java.security.cert.X509Certificate)"></a><h3>save_business</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a> <b>save_business</b>(<code>java.lang.String</code> authInfo,<br>                                    <code><a href="../../../../jeus/uddi/v3/datatype/business/BusinessEntity.html">BusinessEntity</a></code> businessEntity,<br>                                    <code>java.security.PrivateKey</code> privateKey,<br>                                    <code>java.security.cert.X509Certificate</code> certificate)<br>                                  throws <code>java.security.SignatureException</code>,<br>                                         <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                         <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                         <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#save_business(java.lang.String, jeus.uddi.v3.datatype.business.BusinessEntity, java.security.PrivateKey, java.security.cert.X509Certificate)">save_business</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.security.SignatureException</code><br><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_business(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, int, int)"></a><h3>find_business</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BusinessList.html">BusinessList</a> <b>find_business</b>(<code>java.lang.String</code> authInfo,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                                  <code>java.lang.String</code> name,<br>                                  <code>int</code> maxRows,<br>                                  <code>int</code> listHead)<br>                                throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#find_business(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, int, int)">find_business</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_relatedBusinesses(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, java.lang.String, java.lang.String, jeus.uddi.v3.datatype.KeyedReference, int, int)"></a><h3>find_relatedBusinesses</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/RelatedBusinessesList.html">RelatedBusinessesList</a> <b>find_relatedBusinesses</b>(<code>java.lang.String</code> authInfo,<br>                                                    <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                                                    <code>java.lang.String</code> businessKey,<br>                                                    <code>java.lang.String</code> fromKey,<br>                                                    <code>java.lang.String</code> toKey,<br>                                                    <code><a href="../../../../jeus/uddi/v3/datatype/KeyedReference.html">KeyedReference</a></code> keyedReference,<br>                                                    <code>int</code> maxRows,<br>                                                    <code>int</code> listHead)<br>                                                  throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                         <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                         <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#find_relatedBusinesses(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, java.lang.String, java.lang.String, jeus.uddi.v3.datatype.KeyedReference, int, int)">find_relatedBusinesses</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_tModel(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.IdentifierBag, int, int)"></a><h3>find_tModel</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/TModelList.html">TModelList</a> <b>find_tModel</b>(<code>java.lang.String</code> authInfo,<br>                              <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                              <code>java.lang.String</code> name,<br>                              <code><a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a></code> categoryBag,<br>                              <code><a href="../../../../jeus/uddi/v3/datatype/IdentifierBag.html">IdentifierBag</a></code> identifierBag,<br>                              <code>int</code> maxRows,<br>                              <code>int</code> listHead)<br>                            throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                   <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                   <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#find_tModel(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.IdentifierBag, int, int)">find_tModel</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_business(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.util.Vector, jeus.uddi.v3.datatype.IdentifierBag, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, jeus.uddi.v3.datatype.DiscoveryURLs, jeus.uddi.v3.api.request.inquiry.FindRelatedBusinesses, int, int)"></a><h3>find_business</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BusinessList.html">BusinessList</a> <b>find_business</b>(<code>java.lang.String</code> authInfo,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                                  <code>java.util.Vector</code> nameVector,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/IdentifierBag.html">IdentifierBag</a></code> identifierBag,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a></code> categoryBag,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/TModelBag.html">TModelBag</a></code> tModelBag,<br>                                  <code><a href="../../../../jeus/uddi/v3/api/request/inquiry/FindTModel.html">FindTModel</a></code> findTModel,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/DiscoveryURLs.html">DiscoveryURLs</a></code> discoveryURLs,<br>                                  <code><a href="../../../../jeus/uddi/v3/api/request/inquiry/FindRelatedBusinesses.html">FindRelatedBusinesses</a></code> findRelatedBusinesses,<br>                                  <code>int</code> maxRows,<br>                                  <code>int</code> listHead)<br>                                throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html#find_business(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.util.Vector, jeus.uddi.v3.datatype.IdentifierBag, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, jeus.uddi.v3.datatype.DiscoveryURLs, jeus.uddi.v3.api.request.inquiry.FindRelatedBusinesses, int, int)">find_business</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/InquiryAPI.html">InquiryAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_service(java.lang.String, jeus.uddi.v3.datatype.service.BusinessService, java.security.PrivateKey, java.security.cert.X509Certificate)"></a><h3>save_service</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a> <b>save_service</b>(<code>java.lang.String</code> authInfo,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/service/BusinessService.html">BusinessService</a></code> businessService,<br>                                  <code>java.security.PrivateKey</code> privateKey,<br>                                  <code>java.security.cert.X509Certificate</code> certificate)<br>                                throws <code>java.security.SignatureException</code>,<br>                                       <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#save_service(java.lang.String, jeus.uddi.v3.datatype.service.BusinessService, java.security.PrivateKey, java.security.cert.X509Certificate)">save_service</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.security.SignatureException</code><br><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_subscription(java.lang.String, jeus.uddi.v3.datatype.subscription.Subscription)"></a><h3>save_subscription</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/Subscriptions.html">Subscriptions</a> <b>save_subscription</b>(<code>java.lang.String</code> authInfo,<br>                                       <code><a href="../../../../jeus/uddi/v3/datatype/subscription/Subscription.html">Subscription</a></code> subscription)<br>                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/SubscriptionAPI.html#save_subscription(java.lang.String, jeus.uddi.v3.datatype.subscription.Subscription)">save_subscription</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/SubscriptionAPI.html">SubscriptionAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_tModel(java.lang.String, jeus.uddi.v3.datatype.tmodel.TModel, java.security.PrivateKey, java.security.cert.X509Certificate)"></a><h3>save_tModel</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a> <b>save_tModel</b>(<code>java.lang.String</code> authInfo,<br>                                <code><a href="../../../../jeus/uddi/v3/datatype/tmodel/TModel.html">TModel</a></code> tModel,<br>                                <code>java.security.PrivateKey</code> privateKey,<br>                                <code>java.security.cert.X509Certificate</code> certificate)<br>                              throws <code>java.security.SignatureException</code>,<br>                                     <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html#save_tModel(java.lang.String, jeus.uddi.v3.datatype.tmodel.TModel, java.security.PrivateKey, java.security.cert.X509Certificate)">save_tModel</a></code> in interface <code><a href="../../../../jeus/uddi/v3/api/PublicationAPI.html">PublicationAPI</a></code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.security.SignatureException</code><br><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="add_publisherAssertions(java.lang.String, org.w3c.dom.Element, java.security.PrivateKey, java.security.cert.X509Certificate)"></a><h3>add_publisherAssertions</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>add_publisherAssertions</b>(<code>java.lang.String</code> authInfo,<br>                                                 <code>org.w3c.dom.Element</code> publisherAssertion,<br>                                                 <code>java.security.PrivateKey</code> privateKey,<br>                                                 <code>java.security.cert.X509Certificate</code> certificate)<br>                                               throws <code>java.security.SignatureException</code>,<br>                                                      <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                      <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                      <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.security.SignatureException</code><br><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_binding(java.lang.String, org.w3c.dom.Element, java.security.PrivateKey, java.security.cert.X509Certificate)"></a><h3>save_binding</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a> <b>save_binding</b>(<code>java.lang.String</code> authInfo,<br>                                  <code>org.w3c.dom.Element</code> bindingTemplate,<br>                                  <code>java.security.PrivateKey</code> privateKey,<br>                                  <code>java.security.cert.X509Certificate</code> certificate)<br>                                throws <code>java.security.SignatureException</code>,<br>                                       <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.security.SignatureException</code><br><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_business(java.lang.String, org.w3c.dom.Element, java.security.PrivateKey, java.security.cert.X509Certificate)"></a><h3>save_business</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a> <b>save_business</b>(<code>java.lang.String</code> authInfo,<br>                                    <code>org.w3c.dom.Element</code> businessEntity,<br>                                    <code>java.security.PrivateKey</code> privateKey,<br>                                    <code>java.security.cert.X509Certificate</code> certificate)<br>                                  throws <code>java.security.SignatureException</code>,<br>                                         <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                         <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                         <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.security.SignatureException</code><br><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_service(java.lang.String, org.w3c.dom.Element, java.security.PrivateKey, java.security.cert.X509Certificate)"></a><h3>save_service</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a> <b>save_service</b>(<code>java.lang.String</code> authInfo,<br>                                  <code>org.w3c.dom.Element</code> businessService,<br>                                  <code>java.security.PrivateKey</code> privateKey,<br>                                  <code>java.security.cert.X509Certificate</code> certificate)<br>                                throws <code>java.security.SignatureException</code>,<br>                                       <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.security.SignatureException</code><br><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="save_tModel(java.lang.String, org.w3c.dom.Element, java.security.PrivateKey, java.security.cert.X509Certificate)"></a><h3>save_tModel</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a> <b>save_tModel</b>(<code>java.lang.String</code> authInfo,<br>                                <code>org.w3c.dom.Element</code> tModel,<br>                                <code>java.security.PrivateKey</code> privateKey,<br>                                <code>java.security.cert.X509Certificate</code> certificate)<br>                              throws <code>java.security.SignatureException</code>,<br>                                     <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.security.SignatureException</code><br><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="set_publisherAssertions(java.lang.String, org.w3c.dom.Element, java.security.PrivateKey, java.security.cert.X509Certificate)"></a><h3>set_publisherAssertions</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/PublisherAssertions.html">PublisherAssertions</a> <b>set_publisherAssertions</b>(<code>java.lang.String</code> authInfo,<br>                                                   <code>org.w3c.dom.Element</code> publisherAssertion,<br>                                                   <code>java.security.PrivateKey</code> privateKey,<br>                                                   <code>java.security.cert.X509Certificate</code> certificate)<br>                                                 throws <code>java.security.SignatureException</code>,<br>                                                        <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                        <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                        <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.security.SignatureException</code><br><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setSubscriptionURL(java.net.URL)"></a><h3>setSubscriptionURL</h3><pre>public void <b>setSubscriptionURL</b>(<code>java.net.URL</code> url)<br></pre><dl>
+            <dd>subscriptionURL 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="validate_values_businessEntity(java.util.Vector)"></a><h3>validate_values_businessEntity</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>validate_values_businessEntity</b>(<code>java.util.Vector</code> businessEntityVector)<br>                                                      throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                             <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                             <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>validate_values_businessEntity</code> in class <code>ValueSetAPI</code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="validate_values_businessService(java.util.Vector)"></a><h3>validate_values_businessService</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>validate_values_businessService</b>(<code>java.util.Vector</code> businessServiceVector)<br>                                                       throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                              <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                              <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>validate_values_businessService</code> in class <code>ValueSetAPI</code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="validate_values_bindingTemplate(java.util.Vector)"></a><h3>validate_values_bindingTemplate</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>validate_values_bindingTemplate</b>(<code>java.util.Vector</code> bindingTemplateVector)<br>                                                       throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                              <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                              <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>validate_values_bindingTemplate</code> in class <code>ValueSetAPI</code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="validate_values_TModel(java.util.Vector)"></a><h3>validate_values_TModel</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>validate_values_TModel</b>(<code>java.util.Vector</code> tModelVector)<br>                                              throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                     <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                     <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>validate_values_TModel</code> in class <code>ValueSetAPI</code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="validate_values_publisherAssertion(java.util.Vector)"></a><h3>validate_values_publisherAssertion</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/DispositionReport.html">DispositionReport</a> <b>validate_values_publisherAssertion</b>(<code>java.util.Vector</code> publisherAssertionVector)<br>                                                          throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                                 <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                                 <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>validate_values_publisherAssertion</code> in class <code>ValueSetAPI</code></dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="send(jeus.uddi.datatype.RegistryObject, java.net.URL)"></a><h3>send</h3><pre>public org.w3c.dom.Element <b>send</b>(<code><a href="../../../../jeus/uddi/datatype/RegistryObject.html">RegistryObject</a></code> uddiRequest,<br>                                <code>java.net.URL</code> endpointURL)<br>                              throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code></pre><dl>
+            <dd>Endpoint URL로 RegistryObject를 전송한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>element</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="send(org.w3c.dom.Element, java.net.URL)"></a><h3>send</h3><pre>public org.w3c.dom.Element <b>send</b>(<code>org.w3c.dom.Element</code> request,<br>                                <code>java.net.URL</code> endpointURL)<br>                              throws <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code></pre><dl>
+            <dd>Endpoint URL로 DOM Element를 전송한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>element</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

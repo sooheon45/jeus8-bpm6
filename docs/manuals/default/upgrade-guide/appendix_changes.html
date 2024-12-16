@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Appendix B. 주요 변경 사항(6.x to 7)</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS 업그레이드 안내서"/><link rel="up" href="index.html" title="JEUS 업그레이드 안내서"/><link rel="prev" href="appendix_upgradetool.html" title="Appendix A. 업그레이드 툴"/><link rel="next" href="appendix_compatibility.html" title="Appendix C. 호환성(Compatibility) 노트"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">Appendix B. 주요 변경 사항(6.x to 7)</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="appendix_upgradetool.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="appendix_compatibility.html">다음</a></td></tr></table><hr/></div><div class="appendix" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="appendix_changes"></a>Appendix B. 주요 변경 사항(6.x to 7)</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="appendix_changes.html#d4e596">B.1. 도메인(Domain) 구조</a></span></dt><dt><span class="section"><a href="appendix_changes.html#d4e612">B.2. 클러스터 구성</a></span></dt><dt><span class="section"><a href="appendix_changes.html#d4e618">B.3. 웹 컨테이너</a></span></dt><dt><span class="section"><a href="appendix_changes.html#d4e641">B.4. 세션 서버</a></span></dt><dt><span class="section"><a href="appendix_changes.html#d4e652">B.5. JMX</a></span></dt></dl></div>
+  
+
+  <p>본 부록에서는 JEUS 6.x 환경에서 JEUS 7 환경으로 업그레이드할 때 참고해야 할 주요 변경 사항에 대해서 설명한다.
+  JEUS 7은 JEUS 6에 비해 매우 많은 부분이 변경되었기 때문에, 아래에서는 업그레이드 과정에서 일반적으로 고려해야할 부분에
+  대해서만 설명한다.</p>
+
+  <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+    <p>JEUS 7은 JEUS 6에 비해 매우 많은 부분이 새롭게 추가되고 변경되었다. 업그레이드를 진행하기 전에 <a xmlns="" href="../release-note/index.html" class="olink">"JEUS Releae Note"</a>에서 JEUS 7의 각 Fix별 주요 변경
+    사항 및 신규 기능들을 확인해서 변경 사항 및 새로운 기능에 대해 미리 알아두는 것을 권장한다.</p>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e596"></a>B.1. 도메인(Domain) 구조</h2></div></div></div>
+    
+
+    <p>JEUS 7부터 도메인 구조가 새롭게 되입되어 최대 관리 단위가 노드에서 도메인으로 확장되었다. JEUS 7로 이전하기
+    위해서는 기존 JEUS 6 구성을 바탕으로 하여 새롭게 JEUS 7 도메인을 구성해야
+    한다.</p><div class="literallayout"><p/></div>
+
+    <p>JEUS 6 각 구성 요소에 대응하는 JEUS 7 구성 요소는 대략적으로 다음과 같다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>JEUS 6에서는 노드가 최상위 단계에 위치하지만, JEUS 7에서는 도메인이라는 새로운 최상위 단계가
+          도입되었다. JEUS 6에서 JEUS 7로 이전할 경우 원하는 노드들을 선택하여 새로운 JEUS 7 도메인을 구성해야
+          한다.</p>
+        </li><li>
+          <p>JEUS 6 Engine Container는 서블릿 엔진, EJB 엔진, JMS 서버 등을 포함하고 있으며,
+          애플리케이션이 배포되고 서비스되는 주체가 된다. JEUS 7에서는 Managed Server(MS)가 이에 대응되는 구성
+          요소이다.</p>
+        </li><li>
+          <p>이전을 통해 구성하는 JEUS 7 도메인을 관리하는 Domain Administration
+          Server(DAS)를 새롭게 생성한다. JEUS 6 환경에서는 존재하지 않던 구성 요소이므로, 새롭게 구성하여야
+          한다.</p>
+        </li></ul></div><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS 도메인에 관한 상세한 내용은 <a xmlns="" href="../domain/chapter_domain_overview.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Domain 안내서</span>”의 “제1장 소개”</a>를 참고한다.</p>
+      </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e612"></a>B.2. 클러스터 구성</h2></div></div></div>
+    
+
+    <p>JEUS 6에서 노드 클러스터링을 구성했을 경우 해당 노드 클러스터에 속한 각 엔진 컨테이너에 대응하는 Managed
+    Server들을 묶어서 클러스터를 구성함으로서 유사한 환경을 구축할 수 있다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>JEUS 7에서는 클러스터에 속한 서버들에게 배포되는 애플리케이션들의 구성이 모두 동일해야 한다는 점에 유의해야 한다.
+      클러스터에 대한 자세한 내용은 <a xmlns="" href="../domain/chapter_clustering.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Domain 안내서</span>”의 “제5장 JEUS 클러스터링”</a>을 참고한다.</p>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e618"></a>B.3. 웹 컨테이너</h2></div></div></div>
+    
+
+    <p>웹 컨테이너에 대한 주요한 변경 사항은 다음과 같다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>http-listener, tcp-listener, ajp13-listener가 서버 네트워크 리스너를 사용하도록
+        변경되었다.</p>
+
+        <p>서버에 리스너 설정을 하고, server-listener-ref 설정을 통해 서버에 설정한 네트워크 리스너 중 어떤
+        리스너를 사용할지를 알려주는 방식으로 설정해야 한다.</p>
+
+        <p>아래 예제를 참고한다.</p>
+
+        <div class="example"><a id="d4e626"></a><p class="title"><b>[예 B.1] JEUS 6에서 http-listener를 설정한 예(WEBMain.xml)</b></p><div class="example-contents">
+          
+
+          <pre class="programlisting">. . .
+&lt;context-group&gt;
+    . . . 
+    &lt;webserver-connection&gt;
+        &lt;http-listener&gt;
+            &lt;listener-id&gt;http1&lt;/listener-id&gt;
+            &lt;port&gt;8088&lt;/port&gt;
+            &lt;thread-pool&gt;
+                &lt;min&gt;30&lt;/min&gt;
+                &lt;max&gt;30&lt;/max&gt;
+                &lt;step&gt;1&lt;/step&gt;
+            &lt;/thread-pool&gt;
+        &lt;/http-listener&gt;
+        . . .
+    &lt;/webserver-connection&gt;
+    . . .
+&lt;/context-group&gt;
+. . .
+</pre>
+        </div></div><br class="example-break"/>
+
+        <div class="example"><a id="d4e630"></a><p class="title"><b>[예 B.2] JEUS 7에서 동일한 http-listener를 설정한 예(domain.xml)</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">. . .
+&lt;server&gt;
+    . . .
+    &lt;listeners&gt;
+        . . .
+<span class="bold"><strong>        &lt;listener&gt;
+            &lt;name&gt;http1&lt;/name&gt;
+            &lt;listen-port&gt;9099&lt;/listen-port&gt;
+        &lt;/listener&gt;</strong></span>
+        . . .
+    &lt;/listeners&gt;
+    . . .
+    &lt;web-engine&gt;
+        . . .
+        &lt;web-connections&gt;
+            . . .
+            &lt;http-listener&gt;
+                &lt;name&gt;http1&lt;/name&gt;
+                <span class="bold"><strong>&lt;server-listener-ref&gt;http1&lt;/server-listener-ref&gt;</strong></span>
+                &lt;thread-pool&gt;
+                    &lt;min&gt;30&lt;/min&gt;
+                    &lt;max&gt;30&lt;/max&gt;
+                    &lt;step&gt;1&lt;/step&gt;
+                &lt;/thread-pool&gt;
+            &lt;/http-listener&gt;
+            . . .
+        &lt;/web-connections&gt;
+        . . .
+    &lt;/web-engine&gt;
+    . . .
+&lt;/server&gt;
+. . .
+</pre>
+        </div></div><br class="example-break"/>
+      </li><li>
+        <p>이미 디플로이한 웹 애플리케이션의 JSP 파일들을 미리 컴파일하는 기능을 jeusadmin의
+        <span><strong class="guibutton">precompile-jsp</strong></span> 명령으로 대체하였다. precompile-jsp 명령어
+        대한 자세한 사항은 <a xmlns="" href="../reference-book/ch04.html#webengine_jspc" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.8.21. precompile-jsp”</a>를 참고한다.</p>
+      </li><li>
+        <p>JEUS 7 Fix#2부터는 request encoding의 forced 설정을 하였을 경우 Servlet
+        API보다 우선적으로 적용한다. JEUS 6에서 request encoding의 forced 설정을 했을 경우 동일한 수준으로
+        적용하기 위해서는 client-override 설정을 사용해야 한다.</p>
+      </li></ul></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e641"></a>B.4. 세션 서버</h2></div></div></div>
+    
+
+    <p>세션 서버 기능에 대한 주요한 변경 사항은 다음과 같다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>JEUS 7에서는 중앙식 세션 서버를 더 이상 제공하지 않는다. 분산식 세션 서버만 사용 가능하다.</p>
+        </li><li>
+          <p>분산식 세션 서버를 설정할 때 수동으로 백업 서버를 설정할 필요가 없다. JEUS SCF를 기반으로 하여 세션
+          서버가 백업을 자동으로 설정한다.</p>
+        </li></ul></div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>JEUS 6에서 JEUS 7으로 설정 변환하는 부분에 대한 상세한 설명은 <a xmlns="" href="../session/chapter_session_server.html#sect_session_cluster_session_router_config" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS 세션 관리 안내서</span>”의 “2.10.3. 분산식 세션 서버 설정”</a>을
+      참고한다.</p>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e652"></a>B.5. JMX</h2></div></div></div>
+    
+
+    <p>JMX에 대한 주요한 변경 사항은 다음과 같다.</p>
+
+    <p/>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>JEUS 7에서 Manager와 Container 개념이 삭제됨에 따라 이를 관리하기 위한 MBean들이
+        삭제되었으며, 새롭게 도입된 도메인 구조에 맞는 MBean들이 추가되었으며, 많은 API가 변경되거나 추가,
+        삭제되었다.</p>
+      </li><li>
+        <p>MBean ObjectName 형식이 변경되었다. JEUS 6의 ObjectName에는 노드를 나타내는
+        JeusManager 키가 존재하였으나, JEUS 7에서는 해당 키가 삭제되고, 도메인을 나타내는 J2EEDomain 키가
+        새롭게 추가되었다.</p>
+      </li><li>
+        <p>위에서 언급한 이유로 인해 JEUS 6에서 작성하였던 JMX 클라이언트 애플리케이션을 JEUS 7에서 그대로 사용할
+        수 없다. 대부분 수정하거나 재작성해야 한다.</p>
+      </li></ul></div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="appendix_upgradetool.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="appendix_compatibility.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">Appendix A. 업그레이드 툴 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> Appendix C. 호환성(Compatibility) 노트</td></tr></table></div><div xmlns="" align="center"/></body></html>

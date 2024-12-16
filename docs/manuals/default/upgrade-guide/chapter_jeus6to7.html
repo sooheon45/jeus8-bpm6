@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제2장 JEUS 6.x에서 7로 업그레이드</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS 업그레이드 안내서"/><link rel="up" href="index.html" title="JEUS 업그레이드 안내서"/><link rel="prev" href="chapter_intro.html" title="제1장 소개"/><link rel="next" href="appendix_upgradetool.html" title="Appendix A. 업그레이드 툴"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제2장 JEUS 6.x에서 7로 업그레이드</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_intro.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="appendix_upgradetool.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jeus6to7"></a>제2장 JEUS 6.x에서 7로 업그레이드</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jeus6to7.html#d4e402">2.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jeus6to7.html#d4e412">2.2. 업그레이드 툴을 통한 이전 방식</a></span></dt><dt><span class="section"><a href="chapter_jeus6to7.html#d4e419">2.3. 서버 설정 이전</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus6to7.html#d4e423">2.3.1. 서버 설정 이전 대상</a></span></dt><dt><span class="section"><a href="chapter_jeus6to7.html#d4e451">2.3.2. 라이브러리 이전</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus6to7.html#d4e459">2.4. 애플리케이션 이전</a></span></dt><dt><span class="section"><a href="chapter_jeus6to7.html#d4e463">2.5. 스크립트 변경</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus6to7.html#d4e467">2.5.1. 제공하지 않는 스크립트</a></span></dt><dt><span class="section"><a href="chapter_jeus6to7.html#d4e479">2.5.2. 스크립트 변경</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus6to7.html#d4e517">2.6. 클라이언트 애플리케이션</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 JEUS 6.x 버전을 JEUS 7로 업그레이드할 때 주의해야 할 설정들과 해당 설정들의 구체적인 이전 과정에
+  대해 설명한다. 또한, 업그레이드 툴을 이용하여 이전을 진행하는 과정에 대해서도 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e402"></a>2.1. 개요</h2></div></div></div>
+    
+
+    <p>JEUS 6에서 JEUS 7로 이전하기 위해서는 크게 다음과 같은 과정을 거쳐야 한다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>JEUS 6 환경에서 구성한 노드-컨테이너 구성을 바탕으로 JEUS 7 도메인을 구성한다.</p>
+        </li><li>
+          <p>JEUS 6 환경에서 사용하는 각종 설정 파일을 이용하여 JEUS 7 설정 파일을 생성한다.</p>
+        </li><li>
+          <p>JEUS 6 환경에서 구동하던 애플리케이션을 새롭게 구성한 JEUS 7 도메인에 설치, 배포한다</p>
+        </li></ul></div><p>다음 절부터는 도메인 구성과 설정 과정 중 필요한 부분에 대해 설명한다.</p>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e412"></a>2.2. 업그레이드 툴을 통한 이전 방식</h2></div></div></div>
+    
+
+    <p>업그레이드 툴(upgrade6to7)에 대한 자세한 사용법 및 옵션은 <a href="appendix_upgradetool.html" title="Appendix A. 업그레이드 툴">“Appendix A. 업그레이드 툴”</a>에 설명되어 있으며, 본 절에서는 간단한 사용법을 소개한다.</p>
+
+    <p>업그레이드 툴은 기본적으로 JEUS 6 설치 디렉터리와 JEUS 7 설치 디렉터리를 인자로 받아 동작한다. JEUS 6
+    설치 디렉터리를 검색하여 구성되어 있는 모든 노드에 대한 정보 및 설정을 읽어들인 후, 이를 이용하여 JEUS 7 도메인을
+    구성한다.</p>
+
+    <pre class="programlisting">upgrade6to7 -source ${JEUS6_HOME} -target ${JEUS7_HOME}</pre>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e419"></a>2.3. 서버 설정 이전</h2></div></div></div>
+    
+
+    <p>서버 설정 이전이란 서버의 설정을 구성하는 XML 파일 등을 변환하여 이전하는 동작을 말하며, JEUSMain.xml,
+    EJBMain.xml, WEBMain.xml, JMSMain.xml, accounts.xml, policies.xml와 같은 설정
+    파일을 포함한다.</p>
+
+    <p>JEUS 7에서는 JEUSMain.xml, EJBMain.xml, WEBMain.xml, JMSMain.xml로 나누어져
+    있던 설정이 domain.xml로 합쳐졌기 때문에 이를 종합하여 domain.xml에 설정을 해야 한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e423"></a>2.3.1. 서버 설정 이전 대상</h3></div></div></div>
+      
+
+      <p>서버 설정 이전의 경우 변환이 필요한 파일들과 대상은 다음과 같다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>JEUS6_HOME/config/NODE_NAME/JEUSMain.xml</p>
+
+            <p>→ JEUS7_HOME/domains/DOMAIN_NAME/config/domain.xml</p>
+          </li><li>
+            <p>JEUS6_HOME/config/NODE_NAME/EJB_ENGINE_NAME/EJBMain.xml</p>
+
+            <p>→ JEUS7_HOME}/domains/DOMAIN_NAME/config/domain.xml</p>
+          </li><li>
+            <p>JEUS6_HOME/config/NODE_NAME/JMS_ENGINE_NAME/JMSMain.xml</p>
+
+            <p>→ JEUS7_HOME/domains/DOMAIN_NAME/config/domain.xml</p>
+          </li><li>
+            <p>JEUS6_HOME/config/NODE_NAME/SERVLET_ENGINE_NAME/WEBMain.xml</p>
+
+            <p>→ JEUS7_HOME/domains/DOMAIN_NAME/config/domain.xml</p>
+          </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음 파일들은 변환할 필요는 없지만 해당 디렉터리로 복사되어야 한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>JEUS6_HOME/config/NODE_NAME/SERVLET_ENGINE_NAME/web.xml</p>
+
+            <p>→
+            JEUS7_HOME/domains/DOMAIN_NAME/config/servlet/SERVER_NAME/web.xml</p>
+          </li><li>
+            <p>JEUS6_HOME/config/NODE_NAME/SERVLET_ENGINE_NAME/webcommon.xml</p>
+
+            <p>→
+            JEUS7_HOME/domains/DOMAIN_NAME/config/servlet/SERVER_NAME/webcommon.xml</p>
+          </li></ul></div>
+
+      <p>업그레이드 툴은 각 설정 파일을 읽어 domain.xml을 구성해 준다.</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e451"></a>2.3.2. 라이브러리 이전</h3></div></div></div>
+      
+
+      <p>JEUS 6.x의 애플리케이션에서 사용하는 사용자 클래스 파일 및 라이브러리들을 다음의 JEUS 7 경로로
+      복사한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>JEUS6_HOME/lib/application</p>
+
+            <p>→ JEUS7_HOME/domains/DOMAIN_NAME/lib/application</p>
+          </li></ul></div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e459"></a>2.4. 애플리케이션 이전</h2></div></div></div>
+    
+
+    <p>Java EE 표준은 하위 호환을 지원하므로, Java EE 표준을 준수하여 작성한 애플리케이션은 JEUS
+    deployment descriptor만 변환하면 큰 문제없이 JEUS 7에서 사용할 수 있다. JEUS deployment
+    descriptor 호환 문제로 인해 애플리케이션 배치에 문제가 있을 경우 deploy-application 명령어의
+    'upgrade' 옵션을 사용하여 배치를 시도할 수 있다. 해당 명령어에 대한 자세한 사항은 <a xmlns="" href="../reference-book/ch04.html#cmd_deploy-application" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.6.4. deploy-application”</a>을
+    참고한다.</p>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e463"></a>2.5. 스크립트 변경</h2></div></div></div>
+    
+
+    <p>JEUS에서 제공하는 스크립트는 JEUS 6.x와 JEUS 7 모두 JEUS_HOME/bin 디렉터리에
+    위치한다.</p>
+
+    <p>본 절에서는 JEUS 6.x에서 제공되었지만 JEUS 7에서는 제공되지 않는 스크립트 및 다른 스크립트의 기능으로 통합된
+    스크립트가 어떤 것인지 있는지, 그리고 별도로 스크립트를 작성한 경우 어떤식으로 수정해야 하는지 설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e467"></a>2.5.1. 제공하지 않는 스크립트</h3></div></div></div>
+      
+
+      <p>다음의 스크립트들은 JEUS 7에서 더 이상 제공하지 않는다.</p>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">jmsadmin</strong></span></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>JEUS 7에서는 jmsadmin이 제공하는 기능이 jeusadmin으로 통합되었다.</p>
+            </li></ul></div>
+        </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e479"></a>2.5.2. 스크립트 변경</h3></div></div></div>
+      
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>JEUS 기동 스크립트</p>
+
+          <p>JEUS 6.x에서는 아래와 같이 jeus 스크립트를 사용하여 JEUS를 기동하였다.</p><pre class="programlisting">jeus -U&lt;<span class="emphasis"><em>user_name</em></span>&gt; -P &lt;<span class="emphasis"><em>password</em></span>&gt;</pre>
+
+          <p>JEUS 7에서는 아래와 같이 기동 스크립트를 제공한다. Domain Admin Server(DAS)를 기동할
+          때와 Managed server를 기동할 때 사용하는 스크립트가 다른 점에 유의한다.</p>
+
+          <pre class="programlisting">startDomainAdminServer -u &lt;<span class="emphasis"><em>user_name</em></span>&gt; -p &lt;<span class="emphasis"><em>password</em></span>&gt; (DAS 기동)
+startManagedServer -u &lt;<span class="emphasis"><em>user_name</em></span>&gt; -p &lt;<span class="emphasis"><em>password</em></span>&gt; ... (Managed server 기동)</pre>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>JEUS 서버 종료 스크립트</p>
+
+          <p>JEUS 6을 종료할 때는 jeusadmin을 사용하여 종료하였다.</p><pre class="programlisting">jeusadmin &lt;<span class="emphasis"><em>node_name</em></span>&gt; -U&lt;<span class="emphasis"><em>user_name</em></span>&gt; -P&lt;<span class="emphasis"><em>password</em></span>&gt; jeusexit</pre><p>JEUS
+          7에서는 서버 종료를 위해 별도 스크립트를 제공한다.</p><pre class="programlisting">stopServer -host &lt;<span class="emphasis"><em>host:port</em></span>&gt; -u &lt;<span class="emphasis"><em>user_name</em></span>&gt; -p &lt;<span class="emphasis"><em>password</em></span>&gt;</pre><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+              <p>서버 종료 스크립트를 실행하는 경우 host와 port는 종료할 서버의 주소와 기본 포트를 사용해야
+              한다.</p>
+            </div>
+
+         
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>jeusadmin</p>
+
+          <p>JEUS 6과 스크립트 이름은 동일하나 사용법이 약간 달라졌다. nodename을 사용하지 않으며, 접속하고자
+          하는 서버의 주소 및 포트를 사용한다. 주소와 포트를 지정하지 않은 경우 localhost:9736으로 접속을
+          시도한다.</p>
+
+          <pre class="programlisting">jeusadmin -u &lt;<span class="emphasis"><em>user_name</em></span>&gt; -p &lt;<span class="emphasis"><em>password</em></span>&gt; -host 127.0.0.1 -port 9736</pre>
+        </li></ul></div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e517"></a>2.6. 클라이언트 애플리케이션</h2></div></div></div>
+    
+
+    <p>JEUS 7이 JEUS 6에 비해 매우 많은 점이 변경된 관계로, JEUS 6에서 작성했던 클라이언트 애플리케이션이
+    JEUS 7에서는 동작하지 않을 수도 있다. 이런 경우에는 클라이언트 애플리케이션을 새로 작성하거나 수정해야 한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>JEUS 7부터 MBean을 나타내는 object name 형식이 변경되었고, 많은 MBean API가 추가
+          또는 삭제/변경된 관계로 JEUS 6에서 작성한 MBean 모니터링 클라이언트를 JEUS 7에서 그대로 사용할 수는
+          없다.</p>
+        </li></ul></div>
+
+    <p>클라이언트 애플리케이션을 작성할 때 사용할 jclient.jar, jclient_jaxb.jar 등의 라이브러리는 아래
+    경로에서 찾을 수 있다.</p>
+
+    <pre class="programlisting">JEUS7_HOME/lib/client</pre>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_intro.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="appendix_upgradetool.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제1장 소개 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> Appendix A. 업그레이드 툴</td></tr></table></div><div xmlns="" align="center"/></body></html>

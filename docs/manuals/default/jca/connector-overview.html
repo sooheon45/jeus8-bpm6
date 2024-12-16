@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제1장 JCA 표준</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS JCA 안내서"/><link rel="up" href="index.html" title="JEUS JCA 안내서"/><link rel="prev" href="about.html" title="안내서에 대하여"/><link rel="next" href="chapter_outbound-management.html" title="제2장 아웃바운드 관리"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제1장 JCA 표준</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_outbound-management.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="connector-overview"></a>제1장 JCA 표준</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="connector-overview.html#d4e408">1.1. 개요</a></span></dt><dt><span class="section"><a href="connector-overview.html#connector-architecture-overview">1.2. 커넥터 아키텍처(Connector Architecture)</a></span></dt><dd><dl><dt><span class="section"><a href="connector-overview.html#d4e451">1.2.1. 아웃바운드(Outbound)</a></span></dt><dt><span class="section"><a href="connector-overview.html#d4e477">1.2.2. 인바운드(Inbound)</a></span></dt></dl></dd><dt><span class="section"><a href="connector-overview.html#resource-adapter">1.3. 리소스 어댑터와 JDBC 드라이버</a></span></dt><dt><span class="section"><a href="connector-overview.html#overview-on-common-client-interface">1.4. CCI(Common Client Interface)</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 JCA 표준 및 리소스 어댑터에 대해 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e408"></a>1.1. 개요</h2></div></div></div>
+    
+
+    <p>JCA(Java EE Connector Architecture)는 J2EE 1.3에서 JCA 1.0으로 소개된 후 J2EE
+    1.4에서 Inflow Message 처리를 포함한 여러 가지 확장된 기능을 포함하여 JCA 1.5로 발전하게
+    되었다.<a id="d4e411" class="indexterm"></a></p>
+
+    <p>현재는 JCA 1.7이 최신 버전으로 릴리즈되어 있으며 리소스 어댑터의 Annotation 사용 및 Security
+    Inflow 등의 기능을 추가로 지원하고 있다.</p>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="connector-architecture-overview"></a>1.2. 커넥터 아키텍처(Connector Architecture)</h2></div></div></div>
+    
+
+    <p/>
+
+    <p>커넥터 아키텍처(Connector Architecture)는 Mainframe, ERP(Enterprise Resource
+    Planning), TP Monitor, Legacy Database System 등을 포괄하는 기업 정보 시스템(EIS,
+    Enterprise Information System)과의 연동을 위해 정의된 표준이다. 표준이 없는 경우에는 각 EIS 벤더와
+    Web Application Server(이하 WAS) 벤더 사이에 별도의 커스텀 드라이버를 구현해야 하므로 N by M 문제를
+    초래한다. 이는 곧 Java EE 환경의 이식성과 확장성에 심각한 제약을 가한다. <a id="d4e418" class="indexterm"></a><a id="d4e420" class="indexterm"></a></p>
+
+    <p>이 문제를 해결하기 위하여 JCA 표준은 커넥터 아키텍처라는 개념을 도입하고 리소스 어댑터(Resource
+    Adapter)라는 상호 연동에 필요한 어댑터를 정의하였다. EIS 벤더에서 리소스 어댑터를 제공하면 커넥터 아키텍처에 의하여 여러
+    WAS에서 코드 레벨의 수정 없이 상호 호환성을 가지고 동작할 수 있게 된다. 리소스 어댑터에 대한 자세한 내용은 <a href="connector-overview.html#resource-adapter" title="1.3. 리소스 어댑터와 JDBC 드라이버">“1.3. 리소스 어댑터와 JDBC 드라이버”</a>를 참고한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>커넥터 아키텍처에 관한 자세한 내용은 본 안내서에서 다루지 않으므로 반드시 JCA 1.7 표준이나 그에 준하는
+        서적을 참고한다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>커넥터 아키텍처는 크게 아웃바운드와 인바운드로 나눌 수 있다. '아웃'과 '인'의 의미는 WAS를 기준으로 EIS와의
+    커뮤니케이션 방향을 나타낸 말이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>아웃바운드(Outbound)</p>
+
+          <p>WAS에 deploy된 애플리케이션에서 EIS로 가는 흐름을 의미한다.<a id="d4e434" class="indexterm"></a></p>
+        </li><li>
+          <p>인바운드(Inbound)</p>
+
+          <p>EIS에서 WAS의 애플리케이션으로 가는 흐름을 의미한다. <a id="d4e439" class="indexterm"></a></p>
+        </li></ul></div>
+
+    <p>이러한 아웃바운드와 및 인바운드 커뮤니케이션을 위해서 WAS와 리소스 어댑터가 해야 하는 일을 정의한 것이 커넥터
+    아키텍처이다.</p>
+
+    <div class="figure"><a id="figure_connector-architecture"></a><p class="title"><b>[그림 1.1] 커넥터 아키텍처 개요</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="644"><tr><td align="left"><img src="resources/figure_connector-architecture.png" align="top" width="644" alt="커넥터 아키텍처 개요"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e451"></a>1.2.1. 아웃바운드(Outbound)</h3></div></div></div>
+      
+
+      <p>아웃바운드를 나타내는 대표적인 용어가 Connection이다. WAS의 애플리케이션이 EIS에 요청을 하고 그 결과를
+      받고 싶을 때 Connection을 맺고 그 요청을 보낸다.</p>
+
+      <p>대표적인 예가 서블릿이나 EJB 컴포넌트에서 데이터베이스로 SQL을 보내는 경우이다. 이는 <a href="connector-overview.html#figure_connector-architecture" title="[그림 1.1] 커넥터 아키텍처 개요">[그림 1.1]</a>에서 Session Beans 또는 Entity
+      Beans에서 아웃바운드 리소스 어댑터를 통해서 EIS로 요청을 하는 흐름에 해당한다.</p>
+
+      <p>JEUS에서는 이러한 Connection의 효율적인 관리를 위해서 다음과 같은 기능을 제공한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>Connection Pool 제공</p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                  <p>Connection Pool을 통해 Connection을 매번 생성하지 않고 재활용함으로써 성능의
+                  효율성을 제고한다.</p>
+                </li><li>
+                  <p>부하 상황에서는 WAS에서 리소스로 보내는 요청이 무한정 증가하지 않도록 제어한다.</p>
+                </li></ul></div>
+          </li><li>
+            <p>트랜잭션 관리</p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                  <p>글로벌 트랜잭션(XA)이 필요한 경우에는 자동적으로 트랜잭션 매니저와의 연동을
+                  지원한다.</p>
+                </li><li>
+                  <p>글로벌 트랜잭션(XA)의 경우 Connection Sharing(커넥션 공유)을
+                  지원한다.</p>
+                </li></ul></div>
+          </li></ul></div>
+
+      <p>이외에도 JEUS에서 제공하는 여러 가지 부가 기능들이 있다. 아웃바운드에 관한 자세한 사항은 <a href="chapter_outbound-management.html" title="제2장 아웃바운드 관리">“제2장 아웃바운드 관리”</a>를 참고한다.</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e477"></a>1.2.2. 인바운드(Inbound)</h3></div></div></div>
+      
+
+      <p>JCA 표준은 JMS(Java Message Service)를 포함하는 다양한 종류의 메시지 기반 서비스와 연동할 수
+      있는 매커니즘을 정의하고 있다. 이 경우 리소스 어댑터는 메시지 생산자(Message Provider)의 역할을 하고, 엔드
+      포인트(Endpoint) 애플리케이션은 메시지 소비자 역할을 맡게 된다. 전달되는 메시지의 타입은 WAS와 무관하며 실제적 메시지
+      전달이 이루어지는 메소드를 정의한 메시지 인터페이스는 리소스 어댑터가 임의로 결정할 수 있다.</p>
+
+      <p>다음은 인바운드의 Message Inflow의 구성을 나타낸다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="figure_message-inflow"></a><p class="title"><b>[그림 1.2] 인바운드 Message Inflow</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_message-inflow-contract-1.png" align="top" width="663" alt="인바운드 Message Inflow"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>메시지 생산자는 메시지 소비자의 직접적인 요청에 의해서만 메시지를 전달하며, 두 영역 사이에는 어떠한 컨텍스트의 전달
+      및 공유도 이루어지지 않는다. 만약 EIS에서 발생한 트랜잭션 또는 인증 관련 정보를 WAS에 전달하기 위해서는 Work
+      Manager를 이용하여 컨텍스트를 전달해야 한다.</p>
+
+      <p>JEUS에서의 인바운드 커뮤니케이션 관리에 관한 자세한 사항은 <a href="chapter_inbound-management.html" title="제3장 인바운드 관리">“제3장 인바운드 관리”</a> 또는 <a href="chapter_inbound-management.html#sect_message-inflow" title="3.2. Message Inflow">“3.2. Message Inflow”</a>를 참고한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>컨텍스트 전달에 관한 자세한 내용은 JCA 표준을 참고한다.</p>
+      </div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e496"></a>Work Manager</h4>
+
+      <p><a id="d4e498" class="indexterm"></a>아웃바운드 메시지만을 처리하는 리소스 어댑터의 경우는 일반적으로 별도의 Thread가 필요하지 않으나
+      인바운드 메시지를 처리하는 리소스 어댑터의 경우 Thread가 필요할 수 있다. 이때 JCA 표준은 리소스 어댑터 내에서 임의로
+      Java Thread를 생성하지 말고 WAS가 제공하는 Work Manager를 이용할 것을 권장하고 있다. 특히 EIS에서
+      시작한 트랜잭션이나 인증 정보를 연동해서 일을 실행하는 경우에는 반드시 Work Manager를 사용해야 한다.</p>
+
+      <p>JEUS의 Work Manager 구현체는 Thread Pool을 기반으로 한다. 리소스 어댑터가 Work
+      Instance를 보내면 Thread Pool에서 Worker Thread를 얻어서 해당 작업을 수행한다. 만약 리소스 어댑터에서
+      Worker Thread로부터 작업 시작, 종료, 예외 이벤트를 받기 원하는 경우에는 이벤트 리스너를 전달할 수 있다. 그리고
+      작업이 수행될 때 필요한 트랜잭션, 인증 정보 등를 컨텍스트로 전달할 수 있다.</p>
+
+      <p>JEUS Work Manager 구현체에 관한 사항은 <a href="chapter_inbound-management.html#sect_jca-work-manager" title="3.1. Work Manager 관리">“3.1. Work Manager 관리”</a>를 참고한다. Work Manager에 대한 기본적인 개념은 JCA
+      표준을 참고한다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="resource-adapter"></a>1.3. 리소스 어댑터와 JDBC 드라이버</h2></div></div></div>
+    
+
+    <p>JDBC가 관계형 데이터베이스(RDB)와의 연동을 표준으로 정의한 것이라면 리소스 어댑터는 RDB를 포함하여 여러 정보
+    시스템과의 연동 표준을 정의하고 있다. 즉, 리소스 어댑터는 WAS와 연동하기 위한 외부 리소스에 대해 JDBC 드라이버보다 좀 더
+    일반적이고 광범위하게 정의한 드라이버이다.</p>
+
+    <p>리소스 어댑터와 JDBC 드라이버의 큰 차이점이라면 리소스 어댑터는 Java EE 표준에서 정의한 개념이고, JDBC
+    드라이버는 먼저 Java SE를 염두해서 만든 개념이라는 것이다. 이 때문에 JDBC 드라이버는 Standalone Java
+    애플리케이션에서 직접 사용할 수 있다.</p>
+
+    <p>또한 JDBC 드라이버는 JAR 파일을 시스템 클래스 패스로 잡아서 사용하며 드라이버를 업데이트하려면 현재 실행 중인
+    JVM을 다운시켜야 한다. 이에 반해서 리소스 어댑터는 Java EE에서 정의한 애플리케이션이기 때문에 RAR 파일로 패키징을 하도록
+    되어 있고 WAS에 deploy할 수 있다.</p>
+
+    <p>그리고 리소스 어댑터의 버전을 업그레이드하려면 WAS를 중단할 필요없이 redeploy를 하면 된다. 물론 리소스 어댑터도
+    JDBC 드라이버처럼 JAR 파일로 변경한 후 시스템 클래스 패스에 설정하여 사용할 수 있지만 기본적으로 redeploy가 가능한
+    Java EE 애플리케이션이다.</p>
+
+    <p/>
+
+    <p>다음은 리소스 어댑터에 대한 이해를 돕기 위해 JDBC 드라이버와 비교하여 정리한 표이다. </p><div class="informaltable">
+        <table border="1"><colgroup><col width="70" align="left"/><col/><col/></colgroup><thead><tr><th align="left"> </th><th>리소스 어댑터</th><th>JDBC 드라이버</th></tr></thead><tbody><tr><td align="left">개념</td><td>Java EE 표준에서 정의한 개념</td><td>Java SE를 위한 개념(JDBC 드라이버는 Standalone Java 애플리케이션에서 직접 사용
+              가능)</td></tr><tr><td align="left">연동</td><td>관계형 데이터베이스(RDB)를 포함하여 여러 정보 시스템과의 연동 표준을 정의</td><td>관계형 데이터베이스(RDB)와의 연동을 표준으로 정의</td></tr><tr><td align="left">Deploy</td><td>RAR 파일로 패키징하도록 되어 있고 WAS에 Deploy 가능</td><td>JAR 파일을 시스템 클래스 패스로 설정하여 사용</td></tr><tr><td align="left">업데이트</td><td>WAS를 중단할 필요없이 가능</td><td>현재 실행 중인 JVM을 다운시킨 후 업데이트</td></tr></tbody></table>
+      </div>
+
+    <p>리소스 어댑터는 JDBC 드라이버와 비교했을 때 좀 더 일반적이고 광범위하게 정의한 드라이버이며, 보다 편리하게 사용이
+    가능하다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="overview-on-common-client-interface"></a>1.4. CCI(Common Client Interface)</h2></div></div></div>
+    
+
+    <p><a id="d4e543" class="indexterm"></a></p>
+
+    <p>CCI는 아웃바운드 리소스 어댑터를 통일된 API로 제공하기 위한 것으로 JCA 표준은 리소스 어댑터를 개발할 때 CCI를
+    사용할 것을 권장하고 있다.</p>
+
+    <p>CCI는 서비스의 호출을 Interaction으로 개념화하여 서비스 방식에 관한 내용은 Interaction Spec이라
+    불리는 EIS에 종속적인 인스턴스로 추상화한다. 서비스 호출의 인자와 리턴값은 레코드 형식으로 제공된다.</p>
+
+    <p>Interaction Spec은 일반적으로 서비스 함수 이름(FunctionName)과 서비스
+    형식(InteractionVerb) 2가지를 포함할 것을 권장한다. CCI는 동기화 보내기, 동기화 받기, 동기화 보내고 받기의
+    3가지 서비스 형식을 지원하며, 비동기 서비스는 지원하지 않는다.</p>
+
+    <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+      <p>CCI는 애플리케이션과 리소스 어댑터 간의 인터페이스도 통일하자는 취지에서 나온 인터페이스이다. WAS는 기본적으로
+      애플리케이션과 리소스 어댑터 간의 인터페이스에 관여하지 않으며, 기본적으로는 java.lang.Object로
+      취급한다.</p>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 CCI를 이용하여 EIS의 서비스를 호출하기 위한 준비 과정이다.</p><pre class="programlisting">// get Connection to EIS by lookup ConnectionFacotry in JNDI
+javax.naming.Context nc = new InitialContext();
+javax.resource.cci.ConnectionFactory cf = (ConnectionFactory)nc.lookup("java:/comp/env/eis/ConnectionFactory");
+javax.resource.cci.Connection cx = cf.getConnection();
+
+// create Interaction
+javax.resource.cci.Interaction ix = cx.createInteraction();
+
+// create Interaction Spec
+com.wombat.cci.InteractionSpecImpl spec = .....
+spec.setFunctionName(“&lt;EIS_FUNCTION_NAME&gt;”);
+spec.setInteractionVerb(InteractionSpec.SYNC_SEND_RECEIVE)”
+. . .</pre>
+
+    <div class="literallayout"><p/></div>
+
+    <p>서비스에 필요한 데이터를 레코드에 저장하여 다음과 같이 서비스를 호출한다.</p><pre class="programlisting">// call EIS service
+boolean ret = ix.execute(spec, input, output); </pre>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>CCI의 자세한 사항은 JCA 표준 또는 CCI 관련 서적을 참고한다.</p>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_outbound-management.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">안내서에 대하여 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제2장 아웃바운드 관리</td></tr></table></div><div xmlns="" align="center"/></body></html>

@@ -1,0 +1,855 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제2장 Scheduler 프로그래밍</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Scheduler 안내서"/><link rel="up" href="index.html" title="JEUS Scheduler 안내서"/><link rel="prev" href="chapter_overview.html" title="제1장 소개"/><link rel="next" href="chapter_configuration.html" title="제3장 Scheduler 설정"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제2장 Scheduler 프로그래밍</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_overview.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_configuration.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_programming"></a>제2장 Scheduler 프로그래밍</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_programming.html#d4e459">2.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_programming.html#d4e487">2.2. JEUS Scheduler 클래스</a></span></dt><dt><span class="section"><a href="chapter_programming.html#sect_sehcduler_examples">2.3. 작업 정의</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_programming.html#d4e567">2.3.1. ScheduleListener 인터페이스 구현</a></span></dt><dt><span class="section"><a href="chapter_programming.html#sect_scheduler_example_scheduler_object">2.3.2. Schedule 클래스 상속</a></span></dt><dt><span class="section"><a href="chapter_programming.html#d4e598">2.3.3. RemoteSchedule 클래스 상속</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_programming.html#d4e620">2.4. Scheduler 객체 얻기</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_programming.html#d4e625">2.4.1. 로컬 환경에서 Scheduler 객체 얻기</a></span></dt><dt><span class="section"><a href="chapter_programming.html#d4e639">2.4.2. 원격 환경에서 Scheduler 객체 얻기</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_programming.html#d4e659">2.5. 작업 등록</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_programming.html#d4e663">2.5.1. 한 번 수행되는 작업 등록</a></span></dt><dt><span class="section"><a href="chapter_programming.html#sect_regist_job">2.5.2. 반복되는 작업 등록</a></span></dt><dt><span class="section"><a href="chapter_programming.html#d4e763">2.5.3. Schedule 작업 객체 등록</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_programming.html#d4e778">2.6. 작업 제어</a></span></dt><dt><span class="section"><a href="chapter_programming.html#d4e791">2.7. Scheduler 사용</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_programming.html#d4e795">2.7.1. Standalone 환경에서 사용</a></span></dt><dt><span class="section"><a href="chapter_programming.html#d4e815">2.7.2. JEUS 서버에서 사용</a></span></dt><dt><span class="section"><a href="chapter_programming.html#d4e839">2.7.3. Java EE 컴포넌트에서 사용</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_programming.html#d4e866">2.8. Job-list 사용</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 JEUS Scheduler 프로그래밍에 필요한 기본 지식과 사용 방법에 대해서 설명한다.</p>
+
+  <p/>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e459"></a>2.1. 개요</h2></div></div></div>
+    
+
+    <p>JEUS 5 이후 버전에서는 이전(4.x)에 사용되던 방식과 비교하여 다음과 같이 몇 가지 사항이 변경 및 추가되었다.
+    하지만 JEUS 8 Scheduler는 기존 버전과 호환성을 유지하고 있기 때문에 기존에 작성된 프로그램도 별도의 수정 없이 운영이
+    가능하다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>SchedulerListener 인터페이스 추가</p>
+
+          <p>작업을 정의하기 위한 인터페이스로 ScheduleListener 인터페이스가 추가되었다.</p>
+
+          <p>ScheduleListener 인터페이스는 최상위 작업 인터페이스로 모든 작업은 이 인터페이스를
+          구현(implements)해야 한다. 기존에 존재하던 Schedule 작업 클래스도 ScheduleListener에서
+          구현하고 있다.</p>
+
+          <p>따라서 Schedule 작업 클래스를 상속해서 작업을 정의하지 않아도 ScheduleListener를 구현해서
+          작업을 정의할 수 있다.</p>
+        </li><li>
+          <p>SchedulerFactory 클래스 추가<a id="d4e471" class="indexterm"></a></p>
+
+          <p>기존에 사용되던 클라이언트와 서버용 SchedulerManager는 더 이상 사용되지
+          않으며(deprecated), 새롭게 SchedulerFactory 클래스가 추가되었다. SchedulerFactory는
+          Scheduler 객체를 얻는 데 사용되며 Scheduler 객체를 통해 클라이언트 환경, 서버 환경, 리모트 클라이언트
+          환경의 구별 없이 작업을 등록할 수 있다.</p>
+        </li><li>
+          <p>다양한 메소드 추가</p>
+
+          <p>Scheduler 인터페이스에는 작업을 등록하는 다양한 메소드들이 추가되었다. 이제 작업을 등록할 때 시작시간,
+          주기, 종료시간, 최대 수행 횟수를 지정할 수 있다.</p>
+        </li><li>
+          <p>Thread Pool을 이용한 멀티 스레드 방식으로 변경</p>
+
+          <p>기존의 JEUS Scheduler는 기본적으로 싱글 스레드 방식으로 작업을 수행했지만 새로운 JEUS
+          Scheduler는 Thread Pool을 이용하여 각 작업을 별도의 스레드로 동작시킨다. 따라서 어떤 한 작업이 수행
+          중에 블록되더라도 다른 작업 수행에 영향이 없다.</p>
+        </li><li>
+          <p>Job-list 기능 추가<a id="d4e482" class="indexterm"></a></p>
+
+          <p>프로그래밍 방식으로 작업을 등록하지 않고 JEUS 서버 설정에 작업을 등록할 수 있는 Job-list 기능이
+          추가되었다.</p>
+        </li></ul></div>
+
+    <p>JEUS Scheduler 프로그래밍을 이해하기 위해 먼저 JEUS Scheduler를 구성하고 있는 클래스들을 살펴보고,
+    Scheduling 작업을 정의하는 방법, 작업을 등록하는 방법, 등록된 작업을 제어하는 방법에 대해 설명한다. 이후에 JEUS
+    Scheduler를 어떤 경우에 사용할 수 있는지를 알아본다. 본 장에서 설명하는 모든 예제 파일들은
+    JEUS_HOME/samples/scheduler 디렉터리에서 찾아볼 수 있다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e487"></a>2.2. JEUS Scheduler 클래스</h2></div></div></div>
+    
+
+    <p>기본적으로 JEUS Scheduler는 J2SE Timer와 개념적인 부분뿐만 아니라 유사한 인터페이스를 가지고 있다.
+    작업을 나타내는 java.util.TimerTask 클래스는 JEUS Scheduler의
+    jeus.schedule.ScheduleListener 인터페이스와 동일하고, 작업을 등록하는 java.util.Timer 클래스는
+    JEUS Scheduler의 jeus.schedule.Scheduler 인터페이스와 동일하다. 따라서 이러한 유사성을 고려하여
+    JEUS Scheduler를 사용한다면 좀 더 쉽게 익숙해질 수 있을 것이다.</p>
+
+    <div class="literallayout"><p/></div><p>다음은 각 Scheduler API 클래스에 대한
+    설명이다.</p>
+
+    <p/>
+
+    <div class="figure"><a id="d4e493"></a><p class="title"><b>[그림 2.1] Scheduler API 클래스</b></p><div class="figure-contents">
+      
+
+      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="436"><tr><td align="left"><img src="resources/figure_jeus_scheduler_api.png" align="top" width="436" alt="Scheduler API 클래스"/></td></tr></table></div>
+    </div></div><br class="figure-break"/>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="220" align="left"/><col/></colgroup><thead><tr><th align="left">API 클래스</th><th>설명</th></tr></thead><tbody><tr><td align="left">package <span class="package">jeus.schedule<a id="d4e509" class="indexterm"></a></span></td><td>JEUS Scheduler의 모든 클래스와 인터페이스는 jeus.schedule 패키지와 그 하위 패키지에
+            소속되어 있다.</td></tr><tr><td align="left">interface ScheduleListener<a id="d4e515" class="indexterm"></a></td><td>정해진 시간에 수행되어야 할 작업은 ScheduleListener 인터페이스를
+            구현(implements)하여 클래스로 정의된다. ScheduleListener는 하나의 Callback 메소드인
+            onTime()을 가지고 있어 해당 시간이 되었을 때 이 메소드가 호출된다.<a id="d4e518" class="indexterm"></a></td></tr><tr><td align="left">abstract class Schedule<a id="d4e522" class="indexterm"></a></td><td>ScheduleListener를 구현한 추상 클래스로 JEUS 5 이전에 사용하던 작업 클래스이다. 이
+            클래스는 onTime() 이외에도 nextTime() Callback 메소드가 있어서 작업을 등록할 때 호출될 시간을
+            예약하는 것이 아니라 작업을 등록한 후에 동적으로 다음 호출될 시간을 결정할 수 있다.<a id="d4e525" class="indexterm"></a><a id="d4e527" class="indexterm"></a></td></tr><tr><td align="left">abstract class RemoteSchedule<a id="d4e531" class="indexterm"></a></td><td>특수한 Schedule 클래스로 initialize() Callback 메소드를 가지고 있어 객체를 생성할
+            때 초기화 파라미터 값을 받을 수 있다.<a id="d4e534" class="indexterm"></a></td></tr><tr><td align="left">class SchedulerFactory<a id="d4e538" class="indexterm"></a></td><td>실제(concrete) Scheduler 객체를 얻어오기 위해 사용된다.<a id="d4e541" class="indexterm"></a></td></tr><tr><td align="left">interface Scheduler<a id="d4e545" class="indexterm"></a></td><td>JEUS Scheduler에 작업을 등록하기 위한 핵심 인터페이스로 다양한
+            registerSchedule() 메소드를 정의하고 있다.</td></tr><tr><td align="left">interface ScheduleController<a id="d4e550" class="indexterm"></a></td><td>Scheduler에 작업을 등록하면 ScheduleController 인터페이스를 구현한 객체를
+            리턴받는다. 이 핸들 객체는 작업에 대한 정보를 얻거나 작업을 취소할 때 사용된다.</td></tr><tr><td align="left">exception JeusSchedulerException<a id="d4e555" class="indexterm"></a></td><td>JEUS Scheduler에 작업 등록하거나 취소할 때에 내부적으로 문제가 발생하는 경우
+            JeusSchedulerException이 발생할 수 있다.</td></tr></tbody></table>
+    </div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>각 인터페이스나 클래스에 대한 자세한 설명은 JEUS Scheduler Javadoc API를 참고한다.</p>
+    </div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_sehcduler_examples"></a>2.3. 작업 정의</h2></div></div></div>
+    
+
+    <p>작업을 수행하기 위해서는 작업 클래스를 정의하고 작업의 수행시간 및 주기에 따라 알맞은 방법으로 작업을 정의해야
+    한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e567"></a>2.3.1. ScheduleListener 인터페이스 구현</h3></div></div></div>
+      
+
+      <p>정해진 시간에 수행되어야 할 작업은 ScheduleListener 인터페이스를 구현(implements)하여 클래스로
+      정의된다.</p>
+
+      <p>ScheduleListener는 하나의 Callback 메소드인 onTime()을 가지고 있어 해당 시간이 되었을 때
+      이 메소드가 호출된다. 따라서 작업 클래스를 정의하기 위해서는 onTime() 메소드를 구현하고 메소드 내에서 작업을 수행하도록
+      프로그램을 작성한다.<a id="d4e571" class="indexterm"></a></p><div class="example"><a id="d4e573"></a><p class="title"><b>[예 2.1] Task object example</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">public class SimpleTask implements ScheduleListener {
+    private String name;
+    private int count;
+
+    // no-arg constructor is required if classname is used for task registration
+    public SimpleTask() {
+    }
+    
+    public SimpleTask(String name) {
+        this.name = name;
+    }
+
+    public void onTime() {
+        count++;
+        echo("##### " + name + " is waked on " + new Date());
+    }
+...
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_scheduler_example_scheduler_object"></a>2.3.2. Schedule 클래스 상속</h3></div></div></div>
+      
+
+      <p>ScheduleListener를 바로 구현하지 않고 Schedule 클래스나 RemoteSchedule 클래스를
+      상속하여 작업 클래스를 정의할 수 있다.<a id="d4e580" class="indexterm"></a> Schedule 클래스나 RemoteSchedule 클래스는 JEUS 5 이전 Scheduler에서
+      사용되던 작업 클래스이다. JEUS 5에서는 일반적인 작업을 정의할 때는 ScheduleListener를 구현하도록 하고 있지만
+      하위 호환성을 위해 기존 작업 클래스를 그대로 제공하고 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>Schedule 추상 클래스는 onTime() 이외에도 nextTime()이라는 Callback 메소드가 있어서 작업을
+      등록할 때 호출될 시간을 예약하지 않고 작업 클래스 내에서 다음 호출될 시간을 결정하도록 한다. 따라서 고정적인 주기를 갖는
+      작업보다는 가변적인 주기를 갖는 작업의 경우에 좀 더 효율적으로 사용된다.<a id="d4e584" class="indexterm"></a><a id="d4e586" class="indexterm"></a></p>
+
+      <p>JEUS Scheduler는 Schedule 작업 객체의 처음 수행시간을 결정하기 위해 작업 객체를 등록한 후에 먼저
+      nextTime()을 호출하여 처음 수행시간을 정한다. 그런 다음 해당 시간이 되면 onTime()을 호출하여 작업을 수행하고
+      onTime()이 종료되면 다시 nextTime()을 호출하여 다음 수행시간을 정하게 된다. nextTime()은 다음에 작업이
+      수행될 절대시간을 Milli-Second(ms) 값으로 넘겨주어야 한다. 이때 0을 리턴하면 작업이 더 이상 수행되지 않게
+      된다.<a id="d4e589" class="indexterm"></a></p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>Schedule 작업 객체는 onTime()이 수행된 후에 nextTime()을 호출하기 때문에 onTime()에서
+      작업을 수행한 시간만큼 nextTime() 호출이 지체된다. 따라서 정확한 간격으로 작업을 호출하도록 프로그래밍하기가 쉽지 않다.
+      그렇기 때문에 되도록 작업 내에서 nextTime()을 통해 반복 주기를 구현하기 보다는 작업을 등록할 때 반복 주기를 설정하는
+      것이 좋다.</p><div class="example"><a id="d4e594"></a><p class="title"><b>[예 2.2] Schedule object example</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">public class SimpleSchedule extends Schedule {
+    private String name;
+    private int count;
+    private long period = 2000; // 2 seconds
+
+    // no-arg constructor is required if classname is used for task registration
+    public SimpleSchedule() {
+    }
+
+    public SimpleSchedule(String name) {
+        this.name = name;
+    }
+
+    public void onTime() {
+        count++;
+        echo("##### " + name + " is waked on " + new Date());
+    }
+
+    public long nextTime(long currentTime) {
+        return currentTime + period;
+    }
+...
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e598"></a>2.3.3. RemoteSchedule 클래스 상속</h3></div></div></div>
+      
+
+      <p><a id="d4e601" class="indexterm"></a>RemoteSchedule 클래스는 원격으로 작업을 등록할 때 초기화 변수를 지정할 수 있는
+      Schedule 객체이다. 주로 원격에서 클래스 이름을 통해 작업 객체를 등록할 때 사용한다. <a id="d4e603" class="indexterm"></a>이 클래스는 initialize() Callback 메소드를 가지고 있는데 작업 등록 후에 초기화
+      파라미터로 이 메소드가 한 번 호출된다. 따라서 원격에서 클래스 이름으로 작업을 등록할 때 초기화 값을 설정할 경우 사용할 수
+      있다.</p>
+
+      <p>initialize() Callback은 Scheduler.registerSchedule(classname,
+      hashtable, daemon_flag) 메소드를 이용하여 RemoteSchedule 작업 객체를 등록하는 경우에만
+      호출된다.<a id="d4e606" class="indexterm"></a><a id="d4e608" class="indexterm"></a></p>
+
+      <div class="example"><a id="d4e611"></a><p class="title"><b>[예 2.3] RemoteSchedule object example</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">public class SimpleRemoteSchedule extends RemoteSchedule {
+    private String name;
+    private int count;
+    private long period;
+
+    // no-arg constructor is required if classname is used for task registration
+    public SimpleRemoteSchedule() {
+    }
+
+    // this is called by scheduler after creation
+    public void initialize(Hashtable parameters) {
+        name = (String) parameters.get("name");
+        Long interval = (Long) parameters.get("interval");
+        if (interval != null)
+            period = interval.longValue();
+        else
+            period = 2000;
+    }
+
+    public void onTime() {
+        count++;
+        echo("##### " + name + " is waked on " + new Date());
+    }
+
+    public long nextTime(long currentTime) {
+        return currentTime + period;
+    }
+...
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>작업을 Job-list를 사용하여 등록하거나 classname을 사용하는 API를 통해 등록하는 경우에는
+          컨터이너가 해당 클래스를 초기화하기 때문에 작업 클래스에는 no-arg(default) 생성자(constructor)가
+          반드시 필요하다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e620"></a>2.4. Scheduler 객체 얻기</h2></div></div></div>
+    
+
+    <p>본 절에서는 Scheduler 객체를 얻는 방법에 대해서 알아본다. JEUS Scheduler는 로컬 환경과 원격 환경에서
+    모두 구동된다.</p>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e625"></a>2.4.1. 로컬 환경에서 Scheduler 객체 얻기</h3></div></div></div>
+      
+
+      <p/>
+
+      <p>로컬 환경에서 구동된다는 것은 프로그램이 구동되고 있는 로컬 JVM 내에 Scheduler 인스턴스가 생성되며, 등록된
+      모든 작업이 같은 JVM 내에서 구동된다는 것을 의미한다.</p>
+
+      <p>JEUS Scheduler는 JVM 내에서 현재 하나의 인스턴스만 생성되며 이 인스턴스를 Default
+      Scheduler라고 한다. 따라서 현재는 JVM 내에 모든 클라이언트들은 Default Scheduler를 공유하게 된다. 로컬
+      환경의 JEUS Scheduler는 일반 J2SE 애플리케이션이나 Java EE 애플리케이션 클라이언트, Java EE 컴포넌트
+      등에서 사용된다. 로컬 환경의 JEUS Scheduler를 사용하기 위해서 SchedulerFactory를
+      이용한다.<a id="d4e630" class="indexterm"></a></p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음과 같이 간단하게 Default Scheduler 인스턴스를 얻을 수 있다.</p><pre class="programlisting">// Get the default scheduler
+Scheduler scheduler = SchedulerFactory.getDefaultScheduler();</pre>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e639"></a>2.4.2. 원격 환경에서 Scheduler 객체 얻기</h3></div></div></div>
+      
+
+      <p/>
+
+      <p>원격 환경에서 구동된다는 것은 프로그램이 구동되고 있는 JVM이 아닌 원격의 다른 JVM에서 Scheduler
+      인스턴스가 생성되고, 등록된 모든 작업이 원격 JVM 내에서 구동된다는 것을 의미한다.</p>
+
+      <p>원격 Scheduler는 RMI 객체 형태로 나타나기 때문에 클라이언트는 RMI Call을 통해 JEUS
+      Scheduler를 사용하게 된다. JEUS 환경에서는 JEUS 서버에 원격 Scheduler Service가 기동된다. 원격
+      환경의 JEUS Scheduler는 원격 클라이언트가 JEUS 서버에 작업을 등록할 때 사용된다.</p>
+
+      <p>JEUS 서버에 있는 원격 JEUS Scheduler를 사용하기 위해서 JNDI Lookup을 이용한다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음과 같이 JEUS 서버 Scheduler 인스턴스(Stub)를 얻을 수 있다.<a id="d4e648" class="indexterm"></a><a id="d4e650" class="indexterm"></a></p><pre class="programlisting">// Get the remote scheduler
+InitialContext ic = new InitialContext();
+Scheduler scheduler = (Scheduler)ic.lookup(Scheduler.SERVER_SCHEDULER_NAME);</pre>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS 5 이전에 사용되던 jeus.schedule.server.SchedulerManager와
+        jeus.schedule.client.SchedulerManager는 더 이상 사용되지 않는다(deprecated). 대신
+        SchedulerFactory를 통해 Scheduler 객체를 얻어서 사용하기를 권장한다. 하지만 하위 호환성을 유지하기 위해
+        위 클래스들은 그대로 제공된다.<a id="d4e655" class="indexterm"></a></p>
+      </div>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e659"></a>2.5. 작업 등록</h2></div></div></div>
+    
+
+    <p>본 절에서는 Scheduler 인터페이스를 이용하여 작업을 등록하는 방법에 대해서 알아본다. 로컬 환경이나 원격 환경에서
+    Scheduler 인스턴스를 얻어왔다면 작업을 등록하는 방법은 동일하다. 단, 원격 JEUS Scheduler는 작업 객체가 원격으로
+    전송(serialization)되어 원격으로 운용된다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e663"></a>2.5.1. 한 번 수행되는 작업 등록</h3></div></div></div>
+      
+
+      <p>단지 특정 시간에 한 번만 수행되어야 할 작업의 경우에는 하나의 수행시간만 설정하여 작업을 등록할 수 있다. 이때
+      수행시간은 java.util.Date 객체로 절대시간을 설정하거나, Milli-Second(ms) 값으로 현재 시간을 기준으로
+      얼마의 시간이 지난 후에 수행되어야 하는지 설정할 수 있다.</p>
+
+      <p>다음의 메소드를 이용하여 작업을 등록한다.</p>
+
+      <pre class="programlisting">registerSchedule(ScheduleListener task, Date time, boolean isDaemon)
+registerSchedule(ScheduleListener task, long delay, boolean isDaemon)</pre>
+
+      <p>다음은 메소드 사용에 대한 예이다.</p>
+
+      <pre class="programlisting">SimpleTask task1 = new SimpleTask("task1");
+Date firstTime1 = new Date(System.currentTimeMillis() + 2000);
+ScheduleController handle1 = scheduler.registerSchedule(task1, firstTime1, false);</pre>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>메소드의 파라미터에 대한 설명은 <a href="chapter_programming.html#sect_regist_job" title="2.5.2. 반복되는 작업 등록">“2.5.2. 반복되는 작업 등록”</a>을
+        참고한다.</p>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_regist_job"></a>2.5.2. 반복되는 작업 등록</h3></div></div></div>
+      
+
+      <p>반복되는 작업의 경우 첫 수행시간, 주기, 종료시간, 최대 수행 횟수 등을 주어 작업을 등록할 수 있다. 반복되는
+      작업의 특성에 따라 반복 주기를 Fixed-delay 방식이나 Fixed-rate 방식으로 결정해야 한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Fixed-delay 방식</strong></span><a id="d4e680" class="indexterm"></a></p>
+
+          <p>작업이 수행되는 간격이 일정하게 유지된다. 작업의 다음 수행시간은 이전 수행시간과 주기에 의해서 결정된다. 만약
+          작업의 수행이 지체(작업 수행시간이 오래 걸리거나 Garbage Collection과 같은 외부 이유에 의해서 지체되는
+          경우)되어 다음 작업이 수행되어야 할 시기가 지난 경우에 다음 작업은 바로 수행되며, 그 이후에 수행되는 작업들은 그만큼
+          지체된다. 따라서 장기적으로는 작업의 수행시간이 조금씩 뒤쳐질 수 있다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Fixed-rate 방식</strong></span><a id="d4e686" class="indexterm"></a></p>
+
+          <p>작업이 수행되는 비율이 일정하게 유지된다. 작업의 다음 수행시간은 첫 수행시간과 주기에 의해서 결정된다. 작업의
+          수행이 지체되더라도 다음 작업은 바로 뒤따라 수행되며, 시간당 수행되는 비율을 유지한다. 장기적으로 작업의 수행시간이
+          초기에 지정한 주기에 따라 계속 유지된다.</p>
+        </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>JEUS Scheduler는 Fixed-rate 방식으로 작업을 등록하면 비교적 정확한 호출시간을 보장해주기
+          위해 작업 수행이 지체되더라도 시간이 되면 다른 스레드에 의해 작업을 호출한다. 따라서 작업 수행이 지체되는 경우에 같은
+          작업이 동시에(concurrently) 수행된다. 따라서 이러한 경우에는 작업 객체가 Thread-safe한지 고려해야
+          한다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음의 메소드를 이용하여 작업을 등록한다.<a id="d4e695" class="indexterm"></a><a id="d4e697" class="indexterm"></a></p>
+
+      <pre class="programlisting">registerSchedule(ScheduleListener task, Date firstTime, long period, Date endTime, 
+                 long maxcount, boolean isDaemon)
+
+registerSchedule(ScheduleListener task, long delay, long period, Date endTime, 
+                 long maxcount, boolean isDaemon)
+
+registerScheduleAtFixedRate(ScheduleListener task, Date firstTime, long period, 
+                 Date endTime, long maxcount, boolean isDaemon)
+
+registerScheduleAtFixedRate(ScheduleListener task, long delay, long period, 
+                 Date endTime, long maxcount, boolean isDaemon)</pre>
+
+      <p>작업을 등록할 때 사용하는 파라미터들은 다음과 같다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">파라미터</th><th>설명</th></tr></thead><tbody><tr><td align="left">Date firstTime<a id="d4e712" class="indexterm"></a></td><td>시작시간으로 처음 수행될 시간을 지정한다.</td></tr><tr><td align="left">long delay<a id="d4e718" class="indexterm"></a></td><td>시작시간이다. 현재 이후에 처음 수행될 시간을 지정한다. (단위: ms)</td></tr><tr><td align="left">long period<a id="d4e724" class="indexterm"></a></td><td>반복 수행 주기를 지정한다. (단위: ms)</td></tr><tr><td align="left">Date endTime<a id="d4e730" class="indexterm"></a></td><td>종료시간이다. 이 시간 이후에는 작업이 더 이상 수행되지 않고 null인 경우에는 종료시간의 제약이
+                없다.</td></tr><tr><td align="left">long maxcount<a id="d4e736" class="indexterm"></a></td><td>최대 수행 횟수이다. Scheduler.UNLIMITED인 경우에는 제한이 없다.</td></tr><tr><td align="left">boolean isDaemon<a id="d4e742" class="indexterm"></a></td><td><p>원격으로 Schedule을 등록하는 경우에만 의미가 있으며 true 값으로 설정하면
+                클라이언트와의 연결이 종료되었을 때 작업이 종료된다. </p><p>현재 RMI Runtime의
+                DGC(Distrubuted Garbage Collection) 정책에 의해 클라이언트가 연결이 종료되었음을
+                판단하기 때문에 실제로 클라이언트의 연결이 종료되고 15분 정도가 지나야 종료되었음을 탐지하게 되어
+                Scheduling이 취소된다.</p></td></tr><tr><td align="left">boolean isThreaded<a id="d4e750" class="indexterm"></a></td><td>더 이상 사용되지 않는다(deprecated).</td></tr></tbody></table>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 작업을 등록하는 예제이다.</p>
+
+      <div class="example"><a id="d4e759"></a><p class="title"><b>[예 2.4] 반복되는 작업 등록</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">SimpleTask task2 = new SimpleTask("task2");
+ScheduleController handle2 = scheduler.registerSchedule(task2, 2000, 2000, null, 
+                         Scheduler.UNLIMITED, false);
+
+SimpleTask task3 = new SimpleTask("task3");
+Date firstTime3 = new Date(System.currentTimeMillis() + 2000);
+Date endTime3 = new Date(System.currentTimeMillis() + 10 * 1000);
+ScheduleController handle3 = scheduler.registerScheduleAtFixedRate(task3, 
+                             firstTime3, 2000, endTime3, 10, false);</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e763"></a>2.5.3. Schedule 작업 객체 등록</h3></div></div></div>
+      
+
+      <p>Schedule이나 RemoteSchedule 작업 객체를 등록하는 것은 하위 호환성을 유지하기 위해
+      제공된다.</p>
+
+      <p>작업의 처음 수행시간과 이후에 반복되는 수행시간은 Schedule 작업 객체의 nextTime() 메소드를 이용하기
+      때문에 등록할 때는 별도의 파라미터를 줄 필요가 없다. 이 경우 다음 메소드를 이용하여 작업을 등록한다.</p>
+
+      <pre class="programlisting">registerSchedule(Schedule task, boolean isDaemon)
+registerSchedule(String classname, Hashtable params, boolean isDaemon)</pre>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 작업을 등록하는 예제이다.</p>
+
+      <div class="example"><a id="d4e771"></a><p class="title"><b>[예 2.5] Schedule 작업 객체 등록</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">Hashtable params = new Hashtable();
+params.put("name", "task3");
+params.put("interval", new Long(3000));
+ScheduleController handle3 = scheduler.registerSchedule(
+    "samples.scheduler.SimpleRemoteSchedule", params, true);
+
+SimpleSchedule task4 = new SimpleSchedule("task4");
+ScheduleController handle4 = scheduler.registerSchedule(task4, true);</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+        <p>Scheduler는 Managed Server(MS)에서 제공하는 서비스이므로 설정에 주의한다. 만약 설정이
+        잘못되어 Scheduler를 생성할 수 없다면, MS는 에러 메시지를 표시하고 기동에 실패한다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e778"></a>2.6. 작업 제어</h2></div></div></div>
+    
+
+    <p>JEUS Scheduler에 작업을 등록하면 핸들(handle)인 ScheduleController 객체를 리턴한다. 이
+    객체는 등록된 작업 하나당 만들어지는데 등록된 작업을 제어하기 위해 사용한다. 이 핸들을 이용하여 작업에 대한 정보를 얻어오거나
+    작업을 취소할 수 있다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 ScheduleController.cancel() 메소드를 호출하여 작업을 취소하는 예제이다.<a id="d4e783" class="indexterm"></a></p>
+
+    <div class="example"><a id="d4e786"></a><p class="title"><b>[예 2.6] ScheduleController.cancel 메소드 사용</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">SimpleTask task2 = new SimpleTask("task2");
+ScheduleController handle2 = scheduler.registerSchedule(task2, 2000, 2000, null, 
+                              Scheduler.UNLIMITED, false);
+Thread.sleep(10 * 1000);
+handle2.cancel();</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e791"></a>2.7. Scheduler 사용</h2></div></div></div>
+    
+
+    <p>작업 정의, Scheduler 객체 얻기, 작업 등록, 작업 제어까지 완료하였다면 JEUS Scheduler를 사용할
+    준비가 모두 되었다. 본 절에서는 환경에 따른 Schduler의 사용 방법에 대해 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e795"></a>2.7.1. Standalone 환경에서 사용</h3></div></div></div>
+      
+
+      <p>일반 J2SE 애플리케이션이나 Java EE 애플리케이션 클라이언트에서 JEUS Scheduler를 사용할 수 있다.
+      이 경우에는 JEUS 서버와 별개로 JEUS Scheduler를 J2SE Timer와 같이 라이브러리처럼 사용할 수 있다.
+      Scheduler 객체를 얻기 위해서는 SchedulerFactory 클래스를 이용한다. 또한 로컬 환경에서 작업을 등록할 때
+      daemon flag는 사용되지 않으므로 어떤 값을 넣어도 무방하다.<a id="d4e798" class="indexterm"></a><a id="d4e800" class="indexterm"></a></p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 Standalone 클라이언트 예제이다.</p>
+
+      <div class="example"><a id="d4e805"></a><p class="title"><b>[예 2.7] Standalone 클라이언트에서 Scheduler 사용</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">public class StandAloneClient {
+    public static void main(String args[]) {
+        try {
+            // Get the default scheduler
+            Scheduler scheduler = SchedulerFactory.getDefaultScheduler();
+
+            // Register SimpleTask which runs just one time
+            echo("Register task1 which runs just one time...");
+            SimpleTask task1 = new SimpleTask("task1");
+            Date firstTime1 = new Date(System.currentTimeMillis() + 2000);
+            ScheduleController handle1 = scheduler.registerSchedule(task1, 
+                            firstTime1, false);
+
+            Thread.sleep(5 * 1000);
+            echo("");
+
+            // Register SimpleTask which is repeated
+            // with fixed-delay
+            echo("Register task2 which is repeated " + "until it is canceled...");
+            SimpleTask task2 = new SimpleTask("task2");
+            ScheduleController handle2 = scheduler.registerSchedule(task2, 2000, 
+                          2000, null, Scheduler.UNLIMITED, false);
+
+            Thread.sleep(10 * 1000);
+            handle2.cancel();
+            echo("");
+
+            // Register SimpleTask which is repeated
+            // with fixed-rate
+            echo("Register task3 which is repeated " + "for 10 seconds...");
+            SimpleTask task3 = new SimpleTask("task3");
+            Date firstTime3 = new Date(System.currentTimeMillis() + 2000);
+            Date endTime3 = new Date(System.currentTimeMillis() + 10 * 1000);
+            ScheduleController handle3 = scheduler.registerScheduleAtFixedRate(
+                    task3, firstTime3, 2000, endTime3, 10, false);
+
+            Thread.sleep(12 * 1000);
+            echo("");
+
+            // Register SimpleSchedule which is repeated
+            // every 2 seconds
+            echo("Register task4 which is repeated " + "every 2 seconds...");
+            SimpleSchedule task4 = new SimpleSchedule("task4");
+            ScheduleController handle4 = scheduler.registerSchedule(task4, false);
+
+            Thread.sleep(10 * 1000);
+            echo("");
+
+            // Cancel all tasks
+            echo("Cancel all tasks registerd on the scheduler...");
+            scheduler.cancel();
+            Thread.sleep(5 * 1000);
+
+            System.out.println("Program terminated.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void echo(String s) {
+        System.out.println(s);
+    }
+
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>Java EE 애플리케이션 클라이언트에서 JEUS Scheduler를 사용하는 경우에는
+      DD(jeus-client-dd.xml)에 JEUS Scheduler의 Thread Pool에 관련된 설정을 할 수
+      있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>1. Scheduler의 Thread Pool과 관련된 설정은 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-thread-management-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.5. Thread Management 관련 명령어”</a>를
+        참고한다.</p>
+
+        <p>2. Scheduler를 사용한 코드를 컴파일하거나 기동시키기 위해서는 JEUS 관련 클래스(jeus.jar 등)가
+        클래스 패스에 지정되어 있어야 한다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e815"></a>2.7.2. JEUS 서버에서 사용</h3></div></div></div>
+      
+
+      <p>JEUS 서버에 Scheduler Service가 기동되어 있다면 원격 클라이언트가 이것을 사용할 수 있다. 그 전에
+      먼저 JEUS 서버에 Scheduler Service가 기동되도록 설정되어 있어야 한다.</p>
+
+      <p>JEUS 서버 Scheduler Service는 RMI Scheduler 객체를 JNDI에 등록한다. 따라서
+      클라이언트에서는 JNDI Lookup을 통해서 원격 Scheduler 객체(실제로는 Stub 객체)를 얻을 수 있다. 이 객체의
+      JNDI 이름은 “jeus_service/Scheduler”로 Scheduler.SERVER_SCHEDULER_NAME 상수를
+      사용한다.<a id="d4e819" class="indexterm"></a></p>
+
+      <p>일단 Scheduler 객체를 얻으면 작업을 등록하는 방법은 동일하다. 단, 등록된 작업 객체는
+      전송(Serialization)되어 원격 Scheduler에서 실제로 운용된다. 즉, JEUS 서버에서 수행된다. 이 경우 등록할
+      때 daemon flag는 의미가 있으며, daemon flag를 true로 등록하면 원격 클라이언트가 종료되었을 때 원격 작업도
+      종료된다.<a id="d4e822" class="indexterm"></a></p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS 서버에 Scheduler Service가 기동되도록 설정하는 방법은 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-thread-management-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.5. Thread Management 관련 명령어”</a>를
+        참고한다.</p>
+      </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 리모트 클라이언트 예제이다.</p>
+
+      <div class="example"><a id="d4e829"></a><p class="title"><b>[예 2.8] 리모트 클라이언트에서 Scheduler 사용</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">public class RemoteClient {
+    public static void main(String args[]) {
+        try {
+            // Get the remote scheduler
+            InitialContext ic = new InitialContext();
+            Scheduler scheduler = (Scheduler)ic.lookup(
+                Scheduler.SERVER_SCHEDULER_NAME);
+
+            // Register SimpleTask which runs just one time
+            echo("Register task1 which runs just one time...");
+            SimpleTask task1 = new SimpleTask("task1");
+            Date firstTime1 = new Date(System.currentTimeMillis() + 2000);
+            ScheduleController handle1 = scheduler.registerSchedule(task1, 
+                             firstTime1, true);
+
+            Thread.sleep(5 * 1000);
+            echo("");
+
+            // Register SimpleTask which is repeated
+            // with fixed-delay
+            echo("Register task2 which is repeated " + "until it is canceled...");
+            SimpleTask task2 = new SimpleTask("task2");
+            ScheduleController handle2 = scheduler.registerSchedule(task2, 
+                    2000, 2000, null, Scheduler.UNLIMITED, true);
+
+            Thread.sleep(10 * 1000);
+            handle2.cancel();
+            echo("");
+
+            // Register SimpleRemoteSchedule which is repeated
+            // every 3 seconds
+            echo("Register task3 which is repeated " + "every 3 seconds...");
+            Hashtable params = new Hashtable();
+            params.put("name", "task3");
+            params.put("interval", new Long(3000));
+            ScheduleController handle3 = scheduler.registerSchedule(
+                    "samples.scheduler.SimpleRemoteSchedule", params, true);
+
+            Thread.sleep(10 * 1000);
+            echo("");
+
+            // Cancel all tasks
+            echo("Cancel all tasks registerd on the scheduler...");
+            scheduler.cancel();
+            Thread.sleep(5 * 1000);
+
+            System.out.println("Program terminated.");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static void echo(String s) {
+        System.out.println(s);
+    }
+}</pre>
+      </div></div><br class="example-break"/>
+
+      <p/>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+        <p>위 예제를 실행하려면 해당 작업 클래스 파일을 JAR 파일로 묶어서
+        DOMAIN_HOME/lib/application 또는 SERVER_HOME/lib/application에 복사하여 위치시켜야
+        한다. JEUS 서버가 해당 작업을 수행하기 위해서는 해당 클래스를 로딩해야 하기 때문에 JEUS가 이미 기동되어 있는
+        상태라면 반드시 재기동해야 한다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e839"></a>2.7.3. Java EE 컴포넌트에서 사용</h3></div></div></div>
+      
+
+      <p>EJB나 서블릿과 같은 Java EE 컴포넌트에서 JEUS Scheduler를 사용할 수 있다. 이때 JEUS
+      Scheduler는 JEUS 서버에서 기동된다.</p>
+
+      <p>EJB 2.1 표준에는 EJB Timer Service를 명시하고 있으며, EJB Timer Service를 제공하고
+      있다. 따라서 EJB 컴포넌트의 경우 Java EE 표준을 준수하려면 JEUS Scheduler 보다는 EJB Timer
+      Service를 사용할 것을 권장한다. 하지만 EJB 외의 Java EE 컴포넌트에서는 EJB Timer Service를 사용할
+      수 없으므로 JEUS Scheduler를 사용해야 한다.<a id="d4e843" class="indexterm"></a></p>
+
+      <p>Java EE 컴포넌트에서 JEUS Scheduler를 사용하는 것은 Standalone JEUS Scheduler를
+      사용하는 방식과 동일하다. SchedulerFactory 클래스를 이용하여 서버에서 기동되는 Scheduler 객체를 얻어온 후에
+      필요한 등록 메소드를 호출하여 작업을 등록한다. <a id="d4e846" class="indexterm"></a><a id="d4e848" class="indexterm"></a></p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>JEUS 서버에서 동작하는 JEUS Scheduler에 대해 Thread Pool을 설정할 수 있다. 설정하는
+          방법에 대해서는 <a href="chapter_configuration.html#sect_scheduler_pooling" title="3.4. Thread Pool 설정">“3.4. Thread Pool 설정”</a>을 참고한다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div>
+
+      <p/>
+
+      <p>다음은 EJB에서 JEUS Scheduler 사용 예제이다.</p>
+
+      <div class="example"><a id="d4e858"></a><p class="title"><b>[예 2.9] EJB에서 JEUS Scheduler 사용</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">public class HelloEJB implements SessionBean {
+    private SimpleTask task;
+    private ScheduleController taskHandler;
+    private boolean isStarted;
+
+    public HelloEJB() {
+    }
+
+    public void ejbCreate() {
+        task = new SimpleTask("HelloTask");
+        isStarted = false;
+    }
+
+    public void trigger() throws RemoteException {
+        if (!isStarted) {
+            Scheduler scheduler = SchedulerFactory.getDefaultScheduler();
+            taskHandler = scheduler.registerSchedule(task, 
+                          2000, 2000, null, Scheduler.UNLIMITED, false);
+            isStarted = true;
+        }
+    }
+
+    public void ejbRemove() throws RemoteException {
+        if (isStarted) {
+            taskHandler.cancel();
+            isStarted = false;
+        }
+    }
+
+    public void setSessionContext(SessionContext sc) {
+    }
+
+    public void ejbActivate() {
+    }
+
+    public void ejbPassivate() {
+    }
+}</pre>
+
+          <pre class="programlisting">public class HelloClient {
+    public static void main(String args[]) {
+        try {
+            InitialContext ctx = new InitialContext();
+
+            HelloHome home = (HelloHome) ctx.lookup("helloApp");
+            Hello hello = (Hello) home.create();
+            hello.trigger();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e866"></a>2.8. Job-list 사용</h2></div></div></div>
+    
+
+    <p><a id="d4e869" class="indexterm"></a>Job-list는 JEUS 서버에 프로그래밍 방식으로 작업을 등록하지 않고 설정 파일을 이용하여 작업을
+    등록하는 것이다. Job-list는 JEUS 서버 Scheduler에 등록할 수 있다. Job-list로 작업을 등록하면 작업은
+    Fixed-rate 방식으로 반복 수행된다.</p>
+
+    <p/>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>JEUS 서버에서 동작하는 JEUS Scheduler에 대해 Job-list를 설정할 수 있다. 설정하는 방법에
+      대해서는 <a href="chapter_configuration.html#joblist_configuration" title="3.2. Job-list 설정">“3.2. Job-list 설정”</a>을 참고한다.</p>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_overview.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_configuration.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제1장 소개 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제3장 Scheduler 설정</td></tr></table></div><div xmlns="" align="center"/></body></html>

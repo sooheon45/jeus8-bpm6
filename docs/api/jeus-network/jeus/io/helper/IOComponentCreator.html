@@ -1,0 +1,647 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>IOComponentCreator</title>
+      <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="IOComponentCreator (JEUS Network Library)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.io.helper</font><br>Class IOComponentCreator
+      </h2><pre>java.lang.Object<br>  <img src="../../../resource/inherit.gif" alt="extended by"><b>jeus.io.helper.IOComponentCreator</b></pre><hr>
+      <dl><pre>public class <b>IOComponentCreator</b><dt>extends java.lang.Object</dt></pre></dl>io component인 StreamHandler, Acceptor, Connector을 생성해준다.<br><p>
+         <dl>
+            <dt></dt>
+            <dt><b>See Also:</b><dd><a href="../../../jeus/io/handler/StreamHandler.html"><code>StreamHandler</code></a>, <a href="../../../jeus/io/Acceptor.html"><code>Acceptor</code></a>, <a href="../../../jeus/io/Connector.html"><code>Connector</code></a></dd>
+            </dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static int</code></font></td>
+               <td><code><b><a href="../../../jeus/io/helper/IOComponentCreator.html#BLOCKING_SOCKET">BLOCKING_SOCKET</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   io component를 만들때 Blocking socket방식을 사용하는 component를 생성
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static int</code></font></td>
+               <td><code><b><a href="../../../jeus/io/helper/IOComponentCreator.html#LOCAL">LOCAL</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   io component를 만들때 local method invocation을 위한 component를 생성
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static int</code></font></td>
+               <td><code><b><a href="../../../jeus/io/helper/IOComponentCreator.html#NON_BLOCKING">NON_BLOCKING</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   io component를 만들때 NIO방식을 사용하는 component를 생성
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="IOComponentCreator.html#IOComponentCreator(int, java.lang.String)">IOComponentCreator</a></b>(int selectorType, java.lang.String creatorName)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   IOComponentCreator의 생성자.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="IOComponentCreator.html#IOComponentCreator(int, java.lang.String, int, int, int)">IOComponentCreator</a></b>(int selectorType, java.lang.String creatorName, int writeLimit, int writeRestart, int writeRepeat)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   IOComponentCreator의 생성자.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="IOComponentCreator.html#IOComponentCreator(int, java.lang.String, int, int, int, java.util.concurrent.ExecutorService)">IOComponentCreator</a></b>(int selectorType, java.lang.String creatorName, int writeLimit, int writeRestart, int writeRepeat, java.util.concurrent.ExecutorService executorService)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   IOComponentCreator의 생성자.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="IOComponentCreator.html#IOComponentCreator(int, java.lang.String, int, int, int, jeus.util.protocol.ssl.SSLConfig)">IOComponentCreator</a></b>(int selectorType, java.lang.String creatorName, int writeLimit, int writeRestart, int writeRepeat, jeus.util.protocol.ssl.SSLConfig sslConfig)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="IOComponentCreator.html#IOComponentCreator(int, java.lang.String, java.util.concurrent.ExecutorService)">IOComponentCreator</a></b>(int selectorType, java.lang.String creatorName, java.util.concurrent.ExecutorService executorService)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   IOComponentCreator의 생성자.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="IOComponentCreator.html#IOComponentCreator(int, java.lang.String, jeus.util.protocol.ssl.SSLConfig)">IOComponentCreator</a></b>(int selectorType, java.lang.String creatorName, jeus.util.protocol.ssl.SSLConfig sslConfig)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="IOComponentCreator.html#IOComponentCreator(int, java.lang.String, jeus.util.protocol.ssl.SSLConfig, java.util.concurrent.ExecutorService)">IOComponentCreator</a></b>(int selectorType, java.lang.String creatorName, jeus.util.protocol.ssl.SSLConfig sslConfig, java.util.concurrent.ExecutorService executorService)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../jeus/io/Acceptor.html">Acceptor</a></code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#createAcceptor(java.lang.String, int, jeus.io.SocketListener, javax.net.ssl.SSLContext, jeus.util.protocol.ssl.SSLConfig, int)">createAcceptor</a></b>(java.lang.String listenHost, int port, jeus.io.SocketListener listener, javax.net.ssl.SSLContext sslContext, jeus.util.protocol.ssl.SSLConfig sslconf, int backlog)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   IOComponentCreator의 Acceptor를 생성하는 메소드이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../jeus/io/Acceptor.html">Acceptor</a></code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#createAcceptor(java.lang.String, int, jeus.io.SocketListener, javax.net.ssl.SSLContext, jeus.util.protocol.ssl.SSLConfig, int, boolean)">createAcceptor</a></b>(java.lang.String listenHost, int port, jeus.io.SocketListener listener, javax.net.ssl.SSLContext sslContext, jeus.util.protocol.ssl.SSLConfig sslconf, int backlog, boolean enableInternalRetry)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   IOComponentCreator의 Acceptor를 생성하는 메소드이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../jeus/io/Acceptor.html">Acceptor</a></code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#createAcceptorWithEventProvider(jeus.io.EventProvider, java.lang.String, int, jeus.io.SocketListener, int)">createAcceptorWithEventProvider</a></b>(jeus.io.EventProvider provider, java.lang.String listenHost, int port, jeus.io.SocketListener listener, int backlog)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../jeus/io/Connector.html">Connector</a></code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#createConnector(java.lang.Object, jeus.util.protocol.ssl.SSLConfig)">createConnector</a></b>(java.lang.Object sslContext, jeus.util.protocol.ssl.SSLConfig sslConfig)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Connector를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static jeus.io.impl.nio.JeusSocketChannel</code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#createJeusSocketChannel(java.net.Socket, javax.net.ssl.SSLEngine, java.util.List<java.lang.String&gt;, java.util.concurrent.ExecutorService)">createJeusSocketChannel</a></b>(java.net.Socket socket, javax.net.ssl.SSLEngine sslEngine, java.util.List&lt;java.lang.String&gt; alpnList, java.util.concurrent.ExecutorService managedThreadPool)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../jeus/io/handler/StreamHandler.html">StreamHandler</a></code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#createLocalStreamHandler(jeus.io.handler.StreamContentReceiver, jeus.io.handler.StreamContentHandlerCreator)">createLocalStreamHandler</a></b>(jeus.io.handler.StreamContentReceiver myObjectReceiver, jeus.io.handler.StreamContentHandlerCreator handlerCreator)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   local에서만 사용할 수 있는 StreamHandler를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../jeus/io/Selector.html">Selector</a></code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#createSelector(java.lang.String, int, boolean)">createSelector</a></b>(java.lang.String name, int selectNum, boolean useDualSelector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   IOComponentCreator의 Selector를 생성하는 메소드이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../jeus/io/Selector.html">Selector</a></code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#createSelector(java.lang.String, int, boolean, long, long)">createSelector</a></b>(java.lang.String name, int selectNum, boolean useDualSelector, long selectTimeout, long keepAliveTimeout)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   IOComponentCreator의 Selector를 생성하는 메소드이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../jeus/io/Selector.html">Selector</a></code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#createSelector(java.lang.String, int, boolean, long, long, boolean)">createSelector</a></b>(java.lang.String name, int selectNum, boolean useDualSelector, long selectTimeout, long keepAliveTimeout, boolean enableInternalRetry)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   IOComponentCreator의 Selector를 생성하는 메소드이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.io.impl.nio.handler.NIOStreamHandler</code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#createStreamHandler(java.net.Socket, jeus.io.handler.StreamContentReceiver, java.lang.ClassLoader)">createStreamHandler</a></b>(java.net.Socket socket, jeus.io.handler.StreamContentReceiver myObjectReceiver, java.lang.ClassLoader loader)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamHandler를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.io.impl.nio.handler.NIOStreamHandler</code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#createStreamHandler(java.net.Socket, jeus.io.handler.StreamContentReceiver, jeus.io.handler.StreamContentHandlerCreator)">createStreamHandler</a></b>(java.net.Socket socket, jeus.io.handler.StreamContentReceiver myObjectReceiver, jeus.io.handler.StreamContentHandlerCreator handlerCreator)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.io.impl.nio.handler.NIOStreamHandler</code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#createStreamHandler(java.net.Socket, jeus.io.handler.StreamContentReceiver, jeus.io.handler.StreamContentHandlerCreator, java.util.concurrent.ExecutorService)">createStreamHandler</a></b>(java.net.Socket socket, jeus.io.handler.StreamContentReceiver myObjectReceiver, jeus.io.handler.StreamContentHandlerCreator handlerCreator, java.util.concurrent.ExecutorService managedThreadPool)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamHandler를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../jeus/io/Connector.html">Connector</a></code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#createUnifiedTransportConnector(jeus.io.Selector, javax.net.ssl.SSLContext, jeus.util.protocol.ssl.SSLConfig)">createUnifiedTransportConnector</a></b>(<a href="../../../jeus/io/Selector.html">Selector</a> selector, javax.net.ssl.SSLContext sslContext, jeus.util.protocol.ssl.SSLConfig sslConfig)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   통합된 포트를 사용하는 Connector를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="IOComponentCreator.html#getName()">getName</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   creator의 이름을 가져온다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="NON_BLOCKING"></a><h3>NON_BLOCKING</h3><pre>public static final int <b>NON_BLOCKING</b></pre><dl>
+            <dd>io component를 만들때 NIO방식을 사용하는 component를 생성</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="BLOCKING_SOCKET"></a><h3>BLOCKING_SOCKET</h3><pre>public static final int <b>BLOCKING_SOCKET</b></pre><dl>
+            <dd>io component를 만들때 Blocking socket방식을 사용하는 component를 생성</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="LOCAL"></a><h3>LOCAL</h3><pre>public static final int <b>LOCAL</b></pre><dl>
+            <dd>io component를 만들때 local method invocation을 위한 component를 생성</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="IOComponentCreator(int, java.lang.String)"></a><h3>IOComponentCreator</h3><pre>public <b>IOComponentCreator</b>(<code>int</code> selectorType,<br>                          <code>java.lang.String</code> creatorName)<br></pre><dl>
+            <dd>IOComponentCreator의 생성자.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>selectorType</code> - selector type를 지정한다.<br><code>creatorName</code> - creator의 이름을 지정한다.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="IOComponentCreator(int, java.lang.String, java.util.concurrent.ExecutorService)"></a><h3>IOComponentCreator</h3><pre>public <b>IOComponentCreator</b>(<code>int</code> selectorType,<br>                          <code>java.lang.String</code> creatorName,<br>                          <code>java.util.concurrent.ExecutorService</code> executorService)<br></pre><dl>
+            <dd>IOComponentCreator의 생성자.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>selectorType</code> - selector type를 지정한다.<br><code>creatorName</code> - creator의 이름을 지정한다.<br><code>executorService</code> - creator에서 만들어지는 component들이 사용할 thread-pool을 지정한다.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="IOComponentCreator(int, java.lang.String, int, int, int)"></a><h3>IOComponentCreator</h3><pre>public <b>IOComponentCreator</b>(<code>int</code> selectorType,<br>                          <code>java.lang.String</code> creatorName,<br>                          <code>int</code> writeLimit,<br>                          <code>int</code> writeRestart,<br>                          <code>int</code> writeRepeat)<br></pre><dl>
+            <dd>IOComponentCreator의 생성자.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>selectorType</code> - selector type를 지정한다.<br><code>creatorName</code> - creator의 이름을 지정한다.<br><code>writeLimit</code> - NIO사용시, Selector의 write queue에 쌓일 수 있는 write buffer의 최대치를 지정한다.<br><code>writeRestart</code> - NIO사용시, write queue에 너무 많이 쌓여 block되었던 write가 재개될 수 있는 write buffer의 크기를 지정한다.<br><code>writeRepeat</code> - NIO사용시, write를 시도해 보는 횟수를 지정한다. 실패횟수가 이 횟수를 넘어가면 해당 data는 write queue에 쌓인다.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="IOComponentCreator(int, java.lang.String, int, int, int, java.util.concurrent.ExecutorService)"></a><h3>IOComponentCreator</h3><pre>public <b>IOComponentCreator</b>(<code>int</code> selectorType,<br>                          <code>java.lang.String</code> creatorName,<br>                          <code>int</code> writeLimit,<br>                          <code>int</code> writeRestart,<br>                          <code>int</code> writeRepeat,<br>                          <code>java.util.concurrent.ExecutorService</code> executorService)<br></pre><dl>
+            <dd>IOComponentCreator의 생성자.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>selectorType</code> - selector type를 지정한다.<br><code>creatorName</code> - creator의 이름을 지정한다.<br><code>writeLimit</code> - NIO사용시, Selector의 write queue에 쌓일 수 있는 write buffer의 최대치를 지정한다.<br><code>writeRestart</code> - NIO사용시, write queue에 너무 많이 쌓여 block되었던 write가 재개될 수 있는 write buffer의 크기를 지정한다.<br><code>writeRepeat</code> - NIO사용시, write를 시도해 보는 횟수를 지정한다. 실패횟수가 이 횟수를 넘어가면 해당 data는 write queue에 쌓인다.<br><code>executorService</code> - creator에서 만들어지는 component들이 사용할 thread-pool을 지정한다.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="IOComponentCreator(int, java.lang.String, jeus.util.protocol.ssl.SSLConfig)"></a><h3>IOComponentCreator</h3><pre>public <b>IOComponentCreator</b>(<code>int</code> selectorType,<br>                          <code>java.lang.String</code> creatorName,<br>                          <code>jeus.util.protocol.ssl.SSLConfig</code> sslConfig)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="IOComponentCreator(int, java.lang.String, int, int, int, jeus.util.protocol.ssl.SSLConfig)"></a><h3>IOComponentCreator</h3><pre>public <b>IOComponentCreator</b>(<code>int</code> selectorType,<br>                          <code>java.lang.String</code> creatorName,<br>                          <code>int</code> writeLimit,<br>                          <code>int</code> writeRestart,<br>                          <code>int</code> writeRepeat,<br>                          <code>jeus.util.protocol.ssl.SSLConfig</code> sslConfig)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="IOComponentCreator(int, java.lang.String, jeus.util.protocol.ssl.SSLConfig, java.util.concurrent.ExecutorService)"></a><h3>IOComponentCreator</h3><pre>public <b>IOComponentCreator</b>(<code>int</code> selectorType,<br>                          <code>java.lang.String</code> creatorName,<br>                          <code>jeus.util.protocol.ssl.SSLConfig</code> sslConfig,<br>                          <code>java.util.concurrent.ExecutorService</code> executorService)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getName()"></a><h3>getName</h3><pre>public java.lang.String <b>getName</b>()<br></pre><dl>
+            <dd>creator의 이름을 가져온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>create의 이름</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createConnector(java.lang.Object, jeus.util.protocol.ssl.SSLConfig)"></a><h3>createConnector</h3><pre>public <a href="../../../jeus/io/Connector.html">Connector</a> <b>createConnector</b>(<code>java.lang.Object</code> sslContext,<br>                                 <code>jeus.util.protocol.ssl.SSLConfig</code> sslConfig)<br></pre><dl>
+            <dd>Connector를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>sslContext</code> - Connector가 사용할 <code>javax.net.ssl.SSLContext</code>&nbsp;<br><code>sslConfig</code> - Connector가 사용할 SSL의 설정(<code>jeus.util.protocol.ssl.SSLConfig</code> 참조)
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 Connector</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createSelector(java.lang.String, int, boolean)"></a><h3>createSelector</h3><pre>public <a href="../../../jeus/io/Selector.html">Selector</a> <b>createSelector</b>(<code>java.lang.String</code> name,<br>                               <code>int</code> selectNum,<br>                               <code>boolean</code> useDualSelector)<br>                             throws <code>java.io.IOException</code></pre><dl>
+            <dd>IOComponentCreator의 Selector를 생성하는 메소드이다. 첫번째 인수는 Selector 내부적으로 사용될 쓰레드의 이름을 지정하는 것이고
+               selectNum은 NIO_SELECTOR를 사용할 때 Selector를 여러개 설정할 경우 사용한다. 세번째 인수인 useDualSelector는 read,
+               write이벤트를 별도의 selector에서 할지 여부를 선택하는 인수이다. Selector는  <a href="../../../jeus/io/Acceptor.html"><code>Acceptor</code></a>로 부터 생성된
+                <a href="../../../jeus/io/handler/StreamHandler.html"><code>StreamHandler</code></a>를 Selector의 이벤트 핸들러로 등록하면 Selector에서 발생한 IOEvent들에
+               대응하는  <a href="../../../jeus/io/handler/StreamHandler.html"><code>StreamHandler</code></a>의 메소드들을 호출하는 역할을 한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - selector의 이름. 이 이름에 "-Selector"를 붙인것이 selector thread의 이름이 된다.<br><code>selectNum</code> - selector의 갯수.<br><code>useDualSelector</code> - read와 write를 별도의 <code>java.nio.channels.Selector</code>에서 할지를 지정한다.
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>&nbsp;</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createSelector(java.lang.String, int, boolean, long, long)"></a><h3>createSelector</h3><pre>public <a href="../../../jeus/io/Selector.html">Selector</a> <b>createSelector</b>(<code>java.lang.String</code> name,<br>                               <code>int</code> selectNum,<br>                               <code>boolean</code> useDualSelector,<br>                               <code>long</code> selectTimeout,<br>                               <code>long</code> keepAliveTimeout)<br>                             throws <code>java.io.IOException</code></pre><dl>
+            <dd>IOComponentCreator의 Selector를 생성하는 메소드이다. 첫번째 인수는 Selector 내부적으로 사용될 쓰레드의 이름을 지정하는 것이고
+               selectNum은 NIO_SELECTOR를 사용할 때 Selector를 여러개 설정할 경우 사용한다. 세번째 인수인 useDualSelector는 read,
+               write이벤트를 별도의 selector에서 할지 여부를 선택하는 인수이다. Selector는  <a href="../../../jeus/io/Acceptor.html"><code>Acceptor</code></a>로 부터 생성된
+                <a href="../../../jeus/io/handler/StreamHandler.html"><code>StreamHandler</code></a>를 Selector의 이벤트 핸들러로 등록하면 Selector에서 발생한 IOEvent들에
+               대응하는  <a href="../../../jeus/io/handler/StreamHandler.html"><code>StreamHandler</code></a>의 메소드들을 호출하는 역할을 한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - selector의 이름. 이 이름에 "-Selector"를 붙인것이 selector thread의 이름이 된다.<br><code>selectNum</code> - selector의 갯수.<br><code>useDualSelector</code> - read와 write를 별도의 <code>java.nio.channels.Selector</code>에서 할지를 지정한다.<br><code>selectTimeout</code> - <code>java.nio.channels.Selector.select()</code>할때의 timeout<br><code>keepAliveTimeout</code> - 생성한  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>의 keep alive timeout
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>&nbsp;</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createSelector(java.lang.String, int, boolean, long, long, boolean)"></a><h3>createSelector</h3><pre>public <a href="../../../jeus/io/Selector.html">Selector</a> <b>createSelector</b>(<code>java.lang.String</code> name,<br>                               <code>int</code> selectNum,<br>                               <code>boolean</code> useDualSelector,<br>                               <code>long</code> selectTimeout,<br>                               <code>long</code> keepAliveTimeout,<br>                               <code>boolean</code> enableInternalRetry)<br>                             throws <code>java.io.IOException</code></pre><dl>
+            <dd>IOComponentCreator의 Selector를 생성하는 메소드이다. 첫번째 인수는 Selector 내부적으로 사용될 쓰레드의 이름을 지정하는 것이고
+               selectNum은 NIO_SELECTOR를 사용할 때 Selector를 여러개 설정할 경우 사용한다. 세번째 인수인 useDualSelector는 read,
+               write이벤트를 별도의 selector에서 할지 여부를 선택하는 인수이다. Selector는  <a href="../../../jeus/io/Acceptor.html"><code>Acceptor</code></a>로 부터 생성된
+                <a href="../../../jeus/io/handler/StreamHandler.html"><code>StreamHandler</code></a>를 Selector의 이벤트 핸들러로 등록하면 Selector에서 발생한 IOEvent들에
+               대응하는  <a href="../../../jeus/io/handler/StreamHandler.html"><code>StreamHandler</code></a>의 메소드들을 호출하는 역할을 한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>name</code> - selector의 이름. 이 이름에 "-Selector"를 붙인것이 selector thread의 이름이 된다.<br><code>selectNum</code> - selector의 갯수.<br><code>useDualSelector</code> - read와 write를 별도의 <code>java.nio.channels.Selector</code>에서 할지를 지정한다.<br><code>selectTimeout</code> - <code>java.nio.channels.Selector.select()</code>할때의 timeout<br><code>keepAliveTimeout</code> - 생성한  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>의 keep alive timeout<br><code>enableInternalRetry</code> - selector생성에 실패할 경우 내부에서 재시도를 할 지 여부
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>&nbsp;</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - selector 생성 실패
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createAcceptor(java.lang.String, int, jeus.io.SocketListener, javax.net.ssl.SSLContext, jeus.util.protocol.ssl.SSLConfig, int)"></a><h3>createAcceptor</h3><pre>public <a href="../../../jeus/io/Acceptor.html">Acceptor</a> <b>createAcceptor</b>(<code>java.lang.String</code> listenHost,<br>                               <code>int</code> port,<br>                               <code>jeus.io.SocketListener</code> listener,<br>                               <code>javax.net.ssl.SSLContext</code> sslContext,<br>                               <code>jeus.util.protocol.ssl.SSLConfig</code> sslconf,<br>                               <code>int</code> backlog)<br>                             throws <code>java.io.IOException</code></pre><dl>
+            <dd>IOComponentCreator의 Acceptor를 생성하는 메소드이다. 첫번째 인수는 ServerSocket을 바인드할 포트이고 두번째 인수
+               SocketListener는 Acceptor가 Socket연결을 받아 들인 후 이 이벤트를 전달할 이벤트 리스너이다. 이전에 Endpoint를 사용할 때는
+               이 이벤트는 내부적으로 처리되고 SocketStream이라는 것이 만들어진 후 ConnectionListener로 생성하여
+               connectionEstablished메소드를 호출하였었다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>listenHost</code> - listen받을 host<br><code>port</code> - listen받을 port<br><code>listener</code> - Socket이 accept되는 이벤트를 수신하는 리스너<br><code>sslContext</code> - acceptor가 사용할 <code>javax.net.ssl.SSLContext</code>&nbsp;<br><code>sslconf</code> - Acceptor가 사용할 SSL의 설정(<code>jeus.util.protocol.ssl.SSLConfig</code> 참조)<br><code>backlog</code> - 바인드할 ServerSocket에서 사용할 backlog length
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 Acceptor</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createAcceptor(java.lang.String, int, jeus.io.SocketListener, javax.net.ssl.SSLContext, jeus.util.protocol.ssl.SSLConfig, int, boolean)"></a><h3>createAcceptor</h3><pre>public <a href="../../../jeus/io/Acceptor.html">Acceptor</a> <b>createAcceptor</b>(<code>java.lang.String</code> listenHost,<br>                               <code>int</code> port,<br>                               <code>jeus.io.SocketListener</code> listener,<br>                               <code>javax.net.ssl.SSLContext</code> sslContext,<br>                               <code>jeus.util.protocol.ssl.SSLConfig</code> sslconf,<br>                               <code>int</code> backlog,<br>                               <code>boolean</code> enableInternalRetry)<br>                             throws <code>java.io.IOException</code></pre><dl>
+            <dd>IOComponentCreator의 Acceptor를 생성하는 메소드이다. 첫번째 인수는 ServerSocket을 바인드할 포트이고 두번째 인수
+               SocketListener는 Acceptor가 Socket연결을 받아 들인 후 이 이벤트를 전달할 이벤트 리스너이다. 이전에 Endpoint를 사용할 때는
+               이 이벤트는 내부적으로 처리되고 SocketStream이라는 것이 만들어진 후 ConnectionListener로 생성하여
+               connectionEstablished메소드를 호출하였었다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>listenHost</code> - listen받을 host<br><code>port</code> - listen받을 port<br><code>listener</code> - Socket이 accept되는 이벤트를 수신하는 리스너<br><code>sslContext</code> - acceptor가 사용할 <code>javax.net.ssl.SSLContext</code>&nbsp;<br><code>sslconf</code> - Acceptor가 사용할 SSL의 설정(<code>jeus.util.protocol.ssl.SSLConfig</code> 참조)<br><code>backlog</code> - 바인드할 ServerSocket에서 사용할 backlog length<br><code>enableInternalRetry</code> - selector생성에 실패할 경우 내부에서 재시도를 할 지 여부
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 Acceptor</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createJeusSocketChannel(java.net.Socket, javax.net.ssl.SSLEngine, java.util.List<java.lang.String&gt;, java.util.concurrent.ExecutorService)"></a><h3>createJeusSocketChannel</h3><pre>public static jeus.io.impl.nio.JeusSocketChannel <b>createJeusSocketChannel</b>(<code>java.net.Socket</code> socket,<br>                                                                         <code>javax.net.ssl.SSLEngine</code> sslEngine,<br>                                                                         <code>java.util.List&lt;java.lang.String&gt;</code> alpnList,<br>                                                                         <code>java.util.concurrent.ExecutorService</code> managedThreadPool)<br>                                                                       throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createStreamHandler(java.net.Socket, jeus.io.handler.StreamContentReceiver, java.lang.ClassLoader)"></a><h3>createStreamHandler</h3><pre>public jeus.io.impl.nio.handler.NIOStreamHandler <b>createStreamHandler</b>(<code>java.net.Socket</code> socket,<br>                                                                     <code>jeus.io.handler.StreamContentReceiver</code> myObjectReceiver,<br>                                                                     <code>java.lang.ClassLoader</code> loader)<br>                                                                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>StreamHandler를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>socket</code> - StreamHandler에서 사용할 socket.<br><code>myObjectReceiver</code> - StreamHandler에서 사용할 StreamContentReceiver.<br><code>loader</code> - StreamContentHandlerCreator에서 사용할 ClassLoader.
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 StreamHandler</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createStreamHandler(java.net.Socket, jeus.io.handler.StreamContentReceiver, jeus.io.handler.StreamContentHandlerCreator)"></a><h3>createStreamHandler</h3><pre>public jeus.io.impl.nio.handler.NIOStreamHandler <b>createStreamHandler</b>(<code>java.net.Socket</code> socket,<br>                                                                     <code>jeus.io.handler.StreamContentReceiver</code> myObjectReceiver,<br>                                                                     <code>jeus.io.handler.StreamContentHandlerCreator</code> handlerCreator)<br>                                                                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createStreamHandler(java.net.Socket, jeus.io.handler.StreamContentReceiver, jeus.io.handler.StreamContentHandlerCreator, java.util.concurrent.ExecutorService)"></a><h3>createStreamHandler</h3><pre>public jeus.io.impl.nio.handler.NIOStreamHandler <b>createStreamHandler</b>(<code>java.net.Socket</code> socket,<br>                                                                     <code>jeus.io.handler.StreamContentReceiver</code> myObjectReceiver,<br>                                                                     <code>jeus.io.handler.StreamContentHandlerCreator</code> handlerCreator,<br>                                                                     <code>java.util.concurrent.ExecutorService</code> managedThreadPool)<br>                                                                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>StreamHandler를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>socket</code> - StreamHandler에서 사용할 socket.<br><code>myObjectReceiver</code> - StreamHandler에서 사용할 StreamContentReceiver.<br><code>handlerCreator</code> - StreamHandler에서 사용할 StreamContentHandlerCreator.<br><code>managedThreadPool</code> - StreamHandler내부에서 사용할 thread pool.
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 StreamHandler</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createAcceptorWithEventProvider(jeus.io.EventProvider, java.lang.String, int, jeus.io.SocketListener, int)"></a><h3>createAcceptorWithEventProvider</h3><pre>public <a href="../../../jeus/io/Acceptor.html">Acceptor</a> <b>createAcceptorWithEventProvider</b>(<code>jeus.io.EventProvider</code> provider,<br>                                                <code>java.lang.String</code> listenHost,<br>                                                <code>int</code> port,<br>                                                <code>jeus.io.SocketListener</code> listener,<br>                                                <code>int</code> backlog)<br>                                              throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createLocalStreamHandler(jeus.io.handler.StreamContentReceiver, jeus.io.handler.StreamContentHandlerCreator)"></a><h3>createLocalStreamHandler</h3><pre>public <a href="../../../jeus/io/handler/StreamHandler.html">StreamHandler</a> <b>createLocalStreamHandler</b>(<code>jeus.io.handler.StreamContentReceiver</code> myObjectReceiver,<br>                                              <code>jeus.io.handler.StreamContentHandlerCreator</code> handlerCreator)<br>                                            throws <code>java.io.IOException</code></pre><dl>
+            <dd>local에서만 사용할 수 있는 StreamHandler를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>myObjectReceiver</code> - StreamHandler에서 사용할 StreamContentReceiver<br><code>handlerCreator</code> - StreamHandler에서 사용할 StreamContentHandlerCreator
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 StreamHandler</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createUnifiedTransportConnector(jeus.io.Selector, javax.net.ssl.SSLContext, jeus.util.protocol.ssl.SSLConfig)"></a><h3>createUnifiedTransportConnector</h3><pre>public <a href="../../../jeus/io/Connector.html">Connector</a> <b>createUnifiedTransportConnector</b>(<code><a href="../../../jeus/io/Selector.html">Selector</a></code> selector,<br>                                                 <code>javax.net.ssl.SSLContext</code> sslContext,<br>                                                 <code>jeus.util.protocol.ssl.SSLConfig</code> sslConfig)<br></pre><dl>
+            <dd>통합된 포트를 사용하는 Connector를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>selector</code> - &nbsp;<br><code>sslContext</code> - Connector가 사용할 <code>javax.net.ssl.SSLContext</code>&nbsp;<br><code>sslConfig</code> - Connector가 사용할 SSL의 설정(<code>jeus.util.protocol.ssl.SSLConfig</code> 참조)
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 통합된 포트를 사용하는 Connector</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

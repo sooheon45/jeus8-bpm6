@@ -1,0 +1,603 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>JMSQueueDestinationResourceMBean</title>
+      <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="JMSQueueDestinationResourceMBean (JEUS JMS API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS JMS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.jms.server.mbean</font><br>MBean JMSQueueDestinationResourceMBean
+      </h2>
+      <dl>
+         <dt><b>ObjectName Pattern:</b><dd><code>JEUS:name=<i>{destination-name}</i>,j2eeType=JeusService,jeusType=JMSDestinationResource,*</code></dd>
+         </dt>
+         <dt><b>Permission Name:</b><dd><code>jeus.server.<i>{server-name}</i>.jms.queue.<i>{name-key}</i></code></dd>
+         </dt>
+         <dt></dt>
+         <dt></dt>
+      </dl>
+      <hr>
+      <dl>
+         <dt><b>All Superinterfaces:</b><dd><a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html">JMSDestinationResourceMBean</a>, jeus.management.j2ee.J2EEManagedObjectMBean, jeus.management.j2ee.J2EEResourceMBean, jeus.management.j2ee.StatisticsProvider
+            </dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>MBean <b>JMSQueueDestinationResourceMBean</b></pre></dl>JMS Queue Destination Resource에 관한 작업을 하는 MBean이다.<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+         </table>
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.jms.server.mbean.JMSDestinationResourceMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.jms.server.mbean.<a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html">JMSDestinationResourceMBean</a></b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#J2EE_TYPE">J2EE_TYPE</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#JEUS_TYPE">JEUS_TYPE</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#parentKeyMap">parentKeyMap</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#TYPE">TYPE</a></code></td>
+            </tr>
+         </table>&nbsp;
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.J2EEResourceMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.J2EEResourceMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>JAVAMAIL, JCA, JDBC, JMS, JNDI, JTA, RMI_IIOP, URL</code></td>
+            </tr>
+         </table>&nbsp;
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>SYSTEM_DOMAIN</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attribute_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="3"><font size="+2"><b>Attribute Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSQueueDestinationResourceMBean.html#ExpiredMessageCount">ExpiredMessageCount</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   만료된 메시지의 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSQueueDestinationResourceMBean.html#MessageCount">MessageCount</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   destination으로 들어온 모든 메시지 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSQueueDestinationResourceMBean.html#PendingMessages">PendingMessages</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Queue를 빠져나가 consumer로 전동 대기중인 메시지의 개수
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSQueueDestinationResourceMBean.html#RemainingMessages">RemainingMessages</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   지금 Queue에 남아있는 message의 개수.<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   지금 Queue에 남아있는 message의 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSQueueDestinationResourceMBean.html#WaitingAckMessages">WaitingAckMessages</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Consumer로 전달되어 acknowledge가 돌아오길 대기중인 메시지의 개수
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attributes_inherited_from_class_jeus.jms.server.mbean.JMSDestinationResourceMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.jms.server.mbean.<a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html">JMSDestinationResourceMBean</a></b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#DeadLetterDestinationName">DeadLetterDestinationName</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#Destination">Destination</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#ExportName">ExportName</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#GlobalOrderInfo">GlobalOrderInfo</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#JMSConsumerResourceNames">JMSConsumerResourceNames</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#MessageGroupInfo">MessageGroupInfo</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#Name">Name</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#stats">stats</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#Type">Type</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#ConsumptionSuspended">ConsumptionSuspended</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#ProductionSuspended">ProductionSuspended</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#Queue">Queue</a></code></td>
+            </tr>
+         </table>&nbsp;<a name="attributes_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>J2EEType, JeusType, objectName, ObjectName, ParentObjectName, PermissionName, eventProvider, stateManageable, statisticsProvider</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operation_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Operation Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> jeus.jms.common.util.JMSMessageExporter</code></font></td>
+               <td><code><b><a href="JMSQueueDestinationResourceMBean.html#exportAllMessages()">exportAllMessages</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Queue내의 모든 메시지들을 내보내기 위한 exporter.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> jeus.jms.common.util.JMSMessageExporter</code></font></td>
+               <td><code><b><a href="JMSQueueDestinationResourceMBean.html#exportMessages(java.util.List<java.lang.String&gt;)">exportMessages</a></b>(java.util.List&lt;java.lang.String&gt; messageIDs)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   MessageID에 해당하는 메시지들들을 내보내기 위한 exporter..
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> java.util.List&lt;jeus.jms.common.message.MessageInfo&gt;</code></font></td>
+               <td><code><b><a href="JMSQueueDestinationResourceMBean.html#getMessageInfo(java.lang.String)">getMessageInfo</a></b>(java.lang.String selector)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   현재 Queue에 남아있는 message에 대한 정보를 담은 <code>MessageInfo</code>객체.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> java.util.List&lt;jeus.jms.common.message.MessageInfo&gt;</code></font></td>
+               <td><code><b><a href="JMSQueueDestinationResourceMBean.html#getMessageInfo(java.lang.String, int, int)">getMessageInfo</a></b>(java.lang.String selector, int offset, int size)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   현재 Queue에 남아있는 message에 대한 정보들 중 offset부터 size만큼을 담은 <code>MessageInfo</code>객체.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> jeus.jms.common.message.MessageView</code></font></td>
+               <td><code><b><a href="JMSQueueDestinationResourceMBean.html#getMessageView(java.lang.String)">getMessageView</a></b>(java.lang.String messageID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   message ID에 해당하는 message에 대한 정보를 담은 <code>MessageView</code>객체.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> int</code></font></td>
+               <td><code><b><a href="JMSQueueDestinationResourceMBean.html#getRemainingMessages(java.lang.String)">getRemainingMessages</a></b>(java.lang.String selector)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   지금 Queue에 남아있는 message의 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> java.util.Collection&lt;java.lang.String&gt;</code></font></td>
+               <td><code><b><a href="JMSQueueDestinationResourceMBean.html#moveAllMessages(java.lang.String)">moveAllMessages</a></b>(java.lang.String targetDest)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Queue에 있는 모든 메시지를 target destination으로 이동
+                  Target destination이 consume-suspended인 상태에서 사용을 권장한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSQueueDestinationResourceMBean.html#moveMessage(java.lang.String, java.lang.String)">moveMessage</a></b>(java.lang.String messageID, java.lang.String targetDest)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   MessageID에 해당하는 메시지를 target destination으로 이동.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> java.util.Collection&lt;java.lang.String&gt;</code></font></td>
+               <td><code><b><a href="JMSQueueDestinationResourceMBean.html#moveMessages(java.util.Collection<java.lang.String&gt;, java.lang.String, java.lang.String)">moveMessages</a></b>(java.util.Collection&lt;java.lang.String&gt; messageID, java.lang.String targetServer, java.lang.String targetDest)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   MessageID에 해당하는 메시지들을 target destination으로 이동.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> int</code></font></td>
+               <td><code><b><a href="JMSQueueDestinationResourceMBean.html#removeAllMessages()">removeAllMessages</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Queue에 있는 메시지를 모두 삭제.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSQueueDestinationResourceMBean.html#removeMessage(java.lang.String)">removeMessage</a></b>(java.lang.String messageID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   MessageID에 해당하는 메시지를 Queue에서 삭제.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> int</code></font></td>
+               <td><code><b><a href="JMSQueueDestinationResourceMBean.html#removeMessages(java.util.List<java.lang.String&gt;)">removeMessages</a></b>(java.util.List&lt;java.lang.String&gt; messageID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   MessageID에 해당하는 메시지들을 Queue에서 삭제.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operations_inherited_from_class_jeus.jms.server.mbean.JMSDestinationResourceMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Operations inherited from class jeus.jms.server.mbean.<a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html">JMSDestinationResourceMBean</a></b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#importMessage(jeus.jms.common.util.JMSMessageImporter, boolean)">importMessage</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#resetMessageStats()">resetMessageStats</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#resumeConsumption()">resumeConsumption</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#resumeProduction()">resumeProduction</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#suspendConsumption()">suspendConsumption</a>, <a href="../../../../jeus/jms/server/mbean/JMSDestinationResourceMBean.html#suspendProduction()">suspendProduction</a></code></td>
+            </tr>
+         </table>&nbsp;<a name="operations_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Operations inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>addChild, refreshMonitoring, removeChild</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attribute_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Attribute Detail</b></font></th>
+            </tr>
+         </table><a name="ExpiredMessageCount"></a><a name="getExpiredMessageCount()"></a><h3>ExpiredMessageCount</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getExpiredMessageCount</b>()</pre><dl>
+               <dd>만료된 메시지의 개수.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>long</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="MessageCount"></a><a name="getMessageCount()"></a><h3>MessageCount</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getMessageCount</b>()</pre><dl>
+               <dd>destination으로 들어온 모든 메시지 개수.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>long</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="PendingMessages"></a><a name="getPendingMessages()"></a><h3>PendingMessages</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getPendingMessages</b>()</pre><dl>
+               <dd>Queue를 빠져나가 consumer로 전동 대기중인 메시지의 개수</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>Queue를 빠져나가 consumer로 전동 대기중인 메시지의 개수</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="RemainingMessages"></a><a name="getRemainingMessages()"></a><h3>RemainingMessages</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getRemainingMessages</b>()</pre><dl>
+               <dd>지금 Queue에 남아있는 message의 개수.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>지금 Queue에 남아있는 message의 개수</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="WaitingAckMessages"></a><a name="getWaitingAckMessages()"></a><h3>WaitingAckMessages</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getWaitingAckMessages</b>()</pre><dl>
+               <dd>Consumer로 전달되어 acknowledge가 돌아오길 대기중인 메시지의 개수</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>Consumer로 전달되어 acknowledge가 돌아오길 대기중인 메시지의 개수</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+      </p>
+      <p><a name="operation_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Operation Detail</b></font></th>
+            </tr>
+         </table><a name="exportAllMessages()"></a><h3>exportAllMessages</h3><pre> jeus.jms.common.util.JMSMessageExporter <b>exportAllMessages</b>()</pre><dl>
+            <dd>Queue내의 모든 메시지들을 내보내기 위한 exporter.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>메시지들을 내보내기 위한 exporter.</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="exportMessages(java.util.List<java.lang.String&gt;)"></a><h3>exportMessages</h3><pre> jeus.jms.common.util.JMSMessageExporter <b>exportMessages</b>(java.util.List&lt;java.lang.String&gt; messageIDs)</pre><dl>
+            <dd>MessageID에 해당하는 메시지들들을 내보내기 위한 exporter..</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>messageIDs</code> - export할 메시지들의 messageID
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>메시지들을 내보내기 위한 exporter.</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMessageInfo(java.lang.String)"></a><h3>getMessageInfo</h3><pre> java.util.List&lt;jeus.jms.common.message.MessageInfo&gt; <b>getMessageInfo</b>(java.lang.String selector)</pre><dl>
+            <dd>현재 Queue에 남아있는 message에 대한 정보를 담은 <code>MessageInfo</code>객체.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>selector</code> - 현재 queue에 대해 조건에 맞는지 검사할 selector, <code>null</code>이나 <code>true</code>인 경우에는 모든 메세지를 받아온다.
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>현재 남아있는 message에 대한 정보를 담은 <code>MessageInfo</code>이 들어 있는 Vector
+                        null if 현재 mbean 의 내부 설정이 제대로 되어있지 않을 때
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - Selector의 문법이 잘못되었거나, 내부적인 오류가 발생했을 때
+                     </dd>
+                  </dt>
+                  <dt><b>See Also:</b><dd>jeus.jms.common.message.MessageInfo</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMessageInfo(java.lang.String, int, int)"></a><h3>getMessageInfo</h3><pre> java.util.List&lt;jeus.jms.common.message.MessageInfo&gt; <b>getMessageInfo</b>(java.lang.String selector, int offset, int size)</pre><dl>
+            <dd>현재 Queue에 남아있는 message에 대한 정보들 중 offset부터 size만큼을 담은 <code>MessageInfo</code>객체.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>selector</code> - 현재 queue에 대해 조건에 맞는지 검사할 selector, <code>null</code>이나 <code>true</code>인 경우에는 모든 메세지를 받아온다.<br><code>offset</code> - 보려고 하는 message들 중 첫번째 message의 index.<br><code>size</code> - 보려고 하는 message들의 개수.
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>현재 남아있는 message에 대한 정보를 담은 <code>MessageInfo</code>이 들어 있는 Vector
+                        null if 현재 mbean 의 내부 설정이 제대로 되어있지 않을 때
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - Selector의 문법이 잘못되었거나, 내부적인 오류가 발생했을 때
+                     </dd>
+                  </dt>
+                  <dt><b>See Also:</b><dd>jeus.jms.common.message.MessageInfo</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMessageView(java.lang.String)"></a><h3>getMessageView</h3><pre> jeus.jms.common.message.MessageView <b>getMessageView</b>(java.lang.String messageID)</pre><dl>
+            <dd>message ID에 해당하는 message에 대한 정보를 담은 <code>MessageView</code>객체.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>messageID</code> - message에 대한 정보를 가져올 message의 id
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>선택된 message에 대한 정보가 들어 있는 <code>MessageView</code>
+                        null if messageID에 해당하는 message가 Queue에 존재하지 않을 때.
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - messageID의 형식이 잘못 되었을 때
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getRemainingMessages(java.lang.String)"></a><h3>getRemainingMessages</h3><pre> int <b>getRemainingMessages</b>(java.lang.String selector)</pre><dl>
+            <dd>지금 Queue에 남아있는 message의 개수.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>selector</code> - 현재 Durable Subscriber에 대해서 조건에 맞는지 검사할 selector,
+                        <code>null</code>이나 <code>true</code>인 경우에는 모든 메세지를 받아온다.
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>지금 Queue에 남아있는 message의 개수</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="moveAllMessages(java.lang.String)"></a><h3>moveAllMessages</h3><pre> java.util.Collection&lt;java.lang.String&gt; <b>moveAllMessages</b>(java.lang.String targetDest)</pre><dl>
+            <dd>Queue에 있는 모든 메시지를 target destination으로 이동
+               Target destination이 consume-suspended인 상태에서 사용을 권장한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>targetDest</code> - 메시지가 이동할 target destination
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>이동에 실패한 메시지들의 messageID</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - 메시지를 삭제할 권한이 없을 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="moveMessage(java.lang.String, java.lang.String)"></a><h3>moveMessage</h3><pre> void <b>moveMessage</b>(java.lang.String messageID, java.lang.String targetDest)</pre><dl>
+            <dd>MessageID에 해당하는 메시지를 target destination으로 이동.
+               Target destination이 consume-suspended인 상태에서 사용을 권장한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - 해당 메시지가 Queue안에 존재하지 않는 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="moveMessages(java.util.Collection<java.lang.String&gt;, java.lang.String, java.lang.String)"></a><h3>moveMessages</h3><pre> java.util.Collection&lt;java.lang.String&gt; <b>moveMessages</b>(java.util.Collection&lt;java.lang.String&gt; messageID, java.lang.String targetServer, java.lang.String targetDest)</pre><dl>
+            <dd>MessageID에 해당하는 메시지들을 target destination으로 이동.
+               Target destination이 consume-suspended인 상태에서 사용을 권장한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>messageID</code> - 이동할 메시지들의 messageID<br><code>targetServer</code> - 메시지가 이동할 target server<br><code>targetDest</code> - 메시지가 이동할 target destination
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>이동에 실패한 메시지들의 messageID</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - 해당 메시지가 Queue안에 존재하지 않는 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="removeAllMessages()"></a><h3>removeAllMessages</h3><pre> int <b>removeAllMessages</b>()</pre><dl>
+            <dd>Queue에 있는 메시지를 모두 삭제.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>삭제된 메시지의 개수</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - 메시지를 삭제할 권한이 없을 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="removeMessage(java.lang.String)"></a><h3>removeMessage</h3><pre> void <b>removeMessage</b>(java.lang.String messageID)</pre><dl>
+            <dd>MessageID에 해당하는 메시지를 Queue에서 삭제.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>messageID</code> - 삭제할 메시지의 messageID
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - 메시지를 삭제할 권한이 없을 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="removeMessages(java.util.List<java.lang.String&gt;)"></a><h3>removeMessages</h3><pre> int <b>removeMessages</b>(java.util.List&lt;java.lang.String&gt; messageID)</pre><dl>
+            <dd>MessageID에 해당하는 메시지들을 Queue에서 삭제.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>messageID</code> - 삭제할 메시지들의 messageID
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>삭제된 메시지의 개수</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - 메시지를 삭제할 권한이 없을 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS JMS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

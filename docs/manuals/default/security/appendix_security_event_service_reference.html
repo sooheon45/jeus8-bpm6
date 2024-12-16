@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Appendix A. 보안 이벤트 서비스</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Security 안내서"/><link rel="up" href="index.html" title="JEUS Security 안내서"/><link rel="prev" href="chapter_jaas_application.html" title="제7장 JAAS 사용"/><link rel="next" href="appendix_jeus_server_permissions_reference.html" title="Appendix B. JEUS Server Permissions"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">Appendix A. 보안 이벤트 서비스</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jaas_application.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="appendix_jeus_server_permissions_reference.html">다음</a></td></tr></table><hr/></div><div class="appendix" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="appendix_security_event_service_reference"></a>Appendix A. 보안 이벤트 서비스</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="appendix_security_event_service_reference.html#d4e4961">A.1. 개요</a></span></dt><dt><span class="section"><a href="appendix_security_event_service_reference.html#d4e4978">A.2. 이벤트</a></span></dt></dl></div>
+  
+
+  <p>보안 이벤트 서비스에 대해 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4961"></a>A.1. 개요</h2></div></div></div>
+    
+
+    <p><a id="d4e4964" class="indexterm"></a>SPI 클래스와 디폴트 보안 서비스 구현 클래스로부터 EventHandlingService로 방출되는 표준
+    보안 이벤트(Security Event)에 대해 설명한다. 이 내용은
+    jeus.security.spi.EventHandlingService SPI를 구현하여 자신만의 이벤트 핸들링을 개발하는 데 유용하게
+    참고할 수 있다.</p>
+
+    <p>목록의 양식은 다음과 같다.</p>
+
+    <pre class="screen"><span class="bold"><strong>G.2.X &lt;Event type&gt;</strong></span> = 이벤트 타입
+       <span class="bold"><strong>Source Class</strong></span>: 이벤트가 발생한 클래스
+       <span class="bold"><strong>Event Type</strong></span>: 이벤트 타입
+       <span class="bold"><strong>Event Level</strong></span>: 이벤트 레벨 (FATAL, SERIOUS, WARNING, INFORMATION, DEBUG).
+       <span class="bold"><strong>Event Context</strong></span>: 이벤트 context에 대한 key-value 쌍의 집합.
+       <span class="bold"><strong>Emitted When</strong></span>? 이벤트가  발생하는 조건</pre>
+
+    <p>보통 이벤트는 이벤트 소스와 같은 도메인에 있는 EventHandlingService들로 방출된다. 그러나, 예외로
+    security.install.successful과 security.uninstall.attempt 이벤트는 보안 시스템에 설정되어
+    있는 모든 도메인으로 방출된다.</p>
+
+    <p/>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>jeus.security.base.Event 클래스와
+      jeus.security.spi.EventHandlingService 클래스에 대한 더 자세한 정보는 Javadoc을
+      참고한다.</p>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4978"></a>A.2. 이벤트</h2></div></div></div>
+    
+
+    <p>다음은 표준 보안 이벤트의 목록이다.</p>
+
+    <h3><a id="sect_security.validation.failed"></a>security.validation.failed</h3>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><tbody><tr><td align="left"><span class="bold"><strong>Source Class</strong></span></td><td>jeus.security.spi.SubjectValidationService</td></tr><tr><td align="left"><span class="bold"><strong>Event Type</strong></span></td><td>security.validation.failed</td></tr><tr><td align="left"><span class="bold"><strong>Event Level</strong></span></td><td>WARNING</td></tr><tr><td align="left"><span class="bold"><strong>Event Context</strong></span></td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                    <p>Key : “subject”</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Value : 유효성 검증이 실패한
+                    jeus.security.base.Subject</p>
+                  </li></ul></div></td></tr><tr><td align="left"><span class="bold"><strong>Emitted When</strong></span></td><td>SubjectValidationService가 SecurityException을 발생할
+              때마다<a id="d4e5014" class="indexterm"></a><a id="d4e5016" class="indexterm"></a></td></tr></tbody></table>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="sect_security.authentication.failed"></a>security.authentication.failed</h3>
+
+    <p/>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><tbody><tr><td align="left"><span class="bold"><strong>Source Class</strong></span></td><td>jeus.security.spi.AuthenticationService<a id="d4e5033" class="indexterm"></a></td></tr><tr><td align="left"><span class="bold"><strong>Event Type</strong></span></td><td>security.authentication.failed</td></tr><tr><td align="left"><span class="bold"><strong>Event Level</strong></span></td><td>WARNING</td></tr><tr><td align="left"><span class="bold"><strong>Event Context</strong></span></td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                    <p>Key : “subject”</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Value : 유효성 검증이 실패한
+                    jeus.security.base.Subject</p>
+                  </li></ul></div></td></tr><tr><td align="left"><span class="bold"><strong>Emitted When</strong></span></td><td>Subject에 대한 사용자 인증이 실패할 때마다</td></tr></tbody></table>
+      </div>
+
+    <p/>
+
+    <h3><a id="sect_security.authorization.failed"></a>security.authorization.failed</h3>
+
+    <p/>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><tbody><tr><td align="left"><span class="bold"><strong>Source Class</strong></span></td><td>jeus.security.spi.AuthorizationService</td></tr><tr><td align="left"><span class="bold"><strong>Event Type</strong></span></td><td>security.authentication.failed</td></tr><tr><td align="left"><span class="bold"><strong>Event Level</strong></span></td><td>WARNING</td></tr><tr><td align="left"><span class="bold"><strong>Event Context</strong></span></td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                    <p>Key : “contextid”</p>
+
+                    <p>Value : Permission 체크가 일어난 Context ID</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Key : “permission”</p>
+
+                    <p>Value : 체크될 java.security.Permission</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Key : “subject”</p>
+
+                    <p>Value : 사용자 인증이 실패한
+                    jeus.security.base.Subject</p>
+                  </li></ul></div></td></tr><tr><td align="left"><span class="bold"><strong>Emitted When</strong></span></td><td>사용자 인증이 실패할 때마다</td></tr></tbody></table>
+      </div>
+
+    <p/>
+
+    <h3><a id="sect_security.authentication.repository.subject.added"></a>security.authentication.repository.subject.added</h3>
+
+    <p/>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><tbody><tr><td align="left"><span class="bold"><strong>Source Class</strong></span></td><td>jeus.security.spi.AuthenticationRepositoryService</td></tr><tr><td align="left"><span class="bold"><strong>Event Type</strong></span></td><td>security.authentication.repository.subject.added</td></tr><tr><td align="left"><span class="bold"><strong>Event Level</strong></span></td><td>INFORMATION</td></tr><tr><td align="left"><span class="bold"><strong>Event Context</strong></span></td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                    <p>Key : “subject”</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Value : 추가된 jeus.security.base.Subject</p>
+                  </li></ul></div></td></tr><tr><td align="left"><span class="bold"><strong>Emitted When</strong></span></td><td>AuthenticationRepositoryService에 Subject가 성공적으로 추가될
+              때마다</td></tr></tbody></table>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="sect_security.authentication.repository.subject.removed"></a>security.authentication.repository.subject.removed</h3>
+
+    <p/>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><tbody><tr><td align="left"><span class="bold"><strong>Source Class</strong></span></td><td>jeus.security.spi.AuthenticationRepositoryService</td></tr><tr><td align="left"><span class="bold"><strong>Event Type</strong></span></td><td>security.authentication.repository.subject.removed</td></tr><tr><td align="left"><span class="bold"><strong>Event Level</strong></span></td><td>INFORMATION</td></tr><tr><td align="left"><span class="bold"><strong>Event Context</strong></span></td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                    <p>Key : “subject”</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Value : 삭제된 jeus.security.base.Subject</p>
+                  </li></ul></div></td></tr><tr><td align="left"><span class="bold"><strong>Emitted When</strong></span></td><td>AuthenticationRepositoryService로부터 Subject 가 성공적으로 삭제될
+              때마다</td></tr></tbody></table>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="sect_security.authentication.repository.subject.removed.complete"></a>security.authentication.repository.subject.removed.complete</h3>
+
+    <p/>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><tbody><tr><td align="left"><span class="bold"><strong>Source Class</strong></span></td><td>jeus.security.spi.AuthenticationRepositoryService</td></tr><tr><td align="left"><span class="bold"><strong>Event Type</strong></span></td><td>security.authentication.repository.subject.removed.complete</td></tr><tr><td align="left"><span class="bold"><strong>Event Level</strong></span></td><td>INFORMATION</td></tr><tr><td align="left"><span class="bold"><strong>Event Context</strong></span></td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                    <p>Key : “name”</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Value : 성공적으로 삭제된 Subject</p>
+                  </li></ul></div></td></tr><tr><td align="left"><span class="bold"><strong>Emitted When</strong></span></td><td>Subject가 AuthenticationRepositoryService로부터 성공적으로 삭제될
+              때마다</td></tr></tbody></table>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="sect_security.authorization.repository.policy.added"></a>security.authorization.repository.policy.added</h3>
+
+    <p/>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><tbody><tr><td align="left"><span class="bold"><strong>Source Class</strong></span></td><td>jeus.security.spi.AuthorizationRepositoryService</td></tr><tr><td align="left"><span class="bold"><strong>Event Type</strong></span></td><td>security.authorization.repository.policy.added</td></tr><tr><td align="left"><span class="bold"><strong>Event Level</strong></span></td><td>INFORMATION</td></tr><tr><td align="left"><span class="bold"><strong>Event Context</strong></span></td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                    <p>Key : “policy”</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Value : 추가된 jeus.security.base.Policy</p>
+                  </li></ul></div></td></tr><tr><td align="left"><span class="bold"><strong>Emitted When</strong></span></td><td>AuthorizationRepositoryService에 새로운 Policy가 추가될
+              때마다</td></tr></tbody></table>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="sect_security.authorization.repository.policy.removed"></a>security.authorization.repository.policy.removed</h3>
+
+    <p/>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><tbody><tr><td align="left"><span class="bold"><strong>Source Class</strong></span></td><td>jeus.security.spi.AuthorizationRepositoryService</td></tr><tr><td align="left"><span class="bold"><strong>Event Type</strong></span></td><td>security.authorization.repository.policy.removed</td></tr><tr><td align="left"><span class="bold"><strong>Event Level</strong></span></td><td>INFORMATION</td></tr><tr><td align="left"><span class="bold"><strong>Event Context</strong></span></td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                    <p>Key : “policy”</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Value : 삭제된 jeus.security.base.Policy</p>
+                  </li></ul></div></td></tr><tr><td align="left"><span class="bold"><strong>Emitted When</strong></span></td><td>AuthorizationRepositoryService로부터 Policy 데이터가 삭제될
+              때마다</td></tr></tbody></table>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="sect_security.authorization.repository.policy.removed.complete"></a>security.authorization.repository.policy.removed.complete</h3>
+
+    <p/>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><tbody><tr><td align="left"><span class="bold"><strong>Source Class</strong></span></td><td>jeus.security.spi.AuthorizationRepositoryService</td></tr><tr><td align="left"><span class="bold"><strong>Event Type</strong></span></td><td>security.authorization.repository.policy.removed.complete</td></tr><tr><td align="left"><span class="bold"><strong>Event Level</strong></span></td><td>INFORMATION</td></tr><tr><td align="left"><span class="bold"><strong>Event Context</strong></span></td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                    <p>Key : “contextid”</p>
+                  </li><li style="list-style-type: circle">
+                    <p>Value : 저장소로부터 삭제된 java.lang.String 타입의 Context
+                    ID</p>
+                  </li></ul></div></td></tr><tr><td align="left"><span class="bold"><strong>Emitted When</strong></span></td><td>AuthorizationRepositoryService로부터 context id가 삭제될
+              때마다</td></tr></tbody></table>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="sect_security.install.successful"></a>security.install.successful</h3>
+
+    <p/>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><tbody><tr><td align="left"><span class="bold"><strong>Source Class</strong></span></td><td>jeus.security.spi.SecurityInstaller<a id="d4e5329" class="indexterm"></a></td></tr><tr><td align="left"><span class="bold"><strong>Event Type</strong></span></td><td>security.install.successful</td></tr><tr><td align="left"><span class="bold"><strong>Event Level</strong></span></td><td>INFORMATION</td></tr><tr><td align="left"><span class="bold"><strong>Event Context</strong></span></td><td>None</td></tr><tr><td align="left"><span class="bold"><strong>Emitted When</strong></span></td><td>보안 시스템이 성공적으로 설치된 후</td></tr></tbody></table>
+      </div>
+
+    <p/>
+
+    <h3><a id="sect_security.uninstall.attempt"></a>security.uninstall.attempt</h3>
+
+    <p/>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><tbody><tr><td align="left"><span class="bold"><strong>Source Class</strong></span></td><td>jeus.security.spi.SecurityInstaller<a id="d4e5360" class="indexterm"></a></td></tr><tr><td align="left"><span class="bold"><strong>Event Type</strong></span></td><td>security.uninstall.attempt</td></tr><tr><td align="left"><span class="bold"><strong>Event Level</strong></span></td><td>INFORMATION</td></tr><tr><td align="left"><span class="bold"><strong>Event Context</strong></span></td><td>None</td></tr><tr><td align="left"><span class="bold"><strong>Emitted When</strong></span></td><td>보안 시스템이 제거되기 전</td></tr></tbody></table>
+      </div>
+
+    <p/>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jaas_application.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="appendix_jeus_server_permissions_reference.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제7장 JAAS 사용 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> Appendix B. JEUS Server Permissions</td></tr></table></div><div xmlns="" align="center"/></body></html>

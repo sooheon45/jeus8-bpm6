@@ -1,0 +1,1515 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제2장 JEUS 설정</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Server 안내서"/><link rel="up" href="index.html" title="JEUS Server 안내서"/><link rel="prev" href="chapter_server_structure.html" title="제1장 소개"/><link rel="next" href="chapter_server_control.html" title="제3장 JEUS 서버 제어 및 모니터링"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제2장 JEUS 설정</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_server_structure.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_server_control.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_server_conf"></a>제2장 JEUS 설정</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_server_conf.html#d4e983">2.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_server_conf.html#sect_examples_add_server">2.2. 서버 추가</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server_conf.html#d4e996">2.2.1. WebAdmin 사용</a></span></dt><dt><span class="section"><a href="chapter_server_conf.html#d4e1244">2.2.2. 콘솔 툴 사용</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_server_conf.html#sect_server_config">2.3. 서버 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_server_conf.html#d4e1270">2.3.1. 기본 설정</a></span></dt><dt><span class="section"><a href="chapter_server_conf.html#sect_server_listener">2.3.2. Listener 설정</a></span></dt><dt><span class="section"><a href="chapter_server_conf.html#sect_server_thread_pool">2.3.3. Thread Pool 설정</a></span></dt><dt><span class="section"><a href="chapter_server_conf.html#sect_server_life_cycle_invocation">2.3.4. Lifecycle Invocation 설정</a></span></dt><dt><span class="section"><a href="chapter_server_conf.html#sect_resource_reference">2.3.5. Resource Reference 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_server_conf.html#sect_server_template">2.4. Server Template 설정</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 도메인에 서버를 추가하는 방법과 서버를 추가할 때 꼭 필요한 설정에 대해서 설명한다. 또한 서버에 설정을 변경할
+  때의 동작 방법에 대해서 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e983"></a>2.1. 개요</h2></div></div></div>
+    
+
+    <p>JEUS에서는 WebAdmin과 콘솔 툴을 통해 서버의 설정을 변경할 수 있다. 서버의 엔진에서 동작하는 애플리케이션이
+    보안 인증과 권한 검사를 필요로 하지 않는다면 JEUS에서 보안 기능을 사용하지 않도록 설정한다.</p>
+
+    <p>위와는 별도로 하위 구성 요소들에 대한 튜닝도 확인해야 한다. 이에 대한 설명은 각 구성 요소에 대한 장을
+    참고한다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_examples_add_server"></a>2.2. 서버 추가</h2></div></div></div>
+    
+
+    <p>본 절에서는 WebAdmin과 콘솔 툴을 통해 도메인에 서버를 추가하는 방법과 서버를 추가할 때 반드시 필요로 하는 최소
+    설정에 대해 설명한다. 서버 설정에 대한 자세한 내용은 <a href="chapter_server_conf.html#sect_server_config" title="2.3. 서버 설정">“2.3. 서버 설정”</a>을
+    참고한다.</p>
+
+    <p>WebAdmin을 사용해서 서버를 추가할 경우에는 서버의 모든 설정을 추가할 수 있다. 그러나 콘솔 툴을 통해 명령을
+    사용해서 서버를 추가할 경우에는 서버의 모든 설정을 추가할 수 없다.</p>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e996"></a>2.2.1. WebAdmin 사용</h3></div></div></div>
+      
+
+      <p>다음은 WebAdmin을 사용해서 서버를 추가하는 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면 서버
+            목록 화면으로 이동한다.</p>
+
+            <div class="figure"><a id="figure_webadmin_servers"></a><p class="title"><b>[그림 2.1] WebAdmin 서버 목록 화면</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_servers.png" align="top" width="692" alt="WebAdmin 서버 목록 화면"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p>서버를 추가하려면 설정 변경을 위한 Lock을 가져오는 작업이 선행되어야 한다. 서버를 추가하기 전에 왼쪽
+            메뉴의 하단에 위치한 <span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을 클릭해서 동적
+            설정변경 모드로 전환한다.</p>
+          </li><li>
+            <p>서버 목록 화면(<a href="chapter_server_conf.html#figure_webadmin_servers" title="[그림 2.1] WebAdmin 서버 목록 화면">[그림 2.1]</a>)에
+            <span><strong class="guibutton">[ADD]</strong></span>버튼을 클릭하면 서버 설정화면으로 이동한다. 서버 설정화면에서 추가할
+            서버의 이름과 <span><strong class="guibutton">'Jvm Option'</strong></span>을 설정하고
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+            <p/>
+
+            <div class="figure"><a id="d4e1020"></a><p class="title"><b>[그림 2.2] WebAdmin 서버 설정화면 - 서버 추가</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_basicinfo_edit1.png" align="top" width="692" alt="WebAdmin 서버 설정화면 - 서버 추가"/></td></tr></table></div>
+            </div></div><br class="figure-break"/>
+
+            <p/>
+
+            <p>필요한 경우 서버의 <span><strong class="guibutton">고급 선택사항</strong></span>을 설정한다. 서버를 추가할 때 이
+            설정이 반드시 필요하지 않기 때문에 상세한 항목 설정은 하지 않는다.</p>
+
+            <div class="figure"><a id="d4e1029"></a><p class="title"><b>[그림 2.3] WebAdmin 서버 설정화면 - 고급 선택사항</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_basicinfo_optional.png" align="top" width="692" alt="WebAdmin 서버 설정화면 - 고급 선택사항"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+
+            <p>다음은 주요 설명 항목에 대한 설명이다. 각 설정 항목에 대한 자세한 내용은 화면의 설명을
+            참고한다.</p>
+
+            <p/>
+
+            <div class="informaltable">
+                <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Log Home</td><td>각종 로그들이 저장되는 경로를 지정한다. 자세한 설명은 <a href="chapter_jeus_logging.html#sect_Jeus_Logger_structure" title="8.2. JEUS 로거 기본 구조">“8.2. JEUS 로거 기본 구조”</a>를 참고한다.</td></tr><tr><td align="left">Node Name</td><td>추가할 서버가 속하는 노드의 이름을 설정한다. 노드 매니저에 대한 자세한 내용은
+                      <a xmlns="" href="../node-manager/index.html" class="olink">"JEUS
+                      Node Manager 안내서"</a>를 참고한다.</td></tr><tr><td align="left">Group</td><td>서버 관리를 위한 그룹을 설정한다. WebAdmin에서 그룹별로 서버를 관리할 수
+                      있다.</td></tr><tr><td align="left">Action On Resource Leak</td><td>설정에 대한 자세한 내용은 <a href="chapter_server_conf.html#sect_server_action_on_resource_leak" title="2.3.1.2. Action On Resource Leak 설정">“2.3.1.2. Action On Resource Leak 설정”</a>을
+                      참고한다.</td></tr><tr><td align="left">Data Source Remote Lookup</td><td>Remote JVM상에서의 데이터소스 Lookup이 가능하도록 한다. 데이터소스
+                      Lookup을 통해 Remote JVM에서 Connection Pool을 구성하여 사용하던 기존
+                      Standalone Client를 지원할 수 있다.</td></tr><tr><td align="left">Engine Init On Startup</td><td><p>서버 내부의 엔진들(Web, EJB, JMS)의 초기화 시점을 설정한다.
+                      자세한 설명은 <a href="chapter_server_control.html#jeus_engine_init_time" title="3.2.2. 엔진 초기화 시점 설정">“3.2.2. 엔진 초기화 시점 설정”</a>을 참고한다.
+                      </p><p>이 부분이 체크되면 서버가 초기화 될 때 내부 엔진들도 함께 초기화 되고,
+                      체크되지 않았을 경우에는 각 엔진별로 애플리케이션이 deploy될 경우에 초기화된다. 단, JMS
+                      엔진의 경우 EJB 애플리케이션이 MDB(Message Driven Bean)일 경우에 애플리케이션이
+                      deploy될 때 초기화된다. 이 설정은 서버를 재기동해야 적용된다.</p></td></tr><tr><td align="left">Use Web Engine</td><td><p>서버 내부의 웹 애플리케이션을 사용하기 위한 내부 엔진의 사용 여부를
+                      설정한다. 자세한 설명은 <a href="chapter_server_control.html#jeus_engine_on_off" title="3.2.1. 엔진 사용 여부 설정">“3.2.1. 엔진 사용 여부 설정”</a>을
+                      참고한다.</p><p>사용하지 않음으로 설정하고 웹 애플리케이션을 deploy를 하면
+                      deploy는 실패한다. 이 설정은 서버를 재기동해야 적용된다.</p></td></tr><tr><td align="left">Use Ejb Engine</td><td>서버 내부의 EJB 애플리케이션을 사용하기 위한 내부 엔진의 사용 여부를 설정한다.
+                      자세한 설명은 <a href="chapter_server_control.html#jeus_engine_on_off" title="3.2.1. 엔진 사용 여부 설정">“3.2.1. 엔진 사용 여부 설정”</a>을 참고한다.
+                      .</td></tr><tr><td align="left">Use Jms Engine</td><td>서버 내부의 JMS 서비스를 사용하기 위한 내부 엔진의 사용 여부를 설정한다. 자세한
+                      설명은 <a href="chapter_server_control.html#jeus_engine_on_off" title="3.2.1. 엔진 사용 여부 설정">“3.2.1. 엔진 사용 여부 설정”</a>을 참고한다.</td></tr><tr><td align="left">Managed Executor Service</td><td>Concurrency Utilities for Java EE(JSR-236) 스펙에서
+                      사용할 ManagedExecutorService를 설정한다. 애플리케이션 서버가 리소스 및 컨텍스트를
+                      관리하는 ExecutorService 상에서 작업을 실행할 수 있다. 자세한 설명은 <a xmlns="" href="../concurrency-utilities/chapter_managed_objects.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Concurrency Utilities 안내서</span>”의 “제2장 Managed Objects”</a>를
+                      참고한다.</td></tr><tr><td align="left">Managed Scheduled Executor Service</td><td>Concurrency Utilities for Java EE(JSR-236) 스펙에서
+                      사용할 ManagedScheduledExecutorService를 설정한다. 애플리케이션 서버가
+                      리소스 및 컨텍스트를 관리하는 ScheduledExecutorService 상에서 주기적인 작업을
+                      실행할 수 있다. 자세한 설명은 <a xmlns="" href="../concurrency-utilities/chapter_managed_objects.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Concurrency Utilities 안내서</span>”의 “제2장 Managed Objects”</a>를
+                      참고한다.</td></tr><tr><td align="left">Context Service</td><td>Concurrency Utilities for Java EE(JSR-236) 스펙에서
+                      사용할 ContextService를 설정한다. 작업(Task) 자체를 Dynamic Proxy 기술을
+                      통해 컨텍스트를 유지시켜준다. 자세한 설명은 <a xmlns="" href="../concurrency-utilities/chapter_managed_objects.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Concurrency Utilities 안내서</span>”의 “제2장 Managed Objects”</a>를
+                      참고한다.</td></tr><tr><td align="left">Managed Thread Factory</td><td>Concurrency Utilities for Java EE(JSR-236) 스펙에서
+                      사용할 ManagedThreadFactory를 설정한다. 해당 ThreadFactory에서 생성된
+                      스레드 상에서 동작하는 작업(Task)들의 Context가 유지된다. 자세한 설명은 <a xmlns="" href="../concurrency-utilities/chapter_managed_objects.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Concurrency Utilities 안내서</span>”의 “제2장 Managed Objects”</a>를
+                      참고한다.</td></tr></tbody></table>
+              </div>
+
+            <p/>
+          </li><li>
+            <p>변경한 설정 내용이 저장되고 결과 메시지가 상단에 표시된다.</p>
+
+            <div class="figure"><a id="d4e1103"></a><p class="title"><b>[그림 2.4] WebAdmin Server 설정화면 - 서버 추가 결과</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_basicinfo_save1.png" align="top" width="692" alt="WebAdmin Server 설정화면 - 서버 추가 결과"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p>기본 정보 화면 상단에 메뉴에서 <span><strong class="guibutton">[Basic] &gt; [System Thread
+            Pool]</strong></span>을 선택하면 <span><strong class="guibutton">System Thread Pool</strong></span>
+            설정화면으로 이동한다. 해당 화면에서 <span><strong class="guibutton">'Max'</strong></span> 값을 변경하고
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+            <div class="figure"><a id="d4e1115"></a><p class="title"><b>[그림 2.5] 서버 추가 - System Thread Pool 설정</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_pool_edit.png" align="top" width="692" alt="서버 추가 - System Thread Pool 설정"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+
+            <p>변경한 설정 내용이 저장되고 결과 메시지가 상단에 표시된다.</p>
+
+            <div class="figure"><a id="d4e1122"></a><p class="title"><b>[그림 2.6] 서버 추가 - System Thread Pool 저장</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_pool_save.png" align="top" width="692" alt="서버 추가 - System Thread Pool 저장"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p>System Thread Pool 저장이 완료되면 다음은 서버의 Listener를 정보를 설정해야
+            한다.</p>
+
+            <p><span><strong class="guibutton">[Resource] &gt; [Listener]</strong></span> 메뉴를 선택하면
+            Listener 목록 화면으로 이동한다. Listener 목록에서 <span><strong class="guibutton">[ADD]</strong></span>
+            버튼을 클릭하여 서버의 기본 Listener를 생성한다.</p>
+
+            <div class="figure"><a id="d4e1133"></a><p class="title"><b>[그림 2.7] 서버 추가 - 기본 Listener 추가</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_listener.png" align="top" width="692" alt="서버 추가 - 기본 Listener 추가"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p>서버의 기본 Listener의 이름과 필요할 경우 서버가 참조할 주소와 포트 번호를 입력하고
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다. 예제 화면에선 따로
+            <span><strong class="guibutton">'Listen Address'</strong></span>를 입력하지 않는다.</p>
+
+            <div class="figure"><a id="d4e1143"></a><p class="title"><b>[그림 2.8] 서버 추가 - 기본 Listener 정보 설정</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_listener_add.png" align="top" width="692" alt="서버 추가 - 기본 Listener 정보 설정"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+
+            <p/>
+          </li><li>
+            <p>변경한 설정 내용이 저장되고 화면 상단에 결과 메시지가 나타난다. 화면의
+            <span><strong class="guibutton">Listener</strong></span> 목록에 Listener가 추가된 것을 확인할 수
+            있다.</p>
+
+            <div class="figure"><a id="d4e1153"></a><p class="title"><b>[그림 2.9] 서버 추가 - 기본 Listener 정보 설정 저장</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_listener_save.png" align="top" width="692" alt="서버 추가 - 기본 Listener 정보 설정 저장"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p>추가한 Listener를 기본 Listener로 설정한다.
+            <span><strong class="guibutton">'Base'</strong></span> 항목에서 추가한 Listener를 선택한다.</p>
+
+            <div class="figure"><a id="d4e1162"></a><p class="title"><b>[그림 2.10] 서버 추가 - 기본 Listener 설정</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_listener_base.png" align="top" width="692" alt="서버 추가 - 기본 Listener 설정"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+
+            <p><span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 서버에 변경 결과가 저장되고 다음과 같은
+            메시지가 나타난다. 설정 정보는 임시 저장이 되고 서버에 실제 적용된 것은 아님을 유의해야 한다.</p>
+
+            <div class="figure"><a id="d4e1170"></a><p class="title"><b>[그림 2.11] 서버 추가 - 기본 Listener 설정 저장</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_listener_base_save.png" align="top" width="692" alt="서버 추가 - 기본 Listener 설정 저장"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p><span><strong class="guibutton">[Engine]</strong></span> 탭을 선택해서 <span><strong class="guibutton">[Web
+            Engine]</strong></span>, <span><strong class="guibutton">[Jms Engine]</strong></span>,
+            <span><strong class="guibutton">[Ejb Engine]</strong></span> 메뉴를 선택해서 엔진의 정보를 설정한다.</p>
+
+            <div class="figure"><a id="d4e1182"></a><p class="title"><b>[그림 2.12] 서버 추가 - 웹 엔진 설정</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_engine.png" align="top" width="663" alt="서버 추가 - 웹 엔진 설정"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+
+            
+          </li><li>
+            <p>각 단계별 설정이 완료되면 <span><strong class="guibutton">[Activate Changes]</strong></span> 버튼을
+            클릭해서 지금까지 서버를 추가하고 변경한 서버 설정들을 서버에 적용한다.</p>
+
+            <div class="figure"><a id="d4e1191"></a><p class="title"><b>[그림 2.13] 서버 추가 - 설정 정보 반영 (1)</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_activate.png" align="top" width="692" alt="서버 추가 - 설정 정보 반영 (1)"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+
+            <p><span><strong class="guibutton">[Activate Changes]</strong></span> 버튼을 클릭하면 다음과 같은
+            Activate를 확인할 수 있는 팝업 화면이 나타난다. <span><strong class="guibutton">[확인]</strong></span> 버튼을
+            클릭하면 수정한 결과가 반영된다.</p>
+
+            <div class="figure"><a id="d4e1200"></a><p class="title"><b>[그림 2.14] 서버 추가 - 설정 정보 반영 (2)</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="426"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_activate_popup.png" align="top" width="426" alt="서버 추가 - 설정 정보 반영 (2)"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+
+            
+          </li><li>
+            <p>실제 DAS에서 Activate가 완료되면 도메인에 서버가 추가된다. 그리고 서버 추가에 대한 결과가
+            WebAdmin 화면 상단에 자세한 메시지로 출력된다.</p>
+
+            <p/>
+
+            <div class="figure"><a id="d4e1209"></a><p class="title"><b>[그림 2.15] 서버 추가 - 설정 정보 반영 (3)</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_result.png" align="top" width="692" alt="서버 추가 - 설정 정보 반영 (3)"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/>Activate가 성공하면 결과를 반영하고 난 후 설정 변경 Lock 설정을 해제한다. 화면에 다시
+            <span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼이 나타난 것을 확인할 수 있다. Lock
+            설정과 관련된 자세한 내용은 <a xmlns="" href="../web-manager/index.html" class="olink">"JEUS WebAdmin 안내서"</a>를 참고한다.</p>
+
+            
+          </li><li>
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택해서 서버
+            목록 조회 화면으로 이동하면 새로 추가된 서버를 확인할 수 있다.</p>
+
+            <div class="figure"><a id="d4e1220"></a><p class="title"><b>[그림 2.16] 서버 추가 - 신규 서버 목록 확인</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_table.png" align="top" width="692" alt="서버 추가 - 신규 서버 목록 확인"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p>서버 목록에서 <span><strong class="guibutton">[start]</strong></span> 버튼을 클릭하여 서버를 실행한다.
+            WebAdmin에서 서버를 시작하기 위해서는 해당 서버가 설치된 노드의 노드 매니저가 동작중이어야 한다. 노드 매니저에
+            대한 설명은 "JEUS Node Manager 안내서"를 참고한다. 서버의
+            <span><strong class="guibutton">[start]</strong></span> 버튼을 클릭하면 다음과 같은 설정화면이 나타난다. 서버의 시작
+            설정과 관련된 자세한 내용은 <a href="chapter_server_control.html#sect_start_managed_server" title="3.1.2. Managed Server 시작">“3.1.2. Managed Server 시작”</a>을
+            참고한다.</p>
+
+            <div class="figure"><a id="d4e1231"></a><p class="title"><b>[그림 2.17] 서버 추가 - 신규 서버 실행 (1)</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="474"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_start.png" align="top" width="474" alt="서버 추가 - 신규 서버 실행 (1)"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/>서버가 시작되면 다음과 같이 화면 상단에서 서버 시작 결과에 대한 메시지를 확인할 수 있다. 또한
+            서버의 상태가 RUNNING으로 바뀐 것을 확인할 수 있다.</p>
+
+            <div class="figure"><a id="d4e1237"></a><p class="title"><b>[그림 2.18] 서버 추가 - 신규 서버 실행 (2)</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_running.png" align="top" width="692" alt="서버 추가 - 신규 서버 실행 (2)"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li></ol></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1244"></a>2.2.2. 콘솔 툴 사용</h3></div></div></div>
+      
+
+      <p>콘솔 툴에서는 <span><strong class="guibutton">add-server</strong></span> 명령을 통해 서버를 추가할 수 있다. 하지만
+      이 명령으로는 몇 가지 설정에 대해서만 추가할 수 있기 때문에 서버를 추가하고 난 뒤에 별도의 명령들을 통해 설정을 변경해야
+      한다. 만약 엔진 설정을 변경하는 경우 웹 엔진, EJB 엔진, JMS 엔진 명령어를 사용한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>웹 엔진 설정을 변경하는 명령어(<a xmlns="" href="../reference-book/ch04.html#jeusadmin-servlet-engine-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.8. 웹 엔진 관련 명령어”</a>), EJB 엔진 설정을
+          변경하는 명령어(<a xmlns="" href="../reference-book/ch04.html#jeusadmin-ejb-engine-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.7. EJB 엔진 관련 명령어”</a>), JMS 엔진 설정을 변경하는
+          명령어(<a xmlns="" href="../reference-book/ch04.html#jeusadmin-jms-engine-command" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.10. JMS 엔진 관련 명령어”</a>)에 대한 자세한 설명은 관련
+          안내서를 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 콘솔 툴에서 서버를 추가하는 예제이다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>serverinfo</strong></span>
+Information about Domain (domain1)
+================================================================================
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| Server|  Status |Node | PID | Clu |   Latest   |  Need  |   Listen  |Running |
+|       |         |Name |     |ster | Start Time |   to   |   Ports   |Engines |
+|       |         |     |     |     | / Shutdown |Restart |           |        |
+|       |         |     |     |     |    Time    |        |           |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| admin | RUNNING | nod | 116 | N/A | 2016-08-24 | false  | base-0.0. | jms,   |
+|Server |(00:03:1 |e1   |35   |     | (수) 오전   |        |0.0:9736   |ejb, web|
+|(*)    |2)       |     |     |     |11:09:58 KST|        | http-serv |        |
+|       |         |     |     |     |            |        |er-0.0.0.0 |        |
+|       |         |     |     |     |            |        |:8088      |        |
+|       |         |     |     |     |            |        | jms-0.0.0 |        |
+|       |         |     |     |     |            |        |.0:9741    |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| serve | RUNNING | nod | 118 | N/A | 2016-08-24 | false  | base-0.0. | jms,   |
+|r1     |(00:01:4 |e1   |08   |     | (수) 오전   |        |0.0:9836   |ejb, web|
+|       |8)       |     |     |     |11:11:22 KST|        |           |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;&gt;<span class="bold"><strong>add-server server2 -addr 192.168.15.59 -baseport 9936 -node node1 -jvm "-Xmx512m -XX:MaxPermSize=128m"</strong></span>
+Successfully performed the ADD operation for server (server2).
+Check the results using "list-servers or add-server".
+
+[DAS]domain1.adminServer&gt;&gt;<span class="bold"><strong>modify-system-thread-pool server2 -max 200</strong></span>
+Successfully performed the MODIFY operation for the system thread pool of the server (server2), but all changes were non-dynamic. They will be applied after restarting.
+Check the results using "modify-system-thread-pool server2 or show-system-thread-pool server2".
+
+[DAS]domain1.adminServer&gt;&gt;<span class="bold"><strong>serverinfo</strong></span>
+Information about Domain (domain1)
+================================================================================
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| Server|  Status |Node | PID | Clu |   Latest   |  Need  |   Listen  |Running |
+|       |         |Name |     |ster | Start Time |   to   |   Ports   |Engines |
+|       |         |     |     |     | / Shutdown |Restart |           |        |
+|       |         |     |     |     |    Time    |        |           |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| admin | RUNNING | nod | 116 | N/A | 2016-08-24 | false  | base-0.0. | jms,   |
+|Server |(01:35:1 |e1   |35   |     | (수) 오전   |        |0.0:9736   |ejb, web|
+|(*)    |2)       |     |     |     |11:09:58 KST|        | http-serv |        |
+|       |         |     |     |     |            |        |er-0.0.0.0 |        |
+|       |         |     |     |     |            |        |:8088      |        |
+|       |         |     |     |     |            |        | jms-0.0.0 |        |
+|       |         |     |     |     |            |        |.0:9741    |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| serve | RUNNING | nod | 118 | N/A | 2016-08-24 | false  | base-0.0. | jms,   |
+|r1     |(01:33:4 |e1   |08   |     | (수) 오전   |        |0.0:9836   |ejb, web|
+|       |8)       |     |     |     |11:11:22 KST|        |           |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| serve | SHUTDOWN| nod | N/A | N/A | N/A        | N/A    | N/A       | N/A    |
+|r2     |         |e1   |     |     |            |        |           |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;&gt;<span class="bold"><strong>start-server server2</strong></span>
+The server(server2) was successfully started. The server is [RUNNING]
+
+[DAS]domain1.adminServer&gt;&gt;<span class="bold"><strong>serverinfo</strong></span>
+Information about Domain (domain1)
+================================================================================
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| Server|  Status |Node | PID | Clu |   Latest   |  Need  |   Listen  |Running |
+|       |         |Name |     |ster | Start Time |   to   |   Ports   |Engines |
+|       |         |     |     |     | / Shutdown |Restart |           |        |
+|       |         |     |     |     |    Time    |        |           |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| admin | RUNNING | nod | 116 | N/A | 2016-08-24 | false  | base-0.0. | jms,   |
+|Server |(01:35:3 |e1   |35   |     | (수) 오전   |        |0.0:9736   |ejb, web|
+|(*)    |8)       |     |     |     |11:09:58 KST|        | http-serv |        |
+|       |         |     |     |     |            |        |er-0.0.0.0 |        |
+|       |         |     |     |     |            |        |:8088      |        |
+|       |         |     |     |     |            |        | jms-0.0.0 |        |
+|       |         |     |     |     |            |        |.0:9741    |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| serve | RUNNING | nod | 118 | N/A | 2016-08-24 | false  | base-0.0. | jms,   |
+|r1     |(01:34:1 |e1   |08   |     | (수) 오전   |        |0.0:9836   |ejb, web|
+|       |3)       |     |     |     |11:11:22 KST|        |           |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+| serve | RUNNING | nod | 136 | N/A | 2016-08-24 | false  | base-192. | jms,   |
+|r2     |(00:00:0 |e1   |60   |     | (수) 오후   |        |168.15.59: |ejb, web|
+|       |9)       |     |     |     |12:45:27 KST|        |9936       |        |
++-------+---------+-----+-----+-----+------------+--------+-----------+--------+
+================================================================================  </pre>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_server_config"></a>2.3. 서버 설정</h2></div></div></div>
+    
+
+    <p>서버 설정은 WebAdmin이나 콘솔 툴 사용 설정 가능하다. 콘솔 툴의 경우는 WebAdmin에서처럼 서버의 모든 설정을
+    변경할 수는 없다. 콘솔 툴에서는 사용자가 많이 사용하는 주요 설정만 사용할 수 있도록 한다. 콘솔 툴에서 변경할 수 없는 설정은
+    WebAdmin을 통해서 변경해야 한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1270"></a>2.3.1. 기본 설정</h3></div></div></div>
+      
+
+      <p>본 절에서는 기본적인 설정에 대해서 설명한다. 설명하지 않은 설정들에 대해서는 관련 서비스에 대한 안내서를
+      참고한다.</p>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="sect_server_basic_info"></a>2.3.1.1. 기본 설정 동적으로 변경</h4></div></div></div>
+        
+
+        <p>서버의 기본 설정 중 Class FTP, Use MEJB, Log Stdout To Raw Format은 동적 변경
+        가능하다. 동적 반영되는 설정은 WebAdmin에서는 아이콘(<span xmlns="" class="inlinemediaobject"><img src="resources/icon/figure_dynamic.png"/></span>)을 통해 확인할 수 있고, 콘솔 툴에서는
+        <span><strong class="guibutton">help</strong></span> 명령을 통해
+        <span><strong class="guibutton">modify-server</strong></span> 명령을 실행하면 조회할 수 있다. 각 명령어에 대한 자세한
+        내용은 <a xmlns="" href="../reference-book/index.html" class="olink">"JEUS Reference
+        Book"</a>을 참고한다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e1284"></a>WebAdmin 사용 </h5>
+
+        <p>다음은 WebAdmin을 통해 동적 변경이 가능한 기본 설정들을 변경하는 과정에 대한 설명이다.</p>
+
+        <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면
+            <span><strong class="guibutton">서버 목록 화면</strong></span>으로 이동한다.</p>
+          </li><li>
+            <p>서버 목록에서 설정할 서버(server1)를 선택하면 서버 설정화면으로 이동한다. 설정화면에서
+            <span><strong class="guibutton">[Basic]</strong></span> 탭을 선택한다.</p>
+          </li><li>
+            <p>설정 변경을 위해서는 Lock을 가져오는 작업이 선행되어야 한다. 왼쪽 메뉴의 하단에 위치한
+            <span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을 클릭해서 동적 설정변경 모드로
+            전환한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">고급 선택사항</strong></span>에서 <span><strong class="guibutton">'Use
+            MEJB'</strong></span>, <span><strong class="guibutton">'Log Stdout To Raw
+            Format'</strong></span> 항목을 설정한다.</p>
+          </li><li>
+            <p>설정이 완료되면 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다. 설정 정보의 반영을
+            위해서 <span><strong class="guibutton">[Activate Chages]</strong></span> 버튼을 클릭한다.</p>
+          </li><li>
+            <p>설정 변경의 결과로 화면 상단에 설정 변경 결과 메시지가 출력된다. <span><strong class="guibutton">'Use
+            MEJB'</strong></span>, <span><strong class="guibutton">'Log Stdout To Raw
+            Format'</strong></span> 설정이 변경되고 서버에 반영된 것을 확인할 수 있다.</p>
+          </li></ol></div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e1313"></a>콘솔 툴 사용</h5>
+
+        <p>다음은 콘솔 툴 사용 동적 변경 가능한 기본 설정을 변경하는 예이다.</p>
+
+        <pre class="screen">[DAS]domain1.adminServer&gt;&gt;<span class="bold"><strong>modify-server server2</strong></span>
+Shows the current configuration.
+server (server2)
+================================================================================
++-----------------------------------+------------------------------------------+
+| Node                              | node1                                    |
+| JVM Configs                       | -Xmx512m -XX:MaxPermSize=128m            |
+| Action On Resource Leak           | WARNING                                  |
+| Stdout to Raw Format              | true                                     |
+| MEJB                              | false                                    |
+| Class FTP                         | false                                    |
+| Server Log Home Directory         | none                                     |
++-----------------------------------+------------------------------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;&gt;<span class="bold"><strong>modify-server server2 -logStdoutToRawFormat false -mejb true -classFtp true</strong></span>
+Successfully performed the MODIFY operation for server (server2), but all changes were non-dynamic. They will be applied after restarting.
+Check the results using "list-servers server2 or modify-server server2".
+
+[DAS]domain1.adminServer&gt;&gt;<span class="bold"><strong>modify-server server2</strong></span>
+Shows the current configuration.
+server (server2)
+================================================================================
++-----------------------------------+------------------------------------------+
+| Node                              | node1                                    |
+| JVM Configs                       | -Xmx512m -XX:MaxPermSize=128m            |
+| Action On Resource Leak           | WARNING                                  |
+| Stdout to Raw Format              | false                                    |
+| MEJB                              | true                                     |
+| Class FTP                         | true                                     |
+| Server Log Home Directory         | none                                     |
++-----------------------------------+------------------------------------------+
+================================================================================ </pre>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="sect_server_action_on_resource_leak"></a>2.3.1.2. Action On Resource Leak 설정</h4></div></div></div>
+        
+
+        <p>Action On Resource Leak은 서버에서 사용되는 리스소가 닫혔는지 여부를 확인해서 설정한 동작을
+        수행하고 사용자에게 Resource Leak이 있다는 것을 알려주는 기능이다. 서버에서 이런 역할을 담당하는 것을
+        <span><strong class="guibutton">Invocation Manager</strong></span>라고 한다.</p>
+
+        <p>Invocation Manager는 서버에서 Servlet/JSP, EJB Stateless Session
+        Bean, 그리고 MDB와 같은 Stateless 메소드를 호출하는 동안 사용하는 외부 리소스(external
+        resource)인 JDBC Connection과 Webt Connection을 추적하여 Connection이 닫히지 않은
+        경우 모드에 따라 사용하는 리소스에 대해 logging을 남기거나 반환하는 작업을 한다. 이 구성요소를 위해 3가지 모드 중
+        하나를 선택할 수 있다.</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">모드</th><th>설명</th></tr></thead><tbody><tr><td align="left">NoAction</td><td>반환되지 않은 리소스가 있더라도 아무런 동작을 하지 않는다.</td></tr><tr><td align="left">Warning</td><td>컴포넌트 호출 후에 반환되지 않은 리소스에 대한 로그를 남긴다. (기본값)</td></tr><tr><td align="left">AutoClose</td><td>컴포넌트 호출 후에 반환되지 않은 리소스에 대한 로그를 남기고 이를 닫아준다.</td></tr></tbody></table>
+          </div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e1349"></a>WebAdmin 사용</h5>
+
+        <p>다음은 WebAdmin을 통해 Action On Resource Leak을 설정하는 예이다.</p>
+
+        <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면 서버
+            목록 화면으로 이동한다. 서버 목록에서 서버(server1)를 선택하면 서버 설정화면으로 이동한다. 해당 화면에서
+            <span><strong class="guibutton">[Basic]</strong></span> 탭을 선택한다.</p>
+          </li><li>
+            <p>설정 변경을 위해서는 Lock을 가져오는 작업이 선행되어야 한다. 왼쪽 메뉴의 하단에 위치한
+            <span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을 클릭해서 동적 설정변경 모드로
+            전환한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">'Action On Resource Leak'</strong></span> 항목의 설정을
+            변경하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+          </li><li>
+            <p>설정 정보를 반영하려면 <span><strong class="guibutton">[Activate Chages]</strong></span> 버튼을
+            클릭한다.</p>
+
+            <p>화면 상단에 설정 변경 결과 메시지가 출력되고, 서버의 Action On Resource Leak 설정이
+            변경된 것을 확인할 수 있다. 운영 중인 서버의 Action On Resource Leak 설정을 변경했다면 설정
+            변경은 성공했으나 서버에 적용할 수 없다는 메시지를 확인할 수 있다. 이 경우 변경한 Action On Resource
+            Leak 설정을 적용하고 싶다면 서버를 재기동해야 한다.</p>
+          </li></ol></div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e1370"></a>콘솔 툴 사용 </h5>
+
+        <p>다음은 콘솔 툴의 modify-server 명령을 통해 Action On Resource Leak을 변경하는
+        예이다.</p>
+
+        <div class="orderedlist"><ol type="1"><li>
+            <p>서버를 부팅하기 전에 <span><strong class="guibutton">modify-server</strong></span> 명령을 통해 현재
+            설정을 변경할 서버의 설정을 조회한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-server server2</strong></span>
+Shows the current configuration.
+server (server2)
+================================================================================
++-----------------------------------+------------------------------------------+
+| Node                              | node1                                    |
+| JVM Configs                       | -Xmx512m -XX:MaxPermSize=128m            |
+| Action On Resource Leak           | WARNING                                  |
+| Stdout to Raw Format              | false                                    |
+| MEJB                              | true                                     |
+| Class FTP                         | true                                     |
+| Server Log Home Directory         | none                                     |
++-----------------------------------+------------------------------------------+
+================================================================================ </pre>
+          </li><li>
+            <p>server2의 Action On Resource Leak 설정을 AutoClose로 설정한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-server server2 -actionOnResourceLeak AutoClose</strong></span>
+Successfully performed the MODIFY operation for server (server2).
+Check the results using "list-servers server2 or modify-server server2".</pre>
+
+            <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+              <p>동적 반영이 되지 않는 옵션들의 경우는 서버를 부팅하기 전에 변경해야 한다. 운영 중인 서버에 이런
+              설정을 수정하게 되면 동적으로 반영되지 않기 때문에 서버를 재기동해야 한다.</p>
+            </div>
+          </li><li>
+            <p><span><strong class="guibutton">modify-server</strong></span> 또는
+            <span><strong class="guibutton">list-servers</strong></span> 명령을 통해 변경한 설정이 잘 반영되었는지를
+            확인한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-server server2</strong></span>
+Shows the current configuration.
+server (server2)
+================================================================================
++-----------------------------------+------------------------------------------+
+| Node                              | node1                                    |
+| JVM Configs                       | -Xmx512m -XX:MaxPermSize=128m            |
+| Action On Resource Leak           | AUTO_CLOSE                               |
+| Stdout to Raw Format              | false                                    |
+| MEJB                              | true                                     |
+| Class FTP                         | true                                     |
+| Server Log Home Directory         | none                                     |
++-----------------------------------+------------------------------------------+
+================================================================================ </pre>
+          </li><li>
+            <p>서버 'server2'을 시작한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>start-server server2</strong></span>
+The server(server2) was successfully started. The server is [RUNNING]</pre>
+
+            <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+                <p>콘솔 툴이나 WebAdmin에서 start-server 명령이 가능하려면 SSH를 사용할 수 있는
+                환경이어야 하고, 노드 설정이 되어 있어야 한다. 노드 매니저에 대한 자세한 설명은 <a xmlns="" href="../node-manager/index.html" class="olink">"JEUS Node Manager
+                안내서"</a>를 참고한다.</p>
+              </div>
+          </li><li>
+            <p>'server2'의 Action On Resource Leak 설정을 다시 원래 값인 WARNING으로
+            변경한다.</p>
+
+            <p>이 설정은 서버가 운영 중이기 때문에 설정 변경만 되고 실제로 서버에 적용되지는 않는다. 변경한 설정이
+            적용되길 원한다면 서버를 재기동해야 한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-server server2 -actionOnResourceLeak Warning</strong></span>
+Successfully performed the MODIFY operation for server (server2), but all changes were non-dynamic. They will be applied after restarting.
+Check the results using "list-servers server2 or modify-server server2".</pre>
+          </li><li>
+            <p><span><strong class="guibutton">modify-server</strong></span> 또는
+            <span><strong class="guibutton">list-servers</strong></span> 명령을 통해 변경한 설정을 확인한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-server server2</strong></span>
+Shows the current configuration.
+server (server2)
+================================================================================
++-----------------------------------+------------------------------------------+
+| Node                              | node1                                    |
+| JVM Configs                       | -Xmx512m -XX:MaxPermSize=128m            |
+| Action On Resource Leak           | WARNING                                  |
+| Stdout to Raw Format              | false                                    |
+| MEJB                              | true                                     |
+| Class FTP                         | true                                     |
+| Server Log Home Directory         | none                                     |
++-----------------------------------+------------------------------------------+
+================================================================================</pre>
+          </li></ol></div>
+
+        <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+            <p>위에서 사용한 콘솔 툴 명령에 대한 자세한 설명은 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-server-management-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.3. Server Management 관련 명령어”</a>에서 해당
+            명령어에 대한 내용을 참고한다.</p>
+          </div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="sect_server_jvm_config"></a>2.3.1.3. Jvm Config 설정</h4></div></div></div>
+        
+
+        <p><span><strong class="guibutton">Jvm Config</strong></span>는 서버를 실행하기 위해 개별적인 JVM에 추가할
+        파라미터들을 선언하는 데 사용된다. 여기에 설정한 값들을 Launcher 프로세스에서 서버를 시작하기 전에 이 값을 읽어서
+        서버 JVM을 생성할 때 파라미터로 추가한다. 지정 가능한 JEUS 파라미터들의 목록은 <a xmlns="" href="../reference-book/ch01.html#chapter_JEUS_Server_Properties" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “1.2. 서버 시스템 프로퍼티”</a>를 참고한다. 표준 JVM
+        파라미터들도 설정 가능하다.</p>
+
+        <p>서버에 적용할 JVM 옵션, 시스템 프로퍼티와 더불어 JEUS에서 제공하는 시스템 프로퍼티도 여기에 설정할 수
+        있다. 주로 JVM 메모리나 옵션들을 설정하는데, 이는 서버의 운영 환경에 맞는 적절한 값을 설정해야 한다. JVM
+        Config 관련 추가적인 설명은 <a xmlns="" href="../domain/chapter_domain_configuration.html#sect_jvm_config_change" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Domain 안내서</span>”의 “3.6.2. 서버의 JVM 설정변경”</a>을 참고한다.</p>
+
+        <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>서버가 운영 중일 때는 이 값을 변경해도 반영되지 않는다. 동적 설정 반영의 대상이 아니기 때문에 운영 중인
+          서버에 이 값을 변경한 경우에는 서버를 재기동해야 적용된다.</p>
+        </div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e1435"></a>WebAdmin 사용 </h5>
+
+        <p>다음은 WebAdmin을 통해 Jvm Config를 설정하는 과정에 대한 설명이다.</p>
+
+        <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면 서버
+            목록 화면으로 이동한다. 서버 목록에서 설정 정보를 변경할 서버(server1)를 선택하면 서버 설정화면으로 이동한다.
+            설정화면에서 <span><strong class="guibutton">[Basic]</strong></span> 탭을 선택한다.</p>
+          </li><li>
+            <p>설정 변경을 위해서는 Lock을 가져오는 작업이 선행되어야 한다. 왼쪽 메뉴의 하단에 위치한
+            <span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을 클릭해서 동적 설정변경 모드로
+            전환한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">'Jvm Option'</strong></span> 항목의 설정을 변경하고
+            <span><strong class="guibutton">[확인] </strong></span>버튼을 클릭하면 변경한 설정 내용이 저장되고, 결과 메시지가
+            나타난다.</p>
+          </li><li>
+            <p>설정 정보의 반영을 위해 <span><strong class="guibutton">[Activate Chages]</strong></span> 버튼을
+            클릭한다.</p>
+
+            <p>화면 상단에 설정 변경 결과 메시지가 출력되고, 서버의 JVM 설정이 변경된 것을 확인할 수 있다. 운영
+            중인 서버의 Jvm Config를 변경했다면 아래와 같이 설정 변경은 성공하였으나 변경한 JVM 설정을 서버에 적용할
+            수 없다는 메시지를 확인할 수 있다. 이 경우 변경한 JVM 설정을 적용하고 싶다면 서버를 재기동해야
+            한다.</p>
+          </li></ol></div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        
+
+        <h5><a id="d4e1456"></a>콘솔 톨 사용 </h5>
+
+        <p>콘솔 툴의 modify-server, add-jvm-option, modify-jvm-option,
+        remove-jvm-option을 이용하여 서버의 JVM 설정을 변경 할 수 있다. 명령에 대한 자세한 설명은 <a xmlns="" href="../domain/chapter_domain_configuration.html#sect_jvm_config_change" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Domain 안내서</span>”의 “3.6.2. 서버의 JVM 설정변경”</a>, 콘솔 툴
+        명령에 대한 자세한 설명은 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-server-management-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.3. Server Management 관련 명령어”</a>를
+        참고한다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p>다음은 콘솔 툴의 modify-server 명령을 통해 서버의 JVM 설정을 변경하는 예이다.</p>
+
+        <div class="orderedlist"><ol type="1"><li>
+            <p>서버를 부팅하기 전에 <span><strong class="guibutton">modify-server</strong></span> 명령을 통해 현재
+            설정을 변경할 서버의 설정을 조회한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-server server1</strong></span>
+Shows the current configuration.
+server (server1)
+=====================================================================
++---------------------------------------------------------+---------+
+| Node                                                    | node1   |
+| Action On Resource Leak                                 | WARNING |
+| Stdout to Raw Format                                    | true    |
+| MEJB                                                    | false   |
+| Class FTP                                               | false   |
+| Server Log Home Directory                               | none    |
++---------------------------------------------------------+---------+
+=====================================================================</pre>
+          </li><li>
+            <p>server1에 JVM 옵션을 추가한다. JVM의 최대 Heap 메모리를 512MB로 설정하고, 최대
+            Permanent 메모리를 128MB로 설정한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-server server1 -jvmOptions "-Xmx512m -XX:MaxPermSize=128m"</strong></span>
+Successfully performed the MODIFY operation for server (server1).
+Check the results using "list-servers server1 or modify-server server1". </pre>
+
+            <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+              <p>동적 반영이 되지 않는 옵션들의 경우는 서버를 부팅하기 전에 변경해야 한다. 운영 중인 서버의 설정
+              정보를 변경하면 동적으로 반영되지 않기 때문에 서버를 재기동해야 한다.</p>
+            </div>
+          </li><li>
+            <p><span><strong class="guibutton">modify-server</strong></span> 또는
+            <span><strong class="guibutton">list-servers</strong></span> 명령을 통해 변경한 설정의 정상 반영을
+            확인한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-server server1</strong></span>
+Shows the current configuration.
+server (server1)
+================================================================================
++-----------------------------------+------------------------------------------+
+| Node                              | node1                                    |
+| JVM Configs                       | -Xmx512m -XX:MaxPermSize=128m            |
+| Action On Resource Leak           | WARNING                                  |
+| Stdout to Raw Format              | true                                     |
+| MEJB                              | false                                    |
+| Class FTP                         | false                                    |
+| Server Log Home Directory         | none                                     |
++-----------------------------------+------------------------------------------+
+================================================================================</pre>
+          </li><li>
+            <p>서버 'server1'을 시작한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>start-server server1</strong></span>
+The server(server1) was successfully started. The server is [RUNNING]</pre>
+
+            <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+                <p>콘솔 툴이나 WebAdmin에서 start-server 명령이 가능하려면 SSH를 사용할 수 있는
+                환경이어야 하고, 노드가 설정되어 있어야 한다. 노드 매니저에 대한 자세한 설명은 <a xmlns="" href="../node-manager/index.html" class="olink">"JEUS Node Manager
+                안내서"</a>를 참고한다.</p>
+              </div>
+          </li><li>
+            <p>'server1'에 JVM 옵션을 추가한다.</p>
+
+            <p>서버에 OutOfMemoryError가 발생한 경우 Heap Dump 파일을 남기는 옵션을 추가하였다. 이
+            설정은 서버가 운영 중이기 때문에 설정 변경만 되고 실제로 서버에 반영되지는 않는다. 변경한 설정이 반영되길 원한다면
+            서버를 재기동해야 한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-server server1 -jvmOptions "-XX:+HeapDumpOnOutOfMemoryError"</strong></span>
+Successfully performed the MODIFY operation for server (server1), <span class="bold"><strong>but all changes were non-dynamic. 
+They will be applied after restarting.</strong></span>
+Check the results using "list-servers server1 or modify-server server1".</pre>
+          </li><li>
+            <p><span><strong class="guibutton">modify-server</strong></span> 또는
+            <span><strong class="guibutton">list-servers</strong></span> 명령을 통해 변경한 설정을 확인한다.</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-server server1</strong></span>
+Shows the current configuration.
+server (server1)
+================================================================================
++---------------------------+--------------------------------------------------+
+| Node                      | node1                                            |
++---------------------------+--------------------------------------------------+
+| JVM Configs               | -Xmx512m -XX:MaxPermSize=128m,                   |
+|                           |-XX:+HeapDumpOnOutOfMemoryError                   |
++---------------------------+--------------------------------------------------+
+| Action On Resource Leak   | WARNING                                          |
++---------------------------+--------------------------------------------------+
+| Stdout to Raw Format      | true                                             |
++---------------------------+--------------------------------------------------+
+| MEJB                      | false                                            |
++---------------------------+--------------------------------------------------+
+| Class FTP                 | false                                            |
++---------------------------+--------------------------------------------------+
+| Server Log Home Directory | none                                             |
++---------------------------+--------------------------------------------------+
+================================================================================</pre>
+          </li></ol></div>
+
+        <p/>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="sect_server_user_interceptor"></a>2.3.1.4. 클래스 패스 설정</h4></div></div></div>
+        
+
+        <p>본 절에는 서버에 부가적인 클래스 패스를 추가하는 방법에 대해 설명한다. 서버에 클래스 패스를 추가하는 설정은
+        WebAdmin을 통해서만 가능하다.</p>
+
+        <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+            <p>서버가 운영 중일 때는 이 값을 변경해도 반영되지 않는다. 동적 설정 반영의 대상이 아니기 때문에 운영 중인
+            서버에 이 값을 변경한 경우에는 서버를 재기동해야 적용된다</p>
+          </div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e1518"></a>WebAdmin 사용</h5>
+
+        <p>다음은 WebAdmin을 통해 서버에 클래스 패스를 추가하는 설정들을 변경하는 예이다.</p>
+
+        <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면 서버
+            목록 화면으로 이동한다. 서버 목록에서 서버(server1)를 선택하면 서버 설정화면으로 이동한다. 설정화면에서
+            <span><strong class="guibutton">[Basic]</strong></span> 탭을 선택한다.</p>
+          </li><li>
+            <p>설정 변경을 위해서는 Lock을 가져오는 작업이 선행되어야 한다. 왼쪽 메뉴의 하단에 위치한
+            <span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을 클릭해서 동적 설정변경 모드로
+            전환한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">고급 선택사항</strong></span>에서 <span><strong class="guibutton">User
+            Interceptor</strong></span>의 하위 항목에 원하는 클래스 패스를 추가한다. 설정이 완료되면
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+          </li><li>
+            <p>설정 정보를 적용하기 위해서 <span><strong class="guibutton">[Activate Chages]</strong></span> 버튼을
+            클릭한다. 설정 변경이 완료되면 상단에 설정 변경 결과 메시지가 출력되고, 서버에 User Interceptor 설정이
+            추가된 것을 확인할 수 있다.</p>
+
+            <p>운영 중인 서버의 User Interceptor 설정을 변경했다면 설정 변경은 성공하였으나 변경한 User
+            Interceptor 설정을 서버에 적용할 수 없다는 메시지를 확인할 수 있다. 이 경우 변경한 User
+            Interceptor 설정을 적용하고 싶다면 서버를 재기동해야 한다.</p>
+          </li></ol></div>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+
+        
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_server_listener"></a>2.3.2. Listener 설정</h3></div></div></div>
+      
+
+      <p>본 절에서는 서버에서 사용하는 네트워크 Listener 설정에 대해서 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>네트워크 Listener는 서버에서 수행되는 시스템 서비스들이나 각종 엔진에서 참조하여 그 설정을 사용하기 위한
+      것이다. 이 Listener는 포트 통합 서비스가 적용되어 있기 때문에 각자 다른 서비스나 엔진에서 하나의 Listener를
+      공유해서 사용하도록 설정할 수도 있다. 극단적인 예로는 기본 Listener 하나만을 열어두고 모든 서비스를 해당
+      Listener를 통해서 서비스하는 것도 가능하다.</p>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>서버가 운영 중일 때 이 값을 변경하려고 하면 반영되지 않는다. 동적 설정 반영의 대상이 아니기 때문에 운영
+          중인 서버에 이 값을 변경한 경우에는 서버를 재기동해야 적용된다</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1550"></a>WebAdmin 사용</h4>
+
+      <p>다음은 WebAdmin에서 기본 Listener를 설정하는 방법이다. 기본 Listener는 설정된 Listener
+      중의 하나를 선택하게 되며, JEUS의 가장 기본적인 시스템 서비스 및 Webadmin 등이 이 Listener를 사용하게
+      된다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="d4e1554"></a><p class="title"><b>[그림 2.19] 기본 Listener 설정</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_networklistener_base.png" align="top" width="711" alt="기본 Listener 설정"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>새로운 Listener는 <span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을 누르고 Add
+      버튼을 눌러서 추가할 수 있다. 개별 Listener의 기본적인 설정은 다른 시스템 서비스나 엔진에서 참조할 이름을 반드시
+      설정하며, 다른 Listener와 중복되지 않도록 포트 번호를 설정한다.</p>
+
+      <div class="figure"><a id="d4e1562"></a><p class="title"><b>[그림 2.20] 개별 Listener 설정</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_networklistener.png" align="top" width="711" alt="개별 Listener 설정"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>다음은 Listener에 적용할 수 있는 SSL(Secure Socket Layer) 설정이다. 해당 Listener를
+      사용하는 서비스나 엔진이 SSL로 서비스를 한다. (예: https)</p>
+
+      <div class="figure"><a id="d4e1569"></a><p class="title"><b>[그림 2.21] 개별 Listener SSL 설정</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_networklistener_ssl.png" align="top" width="711" alt="개별 Listener SSL 설정"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_server_thread_pool"></a>2.3.3. Thread Pool 설정</h3></div></div></div>
+      
+
+      <p>본 절에서는 서버에서 사용하는 공용 Thread Pool에 대한 설정을 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>서버에서 사용되는 서비스들이 전용 Thread Pool을 별도로 설정해서 사용하지 않는다면 모두 이 공용 Thread
+      Pool을 사용한다. 공용 Thread Pool을 사용하는 서비스는 트랜잭션 서비스와 JNDI 서비스, 스케줄러 서비스가 있다.
+      이 서비스들은 설정에 따라 공용 Thread Pool을 사용할 수도 있고, 전용 Thread Pool을 사용할 수도 있다. 공용
+      Thread Pool을 사용한다면 서비스에서 사용할 최소 Thread 개수를 미리 할당해 놓을 수 있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>애플리케이션의 요청을 처리하는 엔진에서는 공용 Thread Pool을 사용하지 않는다. 서비스에서 전용 Thread
+        Pool을 사용하는 방법에 대한 설명은 <a href="chapter_jndi.html" title="제4장 JNDI Naming Server">“제4장 JNDI Naming Server”</a>와 <a href="chapter_tx_manager.html" title="제7장 트랜잭션 매니저">“제7장 트랜잭션 매니저”</a>와 <a xmlns="" href="../scheduler/index.html" class="olink">"JEUS
+        Scheduler 안내서"</a>를 참고한다.</p>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1589"></a>WebAdmin 사용 </h4>
+
+      <p>다음은 WebAdmin에서 Thread Pool을 설정하는 방법에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면 서버
+            목록 화면으로 이동한다. 서버 목록에서 서버를 선택하면 서버 설정화면으로 이동한다. 설정화면에서
+            <span><strong class="guibutton">[Basic]</strong></span> 탭을 선택하고 하위에 <span><strong class="guibutton">[System
+            Thread Pool]</strong></span> 메뉴를 선택한다.</p>
+          </li><li>
+            <p>System Thread Pool 설정을 변경하려면 설정 변경을 위한 Lock을 가져오는 작업이 선행되어야
+            한다.</p>
+
+            <p>Lock을 설정하기 전에 현재 설정된 System Thread Pool의 정보를 확인할 수 있다. 설정을
+            변경하려면 왼쪽 메뉴의 하단에 위치한 <span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을
+            클릭해서 Lock을 가져와야 한다. Lock을 가져온 후에는 System Thread Pool 설정을 변경할 수 있는
+            화면으로 변경된다.</p>
+          </li><li>
+            <p>Thread Pool의 <span><strong class="guibutton">'Max'</strong></span>와 <span><strong class="guibutton">'Keep
+            Alive Time'</strong></span>을 변경하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을
+            클릭한다.</p>
+
+            <p>다음은 설정 항목에 대한 설명이다.</p>
+
+            <div class="itemizedlist"><ul type="disc"><li>
+                <p>기본 설정</p>
+
+                <div class="informaltable">
+                    <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Min</td><td>Thread Pool에서 관리하는 Thread의 최소 개수를 의미한다. 필요할 때
+                          Thread를 생성한다. (기본값: 0)</td></tr><tr><td align="left">Max</td><td>Thread Pool에서 관리하는 Thread의 최대 개수를 의미한다. (기본값:
+                          100)</td></tr></tbody></table>
+                  </div>
+              </li></ul></div>
+
+            <div class="itemizedlist"><ul type="disc"><li>
+                <p>고급 선택사항</p>
+
+                <div class="informaltable">
+                    <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Keep Alive Time</td><td><p>Thread Pool에서 사용하지 않는 Thread를 자동으로 정리할
+                          시간을 설정한다. Min으로 설정한 값 이상의 Thread가 설정된 시간 동안 사용되지 않을
+                          경우 자동으로 Thread Pool에서 삭제한다. </p><p>공용 Thread
+                          Pool의 경우 기본값은 5분이다. (단위: ms)</p></td></tr><tr><td align="left">Queue size</td><td><p>Thread Pool이 처리하는 일(work)을 저장하는 큐의 크기를
+                          지정한다.</p><p>(기본값: 4096개)</p></td></tr></tbody></table>
+                  </div>
+
+                <div class="itemizedlist"><ul type="circle"><li>
+                      <p>Stuck Thread Handling</p>
+
+                      <p>Thread가 일정시간 이상 계속 점유된 상태일 경우 해당 Thread에 대해서 특정
+                      액션을 하기 위한 설정이다.</p>
+
+                      <div class="informaltable">
+                          <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Max Stuck Thread Time</td><td><p>Thread가 점유되었다고 판단하는 기준이 되는 설정이다. 설정한 시간
+                                이상으로 점유된 상태이면 해당 Thread를 Stuck Thread로 간주한다.
+                                </p><p>(기본값: 1시간, 단위: ms)</p></td></tr><tr><td align="left">Action On Stuck Thread</td><td><p>점유되었다고 판단된 Thread에 대한 액션을 설정한다. 공용
+                                Thread Pool의 기본값은 IgnoreAndReplace이고 다음에 나열한 값들을 설정할
+                                수 있다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                                      <p>None : Stuck Thread에 아무런 액션도 취하지 않는다.</p>
+                                    </li><li style="list-style-type: circle">
+                                      <p>Interrupt : Stuck Thread에 Interrupt Signal을
+                                      보낸다.</p>
+                                    </li><li style="list-style-type: circle">
+                                      <p>IgnoreAndReplace : Stuck Thread를 무시하고 새로운
+                                      Thread로 교체한다.</p>
+                                    </li></ul></div><p/></td></tr><tr><td align="left">Stuck Thread Check Period</td><td><p>Thread가 Stuck 상태가 되었는지 체크하는 주기를 설정한다.
+                                </p><p>(기본값: 5분, 단위: ms)</p></td></tr></tbody></table>
+                        </div>
+                    </li></ul></div>
+              </li></ul></div>
+
+            <p/>
+          </li><li>
+            <p>설정 정보를 적용하기 위해서 <span><strong class="guibutton">[Activate Changes]</strong></span>
+            버튼을 클릭한다. 화면 상단에 설정 변경 결과 메시지가 출력되고, 서버의 System Thread Pool 설정이
+            변경되었음을 확인할 수 있다.</p>
+          </li></ol></div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1691"></a>콘솔 툴 사용 </h4>
+
+      <p>다음은 콘솔 툴로 공용 Thread Pool을 조회하고 변경하는 예제이다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>예제에서 사용한 명령들에 대한 자세한 설명은 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-thread-management-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.5. Thread Management 관련 명령어”</a>를 참고한다.
+          서비스들에서 사용하는 Thread Pool에 대한 설정은 각 서비스의 매뉴얼을 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 Thread Pool의 max를 100에서 200으로 변경하고 keep alive time을 5분에서 10분으로
+      변경하는 예제이다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>show-system-thread-pool server1</strong></span>
+Shows the current configuration.
+the system thread pool of the server (server1)
+================================================================================
++---------------------------------------------------------+--------------------+
+| Min                                                     | 0                  |
+| Max                                                     | 100                |
+| Keep-Alive Time                                         | 300000             |
+| Queue Size                                              | 4096               |
+| Max Stuck Thread Time                                   | 3600000            |
+| Action On Stuck Thread                                  | IGNORE_AND_REPLACE |
+| Stuck Thread Check Period                               | 300000             |
+| Reserved Threads for the Service transaction            | 0                  |
+| Reserved Threads for the Service namingserver           | 0                  |
++---------------------------------------------------------+--------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-system-thread-pool server1 -max 200 -keep 600000</strong></span>
+Successfully performed the MODIFY operation for the system thread pool of the server (server1).
+Check the results using "modify-system-thread-pool server1 or show-system-thread-pool server1".
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>show-system-thread-pool server1</strong></span>
+Shows the current configuration.
+the system thread pool of the server (server1)
+================================================================================
++---------------------------------------------------------+--------------------+
+| Min                                                     | 0                  |
+| Max                                                     | 200                |
+| Keep-Alive Time                                         | 600000             |
+| Queue Size                                              | 4096               |
+| Max Stuck Thread Time                                   | 3600000            |
+| Action On Stuck Thread                                  | IGNORE_AND_REPLACE |
+| Stuck Thread Check Period                               | 300000             |
+| Reserved Threads for the Service transaction            | 0                  |
+| Reserved Threads for the Service namingserver           | 0                  |
++---------------------------------------------------------+--------------------+
+================================================================================</pre>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 JNDI 서비스에서 공용 Thread Pool에서 Thread를 미리 할당하도록 설정하는 예제이다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>show-system-thread-pool server1</strong></span>
+Shows the current configuration.
+the system thread pool of the server (server1)
+================================================================================
++---------------------------------------------------------+--------------------+
+| Min                                                     | 0                  |
+| Max                                                     | 200                |
+| Keep-Alive Time                                         | 600000             |
+| Queue Size                                              | 4096               |
+| Max Stuck Thread Time                                   | 3600000            |
+| Action On Stuck Thread                                  | IGNORE_AND_REPLACE |
+| Stuck Thread Check Period                               | 300000             |
+| Reserved Threads for the Service transaction            | 0                  |
+| Reserved Threads for the Service namingserver           | 0                  |
++---------------------------------------------------------+--------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-system-thread-pool server1 -service namingserver -r 10</strong></span>
+Successfully performed the MODIFY operation for The namingserver thread pool of the server (server1)., but all changes were non-dynamic. They will be applied after restarting.
+Check the results using "show-system-thread-pool server1 -service namingserver or modify-system-thread-pool server1 -service namingserver".
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>show-system-thread-pool server1 -service namingserver</strong></span>
+Shows the current configuration.
+the system thread pool of the server (server1)
+================================================================================
++---------------------------------------------------------+--------------------+
+| Min                                                     | 0                  |
+| Max                                                     | 200                |
+| Keep-Alive Time                                         | 600000             |
+| Queue Size                                              | 4096               |
+| Max Stuck Thread Time                                   | 3600000            |
+| Action On Stuck Thread                                  | IGNORE_AND_REPLACE |
+| Stuck Thread Check Period                               | 300000             |
+| Reserved Threads for the Service transaction            | 0                  |
+| Reserved Threads for the Service namingserver           | 10                 |
++---------------------------------------------------------+--------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-system-thread-pool server1 -service namingserver</strong></span>
+Shows the current configuration.
+The namingserver thread pool of the server (server1).
+================================================================================
++----------------------------------------------------------------------+-------+
+| Reserved Threads for the Service namingserver                        | 10    |
++----------------------------------------------------------------------+-------+
+================================================================================</pre>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_server_life_cycle_invocation"></a>2.3.4. Lifecycle Invocation 설정</h3></div></div></div>
+      
+
+      <p>JEUS에서는 서버의 Lifecycle에 맞게 사용자가 원하는 작업을 할 수 있도록 Lifecycle
+      Invocation 기능을 제공하고 있다. 서버는 부팅, 다운 과정에서 각 단계에 사용자가 설정한 이벤트를 호출해준다.
+      Lifecycle Invocation은 WebAdmin을 통해서만 설정 가능하다.</p>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>서버가 운영 중일 때 이 값을 변경하려고 하면 반영되지 않는다. 동적 설정 반영의 대상이 아니기 때문에 운영
+          중인 서버에 이 값을 변경한 경우에는 서버를 재기동해야 적용된다</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <p>다음은 Lifecycle Invocation에 등록하는 클래스는 일반 Java 클래스 예제이다. 이 클래스를 서버의
+      Lifecycle에 맞게 호출하고 싶은 대상 서버의 SERVER_HOME/lib/application에 위치시킨다.</p>
+
+      <div class="example"><a id="d4e1722"></a><p class="title"><b>[예 2.1] &lt;&lt;LifeCycleTester.java&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">package lifecycle;
+
+public class LifeCycleTester {
+    public void boot() {
+        System.out.println("Boot");
+        // do somethig
+    }
+
+    public void beforeDeploy() {
+        System.out.println("Before Deploy");
+        // do somethig
+    }
+
+    public void afterDeploy() {
+        System.out.println("After Deploy");
+        // do somethig
+    }
+
+    public void ready() {
+        System.out.println("Ready");
+        // do somethig
+        try {
+            System.out.println("Sleeping for 15 seconds ....");
+            Thread.sleep(15000L);
+        } catch (Exception e) {
+            //ignored
+        }
+    }
+
+    public void beforeUndeploy() {
+        System.out.println("Before Undeploy");
+        // do somethig
+    }
+
+    public void afterUndeploy() {
+        System.out.println("After Undeploy");
+        // do somethig
+    }
+}</pre>
+
+        <p/>
+      </div></div><br class="example-break"/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e1729"></a>WebAdmin 사용 </h4>
+
+      <p>다음은 위의 예제를 이용해서 WebAdmin을 통해 서버의 Lifecycle Invocation 클래스로 설정하는
+      과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면 서버 목록
+          화면으로 이동한다. 서버 목록 화면에서 서버(adminServer)를 선택하면 서버 설정화면으로 이동한다. 설정화면에서
+          <span><strong class="guibutton">[Resource]</strong></span> 탭을 선택하고 <span><strong class="guibutton">[Lifecycle
+          Invocation]</strong></span> 메뉴를 선택하면, 현재 설정된 Lifecycle Invocation 정보를
+          조회하는 화면으로 이동한다.</p>
+
+          <div class="figure"><a id="d4e1737"></a><p class="title"><b>[그림 2.22] WebAdmin에서 Lifecycle Invocation 설정 (1)</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="673"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_server_lifecycle.png" align="top" width="673" alt="WebAdmin에서 Lifecycle Invocation 설정 (1)"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p>왼쪽 메뉴의 하단에 위치한 <span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을
+          클릭해서 Lock을 가져온 뒤, Lifecycle Invocation을 추가하기 위해 테이블 상단의
+          <span><strong class="guibutton">[ADD]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="d4e1746"></a><p class="title"><b>[그림 2.23] WebAdmin에서 Lifecycle Invocation 설정 (2)</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="673"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_server_lifecycle_lock.png" align="top" width="673" alt="WebAdmin에서 Lifecycle Invocation 설정 (2)"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p>Lifecycle Invocation 클래스와 Lifecycle Invocation 타입에 맞게 수행할 메소드를
+          추가한다. Lifecycle Invocation 클래스를
+          'test.lifecycle.invocation.LifeCycleInvocation'으로 설정하고 boot 메소드가
+          BOOT 시점에 호출되도록 지정한 후 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="d4e1754"></a><p class="title"><b>[그림 2.24] WebAdmin에서 Lifecycle Invocation 설정 (3)</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="673"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_server_lifecycle_add_class.png" align="top" width="673" alt="WebAdmin에서 Lifecycle Invocation 설정 (3)"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <p>다음은 Invocation 설정 항목에 대한 설명이다.</p>
+
+          <div class="informaltable">
+            <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Invocation Type</td><td><p>메소드가 호출되는 시점을 지정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                        <p>BOOT : 서버가 시작되고 엔진들이 띄워지기 전의 시점이다.</p>
+                      </li><li style="list-style-type: circle">
+                        <p>BEFORE_DEPLOY : 서버가 시작되고 이 서버에 등록된 애플리케이션이
+                        distribute 작업을 하기 전 시점이다.</p>
+                      </li><li style="list-style-type: circle">
+                        <p>AFTER_DEPLOY : 서버가 시작되고 이 서버에 등록된 애플리케이션을 모두
+                        distribute한 후의 시점이다.</p>
+                      </li><li style="list-style-type: circle">
+                        <p>READY : 서버가 시작되고 Target으로 등록된 애플리케이션이 모두 deploy
+                        작업을 마치고 서비스될 수 있는 준비가 완료된 시점이다.</p>
+                      </li><li style="list-style-type: circle">
+                        <p>BEFORE_UNDEPLOY : 서버가 stop 명령을 받았을 때 이 서버에서 서비스
+                        중인 애플리케이션들을 undeploy하기 전의 시점이다.</p>
+                      </li><li style="list-style-type: circle">
+                        <p>AFTER_UNDEPLOY : 서버가 stop 명령을 받았을 때 이 서버에서 서비스중인
+                        애플리케이션들을 undeploy를 모두 완료한 시점이다.</p>
+                      </li></ul></div></td></tr><tr><td align="left">Invocation Argument</td><td>메소드를 호출할 때 사용하는 argument를 지정한다.</td></tr><tr><td align="left">Method Name</td><td>Invocation에 사용될 메소드를 지정한다.</td></tr><tr><td align="left">Method Param</td><td>Invocation 사용될 메소드의 파라미터를 지정한다.</td></tr></tbody></table>
+          </div>
+        </li><li>
+          <p>Lifecycle Invocation 목록에 추가한 Lifecycle Invocation 클래스가 조회된다.
+          Lifecycle Invocation 클래스에서 사용할 라이브러리를 설정한다. Lifecycle Invocation 타입에
+          맞게 수행할 메소드를 추가하기 위해 Library Ref 목록의 <span><strong class="guibutton">[ADD]</strong></span> 버튼을
+          클릭한다.</p>
+
+          <div class="figure"><a id="d4e1797"></a><p class="title"><b>[그림 2.25] WebAdmin에서 Lifecycle Invocation 설정 (4)</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="673"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_server_lifecycle_add_class_save.png" align="top" width="673" alt="WebAdmin에서 Lifecycle Invocation 설정 (4)"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p>클래스에서 참조하는 라이브러리에 대한 레퍼런스 설정이다. 여기에 설정한 라이브러리는 lib/shared에 있어야
+          한다. Shared Library에 대한 자세한 설명은 <a xmlns="" href="../deployment/chapter_overview_of_javaee_application.html#sect_shared_library" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Applications &amp; Deployment 안내서</span>”의 “3.3.2. 공유 라이브러리(Shared Library)”</a>를 참고한다.</p>
+
+          <div class="figure"><a id="d4e1806"></a><p class="title"><b>[그림 2.26] WebAdmin에서 Lifecycle Invocation 설정 (5)</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="673"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_server_lifecycle_libref.png" align="top" width="673" alt="WebAdmin에서 Lifecycle Invocation 설정 (5)"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="170" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Library Name</td><td>사용할 라이브러리 이름을 지정한다.</td></tr><tr><td align="left">Specification Version</td><td>설정한 라이브러의 스펙 버전을 지정한다.</td></tr><tr><td align="left">Implementation Version</td><td>설정한 라이브러의 구현 버전을 지정한다.</td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>다음은 추가한 라이브러리를 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭해서 저장했을 때
+          조회되는 화면이다.</p>
+
+          <div class="figure"><a id="d4e1833"></a><p class="title"><b>[그림 2.27] WebAdmin에서 Lifecycle Invocation 설정 (6)</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="673"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_server_lifecycle_libref_save.png" align="top" width="673" alt="WebAdmin에서 Lifecycle Invocation 설정 (6)"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li><li>
+          <p>메소드가 호출되는 시점에 따라 Lifecycle Invocation 메소드를 추가로 설정한다.</p>
+
+          <div class="figure"><a id="d4e1841"></a><p class="title"><b>[그림 2.28] WebAdmin에서 Lifecycle Invocation 설정 (7)</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="673"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_server_lifecycle_add_all_method_save.png" align="top" width="673" alt="WebAdmin에서 Lifecycle Invocation 설정 (7)"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li><li>
+          <p>Lifecycle Invocation 설정 변경을 완료하면 <span><strong class="guibutton">[Activate
+          Changes]</strong></span> 버튼을 클릭하여 변경한 설정을 서버에 반영한다. 화면 상단에 Lifecycle
+          Invocation 설정 변경 결과 메시지가 출력되고, 서버의 Lifecycle Invocation 설정이 변경된 것을
+          확인할 수 있다.</p>
+
+          <div class="figure"><a id="d4e1850"></a><p class="title"><b>[그림 2.29] WebAdmin에서 Lifecycle Invocation 설정 (8)</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="673"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_server_lifecycle_result.png" align="top" width="673" alt="WebAdmin에서 Lifecycle Invocation 설정 (8)"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+
+          <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+              <p>운영 중인 서버의 Lifecycle Invocation 설정을 변경한 경우 위와 같이 설정 변경은
+              성공했으나 변경한 Lifecycle Invocation 설정을 서버에 적용할 수 없다는 메시지를 확인할 수 있다.
+              이 경우 변경한 Lifecycle Invocation 설정을 적용하고 싶다면 서버를 재기동해야 한다.</p>
+            </div>
+        </li></ol></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_resource_reference"></a>2.3.5. Resource Reference 설정</h3></div></div></div>
+      
+
+      <p>서버의 애플리케이션에서 공통으로 사용할 리소스에 대한 매핑 정보를 설정한다.</p>
+
+      <p>애플리케이션에서 사용하는 리소스는 해당 애플리케이션이 서비스되는 서버의 JNDI 저장소에 이름이 등록된다. 리소스
+      매핑을 설정하면 등록되는 이름에 상관없이 애플리케이션에서는 항상 같은 이름의 리소스를 Lookup해서 사용할 수
+      있다.</p>
+
+      <p/>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>서버가 클러스터에 포함되어 있는 경우에는 Resource Reference 설정은 클러스터에 설정된 값이 우선
+          적용된다.</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e1870"></a>WebAdmin 사용 </h4>
+
+      <p>다음은 WebAdmin에서 Resource Reference를 설정하는 과정에 대한 설명이다.</p>
+
+      <p/>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면 서버 목록
+          조회 화면으로 이동한다.</p>
+
+          <p>서버 목록에서 서버를 선택하면 서버 설정화면으로 이동한다. 설정화면에서
+          <span><strong class="guibutton">[Basic]</strong></span> 탭을 선택하고 <span><strong class="guibutton">[Res
+          Ref]</strong></span> 메뉴를 선택하면 <span><strong class="guibutton">Res Ref 화면</strong></span>으로
+          이동한다.</p>
+
+          <div class="figure"><a id="d4e1881"></a><p class="title"><b>[그림 2.30] WebAdmin에서 Resource Reference 설정 (1)</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_server_resref.png" align="top" width="701" alt="WebAdmin에서 Resource Reference 설정 (1)"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p>Resource Reference 설정을 변경하려면 설정 변경을 위한 Lock을 가져오는 작업이 선행되어야
+          한다. Lock을 설정하기 전에는 현재 설정된 Resource Reference의 정보를 확인할 수 있다. 설정을
+          변경하려면 왼쪽 메뉴의 하단에 위치한 <span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을
+          클릭해서 Lock을 가져온다. Lock을 가져온 후에는 Resource Reference 설정을 변경할 수 있는 화면으로
+          변경된다.</p>
+        </li><li>
+          <p>Resource Reference를 추가하기 위해 Resource Reference 목록의
+          <span><strong class="guibutton">[ADD]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="d4e1892"></a><p class="title"><b>[그림 2.31] WebAdmin에서 Resource Reference 설정 (2)</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_server_resref_lock.png" align="top" width="701" alt="WebAdmin에서 Resource Reference 설정 (2)"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p>리소스를 매핑할 <span><strong class="guibutton">'Ref Name'</strong></span>과 실제 리소스가 바인딩된
+          <span><strong class="guibutton">'Export Name'</strong></span>을 설정하고
+          <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="d4e1902"></a><p class="title"><b>[그림 2.32] WebAdmin에서 Resource Reference 설정 (3)</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_server_resref_edit.png" align="top" width="663" alt="WebAdmin에서 Resource Reference 설정 (3)"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Ref Name</td><td>리소스를 매핑하는 레퍼런스 이름을 설정한다. 여기에 설정한 이름이 애플리케이션에서
+                    Lookup할 때 사용될 이름이다.</td></tr><tr><td align="left">Export Name</td><td>실제 리소스가 서버에 바인딩되어 있는 이름을 지정한다. 실제 리소스가 서버의 JNDI
+                    저장소에 등록된 JNDI 이름이다.</td></tr></tbody></table>
+            </div>
+
+          <p/>
+        </li><li>
+          <p>다음은 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭해서 저장했을 때 보여지는 화면이다. 설정이
+          완료되면 다음과 같이 신규 리소스 매핑 정보가 목록에 추가된다.</p>
+
+          <div class="figure"><a id="d4e1926"></a><p class="title"><b>[그림 2.33] WebAdmin에서 Resource Reference 설정 (4)</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_server_resref_save.png" align="top" width="701" alt="WebAdmin에서 Resource Reference 설정 (4)"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <p/>
+        </li><li>
+          <p><span><strong class="guibutton">[Activate Chages]</strong></span> 버튼을 클릭하여 변경한 설정을 서버에
+          반영한다.</p>
+        </li><li>
+          <p>다음은 리소스 매핑 설정 변경의 결과이다.</p>
+
+          <p>화면 상단에 설정 변경 결과 메시지가 출력되고, 서버의 리소스 매핑 설정이 변경되었음을 확인할 수 있다. 운영
+          중인 서버의 리소스 매핑 설정을 변경한 경우 위와 같이 설정 변경은 성공하였으나 변경한 리소스 매핑 설정을 서버에 적용할
+          수 없다는 메시지를 확인할 수 있다. 이 경우 변경한 리소스 매핑 설정을 적용하고 싶다면 서버를 재기동해야
+          한다.</p>
+
+          <div class="figure"><a id="d4e1939"></a><p class="title"><b>[그림 2.34] WebAdmin에서 Resource Reference 설정 (6)</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_server_resref_result.png" align="top" width="701" alt="WebAdmin에서 Resource Reference 설정 (6)"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li></ol></div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_server_template"></a>2.4. Server Template 설정</h2></div></div></div>
+    
+
+    <p>클러스터를 생성할 때에 사용할 서버들의 공통적인 설정들을 서버 템플릿으로 저장해 둘 수 있다. 이를 이용하여 클러스터
+    생성시에 공통 설정을 가지는 다수의 서버를 자동으로 생성할 수 있어서 간단하게 서버 클러스터 환경을 구성할 수 있다.</p>
+
+    <p>서버 템플릿의 설정 방법은 기본적으로는 서버의 설정 방법과 동일하며 클러스터를 생성할 때에 Dynamic Servers를
+    선택하여 해당 템플릿을 지정하는 것으로, 같은 설정의 다수의 서버를 생성하게 된다. 서버의 설정과 다른점은 Listener나
+    Connection 같은 일부 설정은 미리 설정되어 있어서 수정이 불가능 하다는 점, 그리고 포트 번호와같이 서버별로 설정이
+    달라야하는 경우에는 특정한 규칙에 따라 서버별로 다른 번호를 부여받는다는 점이다.</p>
+
+    <p>서버 템플릿의 설정은 WebAdmin 혹은 콘솔에서 추가할 수 있다.</p>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="d4e1952"></a>WebAdmin 사용 </h3>
+
+    <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택한 후 아래의
+    <span><strong class="guibutton">Server Templates 영역</strong></span>을 통해서 서버 템플릿을 추가할 수 있다.</p>
+
+    <div class="figure"><a id="d4e1957"></a><p class="title"><b>[그림 2.35] 서버 템플릿의 추가</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_table.png" align="top" width="692" alt="서버 템플릿의 추가"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p>서버 템플릿의 추가는 많은 부분이 서버 추가와 동일하다. 서버 추가와는 달리 실제 서버가 생성되지 않고, 서버 설정을 담은
+    서버 템플릿만이 추가가 된다. 이를 이용하여 차후에 서버 클러스터 환경을 구성할 때에 동일한 설정을 가진 서버들을 일괄 생성할 수
+    있다.</p>
+
+    <p>기본적인 설정은 위에서 설명한 서버를 생성할 때 설정과 동일하다. 서버 템플릿을 이용한 클러스터 설정에 대해서는
+    <a xmlns="" href="../domain/chapter_clustering.html#sect_dynamic_servers_cluster_configuration" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Domain 안내서</span>”의 “5.5.3. Dynamic Servers를 이용한 클러스터 설정”</a>을
+    참고한다.</p>
+
+    <div class="figure"><a id="d4e1966"></a><p class="title"><b>[그림 2.36] 서버 템플릿의 설정</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/serverconf/figure_webadmin_add_server_template_table.png" align="top" width="692" alt="서버 템플릿의 설정"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="d4e1975"></a>콘솔 툴 사용 </h3>
+
+    <p>콘솔 툴을 이용하여 서버 템플릿을 추가할 수 있다. add-server-template 명령을 통해 서버 템플릿을
+    추가하고, 각종 옵션을 주어 세부 항목을 설정한다. add-server-template에 대한 자세한 설명은 <a xmlns="" href="../reference-book/ch04.html#cmd_add-server-template" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.4.9. add-server-template”</a>을
+    참고한다.</p>
+
+    <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>add-server-template template1 -m true</strong></span>
+Successfully performed the ADD operation for server template (template1), but all changes were non-dynamic. They will be applied after restarting.
+Check the results using "list-servers or show-server-template or add-server-template".
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>show-server-template</strong></span>
+
+Shows the current configuration.
+Server template list
+=============================================================
++-----------------------------------------------+-----------+
+| server templates                              | template1 |
++-----------------------------------------------+-----------+
+============================================================= </pre>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_server_structure.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_server_control.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제1장 소개 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제3장 JEUS 서버 제어 및 모니터링</td></tr></table></div><div xmlns="" align="center"/></body></html>

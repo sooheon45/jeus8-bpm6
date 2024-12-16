@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="StoreNumberService" default="all" basedir=".">
+    <property name="is.ejb-jar.module" value="true" />
+
+    <import file="../../../../common/common-build.xml" />
+
+	 <target name="build_server" depends="init">
+        <mkdir dir="${build.classes.dir}" />
+        <antcall target="do-compile">
+			<!--param name="javac.excludes" value="sb/"/-->
+        </antcall> 
+        <antcall target="do-package-war" />
+	 </target>
+
+	
+	<target name="build" depends="build_server"/>
+
+	<target name="all" depends="build, deploy" />
+
+</project>

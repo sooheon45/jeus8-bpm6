@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제3장 애플릿 클라이언트</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Application Client 안내서"/><link rel="up" href="index.html" title="JEUS Application Client 안내서"/><link rel="prev" href="chapter_JEUS_Advanced_Application_Client.html" title="제2장 고급 애플리케이션 클라이언트"/><link rel="next" href="chapter_JEUS_JNLP.html" title="제4장 JNLP 클라이언트"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제3장 애플릿 클라이언트</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_JEUS_Advanced_Application_Client.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_JEUS_JNLP.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_JEUS_Applet_Client"></a>제3장 애플릿 클라이언트</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_JEUS_Applet_Client.html#sect_JEUS_Applet_Client_Intro">3.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Applet_Client.html#sect_JEUS_Applet_Client_Summary">3.2. 프로그램 작성</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_JEUS_Applet_Client.html#sect_Applet_Client_Code">3.2.1. 예제</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Applet_Client.html#sect_HTML_Code">3.2.2. HTML 예제</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_JEUS_Applet_Client.html#sect_Applet_Client_Deployment">3.3. deploy</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Applet_Client.html#d4e861">3.4. 실행</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_JEUS_Applet_Client.html#d4e871">3.4.1. 웹 브라우저에서 실행</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Applet_Client.html#d4e875">3.4.2. 애플릿 뷰어에서 실행</a></span></dt></dl></dd></dl></div>
+  
+
+  <p><a id="d4e803" class="indexterm"></a>본 장에서는 JEUS에서 애플릿 프로그램의 작성 및 설정하고 실행하는 방법에 대해 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_Applet_Client_Intro"></a>3.1. 개요</h2></div></div></div>
+    
+
+    <p><a id="d4e809" class="indexterm"></a>애플릿은 웹 브라우저에서 실행되는 Java 애플리케이션이다.</p>
+
+    <p>웹 브라우저에서 실행되는 애플릿에서 JEUS의 Java EE 서비스를 사용하기 위해서는 애플릿 컨테이너를 사용한다.
+    기본적으로 애플릿은 애플리케이션 클라이언트이지만 JEUS에서는 아직 경량 클라이언트 컨테이너를 제공하지 않기 때문에 JEUS의
+    라이브러리들에 바로 접근할 수 없는 애플릿은 컨테이너 없이 바로 JEUS의 Java EE 서비스를 사용하는 방법으로
+    구현한다.</p>
+
+    <p>애플릿을 사용하면 브라우저에서 Java 애플리케이션을 수행할 수 있다. 더불어 JEUS의 기능을 사용하는 클라이언트로
+    동작할 수 있다.</p>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_Applet_Client_Summary"></a>3.2. 프로그램 작성</h2></div></div></div>
+    
+
+    <p>애플릿이 구동되는 데 필요한 파일들은 웹 애플리케이션 내에 존재한다. HTML의 JAVA_CODEBASE가 "."으로 되어
+    있기 때문에 이 JAR 파일들은 HTML 문서가 deploy되는 웹 애플리케이션에서 HTML 문서와 같은 디렉터리에 존재해야
+    한다.</p>
+
+    <p>본 절에서는 사용자가 참고할 수 있는 샘플 예제를 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Applet_Client_Code"></a>3.2.1. 예제</h3></div></div></div>
+      
+
+      <p>애플릿 애플리케이션은 Applet 또는 JApplet 클래스를 상속받고, start() 메소드를 구현해야
+      한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음 예제는 클라이언트 컨테이너를 통해서가 아닌 독립적으로 수행되는 클라이언트의 예이다. 따라서, Dependency
+      Injection을 사용하지 않고 JNDI API를 사용하여 해당 EJB를 직접 Lookup하게 되어 있다.</p>
+
+      <p>앞의 클라이언트 컨테이너와 동일한 EJB를 사용하고 이 경우 EJB는 helloejb.Hello라는 인터페이스 이름을
+      바인딩 이름으로 사용한다.</p><div class="example"><a id="d4e824"></a><p class="title"><b>[예 3.1] &lt;&lt;HelloClient.java&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package helloejb;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import java.applet.Applet;
+import java.util.Hashtable;
+
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.event.*;
+
+import javax.swing.*;
+
+public class HelloClient extends JApplet {
+    public void start() {
+        try {
+            Hashtable env = new Hashtable();
+            env.put(Context.INITIAL_CONTEXT_FACTORY,"jeus.jndi.JNSContextFactory");
+            Context context = new InitialContext(env);
+            Hello hello = (Hello) context.lookup("helloejb.Hello");
+            System.out.println("EJB output : " + hello.sayHello());
+
+            JLabel label = new JLabel(hello.sayHello());
+            label.setFont(new Font("Helevetica", Font.BOLD, 15));
+            getContentPane().setLayout(new BorderLayout());
+            getContentPane().add(label, BorderLayout.CENTER);
+            setSize(500, 250);
+            setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>EJB가 어떤 이름으로 JNDI에 바인딩되는가에 대한 자세한 내용은 <a xmlns="" href="../ejb/index.html" class="olink">"JEUS EJB 안내서"</a>를 참고한다.</p>
+        </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_HTML_Code"></a>3.2.2. HTML 예제</h3></div></div></div>
+      
+
+      <p>HTML 문서에는 어떤 애플릿을 호출하고 이 애플릿의
+      클래스들의 위치를 지정한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>예제에서는 위의 애플리케이션 클래스와 helloejb.Hello EJB 인터페이스가 hello-client.jar에
+      포함되어 있다고 가정한다. jclient.jar는 JEUS_HOME\lib\client에 존재하는 클라이언트용 JEUS
+      라이브러리이다.</p>
+
+      <div class="example"><a id="d4e838"></a><p class="title"><b>[예 3.2] &lt;&lt;index.html&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Hello JavaEE&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;center&gt;
+&lt;h1&gt;Hello JavaEE Sample Applet!&lt;/h1&gt;
+<span class="bold"><strong>&lt;APPLET CODE = "helloejb.HelloClient" JAVA_CODEBASE = "." 
+    ARCHIVE = "hello-client.jar,jclient.jar" 
+    WIDTH = 300 HEIGHT = 300/&gt;
+&lt;/APPLET&gt;
+</strong></span>&lt;/center&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>HTML 문서를 브라우저에 관계없이 사용하고 또한 브라우저가 실행되는 곳에 JDK가 설치되어 있지 않다면 이를
+        설치하도록 유도할 수 있다. HTML 문서로 변환하기 위해서는 JDK의 htmlconverter를 사용한다. 자세한 내용은
+        <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://docs.oracle.com/javase/1.5.0/docs/guide/plugin/developer_guide/html_converter.html" target="_top">http://docs.oracle.com/javase/1.5.0/docs/guide/plugin/developer_guide/html_converter.html</a>을
+        참고한다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Applet_Client_Deployment"></a>3.3. deploy</h2></div></div></div>
+    
+
+    <p>애플릿은 기본적으로 HTML 문서에서 접근하므로 이 HTML 문서를 웹으로 전송하기 위해서는 웹 애플리케이션이 필요하다.
+    애플릿을 실행하기 전에 웹 애플리케이션과 EJB의 deploy가 완료되어야 한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">웹 애플리케이션 deploy</strong></span></p>
+
+          <p>웹 애플리케이션을 생성하고 HTML 문서 및 'ARCHIVE'에 지정된 JAR 파일들을 추가한다. 웹
+          애플리케이션의 생성과 deploy에 대한 자세한 내용은 <a xmlns="" href="../deployment/index.html" class="olink">"JEUS Application &amp; Deployment 안내서"</a>를
+          참고한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">EJB deploy</strong></span></p>
+
+          <p>웹 애플리케이션 deploy가 완료되면 EJB 애플리케이션을 deploy한다.</p>
+        </li></ul></div>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e861"></a>3.4. 실행</h2></div></div></div>
+    
+
+    <p>웹 브라우저를 실행하고 HTML 문서 URL을 입력하여 애플릿을 실행한다. 애플릿의 경우 Java Security 모델에
+    따라 java.policy에 설정한 대로 Access control을 한다. 따라서 java.policy 파일에 애플릿에서 사용하는
+    클래스에 대해 permission을 제공해야 애플릿이 문제없이 수행된다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>java.policy 설정은 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://docs.oracle.com/javase/1.5.0/docs/guide/deployment/deployment-guide/security.html" target="_top">http://docs.oracle.com/javase/1.5.0/docs/guide/deployment/deployment-guide/security.html</a>
+      문서를 참고한다.</p>
+    </div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e871"></a>3.4.1. 웹 브라우저에서 실행</h3></div></div></div>
+      
+
+      <p>웹 브라우저는 HTML 페이지 내의 &lt;applet&gt; 태그로 접속한다. 예제의 애플릿은 Swing을 사용하므로
+      다음의 주소로 웹 브라우저를 통해서 접근할 수 있다.</p>
+
+      <pre class="programlisting">http://host1:8088/hello/index.html</pre>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e875"></a>3.4.2. 애플릿 뷰어에서 실행</h3></div></div></div>
+      
+
+      <p>테스트 과정에서는 브라우저를 통하지 않고 JDK에 포함된 애플릿 뷰어를 사용하여 애플릿을 수행할 수 있다. 이 경우
+      Exception 등을 바로 확인할 수 있어서 브라우저에서 테스트하는 것보다 쉽게 개발할 수 있다.</p>
+
+      <pre class="programlisting">appletviewer index.html</pre>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_JEUS_Advanced_Application_Client.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_JEUS_JNLP.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제2장 고급 애플리케이션 클라이언트 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제4장 JNLP 클라이언트</td></tr></table></div><div xmlns="" align="center"/></body></html>

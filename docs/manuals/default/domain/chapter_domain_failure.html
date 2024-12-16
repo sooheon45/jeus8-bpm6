@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제6장 서버 장애</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Domain 안내서"/><link rel="up" href="index.html" title="JEUS Domain 안내서"/><link rel="prev" href="chapter_clustering.html" title="제5장 JEUS 클러스터링"/><link rel="next" href="chapter_domain_security.html" title="제7장 Security 관리"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제6장 서버 장애</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_clustering.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_domain_security.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_domain_failure"></a>제6장 서버 장애</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_domain_failure.html#d4e2471">6.1. Domain Administration Server(DAS) 비정상 종료</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_domain_failure.html#sect_das_unusal_end_func_limit">6.1.1. 비정상 종료될 때 기능 제한</a></span></dt><dt><span class="section"><a href="chapter_domain_failure.html#sect_domain-backup">6.1.2. 도메인 백업을 이용한 장애 극복</a></span></dt><dt><span class="section"><a href="chapter_domain_failure.html#sect_independent_ms">6.1.3. INDEPENDENT 모드의 Managed Server(MS)</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_domain_failure.html#d4e2565">6.2. 비정상 종료</a></span></dt></dl></div>
+  
+
+  <p>다양한 이유로 서버가 비정상 종료될 수 있지만 클러스터를 구성하여 서버가 비정상 종료되는 경우에 서비스의 문제를 최소화 할 수
+  있다. 본 장에서는 서버가 비정상 종료될 경우의 문제점과 극복 방안에 대해서 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2471"></a>6.1. Domain Administration Server(DAS) 비정상 종료</h2></div></div></div>
+    
+
+    <p>DAS가 비정상 종료되어도, Managed Server(MS)의 서비스는 영향을 받지 않고 동작한다. DAS가 위치한
+    머신에 장애가 발생하여 DAS가 비정상 종료된 상태라면, 그 머신에 함께 존재하는 MS들도 영향을 받아 비정상 종료될 가능성이 높다.
+    그러나 DAS 자체의 비정상 종료가 도메인 내에 존재하는 MS의 서비스에 영향을 주지는 않는다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_das_unusal_end_func_limit"></a>6.1.1. 비정상 종료될 때 기능 제한</h3></div></div></div>
+      
+
+      <p>DAS가 비정상 종료된 경우에는 DAS의 역할이었던 설정의 변경이나, 애플리케이션의 추가 및 변경 등은 DAS가 다시
+      시작될 때까지 기능을 할 수 없다. DAS가 다시 시작되어 MS로 이벤트를 주면 MS는 다시 DAS의 관리를 받을 수
+      있다.</p>
+
+      <p>DAS와 연결이 안되는 상태에서 MS를 시작하려고 한다면 DAS의 설정으로 시작될 수 없고, MS가 가지고 있는 로컬
+      Cache를 사용하게 된다. 즉, 기존에 한 번 이상 DAS와 연결을 맺은 적이 있어, DAS로부터 받은 파일을 로컬에 가지고
+      있는 경우에만 해당된다. 로컬 Cache를 이용하여 MS를 시작한 뒤에 DAS가 다시 시작되었을 때 DAS의 파일과 동기화하게
+      된다. 물론 MS가 DAS와 같은 머신에 존재하여 도메인 디렉터리를 공유한다면 DAS가 종료되어 있을 때에도 DAS와 같은
+      설정으로 MS를 시작할 수 있다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_domain-backup"></a>6.1.2. 도메인 백업을 이용한 장애 극복</h3></div></div></div>
+      
+
+      <p>DAS가 비정상 종료되어도 서비스에는 지장이 없지만 몇 가지 기능이 제한된다. 따라서 DAS를 빨리 복구시켜야 하는데,
+      DAS가 현 상태 그대로 다시 시작할 수 없는 경우가 있다. 예를 들면 머신 자체가 비정상 종료된 경우에는 머신이 복구되기
+      전까지는 DAS를 재시작할 수가 없다.</p>
+
+      <p>이런 경우를 대비하여 DAS가 가지고 있는 파일들 즉, DAS에서 유지해야 하는 설정과 애플리케이션을 평소에 백업해둘
+      수 있다. 미리 백업해 둔 DAS의 파일들을 다른 머신에 복사하여 새로운 머신에서 DAS를 시작할 수 있다.</p>
+
+      <p/>
+
+      <p>DAS의 설정 및 애플리케이션을 백업하는 방법은 크게 두 가지를 제공한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+             DAS 부팅 시 도메인 백업 설정을 통한 자동 백업 
+          </li><li>
+             pack-domain 명령을 통한 명시적 백업 
+          </li></ul></div>
+
+      <p>백업 설정을 통한 자동 백업은 DAS가 기동할 때에 자동으로 로컬, 혹은 리모트 노드에 백업 파일을 복사한다. 그리고
+      pack-domain 명령은 원하는 때에 백업 파일을 만들 수 있는 기능이다. 이 경우에 만들어진 파일은 사용자가 관리해야
+      한다.</p>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2497"></a>도메인 백업 설정을 통한 자동 백업</h4><p>DAS가 시작할 때마다 자동으로 DAS의
+      설정 및 애플리케이션을 백업한다.<a id="d4e2498" class="indexterm"></a> 도메인 백업 설정은 WebAdmin을 통해서 혹은 jeusadmin을 통하여 설정할 수
+      있다.</p>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">WebAdmin 사용 </strong></span></p>
+
+          <p>WebAdmin의 Domain 항목의 아래에는 도메인 백업에 대한 설정을 할 수 있도록 되어 있다. 여기에서
+          사용자는 도메인 백업을 사용할지 여부와 백업될 디렉터리, 저장될 노드를 설정할 수 있다.</p>
+
+          <p>노드가 설정된 경우에는 백업될 디렉터리는 해당 노드의 디렉터리를 의미하고, 설정되지 않은 경우에는 로컬
+          디렉터리를 의미한다. 만약 설정된 노드에 옮길 수 없는 경우에는 domains home에 위치시키게 된다.</p>
+
+          <div class="figure"><a id="figure_webadmin_domain_backup"></a><p class="title"><b>[그림 6.1] 도메인 백업 설정을 통한 자동 백업</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/figure_webadmin_domain_backup.png" align="top" width="692" alt="도메인 백업 설정을 통한 자동 백업"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">콘솔 툴 사용 </strong></span></p>
+
+          <p>도메인 백업 설정을 통한 자동 백업은 콘솔 툴(jeusadmin)을 통해서도 설정할 수 있다.</p>
+
+          <p>다음과 같이 <span><strong class="guibutton">set-domain-backup</strong></span> 명령을 사용하여 DAS
+          시작 시점에 DAS 백업 파일을 만들 수 있도록 설정할 수 있다.</p>
+
+          <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>set-domain-backup</strong></span> -backupOnBoot true
+Successfully performed the MODIFY operation for Domain Backup Policy.
+Check the results using "set-domain-backup"</pre>
+
+          <p>이렇게 백업된 파일은 기본적으로 <span><strong class="guibutton">pack-domain</strong></span>을 통하여 만든
+          파일과 동일하고, 설정된 node에서 혹은 로컬에 저장된 파일을 이용하여 원하는 node에서
+          <span><strong class="guibutton">unpack-domain</strong></span>을 통하여 사용할 수 있다.</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p><span><strong class="guibutton">pack-domain</strong></span> 명령</p>
+
+              <p>다음과 같이 <span><strong class="guibutton">pack-domain</strong></span> 명령<a id="d4e2530" class="indexterm"></a>을 사용하여 DAS의 설정 및 애플리케이션을 백업한다.</p>
+
+              <pre class="screen">offline&gt;<span class="bold"><strong>pack-domain</strong></span> domain1
+Packing the domain [domain1] configuration completed successfully at the path [JEUS_HOME/domains/domain1_packed.zip]. </pre>
+            </li><li>
+              <p><span><strong class="guibutton">unpack-domain</strong></span> 명령</p>
+
+              <p>다음과 같이 <span><strong class="guibutton">unpack-domain</strong></span> 명령<a id="d4e2540" class="indexterm"></a>을 사용하여 백업한 파일의 압축을 푼다.
+              <span><strong class="guibutton">unpack-domain</strong></span> 명령을 사용할 때 DAS의 IP, Port,
+              Node 정보를 변경할 수 있다.</p>
+
+              <pre class="screen">offline&gt;<span class="bold"><strong>unpack-domain</strong></span> domain1
+The Domain Administration Server listener address is already set to [192.168.34.55]. Do you want to change it? (y/n): y
+Enter the Domain Administration Server base listener address: 192.168.34.56
+The Domain Administration Server listener port is already set to [9736]. Do you want to change it? (y/n): n
+The Domain Administration Server nodename is already set to [node1]. Do you want to change it? (y/n): y
+Enter the Domain Administration Server nodename: node2
+The nodemanager of DAS machine listener address is already set to [192.168.34.56]. Do you want to change it? (y/n): n
+The nodemanager of DAS machine listener port is already set to [7730]. Do you want to change it? (y/n): n
+Unpacking the domain [domain1] configuration completed successfully.</pre>
+            </li></ul></div>
+
+          <p>새로운 머신에서 기존과 같은 설정으로 DAS가 시작되면, INDEPENDENT 모드로 있던 MS들이 DAS로부터
+          설정과 애플리케이션 동기화를 하고, DAS의 관리를 받게 되어 INDEPENDENT 모드에서 해제된다.</p>
+
+          <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+              <p>pack-domain 명령과 unpack-domain 명령과 set-domain-backup 명령에 대한
+              자세한 사용 방법은 각각 <a xmlns="" href="../reference-book/ch04.html#cmd_pack-domain" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.4.31. pack-domain”</a>과 <a xmlns="" href="../reference-book/ch04.html#cmd_unpack-domain" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.4.34. unpack-domain”</a>과 <a xmlns="" href="../reference-book/ch04.html#cmd_set-domain-backup" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.4.30. set-domain-backup”</a>을 참고한다.</p>
+            </div>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_independent_ms"></a>6.1.3. INDEPENDENT 모드의 Managed Server(MS)</h3></div></div></div>
+      
+
+      <p>MS의 서비스가 DAS의 비정상 종료로 인한 영향을 받지 않기 위해 MS는 DAS의 존재 여부에 의존하지 않고 서비스를
+      수행한다.</p>
+
+      <p><a id="d4e2560" class="indexterm"></a>MS의 설정과 애플리케이션의 로컬 Cache는 서버가 시작할 때 DAS로부터 동기화해서 가지고 있고,
+      변경될 때마다 DAS와 동기화한다. 그러나 MS가 시작될 때 DAS와 연결되지 않은 경우에는 로컬 Cache를 이용하여
+      시작되는데, 이것을<span><strong class="guibutton"> INDEPENDENT 모드</strong></span>라고 한다. 이 상태에서 MS는 DAS의
+      제어를 받을 수 없고, DAS 또한 해당 MS를 모니터링할 수 없다. 이는 DAS가 실제로 비정상 종료된 경우와 DAS의 주소를
+      잘못 설정했거나 네트워크 관련 오류로 연결에 문제가 발생한 경우가 해당된다.</p>
+
+      <p>DAS가 재시작되어 MS가 이벤트를 받게 되면 다시 DAS의 관리를 받게 되는 모드로 변경된다.</p>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2565"></a>6.2. 비정상 종료</h2></div></div></div>
+    
+
+    <p>도메인 내에 MS들은 Multicast로 서로의 상태 정보를 주고받기 때문에 비정상 종료된 서버를 감지할 수 있다. 비정상
+    종료된 서버가 노드 설정이 되어 있다면 DAS가 해당 서버를 자동으로 재시작한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>SSH 노드 매니저를 사용할 때 jeus.server.autorestart 옵션에 따라 재시작의 여부를 결정할 수
+        있고, JAVA 노드 매니저를 사용할 때에는 <a xmlns="" href="../node-manager/index.html" class="olink">"JEUS Node
+        Manager 안내서"</a>를 참고한다.</p>
+      </div>
+
+    <p/>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_clustering.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_domain_security.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제5장 JEUS 클러스터링 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제7장 Security 관리</td></tr></table></div><div xmlns="" align="center"/></body></html>

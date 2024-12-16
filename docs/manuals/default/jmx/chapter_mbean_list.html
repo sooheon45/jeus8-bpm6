@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제1장 MBean 정보 조회 및 Statistic 모니터링</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS JMX 안내서"/><link rel="up" href="index.html" title="JEUS JMX 안내서"/><link rel="prev" href="about.html" title="안내서에 대하여"/><link rel="next" href="chapter_JEUS_JMX_Manager_configuration.html" title="제2장 JMX Manager 환경설정"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제1장 MBean 정보 조회 및 Statistic 모니터링</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_JEUS_JMX_Manager_configuration.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_mbean_list"></a>제1장 MBean 정보 조회 및 Statistic 모니터링</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_mbean_list.html#d4e395">1.1. MBean 정보 조회</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_mbean_list.html#d4e398">1.1.1. WebAdmin 사용</a></span></dt><dt><span class="section"><a href="chapter_mbean_list.html#d4e419">1.1.2. 콘솔 툴 사용</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_mbean_list.html#statistic_monitoring">1.2. Statistic 모니터링</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_mbean_list.html#sect-statistic-preset">1.2.1. Statistic Preset 관리</a></span></dt><dt><span class="section"><a href="chapter_mbean_list.html#sect-statistic-config">1.2.2. Statistic 설정</a></span></dt><dt><span class="section"><a href="chapter_mbean_list.html#sect-chart">1.2.3. Chart 보기</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 JEUS에서 사용하고 있는 MBean의 정보를 조회하는 방법 및 WebAdmin에서 JEUS 서버가 제공하는 각종
+  통계 정보를 확인하는 방법을 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e395"></a>1.1. MBean 정보 조회</h2></div></div></div>
+    
+
+    <p>WebAdmin과 콘솔 툴(jeusadmin)로 JEUS에서 사용하고 있는 MBean의 정보를 조회할 수
+    있다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e398"></a>1.1.1. WebAdmin 사용</h3></div></div></div>
+      
+
+      <p>WebAdmin를 사용하여 MBean 정보를 조회할 수 있다.</p>
+
+      <p>왼쪽 메뉴에서 <span><strong class="guibutton">[Monitoring] &gt; [MBean]</strong></span>를 선택하면
+      MBean 정보를 조회하는 화면이 나타난다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="d4e404"></a><p class="title"><b>[그림 1.1] MBean 정보 조회 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_mbean-info-page.png" align="top" width="711" alt="MBean 정보 조회 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <p/>
+
+      
+
+      <p>MBean 정보 조회 화면에서 조회할 서버를 선택하면 조회 결과 화면이 나타난다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="d4e413"></a><p class="title"><b>[그림 1.2] MBean 정보 조회 결과</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_mbean-info-result.png" align="top" width="711" alt="MBean 정보 조회 결과"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e419"></a>1.1.2. 콘솔 툴 사용</h3></div></div></div>
+      
+
+      <p>콘솔 툴(jeusadmin)을 사용해서 MBean 정보를 조회할 수 있다.<a id="d4e422" class="indexterm"></a></p>
+
+      <p>jeusadmin을 통해 JEUS 서버에 접속한 후 <span class="bold"><strong>mbean-info</strong></span> 명령어를 이용하면 다음과 같이 등록된 MBean 정보를 조회할 수
+      있다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>mbean-info</strong></span> -server adminServer
+The object names of MBeans on the server [adminServer].
+================================================================================
++------------------------------------------------------------------------------+
+| JEUS:j2eeType=JeusService,jeusType=ThreadPool,JMXManager=adminServer,J2EEServ|
+|er=adminServer,name=threadpool.System                                         |
+| JEUS:j2eeType=JeusService,jeusType=JMSDestinationResource,JMXManager=adminSer|
+|ver,J2EEServer=adminServer,JMSResource=adminServer_jms,name=ExamplesQueue     |
+| JEUS:j2eeType=JeusService,jeusType=JEUSMPConnector,JMXManager=adminServer,J2E|
+|EServer=adminServer,name=adminServer                                          |
+
+    . . .
+
+| JEUS:j2eeType=JeusService,jeusType=JNDIResourceService,JMXManager=adminServer|
+|,J2EEServer=adminServer,name=adminServer                                      |
+| JEUS:j2eeType=JTAResource,JMXManager=adminServer,J2EEServer=adminServer,name=|
+|adminServer                                                                   |
+| JEUS:j2eeType=JMSResource,JMXManager=adminServer,J2EEServer=adminServer,name=|
+|adminServer_jms                                                               |
++------------------------------------------------------------------------------+
+================================================================================</pre>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="statistic_monitoring"></a>1.2. Statistic 모니터링</h2></div></div></div>
+    
+
+    <p>Statistic 모니터링은 WebAdmin을 통해 JEUS 서버에서 제공하는 각종 통계 정보를 시각적으로 확인할 수 있게
+    해주는 기능이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><a href="chapter_mbean_list.html#sect-statistic-preset" title="1.2.1. Statistic Preset 관리">Statistic Preset
+        관리</a></p>
+      </li><li>
+        <p><a href="chapter_mbean_list.html#sect-statistic-config" title="1.2.2. Statistic 설정">Statistic 설정</a></p>
+      </li><li>
+        <p><a href="chapter_mbean_list.html#sect-chart" title="1.2.3. Chart 보기">Chart 보기</a></p>
+      </li></ul></div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect-statistic-preset"></a>1.2.1. Statistic Preset 관리</h3></div></div></div>
+      
+
+      <p>사용자는 확인할 통계값들을 선택하여 통계값들로 이루어진 집합을 생성할 수 있다. 이 집합에 대해 이름, 설명 등을
+      설정할 수 있으며, 설정한 집합은 파일로 저장된다. 이렇게 설정한 통계값들로 이루어진 집합을 Statistic Preset이라고
+      하며, 본 절에서는 이후 Preset이라고 한다. 본 절에서는 Preset을 관리하는 방법에 대해 설명한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>Preset 설정은 JEUS_HOME/domains/DOMAIN_NAME/config/monitoring.xml에
+        저장되어 있다. 해당 파일을 임의로 수정할 경우 오류가 발생할 수 있으니 임의로 수정하지 않도록 한다. 만약 임의 수정이나
+        파일 손상으로 기능이 정상 동작하지 않을 경우 monitoring.xml을 삭제하면 정상적으로 기능이 동작한다. 단, 기존에
+        설정하였던 preset은 모두 사라지게 된다.</p>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>WebAdmin 왼쪽 메뉴에서 <span class="bold"><strong>[Monitoring] &gt;
+      [Statistic]</strong></span>을 선택하면 <span><strong class="guibutton">Statistic 화면</strong></span>으로
+      이동한다.</p>
+
+      <p><span><strong class="guibutton">[Statistic]</strong></span> 탭에서는 현재 설정한 Preset 목록을 확인할 수
+      있으며, Preset 추가, 수정 및 삭제 기능과 Chart 보기 기능을 사용할 수 있다.
+      <span><strong class="guibutton">[설정]</strong></span> 탭에서는 Chart 갱신 주기 등과 같이 Chart를 표시할 때 설정할 수 있는
+      항목들을 변경할 수 있다.</p>
+
+      <div class="figure"><a id="d4e457"></a><p class="title"><b>[그림 1.3] Statistic 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_statistic-monitoring.png" align="top" width="711" alt="Statistic 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e465"></a>Preset 추가/수정</h4>
+
+      <p><span><strong class="guibutton">Statistic 화면</strong></span>에서 <span><strong class="guibutton">[ADD]</strong></span>
+      버튼을 클릭하거나, Preset 목록에서 수정할 Preset을 클릭하면 해당 Preset의 <span><strong class="guibutton">추가/수정
+      화면</strong></span>으로 이동한다. Preset에 대한 각 항목을 설정한 후
+      <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 설정한 Preset이 저장된 후 Statistic 화면으로
+      이동한다.</p>
+
+      <div class="figure"><a id="d4e471"></a><p class="title"><b>[그림 1.4] Preset 추가/수정 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_statistic-preset-create-modify.png" align="top" width="711" alt="Preset 추가/수정 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p>다음은 각 항목에 대한 설명이다.</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Id</td><td>Preset에 대한 고유 식별자로, 자동 생성되는 값이다.</td></tr><tr><td align="left">Name</td><td>Preset을 표현하는 이름이다.</td></tr><tr><td align="left">Description</td><td>Preset에 대한 상세 설명을 기입할 수 있다.</td></tr><tr><td align="left">Stats</td><td>Preset이 포함하고 있는 통계 항목에 대한 목록을 표시한다. 각 통계 항목의 체크를 해제함으로서
+              통계 항목에 대한 선택을 취소할 수 있다.</td></tr><tr><td align="left">Monitoring Items</td><td>Preset이 포함할 수 있는 통계 항목들에 대한 정보를 트리 형태로 표시한다. 각 항목 아이콘 왼쪽에
+              위치한 삼각형 모양 아이콘을 클릭하여 트리 항목을 접거나 펼칠 수 있다. 선택할 수 있는 통계 항목은 이름, 단위,
+              설명이 표시되며, 클릭하면 Stats 목록에 추가된다.</td></tr></tbody></table>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e505"></a>Preset 삭제</h4>
+
+      <p><span><strong class="guibutton">Statistic 화면</strong></span>에서 삭제할 Preset에 있는
+      <span><strong class="guibutton">[DEL]</strong></span> 버튼을 클릭하면 작업을 계속 진행할 것인지를 묻는 대화창이 나타난다. 해당
+      화면에서 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 해당 Preset이 삭제된다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="d4e511"></a><p class="title"><b>[그림 1.5] Preset 삭제</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_statistic-preset-delete.png" align="top" width="711" alt="Preset 삭제"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect-statistic-config"></a>1.2.2. Statistic 설정</h3></div></div></div>
+      
+
+      <p><span><strong class="guibutton">Statistic 화면</strong></span>에서 <span><strong class="guibutton">[설정]</strong></span>
+      탭을 선택하면 Chart 갱신 주기나 Chart에 표시할 최대 데이터 수를 설정한다.</p>
+
+      <div class="figure"><a id="d4e521"></a><p class="title"><b>[그림 1.6] Statistic 설정</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_statistic-configuration.png" align="top" width="711" alt="Statistic 설정"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect-chart"></a>1.2.3. Chart 보기</h3></div></div></div>
+      
+
+      <p>생성한 Preset을 선택하면, WebAdmin은 주기적으로 해당 Preset에 포함되어 있는 통계 정보들을 샘플링하여
+      그래프 형태로 표현한다. 이를 통해 통계 정보의 현재 상태나 추세 등을 좀 더 쉽게 파악할 수 있다.</p>
+
+      <p><span><strong class="guibutton">Statistic 화면</strong></span>에 표시되는 Preset 목록에서
+      <span><strong class="guibutton">[chart]</strong></span> 버튼을 선택하면 <span><strong class="guibutton">Chart
+      화면</strong></span>으로 이동한다.</p>
+
+      <div class="figure"><a id="d4e533"></a><p class="title"><b>[그림 1.7] Chart 화면</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_statistic-chart.png" align="top" width="711" alt="Chart 화면"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p><span><strong class="guibutton">Chart 화면</strong></span>은 다음의 영역으로 구성된다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Chart 영역</strong></span></p>
+
+          <p>Stats 영역에서 선택한 값들에 대한 그래프가 표시된다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Stats 영역</strong></span></p>
+
+          <p>Chart에 속한 통계 항목에 대한 목록과 각 통계 항목이 제공하는 값들에 대한 목록을 제공한다. 값 목록에서
+          개별 값 왼쪽에 위치한 체크박스를 체크하거나 해제함으로서 Chart에 값들을 추가하거나 제거할 수 있다.</p>
+        </li></ul></div>
+
+      <p/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_JEUS_JMX_Manager_configuration.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">안내서에 대하여 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제2장 JMX Manager 환경설정</td></tr></table></div><div xmlns="" align="center"/></body></html>

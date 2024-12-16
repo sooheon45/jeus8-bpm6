@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제2장 도메인 생성</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Domain 안내서"/><link rel="up" href="index.html" title="JEUS Domain 안내서"/><link rel="prev" href="chapter_domain_overview.html" title="제1장 소개"/><link rel="next" href="chapter_domain_configuration.html" title="제3장 도메인 설정변경"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제2장 도메인 생성</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_domain_overview.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_domain_configuration.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_domain_creation"></a>제2장 도메인 생성</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_domain_creation.html#sect_domain_creation">2.1. 도메인 생성</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_domain_creation.html#sect_basic_domain_create">2.1.1. 기본 도메인 생성</a></span></dt><dt><span class="section"><a href="chapter_domain_creation.html#d4e664">2.1.2. Virtual Multicast를 사용하는 도메인 생성</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_domain_creation.html#sect_domain_composition">2.2. 도메인 구성</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_domain_creation.html#sect_domain_composition_webadmin">2.2.1. WebAdmin 사용</a></span></dt><dt><span class="section"><a href="chapter_domain_creation.html#d4e874">2.2.2. 콘솔 툴 사용</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_domain_creation.html#d4e919">2.3. 디렉터리 구성</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_domain_creation.html#d4e923">2.3.1. JEUS_HOME 디렉터리</a></span></dt><dt><span class="section"><a href="chapter_domain_creation.html#d4e995">2.3.2. 도메인 디렉터리</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 도메인을 생성할 때 필요한 조건과 JEUS가 제공하는 툴(WebAdmin, jeusadmin)을 사용하여 도메인
+  생성 방법, 도메인 생성 후 디렉터리 구조에 대해 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_domain_creation"></a>2.1. 도메인 생성</h2></div></div></div>
+    
+
+    <p>도메인을 생성하면 도메인 디렉터리가 생성되고 그 안에 도메인에 속한 서버들을 시작하고 종료할 수 있는 스크립트와 기본적인
+    설정 파일들이 생성된다. 각 도메인의 최상위 디렉터리는 DOMAIN_HOME이라고 하고, 다음의 경로에 위치한다.</p>
+
+    <pre class="programlisting">JEUS_HOME/domains/&lt;<span class="emphasis"><em>domain_name</em></span>&gt;</pre>
+
+    <div class="literallayout"><p/></div>
+
+    <p>도메인을 처음 생성하면 DAS만 포함된 도메인이 생성되고 WebAdmin이나 jeusadmin을 사용해 MS를 추가하여
+    원하는 도메인을 구성한다. 추가한 MS를 원하는 머신에서 시작하면 해당 머신에 필요한 도메인 정보가 DAS를 통해 전달된다. 즉,
+    DAS는 도메인 생성을 통해 도메인 디렉터리를 생성하고, MS는 처음 시작할 때 DAS를 통해 도메인 디렉터리를
+    생성한다.</p>
+
+    <p>Ant Task나 jeusadmin을 통해 도메인을 생성할 수 있다. 이때 다음의 2가지 조건이 필요하다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>도메인 구성에 필요한 네크워크 설정</p>
+
+          <p><a id="d4e608" class="indexterm"></a>JEUS는 기본적으로 도메인 내의 서버들 사이에 Multicast로 서로의 상태를 공유하게 되므로
+          IP 주소와 Port가 필요하다. 도메인 구성이 서브넷을 벗어나서 Multicast로 정보를 공유할 수 없는 경우에는
+          TCP로 Multicast를 대체한다. 이를 JEUS에서는 Virtual Multicast라고 하며, 도메인을 생성할 때
+          Virtual Multicast를 사용하겠다는 것을 명시해 줄 수 있다.</p>
+
+          <p>이때에는 서버의 기본 Listen IP 주소, Port 번호를 이용하여 서버들 사이에 정보를 공유하게 된다.
+          따라서 서브넷을 벗어난 도메인 구성에서는 반드시 모든 서버가 Listen IP 주소, Port 번호를 명시해야 한다. 또한
+          Multicast를 사용하지 못한다는 것도 명시해야 한다.</p>
+        </li><li>
+          <p>DAS의 기본 설정</p>
+
+          <p>하나의 도메인에는 하나의 DAS가 반드시 포함되기 때문에 도메인을 생성할 때 DAS의 기본 설정을 명시해야
+          한다. 동적 변경이 가능한 서버 설정들은 도메인 생성 후 변경하면 되지만, 그렇지 않는 설정들은 도메인 생성할 때 설정해야
+          한다. DAS의 기본 Listen IP 주소와 Port 번호 그외 DAS를 띄울 JVM의 정보를 설정한다.</p>
+        </li></ul></div>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_basic_domain_create"></a>2.1.1. 기본 도메인 생성</h3></div></div></div>
+      
+
+      <p>본 절에서는 기본 도메인을 생성하는 방법에 대해 설명한다. 기본 도메인을 생성할 때에는 Virtual
+      Multicast가 동작하지 않음에 유의한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>Ant Task와 jeusadmin 명령에 사용할 속성들은 공통적으로 다음과 같은 기본값을 갖는다.</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="200" align="left"/><col/></colgroup><thead><tr><th align="left">속성</th><th>기본값</th></tr></thead><tbody><tr><td align="left">DAS 이름</td><td>adminServer</td></tr><tr><td align="left">Listen IP 주소</td><td>0.0.0.0 / 0:0:0:0:0:0:0:0</td></tr><tr><td align="left">Listen Port 번호</td><td>9736</td></tr><tr><td align="left">사용자 이름</td><td>administrator</td></tr><tr><td align="left">Multicast IP 주소</td><td>230.30.1.1 / FF01:0:0:0:0:0:0:1</td></tr><tr><td align="left">Multicast Port 번호</td><td>3030</td></tr></tbody></table>
+      </div>
+
+      <div class="literallayout"><p/></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Ant Task를 사용한 도메인 생성</strong></span></p>
+
+          <p>Ant Task에서 설정의 기본값은
+          JEUS_HOME/setup/domain-config-template.properties에 정의되어 있다. 기본값은
+          사용자가 별도로 설정하지 않아도 자동으로 값이 설정되지만 아래의 생성 예제에서는 설정 방법 확인을 위해
+          표시한다.</p>
+
+          <pre class="screen">JEUS_HOME/setup$ ant <span class="bold"><strong>create-domain</strong></span> -Ddomain=jeus_domain
+-Dservername=adminServer 
+-Djeus.address=0.0.0.0 
+-Djeus.port=9736 
+-Dheartbeataddress=230.30.1.1 
+-Dheartbeatport=3030</pre>
+        </li><li>
+          <p><span><strong class="guibutton">jeusadmin을 사용한 도메인 생성</strong></span></p>
+
+          <p>jeusadmin에서 설정 기본값은
+          JEUS_HOME/setup/domain-config-template.properties에 정의되어 있다.
+          domain-config-template.properties에 jeus.password 설정이 있다면 설정을 따르고 없다면
+          아래 예제와 같이 password를 입력 받는다.</p>
+
+          <pre class="screen">offline&gt;<span class="bold"><strong>create-domain</strong></span> -domain jeus_domain -das adminServer -ha 230.30.1.1 -hp 3030
+Enter the password for [administrator]: **********
+Confirm the password: **********
+Do you want to encrypt the password? (y/n): y
+================================================================================
+The domain [jeus_domain] was created successfully.
++-------------------------+----------------------------------------------------+
+|         Property        |                        Value                       |
++-------------------------+----------------------------------------------------+
+| Domain name             | jeus_domain                                        |
+| Das Name                | adminServer                                        |
+| Das Base Listen Port    | 9736                                               |
+| Das Base Listen Address | 0.0.0.0                                            |
+| JMS Internal Port       | 9741                                               |
+| HTTP Port               | 8088                                               |
+| User Name               | administrator                                      |
+| Node Name               | node1                                              |
+| Password                | {AES:256}FsbsQ7EqS5BWr/JVk39X41281IXWU0jLCUTJIq8=  |
+| JVM Option              | -Xmx256m -XX:MaxPermSize=128m                      |
+| Production Mode         | true                                               |
+| Heart beat address      | 230.30.1.1                                         |
+| Heart beat port         | 3030                                               |
++-------------------------+----------------------------------------------------+
+================================================================================  </pre>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e664"></a>2.1.2. Virtual Multicast를 사용하는 도메인 생성</h3></div></div></div>
+      
+
+      <p>본 절에서는 IP Multicast를 사용할 수 있는 환경인지 테스트하는 방법, 그리고 IP Multicast를 사용할
+      수 없는 환경이나 도메인이 서브넷을 넘어서는 범위에 걸쳐서 구성되어있을 경우에 Virtual Multicast를 사용하는 도메인의
+      생성 방법에 대해 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>IP Multicast를 사용할 수 있는 환경인지 테스트하기 위해서는 mcastSender와
+      mcastReceiver라는 두 개의 테스트 스크립트를 실행하면 된다. 두 개의 스크립트는 JEUS_HOME/bin에 위치하고
+      있으며 다음과 같이 각각 다른 머신에서 실행하면 된다.</p>
+
+      <pre class="screen">JEUS_HOME/bin$ mcastReceiver -addr 224.0.0.1 -port 3030
+Socket == 0.0.0.0/0.0.0.0 : 3030, bound to /fe80:0:0:0:2a37:37ff:fe1e:fc4%5
+Socket == 0.0.0.0/0.0.0.0 : 3030, bound to /192.168.0.26
+Socket == 0.0.0.0/0.0.0.0 : 3030, bound to /fe80:0:0:0:3e07:54ff:fe6f:95e%4
+Socket == 0.0.0.0/0.0.0.0 : 3030, bound to /61.77.153.207
+Socket == 0.0.0.0/0.0.0.0 : 3030, bound to /fe80:0:0:0:0:0:0:1%1
+Socket == 0.0.0.0/0.0.0.0 : 3030, bound to /0:0:0:0:0:0:0:1
+Socket == 0.0.0.0/0.0.0.0 : 3030, bound to /127.0.0.1          </pre>
+
+      <pre class="screen">JEUS_HOME/bin$ mcastSender -addr 224.0.0.1 -port 3030
+1 == 0.0.0.0/0.0.0.0 : 3030, bound to /fe80:0:0:0:2a37:37ff:fe1e:fc4%5
+2 == 0.0.0.0/0.0.0.0 : 3030, bound to /192.168.0.26
+3 == 0.0.0.0/0.0.0.0 : 3030, bound to /fe80:0:0:0:3e07:54ff:fe6f:95e%4
+4 == 0.0.0.0/0.0.0.0 : 3030, bound to /61.77.153.207
+5 == 0.0.0.0/0.0.0.0 : 3030, bound to /fe80:0:0:0:0:0:0:1%1
+6 == 0.0.0.0/0.0.0.0 : 3030, bound to /0:0:0:0:0:0:0:1
+7 == 0.0.0.0/0.0.0.0 : 3030, bound to /127.0.0.1 </pre>
+
+      <p>이 테스트는 머신의 모든 네트워크 인터페이스를 통해서 IP Multicast 패킷을 송수신하려고 시도한다. 최초에
+      나오는 주소들은 모든 네트워크 인터페이스를 나타내는 것이다.</p>
+
+      <p>이어서 Sender쪽에 나타난 프롬프트에 임의의 메시지를 입력하면 Receiver쪽에 수신된다. 만일 수신이 되지
+      않는다면 IP Multicast가 제대로 동작하지 않는 환경이기 때문에 아래에 나오는 Virtual Multicast를 설정해야
+      한다. 위의 mcastSender에서 메시지 테스트의 실행예는 다음과 같다.</p>
+
+      <pre class="screen">&gt; test
+&gt; </pre>
+
+      <pre class="screen">test [sender = 192.168.0.26 : 5555], [bind_addr=/127.0.0.1]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/61.77.153.207]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:3e07:54ff:fe6f:95e%4]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:3e07:54ff:fe6f:95e%4]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:2a37:37ff:fe1e:fc4%5]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/61.77.153.207]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/192.168.0.26]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/192.168.0.26]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:3e07:54ff:fe6f:95e%4]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/61.77.153.207]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:2a37:37ff:fe1e:fc4%5]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/61.77.153.207]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/61.77.153.207]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:2a37:37ff:fe1e:fc4%5]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/61.77.153.207]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:3e07:54ff:fe6f:95e%4]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/192.168.0.26]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:3e07:54ff:fe6f:95e%4]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:3e07:54ff:fe6f:95e%4]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/192.168.0.26]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:3e07:54ff:fe6f:95e%4]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/192.168.0.26]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/61.77.153.207]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:2a37:37ff:fe1e:fc4%5]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/192.168.0.26]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:2a37:37ff:fe1e:fc4%5]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/192.168.0.26]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:2a37:37ff:fe1e:fc4%5]
+test [sender = 192.168.0.26 : 5555], [bind_addr=/fe80:0:0:0:2a37:37ff:fe1e:fc4%5]</pre>
+
+      <p>하나의 메시지가 다수의 네트워크 인터페이스를 통해서 송신되고, 또한 다수의 네트워크 인터페이스를 통해서 수신되기 때문에
+      하나 이상의 메시지가 수신될 수 있다. Sender쪽의 프롬프트에 quit 또는 exit를 입력하면 종료되며, Receiver는
+      &lt;Ctrl&gt; + C를 이용하여 종료해야 한다.</p>
+
+      <p>각각의 도움말을 보려면 인자로 -help를 입력하거나 인자를 주지않으면 된다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 Virtual Multicast를 설정하는 방법이다. 속성의 기본값은 <a href="chapter_domain_creation.html#sect_basic_domain_create" title="2.1.1. 기본 도메인 생성">“2.1.1. 기본 도메인 생성”</a>과 동일하고, Virtual Multicast를 사용하기 때문에
+      이 경우에는 Multicast IP 주소(Heart beat address)와 Multicast Port(Heart beat
+      port) 설정은 무시된다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Ant Task를 사용한 도메인 생성</strong></span></p>
+
+          <pre class="screen">JEUS_HOME/setup$ ant <span class="bold"><strong>create-domain</strong></span>
+-Ddomain=jeus_domain
+-Djeus.address=192.168.34.1 
+<span class="bold"><strong>-Dusevirtualmulticast=true</strong></span></pre>
+        </li><li>
+          <p><span><strong class="guibutton">jeusadmin을 사용한 도메인 생성</strong></span></p>
+
+          <pre class="screen">offline&gt;<span class="bold"><strong>create-domain</strong></span>  -domain jeus_domain -baseaddress 192.168.34.1 <span class="bold"><strong>-uvm</strong></span> 
+Enter the password for [administrator]: **********
+Confirm the password: **********
+Do you want to encrypt the password? (y/n): y
+================================================================================
+The domain [jeus_domain] was created successfully.
++-------------------------+----------------------------------------------------+
+|         Property        |                        Value                       |
++-------------------------+----------------------------------------------------+
+| Domain name             | jeus_domain                                        |
+| Das Name                | adminServer                                        |
+| Das Base Listen Port    | 9736                                               |
+| Das Base Listen Address | 192.168.34.1                                       |
+| JMS Internal Port       | 9741                                               |
+| HTTP Port               | 8088                                               |
+| User Name               | administrator                                      |
+| Node Name               | node1                                              |
+| Password                | {AES:256}r2qfvDR/5DvZHmuPBEjbXCvKyR+F2dJ8tFaA/+k=  |
+| JVM Option              | -Xmx256m -XX:MaxPermSize=128m                      |
+| Production Mode         | true                                               |
+| Use virtual multicast   | true                                               |
++-------------------------+----------------------------------------------------+
+================================================================================</pre>
+        </li></ul></div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_domain_composition"></a>2.2. 도메인 구성</h2></div></div></div>
+    
+
+    <p>본 절에서는 <a href="chapter_domain_creation.html#sect_domain_creation" title="2.1. 도메인 생성">“2.1. 도메인 생성”</a>에서 생성한 도메인에 서버와 클러스터를
+    추가하여 도메인을 구성하는 방법에 대해 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>서버와 클러스터를 추가하는 것 또한 설정을 변경하는 것이기 때문에 추가하기 전에 다음과 같이 DAS를 구동한다. 설정
+    변경에 대한 자세한 내용은 <a href="chapter_domain_configuration.html" title="제3장 도메인 설정변경">“제3장 도메인 설정변경”</a>을
+    참고한다.</p>
+
+    <pre class="screen">DOMAIN_HOME/bin$ <span class="bold"><strong>startDomainAdminServer</strong></span> -u administrator -p 1111111</pre>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_domain_composition_webadmin"></a>2.2.1. WebAdmin 사용</h3></div></div></div>
+      
+
+      <p>WebAdmin을 사용하여 서버와 클러스터를 추가할 때 다음과 같은 순서로 추가 및 설정한다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p><a href="chapter_domain_creation.html#sect_add_node" title="2.2.1. 노드 추가">노드 추가</a></p>
+          </li><li>
+            <p><a href="chapter_domain_creation.html#sect_configchage_mode" title="2.2.1. 설정변경 모드로 전환">설정변경 모드로
+            전환</a></p>
+          </li><li>
+            <p><a href="chapter_domain_creation.html#sect_add_ms" title="2.2.1. Managed Server(MS) 추가">Managed Server(MS)
+            추가</a></p>
+          </li><li>
+            <p><a href="chapter_domain_creation.html#sect_add_cluster" title="2.2.1. 클러스터 추가">클러스터 추가</a></p>
+          </li></ol></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="sect_add_node"></a>노드 추가</h4>
+
+      <p><a id="d4e733" class="indexterm"></a>노드는 특정 머신에 설치된 JEUS를 의미한다. 노드에서 DAS를 통해 서버를 시작하려면 해당 노드의
+      정보를 구성하는 작업이 필요하다. <a id="d4e735" class="indexterm"></a>사용하는 OS가 UNIX 계열인 경우 SSH를 사용하는 SSH 노드가 지원된다. 해당 머신의 호스트
+      주소, JEUS 설치 디렉터리, SSH 접속을 위한 사용자 이름, SSH 접속을 위한 개인 Key 파일 경로, SSH 접속 포트
+      번호 등을 지정할 수 있다. JEUS를 설치할 때 기본적으로 하나의 노드가 생성되며 설정을 변경해서 사용할 수 있다. 노드 관리에
+      대한 자세한 설명은 <a xmlns="" href="../node-manager/index.html" class="olink">"JEUS Node Manager
+      안내서"</a>를 참고한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p/>
+
+      <p>다음은 새로운 노드를 추가하는 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin 화면 오른쪽의 메뉴에서 <span><strong class="guibutton">[Node 설정]</strong></span>을
+          선택한다.</p>
+
+          <div class="figure"><a id="figure_nodeconfig"></a><p class="title"><b>[그림 2.1] 노드 추가 - 노드 설정 메뉴 선택</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_nodeconfig.png" align="top" width="711" alt="노드 추가 - 노드 설정 메뉴 선택"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">Nodes 목록 화면</strong></span>에서
+          <span><strong class="guibutton">[ADD]</strong></span> 버튼을 클릭한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">SSH Node 설정 화면</strong></span>에서 서버가 위치할 노드의 각 정보를 입력하고
+          <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면, 노드가 추가된다. 노드가 추가되면 결과 화면에서 노드의
+          이름, 종류, 제어 가능 여부, 설치된 JEUS 버전 등을 확인할 수 있다.</p>
+        </li></ol></div>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="sect_configchage_mode"></a>설정변경 모드로
+      전환</h4>
+
+      <p>노드의 추가와는 달리 서버, 클러스터를 추가 및 변경하려면 WebAdmin 화면의 왼쪽에서
+      <span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을 클릭해서 설정변경 모드를 전환해야
+      한다.</p>
+
+      <div class="figure"><a id="figure_lock_and_edit_button"></a><p class="title"><b>[그림 2.2] 설정변경 모드 전환</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_lock_and_edit_button.png" align="top" width="663" alt="설정변경 모드 전환"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>WebAdmin의 설정변경 모드에 대한 자세한 설명은 <a xmlns="" href="../web-manager/chapter_boot_down.html#sect_menu" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS WebAdmin 안내서</span>”의 “2.3.2. 메뉴 영역”</a>을 참고한다(노드의 설정 변경은 도메인 간에도 영향을 주지만 서버,
+        클러스터의 변경은 도메인 내에서만 영향을 주기 때문에 다른 Lock 메커니즘을 사용한다).</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="sect_add_ms"></a>Managed Server(MS)
+      추가</h4>
+
+      <p>MS를 추가할 때에는 동적으로 변경하지 못하는 설정들을 신중히 고려하여 입력해야 한다.</p>
+
+      <p><a href="chapter_domain_creation.html#sect_domain_creation" title="2.1. 도메인 생성">“2.1. 도메인 생성”</a>에서 설명한 도메인을 생성할 때 DAS의 기본
+      설정과 마찬가지로 MS를 추가할 때의 기본 설정은 동적 반영이 안 되는 설정이다. 같은 머신에 있는 다른 서버들과 충돌되지 않는
+      Port 번호를 선정해야 하고, 외부에서 이 서버로 접속할 IP 주소와 서버의 JVM에게 전달할 옵션을 설정해야 한다. 서브넷을
+      벗어난 도메인의 경우라면 기본값 '0:0:0:0'을 사용하지 않고 하나의 IP 주소를 지정한다. 도메인 내에서 서버 이름은 유일한
+      값이어야 하므로 등록된 서버 이름을 확인한 후 충돌이 발생하지 않게 설정해야 한다. 본 예제에서 생성할 서버는 같은 클러스터를
+      구성할 서버들이므로 클러스터 내에서 동일해야 하는 설정들은 각 서버에서 별도로 설정하지 않아도 된다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 WebAdmin에서 MS를 추가하는 방법에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면 서버 목록
+          조회 화면으로 이동한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을 클릭해서 설정변경 모드로
+          전환한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Servers 화면</strong></span>에서
+          <span><strong class="guibutton">[ADD]</strong></span> 버튼을 클릭한 후 <span><strong class="guibutton">[Basic] &gt;
+          [Basic Info]</strong></span> 메뉴로 이동한다. <span><strong class="guibutton">Server
+          화면</strong></span>에서 추가할 서버의 정보를 입력한 후 <span><strong class="guibutton">[확인]</strong></span> 버튼을
+          클릭한다.</p>
+
+          <p>다음은 Server 설정 화면의 고급선택사항이다.</p>
+
+          <div class="figure"><a id="figure_add_server1"></a><p class="title"><b>[그림 2.3] Server 설정화면 - 고급선택사항</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_add_server1_ok_2.png" align="top" width="663" alt="Server 설정화면 - 고급선택사항"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+
+          <p><span><strong class="guibutton">'Data Sources'</strong></span>에 "Cluster에 포함될 서버라면 해당
+          항목은 Cluster에 설정해야 합니다. Cluster 설정이 우선됩니다."라는 문구가 표시된다. 이 항목들은 클러스터
+          내에서 동일하게 설정되어야 한다. 따라서 클러스터에 포함하기 위해 서버를 생성하는 경우 서버의 항목을 설정하지 않고 서버가
+          포함될 클러스터의 동일한 항목을 설정한다.</p>
+
+          <p>이미 클러스터에 포함된 서버의 설정 정보를 수정하는 경우에는 클러스터 내에서 동일하게 설정되어야 하는 항목은
+          "Cluster[cluster1]에 속해 있습니다. 해당 설정은 Cluster의 설정이 적용됩니다."라는 문구가
+          표시된다.</p>
+        </li><li>
+          <p>리스너를 추가하려면 <span><strong class="guibutton">[Resource] &gt; [Listener]</strong></span>
+          메뉴로 이동한다. <span><strong class="guibutton">Listeners 화면</strong></span>의
+          <span><strong class="guibutton">Listener</strong></span> 영역에 있는 <span><strong class="guibutton">[ADD]</strong></span>
+          버튼을 클릭한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Listener 화면</strong></span>에서 추가할 기본 리스너의 각 정보를 원하는 대로
+          입력하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+        </li><li>
+          <p>MS가 추가되면 서버의 기본 리스너를 선택하는 <span><strong class="guibutton">'Base'</strong></span> 항목을
+          5번에서 추가한 리스너의 name으로 지정하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을
+          클릭한다.</p>
+        </li><li>
+          <p>변경 내용의 반영을 위해 <span><strong class="guibutton">[Activate Changes]</strong></span> 버튼을
+          클릭한다.</p>
+        </li><li>
+          <p>서버 생성이 완료되면 서버 목록에서 확인할 수 있다.</p>
+        </li></ol></div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="sect_add_cluster"></a>클러스터 추가</h4>
+
+      <p>클러스터를 추가할 때에는 클러스터 내의 모든 서버가 같은 서비스를 하기 위한 설정과 클러스터의 기능인 부하
+      분산(Load Balance)과 장애 극복(Failover)을 위한 설정을 해야한다. 클러스터 설정에 대한 자세한 설명은
+      <a href="chapter_clustering.html#sect_cluster_configuration" title="5.5. 클러스터 설정">“5.5. 클러스터 설정”</a>을 참고한다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 WebAdmin에서 클러스터를 추가하는 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Clusters]</strong></span>를 선택하면 클러스터
+          목록 조회 화면으로 이동한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을 클릭해서 설정변경 모드로
+          전환한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Clusters 화면</strong></span>에서
+          <span><strong class="guibutton">[ADD]</strong></span> 버튼을 클릭한 후
+          <span><strong class="guibutton">[Basic]</strong></span> 탭을 선택한다.</p>
+
+          <p>클러스터의 세부 설정을 정한다. 클러스터에 추가할 수 있는 서버는 일반 서버와 다이나믹 서버가 있다. 클러스터당
+          한 가지 방법만 사용 가능하다. 클러스터 설정에 대한 자세한 설명은 <a href="chapter_clustering.html#sect_cluster_configuration" title="5.5. 클러스터 설정">“5.5. 클러스터 설정”</a>을 참고한다.</p>
+
+          <div class="itemizedlist"><ul type="circle"><li style="list-style-type: circle">
+              <p>새 클러스터에 직접 서버에 포함될 서버들을 지정하여 생성하는 방법이다. 이미 생성된 서버들을 클러스터에
+              포함시키게 되며, 서버별 설정이 가능하고 클러스터에 서버를 자유로이 추가 제거할 수 있다.
+              <span><strong class="guibutton">Cluster 화면</strong></span>에서
+              <span><strong class="guibutton">'Servers'</strong></span> 항목에 있는 여러 서버들 중에서 클러스터로 묶기를 원하는
+              서버들을 선택한 후 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+            </li><li style="list-style-type: circle">
+              <p>클러스터에 포함될 서버들을 미리 저장해 둔 서버 템플릿을 통하여 생성 하는 방법이다. 지정된 갯수의
+              서버들을 서버 템플릿에 저장된 설정을 이용하여 일괄적으로 생성하도록 한다. 개별 서버의 설정 변경은 불가능하고,
+              템플릿이나 클러스터 설정을 변경하는 것으로 전체적인 설정만이 가능하다.</p>
+
+              <p><span><strong class="guibutton">Cluster 화면</strong></span>에서 <span><strong class="guibutton">'Dynamic
+              Servers'</strong></span> 항목을 클릭하면 동적으로 생성할 서버들의 설정을 할 수 있다.
+              <span><strong class="guibutton">'Server Count'</strong></span>를 설정하여 몇 개의 서버를 생성할지 지정할 수
+              있고, 이 서버들의 설정 정보는 <span><strong class="guibutton">'Server Template Name'</strong></span>
+              항목에서 지정할 수 있다. 이후 각 서버들이 위치할 노드들을 아래의 <span><strong class="guibutton">'Node
+              Names'</strong></span> 에서 설정하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.
+              어떤 노드도 설정하지 않은경우에는 모든 노드들을 대상으로 한다.</p>
+            </li></ul></div>
+        </li><li>
+          <p>클러스터의 추가가 완료되면 추가되었다는 메시지가 출력된다.</p>
+        </li><li>
+          <p>변경 내용의 반영을 위해 <span><strong class="guibutton">[Activate Changes]</strong></span> 버튼을
+          클릭한다.</p>
+        </li><li>
+          <p>클러스터가 추가되면 변경 내용이 반영되었다는 결과 메시지가 화면에 표시된다.</p>
+        </li><li>
+          <p>WebAdmin 왼쪽 메뉴에서 <span><strong class="guibutton">[Clusters]</strong></span>를 선택하면 클러스터
+          조회 목록 화면으로 이동한다. 추가한 서버들을 시작하려면 조회된 클러스터 목록에서 원하는 클러스터의
+          <span><strong class="guibutton">[start]</strong></span> 버튼을 클릭한다.</p>
+        </li></ol></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e874"></a>2.2.2. 콘솔 툴 사용</h3></div></div></div>
+      
+
+      <p>JEUS의 콘솔 툴(jeusadmin)을 사용하여 도메인을 구성하는 방법은 WebAdmin을 사용할 경우와 동일하지만
+      "설정변경 모드로의 전환" 과정이 필요없다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <p>jeusadmin을 사용한 도메인 구성 방법은 다음과 같다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p><span><strong class="guibutton">add-ssh-node</strong></span> 명령을 사용하여 'node1'이라는 이름의
+            서버가 위치할 노드를 추가한다. 동일한 방법으로 'node2'도 추가한다. add-ssh-node 명령에 대한 자세한
+            사용법은 <a xmlns="" href="../reference-book/ch04.html#cmd_add-ssh-node" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.15.2. add-ssh-node”</a>를 참고한다.<a id="d4e885" class="indexterm"></a></p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>add-ssh-node</strong></span> node1 -host 192.168.34.1 -dir /home/sshUser/jeus -user sshUser
+The node [node1] was successfully added.</pre>
+
+            <p/>
+          </li><li>
+            <p><span><strong class="guibutton">add-server</strong></span> 명령을 사용하여 'server1'이라는 이름의
+            MS를 추가한다. 동일한 방법으로 'server2'도 추가한다. add-server 명령에 대한 자세한 사용법은
+            <a xmlns="" href="../reference-book/ch04.html#cmd_add-server" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.4.7. add-server”</a>를 참고한다.<a id="d4e894" class="indexterm"></a></p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>add-server</strong></span> server1 -node node1 -addr 192.168.34.1 -port 9836
+Successfully performed the ADD operation for server (server1).
+Check the results using "list-servers or add-server"</pre>
+
+            <p/>
+          </li><li>
+            <p><span><strong class="guibutton">add-cluster</strong></span> 명령을 사용하여 'cluster1'이라는
+            이름의 'server1'과 'server2'로 구성된 클러스터를 추가한다. add-cluster 명령에 대한 자세한
+            사용법은 <a xmlns="" href="../reference-book/ch04.html#cmd_add-cluster" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.4.1. add-cluster”</a>를 참고한다.<a id="d4e903" class="indexterm"></a></p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt; <span class="bold"><strong>add-cluster</strong></span> cluster1 -servers server1,server2
+Successfully performed the ADD operation for cluster (cluster1).
+Check the results using "list-clusters or add-cluster"</pre>
+
+            <p/>
+          </li><li>
+            <p>클러스터의 추가까지 완료되면 다음과 같이 <span><strong class="guibutton">serverinfo</strong></span> 명령을
+            사용하여 도메인의 구성 결과를 확인할 수 있다.<a id="d4e912" class="indexterm"></a></p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>serverinfo</strong></span>
+
+Information about Domain (domain1)
+ ===============================================================================================
+ +--------+---------+-----+-------+-----+----------------+---------+-------------+-------------+
+ | Server |  Status | Node|  PID  | Clus|  Latest Start  | Need to | Listen Ports| Running     |
+ |        |         |Name |       | ter |Time / Shutdown | Restart |             | Engines     |
+ |        |         |     |       |     |     Time       |         |             |             |
+ +--------+---------+-----+-------+-----+----------------+---------+-------------+-------------+
+ | adminSe| RUNNING | N/A | 5360  | N/A | 2016-08-23     | false   | base-192.168| jms,        |
+ |rver(*) |(00:01:11|     |       |     |(화) 오후        |         |.34.3:9736   | ejb, web    |
+ |        |)        |     |       |     |03:53:28 KST    |         | http-server-|             |
+ |        |         |     |       |     |                |         |0.0.0.0:8088 |             |
+ |        |         |     |       |     |                |         |jms-internal-|             |
+ |        |         |     |       |     |                |         |0.0.0.0:9741 |             |
+ +--------+---------+-----+-------+-----+----------------+---------+-------------+-------------+
+ | server1| RUNNING |node1| 6424  | clus| 2016-08-23     | false   | base-192.168| jms,        |
+ |        |(00:00:03|     |       |ter1 |(화) 오후        |         |.34.1:9836   | ejb, web    |
+ |        |)        |     |       |     |03:54:37 KST    |         |             |             |
+ +--------+---------+-----+-------+-----+----------------+---------+-------------+-------------+
+ | server2| RUNNING |node2| 3012  | clus| 2016-08-23     | false   | base-192.168| jms,        |
+ |        |(00:00:03|     |       |ter1 |(화) 오후        |         |.34.2:9936   | ejb, web    |
+ |        |)        |     |       |     |03:54:36 KST    |         |             |             |
+ +--------+---------+-----+-------+-----+----------------+---------+-------------+-------------+
+ ===============================================================================================</pre>
+          </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e919"></a>2.3. 디렉터리 구성</h2></div></div></div>
+    
+
+    <p>기본적으로 JEUS를 설치하면 JEUS_HOME 디렉터리와 JEUS_HOME 디렉터리 하위에 jeus_domain이라는
+    도메인 디렉터리가 생성된다. 본 절에서는 user home의 path가 /home/user1이고 domain이 domain1이라고
+    설치했다고 가정했을 때의 구성에 대해 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e923"></a>2.3.1. JEUS_HOME 디렉터리</h3></div></div></div>
+      
+
+      <p><a id="d4e926" class="indexterm"></a>JEUS를 설치했을 때의 전체 디렉터리 구조는 다음과 같다. JEUS_HOME은 JEUS의 최상위
+      디렉터리로 실제 디렉터리 이름과 위치는 설치할 때 설정할 수 있다.</p>
+
+      <pre class="programlisting">/home/jeus/JEUS_HOME</pre>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>JEUS_HOME의 디렉터리 구조는 다음과 같다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="d4e935"></a><p class="title"><b>[그림 2.4] JEUS_HOME 디렉터리 구조</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="208"><tr><td align="left"><img src="resources/figure_jeus_home_directory_structure.png" align="top" width="208" alt="JEUS_HOME 디렉터리 구조"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <div class="variablelist"><dl><dt><span class="term">bin</span></dt><dd>
+              <p>서버의 시작, 종료 스크립트인 startDomainAdminServer,
+              startManagedServer, stopServer와 JEUS 콘솔 툴(jeusadmin)과 같은 실행 파일들이
+              위치한다.</p>
+            </dd><dt><span class="term">derby</span></dt><dd>
+              <p>샘플 애플리케이션이나 테스트에서 쉽게 사용할 수 있도록 Apache Derby를 포함시킨다.</p>
+            </dd><dt><span class="term">docs</span></dt><dd>
+              <p>JEUS에서 제공하는 API에 대한 Javadoc이 존재한다.</p>
+            </dd><dt><span class="term">domains</span></dt><dd>
+              <p>하위에 도메인별로 DOMAIN_HOME이 존재하고, JEUS_HOME에서 사용하는 노드 정보가 있는
+              nodes.xml이 존재한다.</p>
+            </dd><dt><span class="term">lib</span></dt><dd>
+              <p>JEUS를 기동하는 데 필요한 라이브러리가 존재한다. shared 디렉터리를 제외한 나머지 디렉터리들은
+              사용자가 접근할 필요가 없다.</p>
+
+              <div class="informaltable">
+                <table border="1"><colgroup><col width="130" align="left"/><col/></colgroup><thead><tr><th align="left">하위 디렉터리</th><th>설명</th></tr></thead><tbody><tr><td align="left">shared</td><td><p>shared 디렉터리에는 애플리케이션에서 사용하는 라이브러리가 존재한다.
+                      </p><p>shared 디렉터리에 있는 라이브러리를 사용하기 위해서는
+                      libraries.xml에 라이브러리의 정보를 추가해야 한다. 그리고 해당 라이브러리를 사용할
+                      애플리케이션의 JEUS Deployment Descriptor(DD)에서 해당 라이브러리에 대한
+                      레퍼런스 정보를 지정해야 한다.</p><p>shared 라이브러리에 대한 자세한 설명은
+                      <a xmlns="" href="../deployment/chapter_overview_of_javaee_application.html#sect_shared_library" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Applications &amp; Deployment 안내서</span>”의 “3.3.2. 공유 라이브러리(Shared Library)”</a>를
+                      참고한다.</p></td></tr></tbody></table>
+              </div>
+
+              <p/>
+            </dd><dt><span class="term">license</span></dt><dd>
+              <p>JEUS 라이선스 파일이 위치한다. 라이선스 파일은 JEUS가 실행되기 위해서 반드시 필요한
+              파일이다.</p>
+            </dd><dt><span class="term">nodemanager</span></dt><dd>
+              <p>Java 타입의 노드 매니저를 사용하기 위한 설정 파일이 위치한다. 노드 매니저에서 남기는 로그 파일도
+              이 디렉터리에 저장된다.</p>
+            </dd><dt><span class="term">setup</span></dt><dd>
+              <p>JEUS 설치 후 JEUS를 사용할 수 있도록 환경을 구축하기 위해 필요한 파일들이
+              위치한다.</p>
+            </dd><dt><span class="term">templates</span></dt><dd>
+              <p>각종 설정 정보나 환경 정보 등의 template 파일이 위치한다.</p>
+            </dd></dl></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e995"></a>2.3.2. 도메인 디렉터리</h3></div></div></div>
+      
+
+      <p>JEUS_HOME/domains/domain1이 domain1의 DOMAIN_HOME 디렉터리가
+      된다.<a id="d4e998" class="indexterm"></a></p>
+
+      <p>도메인 디렉터리의 구조는 다음과 같다.</p>
+
+      <p/>
+
+      <p/>
+
+      <div class="figure"><a id="d4e1004"></a><p class="title"><b>[그림 2.5] 도메인 디렉터리 구조</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="148"><tr><td align="left"><img src="resources/figure_domain_home_directory_structure.png" align="top" width="148" alt="도메인 디렉터리 구조"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <div class="variablelist"><dl><dt><span class="term">.applications</span></dt><dd>
+              <p>해당 도메인에서 관리하는 애플리케이션 파일이 존재한다. JEUS가 사용하는 디렉터리로 사용자의 접근을
+              제한한다. install-application이나 uninstall-application 명령을 통해서만 추가 및
+              삭제가 가능하다. 각 명령어에 대한 설명은 <a xmlns="" href="../reference-book/ch04.html#cmd_install-application" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.6.7. install-application”</a>, <a xmlns="" href="../reference-book/ch04.html#cmd_uninstall-application" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.6.16. uninstall-application”</a>을 참고한다.</p>
+
+              <p/>
+            </dd><dt><span class="term">.deploymentplans</span></dt><dd>
+              <p>해당 도메인에서 관리하는 Deployment Plan이 존재한다. JEUS가 사용하는 디렉터리로 사용자의
+              접근을 제한한다. install-deployment-plan과 uninstall-deployment-plan 명령을
+              통해 Deployment Plan의 추가와 삭제가 가능하다. 각 명령어에 대한 설명은 <a xmlns="" href="../reference-book/ch04.html#cmd_install-deployment-plan" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.6.8. install-deployment-plan”</a>과 <a xmlns="" href="../reference-book/ch04.html#cmd_uninstall-deployment-plan" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.6.17. uninstall-deployment-plan”</a>을 참고한다.</p>
+
+              <p/>
+            </dd><dt><span class="term">.libraries</span></dt><dd>
+              <p>해당 도메인에 설치한 라이브러리 파일이 존재한다. JEUS가 사용하는 디렉터리로 사용자의 접근을
+              제한한다. install-library 와 uninstall-library 명령을 통해 라이브러리의 추가와 삭제가
+              가능하다. 각 명령어에 대한 설명은 <a xmlns="" href="../reference-book/ch04.html#cmd_install-library" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.6.19. install-library”</a>와 <a xmlns="" href="../reference-book/ch04.html#cmd_uninstall-library" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.6.22. uninstall-library”</a>를 참고한다.</p>
+
+              <p/>
+            </dd><dt><span class="term">bin</span></dt><dd>
+              <p>해당 도메인에 속한 DAS와 MS의 시작 및 종료 스크립트가 위치한다.</p>
+
+              <p>JEUS_HOME/bin의 startDomainAdminServer, startManagedServer,
+              stopServer와 동일한 기능을 수행하나 도메인 이름을 설정할 필요가 없다.</p>
+            </dd><dt><span class="term">config</span></dt><dd>
+              <p>도메인의 설정 파일인 domain.xml이 변경된 경우 이전 이력을 위해 존재하는 백업 파일들이
+              위치한다. 도메인 설정에 대한 자세한 설명은 <a href="chapter_domain_configuration.html" title="제3장 도메인 설정변경">“제3장 도메인 설정변경”</a>을 참고한다.</p>
+
+              <div class="itemizedlist"><ul type="circle"><li style="list-style-type: circle">
+                  <p><span><strong class="guibutton">security</strong></span></p>
+
+                  <div class="informaltable">
+                    <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">SYSTEM_DOMAIN</td><td><p>도메인 단위로 적용되는 보안 도메인 파일인 accounts.xml,
+                          policies.xml이 존재하며, 각 XML 파일은 WebAdmin과 jeusadmin을
+                          통해 동적 설정 변경이 가능하다.</p><p>보안 도메인 설정에 대한 자세한 설명은
+                          <a xmlns="" href="../security/chapter_security_system_setup.html#sect_security_system_domain_setup" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Security 안내서</span>”의 “2.2. 보안 도메인 정의”</a>를
+                          참고한다.</p></td></tr><tr><td align="left">security.key</td><td>대칭 Key 암호화 알고리즘에 대한 Key를 저장하는 파일로
+                          JEUS_HOME/bin/encryption을 수행하면 생성된다. security.key
+                          파일에 대한 자세한 설명은 <a xmlns="" href="../security/chapter_security_system_setup.html#sect_password_security" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Security 안내서</span>”의 “2.5.4. 패스워드 보안 설정”</a>을
+                          참고한다.</td></tr><tr><td align="left">policy</td><td>Java Permission 설정 파일이다. JEUS의 보안 시스템과는 별도로
+                          JavaSE Security Manager에서 사용된다.</td></tr></tbody></table>
+                  </div>
+                </li><li style="list-style-type: circle">
+                  <p><span><strong class="guibutton">servlet</strong></span></p>
+
+                  <div class="informaltable">
+                      <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">webcommon.xml<a id="d4e1082" class="indexterm"></a></td><td><p>도메인 내 서버 웹 엔진의 모든 웹 모듈에 적용되는 공통 설정
+                            파일이다.</p> <p>이 설정에 대한 자세한 설명은 <a xmlns="" href="../web-engine/chapter_jeus_web_engine.html#sect_web_engine_directory_structure" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Web Engine 안내서</span>”의 “1.5. 디렉터리 구조”</a>를
+                            참고한다.</p></td></tr></tbody></table>
+                    </div>
+
+                  <p/>
+                </li></ul></div>
+            </dd><dt><span class="term">lib/application</span></dt><dd>
+              <p>도메인 전체에 적용할 애플리케이션 라이브러리를 위치시키는 디렉터리다.</p>
+
+              <p>SERVER_HOME에 존재하는 애플리케이션 라이브러리와 충돌이 발생할 경우
+              SERVER_HOME/lib/application이 우선되고 경고 메시지가 남는다. lib/application
+              디렉터리에 대한 자세한 설명은 <a xmlns="" href="../deployment/chapter_overview_of_javaee_application.html#sect_lib_application_dir" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Applications &amp; Deployment 안내서</span>”의 “3.3.1. lib/application 디렉터리”</a>를 참고한다.</p>
+
+              <p/>
+            </dd><dt><span class="term">servers</span></dt><dd>
+              <p>디렉터리 하위에 SERVER_HOME 디렉터리가 서버 이름으로 생성된다. SERVER_HOME 디렉터리
+              구조에 대한 자세한 설명은 <a xmlns="" href="../server/chapter_server_structure.html#sect_server_directory_structure" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “1.5. 서버 디렉터리 구조”</a>를
+              참고한다.</p>
+
+              <p/>
+            </dd></dl></div>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_domain_overview.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_domain_configuration.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제1장 소개 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제3장 도메인 설정변경</td></tr></table></div><div xmlns="" align="center"/></body></html>

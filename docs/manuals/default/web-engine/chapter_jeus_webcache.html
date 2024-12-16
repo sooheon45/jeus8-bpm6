@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제7장 JEUS WebCache</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Engine 안내서"/><link rel="up" href="index.html" title="JEUS Web Engine 안내서"/><link rel="prev" href="chapter_websocket.html" title="제6장 WebSocket 컨테이너"/><link rel="next" href="chapter_reverse_proxy.html" title="제8장 Reverse Proxy"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제7장 JEUS WebCache</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_websocket.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_reverse_proxy.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jeus_webcache"></a>제7장 JEUS WebCache</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jeus_webcache.html#sect_introduction_of_jeus_webcache">7.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jeus_webcache.html#sect_jsp_caching">7.2. JSP Caching</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus_webcache.html#d4e6114">7.2.1. 기본 내용</a></span></dt><dt><span class="section"><a href="chapter_jeus_webcache.html#ch6_2_2_cache_tag">7.2.2. &lt;cache&gt; 태그</a></span></dt><dt><span class="section"><a href="chapter_jeus_webcache.html#d4e6250">7.2.3. &lt;jeus:cache&gt; 사용 예</a></span></dt><dt><span class="section"><a href="chapter_jeus_webcache.html#d4e6281">7.2.4. flush 기능 사용</a></span></dt><dt><span class="section"><a href="chapter_jeus_webcache.html#d4e6299">7.2.5. refresh 기능 사용</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jeus_webcache.html#sect_http_response_caching">7.3. HTTP Response Caching</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jeus_webcache.html#d4e6329">7.3.1. 필터 설정</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에는 웹 애플리케이션의 성능 향상을 위한 JEUS WebCache를 적용하는 방법에 대해 설명한다.</p>
+
+  <p/>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_introduction_of_jeus_webcache"></a>7.1. 개요</h2></div></div></div>
+    
+
+    <p>동시 요청자 수의 증가로 인하여 응답 속도가 떨어지는 등의 웹 애플리케이션 성능 저하 문제가 발생한다면 하드웨어 측면과
+    소프트웨어 측면에서 해결할 수 있다.</p>
+
+    <p>하드웨어 측면의 해결 방법은 서버를 증설하여 계속 들어오는 요청(request)을 Load Balancing하여 부하를
+    분산시켜 응답 속도를 높이는 방법이다. 그러나 이 방법은 서버 추가에 대한 비용 증가와 클러스터링 등으로 인한 서버 운용 및 관리의
+    복잡함을 발생시킬 수 있다.</p>
+
+    <p>소프트웨어 측면의 해결 방법은 서버의 증설 없이 웹 애플리케이션에서 많이 사용되는 데이터를 Caching하는 것이다.
+    그러면 다음 요청에서는 데이터의 재생산 없이 Caching된 데이터를 이용함으로써 웹 애플리케이션의 응답시간을 줄여서 성능을 향상시킬
+    수 있다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p/>
+
+    <p>본 장에서는 JEUS 시스템에서 웹 애플리케이션의 성능 향상을 위해서 JEUS WebCache를 어떻게 적용할 수 있는지에
+    대해서 설명한다. 제공되는 Caching 방법은 다음과 같다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>JSP Caching<a id="d4e6096" class="indexterm"></a></p>
+
+        <p>태그 라이브러리(Tag Libarary)를 사용하여 JSP 내의 일부분을 Caching한다. 전체 페이지 중에서
+        부분 변경이 발생하는 JSP 페이지를 요청하는 경우에 적합하다.</p>
+      </li><li>
+        <p>HTTP Response Caching<a id="d4e6101" class="indexterm"></a></p>
+
+        <p>HTTP 응답 전체를 Caching한다. 정적 콘텐츠(Static Content)에 대한 요청에
+        적합하다.</p>
+      </li></ul></div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JEUS WebCache에 Caching되는 엔트리는 SoftReference로 구현되어있다. 그래서 심각한 메모리 증가로
+    인한 OutOfMemory 에러를 미연에 방지할 수 있다.</p>
+
+    <p>Caching 기능을 효과적으로 사용하기 위해서 빈번하게 요청되거나, 수행 로직이 복잡해서 또는 데이터베이스로부터 데이터를
+    가져오는 시간이 오래 걸려 응답시간이 길어질수 있는 웹 페이지를 Caching 대상으로 선택하는 것이 바람직하다.</p>
+
+    <p/>
+
+    
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_jsp_caching"></a>7.2. JSP Caching</h2></div></div></div>
+    
+
+    <p>JSP Caching은 JSP 태그 라이브러리를 사용하여 JSP 페이지 내의 일부분을 JEUS WebCache에
+    저장함으로써 웹 애플리케이션의 성능을 향상시키는 방법이다.</p>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6114"></a>7.2.1. 기본 내용</h3></div></div></div>
+      
+
+      <p>JEUS WebCache에서는 사용자 정의(custom) 태그로 <span class="bold"><strong>&lt;jeus:cache&gt;</strong></span>를 사용한다.</p>
+
+      <p><span class="bold"><strong>&lt;jeus:cache&gt;</strong></span> 내에 JSP 페이지 내에서
+      Caching을 원하는 콘텐츠가 있는 부분을 입력하면 첫 번째 요청에서 태그 내의 바디 콘텐츠(Body Contents)가
+      생성되어 브라우저에 전송되고 이 콘텐츠는 Caching된다. 다음 요청부터는 메모리에 Caching된 콘텐츠가 브라우저로
+      보내진다.</p>
+
+      <p><span class="bold"><strong>&lt;jeus:cache&gt; </strong></span>태그를 사용하는 기본적인
+      형식은 다음과 같다.</p>
+
+      <pre class="programlisting">&lt;%@ taglib uri=”http://www.tmaxsoft.com/jeuscache” prefix=”jeus” %&gt;
+
+&lt;jeus:cache name=”...” key=”...” scope=”...” timeout=”...” 
+    size=”...” async=”...” df=”...”&gt;
+   . . . Body content to be cached. . .
+&lt;/jeus:cache&gt;</pre>
+
+      <p>위 설명에서 제외된 <span class="bold"><strong>flush</strong></span> 속성은 닫힌
+      태그(/&gt;)를 사용하는데 속성에 대한 설명은 <a href="chapter_jeus_webcache.html#ch6_2_2_cache_tag" title="7.2.2. &lt;cache&gt; 태그">“7.2.2. &lt;cache&gt; 태그”</a>를
+      참고한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>JSP Caching에서 사용하는 알고리즘은 LRU이다. 그래서 JEUS WebCache 최대 허용 개수를 초과하면
+      LRU 알고리즘에 의해서 기존에 Caching된 엔트리가 제거된다.</p>
+
+      <p>그리고 TLD(Tag Libarary Descriptor) 파일은 jeus.jar 파일에 포함되어 배포된다.
+      jeuscache.tld 파일에 대한 URI 정보를 JSP 엔진에 전달하기 위해서 <span class="bold"><strong>&lt;jeus:cache&gt;</strong></span> 태그 내의 <span class="bold"><strong>'taglib uri'</strong></span>를 반드시
+      'http://www.tmaxsoft.com/jeuscache'으로 명시해야 한다.</p>
+
+      <p>다음은 '<span class="bold"><strong>name' </strong></span>속성, <span class="bold"><strong>'name' </strong></span>속성 + <span class="bold"><strong>'key'
+      </strong></span>속성을 사용하여 엔트리를 Caching할 때 사용하는 자료 구조이다.</p>
+
+      <div class="figure"><a id="figure_data_structure_of_jeus_webcache"></a><p class="title"><b>[그림 7.1] 엔트리 Caching에 사용되는 자료 구조</b></p><div class="figure-contents">
+          
+
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="355"><tr><td align="left"><img src="resources/figure_data_structure_of_jeus_webcache.png" align="top" width="355" alt="엔트리 Caching에 사용되는 자료 구조"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>위 그림에서 Name1, Name3은 <span class="bold"><strong>'key'</strong></span> 속성 없이
+      <span class="bold"><strong>'name'</strong></span> 속성만으로 태그를 사용할 때 엔트리가 Caching되는
+      방식이며 <span class="bold"><strong>'key'</strong></span> 속성은 물론 <span class="bold"><strong>'name' </strong></span>속성까지도 사용되지 않을 때도 이 방식이 사용된다. 그러나 <span class="bold"><strong>'name'</strong></span> 속성과 <span class="bold"><strong>'key'</strong></span>
+      속성 모두가 사용되는 태그에서는 Name2와 같은 방식으로 엔트리가 Caching된다.</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="ch6_2_2_cache_tag"></a>7.2.2. &lt;cache&gt; 태그</h3></div></div></div>
+      
+
+      <p/>
+
+      <p><span class="bold"><strong>&lt;jeus:cache&gt;</strong></span> 사용자 태그를 정의한
+      파일은 jeuscache.tld로 이 파일은 jeus-servlet.jar 내에 포함되며 위치는 다음과 같다.</p>
+
+      <pre class="programlisting">jeus/servlet/cache/resource/jeuscache.tld</pre>
+
+      <p>다음은 jeuscache.tld 파일의 &lt;cache&gt; 태그의 설정 예제이다.</p>
+
+      <p/>
+
+      <div class="example"><a id="d4e6160"></a><p class="title"><b>[예 7.1] &lt;cache&gt; 태그 설정 : &lt;&lt;jeuscache.tld&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0" encoding="ISO-8859-1" ?&gt;
+
+&lt;!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag
+Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd"&gt;
+
+&lt;taglib&gt;
+    &lt;tlib-version&gt;1.0&lt;/tlib-version&gt;
+    &lt;jsp-version&gt;1.2&lt;/jsp-version&gt;
+    &lt;short-name&gt;jeuscache&lt;/short-name&gt;
+    &lt;uri&gt;http://www.tmaxsoft.com/jeuscache&lt;/uri&gt;
+    &lt;display-name&gt;JEUSCache Tag Library&lt;/display-name&gt;
+    &lt;tag&gt;
+        &lt;name&gt;cache&lt;/name&gt;
+        &lt;tag-class&gt;jeus.servlet.cache.web.tag.CacheTag&lt;/tag-class&gt;
+        &lt;body-content&gt;JSP&lt;/body-content&gt;
+        &lt;description&gt;JEUS WebCache&lt;/description&gt;
+        &lt;attribute&gt;
+            &lt;name&gt;flush&lt;/name&gt;
+            &lt;required&gt;false&lt;/required&gt;
+            &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+        &lt;attribute&gt;
+            &lt;name&gt;timeout&lt;/name&gt;
+            &lt;required&gt;false&lt;/required&gt;
+            &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+        &lt;attribute&gt;
+            &lt;name&gt;scope&lt;/name&gt;
+            &lt;required&gt;false&lt;/required&gt;
+            &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+        &lt;attribute&gt;
+            &lt;name&gt;name&lt;/name&gt;
+            &lt;required&gt;false&lt;/required&gt;
+            &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+        &lt;attribute&gt;
+            &lt;name&gt;size&lt;/name&gt;
+            &lt;required&gt;false&lt;/required&gt;
+            &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+        &lt;attribute&gt;
+            &lt;name&gt;key&lt;/name&gt;
+            &lt;required&gt;false&lt;/required&gt;
+            &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+        &lt;attribute&gt;
+            &lt;name&gt;async&lt;/name&gt;
+            &lt;required&gt;false&lt;/required&gt;
+            &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+        &lt;attribute&gt;
+            &lt;name&gt;df&lt;/name&gt;
+            &lt;required&gt;false&lt;/required&gt;
+            &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+    &lt;/tag&gt;
+&lt;/taglib&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>다음은 각 태그를 설정할 때 각 속성에 대한 설명이다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">flush<a id="d4e6176" class="indexterm"></a></td><td><p>Cache 내 엔트리를 제거하기 위해서 사용한다. 특정 엔트리를 제거하기 위해서는 반드시
+                'name' 속성이나 'name' 속성 + 'key' 속성을 지정해야 된다.</p><p>'name'
+                속성에 'key' 속성을 이용해서 다수의 엔트리를 Caching한 경우 'name' 속성만을 사용하여
+                'flush' 속성을 수행할 때 'key' 속성을 식별자로 하는 모든 엔트리가 제거된다는 점에 주의한다. 그리고
+                이 속성은 다른 속성과는 다르게 바디 콘텐츠가 없는 닫힌 태그(/&gt;)를
+                사용한다.</p></td></tr><tr><td align="left">timeout<a id="d4e6184" class="indexterm"></a></td><td><p>콘텐츠가 Caching될 기간을 설정하며 Simple Date Format 형식으로
+                명시된다. 숫자와 시간을 나타내는 한 문자의 결합으로 표시한다. 기간을 명시하는 유효한 문자는
+                's'(seconds), 'm'(minutes), 'h'(hours), 'd'(days),
+                'w'(weeks)이다. 예를 들어 10s는 10초, 10d는 10일, 그리고 4w는 4주를 나타내고, 문자
+                없이 숫자만 설정하면 초(second) 단위로 인식한다.</p><p>0으로 설정하면 매번 바디
+                콘텐츠를 생성하여 refresh 효과를 낼 수 있다. -1이 설정된다면 강제로 flush되지 않는 이상 콘텐츠는
+                expire되지 않는다.</p><p> (기본값: 1시간)</p></td></tr><tr><td align="left">scope<a id="d4e6193" class="indexterm"></a></td><td>cache되는 엔트리의 운용 범위를 나타낸다. 유효한 값으로는 'application'과
+                'session'이다. (기본값: application)</td></tr><tr><td align="left">name<a id="d4e6199" class="indexterm"></a></td><td><p>여러 페이지에서 Caching된 데이터를 공유하기 위해 사용되며 해당 scope 내에서
+                유일해야 한다.</p><p>name 속성을 지정하지 않았을 때는 HTTP URI 정보 등을 사용하여
+                내부적으로 생성하여 관리된다. jeus:cache 내의 바디 콘텐츠가 공유될 필요가 없다면 이 속성을 설정하지
+                않는 것이 바람직하다.</p></td></tr><tr><td align="left">size<a id="d4e6207" class="indexterm"></a></td><td><p>Caching할 수 있는 객체의 최대 개수를 설정한다. </p><p>설정된
+                값을 초과한 경우에는 LRU 알고리즘에 따라서 Cache에 저장된 객체가 제거된다. 이 값은 웹 애플리케이션
+                상황에 맞게 적절하게 설정되어야 한다. (기본값: Integer.MAX_VALUE)</p></td></tr><tr><td align="left">key<a id="d4e6215" class="indexterm"></a></td><td><p>Caching되는 엔트리를 식별하는 추가적인 값이다. 이 속성은 'name' 속성과
+                반드시 함께 사용되어야 한다. 그래서 엔트리를 식별할 때는 'name' + 'key' 값이 유일한 식별자로
+                사용된다.</p><p>'key' 속성은 다음과 같은 scope를 지정하는 나열 형식으로 설정
+                가능하다.</p><pre class="programlisting">&lt;jeus:cache name=”. . . ” 
+ key=”[parameter|page|session|request|application].keyname” . . . &gt;</pre><p>위의
+                예에서 'keyname'의 값은 요청할 때 설정해야 한다. 'parameter', 'page',
+                'request'의 경우 cache 페이지와 같은 요청 페이지에서 'keyname'을 key 값으로 설정해야
+                하고, 'application', 'session'의 경우 다른 페이지에서 설정이
+                가능하다.</p><pre class="programlisting">http://sample.com:8088/Sample/index.jsp?<span class="bold"><strong>keyname</strong></span>=test</pre></td></tr><tr><td align="left">async<a id="d4e6228" class="indexterm"></a></td><td><p>하나의 Thread가 엔트리를 업데이트 중인 경우(미완료 상태)에 동일한 엔트리를
+                요구하는 다른 Thread에 대해서 Blocking 여부를 설정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                      <p>true : Thread는 Blocking되지 않고 이전 엔트리 즉, 업데이트되지 않은
+                      엔트리를 가져간다. (기본값)</p>
+                    </li><li style="list-style-type: circle">
+                      <p>false : 엔트리가 업데이트될 때까지 기다린(Blocking) 후 최신 엔트리를
+                      가져간다.</p>
+                    </li></ul></div></td></tr><tr><td align="left">df<a id="d4e6240" class="indexterm"></a></td><td><p>overflow가 발생했을 경우 공간확보를 위해서 엔트리를 제거한다. 이때 제거되는
+                victim 개수를 설정된 'size' 속성에 대한 비율을 'df' 속성으로 설정할 수
+                있다.</p><p>유효한 값의 범위는 '0.0 &lt;= factor &lt;= 1.0' 사이의
+                실수값이다. (기본값:
+                0.25)</p><div class="literallayout"><p/></div><p>예를들어
+                factor 1.0는 메모리에 Cache되어 있는 모든 엔트리를 제거한다는 의미이며, factor 0.0은
+                overflow가 발생할 경우 추가 요청에 대해 더 이상 cache하지 않는다는 의미이다.
+                </p></td></tr></tbody></table>
+        </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6250"></a>7.2.3. &lt;jeus:cache&gt; 사용 예</h3></div></div></div>
+      
+
+      <p>본 절에서는 예제를 사용하여 <span><strong class="guibutton">&lt;jeus:cache&gt;</strong></span> 태그 속성의
+      사용 방법을 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 cache.jsp 페이지를 요청하는 경우 현재 날짜와 Caching된 날짜를 비교해보는 간단한
+      예제이다.<a id="d4e6256" class="indexterm"></a></p>
+
+      <div class="example"><a id="d4e6259"></a><p class="title"><b>[예 7.2] &lt;jeus:cache&gt; 사용 예제 : &lt;&lt;cache.jsp&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;%@ taglib uri=”http://www.tmaxsoft.com/jeuscache” prefix=”jeus” %&gt;
+&lt;HTML&gt;
+&lt;BODY&gt;
+    Current time: &lt;%= new Date() %&gt;&lt;br&gt;
+    <span class="bold"><strong>&lt;jeus:cache timeout="60s"&gt;</strong></span> 
+        Cached time: &lt;%= new Date() %&gt;  
+    <span class="bold"><strong>&lt;/jeus:cache&gt;</strong></span>
+&lt;/BODY&gt;
+&lt;/HTML&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p><span><strong class="guibutton">&lt;jeus:cache&gt;</strong></span> 태그의 첫 번째 요청에서는 현재 날짜를
+      구하여 화면에 출력하고 JEUS WebCache에 저장된다. 다음 호출부터는 Caching된 날짜가 출력될 것이다. 60초가 지난
+      다음에는 갱신된 날짜가 출력된다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 &lt;jsp:include&gt;를 사용하여 다른 페이지를 포함할 때
+      <span><strong class="guibutton">&lt;jeus:cache&gt;</strong></span> 태그를 사용하는 예이다.</p>
+
+      <p/>
+
+      <div class="example"><a id="d4e6272"></a><p class="title"><b>[예 7.3] jsp:inclue를 이용한 &lt;jeus:cache&gt; 사용 예제 :
+        &lt;&lt;main.jsp&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;HTML&gt;
+&lt;BODY&gt;
+    <span class="bold"><strong>&lt;jsp:include page="cache.jsp"/&gt;</strong></span>
+&lt;/BODY&gt;
+&lt;/HTML&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <p>main.jsp에 include된 cache.jsp 내의 &lt;jeus:cache&gt; 태그의 내용은
+      cache.jsp만 사용하는 첫 번째 예제와 동일한 수행 결과를 출력한다.<a id="d4e6278" class="indexterm"></a></p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6281"></a>7.2.4. flush 기능 사용</h3></div></div></div>
+      
+
+      <p><a id="d4e6284" class="indexterm"></a>flush 기능은 Caching된 엔트리를 강제로 제거하는 기능이다. 대상이 되는 엔트리를 지정하는
+      'name' 속성 또는 'name' 속성 + 'key' 속성을 반드시 명시해야 한다.</p>
+
+      <p>예를 들어 다음과 같이 'name' 속성 + 'key' 속성을 사용해서 stock content를 Caching했다고
+      가정하자.</p>
+
+      <pre class="programlisting">&lt;jeus:cache name="stock" key="parameter.company" scope="application"&gt;
+    . . . stock content . . .
+&lt;/jeus:cache&gt;</pre>
+
+      <p>Caching된 parameter.company에 해당하는 stock content를 제거하기 위해서는 다음과 같이
+      설정한다.</p>
+
+      <pre class="programlisting">&lt;jeus:cache name="stock" key="parameter.company" scope="application" flush=”true”/&gt;</pre>
+
+      <p>위와 같이 <span><strong class="guibutton">flush</strong></span> 기능을 성공적으로 수행했다면 다음 번
+      &lt;jeus:cache&gt; 태그 내의 stock content를 요청하는 경우에는 갱신된 stock content를 보게
+      된다. 만일 위 <span><strong class="guibutton">flush</strong></span> 속성을 다음과 같이 'key' 속성 없이 'name' 속성만을
+      사용한다면 parameter.company key 속성으로 저장된 모든 엔트리가 제거될 것이다.</p>
+
+      <pre class="programlisting">&lt;jeus:cache name=“stock” scope=”application” flush=”true”/&gt;</pre>
+
+      <p>물론 'key' 속성을 사용하지 않고 'name' 속성만으로 엔트리를 Caching했다면 'name' 속성만 사용하면
+      된다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6299"></a>7.2.5. refresh 기능 사용</h3></div></div></div>
+      
+
+      <p><a id="d4e6302" class="indexterm"></a>모든 <span><strong class="guibutton">&lt;jeus:cache&gt;</strong></span> 태그를 호출할 때마다
+      바디 콘텐츠를 생성하게 하는 refresh 기능을 제공한다.</p>
+
+      <p>이 기능은 <span><strong class="guibutton">&lt;jeus:cache&gt;</strong></span> 태그 속성을 사용하지 않는다.
+      대신 '_jeuscache_refresh'를 key로, true를 값으로 해서 원하는 scope에 설정할 수 있다.</p>
+
+      <p>애플리케이션과 세션 scope의 모든 엔트리를 refresh하기 위해서는 다음과 같이 각각 작성한다.</p>
+
+      <pre class="programlisting">&lt;% application.setAttribute("_jeuscache_refresh", "true"); %&gt;
+&lt;% session.setAttribute("_jeuscache_refresh", "true"); %&gt;</pre>
+
+      <p>이 기능은 <span class="bold"><strong>&lt;jeus:cache&gt;</strong></span> 태그에 접근했을
+      때 각각의 scope에 '_jeuscahe_refresh' 값을 조사하여 true일 경우 그 바디 콘텐츠를 갱신한다. 그리고 더
+      이상 refresh 기능을 사용하지 않기를 원한다면 '_jeuscahe_refresh'을 false로 지정한다.
+      'timeout', 'flush' 속성을 사용하면 하나 또는 일부분의 갱신된 엔트리를 볼 수 있는 반면, refresh기능을
+      사용하면 설정한 scope 내의 모든 바디 콘텐츠가 매번 갱신된다.</p>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_http_response_caching"></a>7.3. HTTP Response Caching</h2></div></div></div>
+    
+
+    <p><a id="d4e6316" class="indexterm"></a>JEUS WebCache는 Servlet Filter를 사용하여 HTTP 응답 전체를 Caching하는
+    방법으로 HTTP Response Caching 기능을 제공한다.</p>
+
+    <p>페이지 내용이 동적으로 변하는 웹 페이지에는 적절하지 않으며 정적 콘텐츠에 대한 HTTP 요청에 적합한 방법이다. 이미지
+    파일, PDF 등의 바이너리 콘텐츠를 요구하는 HTTP 요청이 여기에 해당된다. 물론 일정 시간 동안 웹 페이지의 내용이 변경되지
+    않거나 변경사항이 반영되지 않아도 되는 웹 페이지에도 이 방법을 사용할 수 있다.</p>
+
+    <p/>
+
+    <pre class="programlisting">http://www.sample.com/filter/respcacheTest.jsp?key=value</pre>
+
+    <p>위와 같이 key, value를 포함해서 전체 HTTP URI가 엔트리 키로 적용된다. 만일 key, value 값이
+    다양하게 변화한다면 각각의 URI에 해당하는 HTTP Response가 Caching된다.</p>
+
+    <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+        <p>HTTP Response의 상태가 200 OK(HttpServletResponse.SC_OK)인 경우에만 해당
+        HTTP Response가 Caching된다는 것이다. HTTP Response를 JEUS WebCache에 저장할 때
+        사용되는 엔트리 키로 HTTP URI가 사용된다.</p>
+      </div>
+
+    <p/>
+
+    <p>본 절에서는 HTTP Response Caching을 웹 애플리케이션에 적용하는 방법에 대해 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6329"></a>7.3.1. 필터 설정</h3></div></div></div>
+      
+
+      <p>웹 애플리케이션에서 HTTP Response Caching을 사용하기 위해서는 다음과 같이 web.xml에 필터를
+      등록한다.</p>
+
+      <p><a id="d4e6333" class="indexterm"></a><a id="d4e6336" class="indexterm"></a>다음은 &lt;url-pattern&gt;이 '/filter/'인 모든 HTTP 요청에 대한 HTTP
+      응답을 10분 동안 Caching하는 예제이다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p><span><strong class="guibutton">&lt;filter-class&gt;</strong></span>로 반드시
+          <span><strong class="guibutton">jeus.servlet.cache.web.filter.CacheFilter</strong></span>
+          클래스를 사용해야 한다.</p>
+        </div>
+
+      <div class="example"><a id="d4e6345"></a><p class="title"><b>[예 7.4] 필터 설정 : &lt;&lt;web.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;web-app&gt;
+ . . .
+&lt;filter&gt;
+    &lt;filter-name&gt;CacheFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;<span class="bold"><strong>jeus.servlet.cache.web.filter.CacheFilter</strong></span>&lt;/filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;timeout&lt;/param-name&gt;
+        &lt;param-value&gt;600&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;lastModified&lt;/param-name&gt;
+        &lt;param-value&gt;on&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;expires&lt;/param-name&gt;
+        &lt;param-value&gt;off&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt;
+
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;CacheFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/filter/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+ . . .
+&lt;/web-app&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>다음은 필터 클래스에 전달하는 초기화 파라미터에 대한 설명이다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">파라미터</th><th>설명</th></tr></thead><tbody><tr><td align="left">timeout<a id="d4e6362" class="indexterm"></a></td><td><p>HTTP Response를 Caching하고 있을 시간을 설정한다.
+                </p><p>(기본값: 3600, 단위: 초(second))</p><p>JSP
+                Caching에서 사용하는 'timeout' 속성과 설정 방법은 동일하다. 단, HTTP Response
+                Caching에서는 flush 기능이 제공되지 않기 때문에 'timeout'을 '-1'로 설정하면 웹
+                애플리케이션이 undeploy되지 않는 이상 expire되지 않기 때문에 주의한다.</p></td></tr><tr><td align="left">lastModified<a id="d4e6371" class="indexterm"></a></td><td><p>HTTP 응답으로 <span><strong class="guibutton">Last-Modified</strong></span>
+                헤더를 보낼지를 결정하기 위해서 사용된다. 이는 웹 엔진의 부하를 줄이는 목적으로
+                사용된다.</p><p>브라우저는 자신이 Cache하고 있는 콘텐츠가 마지막 요청 이후에 변경되었는지
+                웹 엔진에 요청할 수 있다. 그러면 웹 엔진은 HTTP 요청에서
+                <span><strong class="guibutton">If-Modified-Since</strong></span> 헤더 정보와 현재 엔트리의 최종
+                변경시간을 비교하여 엔트리에 변경 사항이 없다는 304
+                상태코드(HttpServletResponse.SC_NOT_MODIFIED)를 브라우저로
+                전송한다.</p><div class="literallayout"><p/></div><p>유효한 값은 다음과
+                같다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                      <p>on : 최종 변경시간을 Filter Chain 수행 중에 결정하여 304 상태코드를
+                      보낸다.</p>
+                    </li><li style="list-style-type: circle">
+                      <p>off : HTTP 응답으로 304 상태코드를 보내지 않는다.</p>
+                    </li><li style="list-style-type: circle">
+                      <p>initial : 최종 변경시간을 현재시간으로 하여 304 상태코드를 보낸다.
+                      (기본값)</p>
+                    </li></ul></div></td></tr><tr><td align="left">expires<a id="d4e6390" class="indexterm"></a></td><td><p>HTTP 응답으로 <span><strong class="guibutton">Expires</strong></span> 헤더 정보를
+                전송할지를 결정하기 위해서 사용된다. 브라우저에서 Cache 기능을 사용하고 있다면 Cache된 콘텐츠는 사용
+                기간이 만료될 때까지 유효하며 이후에 계속적인 HTTP 요청에 대해서는 브라우저 Cache에 저장된 콘텐츠를
+                사용할 것이다.</p><p>만약 JEUS WebCache의 엔트리가 업데이트되었다면 새로운 엔트리는
+                브라우저 Cache에 저장된 콘텐츠와 다른 문제가 발생한다. 이런 경우에 웹 엔진에서 Expires 헤더 정보를
+                설정하여 브라우저 Cache에 저장된 콘텐츠를 기간만료시키고, JEUS WebCache의 업데이트된 엔트리를
+                사용하도록 해야
+                한다.</p><div class="literallayout"><p/></div><p>유효한
+                값은 다음과 같다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                      <p>on : Filter Chain에서 값이 설정된다면 Expires 헤더 정보를
+                      전송한다.</p>
+                    </li><li style="list-style-type: circle">
+                      <p>off : Expires 헤더 정보를 전송하지 않는다.</p>
+                    </li><li style="list-style-type: circle">
+                      <p>time : HTTP 응답의 last-modified 값에 상기에 기술한 time 파라미터
+                      값이 더해져서 Expires 헤더 정보로 설정되어서 클라이언트로 전송된다.</p>
+                    </li></ul></div></td></tr></tbody></table>
+        </div>
+
+      <p/>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>위의 파라미터 외에 추가로 <span><strong class="guibutton">scope, size, async, df</strong></span>
+          등을 설정할 수 있는데, 이들은 <a href="chapter_jeus_webcache.html#sect_jsp_caching" title="7.2. JSP Caching">“7.2. JSP Caching”</a>에서 설명한 것과 동일한
+          의미를 가지고 있으므로 해당 부분을 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_websocket.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_reverse_proxy.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제6장 WebSocket 컨테이너 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제8장 Reverse Proxy</td></tr></table></div><div xmlns="" align="center"/></body></html>

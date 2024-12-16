@@ -1,0 +1,10 @@
+<project name="helloejb" default="build" basedir=".">
+    <property name="is.ear.module" value="true"/>
+
+    <import file="../../common/common-build.xml"/>
+
+    <path id="sub-components">
+        <filelist dir="./helloejb-ejb" files="build.xml"/>
+        <filelist dir="./helloejb-war" files="build.xml"/>
+    </path>
+</project>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제1장 소개</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS JPA 안내서"/><link rel="up" href="index.html" title="JEUS JPA 안내서"/><link rel="prev" href="about.html" title="안내서에 대하여"/><link rel="next" href="chapter_provider_configuration.html" title="제2장 프로바이더 설정"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제1장 소개</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_provider_configuration.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_intro"></a>제1장 소개</h2></div></div></div>
+  
+
+  <p><a id="d4e380" class="indexterm"></a>Java Persistence API(이하 JPA)는 관계형 데이터베이스에 접근하기 위한 표준 ORM 기술을
+  제공하며, 기존에 EJB에서 제공되던 CMP Entity Bean을 대체하는 기술이다.</p>
+
+  <p>JEUS는 JPA 스펙의 기능을 모두 지원한다. JPA는 JSR 338에서 JPA 2.1 스펙으로 정의되어 있으며, EJB
+  컨테이너에 의존하지 않고 EJB, 웹 모듈 및 Java SE Standalone 클라이언트에서 모두 사용이 가능하다.</p>
+
+  <p><a id="d4e384" class="indexterm"></a>또한 JPA는 사용자가 원하는 Persistence 프로바이더(Provider) 구현체를 선택해서 사용할 수
+  있다. JEUS 에서는 기본적으로 Eclipse Persistence Services Project의
+  <span><strong class="guibutton">EclipseLink</strong></span> 구현체를 제공한다.</p>
+
+  <p>필요에 따라 다른 구현체를 선택해서 사용할 수 있다. 이에 대한 자세한 사항은 <a href="chapter_jeus_configuration.html#sect_changing_provider" title="3.1. Persistence 프로바이더 변경">“3.1. Persistence 프로바이더 변경”</a>을 참고한다.</p>
+
+  <p/>
+
+  <div class="literallayout"><p/></div>
+
+  <p>실제 JPA를 사용할 때는 JPA 스펙에서 제공하는 기본적인 API나 설정과 프로바이더의 특성을 함께 고려해야 한다. 특히,
+  Caching과 같은 것은 중요한 특성으로 이를 모르고 애플리케이션을 개발하면 원하는 결과를 얻지 못할 수도 있다. 따라서 JPA를
+  환경에 따라 적절하게 구성해서 개발해야 한다. 이러한 것들은 앞으로 다양한 패턴을 통해 소개될 것이므로 EclipseLink JPA
+  사이트를 계속 참조하기를 권장한다.</p>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>EclipseLink<a id="d4e395" class="indexterm"></a></p>
+
+      <pre class="programlisting"><a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.eclipse.org/eclipselink/" target="_top">http://www.eclipse.org/eclipselink/</a></pre>
+
+      <p/>
+    </li></ul></div>
+
+  <p/>
+
+  <div class="literallayout"><p/></div>
+
+  <p>본 안내서는 JEUS의 기본 프로바이더인 EclipseLink를 JEUS에서 사용하는 데 필요한 설정에 대해서만 설명한다.
+  JPA 기술 자체나 프로그래밍 방법에 대해서는 다루고 있지 않기 때문에 이에 대해서는 본 안내서의 <a href="about.html#reference_site" title=". 참고 자료">참고 자료</a> 부분을 참고한다.</p>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_provider_configuration.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">안내서에 대하여 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제2장 프로바이더 설정</td></tr></table></div><div xmlns="" align="center"/></body></html>

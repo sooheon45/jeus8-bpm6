@@ -1,0 +1,1851 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제4장 애플리케이션 작성 및 Deploy</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Applications &amp; Deployment 안내서"/><link rel="up" href="index.html" title="JEUS Applications &amp; Deployment 안내서"/><link rel="prev" href="chapter_overview_of_javaee_application.html" title="제3장 애플리케이션"/><link rel="next" href="glossary.html" title="용어해설"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제4장 애플리케이션 작성 및 Deploy</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_overview_of_javaee_application.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="glossary.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_assembling_and_deploying_applications"></a>제4장 애플리케이션 작성 및 Deploy</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#javaee-application-creation">4.1. 애플리케이션 작성</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#deployment-command">4.2. Deploy 명령</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#sect_application_control_monitoring">4.3. 애플리케이션 제어 및 모니터링</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#d4e1982">4.3.1. 애플리케이션을 도메인에 Install</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#d4e2022">4.3.2. 도메인에서 애플리케이션 Uninstall</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#sect_deploy_application-webadmin_jeusadmin">4.3.3. 애플리케이션 Deploy</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#d4e2257">4.3.4. 애플리케이션 Redeploy</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#sect_application_undeploy">4.3.5. 애플리케이션 Undeploy</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#sect_application_start">4.3.6. 애플리케이션 시작</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#sect_application_stop">4.3.7. 애플리케이션 중지</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#d4e2330">4.3.8. 서비스 중인 애플리케이션에 서버 추가</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#sect_application_remove_target">4.3.9. 서비스 중인 애플리케이션에서 서비스 중인 서버 삭제</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#d4e2382">4.3.10. 애플리케이션 정보 확인</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#sect_staging_deploy_examples">4.4. Staging Mode Deploy</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#d4e2635">4.5. Deployment Plan을 사용한 Deployment</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#d4e2639">4.5.1. Deployment Plan 설정 및 동작 방식</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#d4e2747">4.5.2. Deployment Plan Install</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#d4e2782">4.5.3. Install한 Deployment Plan 확인</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#d4e2827">4.5.4. Deployment Plan을 적용한 Deploy</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#d4e2858">4.5.5. 애플리케이션에 적용된 Deployment Plan 확인</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#d4e2884">4.5.6. Deployment Plan Uninstall</a></span></dt><dt><span class="section"><a href="chapter_assembling_and_deploying_applications.html#d4e2920">4.5.7. Deployment Plan Redeploy</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 Java EE 애플리케이션 파일(EAR)을 작성하고 이를 JEUS에 deploy하는 방법에 대해 설명한다. 또한
+  JEUS에서 제공하는 애플리케이션을 deploy할 수 있는 툴을 사용하여 JEUS 서버에 애플리케이션을 deploy하는 방법과 그 외
+  관련된 작업에 대해 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="javaee-application-creation"></a>4.1. 애플리케이션 작성</h2></div></div></div>
+    
+
+    <p>본 절에서는 작성된 각각의 모듈을 포함하는 애플리케이션 작성 방법 중 jar 유틸리티를 사용해서 Java EE
+    애플리케이션을 직접 작성하는 방법에 대해서만 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>EAR 파일을 작성하기 전에 우선 포함될 모듈을 작성해야 한다. EAR 파일에 포함되는 모듈은 EJB 모듈인 JAR 파일과
+    웹 애플리케이션 모듈인 WAR 파일, 리소스 어댑터 모듈인 RAR 파일 등이 있다. 모듈 파일을 작성하는 자세한 내용에 대해서는 각
+    해당 안내서에서 다루고 있으므로 해당 안내서를 참고한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 애플리케이션 작성 환경에 대한 설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>myApp.ear이라는 EAR 파일을 작성한다. 이 파일은 ejb.jar라는 EJB 모듈과 web.war라는 웹
+        애플리케이션 모듈, appclient.jar 애플리케이션 클라이언트 모듈을 포함하고 있다.</p>
+      </li><li>
+        <p>애플리케이션 myApp.ear을 먼저 도메인의 DAS인 "adminServer"로 install하고, 서버
+        "server1"에 deploy한다.</p>
+      </li></ul></div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음의 순서로 애플리케이션을 작성한다.</p>
+
+    <div class="orderedlist"><ol type="1"><li>
+          <p>EAR 파일에 포함될 JAR, WAR, RAR 파일을 작성한다.</p>
+        </li><li>
+          <p>JAR, WAR, RAR 파일과 같은 디렉터리에서 META-INF 디렉터리를 생성한다.</p>
+        </li><li>
+          <p>application.xml 파일을 생성(EAR 파일의 모듈을 포함시킨다)해서 META-INF 디렉터리에
+          복사한다.<a id="d4e1856" class="indexterm"></a></p>
+
+          <div class="example"><a id="d4e1858"></a><p class="title"><b>[예 4.1] &lt;&lt;application.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;application version="7"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+        http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd"&gt;
+    &lt;description&gt;Application description&lt;/description&gt;
+    &lt;display-name&gt;Sample application&lt;/display-name&gt;
+    &lt;module&gt;
+        &lt;ejb&gt;ejb.jar&lt;/ejb&gt;
+    &lt;/module&gt;
+    &lt;module&gt;
+        &lt;web&gt;
+            &lt;web-uri&gt;web.war&lt;/web-uri&gt;
+            &lt;context-root&gt;hello&lt;/context-root&gt;
+        &lt;/web&gt;
+    &lt;/module&gt;
+    &lt;module&gt;
+        &lt;java&gt;appclient.jar&lt;/java&gt;
+    &lt;/module&gt;
+&lt;/application&gt;</pre>
+          </div></div><br class="example-break"/>
+
+          <p/>
+        </li><li>
+          <p>다음과 같이 jar 유틸리티를 사용해서 명령을 실행하면 myApp.ear 파일이 생성된다.</p>
+
+          <pre class="screen">&gt; jar cf myApp.ear ejb.jar web.war appclient.jar META-INF</pre>
+
+          <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+              <p>META-INF 디렉터리가 대문자인 것에 주의한다. 소문자로 작성할 경우에는 문제가
+              발생한다.<a id="d4e1869" class="indexterm"></a></p>
+            </div>
+        </li></ol></div>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="deployment-command"></a>4.2. Deploy 명령</h2></div></div></div>
+    
+
+    <p><a id="d4e1876" class="indexterm"></a></p>
+
+    <p>콘솔 툴, WebAdmin을 통해서 제공하는 Deploy 관련 기능에서는 다음과 같은 작업들을 지원한다.</p>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="170" align="left"/><col/></colgroup><thead><tr><th align="left">툴</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">Distribute<a id="d4e1890" class="indexterm"></a></td><td>애플리케이션 파일을 대상 서버나 클러스터로 복사하고, 애플리케이션을 서비스하기 위한 사전 작업을 한다.
+              대상으로 설정한 서버나 클러스터 중 하나라도 distribute에 실패하면 전체 작업을 실패로 간주하고
+              distribute에 성공한 서버에서 모두 undeploy한다.</td></tr><tr><td align="left">Deploy<a id="d4e1896" class="indexterm"></a></td><td><p>애플리케이션 파일을 대상 서버로 복사하고, 애플리케이션을 서비스하기 위한 사전 작업을 한다.
+              이 작업이 성공하면 애플리케이션을 실행시킨다. 대상으로 설정한 서버나 클러스터 중 하나라도 distribute에
+              실패하면 전체 작업을 실패로 간주하고 distribute에 성공한 서버에서 모두 undeploy한다.
+              </p><p>Start 작업에서 실패한 서버가 있더라도 하나라도 서비스 가능한 상태가 있으면 애플리케이션
+              Start 작업은 성공이다.</p></td></tr><tr><td align="left">Start<a id="d4e1904" class="indexterm"></a></td><td>대상 서버에 distribute(배포)되어 있는 애플리케이션을 동작시키는 작업이다. Start 작업에서
+              실패한 서버가 있더라도 하나라도 서비스 가능한 상태가 있으면 애플리케이션 Start 작업은 성공이다.</td></tr><tr><td align="left">Stop<a id="d4e1910" class="indexterm"></a></td><td>대상 서버에 배치되어 실행 중인 애플리케이션을 일시정지시키는 작업이다. 이때 애플리케이션을 대상
+              서버에서 삭제하지 않는다. 또한 애플리케이션 이름으로 start하거나 redeploy할 수도 있다.</td></tr><tr><td align="left">Undeploy<a id="d4e1916" class="indexterm"></a></td><td>배치되어 실행 중인 애플리케이션을 정지시키고, deploy되어 있는 대상 서버나 클러스터에서
+              애플리케이션을 제거하는 작업이다.</td></tr><tr><td align="left">Redeploy<a id="d4e1922" class="indexterm"></a></td><td><p>deploy되어 실행 중인 애플리케이션의 내용이 변경된 경우에 그 내용을 현재 애플리케이션에
+              반영하여 다시 deploy하는 작업이다. </p><p>모든 애플리케이션을 재배치할 때 Deploy 작업이
+              하나라도 실패하면 모든 애플리케이션은 정지된다.</p></td></tr></tbody></table>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음 작업들은 JEUS에서만 제공하는 Deploy 작업이다. 이 작업은 콘솔 툴이나 WebAdmin을 통해서만 해야
+    한다.</p>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="170" align="left"/><col/></colgroup><thead><tr><th align="left">작업</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">Add Application Target<a id="d4e1942" class="indexterm"></a></td><td><p>deploy나 distribute된 애플리케이션에 대상으로 특정 서버 또는 클러스터를
+              추가한다. 이미 서비스되고 있는 애플리케이션을 서비스하는 대상을 확장하려고 할 때 사용하는 작업이다.
+              </p><p>대상은 여러 서버 또는 여러 클러스터를 설정할 수 있고, 이 작업이 대상으로 설정한 서버나
+              클러스터에서 실패한 경우 전체 작업 실패로 간주하고 기존에 서비스되고 있던 서버를 제외한 새로 추가하려는 서버에서는
+              모두 undeploy된다.</p></td></tr><tr><td align="left">Remove Application Target<a id="d4e1950" class="indexterm"></a></td><td><p>deploy나 distribute된 애플리케이션에서 대상으로 설정된 특정 서버 또는
+              클러스터를 삭제한다. 이미 서비스되고 있는 애플리케이션을 서비스하는 대상을 축소하려고 할 때 사용하는
+              작업이다.</p><p>대상은 여러 서버 또는 여러 클러스터를 설정할 수 있다.</p></td></tr></tbody></table>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_application_control_monitoring"></a>4.3. 애플리케이션 제어 및 모니터링</h2></div></div></div>
+    
+
+    <p>본 절에서는 WebAdmin과 콘솔 툴을 사용한 애플리케이션 제어 및 모니터링 방법에 대해서 설명한다.</p>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>WebAdmin은 JEUS를 전반적으로 관리하기 위해 제공되는 웹 기반의 관리 툴이다.</p>
+
+    <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를 선택하면 도메인에
+    존재하는 애플리케이션을 관리할 수 있는 <span><strong class="guibutton">Deployed Application 화면</strong></span>으로
+    이동한다. WebAdmin에서 애플리케이션을 deploy하거나 새로운 애플리케이션을 도메인에 install할 때 또는 도메인에
+    존재하는 애플리케이션의 정보를 조회할 때 모두 이 화면에서부터 시작해야 한다.</p>
+
+    <div class="figure"><a id="d4e1970"></a><p class="title"><b>[그림 4.1] WebAdmin Deployed Application 화면</b></p><div class="figure-contents">
+      
+
+      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_webadmin_applications_empty.png" align="top" width="701" alt="WebAdmin Deployed Application 화면"/></td></tr></table></div>
+    </div></div><br class="figure-break"/>
+
+    <p>이제 WebAdmin을 통해 앞장에서 살펴본 myApp.ear 애플리케이션을 도메인에 install, deploy,
+    조회하는 방법에 대해 살펴보기로 한다.</p>
+
+    <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+      <p>애플리케이션을 제어하는 작업(deploy, distribute, undeploy, start, stop)은 도메인에
+      설정변경 Lock을 가져오지 않은 상태에서만 가능하다. 만약 <span><strong class="guibutton">[Lock &amp;
+      Edit]</strong></span> 버튼을 통해 Lock을 가져온 상태라면 <span><strong class="guibutton">[Activate changes]
+      </strong></span>버튼을 선택하여 변경 중인 모든 설정을 반영하거나, <span><strong class="guibutton">[Undo all
+      changes]</strong></span> 메뉴를 선택하여 변경했던 설정을 취소하고 난 후 애플리케이션 제어 작업을 진행해야
+      한다.</p>
+    </div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1982"></a>4.3.1. 애플리케이션을 도메인에 Install</h3></div></div></div>
+      
+
+      <p>다음은 애플리케이션을 도메인에 install하는 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를 선택하면
+          <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 해당 화면에서 도메인에
+          존재하는 애플리케이션의 정보를 확인할 수 있다. 애플리케이션 목록 상단에 위치한
+          <span><strong class="guibutton">[install]</strong></span> 버튼을 클릭하면 도메인에 새로운 애플리케이션을 install할
+          수 있는 화면으로 이동한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">[Install]</strong></span> 버튼을 클릭하면 나타나는 화면에서 애플리케이션 ID와
+          애플리케이션 파일의 경로 등의 install 관련 정보를 입력하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을
+          클릭한다.</p>
+
+          <p>다음은 설정 항목에 대한 설명이다.</p>
+
+          <div class="informaltable">
+            <table border="1"><colgroup><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Id</td><td>install할 애플리케이션에 부여할 ID를 지정한다. 이 값을 주지 않은 경우에는 애플리케이션
+                  파일 이름을 변경하여 ID로 사용한다. 애플리케이션 ID는 입력하지 않아도 만들어 주지만, 관리의 편의상
+                  입력하는 것을 권장한다.</td></tr><tr><td align="left">Path</td><td>install할 애플리케이션 파일의 경로를 입력한다. <span><strong class="guibutton">[찾아보기]
+                  </strong></span>버튼으로 애플리케이션 파일을 선택할 수 있다.</td></tr><tr><td align="left">Force</td><td>동일한 ID를 가진 애플리케이션이 이미 도메인에 존재할 경우 덮어쓸지 여부를 설정한다. 이미
+                  deploy되어 있는 애플리케이션 내용이 변경되어 파일을 업데이트해야 하는 경우에 사용할 수
+                  있다.</td></tr><tr><td align="left">Upgrade</td><td>JEUS 6 이하 버전의 JEUS DD를 사용하는 경우 JEUS 8에 맞는 DD로 변경할지
+                  여부를 설정한다.</td></tr></tbody></table>
+          </div>
+        </li><li>
+          <p>install 작업을 마치고 나면 화면 상단에 그 결과가 나타난다. 명령이 성공적으로 수행되었다면 애플리케이션
+          목록에서 해당 애플리케이션을 확인할 수 있다. 이때 애플리케이션은 INSTALLED 상태가 된다.</p>
+        </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2022"></a>4.3.2. 도메인에서 애플리케이션 Uninstall</h3></div></div></div>
+      
+
+      <p>애플리케이션이 도메인에 더 이상 사용되지 않는다면 도메인에서 삭제할 수 있다. 애플리케이션이 INSTALLED
+      상태이거나 DEPLOYED 상태인 경우에 애플리케이션에 Uninstall 작업을 할 수 있다.</p>
+
+      <p/>
+
+      <p>다음은 애플리케이션을 도메인에서 Uninstall하는 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를 선택하면
+          <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 도메인에서 삭제하려고
+          하는 애플리케이션을 선택하고 애플리케이션 목록 하단에 위치한 <span><strong class="guibutton">[uninstall]</strong></span>
+          버튼을 클릭한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">[uninstall]</strong></span> 버튼을 클릭한 뒤 나타나는 팝업에서
+          <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 애플리케이션 Uninstall 작업이 진행된다.
+          <span><strong class="guibutton">[취소]</strong></span> 버튼을 클릭하면 작업은 취소되고, 애플리케이션은 그대로 INSTALLED
+          상태로 남아있게 된다.</p>
+        </li><li>
+          <p>Uninstall 작업이 완료되면 화면 상단에 그 결과가 나타난다. 명령이 성공적으로 수행되었다면 애플리케이션
+          목록에서 해당 애플리케이션에 대한 정보는 확인할 수 없다.</p>
+        </li></ol></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_deploy_application-webadmin_jeusadmin"></a>4.3.3. 애플리케이션 Deploy<a id="d4e2044" class="indexterm"></a></h3></div></div></div>
+      
+
+      <p>install된 애플리케이션에 deploy 명령을 통해 애플리케이션이 서비스되도록 한다. 본 절에서는 애플리케이션을
+      deploy하는 3가지 방법에 대해 설명한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><a href="chapter_assembling_and_deploying_applications.html#sect_deploy_domain_install" title="4.3.3.1. 도메인에 install한 애플리케이션 Deploy">도메인에 install한
+            애플리케이션 Deploy</a></p>
+          </li><li>
+            <p><a href="chapter_assembling_and_deploying_applications.html#sect_deploy_application" title="4.3.3.2. 애플리케이션 저장소에 있는 애플리케이션 Deploy">애플리케이션 저장소에 있는
+            애플리케이션 Deploy</a></p>
+          </li><li>
+            <p><a href="chapter_assembling_and_deploying_applications.html#sect_deploy_path" title="4.3.3.3. path를 지정하여 Deploy">path를 지정하여
+            Deploy</a></p>
+          </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <p>콘솔 툴을 통한 Run-time Deploy 방법은 다음의 사항을 가정하여 설명한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>애플리케이션은 <a href="chapter_assembling_and_deploying_applications.html#javaee-application-creation" title="4.1. 애플리케이션 작성">“4.1. 애플리케이션 작성”</a>에서 작성한
+          myApp.ear을 사용한다.</p>
+        </li><li>
+          <p>JEUS의 도메인 이름은 'domain1'이고, 애플리케이션을 deploy할 서버는
+          'server1'이다.</p>
+        </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>deploy-application 명령을 수행할 때 사용할 수 있는 옵션에 대한 자세한 내용은 <a xmlns="" href="../reference-book/ch04.html#cmd_deploy-application" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.6.4. deploy-application”</a>을 참고한다.</p>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>JEUS에서는 콘솔 툴에서 애플리케이션을 Run-time Deploy할 경우 애플리케이션의 위치에 따라 다음의 3가지
+      방법을 제공한다. 각 방법은 deploy, stop, start, redeploy, undeploy의 순서대로 deploy
+      명령어를 실행하며, 각 명령어를 실행한 뒤에는 <span><strong class="guibutton">applist</strong></span>를 수행하여 각 단계에서의
+      애플리케이션 상태를 확인한다.</p>
+
+      <p/>
+
+      <p><a id="d4e2080" class="indexterm"></a>JEUS를 직접 관리할 수 있는 콘솔 툴을 통해 DAS에 연결하여 서버나 클러스터의 제어 및 모니터링을
+      할 수 있으며, 애플리케이션을 deploy할 수도 있다.</p>
+
+      <p>다음은 콘솔 툴에서 사용하는 애플리케이션의 Deploy 관련 명령어이다.</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">명령어</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">distribute-application<a id="d4e2093" class="indexterm"></a></td><td>애플리케이션을 deploy할 수 있도록 배치 대상에 애플리케이션을 복사하고, 애플리케이션 서비스를 위한
+              사전 준비작업을 한다.</td></tr><tr><td align="left">deploy-application<a id="d4e2098" class="indexterm"></a></td><td><p>애플리케이션을 deploy한다. </p><p>Deploy란 Deploy 대상에
+              애플리케이션을 복사하고(Distribute), 애플리케이션의 서비스를 시작(Start)하는 것이다.
+              </p><p>Deploy가 성공적으로 완료되면 RUNNING 상태가 되며, Distribute 완료 후
+              서비스 단계에서 장애가 발생하면 DISTRIBUTED 상태에 머물러 있다.</p></td></tr><tr><td align="left">start-application<a id="d4e2106" class="indexterm"></a></td><td>DISTRIBUTED 상태에 있는 애플리케이션을 실행한다. 작업이 수행되는 동안에는 STARTING
+              상태로 성공적으로 완료되면 RUNNING 상태가 된다.</td></tr><tr><td align="left">stop-application<a id="d4e2111" class="indexterm"></a></td><td>RUNNING 상태에 있는 애플리케이션을 정지한다. 작업이 수행되는 동안에는 STOPPING 상태로
+              성공적으로 완료되면 DISTRIBUTED 상태가 된다.</td></tr><tr><td align="left">redeploy-application<a id="d4e2116" class="indexterm"></a></td><td>Deploy가 완료된 애플리케이션에 변경된 내용이 있는 경우 변경 내용을 반영하여 다시
+              deploy한다. Deploy와 같은 단계로 이루어지며 각 단계에서의 상태 또한 같다.</td></tr><tr><td align="left">undeploy-application<a id="d4e2121" class="indexterm"></a></td><td>애플리케이션 서비스를 종료하고 배치 대상에서 애플리케이션을 제거한다.</td></tr><tr><td align="left">application-info<a id="d4e2126" class="indexterm"></a></td><td>도메인에 존재하는 애플리케이션의 정보를 출력한다.</td></tr><tr><td align="left">add-application-target<a id="d4e2131" class="indexterm"></a></td><td>Deploy되어 있는 애플리케이션에 서비스 대상을 추가한다. 서비스 대상은 서버나 클러스터가 될 수
+              있다.</td></tr><tr><td align="left">remove-application-target<a id="d4e2136" class="indexterm"></a></td><td>Deploy되어 있는 애플리케이션에서 서비스 대상을 삭제한다. 서비스 대상은 서버나 클러스터가 될 수
+              있다.</td></tr></tbody></table>
+      </div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>콘솔 툴에 대한 설명 및 각 명령어에 대한 자세한 내용은 <a xmlns="" href="../reference-book/ch04.html#reference_jeusadmin" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2. jeusadmin”</a>을
+          참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="sect_deploy_domain_install"></a>4.3.3.1. 도메인에 install한 애플리케이션 Deploy</h4></div></div></div>
+        
+
+        <p>본 절에서는 WebAdmin과 콘솔 툴을 사용해서 도메인에 install한 애플리케이션 Deploy하는 방법을
+        설명한다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e2154"></a>WebAdmin 사용</h5>
+
+        <p>다음은 WebAdmin에서 도메인에 install한 애플리케이션을 deploy하는 과정에 대한
+        설명이다.</p>
+
+        <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를
+            선택하면 <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 애플리케이션
+            목록에서 deploy하고자 하는 애플리케이션을 체크박스에서 선택하고, 애플리케이션 목록 하단에 위치한
+            <span><strong class="guibutton">[deploy]</strong></span> 버튼을 클릭한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">'Server'</strong></span> 항목에서 deploy할 대상 서버를 선택하고
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 애플리케이션 Deploy가 진행된다. 만약
+            Deploy가 아니라 distribute까지만 진행하고 싶다면 <span><strong class="guibutton">고급 선택사항</strong></span>의
+            <span><strong class="guibutton">'Only Distribute'</strong></span> 항목을 체크하고
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다. 이 경우 애플리케이션을 서비스하기 위해서는 별도로
+            애플리케이션 Start 작업이 필요하다.</p>
+          </li><li>
+            <p>Deploy 작업이 완료되면 화면 상단에 그 결과가 나타난다. 명령이 성공적으로 수행되었다면 애플리케이션
+            목록에서 보여지는 해당 애플리케이션의 상태는 RUNNING이 된다. distribute만 진행했다면 애플리케이션의
+            상태는 DISTRIBUTED가 된다.</p>
+          </li></ol></div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e2174"></a>콘솔 툴 사용 </h5>
+
+        <p><span><strong class="guibutton">install-application</strong></span> 명령을 통해 애플리케이션을 도메인에
+        install하여 INSTALL_HOME(DOMAIN_HOME/.applications)에 위치시킨다. 이때 애플리케이션의
+        ID를 옵션으로 줄 수 있다. ID를 주지 않은 경우는 myApp_ear이 애플리케이션의 ID가 된다. 애플리케이션이 도메인에
+        install되고 난 후에 <span><strong class="guibutton">deploy-application</strong></span> 명령어를 사용해 대상
+        서버에 애플리케이션을 deploy한다.</p>
+
+        <pre class="screen"><span class="bold"><strong>----------------------------------------------------------------
+ using deploy command for application with install application
+----------------------------------------------------------------</strong></span>
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>install-application -id myApp /usr/apphome/myApp.ear</strong></span>
+Successfully installed the application [myApp].
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info</strong></span>
+Application information for the domain [domain1].
+================================================================================
++----------+-----------+-------+----------+-----------+------------------------+
+| Applicati|Application| State |  Server  |  Cluster  |    Application Path    |
+|  on ID   |   Type    |       | Targets  |  Targets  |                        |
++----------+-----------+-------+----------+-----------+------------------------+
+| myApp    |           | INSTAL|          |           | ${INSTALL_HOME}/myApp/m|
+|          |           |LED    |          |           |yApp.ear                |
++----------+-----------+-------+----------+-----------+------------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>deploy myApp -servers server1</strong></span>
+deploy the application for the application [myApp] succeeded.
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info</strong></span>
+Application information for the domain [domain1].
+================================================================================
++----------+------------+---------+----------+-----------+---------------------+
+| Applicati| Application|  State  |  Server  |  Cluster  |   Application Path  |
+|  on ID   |    Type    |         | Targets  |  Targets  |                     |
++----------+------------+---------+----------+-----------+---------------------+
+| myApp    | EAR        | RUNNING | server1  |           | ${INSTALL_HOME}/myAp|
+|          |            |         |          |           |p/myApp.ear          |
++----------+------------+---------+----------+-----------+---------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>stop-application myApp</strong></span>
+stop the application for the application [myApp] succeeded.
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info</strong></span>
+Application information for the domain [domain1].
+================================================================================
++----------+-----------+--------+----------+----------+------------------------+
+| Applicati|Application|  State |  Server  |  Cluster |    Application Path    |
+|  on ID   |   Type    |        | Targets  | Targets  |                        |
++----------+-----------+--------+----------+----------+------------------------+
+| myApp    | EAR       | DISTRIB| server1  |          | ${INSTALL_HOME}/myApp/m|
+|          |           |UTED    |          |          |yApp.ear                |
++----------+-----------+--------+----------+----------+------------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>start-application myApp</strong></span>
+start the application for the application [myApp] succeeded.
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info</strong></span>
+Application information for the domain [domain1].
+================================================================================
++----------+------------+---------+----------+-----------+---------------------+
+| Applicati| Application|  State  |  Server  |  Cluster  |   Application Path  |
+|  on ID   |    Type    |         | Targets  |  Targets  |                     |
++----------+------------+---------+----------+-----------+---------------------+
+| myApp    | EAR        | RUNNING | server1  |           | ${INSTALL_HOME}/myAp|
+|          |            |         |          |           |p/myApp.ear          |
++----------+------------+---------+----------+-----------+---------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>redeploy-application myApp</strong></span>
+redeploy application on das for the application [myApp] succeeded.
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info</strong></span>
+Application information for the domain [domain1].
+================================================================================
++----------+------------+---------+----------+-----------+---------------------+
+| Applicati| Application|  State  |  Server  |  Cluster  |   Application Path  |
+|  on ID   |    Type    |         | Targets  |  Targets  |                     |
++----------+------------+---------+----------+-----------+---------------------+
+| myApp    | EAR        | RUNNING | server1  |           | ${INSTALL_HOME}/myAp|
+|          |            |         |          |           |p/myApp.ear          |
++----------+------------+---------+----------+-----------+---------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>undeploy myApp</strong></span>
+Undeploying [myApp] (This may take time due to graceful undeployment) ..........
+undeploy the application for the application [myApp] succeeded.
+successfully undeployed (elapsed = 415ms)
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info</strong></span>
+Application information for the domain [domain1].
+================================================================================
++----------+-----------+-------+----------+-----------+------------------------+
+| Applicati|Application| State |  Server  |  Cluster  |    Application Path    |
+|  on ID   |   Type    |       | Targets  |  Targets  |                        |
++----------+-----------+-------+----------+-----------+------------------------+
+| myApp    | EAR       | INSTAL|          |           | ${INSTALL_HOME}/myApp/m|
+|          |           |LED    |          |           |yApp.ear                |
++----------+-----------+-------+----------+-----------+------------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>uninstall-application myApp</strong></span>
+uninstall the application for the application [myApp] succeeded. : Successfully deleted [myApp].
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info</strong></span>
+No applications exist in this domain.
+Application information for the domain [domain1].
+================================================================================
++------------+---------------+-------+------------+-------------+--------------+
+| Application|  Application  | State |   Server   |   Cluster   |  Application |
+|     ID     |     Type      |       |  Targets   |   Targets   |     Path     |
++------------+---------------+-------+------------+-------------+--------------+
+(No data available)
+================================================================================</pre>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="sect_deploy_application"></a>4.3.3.2. 애플리케이션 저장소에 있는 애플리케이션 Deploy</h4></div></div></div>
+        
+
+        <p>애플리케이션 저장소를 추가하고 나면 저장소에 존재하는 애플리케이션을 deploy한다. 애플리케이션 저장소의 기능과
+        저장소를 추가, 삭제하는 방법에 대한 자세한 내용은 <a href="chapter_application_management.html#sect_application_repository" title="1.5.1. 애플리케이션 저장소 추가/삭제/조회">“1.5.1. 애플리케이션 저장소 추가/삭제/조회”</a>를 참고한다.</p>
+
+        <p/>
+
+        <p/>
+
+        <h5><a id="d4e2206"></a>WebAdmin 사용 </h5>
+
+        <p/>
+
+        <p>WebAdmin을 사용해서 애플리케이션 저장소에 위치하는 애플리케이션을 deploy하는 방법은 도메인에
+        install된 애플리케이션을 deploy하는 것과 동일하다. 애플리케이션 Deploy 작업이 완료되면 화면 상단에 그 결과가
+        나타나고, 명령이 성공적으로 수행되었다면 애플리케이션 목록에서 보여지는 해당 애플리케이션의 상태는 RUNNING이
+        된다.</p>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <p/>
+
+        <h5><a id="sect_apprepo_deploy"></a>콘솔 툴
+        사용</h5>
+
+        <p/>
+
+        <p>다음은 콘솔 툴을 사용해서 애플리케이션 저장소에 있는 애플리케이션 deploy하는 예제이다.</p>
+
+        <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>add-application-repository /home/user1/apps</strong></span>
+Successfully performed the ADD operation for An application repository.
+Check the results using "add-application-repository or list-application-repositories"
+
+[DAS]domain1.suok&gt;<span class="bold"><strong>list-application-repositories</strong></span>
+Application Repositories
+================================================================================
++------------------------------------------------------------------------------+
+|                        Path to Application Repository                        |
++------------------------------------------------------------------------------+
+| /home/user1/apps                                                             |
++------------------------------------------------------------------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info</strong></span>
+Application information for the domain [domain1].
+================================================================================
++----------+-----------+-------+----------+-----------+------------------------+
+| Applicati|Application| State |  Server  |  Cluster  |    Application Path    |
+|  on ID   |   Type    |       | Targets  |  Targets  |                        |
++----------+-----------+-------+----------+-----------+------------------------+
+| exploded |           | INSTAL|          |           | /home/user1/apps/explod|
+|          |           |LED    |          |           |ed                      |
++----------+-----------+-------+----------+-----------+------------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>deploy exploded -servers server1</strong></span>
+deploy the application for the application [exploded.war] succeeded.
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info</strong></span>
+Application information for the domain [domain1].
+================================================================================
++----------+------------+---------+----------+-----------+---------------------+
+| Applicati| Application|  State  |  Server  |  Cluster  |   Application Path  |
+|  on ID   |    Type    |         | Targets  |  Targets  |                     |
++----------+------------+---------+----------+-----------+---------------------+
+| exploded | WAR        | RUNNING | server1  |           | /home/user1/apps/exp|
+|          |            |         |          |           |loded                |
++----------+------------+---------+----------+-----------+---------------------+
+================================================================================</pre>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="sect_deploy_path"></a>4.3.3.3. path를 지정하여 Deploy</h4></div></div></div>
+        
+
+        <p>다음은 상위 디렉터리를 애플리케이션 저장소로 추가할 수 없는 경우에 path 옵션을 설정하고 deploy하는 방법에
+        대한 설명이다. DAS가 존재하는 머신에 있는 애플리케이션의 절대 경로를 설정하고 deploy하는 기능에 대한 자세한 내용은
+        <a href="chapter_application_management.html#sect_path_deploy" title="1.6. path를 지정하여 Deploy">“1.6. path를 지정하여 Deploy”</a>를 참고한다.</p>
+
+        <p/>
+
+        <h5><a id="d4e2229"></a>WebAdmin 사용</h5>
+
+        <p>다음은 WebAdmin을 사용해서 path를 지정하여 Deploy하는 과정에 대한 설명이다.</p>
+
+        <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를
+            선택하면 <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 애플리케이션
+            목록 상단에 위치한 <span><strong class="guibutton">[deploy]</strong></span> 버튼을 클릭하면 도메인에 새로운
+            애플리케이션을 deploy할 수 있는 화면으로 이동한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">'Path'</strong></span> 항목에 deploy할 애플리케이션이 위치하는 절대경로를
+            입력한다. <span><strong class="guibutton">[입력]</strong></span> 버튼을 클릭하면 DAS에 존재하는 애플리케이션의 경로를
+            선택할 수 있다. <span><strong class="guibutton">'Server'</strong></span> 항목에서 deploy할 대상 서버인
+            'server1'을 선택하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 애플리케이션
+            Deploy가 진행된다. 필요하다면 <span><strong class="guibutton">고급 선택사항</strong></span> 영역에서 Deploy 옵션을
+            설정할 수 있다.</p>
+          </li><li>
+            <p>Deploy 작업을 마치고 나면 화면 상단에 그 결과가 나타난다. 명령이 성공적으로 수행되었다면 애플리케이션
+            목록에서 보여지는 해당 애플리케이션의 상태는 RUNNING이 된다.</p>
+          </li></ol></div>
+
+        <p/>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="sect_path_deploy_examples"></a>콘솔 툴
+        사용</h5>
+
+        <p>다음은 콘솔 툴을 사용해서 path를 지정하여 deploy하는 방법이다.</p>
+
+        <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>deploy -path /home/user1/apps/myApp.ear -servers server1</strong></span>
+deploy the application for the application [/home/user1/apps/myApp.ear] succeeded.
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info</strong></span>
+Application information for the domain [domain1].
+================================================================================
++-----------+------------+---------+-----------+-----------+-------------------+
+| Applicati |Application |  State  |   Target  |   Target  |  Application Path |
+|   on ID   |    Type    |         |  Servers  | Clusters  |                   |
++-----------+------------+---------+-----------+-----------+-------------------+
+| myApp.ear | EAR        | RUNNING | server1   |           | /home/user1/apps/ |
+|           |            |         |           |           |myApp.ear          |
++-----------+------------+---------+-----------+-----------+-------------------+
+================================================================================
+</pre>
+
+        <p/>
+
+        <p/>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2257"></a>4.3.4. 애플리케이션 Redeploy</h3></div></div></div>
+      
+
+      <p>애플리케이션이 수정되면 deploy 명령을 통해 애플리케이션이 서비스되도록 할 수 있다. 자세한 내용은 <a href="chapter_graceful_undeploy_and_redeploy.html#sect_graceful_redeployment" title="2.2. Graceful Redeployment">“2.2. Graceful Redeployment”</a>를
+      참고한다.</p><div class="literallayout"><p/></div>
+
+      <p>다음은 애플리케이션 Redeploy 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를 선택하면
+          <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 애플리케이션 목록에서
+          redeploy할 애플리케이션을 선택하고, 목록 오른쪽에 위치 <span><strong class="guibutton">[redeploy]</strong></span>
+          버튼을 클릭한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">'Timeout'</strong></span> 항목에 Graceful Redeploy
+          Timeout과 그외 필요한 Redeploy 옵션을 설정하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을
+          클릭하면 애플리케이션 redeploy가 진행된다.</p>
+        </li><li>
+          <p>Redeploy 작업이 완료되면 화면 상단에 그 결과가 나타난다.</p>
+        </li></ol></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_application_undeploy"></a>4.3.5. 애플리케이션 Undeploy</h3></div></div></div>
+      
+
+      <p>도메인에서 서비스되고 있는 애플리케이션 서비스를 중단하고 애플리케이션을 내리려면 undeploy 명령을 통해
+      가능하다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 애플리케이션을 undeploy하는 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를 선택하면
+          <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 애플리케이션 목록에서
+          undeploy하려고 하는 애플리케이션을 체크박스에서 선택하고, 애플리케이션 목록 하단에 위치한
+          <span><strong class="guibutton">[undeploy]</strong></span> 버튼을 클릭한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">'Timeout'</strong></span> 항목을 설정해서 애플리케이션이 처리 중인 서비스를
+          보장해주도록 할 수 있다. 아무 옵션도 설정하지 않으면 5분(300초) 동안 애플리케이션은 처리 중인 요청이 모두 완료될
+          때까지 undeploy를 진행하지 않는다. Graceful Undeploy를 위해 Timeout을 설정하고
+          <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 undeploy가 진행된다. 애플리케이션의
+          Graceful Undeploy에 대한 설명은 <a href="chapter_graceful_undeploy_and_redeploy.html#sect_graceful_undeployment" title="2.1. Graceful Undeployment">“2.1. Graceful Undeployment”</a>를 참고한다.</p>
+        </li><li>
+          <p>Undeploy 작업이 완료되면 화면 상단에 그 결과가 나타난다. 명령이 성공적으로 수행되었다면 애플리케이션
+          목록에서 보여지는 해당 애플리케이션의 상태는 INSTALLED가 된다.</p>
+        </li></ol></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_application_start"></a>4.3.6. 애플리케이션 시작</h3></div></div></div>
+      
+
+      <p>애플리케이션을 deploy할 때 <span><strong class="guibutton">'Only Distribute'</strong></span> 옵션을 주고
+      distribute만 수행했거나, 서비스 중인 애플리케이션을 stop 명령을 수행하여 DISTRIBUTED 상태인 애플리케이션을
+      다시 서비스하도록 하려면 Start 작업을 수행해야 한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 중지된 애플리케이션이 서비스를 시작하도록 하는 과정(start)에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를 선택하면
+          <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 애플리케이션 목록에서
+          서비스를 시작하려고 하는 DISTRIBUTED 상태인 애플리케이션을 체크박스에서 선택하고, 애플리케이션 목록 하단에 위치한
+          <span><strong class="guibutton">[start]</strong></span> 버튼을 클릭한다.</p>
+        </li><li>
+          <p>애플리케이션 Start 작업이 완료되면 화면 상단에 그 결과가 나타난다. 명령이 성공적으로 수행되었다면
+          애플리케이션 목록에서 보여지는 해당 애플리케이션의 상태는 RUNNING이 된다.</p>
+        </li></ol></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_application_stop"></a>4.3.7. 애플리케이션 중지</h3></div></div></div>
+      
+
+      <p>서비스 중인 애플리케이션에 stop 명령을 수행하여 애플리케이션 서비스를 잠시 중지할 수 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 애플리케이션이 서비스를 중지하는 과정(stop)에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를 선택하면
+          <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 애플리케이션 목록에서
+          서비스를 중지하려고 하는 애플리케이션을 체크박스에서 선택하고, 애플리케이션 목록 하단에 위치한
+          <span><strong class="guibutton">[stop]</strong></span> 버튼을 클릭한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">[stop]</strong></span> 버튼을 누르면 나타나는 팝업화면에서
+          <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 애플리케이션의 서비스가 중지되어 이후에 들어오는 요청에
+          대해서는 처리되지 않는다. <span><strong class="guibutton">[취소]</strong></span> 버튼을 클릭하면 애플리케이션 서비스 중지
+          작업은 취소된다.</p>
+        </li><li>
+          <p>애플리케이션 Stop 작업이 완료되면 화면 상단에 그 결과가 나타난다. 명령이 성공적으로 수행되면 애플리케이션
+          목록에서 보여지는 해당 애플리케이션의 상태는 DISTRIBUTED가 된다.</p>
+        </li></ol></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2330"></a>4.3.8. 서비스 중인 애플리케이션에 서버 추가</h3></div></div></div>
+      
+
+      <p>애플리케이션 서비스를 확장하기 위해 애플리케이션을 서비스할 대상에 서버나 클러스터를 추가하는 기능을 제공한다. 이미
+      도메인에 존재하는 애플리케이션을 특정 서버에만 deploy할 수는 없기 때문에 서비스 대상을 추가(add-target)하는 별도의
+      명령을 지원한다. 애플리케이션에 서비스 대상을 추가하는 명령(add-target)은 애플리케이션이 RUNNING 상태이거나
+      DISTRIBUTED 상태일 때 가능하다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>애플리케이션 서비스 대상에 서버를 추가하려면 서버가 하나 더 존재해야 한다. 서버를 추가하는 방법은 <a xmlns="" href="../server/chapter_server_conf.html#sect_examples_add_server" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “2.2. 서버 추가”</a>를
+        참고한다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 서비스 중인 애플리케이션에 서버를 추가하는 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를 선택하면
+          <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 애플리케이션 목록에서
+          애플리케이션을 서비스하는 서버를 추가하기 위해 애플리케이션을 선택하고, 목록 오른쪽에 위치한
+          <span><strong class="guibutton">[add-target]</strong></span> 버튼을 클릭한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">'Server'</strong></span> 항목에서 애플리케이션서비스 대상에 추가할 서버를
+          선택하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 해당 서버에 애플리케이션 Deploy가
+          진행된다.</p>
+        </li><li>
+          <p>Deploy 대상 추가 작업이 완료되면 화면 상단에 그 결과가 나타난다.</p>
+        </li><li>
+          <p>명령이 성공적으로 수행되었다면 애플리케이션 목록에서 해당 애플리케이션을 선택하여
+          <span><strong class="guibutton">'Server'</strong></span>와 <span><strong class="guibutton">'Running
+          Servers'</strong></span> 항목에 선택한 서버가 추가되어 있는 것을 확인할 수 있다.</p>
+        </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_application_remove_target"></a>4.3.9. 서비스 중인 애플리케이션에서 서비스 중인 서버 삭제</h3></div></div></div>
+      
+
+      <p>애플리케이션 서비스를 축소하기 위해 애플리케이션을 서비스하고 있는 대상에서 서버나 클러스터를 삭제하는 기능을 제공한다.
+      이미 도메인에 존재하는 애플리케이션을 특정 서버에만 undeploy할 수 없기 때문에 서비스 대상을
+      삭제(remove-target)하는 별도의 명령을 지원한다. 애플리케이션에 서비스 대상을 삭제하는 명령은 애플리케이션이
+      RUNNING 상태 또는 DISTRIBUTED 상태일 때 가능하다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 서비스 중인 애플리케이션에서 서비스 중인 서버를 삭제하는 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를 선택하면
+          <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 애플리케이션 목록에서
+          서비스를 중지하려고하는 애플리케이션을 선택하고, 목록 오른쪽에 위치한
+          <span><strong class="guibutton">[remove-target]</strong></span> 버튼을 클릭한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">'Servers'</strong></span> 항목에서 더 이상 애플리케이션 서비스를 하지 않은
+          서버를 선택하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 해당 서버에만 애플리케이션
+          Undeploy가 진행된다.</p>
+        </li><li>
+          <p>애플리케이션 서비스 대상 삭제 작업이 완료되면 화면 상단에 그 결과가 나타난다.</p>
+        </li><li>
+          <p>명령이 성공적으로 수행되었다면 애플리케이션 목록에서 해당 애플리케이션을 선택하여
+          <span><strong class="guibutton">'Server'</strong></span>와 <span><strong class="guibutton">'Running
+          Servers'</strong></span> 항목에 선택한 서버가 삭제된 것을 확인할 수 있다.</p>
+        </li></ol></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2382"></a>4.3.10. 애플리케이션 정보 확인</h3></div></div></div>
+      
+
+      <p>본 절에서는 WebAdmin과 콘솔을 사용해서 애플리케이션 정보를 확인하는 방법에 대해서 설명한다.</p>
+
+      <p/>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="sect_application_information"></a>4.3.10.1. WebAdmin 사용</h4></div></div></div>
+        
+
+        <p>WebAdmin에서는 애플리케이션에 대해서 다음의 두 가지의 정보를 확인할 수 있다.</p>
+
+        <div class="itemizedlist"><ul type="disc"><li>
+            <p>애플리케이션이 어떻게 deploy되어 있는가?</p>
+          </li></ul></div>
+
+        <div class="itemizedlist"><ul type="disc"><li>
+            <p>애플리케이션이 어떻게 구성되어 있는가?</p>
+          </li></ul></div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        
+
+        <h5><a id="d4e2398"></a>애플리케이션의 Deploy 정보 확인</h5>
+
+        <p>애플리케이션이 어떤 서버나 클러스터에 어떤 속성으로 deploy되어 있는지를 확인할 수 있다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p>다음은 WebAdmin에서 애플리케이션의 Deploy 정보를 확인하는 방법이다.</p>
+
+        <div class="orderedlist"><ol type="1"><li>
+              <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를
+              선택하면 <span><strong class="guibutton">Deppoyed Application 화면</strong></span>으로 이동한다.
+              애플리케이션 목록에서 애플리케이션 ID를 클릭하면 애플리케이션 정보를 확인할 수 있다.</p>
+            </li><li>
+              <p>확인할 수 있는 정보는 애플리케이션의 ID, 애플리케이션이 DAS 상 위치하고 있는 경로, 애플리케이션
+              타입, 그리고 JEUS에서 제공하는 deploy할 때 설정하는 옵션 정보들이다. deploy 옵션에 대한 자세한
+              설명은 WebAdmin에서 항목 설명이나 <a xmlns="" href="../reference-book/ch04.html#cmd_deploy-application" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.6.4. deploy-application”</a>을 참고한다.</p>
+
+              <p/>
+            </li></ol></div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <h5><a id="d4e2415"></a>애플리케이션 구성 모듈 정보 확인</h5>
+
+        <p>애플리케이션이 어떻게 구성되어 있는지 실제 애플리케이션의 모듈 정보를 확인할 수 있다.</p>
+
+        <p>EAR일 경우에는 EAR 애플리케이션을 구성하고 있는 모듈 리스트를 확인할 수 있다. 애플리케이션을 구성하는 모듈
+        중 하나를 선택하면 해당 모듈에 대한 자세한 구성 정보를 확인할 수 있다. 이 정보는 EJB나 웹 모듈에 대해서만 확인
+        가능하다. EJB 모듈을 선택하면 EJB Bean 리스트를 확인할 수 있고, 웹 모듈을 선택하면 서블릿 리스트를 확인할 수
+        있다.</p>
+
+        <div class="literallayout"><p/></div>
+
+        <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를 선택하면
+        <span><strong class="guibutton">Deppoyed Application 화면</strong></span>으로 이동한다. 애플리케이션 목록에서
+        애플리케이션 ID를 클릭하면 애플리케이션 경로, 형식, 배포 시간, 대상 서버 등 기본적인 정보를 확인할 수
+        있다.</p><div class="figure"><a id="d4e2422"></a><p class="title"><b>[그림 4.2] WebAdmin에서 애플리케이션의 구성 정보 확인</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="682"><tr><td align="left"><img src="resources/figure_webadmin_appinfo_1_deployinfo.png" align="top" width="682" alt="WebAdmin에서 애플리케이션의 구성 정보 확인"/></td></tr></table></div>
+          </div></div><p><br class="figure-break"/> 애플리케이션 Deploy 정보 화면에서 애플리케이션 정보의 <span><strong class="guibutton">'Running
+        Servers'</strong></span>에서 특정 서버를 클릭하면 애플리케이션 구성 정보를 확인할 수 있다.</p>
+
+        <div class="figure"><a id="d4e2428"></a><p class="title"><b>[그림 4.3] WebAdmin에서 애플리케이션의 구성 정보 확인</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="682"><tr><td align="left"><img src="resources/figure_webadmin_appinfo_2_modulelist.png" align="top" width="682" alt="WebAdmin에서 애플리케이션의 구성 정보 확인"/></td></tr></table></div>
+        </div></div><br class="figure-break"/>
+
+        <p>EAR 애플리케이션인 경우에는 위와 같이 애플리케이션을 구성하는 모듈 리스트를 확인할 수 있을 뿐만 아니라
+        애플리케이션을 구성하고 있는 EJB 모듈과 WEB 모듈의 정보도 확인할 수 있다.</p>
+
+        <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+            <p>모듈의 정보는 EJB나 WEB일 경우에만 확인할 수 있다. 클라이언트 모듈이나 리소스 모듈인 경우에는 모듈
+            정보를 확인하는 기능을 제공하지 않는다.</p>
+          </div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">EJB 모듈 정보 확인 </strong></span></p>
+
+            <p>다음은 EAR 애플리케이션인 myApp를 구성하는 EJB 모듈 'ejb'에 대한 정보를 확인하는
+            방법이다.</p>
+
+            <div class="orderedlist"><ol type="1" compact="compact"><li>
+                <p>애플리케이션 myApp의 모듈 목록에서 <span><strong class="guibutton">'ejb'</strong></span>를 선택하면
+                EJB 모듈을 구성하고 있는 Bean 리스트를 확인할 수 있다.</p>
+
+                <div class="figure"><a id="d4e2449"></a><p class="title"><b>[그림 4.4] WebAdmin에서 EJB 모듈 정보 확인</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="682"><tr><td align="left"><img src="resources/figure_webadmin_appinfo_3_beanlist.png" align="top" width="682" alt="WebAdmin에서 EJB 모듈 정보 확인"/></td></tr></table></div>
+                  </div></div><p><br class="figure-break"/></p>
+              </li><li>
+                <p>모듈 'ejb'의 Bean 목록에서 <span><strong class="guibutton">'HelloBean'</strong></span>을
+                선택하면 HelloBean의 세부 정보를 확인할 수 있다.</p>
+
+                <div class="figure"><a id="d4e2458"></a><p class="title"><b>[그림 4.5] WebAdmin에서 EJB 모듈의 Bean 정보 확인</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="682"><tr><td align="left"><img src="resources/figure_webadmin_appinfo_4_beaninfo.png" align="top" width="682" alt="WebAdmin에서 EJB 모듈의 Bean 정보 확인"/></td></tr></table></div>
+                  </div></div><p><br class="figure-break"/></p>
+              </li></ol></div>
+          </li><li>
+            <p><span><strong class="guibutton">WEB 모듈 정보 확인 </strong></span></p>
+
+            <p>다음은 EAR 애플리케이션인 myApp를 구성하고 있는 WEB 모듈 'web'에 대한 정보를 확인하는
+            방법이다.</p>
+
+            <div class="orderedlist"><ol type="1" compact="compact"><li>
+                <p>애플리케이션 myApp의 모듈 목록에서 <span><strong class="guibutton">'web'</strong></span>을 선택하면
+                웹 모듈을 구성하고 있는 서블릿 리스트를 확인할 수 있다.</p>
+
+                <div class="figure"><a id="d4e2472"></a><p class="title"><b>[그림 4.6] WebAdmin에서 web 모듈의 서블릿 정보 확인</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="682"><tr><td align="left"><img src="resources/figure_webadmin_appinfo_5_servletinfo.png" align="top" width="682" alt="WebAdmin에서 web 모듈의 서블릿 정보 확인"/></td></tr></table></div>
+                  </div></div><p><br class="figure-break"/></p>
+              </li><li>
+                <p><span><strong class="guibutton">'Command'</strong></span> 컬럼의
+                <span><strong class="guibutton">[thread-info]</strong></span> 버튼을 클릭하면 WEB 모듈의 요청 스레드에
+                대한 정보를 확인할 수 있다.</p>
+
+                <div class="figure"><a id="d4e2482"></a><p class="title"><b>[그림 4.7] WebAdmin에서 web 모듈의 서블릿 요청 스레드 정보 확인</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="682"><tr><td align="left"><img src="resources/figure_webadmin_appinfo_6_servlet_ti.png" align="top" width="682" alt="WebAdmin에서 web 모듈의 서블릿 요청 스레드 정보 확인"/></td></tr></table></div>
+                  </div></div><p><br class="figure-break"/></p>
+              </li></ol></div>
+          </li></ul></div>
+
+        <p/>
+
+        <p/>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e2489"></a>4.3.10.2. 콘솔 툴 사용</h4></div></div></div>
+        
+
+        <p><a id="d4e2492" class="indexterm"></a></p>
+
+        <p>콘솔 툴의 <span><strong class="guibutton">application-info</strong></span> 명령어를 통해 myApp.ear
+        애플리케이션에 대한 정보를 조회할 수 있다.</p>
+
+        <p>다음은 콘솔 툴에서 애플리케이션 정보를 확인하는 예제이다. 각 옵션에 대한 자세한 설명은 <a xmlns="" href="../reference-book/ch04.html#cmd_application-info" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.6.3. application-info”</a>를
+        참조한다.</p>
+
+        <p/>
+
+        <pre class="screen">[DAS]domain1.adminServer&gt; <span class="bold"><strong>application-info</strong></span>
+Application information for the domain [domain1].
+================================================================================
++----------+------------+---------+----------+-----------+---------------------+
+| Applicati| Application|  State  |  Server  |  Cluster  |   Application Path  |
+|  on ID   |    Type    |         | Targets  |  Targets  |                     |
++----------+------------+---------+----------+-----------+---------------------+
+| myApp    | EAR        | RUNNING | server1  |           | ${INSTALL_HOME}/myAp|
+|          |            |         |          |           |p/myApp.ear          |
++----------+------------+---------+----------+-----------+---------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info -id myApp -server server1</strong></span>
+Application information for the server [server1] in the domain [domain1].
+================================================================================
++------------+-----------------+-------------+------+------------+-------------+
+| Application| Application Name| Application | State|   Server   |   Cluster   |
+|     ID     |                 |    Type     |      |  Targets   |   Targets   |
++------------+-----------------+-------------+------+------------+-------------+
+| myApp      | myApp           | ear         | RUNNI| server1    |             |
+|            |                 |             |NG    |            |             |
++------------+-----------------+-------------+------+------------+-------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info -id myApp -server server1 -detail</strong></span>
+Application name : myApp
+Application [myApp]
+===============================================================
++-------------+---------------------------------+-------------+
+| Module Name |        Unique Module Name       | Module Type |
++-------------+---------------------------------+-------------+
+| ejb         | myApp#ejb                       | EJB         |
+| appclient   | myApp#appclient                 | CAR         |
+| web         | myApp#web                       | WAR         |
++-------------+---------------------------------+-------------+
+
+To view detailed information about EJBs or web modules in an EAR, use the "-module" or "-type" option.
+===============================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info -id myApp -server server1 -detail -module ejb</strong></span>
+Application name : myApp
+General information about the EJB module [ejb].
+==============================================================
++-------------+----------------------------------------------+
+| Module Name |              Unique Module Name              |
++-------------+----------------------------------------------+
+| ejb         | myApp#ejb                                    |
++-------------+----------------------------------------------+
+==============================================================
+
+Beans
+================================================================================
++-----------+-------------------------+-------------------+--------------------+
+| Bean Name |           Type          | Local Export Name | Remote Export Name |
++-----------+-------------------------+-------------------+--------------------+
+| HelloBean | StatelessSessionBean    |                   |                    |
++-----------+-------------------------+-------------------+--------------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info -id myApp -server server1 -detail -type war</strong></span>
+Application name : myApp
+There are no EJBs in this module.
+General information about the web module [web].
+===============================================================
++-------------+--------------------------------+--------------+
+| Module Name |       Unique Module Name       | Context Path |
++-------------+--------------------------------+--------------+
+| web         | myApp#web                      | /hello       |
++-------------+--------------------------------+--------------+
+===============================================================
+
+Servlets
+================================================================================
++---------+------------------+-------+-------+-----------+---------+-----------+
+|   Name  |       Class      | State | Count | Attribute | RegType |URLPatterns|
++---------+------------------+-------+-------+-----------+---------+-----------+
+| HelloSer| dvt.deployment.se| READY |     0 | SYNC      | WEB_XML | /HelloServ|
+|vlet     |rvlet.HelloServlet|       |       |           |         |let        |
++---------+------------------+-------+-------+-----------+---------+-----------+
+================================================================================
+
+Filters
+================================================================================
++------+-------+--------------+-----------+----------------------+-------------+
+| Name | Class |   Attribute  |  RegType  |      URLPatterns     |   Servlets  |
++------+-------+--------------+-----------+----------------------+-------------+
+(No data available)
+================================================================================
+
+Listeners
+================================================
++------+------+--------------------------------+
+| Name | Type |             RegType            |
++------+------+--------------------------------+
+(No data available)
+================================================
+
+EJBs
+================================================================================
++-----------+------+-------------------------+---------------------------------+
+| Bean Name | Type |    Local Export Name    |        Remote Export Name       |
++-----------+------+-------------------------+---------------------------------+
+(No data available)
+================================================================================
+
+[DAS]domain1.suok&gt;<span class="bold"><strong>application-info -id myApp -server server1 -detail -module ejb -bean HelloBean</strong></span>
+bean HelloBean
+Application name : myApp
+Module name : ejb
+Bean name: HelloBean
+================================================================================
++---------------+-----------+-------------------+--------------+---------------+
+|      Name     |  (Count)  | WaterMark(High:Low| Bound(Upper:L| Time(Max:Min:T|
+|               |           |       :Cur)       |    ower)     |     otal)     |
++---------------+-----------+-------------------+--------------+---------------+
+| create        | times(0)  |                   |              |               |
++---------------+-----------+-------------------+--------------+---------------+
+| remove        | times(0)  |                   |              |               |
++---------------+-----------+-------------------+--------------+---------------+
+| timed-rb      | transactio|                   |              |               |
+|               |n(0)       |                   |              |               |
++---------------+-----------+-------------------+--------------+---------------+
+| request       | request(0)|                   |              |               |
++---------------+-----------+-------------------+--------------+---------------+
+| active-bean   |           | bean(0:0:0)       |              |               |
++---------------+-----------+-------------------+--------------+---------------+
+| rolledback    | transactio|                   |              |               |
+|               |n(0)       |                   |              |               |
++---------------+-----------+-------------------+--------------+---------------+
+| total-bean    |           | bean(0:0:0)       |              |               |
++---------------+-----------+-------------------+--------------+---------------+
+| comitted      | transactio|                   |              |               |
+|               |n(0)       |                   |              |               |
++---------------+-----------+-------------------+--------------+---------------+
+| MethodReadyCou|           | bean(0:0:0)       |              |               |
+|nt             |           |                   |              |               |
++---------------+-----------+-------------------+--------------+---------------+
+| active-thread |           | thread(0:0:0)     |              |               |
++---------------+-----------+-------------------+--------------+---------------+
+| total-remote-t|           |thread(100:100:100)|              |               |
+|hread          |           |                   |              |               |
++---------------+-----------+-------------------+--------------+---------------+
+================================================================================</pre>
+
+        <p/>
+
+        <p>application-info 명령은 도메인에 존재하는 모든 애플리케이션의 정보를 출력한다. 기본적으로 출력되는
+        정보는 다음과 같다.</p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="140" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">Application ID<a id="d4e2520" class="indexterm"></a></td><td>애플리케이션의 ID이다. 이 값은 도메인에서 유일해야 한다.</td></tr><tr><td align="left">Applicatio Type<a id="d4e2526" class="indexterm"></a></td><td><p>애플리케이션의 종류로 5가지 중 하나가 될 수 있다.
+                  </p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                        <p>EAR : 애플리케이션</p>
+                      </li><li style="list-style-type: circle">
+                        <p>EJB : EJB 모듈</p>
+                      </li><li style="list-style-type: circle">
+                        <p>WAR : 웹 애플리케이션 모듈</p>
+                      </li><li style="list-style-type: circle">
+                        <p>RAR : 리소스 어댑터 모듈</p>
+                      </li><li style="list-style-type: circle">
+                        <p>CAR : 애플리케이션 클라이언트 모듈</p>
+                      </li></ul></div><p/></td></tr><tr><td align="left">state<a id="d4e2546" class="indexterm"></a></td><td><p>애플리케이션이 도메인에서의 상태로 다음 4가지 중 하나가 될 수 있다.
+                  </p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                        <p>INSTALLED</p>
+                      </li><li style="list-style-type: circle">
+                        <p>DISTRIBUTED</p>
+                      </li><li style="list-style-type: circle">
+                        <p>RUNNING</p>
+                      </li><li style="list-style-type: circle">
+                        <p>DEPLOYED</p>
+                      </li></ul></div><p>각 상태에 대한 자세한 설명은 <a href="chapter_application_management.html#sect_application_lifecycle" title="1.1.3. 애플리케이션 상태">“1.1.3. 애플리케이션 상태”</a>를
+                  참고한다.</p></td></tr><tr><td align="left">Server Target<a id="d4e2564" class="indexterm"></a></td><td>애플리케이션이 deploy되어 있는 대상 서버이다.</td></tr><tr><td align="left">Cluster Target<a id="d4e2570" class="indexterm"></a></td><td>애플리케이션이 deploy되어 있는 대상 클러스터이다.</td></tr><tr><td align="left">Application Path<a id="d4e2576" class="indexterm"></a></td><td>DAS에 존재하는 애플리케이션 파일의 경로를 나타낸다</td></tr></tbody></table>
+          </div>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_staging_deploy_examples"></a>4.4. Staging Mode Deploy</h2></div></div></div>
+    
+
+    <p><a id="d4e2586" class="indexterm"></a></p>
+
+    <p>exploded 모듈 형태의 애플리케이션은 파일을 압축하여 다른 머신의 MS에 deploy할 수 있다. 이를 Staging
+    Mode Deploy라고 한다. 애플리케이션 파일이 애플리케이션 저장소에 위치하거나 DAS가 존재하는 머신에 있는 절대 경로를
+    설정하고 deploy할 수 있다. Staging Mode Deploy 기능에 대한 자세한 내용은 <a href="chapter_application_management.html#sect_staging_deploy" title="1.7. Staging Mode Deploy">“1.7. Staging Mode Deploy”</a>를 참고한다.</p>
+
+    <p/>
+
+    <h3><a id="d4e2592"></a>WebAdmin 사용</h3><p>다음은 WebAdmin을 사용해서 path를 지정하여
+    deploy하는 방법에 대한 설명이다.</p>
+
+    <div class="orderedlist"><ol type="1"><li>
+        <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를 선택하면
+        <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 애플리케이션 목록에서
+        INSTALLED 상태의 exploded 애플리케이션을 선택하고 애플리케이션 목록 하단에 위치한
+        <span><strong class="guibutton">[deploy]</strong></span> 버튼을 클릭하거나, 애플리케이션 목록 상단에 위치한
+        <span><strong class="guibutton">[deploy]</strong></span> 버튼을 클릭해
+        <span><strong class="guibutton">[deploy]</strong></span> 버튼을 클릭해 <span><strong class="guibutton">'Path'</strong></span>
+        항목을 입력한다.</p>
+      </li><li>
+        <p><span><strong class="guibutton">'Server'</strong></span> 항목에서 deploy할 대상 서버를 선택한다.</p>
+      </li><li>
+        <p>Deploy 정보 입력 화면의 <span><strong class="guibutton">고급 선택사항</strong></span>에서
+        <span><strong class="guibutton">'Staging'</strong></span> 항목을 체크하고 <span><strong class="guibutton">[확인]</strong></span>
+        버튼을 클릭하면 애플리케이션 Deploy가 진행된다.</p>
+
+        <div class="figure"><a id="d4e2611"></a><p class="title"><b>[그림 4.8] WebAdmin - Staging Mode Deploy</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="455"><tr><td align="left"><img src="resources/figure_webadmin_deploy_staging.png" align="top" width="455" alt="WebAdmin - Staging Mode Deploy"/></td></tr></table></div>
+          </div></div><p><br class="figure-break"/></p>
+
+        <p/>
+      </li><li>
+        <p>Deploy 작업이 완료되면 화면 상단에 그 결과가 나타난다. 명령이 성공적으로 수행되었다면 애플리케이션 목록에서
+        해당 애플리케이션의 상태는 RUNNING이 된다.</p>
+
+        <p/>
+      </li><li>
+        <p>server1 로그에서 애플리케이션이 Staging Mode로 deploy된 것을 확인할 수 있다.</p>
+
+        <pre class="screen">...
+[2016.08.09 23:17:48][2] [server1-40] [WEB-1032] Distributed the web context [exploded] information
+- Virtual host    : DEFAULT_HOST
+- Context path    : /exploded
+- Document base   : /home/user1/jeus/domains/domain1/servers/server1/.workspace/deployed/<span class="bold"><strong>exploded/exploded_war___</strong></span>
+...</pre>
+      </li></ol></div>
+
+    <p/>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <h3><a id="d4e2628"></a>콘솔 툴 사용 </h3>
+
+    <p>다음은 콘솔 툴을 사용한 Stagind Mode Deploy 방법이다.
+    <span><strong class="guibutton">deploy</strong></span> 명령을 staging 옵션을 지정하여 수행한다.</p>
+
+    <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>deploy exploded -servers server1 -staging</strong></span>
+deploy the application for the application [exploded] succeeded.
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>application-info</strong></span>
+Application information for the domain [domain1].
+================================================================================
++----------+------------+---------+----------+-----------+---------------------+
+| Applicati| Application|  State  |  Server  |  Cluster  |   Application Path  |
+|  on ID   |    Type    |         | Targets  |  Targets  |                     |
++----------+------------+---------+----------+-----------+---------------------+
+| exploded | WAR        | RUNNING | server1  |           | /home/user1/apps/exp|
+|          |            |         |          |           |loded                |
++----------+------------+---------+----------+-----------+---------------------+
+| myApp    | EAR        | RUNNING | server1  |           | ${INSTALL_HOME}/myAp|
+|          |            |         |          |           |p/myApp.ear          |
++----------+------------+---------+----------+-----------+---------------------+
+================================================================================</pre>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2635"></a>4.5. Deployment Plan을 사용한 Deployment</h2></div></div></div>
+    
+
+    <p>Deployment Plan은 Deploy Time에 애플리케이션의 DD의 내용을 수정할 수 있는 애플리케이션 외부의 설정
+    파일이다. JEUS는 XML 형식의 Deployment Plan을 정의하며 EJB, 웹 애플리케이션, EAR의 표준 DD와 JEUS
+    DD에 Deployment Plan를 적용할 수 있도록 지원한다. 애플리케이션을 deploy할 때 Deployment Plan 사용에
+    대해 명시하면 Deploy Time에 DD와 Deployment Plan의 설정을 merge하여 최종 애플리케이션 설정을 확정한 뒤
+    Deploy를 수행한다.</p>
+
+    <p>본 절에서는 Deployment Plan의 설정 방법과 동작 방식에 대해 설명한다. 또한 WebAdmin과 콘솔 툴에서
+    Deployment Plan을 사용한 Deploy 방법에 대해 설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2639"></a>4.5.1. Deployment Plan 설정 및 동작 방식</h3></div></div></div>
+      
+
+      <p>Deployment Plan의 작성 예제를 통해 설정 방법과 동작 방식에 대해 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2645"></a>Deployment Plan 설정</h4>
+
+      <p>다음은 Deployment Plan의 작성 예이다.</p>
+
+      <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;jeus-deployment-plan xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+                      xmlns:jeus="http://www.tmaxsoft.com/xml/ns/jeus"
+                      xmlns:javaee="http://xmlns.jcp.org/xml/ns/javaee"
+                      xmlns:j2ee="http://java.sun.com/xml/ns/j2ee"&gt;
+    &lt;descriptors&gt;
+        <span class="bold"><strong>&lt;!-- For standalone EJB --&gt;</strong></span>
+        &lt;descriptor&gt;
+            &lt;uri&gt;META-INF/ejb-jar.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;//j2ee:ejb-name[.='ByeBean']&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;ejb-name&gt;HiBean&lt;/ejb-name&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;DELETE&lt;/action&gt;
+                    &lt;xpath&gt;/child::j2ee:ejb-jar/child::j2ee:enterprise-beans/
+child::j2ee:session/child::j2ee:local-home[.='HelloHomeLocal']&lt;/xpath&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;APPEND_CHILD&lt;/action&gt;
+                    &lt;xpath&gt;/child::j2ee:ejb-jar/descendant::j2ee:session[2]&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;transaction-type&gt;Bean&lt;/transaction-type&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;INSERT_BEFORE&lt;/action&gt;
+                    &lt;xpath&gt;/j2ee:ejb-jar/j2ee:enterprise-beans/j2ee:session/
+j2ee:ejb-name[.='HelloBean']/../j2ee:transaction-type&lt;/xpath&gt;
+                    &lt;value&gt;    
+                        &lt;![CDATA[&lt;session-type&gt;Stateless&lt;/session-type&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+        &lt;descriptor&gt;
+            &lt;uri&gt;META-INF/jeus-ejb-dd.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;/jeus:jeus-ejb-dd/jeus:beanlist/jeus:jeus-bean/
+jeus:export-name[.='ByeBean']&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;export-name&gt;HiBean&lt;/export-name&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;DELETE&lt;/action&gt;
+                    &lt;xpath&gt;/jeus:jeus-ejb-dd/jeus:beanlist/jeus:jeus-bean/
+jeus:local-export-name[.='HelloBeanLocal']&lt;/xpath&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;APPEND_CHILD&lt;/action&gt;
+                    &lt;xpath&gt;/jeus:jeus-ejb-dd/jeus:beanlist/jeus:jeus-bean&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;jeus-rmi&gt;false&lt;/jeus-rmi&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;INSERT_BEFORE&lt;/action&gt;
+                    &lt;xpath&gt;/jeus:jeus-ejb-dd/jeus:beanlist/jeus:jeus-bean/
+jeus:ejb-name[.='HiBean']/../jeus:jeus-rmi&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;thread-max&gt;100&lt;/thread-max&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+        <span class="bold"><strong>&lt;!-- For standalone web application --&gt;</strong></span>
+        &lt;descriptor&gt;
+            &lt;uri&gt;WEB-INF/web.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;/child::javaee:web-app/child::javaee:servlet-mapping/
+child::javaee:servlet-name[.='HiServlet']&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;DELETE&lt;/action&gt;
+                    &lt;xpath&gt;//javaee:load-on-startup&lt;/xpath&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;APPEND_CHILD&lt;/action&gt;
+                    &lt;xpath&gt;/javaee:web-app/descendant::javaee:login-config&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;auth-method&gt;BASIC&lt;/auth-method&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;INSERT_BEFORE&lt;/action&gt;
+                    &lt;xpath&gt;/javaee:web-app/javaee:env-entry/
+javaee:env-entry-value[.='value1']&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+        &lt;descriptor&gt;
+            &lt;uri&gt;WEB-INF/jeus-web-dd.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;//jeus:enable-jsp&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;enable-jsp&gt;true&lt;/enable-jsp&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;DELETE&lt;/action&gt;
+                    &lt;xpath&gt;/jeus:jeus-web-dd/child::jeus:max-instance-pool-size&lt;/xpath&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;INSERT_BEFORE&lt;/action&gt;
+                    &lt;xpath&gt;/jeus:jeus-web-dd/descendant::jeus:enable-jsp&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;context-path&gt;/hello&lt;/context-path&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;APPEND_CHILD&lt;/action&gt;
+                    &lt;xpath&gt;//jeus:jeus-web-dd&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;webinf-first&gt;&lt;/enabled&gt;false&lt;/enabled&gt;&lt;/webinf-first&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+        <span class="bold"><strong>&lt;!-- For EAR --&gt;</strong></span>
+        &lt;descriptor&gt;
+            &lt;uri&gt;META-INF/application.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;/javaee:application/javaee:library-directory&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;library-directory&gt;mylib&lt;/library-directory&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+        &lt;descriptor&gt;
+            &lt;uri&gt;ejb.jar/META-INF/ejb-jar.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;/javaee:ejb-jar/javaee:enterprise-beans/
+javaee:session/javaee:ejb-class&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;ejb-class&gt;HelloBean&lt;/ejb-class&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+            &lt;descriptor&gt;
+            &lt;uri&gt;web.war/WEB-INF/web.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;/javaee:web-app/javaee:servlet-mapping/
+javaee:servlet-name&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+    &lt;/descriptors&gt;
+&lt;/jeus-deployment-plan&gt;      </pre>
+
+      <p>다음은 &lt;descriptor&gt;의 하위 태그에 대한 설명이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>&lt;descriptor&gt;<a id="d4e2656" class="indexterm"></a></p>
+
+            <p>&lt;descriptor&gt;는 여러 &lt;configuration&gt; 태그로 이루어져
+            있다.</p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                  <p>&lt;configuration&gt;<a id="d4e2663" class="indexterm"></a></p>
+
+                  <p>&lt;configuration&gt;은 target DD에 적용할 하나의 설정 단위로 하위에
+                  &lt;action&gt;, &lt;xpath&gt;, &lt;value&gt; 태그로
+                  구성된다.</p>
+
+                  <div class="informaltable">
+                    <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><thead><tr><th align="left">태그</th><th>설명</th></tr></thead><tbody><tr><td align="left">&lt;action&gt;<a id="d4e2676" class="indexterm"></a></td><td><p>DD의 특정 태그에 대해서 어떤 설정을 변경할 것인지를 명시한다.
+                          </p><p>다음은 설정값에 대한 설명이다.
+                          </p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                                <p>DELETE : DD의 특정 태그를 삭제한다.</p>
+                              </li><li style="list-style-type: circle">
+                                <p>REPLACE : DD의 특정 태그를 임의의 태그로 대체한다.</p>
+                              </li><li style="list-style-type: circle">
+                                <p>APPEND_CHILD : DD의 특정 태그의 last child로써 임의의 태그를
+                                추가한다.</p>
+                              </li><li style="list-style-type: circle">
+                                <p>INSERT_BEFORE : DD의 특정 태그의 previous sibling으로서
+                                임의의 태그를 삽입한다.</p>
+                              </li></ul></div></td></tr><tr><td align="left">&lt;xpath&gt;<a id="d4e2693" class="indexterm"></a></td><td><p>DD의 특정 태그를 xpath expression으로 지정한다. 이때
+                          &lt;xpath&gt; 표준에 따라 &lt;xpath&gt; 경로에 위치하는 모든 태그는
+                          XML Name Space를 통해 qualified name으로 표현되어야 한다. 이를 위해
+                          Deployment Plan에 각 DD의 XML Name Space를 Name Space
+                          Prefix와 함께 선언한다. </p><p>예를 들어 JEUS DD에 있는 임의의
+                          태그를 &lt;xpath&gt;로 지정할 경우 &lt;xpath&gt; 경로에 위치하는 모든
+                          태그는 JEUS XML Name
+                          Space(http://www.tmaxsoft.com/xml/ns/jeus)와 함께
+                          qualified name으로 표현될 필요가 있다. Deployment Plan에서는 JEUS
+                          XML Name Space를 'jeus' Prefix로 매칭시켜 놓았으므로
+                          &lt;xpath&gt; 경로에 위치하는 모든 태그의 이름 앞에 'jeus' Prefix를
+                          붙여 qualified name을 표현한다.</p></td></tr><tr><td align="left">&lt;value&gt;<a id="d4e2700" class="indexterm"></a></td><td><p>&lt;value&gt;는 &lt;action&gt; 값이
+                          REPLACE, APPEND_CHILD, INSERT_BEFORE인 경우에만
+                          유효하다.</p><p> &lt;action&gt; 값에 따른 설정값은 다음과
+                          같다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                                <p>REPLACE : &lt;xpath&gt;로 지정한 태그를 대체할 새로운 태그를
+                                설정한다.</p>
+                              </li><li style="list-style-type: circle">
+                                <p>APPEND_CHILD : &lt;xpath&gt;로 지정한 태그에 last
+                                child로 추가할 태그를 설정한다.</p>
+                              </li><li style="list-style-type: circle">
+                                <p>INSERT_BEFORE : &lt;xpath&gt;로 지정한 태그의
+                                previous sibling으로 삽입할 태그를 설정한다.</p>
+                              </li></ul></div><p>&lt;value&gt; 값으로 설정되는
+                          태그는 일반적으로 depth를 갖는 XML fragment 형태를 가정하므로
+                          &lt;value&gt; 값은 특별히 CDATA section으로 표현한다. CDATA
+                          section에 action 수행을 위해 필요한 XML fragment를 그대로
+                          적는다.</p></td></tr></tbody></table>
+                  </div>
+                </li></ul></div>
+
+            <p/>
+          </li></ul></div>
+
+      <p/>
+
+      <h4><a id="d4e2717"></a>Deployment Plan 동작 방식</h4>
+
+      <p>위의 작성 예제를 바탕으로 태그별 동작 방식에 대해 설명한다.</p>
+
+      <div class="itemizedlist"><ul type="disc" compact="compact"><li>
+            <p>&lt;descriptor&gt;</p>
+
+            <p>Deployment Plan은 여러 개의 &lt;descriptor&gt; 태그로 이루어져
+            있다.</p>
+
+            <p>&lt;descriptor&gt; 단위로 target이 되는 DD를 지정하며 이를 위해 &lt;uri&gt;
+            태그를 사용한다. 애플리케이션 파일을 루트(root)로 가정하고 그로부터 정해지는 DD의 상대 경로를
+            &lt;uri&gt; 값으로 명시하여 target DD를 결정한다.</p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                  <p>예를 들어 Standalone EJB 모듈의 표준 DD는 애플리케이션 루트로부터 항상
+                  META-INF/ejb-jar.xml에 위치하며 JEUS DD는
+                  META-INF/jeus-ejb-dd.xml에 위치한다. 그러므로 위의 Deployment Plan의 첫
+                  번째 &lt;descriptor&gt;는 그것의 &lt;uri&gt; 값으로부터 Standalone EJB
+                  모듈의 표준 DD를 위한 것이고 두 번째 &lt;descriptor&gt;는 그것의 &lt;uri&gt;
+                  값으로부터 Standalone EJB 모듈의 JEUS DD를 위한 것임을 알 수 있다. Stanalone 웹
+                  애플리케이션이나 EAR에 대해서도 동일한 규칙이 적용된다.</p>
+                </li><li>
+                  <p>&lt;uri&gt; 값이 'ejb.jar/META-INF/ejb-jar.xml'인
+                  &lt;descriptor&gt;는 EAR에 속한 EJB 모듈(파일 이름이 ejb.jar)을 위한 것이고,
+                  &lt;uri&gt; 값이 'web.war/WEB-INF/web.xml'인
+                  &lt;descriptor&gt;는 EAR에 속한 WEB 모듈(파일 이름이 web.war)을 위한
+                  것이다.</p>
+                </li><li>
+                  <p>하나의 Deployment Plan은 여러 개의 서로 다른 애플리케이션 Deploy를 위해 사용될
+                  수 있다. deploy하는 애플리케이션의 DD와 &lt;uri&gt; 값이 매칭되어 유효한 것으로 판단되는
+                  &lt;descriptor&gt;만 선택되어 해당 애플리케이션을 deploy할 때 적용되는 방식이므로 그
+                  외의 &lt;descriptor&gt;는 Deploy에 전혀 영향을 주지 않는다.</p>
+                </li></ul></div>
+          </li><li>
+            <p>&lt;configuration&gt;</p>
+
+            <p>다음은 첫 번째 &lt;descriptor&gt; 설정을 예로 들어 설명한 것으로
+            &lt;descriptor&gt;의 설정에 의해 DD에 실제적으로 수정되는 사항에 대한 설명이다.</p>
+
+            <div class="itemizedlist"><ul type="circle"><li>
+                  <p>첫 번째 &lt;descriptor&gt;는 앞서 언급했듯이 Standalone EJB 모듈의
+                  표준 DD를 조작한다. 가정 먼서 수행되는 조작 action은 특정 태그의 대체로써 첫 번째
+                  &lt;configuration&gt;으로 표현되어 있다. 값이 'ByeBean'이라는
+                  &lt;ejb-name&gt; 태그를 값이 'HiBean'인 &lt;ejb-name&gt; 태그로 대체하고
+                  있음을 확인할 수 있다.</p>
+                </li><li>
+                  <p>두 번째 &lt;configuration&gt;은 값이 'HelloHomeLocal'인
+                  &lt;local-home&gt; 태그의 삭제를 표현한다.</p>
+                </li><li>
+                  <p>세 번째 &lt;configuration&gt;은 두 번째 &lt;session&gt; 태그의
+                  last child로써 &lt;transaction&gt; 태그를 추가함을 표현한다.</p>
+                </li><li>
+                  <p>네 번째 &lt;configuration&gt;은 &lt;ejb-name&gt; 태그의 값이
+                  'HelloBean'인 &lt;session&gt; 태그의 previous sibling으로써
+                  &lt;session-type&gt; 태그를 삽입함을 표현한다.</p>
+                </li></ul></div>
+          </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2747"></a>4.5.2. Deployment Plan Install</h3></div></div></div>
+      
+
+      <p>Deployment Plan을 이용하여 deploy를 하기 위해서는 우선 Deployment Plan을 도메인에
+      install해야 한다. 애플리케이션과 유사하게 Deploy에 이용할 수 있는 Deployment Plan 또한 도메인에
+      install된 것들에 한한다. Deployment Plan을 install할 때는 도메인에서의 Deployment Plan의
+      식별자를 설정할 수 있다.</p>
+
+      <p>Deployment Plan은 WebAdmin 또는 콘솔 툴을 사용해서 install할 수 있다.</p>
+
+      <p/>
+
+      <h4><a id="d4e2753"></a>WebAdmin 사용</h4>
+
+      <p>다음은 WebAdmin을 사용해서 Deployment Plan을 install하는 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를
+            선택하면 <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 해당
+            화면에서 <span><strong class="guibutton">[plan]</strong></span> 버튼을 클릭하면 <span><strong class="guibutton">Deployment
+            Plan 화면</strong></span>으로 이동한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">Deployment Plan 화면</strong></span>에서
+            <span><strong class="guibutton">[install]</strong></span> 버튼을 클릭하여 install할 Deployment
+            Plan의 경로를 설정하고 적절한 식별 이름을 입력한 후 <span><strong class="guibutton">[확인]</strong></span> 버튼을
+            클릭한다.</p>
+          </li><li>
+            <p>입력한 식별 이름으로 Deployment Plan이 install된 것을 확인할 수 있다.</p>
+          </li></ol></div>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e2773"></a>콘솔 툴 사용</h4>
+
+      <p>콘솔 툴에서 <span><strong class="guibutton">install-deployment-plan</strong></span> 명령을 통해
+      Deployment Plan을 install할 수 있다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>installdp -path /home/user1/plans/jeus-deployment-plan.xml -name plan1</strong></span>
+Installing the deployment plan [plan1] was successful.</pre>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>install-deployment-plan 명령의 사용 방법에 대한 자세한 내용은 <a xmlns="" href="../reference-book/ch04.html#cmd_install-deployment-plan" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.6.8. install-deployment-plan”</a>을 참고한다.</p>
+      </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2782"></a>4.5.3. Install한 Deployment Plan 확인</h3></div></div></div>
+      
+
+      <p>WebAdmin 또는 콘솔 툴을 사용해서 Install한 Deployment Plan을 확인할 수 있다. 각각의
+      Deploymnet Plan은 install할 때 설정한 Deployment Plan의 식별자로 구분되며 Deployment
+      Plan별로 그것이 적용된 애플리케이션 목록이 표시된다. Deployment Plan의 실제 파일 내용도 화면에 출력할 수
+      있다.</p>
+
+      <p/>
+
+      <h4><a id="d4e2787"></a>WebAdmin 사용</h4>
+
+      <p>다음은 WebAdmin을 사용해서 Install한 Deployment Plan을 확인하는 과정에 대한
+      설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를
+            선택하면 <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 해당
+            화면에서 <span><strong class="guibutton">[plan]</strong></span> 버튼을 클릭하면 <span><strong class="guibutton">Deployment
+            Plan 화면</strong></span>으로 이동한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">Deployment Plan 화면</strong></span>에서 install된
+            Deployment Plan의 목록이 조회된다.</p>
+          </li><li>
+            <p>조회된 목록에서 특정 Deployment Plan의 이름을 클릭하면 내용을 확인할 수 있다.</p>
+          </li></ol></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2805"></a>콘솔 툴 사용</h4>
+
+      <p>콘솔 툴에서 <span><strong class="guibutton">deployment-plan-info</strong></span> 명령을 통해서 도메인에
+      install한 Deployment Plan이 적용된 애플리케이션의 목록을 조회할 수 있고, 특히 특정 Deployment
+      Plan을 지정하면 해당 Deployment Plan의 내용을 화면에서 확인할 수 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>Deployment Plan의 목록 조회</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>dpinfo</strong></span>
+The list of deployment plans installed in the domain and the applications to which each deployment plan applies
+===========================================================
++------------------------------------------+--------------+
+|              Deployment plan             | Applications |
++------------------------------------------+--------------+
+| plan1                                    |              |
++------------------------------------------+--------------+
+===========================================================</pre>
+          </li><li>
+            <p>특정 Deployment Plan의 내용 조회</p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>dpinfo -name plan1</strong></span>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;jeus-deployment-plan xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+   ...
+&lt;/jeus-deployment-plan&gt;</pre>
+          </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>deployment-plan-info 명령 사용 방법에 대한 자세한 내용은 <a xmlns="" href="../reference-book/ch04.html#cmd_deployment-plan-info" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.6.5. deployment-plan-info”</a>를 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2827"></a>4.5.4. Deployment Plan을 적용한 Deploy</h3></div></div></div>
+      
+
+      <p>WebAdmin 또는 콘솔 툴을 사용해서 Install한 Deployment Plan을 적용하여 Deploy를 수행할
+      수 있다.</p>
+
+      <p/>
+
+      <h4><a id="d4e2832"></a>WebAdmin 사용</h4>
+
+      <p>다음은 WebAdmin을 사용해서 Deployment Plan을 적용한 Deploy 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를
+            선택하면 <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 해당
+            화면에서 deploy할 애플리케이션을 선택하고 <span><strong class="guibutton">[deploy]</strong></span> 버튼을
+            클릭한다.</p>
+          </li><li>
+            <p>팝업되는 Deploy 항목 설정 화면에서 <span><strong class="guibutton">'plan'</strong></span> 항목에 설치된
+            plan의 식별 이름을 입력하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+          </li><li>
+            <p>화면 상단에 Deploy가 성공적으로 완료되었다는 메시지가 표시되고, 애플리케이션의 상태가 RUNNING으로
+            변경된 것을 확인할 수 있다.</p>
+          </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2851"></a>콘솔 툴 사용</h4>
+
+      <p>콘솔 툴에서 <span><strong class="guibutton">deploy-application</strong></span> 명령을 통해 Deployment
+      Plan을 사용한 Deploy를 수행할 수 있다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>deploy webapp -all -plan plan1</strong></span>
+deploy the application for the application [webapp] succeeded.</pre>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2858"></a>4.5.5. 애플리케이션에 적용된 Deployment Plan 확인</h3></div></div></div>
+      
+
+      <p>WebAdmin 또는 콘솔 툴을 사용해서 임의의 애플리케이션에 어떤 Deployment Plan이 적용되었는지 확인할
+      수 있다.</p>
+
+      <p/>
+
+      <h4><a id="d4e2863"></a>WebAdmin 사용</h4>
+
+      <p>다음은 WebAdmin을 사용해서 애플리케이션에 적용된 Deployment Plan을 확인하는 과정에 대한
+      설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를
+            선택하면 <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 해당
+            화면에서 정보를 확인할 애플리케이션 ID를 클릭하면 상세 정보를 확인할 수 있다.</p>
+          </li><li>
+            <p>선택한 애플리케이션에 대한 상세 정보에는 적용된 Deployment Plan도 포함된다.</p>
+          </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2877"></a>콘솔 툴 사용</h4>
+
+      <p>콘솔 툴에서 <span><strong class="guibutton">application-info</strong></span> 명령을 통해 애플리케이션에 적용된
+      Deployment Plan을 확인할 수 있다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>appinfo -id webapp -detail</strong></span>
+Application information for the domain [domain1].
+================================================================================
++------+-------+-----+------+-------+--------------+----------+----------+-----+
+| Appli| Applic|State|Server|Cluster|    Running   | Applicati| Applicati| Plan|
+|cation| ation |     |Target|Targets|   Servers    | on Path  | on Time  |Name |
+|  ID  | Type  |     |  s   |       |              |          |          |     |
++------+-------+-----+------+-------+--------------+----------+----------+-----+
+|webapp| WAR   | RUNN| ALL  | ALL   | server1,serve| ${INSTALL| Tue May  |plan1|
+|      |       |ING  |      |       |r2,server3,adm|_HOME}/web|28        |     |
+|      |       |     |      |       |inServer      |app/deploy|22:45:13  |     |
+|      |       |     |      |       |              |ment_plan_|KST 2013  |     |
+|      |       |     |      |       |              |web.war   |          |     |
++------+-------+-----+------+-------+--------------+----------+----------+-----+
+================================================================================</pre>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2884"></a>4.5.6. Deployment Plan Uninstall</h3></div></div></div>
+      
+
+      <p>WebAdmin 또는 콘솔 툴을 사용해서 Deployment Plan을 도메인에서 uninstall할 수 있다.
+      Uninstall된 Deployment Plan은 도메인에서 더 이상 유효하지 않으며 당연히 deploy할 때도 사용할 수
+      없다.</p>
+
+      <p/>
+
+      <h4><a id="d4e2889"></a>WebAdmin 사용</h4>
+
+      <p>다음은 WebAdmin을 사용해서 설치된 Deployment Plan을 uninstall하는 과정에 대한
+      설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Applications]</strong></span>를
+            선택하면 <span><strong class="guibutton">Deployed Application 화면</strong></span>으로 이동한다. 해당
+            화면에서 <span><strong class="guibutton">[plan]</strong></span> 버튼을 클릭하면 <span><strong class="guibutton">Deployment
+            Plan 화면</strong></span>으로 이동한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">Deployment Plan 화면</strong></span>에 install된
+            Deployment Plan 목록이 조회된다. 삭제를 원하는 Deployment Plan에 대하여
+            <span><strong class="guibutton">[uninstall]</strong></span> 버튼을 클릭한다.</p>
+          </li><li>
+            <p>화면 상단에 Deployment Plan의 uninstall이 성공적으로 완료되었다는 메시지가
+            표시된다.</p>
+          </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e2909"></a>콘솔 툴 사용</h4>
+
+      <p>콘솔 툴에서 <span><strong class="guibutton">uninstall-deployment-plan</strong></span> 명령을 통해
+      Deployment Plan을 uninstall할 수 있다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>uninstalldp plan1</strong></span>
+Uninstalling the deployment plan was successful.</pre>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>uninstall-deployment-plan 명령의 사용 방법에 대한 자세한 내용은 <a xmlns="" href="../reference-book/ch04.html#cmd_uninstall-deployment-plan" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.6.17. uninstall-deployment-plan”</a>을 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2920"></a>4.5.7. Deployment Plan Redeploy</h3></div></div></div>
+      
+
+      <p>Deployment Plan을 이용해서 deploy한 애플리케이션은 redeploy할 때 기본적으로 기존의
+      Deployment Plan이 그대로 적용된다. 그러나 redeploy할 때 Deployment Plan을 새롭게 설정하면 새로운
+      Deployment Plan을 적용하여 redeploy할 수 있다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_overview_of_javaee_application.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="glossary.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제3장 애플리케이션 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 용어해설</td></tr></table></div><div xmlns="" align="center"/></body></html>

@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제2장 고급 애플리케이션 클라이언트</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Application Client 안내서"/><link rel="up" href="index.html" title="JEUS Application Client 안내서"/><link rel="prev" href="chapter_JEUS_Application_Client.html" title="제1장 애플리케이션 클라이언트"/><link rel="next" href="chapter_JEUS_Applet_Client.html" title="제3장 애플릿 클라이언트"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제2장 고급 애플리케이션 클라이언트</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_JEUS_Application_Client.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_JEUS_Applet_Client.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_JEUS_Advanced_Application_Client"></a>제2장 고급 애플리케이션 클라이언트</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_JEUS_Advanced_Application_Client.html#sect_JEUS_Advanced_Application_Client_Intro">2.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Advanced_Application_Client.html#d4e659">2.2. Dependency Injection</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_JEUS_Advanced_Application_Client.html#d4e694">2.2.1. EJB Injection</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Advanced_Application_Client.html#d4e712">2.2.2. 리소스 Injection</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Advanced_Application_Client.html#d4e731">2.2.3. 그 외의 Injection</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_JEUS_Advanced_Application_Client.html#d4e740">2.3. Dependency Injection을 사용할 수 없는 클라이언트</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Advanced_Application_Client.html#d4e753">2.4. 보안 설정</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Advanced_Application_Client.html#d4e788">2.5. 트랜잭션</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 이전 장에서 설명한 애플리케이션 클라이언트의 설명보다 좀 더 고급 모듈 구현에 대해서 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_Advanced_Application_Client_Intro"></a>2.1. 개요</h2></div></div></div>
+    
+
+    <p>Java EE 스펙에 제시된 클라이언트 컨테이너를 사용하지 않고도 간편하게 일반 Java 클래스를 실행하듯이 JEUS
+    클라이언트를 실행할 수 있다. 이를 위해서 클라이언트 컨테이너가 Dependency Injection을 하는 리소스의 종류와 이들의
+    JNDI 디폴트 바인딩 이름을 살펴본다. 또한 클라이언트 컨테이너 없이 동작하는 클라이언트와 애플리케이션 클라이언트가 사용할 수 있는
+    서비스(보안 설정, 트랜잭션)에 대해 자세히 설명한다.</p>
+
+    <p>클라이언트 컨테이너를 사용하지 않고 JEUS 클라이언트를 실행하는 경우에는 컨테이너의 Dependency Injection
+    서비스를 받을 수 없음에 유의해야 한다. 또한 보안 설정을 통해 JEUS가 제공하는 다양한 서비스를 실행할 수 있고, 트랜잭션 기능을
+    사용하면 클라이언트가 사용한 애플리케이션과 리소스들을 글로벌 트랜잭션으로 관리할 수 있다.</p>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e659"></a>2.2. Dependency Injection</h2></div></div></div>
+    
+
+    <p>본 절에서 설명하는 Injection의 내용은 애플리케이션 클라이언트를 포함하여 웹 애플리케이션, EJB 애플리케이션 등에
+    모두 적용되는 내용이다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>Injection이 가능한 리소스는 EJB 객체와 JNDI로 매핑이 가능한 Environment Variable 등이
+    있으며 기본적으로 애플리케이션 컴포넌트의 JNDI 컨텍스트인 java:comp/env context에서 지정된 이름을 찾는다. 실제
+    리소스는 JNIDI 글로벌 컨텍스트에 바인딩되어 있으므로 이 글로벌 바인딩 이름을 알아야 한다.</p>
+
+    <p>리소스들은 자신의 JNDI 글로벌 바인딩 이름을 갖고 있다. EJB 애플리케이션을 예로 들면 이 이름은 다음 중에 한 가지
+    방법으로 설정되어야 한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>JEUS에서 인식하는 jeus-ejb-dd.xml의 &lt;export-name&gt;을 사용</p>
+      </li><li>
+        <p>표준에 있는 ejb-jar.xml의 &lt;mapped-name&gt;을 사용</p>
+      </li><li>
+        <p>EJB 애플리케이션에 지정된 Annotation의 mappedName을 사용</p>
+      </li><li>
+        <p><a xmlns="" href="../ejb/index.html" class="olink">"JEUS EJB 안내서"</a>에서
+        제시되어 있는 JEUS의 기본 JNDI 이름으로 EJB가 바인딩</p>
+      </li></ul></div>
+
+    <p>클라이언트 컨테이너가 없는 환경 등에서 JNDI를 직접 사용하여 EJB를 얻을 경우에는 이런 기본 JNDI 이름이 정해지는
+    규칙을 알아야 한다. 이렇게 어떤 이름으로 바인딩될지 개발자가 알기 힘들기 때문에 실제 개발에서는 위의 방법 중 어느 하나의 방법으로
+    JNDI 바인딩 이름을 명시하는 것이 일반적이다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    
+
+    <p>리소스를 Injection하는 쪽에서는 JEUS 자체의 DD인 jeus-ejb-dd.xml, jeus-web-dd.xml,
+    jeus-client-dd.xml 등에서 Injection에 사용할 JNDI 글로벌 바인딩 이름을 지정하거나 ejb-jar.xml,
+    web.xml, application-client.xml 등의 표준 DD의 mapped-name 또는 Annotation의
+    mappedName에 지정된 값을 사용하여 매핑한다. 이 모든 값이 지정되어 있지 않는 경우에는 JEUS의 기본 규칙에 따른 이름으로
+    Injection을 시도한다.</p>
+
+    <p>실제 개발에서는 Annotation의 mappedName으로 JNDI 글로벌 바인딩 이름을 지정하기보다는 XML을 사용하여
+    지정하는 것이 좋다. 특히 여러 곳에서 운영할 애플리케이션이라면 그 환경에 맞는 글로벌 이름을 사용해야 하므로 XML을 사용해야
+    한다. Injection은 Annotation을 한 변수와 setter 메소드에 대해서 이루어지지만 Annotation을 하지 않아도
+    XML Descriptor에서 지정한 변수와 setter 메소드에 대해 injection이 가능하다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>1. Injection의 자세한 설명은 Java EE 7 Technologies(<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.oracle.com/technetwork/java/javaee/tech/index-jsp-142185.html" target="_top">http://www.oracle.com/technetwork/java/javaee/tech/index-jsp-142185.html</a>)을
+      참고하고, Injection이 가능한 리소스의 자세한 설명은 해당 안내서의 "5. Resources, Naming and
+      Injection"을 참고한다.</p>
+
+      <p>2. EJB 애플리케이션에 대한 EJBContext injection 등은 <a xmlns="" href="../ejb/index.html" class="olink">"JEUS EJB 안내서"</a>를 참고한다.</p>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 Annotation의 mappedName을 사용한 EJB 애플리케이션을 클라이언트에서 Injection하는
+    예제이다. StatelessEJB1 애플리케이션이 'MyEJB1'이란 이름을 JNDI 글로벌 바인딩 이름으로 사용하므로
+    클라이언트에서는 @EJB Annotation의 mappedName에 같은 이름을 지정한다. 또한 클라이언트에서 Injection 대신
+    JNDI Lookup을 사용한다면 JNDI 글로벌 바인딩 이름으로 바로 Lookup을 하거나 클라이언트 컨테이너 등에서 동작하는
+    클라이언트라면 application-client.xml 등을 사용하여 애플리케이션 컨텍스트에 등록된 이름인
+    java:comp/env/ejb/sless1를 사용할 수 있다.</p>
+
+    <div class="example"><a id="d4e689"></a><p class="title"><b>[예 2.1] EJB 참조 Injection</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">import ejb1.RemoteSession;
+
+@Stateless(name="StatelessEJB1", mappedName="MyEJB1") 
+public class StatelessEJB1 implements RemoteSession, LocalSession {...
+}
+...
+@EJB(name="sless1", beanName="StatelessEJB1", mappedName="MyEJB1") 
+private RemoteSession sless1;
+...
+RemoteSession session = context.lookup("MyEJB1");
+...
+// with client container and application-client.xml descriptor
+RemoteSession session = context.lookup("java:comp/env/ejb/sless1");  </pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e694"></a>2.2.1. EJB Injection</h3></div></div></div>
+      
+
+      <p>EJB 참조의 경우 Injection을 위해 다음과 같은 바인딩 이름을 사용한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">변수 타입이 비즈니스 인터페이스인 경우</strong></span></p>
+
+          <p>mappedName이 있는 경우에 Lookup할 때 사용할 글로벌 이름을 다음 형식으로 설정한다.</p>
+
+          <pre class="programlisting">mappedName + "#" + Business_Interface_Name</pre>
+
+          <p>위 예제의 경우 'MyEJB1' 또는 'MyEJB1#ejb1.RemoteSession'을 사용한다. EAR이나
+          EJB JAR 등으로 deploy된 경우 ejb-jar.xml에 ejb-link가 주어졌거나 Annotation에
+          beanName이 있을 때에는 동일 애플리케이션 내의 EJB를 찾아 그 EJB의 mappedName을 글로벌 이름으로
+          사용하여 Lookup한다. 만약 이런 정보가 없는 경우에는 비즈니스 인터페이스의 이름으로 같은 애플리케이션 내에서 EJB를
+          찾아 그 EJB의 mappedName을 글로벌 이름으로 사용한다.</p>
+
+          <p>마지막으로 비즈니스 인터페이스 이름으로 JNDI에서 Lookup한다. 위의 예제의 경우
+          'java:global/&lt;module-name&gt;/MyEJB1' 또는
+          'java:global/&lt;module-name&gt;/MyEJB1!ejb1.RemoteSession' 이름으로
+          Lookup한다. 이 방식은 EJB deploy의 경우 mappedName이 없을 때 기본 바인딩 이름을 사용하는
+          것이다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">변수 타입이 EJBHome/EJBObject 인터페이스의 하위 인터페이스인
+          경우</strong></span></p>
+
+          <p>mappedName이 있는 경우에 <span><strong class="guibutton">mappedName</strong></span>을 글로벌 이름으로
+          사용한다. EAR이나 EJB JAR 등으로 deploy된 경우 ejb-jar.xml에 EJB-link가 주어졌거나
+          Annotation에 beanName이 있을 때에는 동일 애플리케이션 내의 EJB를 찾아 그 EJB의 mappedName을
+          사용하여 Lookup한다. 만약 이런 정보가 없는 경우에는 변수 타입의 인터페이스 이름으로 같은 애플리케이션 내에서
+          EJB를 찾아 그 EJB의 mappedName을 글로벌 이름으로 사용한다.</p>
+
+          <p>마지막으로 비즈니스 인터페이스 이름으로 JNDI에서 Lookup한다.</p>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e712"></a>2.2.2. 리소스 Injection</h3></div></div></div>
+      
+
+      <p>리소스인 경우에는 @Resource Annotation을 사용할 수 있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>mappedName이 지정된 경우에는 이 이름을 리소스의 JNDI 글로벌 바인딩 이름으로
+          Lookup한다.</p>
+        </li><li>
+          <p>mappedName이 지정되지 않은 경우에는 @Resource의 name 속성 값을 JNDI 글로벌 바인딩
+          이름으로 사용한다.</p>
+        </li></ul></div>
+
+      <p>name 속성 값이 지정되지 않은 경우에는 스펙에 따라 다음의 형식이 사용된다.</p>
+
+      <pre class="programlisting">애플리케이션 클래스의 이름 + / + 변수 또는 setter 메소드의 프로퍼티 이름</pre>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음의 예제에서는 'jdbc/DB2' 이름으로 JNDI Lookup을 한다. 만약 name 속성이 지정되지 않았다면
+      'test.Client/myDataSource3'로 Lookup한다.</p>
+
+      <div class="example"><a id="d4e726"></a><p class="title"><b>[예 2.2] 리소스 Injection</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package test;
+
+class Client {
+    @Resource(name="jdbc/DB2") // default mapping if no mapped-name private
+    javax.sql.DataSource myDataSource3;
+    ...
+}</pre>
+        </div></div><p><br class="example-break"/></p><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>name이 있는 경우 또는 name 속성이 지정되지 않은 경우의 기본값은 스펙으로 정해져 있지만 이 값은
+          애플리케이션 컨텍스트에 매핑되는 이름이고, 실제 JNDI 글로벌 바인딩 이름은 벤더마다 다른 규칙을 갖고 있다. 따라서
+          호환성을 위해서는 mappedName 등을 사용하는 것이 좋다.</p>
+        </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e731"></a>2.2.3. 그 외의 Injection</h3></div></div></div>
+      
+
+      <p>이외에도 @WebServiceRef, @PersistenceUnit, @PersistenceContext 등의
+      Annotation을 사용해서 각각 웹 서비스 객체, EntityManager 객체, EntityManagerFactory 객체
+      등을 Injection으로 얻을 수 있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>그 외 자세한 설명은 Java EE 7 Technologies(<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.oracle.com/technetwork/java/javaee/tech/index-jsp-142185.html" target="_top">http://www.oracle.com/technetwork/java/javaee/tech/index-jsp-142185.html</a>)을
+        참고한다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e740"></a>2.3. Dependency Injection을 사용할 수 없는 클라이언트</h2></div></div></div>
+    
+
+    <p>애플리케이션 컨테이너를 사용하지 않고도 JEUS의 JNDI 등을 통해 JEUS의 리소스와 애플리케이션을 사용할 수 있다.
+    이 경우에는 JEUS_HOME/lib/client의 jclient.jar 파일을 클래스 패스로 설정하고 작성한 클라이언트를
+    수행한다.</p>
+
+    <p>하지만 이 경우 Dependency Injection은 사용할 수 없으므로 다음과 같이 소스를 변경해서 사용해야 한다.
+    예제에서 사용한 EJB 애플리케이션의 바인딩 이름은 JEUS의 기본 바인딩 이름 규칙에 따른 이름을 사용한다. 이 클라이언트는
+    클라이언트 컨테이너 위에서도 동작한다. 즉, 클라이언트 컨테이너를 사용하지 않는 모든 클라이언트는 클라이언트 컨테이너 위에서도
+    동작한다.</p>
+
+    <div class="example"><a id="d4e745"></a><p class="title"><b>[예 2.3] &lt;&lt;HelloClient.java&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">package helloejb;
+
+import java.io.*;
+import javax.ejb.EJB;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import java.util.Hashtable;
+
+/**
+ * HelloEJB application client
+ */
+public class HelloClient {
+    private static Hello hello;
+    
+    public static void main(String[] args) {
+        try {
+            Hashtable env = new Hashtable();
+            env.put(Context.INITIAL_CONTEXT_FACTORY,"jeus.jndi.JNSContextFactory");
+            Context context = new InitialContext(env);
+            hello = (Hello) context.lookup("helloejb.Hello");
+
+            System.out.println("EJB output : " + hello.sayHello());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+}</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p>클라이언트 패키징은 XML 파일을 처리하는 클라이언트 컨테이너에서 실행하는 것이 아니므로 표준, JEUS XML 파일 없이
+    JAR 파일로 작성한다. deploy는 마찬가지로 자신이 원하는 위치에 JAR 파일을 복사한다. 실행할 때는 일반 Java 클래스를
+    실행하는 것과 같이 위의 클라이언트 클래스를 실행한다.</p>
+
+    <p>실행한 결과는 다음과 같다.</p>
+
+    <pre class="screen">$ <span class="bold"><strong>java -cp /jeus/lib/client/jclient.jar;./hello-client.jar helloejb.HelloClient</strong></span>
+[2012.05.23 22:45:51][2] [t-1] [Network-0405] [Endpoint] exporting Endpoint (0:192.168.0.16:9756:-1:0x79F24F28)
+[2012.05.23 22:45:51][2] [t-1] [Network-0002] [Acceptor] start to listen NonBlockingChannelAcceptor: /192.168.0.16:9756
+EJB output : Hello EJB!</pre>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e753"></a>2.4. 보안 설정</h2></div></div></div>
+    
+
+    <p>클라이언트에서는 JEUS가 제공하는 Java EE의 서비스를 사용할 때 자신이 해당 서비스를 사용할 권한이 있는지를 확인할
+    수 있도록 클라이언트의 사용자명, 패스워드를 클라이언트 런타임에 지정해야 한다. 이런 서비스에는 EJB 애플리케이션, JMS 리소스
+    등이 있다. 이를 지정하는 방법은 다음의 3가지가 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><span><strong class="guibutton">jeus-client-dd.xml을 사용하는 방법</strong></span></p>
+
+        <p>jeus-client-dd.xml의
+        <span><strong class="guibutton">&lt;security-info&gt;</strong></span>를 지정하면 클라이언트 컨테이너에서
+        애플리케이션을 수행하기 전에 주어진 사용자명, 패스워드로 로그인한다. 이후 애플리케이션에서는 JEUS 서비스를 사용할 때 이
+        사용자명으로 인증을 시도한다. jeus-client-dd.xml 설정에 대한 자세한 설명은 "JEUS XML
+        Reference"을 참고한다.</p>
+
+        <div class="example"><a id="d4e763"></a><p class="title"><b>[예 2.4] &lt;&lt;jeus-client-dd.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;jeus-client-dd&gt;
+    <span class="bold"><strong>...
+   &lt;security-info&gt;</strong></span>
+        &lt;provider-node-name&gt;jeusNode&lt;/provider-node-name&gt;
+        &lt;user&gt;user1&lt;/user&gt;
+        &lt;passwd&gt;password1&lt;/passwd&gt;
+<span class="bold"><strong>   &lt;/security-info&gt;</strong></span>
+   <span class="bold"><strong>...</strong></span>
+&lt;/jeus-client-dd&gt;</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <p/>
+      </li><li>
+        <p><span><strong class="guibutton">JNDI 컨텍스트를 사용하는 방법</strong></span></p>
+
+        <p>애플리케이션에서 JNDI 컨텍스트를 생성할 때 JNDI의 프로퍼티를 사용해서 원하는 사용자명, 패스워드로 로그인할
+        수 있다. 이후 로그인한 사용자명으로 인증이 이루어진다. 이 방법은 클라이언트 컨테이너를 사용하지 않을 경우에도 가능하다.
+        JNDI 설정은 <a xmlns="" href="../server/chapter_jndi.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “제4장 JNDI Naming Server”</a>를
+        참고한다.</p>
+
+        <div class="example"><a id="d4e776"></a><p class="title"><b>[예 2.5] &lt;&lt;Client.java&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">Hashtable env = new Hashtable();
+env.put(Context.INITIAL_CONTEXT_FACTORY, "jeus.jndi.JNSContextFactory");
+env.put(Context.PROVIDER_URL, "192.168.0.16:9736");
+env.put(Context.SECURITY_PRINCIPAL, "user1");
+env.put(Context.SECURITY_CREDENTIALS, "password1");
+Context context = new InitialContext(env);</pre>
+          </div></div><p><br class="example-break"/></p>
+      </li><li>
+        <p><span><strong class="guibutton">JEUS Security API를 직접 사용하는 방법</strong></span></p>
+
+        <p>JEUS의 Security API를 사용하여 로그인할 수 있다. Security API에 대한 자세한 내용은
+        <a xmlns="" href="../security/index.html" class="olink">"JEUS Security
+        안내서"</a>를 참고한다.</p>
+      </li></ul></div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e788"></a>2.5. 트랜잭션</h2></div></div></div>
+    
+
+    <p>클라이언트에서 사용하는 EJB 애플리케이션, JDBC DataSource, JMS Connection Factory와
+    Destination 등을 하나의 글로벌 트랜잭션 또는 XA 트랜잭션으로 사용하기 위해서는 UserTransaction을
+    사용한다.</p>
+
+    <p/>
+
+    <p>클라이언트에서 사용하는 트랜잭션 매니저는 리소스를 직접 관리하는지의 여부에 따라 서버 트랜잭션 매니저와 클라이언트 트랜잭션
+    매니저로 나눌 수 있다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>1. UserTransaction의 자세한 설명은 Java EE 7 Technologies(<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.oracle.com/technetwork/java/javaee/tech/index-jsp-142185.html" target="_top">http://www.oracle.com/technetwork/java/javaee/tech/index-jsp-142185.html</a>)을
+        참고한다.</p>
+
+        <p>2. 트랜잭션 매니저의 자세한 설명은 <a xmlns="" href="../server/chapter_tx_manager.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “제7장 트랜잭션 매니저”</a>를 참고한다.</p>
+      </div>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_JEUS_Application_Client.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_JEUS_Applet_Client.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제1장 애플리케이션 클라이언트 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제3장 애플릿 클라이언트</td></tr></table></div><div xmlns="" align="center"/></body></html>

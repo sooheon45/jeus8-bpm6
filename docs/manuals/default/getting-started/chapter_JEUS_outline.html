@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제4장 설치 개요 및 준비사항</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS 설치 및 시작하기"/><link rel="up" href="part_installation.html" title="Part II. JEUS 설치하기"/><link rel="prev" href="part_installation.html" title="Part II. JEUS 설치하기"/><link rel="next" href="chapter_install_unix.html" title="제5장 UNIX에서 설치 및 제거"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제4장 설치 개요 및 준비사항</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="part_installation.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part II. JEUS 설치하기</td><td width="20%" align="right"> <a accesskey="n" href="chapter_install_unix.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_JEUS_outline"></a>제4장 설치 개요 및 준비사항</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_JEUS_outline.html#sect_JEUS_information">4.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_JEUS_outline.html#sect_system requ">4.2. 시스템 요구사항</a></span></dt><dt><span class="section"><a href="chapter_JEUS_outline.html#sect_JEUS_config chart">4.3. 설치 순서</a></span></dt><dt><span class="section"><a href="chapter_JEUS_outline.html#sect_Java_2_JDK">4.4. JDK 설치</a></span></dt><dt><span class="section"><a href="chapter_JEUS_outline.html#sect_JEUS_License">4.5. JEUS 라이선스 정책</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 설치 과정에 대한 기본적인 설명과 설치 전에 준비할 시스템 환경 및 필요한 JDK 환경 구성에 대해서
+  설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_information"></a>4.1. 개요</h2></div></div></div>
+    
+
+    <p>Windows와 UNIX 환경에서 JEUS를 쉽게 설치하기 위해 JEUS 설치 툴은 그래픽 사용자 인터페이스(GUI)를
+    지원한다. 커맨드 모드가 익숙한 UNIX/Linux 환경에서는 콘솔 모드에서 설치가 가능하다. 기본적으로 콘솔 모드로 설치가
+    진행되며, GUI 형태로 진행하려면 –i GUI 옵션을 넣어서 실행한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>설치 파일은 다음의 작업을 진행한다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>JEUS 라이선스 계약을 한다. 설치를 진행하려면 반드시 동의하여야 하므로 주의 깊게 읽어 보길
+          바란다.</p>
+        </li><li>
+          <p>JEUS 구성 파일 및 디렉터리를 배치한다.</p>
+        </li><li>
+          <p>JEUS의 단축 아이콘을 생성한다(Windows에서).</p>
+        </li><li>
+          <p>JEUS의 환경변수를 설정한다.</p>
+        </li><li>
+          <p>JEUS의 제거(Uninstall) 툴을 생성한다.</p>
+        </li></ul></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_system requ"></a>4.2. 시스템 요구사항</h2></div></div></div>
+    
+
+    <p>다음은 JEUS를 설치하기 위한 시스템(H/W, S/W) 요구사항이다. </p><div class="itemizedlist"><ul type="disc"><li>
+          <p>시스템 요구사항</p>
+
+          <p>JEUS 설치를 위해서 필요한 H/W, S/W는 다음과 같다.</p>
+
+          <div class="informaltable"><a id="table_JEUS_needed config"></a>
+              <table border="1"><colgroup><col width="200" align="left"/><col/></colgroup><thead><tr><th align="left">플랫폼</th><th>설치 시 필요 환경</th></tr></thead><tbody><tr><td align="left"><p>Windows 2008</p><p>Windows 2012
+                    </p><p>Windows Vista</p><p>Windows
+                    7</p><p>Windows 8</p></td><td><p>JDK 7 또는 JDK 8</p><p>2GB 이상의 하드디스크 여유
+                    공간</p></td></tr><tr><td align="left">Solaris, HP-UX, AIX, Linux</td><td><p>JDK 7 또는 JDK 8</p><p>2GB 이상의 하드디스크 여유
+                    공간</p></td></tr></tbody></table>
+            </div>
+        </li><li>
+          <p>플랫폼 지원 환경</p>
+
+          <p>플랫폼별 JEUS 동작에 필요한 표준 하드웨어 지원 환경은 다음과 같다.</p>
+
+          <div class="informaltable"><a id="table_config"></a>
+              <table border="1"><colgroup><col width="150" align="left"/><col width="220" align="left"/><col width="70" align="left"/><col width="70" align="left"/><col/></colgroup><thead><tr><th align="left">OS Version</th><th align="left">CPU</th><th align="left">RAM Memory</th><th align="left">HardDisc Space</th><th>JDK Version</th></tr></thead><tbody><tr><td align="left">Solaris 9, 10, 11</td><td align="left"><p>UltraSPARC 9, 10, 11</p><p>Intel X86
+                    Series 10</p></td><td align="left">1GB</td><td align="left">20GB</td><td>JDK 7 이상</td></tr><tr><td align="left"><p>HP-UX 11.x, 11i, 11iV2</p></td><td align="left"><p>PA-RISC 11.x(11.11)</p><p>Intel
+                    Itanium64 11.x(11.23, 11.31)</p></td><td align="left">1GB</td><td align="left">20GB</td><td>JDK 7 이상</td></tr><tr><td align="left"><p>IBM AIX 5L, 6L, AIX 7L</p></td><td align="left"><p>RS6000</p><p>IBM
+                    pSeries(PowerPC)</p></td><td align="left">1GB</td><td align="left">20GB</td><td>JDK 7 이상</td></tr><tr><td align="left"><p>Linux 계열</p><p>(Kernel 2.6
+                    이상)</p></td><td align="left"><p>Intel x86 series k2.6 이상(k2.4
+                    지원)</p><p>Intel Itanium Series k2.6
+                    이상</p><p>IBM pSeries(PowerPC) k2.6 이상</p></td><td align="left">1GB</td><td align="left">20GB</td><td>JDK 7 이상</td></tr><tr><td align="left">Windows 2008, 2012, Vista, 7, 8</td><td align="left">Intel x86 Series 2008, 2012, Vista, 7, 8</td><td align="left">1GB</td><td align="left">20GB</td><td>JDK 7 이상</td></tr></tbody></table>
+            </div>
+        </li></ul></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_config chart"></a>4.3. 설치 순서</h2></div></div></div>
+    
+
+    <p>다음은 UNIX와 Windows에서 JEUS 설치 순서이다. 전체적인 설치 순서는 동일하고 일부 과정이 차이가 있으므로
+    자세한 내용은 각 절에서 확인한다.</p>
+
+    <div class="orderedlist"><ol type="1"><li>
+          <p>JDK 7 또는 JDK 8을 설치한다.</p>
+        </li><li>
+          <p>GUI 모드에서 JEUS를 설치(파일 복사)한다.</p>
+        </li><li>
+          <p>환경변수를 설정하고 검증한다.</p>
+        </li><li>
+          <p>설치된 내용을 검증(동작 확인)한다.</p>
+        </li></ol></div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 JEUS 설치할 때 작업과 선택사항을 보여준다.</p><div class="figure"><a id="figure_JEUS_choice"></a><p class="title"><b>[그림 4.1] JEUS 설치 순서</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="568"><tr><td align="left"><img src="resources/figure_chart.png" align="top" width="568" alt="JEUS 설치 순서"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/>위 그림의 작업 상자는 작업을 나타낸다. 자세한 설명은 각 절의 설명을 참고한다.</p>
+
+    <div class="itemizedlist"><ul type="circle"><li style="list-style-type: circle">
+          <p>UNIX에서 GUI 모드를 이용한 JEUS 설치는 <a href="chapter_install_unix.html#sect_gui_install" title="5.2.1. GUI 모드에서 설치">“5.2.1. GUI 모드에서 설치”</a>, <a href="chapter_install_unix.html#sect_gui_delete" title="5.4.1. GUI 모드에서 제거">“5.4.1. GUI 모드에서 제거”</a>를
+          참고한다.</p>
+        </li><li style="list-style-type: circle">
+          <p>UNIX에서 콘솔 모드를 이용한 JEUS 설치 및 제거는 <a href="chapter_install_unix.html#sect_console_install" title="5.2.2. 콘솔 모드에서 설치">“5.2.2. 콘솔 모드에서 설치”</a>, <a href="chapter_install_unix.html#sect_console_delete" title="5.4.2. 콘솔 모드에서 제거">“5.4.2. 콘솔 모드에서 제거”</a>를 참고한다.</p>
+        </li><li style="list-style-type: circle">
+          <p>Windows에서 GUI 설치 툴을 이용한 JEUS 설치 및 제거는 <a href="chapter_install_windows.html" title="제6장 Windows에서 설치 및 제거">“제6장 Windows에서 설치 및 제거”</a>를 참고한다.</p>
+        </li><li style="list-style-type: circle">
+          <p><a href="appendix_platform_Java2_JDK.html" title="Appendix A. 플랫폼별 JDK 설치">“Appendix A. 플랫폼별 JDK 설치”</a>는 Linux,
+          Solaris, AIX, HP-UX 등의 특정 플랫폼에서 추가적인 설치 정보를 제공한다.</p>
+        </li></ul></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Java_2_JDK"></a>4.4. JDK 설치</h2></div></div></div>
+    
+
+    <p>JEUS를 사용하기 위해서는 JDK(Java SE Developement Kit)가 설치되어 있어야 한다.</p>
+
+    <p>JDK 7은 다음에서 다운받을 수 있다.</p>
+
+    <pre class="programlisting"><a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html" target="_top">http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html</a></pre>
+
+    <p>자세한 내용은 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.oracle.com/technetwork/java/javase/install-142943.html" target="_top">http://www.oracle.com/technetwork/java/javase/install-142943.html</a>을
+    참고한다. JDK 설치에 대한 자세한 내용은 <a href="appendix_platform_Java2_JDK.html" title="Appendix A. 플랫폼별 JDK 설치">“Appendix A. 플랫폼별 JDK 설치”</a>를
+    참고한다.</p>
+
+    <p>JEUS 설치 전에 JDK가 설치되었는지 확인한다. 설치 후에는 Windows 환경변수 PATH에 설치된 JDK의 bin
+    디렉터리를 추가한다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_License"></a>4.5. JEUS 라이선스 정책</h2></div></div></div>
+    
+
+    <p>JEUS를 사용하기 위해서는 TmaxSoft에서 발급하는 라이선스-키(License-Key) 파일이 있어야 한다.
+    Installer로 설치한 JEUS에는 기본적으로 트라이얼 라이선스(Trial License)가 포함되어 있다. 라이선스 파일은
+    JEUS_HOME\license에 ‘license’라는 파일로 존재한다.</p>
+
+    <p>라이선스의 에디션에는 Standard, Enterprise 라이선스가 있으며 기능 및 사용 기한에 차이가
+    있다.</p>
+
+    <p>라이선스를 업그레이드하거나 정식 라이선스를 취득하기 위해서는 TmaxSoft 영업대표(Sales
+    Representative)를 통하거나 직접 TmaxSoft에 문의해야 한다. 라이선스 파일을 사용하기 위해서는
+    JEUS_HOME\license 디렉터리 아래에 라이선스-키(License-Key) 파일을 license라는 이름으로
+    복사한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>라이선스 파일명이 'license'가 아닌 경우 'license'로 변경해야 한다.</p>
+    </div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="part_installation.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="part_installation.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="chapter_install_unix.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">Part II. JEUS 설치하기 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제5장 UNIX에서 설치 및 제거</td></tr></table></div><div xmlns="" align="center"/></body></html>

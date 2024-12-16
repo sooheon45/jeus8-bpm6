@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+
+<project name="example" default="boot" basedir=".">
+
+	<import file="../../common/common-build.xml" />
+
+    <property name="java.library.path"
+              value="${java.library.path};${jeus.home}/lib/system"/>
+
+    <property name="domain.name" value="${jeus.domain}"/>
+    <property name="server.name" value="${jeus.server}"/>
+    <property name="das.url" value="${das.url}"/>
+    <property name="force" value="${force}"/>
+    <property name="standby" value="${standby}"/>
+    <property name="host" value="${jeus.node.host}"/>
+    <property name="port" value="${jeus.node.port}"/>
+    <property name="connect.type" value="${connect.type}"/>
+
+    <property name="truststore.path" value="${truststore.path}"/>
+    <property name="truststore.password" value="${truststore.password}"/>
+
+    <property name="username" value="${jeus.admin.username}"/>
+    <property name="password" value="${jeus.admin.password}"/>
+    <property name="isAdminServer" value="false"/>
+
+    <path id="jeus.libraries">
+        <fileset dir="${jeus.home}/lib/system" includes="*.jar"/>
+    </path>
+
+    <taskdef resource="jeus/util/ant/jeusant.properties">
+        <classpath>
+		    <pathelement location="${jeus.home}/classes"/>
+            <path refid="jeus.libraries"/>
+        </classpath>
+    </taskdef>
+
+    <target name="init">
+    </target>
+
+    <target name="boot" depends="init">
+        <boot domainName="${domain.name}"
+              serverName="${server.name}"
+              host="${host}"
+              port="${port}"
+              connectionType="${connect.type}"
+              truststorePath="${truststore.path}"
+              truststorePassword="${truststore.password}"
+              adminServer="${isAdminServer}"
+              dasUrl="${das.url}"
+              force="${force}"
+              standby="${standby}"
+              username="${username}"
+              password="${password}"/>
+    </target>
+
+    <target name="down" depends="init">
+        <down domainName="${domain.name}"
+              serverName="${server.name}"
+              host="${host}"
+              port="${port}"
+              connectionType="${connect.type}"
+              truststorePath="${truststore.path}"
+              truststorePassword="${truststore.password}"
+              username="${username}"
+              password="${password}"/>
+    </target>
+
+</project>

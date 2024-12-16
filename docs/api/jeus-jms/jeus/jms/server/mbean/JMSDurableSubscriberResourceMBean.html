@@ -1,0 +1,645 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>JMSDurableSubscriberResourceMBean</title>
+      <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="JMSDurableSubscriberResourceMBean (JEUS JMS API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS JMS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.jms.server.mbean</font><br>MBean JMSDurableSubscriberResourceMBean
+      </h2>
+      <dl>
+         <dt><b>ObjectName Pattern:</b><dd><code>JEUS:name=<i>{JMSDestinationResourceMBean-name}</i>_JMSDur_<i>{clientID}</i>_<i>{durableName}</i>,  j2eeType=JeusService,jeusType=JMSDurableSubscriberResource,*</code></dd>
+         </dt>
+         <dt><b>Permission Name:</b><dd><code>jeus.management.jms.durable.<i>{name-key}</i></code></dd>
+         </dt>
+         <dt></dt>
+         <dt></dt>
+      </dl>
+      <hr>
+      <dl>
+         <dt><b>All Superinterfaces:</b><dd>jeus.management.j2ee.J2EEManagedObjectMBean, jeus.management.j2ee.J2EEResourceMBean</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>MBean <b>JMSDurableSubscriberResourceMBean</b></pre></dl>JMS Durable subscriber의 Resource를 나타내는 MBean이다.
+      <p/>
+      <p>이 MBean을 통해 해당하는 JMS Durable subscriber의 정보를 얻을 수 있다.</p><br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../jeus/jms/server/mbean/JMSDurableSubscriberResourceMBean.html#J2EE_TYPE">J2EE_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../jeus/jms/server/mbean/JMSDurableSubscriberResourceMBean.html#JEUS_TYPE">JEUS_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String[]</code></font></td>
+               <td><code><b><a href="../../../../jeus/jms/server/mbean/JMSDurableSubscriberResourceMBean.html#parentKeyMap">parentKeyMap</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.J2EEResourceMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.J2EEResourceMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>JAVAMAIL, JCA, JDBC, JMS, JNDI, JTA, RMI_IIOP, URL</code></td>
+            </tr>
+         </table>&nbsp;
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>SYSTEM_DOMAIN</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attribute_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="3"><font size="+2"><b>Attribute Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSDurableSubscriberResourceMBean.html#ClientID">ClientID</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Durable Subscriber의 Client ID.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSDurableSubscriberResourceMBean.html#DurableName">DurableName</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Durable Subscriber의 이름.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSDurableSubscriberResourceMBean.html#RemainingMessages">RemainingMessages</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   지금 Durable Subscriber에 남아있는 message의 개수.<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   지금 Durable Subscriber에 남아있는 message의 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/jms/server/mbean/JMSDurableSubscriberResourceMBean.html#Selector">Selector</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   지금 Durable Subscriber에 설정된 Selector.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attributes_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>J2EEType, JeusType, objectName, ObjectName, ParentObjectName, PermissionName, eventProvider, stateManageable, statisticsProvider</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operation_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Operation Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> jeus.jms.common.util.JMSMessageExporter</code></font></td>
+               <td><code><b><a href="JMSDurableSubscriberResourceMBean.html#exportAllMessages()">exportAllMessages</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Durable Subscriber내의 모든 메시지들을 export하기 위한 JAXB객체 생성.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> jeus.jms.common.util.JMSMessageExporter</code></font></td>
+               <td><code><b><a href="JMSDurableSubscriberResourceMBean.html#exportMessages(java.util.List<java.lang.String&gt;)">exportMessages</a></b>(java.util.List&lt;java.lang.String&gt; messageID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   MessageID에 해당하는 메시지들를 export하기 위한 JAXB객체 생성.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> java.util.List&lt;jeus.jms.common.message.MessageInfo&gt;</code></font></td>
+               <td><code><b><a href="JMSDurableSubscriberResourceMBean.html#getMessageInfo(java.lang.String)">getMessageInfo</a></b>(java.lang.String selector)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   현재 Durable Subscriber에 남아있는 message에 대한 정보가 담긴 <code>MessageInfo</code> 객체.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> java.util.List&lt;jeus.jms.common.message.MessageInfo&gt;</code></font></td>
+               <td><code><b><a href="JMSDurableSubscriberResourceMBean.html#getMessageInfo(java.lang.String, int, int)">getMessageInfo</a></b>(java.lang.String selector, int offset, int size)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   현재 Durable Subscriber에 남아있는 message에 대한 정보가 담긴 <code>MessageInfo</code> 객체.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> jeus.jms.common.message.MessageView</code></font></td>
+               <td><code><b><a href="JMSDurableSubscriberResourceMBean.html#getMessageView(java.lang.String)">getMessageView</a></b>(java.lang.String messageID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   message ID에 해당하는 message에 대한 정보를 담은 <code>MessageView</code>객체.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> int</code></font></td>
+               <td><code><b><a href="JMSDurableSubscriberResourceMBean.html#getRemainingMessages(java.lang.String)">getRemainingMessages</a></b>(java.lang.String selector)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   지금 Durable Subscriber에 남아있는 message의 개수.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> java.util.Collection&lt;java.lang.String&gt;</code></font></td>
+               <td><code><b><a href="JMSDurableSubscriberResourceMBean.html#moveAllMessages(java.lang.String)">moveAllMessages</a></b>(java.lang.String targetDest)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Durable Subscription의 Queue에 있는 모든 메시지를 Target Destination으로 이동.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSDurableSubscriberResourceMBean.html#moveMessage(java.lang.String, java.lang.String)">moveMessage</a></b>(java.lang.String messageID, java.lang.String targetDest)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   MessageID에 해당하는 메시지를 Target Destination으로 이동.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> java.util.Collection&lt;java.lang.String&gt;</code></font></td>
+               <td><code><b><a href="JMSDurableSubscriberResourceMBean.html#moveMessages(java.util.Collection<java.lang.String&gt;, java.lang.String, java.lang.String)">moveMessages</a></b>(java.util.Collection&lt;java.lang.String&gt; messageID, java.lang.String targetServer, java.lang.String targetDest)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   MessageID에 해당하는 메시지를 Target Destination으로 이동.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSDurableSubscriberResourceMBean.html#remove(java.lang.String)">remove</a></b>(java.lang.String messageID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   MessageID에 해당하는 메시지를 Durable Subscription의 Queue에서 삭제한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> int</code></font></td>
+               <td><code><b><a href="JMSDurableSubscriberResourceMBean.html#removeAllMessage()">removeAllMessage</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Durable Subscription의 Queue에 있는 모든 메시지를 삭제한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> int</code></font></td>
+               <td><code><b><a href="JMSDurableSubscriberResourceMBean.html#removeMessages(java.util.List<java.lang.String&gt;)">removeMessages</a></b>(java.util.List&lt;java.lang.String&gt; messageID)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   MessageID에 해당하는 메시지를 Durable Subscription의 Queue에서 삭제한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> void</code></font></td>
+               <td><code><b><a href="JMSDurableSubscriberResourceMBean.html#unsubscribe()">unsubscribe</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   이 Durable Subscription을 unsubscribe한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operations_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Operations inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>addChild, refreshMonitoring, removeChild</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="JEUS_TYPE"></a><h3>JEUS_TYPE</h3><pre>public static final java.lang.String <b>JEUS_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="J2EE_TYPE"></a><h3>J2EE_TYPE</h3><pre>public static final java.lang.String <b>J2EE_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="parentKeyMap"></a><h3>parentKeyMap</h3><pre>public static final java.lang.String[] <b>parentKeyMap</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="attribute_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Attribute Detail</b></font></th>
+            </tr>
+         </table><a name="ClientID"></a><a name="getClientID()"></a><h3>ClientID</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.lang.String <b>getClientID</b>()</pre><dl>
+               <dd>Durable Subscriber의 Client ID.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>Durable Subscriber의 Client ID</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="DurableName"></a><a name="getDurableName()"></a><h3>DurableName</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.lang.String <b>getDurableName</b>()</pre><dl>
+               <dd>Durable Subscriber의 이름.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>Durable Subscriber의 이름</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="RemainingMessages"></a><a name="getRemainingMessages()"></a><h3>RemainingMessages</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getRemainingMessages</b>()</pre><dl>
+               <dd>지금 Durable Subscriber에 남아있는 message의 개수.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>Durable Subscriber의 Queue에 쌓여있는 message의 개수</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="Selector"></a><a name="getSelector()"></a><h3>Selector</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.lang.String <b>getSelector</b>()</pre><dl>
+               <dd>지금 Durable Subscriber에 설정된 Selector.</dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>Durable Subscriber에 설정된 Selector</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+      </p>
+      <p><a name="operation_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Operation Detail</b></font></th>
+            </tr>
+         </table><a name="exportAllMessages()"></a><h3>exportAllMessages</h3><pre> jeus.jms.common.util.JMSMessageExporter <b>exportAllMessages</b>()</pre><dl>
+            <dd>Durable Subscriber내의 모든 메시지들을 export하기 위한 JAXB객체 생성.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>메시지들을 export하기 위한 JAXB객체</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="exportMessages(java.util.List<java.lang.String&gt;)"></a><h3>exportMessages</h3><pre> jeus.jms.common.util.JMSMessageExporter <b>exportMessages</b>(java.util.List&lt;java.lang.String&gt; messageID)</pre><dl>
+            <dd>MessageID에 해당하는 메시지들를 export하기 위한 JAXB객체 생성.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>messageID</code> - export할 메시지들의 messageID
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>메시지들을 export하기 위한 JAXB객체</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMessageInfo(java.lang.String)"></a><h3>getMessageInfo</h3><pre> java.util.List&lt;jeus.jms.common.message.MessageInfo&gt; <b>getMessageInfo</b>(java.lang.String selector)</pre><dl>
+            <dd>현재 Durable Subscriber에 남아있는 message에 대한 정보가 담긴 <code>MessageInfo</code> 객체.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>selector</code> - 현재 Durable Subscriber에 대해서 조건에 맞는지 검사할 selector,
+                        <code>null</code>이나 <code>true</code>인 경우에는 모든 메세지를 받아온다.
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>현재 남아있는 message에 대한 정보를 담은 <code>MessageInfo</code>의 리스트</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - selector가 문법에 맞지 않는 경우
+                     </dd>
+                  </dt>
+                  <dt><b>See Also:</b><dd>jeus.jms.common.message.MessageInfo</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMessageInfo(java.lang.String, int, int)"></a><h3>getMessageInfo</h3><pre> java.util.List&lt;jeus.jms.common.message.MessageInfo&gt; <b>getMessageInfo</b>(java.lang.String selector, int offset, int size)</pre><dl>
+            <dd>현재 Durable Subscriber에 남아있는 message에 대한 정보가 담긴 <code>MessageInfo</code> 객체.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>selector</code> - 현재 Durable Subscriber에 대해서 조건에 맞는지 검사할 selector,
+                        <code>null</code>이나 <code>true</code>인 경우에는 모든 메세지를 받아온다.<br><code>offset</code> - 보려고 하는 message들 중 첫번째 message의 index.<br><code>size</code> - 보려고 하는 message들의 개수.
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>현재 남아있는 message에 대한 정보를 담은 <code>MessageInfo</code>의 리스트</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - selector가 문법에 맞지 않는 경우
+                     </dd>
+                  </dt>
+                  <dt><b>See Also:</b><dd>jeus.jms.common.message.MessageInfo</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMessageView(java.lang.String)"></a><h3>getMessageView</h3><pre> jeus.jms.common.message.MessageView <b>getMessageView</b>(java.lang.String messageID)</pre><dl>
+            <dd>message ID에 해당하는 message에 대한 정보를 담은 <code>MessageView</code>객체.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>messageID</code> - message에 대한 정보를 가져올 message의 id
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>선택된 message에 대한 정보가 들어 있는 <code>MessageView</code>
+                        null if messageID에 해당하는 message가 Queue에 존재하지 않을 때.
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - messageID의 형식이 잘못 되었을ㄷ 때
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getRemainingMessages(java.lang.String)"></a><h3>getRemainingMessages</h3><pre> int <b>getRemainingMessages</b>(java.lang.String selector)</pre><dl>
+            <dd>지금 Durable Subscriber에 남아있는 message의 개수.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>selector</code> - 현재 Durable Subscriber에 대해서 조건에 맞는지 검사할 selector,
+                        <code>null</code>이나 <code>true</code>인 경우에는 모든 메세지를 받아온다.
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>Durable Subscriber의 Queue에 쌓여있는 message의 개수</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="moveAllMessages(java.lang.String)"></a><h3>moveAllMessages</h3><pre> java.util.Collection&lt;java.lang.String&gt; <b>moveAllMessages</b>(java.lang.String targetDest)</pre><dl>
+            <dd>Durable Subscription의 Queue에 있는 모든 메시지를 Target Destination으로 이동.
+               Target destination이 consume-suspended인 상태에서 사용을 권장한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>targetDest</code> - 메시지가 이동할 target destination
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>이동에 실패한 메시지들의 messageID</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - 주어진 target destination이 서버내에 없는 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="moveMessage(java.lang.String, java.lang.String)"></a><h3>moveMessage</h3><pre> void <b>moveMessage</b>(java.lang.String messageID, java.lang.String targetDest)</pre><dl>
+            <dd>MessageID에 해당하는 메시지를 Target Destination으로 이동.
+               Target destination이 consume-suspended인 상태에서 사용을 권장한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>messageID</code> - 이동할 메시지의 messageID<br><code>targetDest</code> - 메시지가 이동할 target destination
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - 해당 메시지가 Durable Subscriber의 Queue안에 존재하지 않는 경우나, 주어진 target destination이 서버내에 없는 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="moveMessages(java.util.Collection<java.lang.String&gt;, java.lang.String, java.lang.String)"></a><h3>moveMessages</h3><pre> java.util.Collection&lt;java.lang.String&gt; <b>moveMessages</b>(java.util.Collection&lt;java.lang.String&gt; messageID, java.lang.String targetServer, java.lang.String targetDest)</pre><dl>
+            <dd>MessageID에 해당하는 메시지를 Target Destination으로 이동.
+               Target destination이 consume-suspended인 상태에서 사용을 권장한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>messageID</code> - 이동할 메시지의 messageID<br><code>targetServer</code> - 메시지가 이동할 target Server<br><code>targetDest</code> - 메시지가 이동할 target destination
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>이동에 실패한 메시지들의 messageID</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - 주어진 target destination이 서버내에 없는 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="remove(java.lang.String)"></a><h3>remove</h3><pre> void <b>remove</b>(java.lang.String messageID)</pre><dl>
+            <dd>MessageID에 해당하는 메시지를 Durable Subscription의 Queue에서 삭제한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>messageID</code> - 메시지 ID
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - 메시지를 삭제할 권한이 없거나 메시지 ID가 올바르지 않은 경우,
+                        또는 해당 메시지가 subscription queue 에 존재하지 않는 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="removeAllMessage()"></a><h3>removeAllMessage</h3><pre> int <b>removeAllMessage</b>()</pre><dl>
+            <dd>Durable Subscription의 Queue에 있는 모든 메시지를 삭제한다.
+               <p/>
+               <p>Consume하기 위해 대기하고 있는 메시지와, Consume후 Acknowledge를 기다리고 있는 메시지들까지 모두 삭제한다.</p>
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>삭제된 메시지의 갯수</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - 메시지를 삭제할 권한이 없을 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="removeMessages(java.util.List<java.lang.String&gt;)"></a><h3>removeMessages</h3><pre> int <b>removeMessages</b>(java.util.List&lt;java.lang.String&gt; messageID)</pre><dl>
+            <dd>MessageID에 해당하는 메시지를 Durable Subscription의 Queue에서 삭제한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>messageID</code> - 메시지 ID
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>삭제된 메시지의 갯수</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - 메시지를 삭제할 권한이 없거나 메시지 ID가 올바르지 않은 경우,
+                        또는 해당 메시지가 subscription queue 에 존재하지 않는 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="unsubscribe()"></a><h3>unsubscribe</h3><pre> void <b>unsubscribe</b>()</pre><dl>
+            <dd>이 Durable Subscription을 unsubscribe한다.
+               <p/>
+               <p>이 명령은 DurableSubscriber가 active하지 않을 때만 가능하다.</p>
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>javax.jms.JMSException</code> - DurableSubscriber가 active상태이거나, unsubscribe할 권한이 없을 경우
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS JMS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

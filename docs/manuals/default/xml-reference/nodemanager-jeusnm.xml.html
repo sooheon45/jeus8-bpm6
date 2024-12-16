@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제19장 노드매니져의 jeusnm.xml</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS XML Reference"/><link rel="up" href="index.html" title="JEUS XML Reference"/><link rel="prev" href="nodemanager_appendix_nodes.xml.html" title="제18장 nodes.xml 관리할 원격 노드의 설정"/><link rel="next" href="webcontainer_jeus-web-dd.xml_xml_configuration_reference.html" title="제20장 jeus-web-dd.xml 설정"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제19장 노드매니져의 jeusnm.xml</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="nodemanager_appendix_nodes.xml.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="webcontainer_jeus-web-dd.xml_xml_configuration_reference.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="nodemanager-jeusnm.xml"></a>제19장 노드매니져의 jeusnm.xml</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="nodemanager-jeusnm.xml.html#d4e154192">19.1. 소개</a></span></dt><dt><span class="section"><a href="nodemanager-jeusnm.xml.html#d4e154246">19.2. XML Schema/XML 트리</a></span></dt><dt><span class="section"><a href="nodemanager-jeusnm.xml.html#d4e154330">19.3. Element Reference</a></span></dt><dt><span class="section"><a href="nodemanager-jeusnm.xml.html#d4e155059">19.4. jeusnm.xml 파일 예제</a></span></dt></dl></div>
+    
+
+    <p>여기에서 JEUS 서버의 상태를 관리해주는 노드매니저 <code class="filename">jeusnm.xml</code>에서 사용되는 설정을
+        찾을 수 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+            <p>XML Schema 파일:
+            <code class="filename">JEUS_HOME/lib/schemas/jeus/jeus-nodemanager.xsd</code></p>
+        </li></ul></div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e154192"></a>19.1. 소개</h2></div></div></div>
+        
+
+        <p>레퍼런스는 다음 형식으로 구성되어 있다. </p><div class="orderedlist"><ol type="1"><li>
+      <p><span class="bold"><strong>XML Schema/XML 트리</strong></span>: XML 설정 파일의 모든
+      태그 리스트를 정리했다. 각 노드의 형식은 다음과 같다.</p><div class="orderedlist"><ol type="a"><li>
+            <p>태그 레퍼런스로 빨리 찾아보기 위해서 각 태그마다 인덱스 번호( 예: (11) )를 붙여 놓았다. 태그
+            레퍼런스에서는 이 번호 순서로 설명한다.</p>
+          </li><li>
+            <p>XML Schema에서 정의한 XML 태그명을 &lt;<span class="bold"><strong>tag
+            name</strong></span>&gt; 형식으로 표시한다.</p>
+          </li><li>
+            <p>XML Schema에서 정의한 Cardinality를 표시한다. “?” = 0개나 1개의 element,
+            “+” = 1개 이상의 element, “*” = 0개 이상의 element, (기호가 없음) = 정확히 1개의
+            element</p>
+          </li><li>
+            <p>몇몇 태그에는 “P” 문자를 붙여 놓았는데, 해당 태그는 성능에 관계되는 태그라는 것을 뜻한다. 이 태그는
+            설정을 튜닝할 때 사용된다.</p>
+          </li></ol></div>
+    </li><li>
+      <p><span class="bold"><strong>Element Reference</strong></span>: 트리에 있는 각 XML
+      태그를 설명한다.</p><div class="orderedlist"><ol type="a"><li>
+            <p><span class="bold"><strong>Dynamic</strong></span>: 동적 설정 반영 가능</p>
+          </li><li>
+            <p><span class="bold"><strong>Non-Dynamic</strong></span>: 동적 설정 반영 불가능, Dynamic이 설정되지 않은
+            항목들이 보통 이에 해당 하나 특별히 설명이 있는 경우 이 항목이 표시된다.</p>
+          </li><li>
+            <p><span class="bold"><strong>Description</strong></span>: 태그에 대한 간단한
+            설명.</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Description</strong></span>: 입력하는 값과
+            타입.</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Type</strong></span>: 값의 데이터 타입. (예:
+            String)</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Type Description</strong></span>: 값의 데이터 타입에 대한 설명 </p>
+          </li><li>
+            <p><span class="bold"><strong>Default Value</strong></span>: 해당 XML을 사용하지
+            않았을 때 기본적으로 사용되는 값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Defined Value</strong></span>: 이미 정해져 있는
+            값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Example</strong></span>: 해당 XML 태그에 대한
+            예.</p>
+          </li><li>
+            <p><span class="bold"><strong>Performance Recommendation</strong></span>:
+            성능 향상을 위해서 추천하는 값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Child Elements</strong></span>: 자신의 태그 안에
+            사용하는 태그.</p>
+          </li></ol></div>
+    </li></ol></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e154246"></a>19.2. XML Schema/XML 트리</h2></div></div></div>
+        
+
+        <div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager"></a>
+                (1)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">&lt;nodeManager&gt;</a></p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.useNodeManager"></a>
+                (2)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.useNodeManager">&lt;useNodeManager&gt;</a> P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.host"></a>
+                (3)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.host">&lt;host&gt;</a> P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.port"></a>
+                (4)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.port">&lt;port&gt;</a> P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.serverMonitoringPeriod"></a>
+                (5)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.serverMonitoringPeriod">&lt;serverMonitoringPeriod&gt;</a> P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.serverAutoRestart"></a>
+                (6)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.serverAutoRestart">&lt;serverAutoRestart&gt;</a> P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.serverRestartTryCount"></a>
+                (7)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.serverRestartTryCount">&lt;serverRestartTryCount&gt;</a> P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.serverRestartDurationTime"></a>
+                (8)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.serverRestartDurationTime">&lt;serverRestartDurationTime&gt;</a> P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.serverRetryRestart"></a>
+                (9)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.serverRetryRestart">&lt;serverRetryRestart&gt;</a> P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.useSSLListener"></a>
+                (10)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.useSSLListener">&lt;useSSLListener&gt;</a> P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.keystoreFile"></a>
+                (11)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.keystoreFile">&lt;keystoreFile&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.keystorePass"></a>
+                (12)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.keystorePass">&lt;keystorePass&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.truststoreFile"></a>
+                (13)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.truststoreFile">&lt;truststoreFile&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.truststorePass"></a>
+                (14)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.truststorePass">&lt;truststorePass&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.logFileName"></a>
+                (15)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.logFileName">&lt;logFileName&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.standbyPort"></a>
+                (16)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.standbyPort">&lt;standbyPort&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.processList"></a>
+                (17)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList">&lt;processList&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.processList.rqs"></a>
+                (18)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs">&lt;rqs&gt;</a>*</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.processList.rqs.domainName"></a>
+                (19)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.domainName">&lt;domainName&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.processList.rqs.processName"></a>
+                (20)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.processName">&lt;processName&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.processList.rqs.path"></a>
+                (21)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.path">&lt;path&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.processList.rqs.port"></a>
+                (22)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.port">&lt;port&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.processList.rqs.option"></a>
+                (23)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.option">&lt;option&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.processList.rqs.rqsdir"></a>
+                (24)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.rqsdir">&lt;rqsdir&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.processList.rqs.retryCount"></a>
+                (25)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.retryCount">&lt;retryCount&gt;</a>? P</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.nodeManager.processList.rqs.monitoringPeriod"></a>
+                (26)
+
+                <a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.monitoringPeriod">&lt;monitoringPeriod&gt;</a>? P</p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e154330"></a>19.3. Element Reference</h2></div></div></div>
+        
+
+        <p>
+
+
+
+
+
+</p><p><a id="schema-table-reference.nodeManager"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (1)
+                                <code class="code">
+<span class="bold"><strong>&lt;nodeManager&gt;</strong></span>
+</code>
+<a id="d4e154343" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">nodeManagerType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (2)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.useNodeManager">useNodeManager</a>
+</code>
+</p>
+<p>
+            (3)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.host">host</a>
+</code>
+</p>
+<p>
+            (4)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.port">port</a>
+</code>
+</p>
+<p>
+            (5)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.serverMonitoringPeriod">serverMonitoringPeriod</a>
+</code>
+</p>
+<p>
+            (6)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.serverAutoRestart">serverAutoRestart</a>
+</code>
+</p>
+<p>
+            (7)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.serverRestartTryCount">serverRestartTryCount</a>
+</code>
+</p>
+<p>
+            (8)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.serverRestartDurationTime">serverRestartDurationTime</a>
+</code>
+</p>
+<p>
+            (9)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.serverRetryRestart">serverRetryRestart</a>
+</code>
+</p>
+<p>
+            (10)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.useSSLListener">useSSLListener</a>
+</code>
+</p>
+<p>
+            (11)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.keystoreFile">keystoreFile</a>?</code>
+</p>
+<p>
+            (12)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.keystorePass">keystorePass</a>?</code>
+</p>
+<p>
+            (13)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.truststoreFile">truststoreFile</a>?</code>
+</p>
+<p>
+            (14)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.truststorePass">truststorePass</a>?</code>
+</p>
+<p>
+            (15)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.logFileName">logFileName</a>?</code>
+</p>
+<p>
+            (16)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.standbyPort">standbyPort</a>?</code>
+</p>
+<p>
+            (17)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList">processList</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.nodeManager.useNodeManager"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (2)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;useNodeManager&gt;</strong></span>
+</code>
+<a id="d4e154413" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>노드매니져의 사용여부를 설정한다.
+                        [Basic]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">true</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.host"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (3)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;host&gt;</strong></span>
+</code>
+<a id="d4e154440" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>노드매니져가 동작하고 있는 host를 설정한다.
+                        [Basic]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">string</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">localhost</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.port"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (4)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;port&gt;</strong></span>
+</code>
+<a id="d4e154467" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>노드매니져가 동작하고 있는 port를 설정한다.
+                        [Basic]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">positiveInteger</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">7730</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.serverMonitoringPeriod"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (5)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;serverMonitoringPeriod&gt;</strong></span>
+</code>
+<a id="d4e154494" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>서버의 상태를 체크할 때의 주기를 설정한다.
+                        [Basic]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">unsignedLong</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">500</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.serverAutoRestart"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (6)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;serverAutoRestart&gt;</strong></span>
+</code>
+<a id="d4e154521" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>서버가 이상종료되었을 시에, 서버를 재시작할지 여부를 설정한다.
+                        [Basic]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">true</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.serverRestartTryCount"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (7)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;serverRestartTryCount&gt;</strong></span>
+</code>
+<a id="d4e154548" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>서버의 재시작 시도 횟수를 설정한다.
+                        [Basic]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">positiveInteger</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">5</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.serverRestartDurationTime"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (8)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;serverRestartDurationTime&gt;</strong></span>
+</code>
+<a id="d4e154575" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>서버의 재시작시에 대기할 시간을 설정한다. 이 시간을 기다린 후에 노드매니져가
+                        서버로의 통신을 시도한다.
+                        [Basic]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">unsignedLong</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">120000</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.serverRetryRestart"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (9)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;serverRetryRestart&gt;</strong></span>
+</code>
+<a id="d4e154602" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>서버의 재시작에 실패했을 경우에, 다시 재시작 시도할지를 설정한다.
+                        [Basic]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">false</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.useSSLListener"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (10)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;useSSLListener&gt;</strong></span>
+</code>
+<a id="d4e154629" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>SSL 소켓 통신을 사용할지를 설정한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">boolean</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">false</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.keystoreFile"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (11)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;keystoreFile&gt;</strong></span>
+</code>
+<a id="d4e154656" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>SSL 통신을 사용할 시에, keystore 파일의 위치를 설정한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">string</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.keystorePass"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (12)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;keystorePass&gt;</strong></span>
+</code>
+<a id="d4e154678" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>SSL 통신을 사용할 시에, keystore의 password를 설정한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">string</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.truststoreFile"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (13)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;truststoreFile&gt;</strong></span>
+</code>
+<a id="d4e154700" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>SSL 통신을 사용할 시에, truststore 파일의 위치를 설정한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">string</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.truststorePass"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (14)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;truststorePass&gt;</strong></span>
+</code>
+<a id="d4e154722" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>SSL 통신을 사용할 시에, truststore의 password를 설정한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">string</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.logFileName"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (15)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;logFileName&gt;</strong></span>
+</code>
+<a id="d4e154744" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>노드 매니져의 로그 파일 이름(경로 포함 가능)을 설정한다. 기본 값으로는 노드 매니저 홈의 logs/JeusNodeManager.log가 된다.
+                        [Basic]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">string</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.standbyPort"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (16)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;standbyPort&gt;</strong></span>
+</code>
+<a id="d4e154766" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>노드 매니져의 standby 프로세스의 연결 포트를 설정한다.
+                        standby 프로세스는 노드 매니져의 에러 발생시에 노드 매니져를 대체하여 구동하도록 대기하고 있는 프로세스이다.
+                        포트를 설정하지 않으면 사용하지 않는것으로 간주한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">positiveInteger</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.processList"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (17)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; <span class="bold"><strong>&lt;processList&gt;</strong></span>
+</code>
+<a id="d4e154788" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>노드 매니져가 관리할 프로세스들을 설정한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">processType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (18)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs">rqs</a>*</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.nodeManager.processList.rqs"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (18)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList">processList</a>&gt; <span class="bold"><strong>&lt;rqs&gt;</strong></span>
+</code>
+<a id="d4e154818" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>노드 매니져가 관리할 RQS 프로세스에 대한 정보를 설정한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">rqs</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (19)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.domainName">domainName</a>
+</code>
+</p>
+<p>
+            (20)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.processName">processName</a>
+</code>
+</p>
+<p>
+            (21)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.path">path</a>
+</code>
+</p>
+<p>
+            (22)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.port">port</a>
+</code>
+</p>
+<p>
+            (23)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.option">option</a>?</code>
+</p>
+<p>
+            (24)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.rqsdir">rqsdir</a>?</code>
+</p>
+<p>
+            (25)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.retryCount">retryCount</a>?</code>
+</p>
+<p>
+            (26)
+            <code class="code">
+<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs.monitoringPeriod">monitoringPeriod</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.nodeManager.processList.rqs.domainName"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (19)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList">processList</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs">rqs</a>&gt; <span class="bold"><strong>&lt;domainName&gt;</strong></span>
+</code>
+<a id="d4e154870" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>ᅟRQS의 도메인 이름을 설정한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">string</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.processList.rqs.processName"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (20)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList">processList</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs">rqs</a>&gt; <span class="bold"><strong>&lt;processName&gt;</strong></span>
+</code>
+<a id="d4e154894" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>RQS의 이름을 설정한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">string</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.processList.rqs.path"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (21)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList">processList</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs">rqs</a>&gt; <span class="bold"><strong>&lt;path&gt;</strong></span>
+</code>
+<a id="d4e154918" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>RQS의 실행 파일을 지정한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">string</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.processList.rqs.port"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (22)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList">processList</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs">rqs</a>&gt; <span class="bold"><strong>&lt;port&gt;</strong></span>
+</code>
+<a id="d4e154942" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>RQS의 상태를 체크할 때에 사용할 포트를 설정한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">positiveInteger</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.processList.rqs.option"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (23)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList">processList</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs">rqs</a>&gt; <span class="bold"><strong>&lt;option&gt;</strong></span>
+</code>
+<a id="d4e154966" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>RQS 실행시에 필요한 argument를 설정할 수 있다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">string</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.processList.rqs.rqsdir"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (24)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList">processList</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs">rqs</a>&gt; <span class="bold"><strong>&lt;rqsdir&gt;</strong></span>
+</code>
+<a id="d4e154990" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>RQS의 시작에 필요한 RQSDIR을 설정해줄 수 있다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">string</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.processList.rqs.retryCount"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (25)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList">processList</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs">rqs</a>&gt; <span class="bold"><strong>&lt;retryCount&gt;</strong></span>
+</code>
+<a id="d4e155014" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>RQS의 상태 체크에 실패하였을 경우, 재상태 체크 횟수를 설정한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">positiveInteger</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">5</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.nodeManager.processList.rqs.monitoringPeriod"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (26)
+                                <code class="code">&lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager">nodeManager</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList">processList</a>&gt; &lt;<a href="nodemanager-jeusnm.xml.html#schema-table-reference.nodeManager.processList.rqs">rqs</a>&gt; <span class="bold"><strong>&lt;monitoringPeriod&gt;</strong></span>
+</code>
+<a id="d4e155043" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>RQS의 상태를 체크할 때에 몇 millisecond 단위로 체크할 지를 설정한다.
+                        [Advance]</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">unsignedLong</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Default Value</em></span>
+</td><td>
+<code class="constant">500</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p>
+</p><p>
+</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e155059"></a>19.4. jeusnm.xml 파일 예제</h2></div></div></div>
+        
+
+        <div class="example"><a id="d4e155061"></a><p class="title"><b>[예 19.1] jeusnm.xml 파일 예제</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;nodeManager xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;useNodeManager&gt;true&lt;/useNodeManager&gt;
+    &lt;host&gt;localhost&lt;/host&gt;
+    &lt;port&gt;7730&lt;/port&gt;
+    &lt;serverMonitoringPeriod&gt;500&lt;/serverMonitoringPeriod&gt;
+    &lt;serverAutoRestart&gt;true&lt;/serverAutoRestart&gt;
+    &lt;serverRestartTryCount&gt;5&lt;/serverRestartTryCount&gt;
+    &lt;serverRestartDurationTime&gt;120000&lt;/serverRestartDurationTime&gt;
+    &lt;serverRetryRestart&gt;false&lt;/serverRetryRestart&gt;
+    &lt;useSSLListener&gt;false&lt;/useSSLListener&gt;
+    &lt;processList&gt;
+    &lt;/processList&gt;
+&lt;/nodeManager&gt;
+</pre>
+        </div></div><br class="example-break"/>
+    </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="nodemanager_appendix_nodes.xml.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="webcontainer_jeus-web-dd.xml_xml_configuration_reference.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제18장 nodes.xml 관리할 원격 노드의 설정 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제20장 jeus-web-dd.xml 설정</td></tr></table></div><div xmlns="" align="center"/></body></html>

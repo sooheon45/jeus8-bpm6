@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제10장 EJB 사용하기</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS 설치 및 시작하기"/><link rel="up" href="part_JEUS_start.html" title="Part III. JEUS 시작하기"/><link rel="prev" href="chapter_webtier.html" title="제9장 WebTier 사용하기"/><link rel="next" href="chapter_webservices.html" title="제11장 웹 서비스 사용하기"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제10장 EJB 사용하기</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_webtier.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part III. JEUS 시작하기</td><td width="20%" align="right"> <a accesskey="n" href="chapter_webservices.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_ejbtier"></a>제10장 EJB 사용하기</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_ejbtier.html#d4e4229">10.1. Session Bean 예제</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_ejbtier.html#d4e4232">10.1.1. 예제</a></span></dt><dt><span class="section"><a href="chapter_ejbtier.html#d4e4266">10.1.2. 컴파일</a></span></dt><dt><span class="section"><a href="chapter_ejbtier.html#d4e4274">10.1.3. Deploy</a></span></dt><dt><span class="section"><a href="chapter_ejbtier.html#d4e4351">10.1.4. 실행 및 결과</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_ejbtier.html#d4e4376">10.2. Java Persistence API 예제</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_ejbtier.html#d4e4379">10.2.1. 예제</a></span></dt><dt><span class="section"><a href="chapter_ejbtier.html#d4e4422">10.2.2. 컴파일</a></span></dt><dt><span class="section"><a href="chapter_ejbtier.html#d4e4449">10.2.3. Deploy</a></span></dt><dt><span class="section"><a href="chapter_ejbtier.html#d4e4534">10.2.4. 실행 및 결과</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 예제를 이용해서 Stateless Session Bean과 Java Persistence API를 이용하여
+  Entity를 개발하고 deploy하는 과정에 대해 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4229"></a>10.1. Session Bean 예제</h2></div></div></div>
+    
+
+    <p>Session Bean은 기본적으로 Business Interface와 Bean Class로 구성된다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4232"></a>10.1.1. 예제</h3></div></div></div>
+      
+
+      <h4><a id="d4e4235"></a>EJB 예제</h4>
+
+      <p>다음의 예제 코드는 helloejb를 출력하는 Business 메소드를 가진 간단한 Stateless Session
+      Bean 예제이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>Business Interface</p><div class="example"><a id="d4e4241"></a><p class="title"><b>[예 10.1] &lt;&lt;Hello.java&gt;&gt;</b></p><div class="example-contents">
+                
+
+                <pre class="programlisting">package helloejb;
+
+import javax.ejb.Remote;
+
+@Remote
+public interface Hello {
+    String sayHello();
+}</pre>
+              </div></div><p><br class="example-break"/></p>
+          </li><li>
+            <p>Bean Class</p><div class="example"><a id="d4e4246"></a><p class="title"><b>[예 10.2] &lt;&lt;HelloBean.java&gt;&gt;</b></p><div class="example-contents">
+                
+
+                
+
+                <pre class="programlisting">package helloejb;
+
+import javax.ejb.Stateless;
+
+@Stateless(mappedName="helloejb.Hello")
+public class HelloBean implements Hello {
+
+    public String sayHello() {
+        return "Hello EJB!";
+    }
+    
+}</pre>
+              </div></div><p><br class="example-break"/></p>
+          </li></ul></div>
+
+      <p>예제 코드는 다음의 디렉터리에서 찾아볼 수 있다.</p>
+
+      <pre class="programlisting">JEUS_HOME/samples/getting_started/helloejb/helloejb-ejb/src/java/helloejb</pre>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e4255"></a>서블릿 클라이언트 예제</h4>
+
+      <p>helloejb를 호출하는 서블릿 클라이언트를 다음과 같이 구현한다.</p>
+
+      <div class="example"><a id="d4e4258"></a><p class="title"><b>[예 10.3] &lt;&lt;HelloClient.java&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package helloejb;
+
+import java.io.*;
+import javax.ejb.EJB;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class HelloClient extends HttpServlet {
+    @EJB(mappedName="helloejb.Hello")
+    private Hello hello;
+
+    protected void processRequest(HttpServletRequest request,
+        HttpServletResponse response)
+    throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        try {
+            // Call session bean business method.
+            String msg = hello.sayHello();
+            
+            response.setContentType("text/html");
+            out.println("&lt;html&gt;");
+            out.println("&lt;head&gt;");
+            out.println("&lt;title&gt;HelloClient&lt;/title&gt;");
+            out.println("&lt;/head&gt;");
+            out.println("&lt;body&gt;");
+            out.println("&lt;center&gt;&lt;h1&gt;" + msg + "&lt;/h1&gt;&lt;/center&gt;");
+            out.println("&lt;/body&gt;");
+            out.println("&lt;/html&gt;");
+            out.close();
+        } catch(Exception ex){
+            response.setContentType("text/plain");
+            ex.printStackTrace(out);
+        }
+    }
+    
+    protected void doGet(HttpServletRequest request,
+        HttpServletResponse response)
+    throws ServletException, IOException {
+        processRequest(request, response);
+    }
+    
+    protected void doPost(HttpServletRequest request, 
+        HttpServletResponse response)
+    throws ServletException, IOException {
+        processRequest(request, response);
+    }
+    
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>예제 코드는 다음 위치의 디렉터리에서 찾아볼 수 있다.</p>
+
+      <p/>
+
+      <pre class="programlisting">JEUS_HOME/samples/getting_started/helloejb/helloejb-war/src/java/helloejb</pre>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4266"></a>10.1.2. 컴파일</h3></div></div></div>
+      
+
+      <p>작성된 예제는 Ant를 이용하여 다음과 같이 빌드할 수 있다.</p><pre class="screen">%JEUS_HOME%/samples/getting_started/helloejb&gt;<span><strong class="guibutton">jant build</strong></span></pre>
+
+      <p>빌드가 정상적으로 완료되면
+      %JEUS_HOME%/samples/getting_started/helloejb/dist/helloejb.ear 애플리케이션
+      EAR 파일이 생성된다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4274"></a>10.1.3. Deploy</h3></div></div></div>
+      
+
+      <p>패키징한 EJB 애플리케이션을 WebAdmin과 콘솔 툴로 deploy할 수 있다.<a id="d4e4277" class="indexterm"></a></p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e4282"></a>WebAdmin을 사용한 Deploy</h4>
+
+      <p>WebAdmin을 사용하여 deploy하는 과정은 다음과 같다.</p><div class="orderedlist"><ol type="1"><li>
+            <p>웹 브라우저로 접속해서 WebAdmin에 로그인한다.</p>
+          </li><li>
+            <p>WebAdmin 왼쪽 메뉴의
+            <span><strong class="guibutton">[Applications]</strong></span>를 선택하면 애플리케이션 목록 조회 화면으로
+            이동한다.</p>
+
+            <p>다음과 같이 <span><strong class="guibutton">Deployed Applications 화면</strong></span>에서
+            <span><strong class="guibutton">[Install]</strong></span> 버튼을 클릭한다.</p>
+
+            <div class="figure"><a id="d4e4293"></a><p class="title"><b>[그림 10.1] DAS에 install된 애플리케이션 목록</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_webadmin_deploy1.png" align="top" width="711" alt="DAS에 install된 애플리케이션 목록"/></td></tr></table></div>
+            </div></div><br class="figure-break"/>
+          </li><li>
+            <p><span><strong class="guibutton">Install
+            화면</strong></span>에서 <span><strong class="guibutton">'Id'</strong></span> 항목에 사용할 ID 값을 입력한다.
+            <span><strong class="guibutton">'Path'</strong></span> 항목의 <span><strong class="guibutton">[찾아보기]</strong></span>
+            버튼을 클릭해서 생성된 애플리케이션을 선택한 뒤 <span><strong class="guibutton">[확인]</strong></span> 버튼을
+            클릭한다.</p>
+
+            <div class="figure"><a id="d4e4306"></a><p class="title"><b>[그림 10.2] HelloEJB Deploy 대상 선택</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="474"><tr><td align="left"><img src="resources/figure_webadmin_deploy6.png" align="top" width="474" alt="HelloEJB Deploy 대상 선택"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p>애플리케이션 목록 조회 화면으로 이동하고, DAS에
+            install된 애플리케이션이 조회된다. 이때 MS에 배포하기 위해 해당 애플리케이션의
+            <span><strong class="guibutton">[deploy]</strong></span> 버튼을 클릭한다.</p><div class="figure"><a id="d4e4314"></a><p class="title"><b>[그림 10.3] HelloEJB Deploy 선택 사항</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_webadmin_deploy7.png" align="top" width="711" alt="HelloEJB Deploy 선택 사항"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p><span><strong class="guibutton">'Target
+            Server'</strong></span> 항목에서 deploy할 서버를 체크하고
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다. DAS를 선택할 수도 있지만 MS에 deploy하여
+            애플리케이션을 서비스하는 것을 권장한다.</p>
+
+            <p/>
+          </li><li>
+            <p>deploy가 성공적으로 완료되면 다음과 같이 결과
+            메시지가 출력된다.</p>
+
+            <div class="figure"><a id="d4e4326"></a><p class="title"><b>[그림 10.4] HelloEJB Deploy 결과</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_webadmin_deploy9.png" align="top" width="711" alt="HelloEJB Deploy 결과"/></td></tr></table></div>
+            </div></div><br class="figure-break"/>
+          </li></ol></div>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e4334"></a>콘솔 툴을 사용한 Deploy</h4>
+
+      <p>콘솔 툴을 사용하여 deploy하는 과정은 다음과 같다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>위에서 작성한 helloejb.ear 파일을 임의의 경로에 위치시킨다.</p>
+          </li><li>
+            <p>jeusadmin으로 JEUS에 접속한다.</p><pre class="screen">jeusadmin johan –u administrator –p <span class="emphasis"><em> password&gt;</em></span></pre>
+          </li><li>
+            <p>다음과 같이 실행하여 애플리케이션을 DAS에 install한다.</p><pre class="screen">[DAS]jeus_domain.adminServer&gt;install-application -id helloejb C:\TmaxSoft\JEUS8\samples\getting_started\helloejb\dist\helloejb.ear
+Successfully installed application[helloejb].</pre>
+          </li><li>
+            <p>다음과 같이 실행하여 애플리케이션을
+            MS(server1)에 deploy한다.</p><pre class="screen">[DAS]jeus_domain.adminServer&gt;deploy helloejb -servers server1
+Succeeded to deploy the application : helloejb</pre>
+
+            <p/>
+          </li></ol></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4351"></a>10.1.4. 실행 및 결과</h3></div></div></div>
+      
+
+      <p>deploy가 완료되면 작성된 화면를 실행해서 결과를 확인한다.</p>
+
+      <p>다음은 웹 클라이언트를 실행하는 과정에 대한 설명이다.</p>
+
+      <p/>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>웹 브라우저를 통해 다음 URL로 접속하면 HelloEJB 웹 클라이언트로 접속할 수 있다.</p>
+
+          <pre class="programlisting">http://localhost:8088/helloejb/</pre>
+
+          <div class="figure"><a id="d4e4361"></a><p class="title"><b>[그림 10.5] HelloEJB 클라이언트 화면</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="644"><tr><td align="left"><img src="resources/figure_webmanager_jarmodule5.png" align="top" width="644" alt="HelloEJB 클라이언트 화면"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          
+
+          <p>화면의 <span><strong class="guibutton">[Invoke HelloEJB Client]</strong></span> 버튼을 클릭하면
+          EJB를 호출하는 HelloClient 서블릿을 실행시키며 다음과 같은 결과를 확인할 수 있다.</p>
+
+          <div class="figure"><a id="d4e4369"></a><p class="title"><b>[그림 10.6] HelloEJB 서블릿 클라이언트 수행 결과</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="644"><tr><td align="left"><img src="resources/figure_webmanager_jarmodule6.png" align="top" width="644" alt="HelloEJB 서블릿 클라이언트 수행 결과"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li></ol></div>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4376"></a>10.2. Java Persistence API 예제</h2></div></div></div>
+    
+
+    <p>본 절에서는 Java Persistence API를 통해 Entity를 작성하고 컴파일하여 deploy하는 과정을
+    설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4379"></a>10.2.1. 예제</h3></div></div></div>
+      
+
+      <h4><a id="d4e4382"></a>EJB 예제</h4>
+
+      <p>예제는 Product Entity와 이를 다루는 EJB인 ProductManager Session Bean으로 구성되어
+      있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>Entity</p><div class="example"><a id="d4e4388"></a><p class="title"><b>[예 10.4] &lt;&lt;Product.java&gt;&gt;</b></p><div class="example-contents">
+                
+
+                
+
+                <pre class="programlisting">package hellojpa;
+
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+
+@Entity
+@NamedQuery(name="findAllProducts", query="SELECT p FROM Product p")
+public class Product implements Serializable {
+    @Id
+    private String productId;
+    private double price;
+    private String description;
+    
+    public Product() {
+    }
+    
+    public Product(String productId, double price,
+        String description){
+        this.productId = productId;
+        this.price = price;
+        this.description = description;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String id) {
+        this.productId = id;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    public String toString() {
+        return "Product[productId=" + productId + ", price=" +
+            price + ", description=" + description + "]";
+    }
+}</pre>
+              </div></div><p><br class="example-break"/></p>
+          </li><li>
+            <p>Business Interface</p><div class="example"><a id="d4e4393"></a><p class="title"><b>[예 10.5] &lt;&lt;ProductManager.java&gt;&gt;</b></p><div class="example-contents">
+                
+
+                
+
+                <pre class="programlisting">package hellojpa;
+
+import java.util.Collection;
+import javax.ejb.Local;
+
+@Local
+public interface ProductManager {
+    Product createProduct(String productId, double price, String desc);
+    
+    Product getProduct(String productId);
+    
+    Collection findAllProducts();
+    
+    Collection findProductsByDescription(String desc);
+
+    Collection findProductsInRange(double low, double high);
+    
+    void updateProduct(Product product);
+    
+    void removeProduct(Product product);
+    
+    void removeAllProducts();
+}</pre>
+              </div></div><p><br class="example-break"/></p>
+          </li><li>
+            <p>Bean Class</p><div class="example"><a id="d4e4398"></a><p class="title"><b>[예 10.6] &lt;&lt;ProductManagerBean.java&gt;&gt;</b></p><div class="example-contents">
+                
+
+                
+
+                <pre class="programlisting">package hellojpa;
+
+import java.util.Collection;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+@Stateless(mappedName="hellojpa.ProductManager")
+public class ProductManagerBean implements ProductManager {
+    @PersistenceContext
+    private EntityManager em;
+    
+    public ProductManagerBean() {
+    }
+
+    public Product createProduct(String productId, double price, String desc){
+        Product product = new Product(productId, price, desc);
+        em.persist(product);
+        return product;
+    }
+    
+    public Product getProduct(String productId){
+        return (Product)em.find(Product.class, productId);
+    }
+    
+    public Collection findAllProducts() {
+        return em.createNamedQuery("findAllProducts").getResultList();
+    }
+
+    public Collection findProductsByDescription(String desc){
+        Query query = em.createQuery("SELECT p FROM Product p WHERE  
+            p.description=:desc");
+        query.setParameter("desc", desc);
+        return query.getResultList();
+    }
+
+    public Collection findProductsInRange(double low, double high){
+        Query query = em.createQuery("SELECT p FROM Product p WHERE 
+            p.price between :low and :high");
+        query.setParameter("low", low).setParameter("high", high);
+        return query.getResultList();
+    }
+    
+    public void updateProduct(Product product){
+        Product managed = em.merge(product);
+        em.flush();
+    }
+    
+    public void removeProduct(Product product){
+        Product managed = em.merge(product);
+        em.remove(managed);
+    }
+    
+    public void removeAllProducts(){
+        em.createQuery("DELETE FROM Product p").executeUpdate();
+    }
+}</pre>
+              </div></div><p><br class="example-break"/></p>
+
+            <p/>
+          </li></ul></div>
+
+      <p>예제 코드는 다음의 디렉터리에서 찾아볼 수 있다.</p>
+
+      <pre class="programlisting">JEUS_HOME/samples/getting_started/hellojpa/hellojpa-ejb/src/java/hellojpa</pre>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e4409"></a>서블릿 클라이언트 예제</h4>
+
+      <p>ProductManager EJB를 사용하여 데이터베이스에 데이터를 저장하고 데이터를 다루는 서블릿 클라이언트를 다음과
+      같이 구현한다.</p>
+
+      <p/>
+
+      <div class="example"><a id="d4e4413"></a><p class="title"><b>[예 10.7] &lt;&lt;ProductManagerClient.java&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package hellojpa;
+
+import java.io.*;
+import java.util.Collection;
+import javax.ejb.EJB;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class ProductManagerClient extends HttpServlet {
+    @EJB
+    private ProductManager productManager;    
+
+    protected void processRequest(HttpServletRequest request,
+        HttpServletResponse response)
+    throws ServletException, IOException {        
+        response.setContentType("text/plain");
+        PrintWriter out = response.getWriter();
+        out.println("SERVLET CLIENT CONSOLE OUTPUT:\n");
+        
+        productManager.removeAllProducts();
+        out.println("Cleaned up existing products.\n");
+        
+        out.println("Creating products...");
+        Product p1 = productManager.createProduct("1", 10.00, "Ceramic Dog");
+        Product p2 = productManager.createProduct("2", 13.00, "Wooden Duck");
+        Product p3 = productManager.createProduct("3", 19.00, "Ivory Cat");
+        Product p4 = productManager.createProduct("4", 33.00, "Ivory Cat");
+        Product p5 = productManager.createProduct("5", 22.00, "Chrome Fish");
+        
+        Collection products;
+
+        out.println("Created products:");
+        products = productManager.findAllProducts();
+        for(Object product : products){
+             out.println(product);
+        }
+        out.println();
+        
+        out.println("Find product with productId 1:");
+        Product pp1 = productManager.getProduct("1");
+        out.println("Found = " + pp1.getDescription() + " $" + pp1.getPrice());
+        
+        out.println("Update the price of this product to 12.00");
+        pp1.setPrice(12.00);
+        productManager.updateProduct(pp1);
+        
+        Product pp2 = productManager.getProduct("1");
+        out.println("Product " + pp2.getDescription() + " is now $" + pp2.getPrice());
+        out.println();
+        
+        out.println("Find products with description:");
+        products = productManager.findProductsByDescription("Ivory Cat");
+        for(Object product : products){
+            out.println(product);
+        }
+        out.println();
+        
+        out.println("Find products with price range between 10.00 and 20.00");
+        products = productManager.findProductsInRange(10.00, 20.00);
+        for(Object product : products){
+            out.println(product);
+        }
+        out.println();
+        
+        out.println("Removed all products.");
+        productManager.removeProduct(p1);
+        productManager.removeProduct(p2);
+        productManager.removeProduct(p3);
+        productManager.removeProduct(p4);
+        productManager.removeProduct(p5);
+        
+        out.close();
+    }
+    
+    protected void doGet(HttpServletRequest request,
+        HttpServletResponse response)
+    throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request,
+        HttpServletResponse response)
+    throws ServletException, IOException {
+        processRequest(request, response);
+    }
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+
+      <p/>
+
+      <p>예제코드는 다음의 디렉터리에서 찾아볼 수 있다.</p>
+
+      <pre class="programlisting">JEUS_HOME/samples/getting_started/hellojpa/hellojpa-war/src/java/hellojpa</pre>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4422"></a>10.2.2. 컴파일</h3></div></div></div>
+      
+
+      <p>jant를 이용하여 예제 코드를 다음과 같이 빌드할 수 있다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>예제가 작성된 경로에서 다음과 같이 <span><strong class="guibutton">ant build</strong></span> 명령을
+          실행한다.</p>
+
+          <pre class="screen">C:\TmaxSoft\JEUS8\samples\getting_started\hellojpa&gt;<span class="bold"><strong>jant build</strong></span></pre>
+        </li><li>
+          <p>빌드가 정상적으로 완료되면 dist\hellojpa.ear 애플리케이션 EAR 파일이 생성된다.</p>
+
+          <p>이번 예제는 데이터베이스를 필요로 하므로 Derby를 시작시키도록 한다. 또한 데이터베이스가
+          jdbc/sample 데이터소스로 설정되어 있어야 한다. 자세한 내용은 <a href="chapter_jeus_system_configuration.html" title="제8장 시스템 설정">“제8장 시스템 설정”</a>을 참고한다.</p>
+
+          <p>Derby가 시작되었다면 다음과 같이 데이터베이스 테이블을 생성한다. 본 예제에서는 "sample"이라는
+          데이터베이스를 사용할 것이다.</p>
+
+          <pre class="screen">CREATE TABLE PRODUCT (PRODUCTID VARCHAR(255) NOT NULL, PRICE FLOAT,
+    DESCRIPTION VARCHAR(255), PRIMARY KEY (PRODUCTID));</pre>
+        </li><li>
+          <p>다음과 같이 <span><strong class="guibutton">ant setup</strong></span> 명령을 실행해서 데이터베이스 테이블을
+          생성한다.</p>
+
+          <pre class="screen">C:\TmaxSoft\JEUS8\samples\getting_started\hellojpa&gt;<span><strong class="guibutton">jant setup </strong></span></pre>
+        </li></ol></div>
+
+      <p/>
+
+      <p>이제 빌드와 데이터베이스 설정이 완료되었다면 패키징된 모듈을 deploy할 준비가 완료되었다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4449"></a>10.2.3. Deploy</h3></div></div></div>
+      
+
+      <p>패키징한 EJB 애플리케이션을 WebAdmin과 콘솔 툴로 deploy할 수 있다.</p>
+
+      <h4><a id="d4e4453"></a>WebAdmin을 사용한 Deploy</h4>
+
+      <p>다음 과정에 따라 패키징된 모듈을 WebAdmin을 사용하여 deploy한다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>웹 브라우저로 접속해서 WebAdmin에 로그인한다.</p>
+          </li><li>
+            <p>WebAdmin 왼쪽 메뉴의 <span><strong class="guibutton">[Applications]</strong></span>를 선택하면
+            애플리케이션 목록 조회 화면으로 이동한다.</p>
+
+            <p>다음과 같이 <span><strong class="guibutton">Deployed Applications 화면</strong></span>에서
+            <span><strong class="guibutton">[Install]</strong></span> 버튼을 클릭한다.</p>
+
+            <div class="figure"><a id="d4e4466"></a><p class="title"><b>[그림 10.7] DAS에 install된 Application의 목록</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_webadmin_deploy1.png" align="top" width="711" alt="DAS에 install된 Application의 목록"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p><span><strong class="guibutton">Install 화면</strong></span>에서
+            <span><strong class="guibutton">'Id'</strong></span> 항목에 사용할 ID 값을 입력한다.
+            <span><strong class="guibutton">'Path'</strong></span> 항목의 <span><strong class="guibutton">[찾아보기]</strong></span>
+            버튼을 클릭해서 생성된 애플리케이션을 선택한 뒤 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.
+            생성된 애플리케이션은 'JEUS_HOME/samples/getting_started/hellojpa/dist'에
+            존재한다.</p>
+
+            <div class="figure"><a id="d4e4479"></a><p class="title"><b>[그림 10.8] install 대상 선택</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="521"><tr><td align="left"><img src="resources/figure_webadmin_deploy10.png" align="top" width="521" alt="install 대상 선택"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            
+
+            <p>애플리케이션 목록 조회 화면으로 이동하고, DAS에 install된 애플리케이션이 조회된다. 이때 MS에
+            배포하기 위해 해당 애플리케이션의 <span><strong class="guibutton">[deploy]</strong></span> 버튼을
+            클릭한다.</p>
+
+            <div class="figure"><a id="d4e4488"></a><p class="title"><b>[그림 10.9] Web Application의 install 성공</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_webadmin_deploy11.png" align="top" width="711" alt="Web Application의 install 성공"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p><span><strong class="guibutton">'Target
+            Server'</strong></span> 항목에서 deploy할 서버를 선택하고
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다. DAS를 선택할 수도 있지만 MS에 deploy하여
+            애플리케이션을 서비스하는 것을 권장한다.</p>
+
+            <div class="figure"><a id="d4e4498"></a><p class="title"><b>[그림 10.10] HelloJPA Deploy 배치 옵션</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="521"><tr><td align="left"><img src="resources/figure_webadmin_deploy12.png" align="top" width="521" alt="HelloJPA Deploy 배치 옵션"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li><li>
+            <p>deploy가 성공적으로 완료되면 다음과 같이 결과
+            메시지가 출력된다.</p><div class="figure"><a id="d4e4505"></a><p class="title"><b>[그림 10.11] Deploy된 HelloJPA</b></p><div class="figure-contents">
+                
+
+                <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_webadmin_deploy13.png" align="top" width="711" alt="Deploy된 HelloJPA"/></td></tr></table></div>
+              </div></div><p><br class="figure-break"/></p>
+          </li></ol></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p><a href="chapter_jeus_system_configuration.html#adding_datasource" title="8.4. 데이터소스 추가">“8.4. 데이터소스 추가”</a>에서 데이터소스 설정 관련 부분에서 설명했지만,
+        데이터소스 설정에서 패스워드나 IP 주소가 정확하지 않을 경우에 deploy는 실패한다.</p>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e4517"></a>콘솔 툴을 사용한 Deploy</h4><p>콘솔 툴을 사용하여 deploy하는 방법은
+      다음과 같다.</p><div class="orderedlist"><ol type="1"><li>
+            <p>jeusadmin으로 JEUS에 접속한다.</p><pre class="screen">jeusadmin –u administrator –p <span class="emphasis"><em>&lt;password&gt;</em></span></pre>
+          </li><li>
+            <p>애플리케이션을 DAS에 install한다.</p><pre class="screen">[DAS]jeus_domain.adminServer&gt;install-application -id hellojpa C:\TmaxSoft\JEUS8\samples\getting_started\hellojpa\dist\hellojpa.ear
+Successfully installed application[hellojpa].</pre>
+          </li><li>
+            <p>애플리케이션을 MS(server1)에 deploy한다.</p><pre class="screen">[DAS]jeus_domain.adminServer&gt;deploy hellojpa -servers server1
+Succeeded to deploy the application : hellojpa</pre>
+          </li><li>
+            <p>모듈이 정상적으로 deploy되었는지 확인한다.</p>
+          </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4534"></a>10.2.4. 실행 및 결과</h3></div></div></div>
+      
+
+      <p>deploy가 완료되면 작성된 화면을 실행해서 결과를 확인한다.</p>
+
+      <p>다음은 웹 클라이언트를 실행하는 과정에 대한 설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>웹 브라우저를 통해 다음 URL로 접속하면 HelloJPA 웹 클라이언트로 접속할 수 있다.</p>
+
+          <pre class="programlisting">http://localhost:8088/hellojpa/</pre>
+
+          <div class="figure"><a id="d4e4543"></a><p class="title"><b>[그림 10.12] HelloJPA 클라이언트 화면</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="644"><tr><td align="left"><img src="resources/figure_webmanager_jpamodule5.png" align="top" width="644" alt="HelloJPA 클라이언트 화면"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li><li>
+          <p>화면의 <span><strong class="guibutton">[Invoke
+          ProductManager Client]</strong></span> 버튼을 클릭하면 EJB에 요청을 내리는 서블릿 클라이언트를
+          수행하고 다음과 같이 결과가 표시된다.</p><div class="figure"><a id="d4e4551"></a><p class="title"><b>[그림 10.13] HelloJPA 서블릿 클라이언트 수행 결과</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="644"><tr><td align="left"><img src="resources/image080.png" align="top" width="644" alt="HelloJPA 서블릿 클라이언트 수행 결과"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li></ol></div>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_webtier.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="part_JEUS_start.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="chapter_webservices.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제9장 WebTier 사용하기 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제11장 웹 서비스 사용하기</td></tr></table></div><div xmlns="" align="center"/></body></html>

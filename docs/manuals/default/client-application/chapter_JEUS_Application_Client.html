@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제1장 애플리케이션 클라이언트</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Application Client 안내서"/><link rel="up" href="index.html" title="JEUS Application Client 안내서"/><link rel="prev" href="about.html" title="안내서에 대하여"/><link rel="next" href="chapter_JEUS_Advanced_Application_Client.html" title="제2장 고급 애플리케이션 클라이언트"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제1장 애플리케이션 클라이언트</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_JEUS_Advanced_Application_Client.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_JEUS_Application_Client"></a>제1장 애플리케이션 클라이언트</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_JEUS_Application_Client.html#sect_JEUS_Application_Client_Intro">1.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Application_Client.html#sect_JEUS_Application_Client_Summary">1.2. 프로그램 작성</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_JEUS_Application_Client.html#sect_JEUS_Application_Client_Summary_Architecture">1.2.1. 프로그램 구조</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Application_Client.html#sect_Application_Client_Code">1.2.2. 예제</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_JEUS_Application_Client.html#d4e460">1.3. Deployment Descriptor(DD)</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_JEUS_Application_Client.html#d4e463">1.3.1. DD 작성</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Application_Client.html#sect_JEUS_Deployment_Descriptor_Creation">1.3.2. DD 생성</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_JEUS_Application_Client.html#sect_Application_Client_Module_Packaging">1.4. 패키징</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Application_Client.html#sect_Application_Client_Module_Deployment">1.5. Deploy</a></span></dt><dt><span class="section"><a href="chapter_JEUS_Application_Client.html#sect_Application_Client_Module_Execution">1.6. 실행</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_JEUS_Application_Client.html#sect_Usage_In_Console">1.6.1. 콘솔에서 실행</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 JEUS 서버와는 별도의 JVM에서 수행되는 애플리케이션 클라이언트에 대해서 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_Application_Client_Intro"></a>1.1. 개요</h2></div></div></div>
+    
+
+    <p>일반적으로 Java EE 애플리케이션을 호출하거나 Java EE의 서비스를 제공받기 위해서는 JEUS의 클라이언트
+    컨테이너에서 구동되는 애플리케이션 클라이언트(Application Client) 모듈을 사용한다.</p>
+
+    <p><a id="d4e423" class="indexterm"></a>애플리케이션 클라이언트는 Java EE 환경을 사용하는 standalone 클라이언트로 Java EE 스펙에
+    정의되어 있는 애플리케이션 클라이언트 컨테이너(Application Client Container)에서 구동되는 애플리케이션이다.
+    애플리케이션 클라이언트 모듈은 JEUS 클라이언트의 한 형태이다. 이 형태는 클라이언트 또는 서버 시스템이나 테스트 및 디버깅을 하는
+    경우 유용하게 사용할 수 있는 클라이언트이다.</p>
+
+    <p>JEUS 애플리케이션 클라이언트는 클라이언트 컨테이너를 사용해서 Naming Service, Scheduler,
+    Security 등과 같은 JEUS 서비스를 사용할 수 있다. 클라이언트 컨테이너를 사용하지 않더라도 JEUS 클라이언트 라이브러리를
+    사용하면 JNDI, Security 등의 일부 Java EE 서비스를 사용할 수는 있지만 Dependency Injection,
+    JEUS Scheduler 등에 해당하는 서비스는 사용할 수 없다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>1. Java EE 기반의 애플리케이션 클라이언트의 자세한 내용은 Java EE 스펙을 참고한다.</p>
+
+      <p>2. JEUS XML 스키마의 자세한 내용은 "JEUS XML Reference"의
+      "jeus-client-dd.xml"을 참고한다.</p>
+    </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_JEUS_Application_Client_Summary"></a>1.2. 프로그램 작성</h2></div></div></div>
+    
+
+    <p>본 절에서는 JEUS 클라이언트와 서버 환경의 아키텍처에 대해 알아보고, 간단한 샘플 코드를 예로 들어
+    설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_JEUS_Application_Client_Summary_Architecture"></a>1.2.1. 프로그램 구조</h3></div></div></div>
+      
+
+      <p>애플리케이션 클라이언트는 서버와는 다른 JVM에서 실행되는 클라이언트 프로그램이다.</p>
+
+      <p>애플리케이션 클라이언트는 main() 메소드를 호출해서 실행하고, 가상 머신이 종료되면 실행을 마친다. 다른 Java
+      EE 애플리케이션 컴포넌트처럼 애플리케이션 클라이언트는 시스템 서비스를 제공하는 클라이언트 컨테이너에서 동작한다. 클라이언트
+      컨테이너는 다른 Java EE 컨테이너에 비해서 적은 양의 시스템 리소스를 사용한다. </p>
+
+      <p>클라이언트 컨테이너는 일반 애플리케이션 클라이언트에서 JEUS가 제공하는 Java EE 서비스를 사용할 수 있는 환경을
+      제공한다. 이 서비스에는 JNDI, Scheduler, Security 그리고 JNDI 서비스를 통해서 JEUS에 바인딩되어 있는
+      애플리케이션 컴포넌트(EJB) 및 시스템 리소스들(JDBC DataSource, JMS Connection Factory 등)에
+      대한 사용이 포함된다.</p>
+
+      <div class="figure"><a id="figure_client-architecture"></a><p class="title"><b>[그림 1.1] 애플리케이션 클라이언트 아키텍처<a id="d4e442" class="indexterm"></a></b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="493"><tr><td align="left"><img src="resources/figure_client_architecture.png" align="top" width="493" alt="애플리케이션 클라이언트 아키텍처 애플리케이션 클라이언트 아키텍처"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Application_Client_Code"></a>1.2.2. 예제</h3></div></div></div>
+      
+
+      <p>애플리케이션 클라이언트는 일반적인 Java 프로그램과 마찬가지로 반드시 public으로 선언된 main() 메소드를
+      가지고 있어야 한다. </p>
+
+      <p>다음은 Java EE 7 스타일로 작성된 예제로 Injection을 통해 EJB를
+      호출한다(JEUS_HOME/samples/client/hello/hello-client 예제를 참고).</p>
+
+      <div class="example"><a id="ex_hello_client_java"></a><p class="title"><b>[예 1.1] &lt;&lt;HelloClient.java&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package helloejb;
+
+import java.io.*;
+import javax.ejb.EJB;
+
+public class HelloClient {
+    @EJB(mappedName="helloejb.Hello")
+    private static Hello hello;
+    
+    public static void main(String[] args) {
+        System.out.println("EJB output : " + hello.sayHello());
+    }
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>Java EE 애플리케이션 클라이언트 프로그래밍에 관련된 내용은 Java EE 7 Technologies(<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.oracle.com/technetwork/java/javaee/tech/index-jsp-142185.html" target="_top">http://www.oracle.com/technetwork/java/javaee/tech/index-jsp-142185.html</a>)을
+        참고한다.</p>
+      </div>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e460"></a>1.3. Deployment Descriptor(DD)</h2></div></div></div>
+    
+
+    <p>본 절에서는 Deployment Descriptor(이하 DD)를 작성하고 생성하는 방법에 대해 설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e463"></a>1.3.1. DD 작성</h3></div></div></div>
+      
+
+      <p>DD 작성 방법은 다음과 같이 2가지로 나누어진다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton"><a id="sect_J2EE_Deployment_Descriptor"></a>Java EE
+            DD<a id="d4e471" class="indexterm"></a></strong></span></p>
+
+            <p>Java EE 스펙에서는 클라이언트 모듈에 대한 DD를 정의하고 있는데, 이는 Web Application
+            Server(WAS)에 관계없이 표준적인 설정을 담고 있다.</p>
+
+            <p>Java EE 5 이후부터는 기존과는 달리 표준 DD 파일이 없어도 되며, 필요한 설정은
+            Annotation을 통해 설정할 수 있다. 따라서 위의 <a href="chapter_JEUS_Application_Client.html#ex_hello_client_java" title="[예 1.1] &lt;&lt;HelloClient.java&gt;&gt;">[예 1.1]</a>도 별도의 application-client.xml이 없이도
+            동작한다.</p>
+
+            <p>표준 XML Descriptor에 대한 자세한 설명은 Java EE 스펙을 참고한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">JEUS DD<a id="d4e480" class="indexterm"></a></strong></span></p>
+
+            <p>서버와 애플리케이션 클라이언트가 통신할 때 클라이언트 모듈에 대한 정보가 필요한데, DD는 이러한 정보들을
+            가지고 있는 XML 설정이다.</p>
+
+            <p><a id="d4e484" class="indexterm"></a>클라이언트를 위한 DD는 META-INF\jeus-client-dd.xml이다. DD를
+            사용하여 각각의 애플리케이션 클라이언트를 클라이언트 컨테이너에 디플로이할 때에 어떤 서비스를 사용할지 결정할 수 있다.
+            또한 실행하는 경우에도 프로그램의 별도의 수정 없이 DD만 수정하여 해당하는 애플리케이션 클라이언트에게 적용할 수
+            있다.</p>
+
+            <p>일반적으로 클라이언트가 사용하는 리소스 등을 지정하기 위해 사용하는데, 위의 <a href="chapter_JEUS_Application_Client.html#ex_hello_client_java" title="[예 1.1] &lt;&lt;HelloClient.java&gt;&gt;">[예 1.1]</a>에 대해서는 이 DD를 사용하지 않아도 되므로
+            생략한다.</p>
+          </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>jeus-client-dd.xml에 대한 자세한 설명은 "JEUS XML Reference"를
+        참고한다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_JEUS_Deployment_Descriptor_Creation"></a>1.3.2. DD 생성</h3></div></div></div>
+      
+
+      <p>DD를 생성할 때 필요하다면 JEUS에서 클라이언트 모듈을 디플로이하기 전에 jeus-client-dd.xml 파일을
+      작성한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 DD를 작성한 XML 파일의 예이다.</p>
+
+      <p>XML에서 클라이언트가 사용하는 환경변수, EJB 애플리케이션이 바인딩된 이름, 바인딩된 JDBC DataSource의
+      이름, JMS Queue의 JNDI 바인딩 이름을 지정하고 있다. 환경변수를 제외하고는 application-client.xml의
+      <span><strong class="guibutton">&lt;ref-name&gt;</strong></span>에 실제 바인딩된 JNDI 이름을
+      <span><strong class="guibutton">&lt;export-name&gt;</strong></span>으로 지정한다.</p><div class="example"><a id="d4e500"></a><p class="title"><b>[예 1.2] &lt;&lt;jeus-client-dd.xml&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;jeus-client-dd&gt;
+    <span class="bold"><strong>&lt;env&gt;</strong></span>
+        &lt;name&gt;year&lt;/name&gt;
+        &lt;type&gt;java.lang.Integer&lt;/type&gt;
+        &lt;value&gt;2002&lt;/value&gt;
+    <span class="bold"><strong>&lt;/env&gt;</strong></span>
+    <span class="bold"><strong>&lt;ejb-ref&gt;</strong></span>
+        &lt;jndi-info&gt;
+            &lt;ref-name&gt;count&lt;/ref-name&gt;
+            &lt;export-name&gt;count_bean&lt;/export-name&gt;
+        &lt;/jndi-info&gt;
+    <span class="bold"><strong>&lt;/ejb-ref&gt;</strong></span>
+    <span class="bold"><strong>&lt;res-ref&gt;</strong></span>
+        &lt;jndi-info&gt;
+            &lt;ref-name&gt;datasource&lt;/ref-name&gt;
+            &lt;export-name&gt;Oracle_DataSource&lt;/export-name&gt;
+        &lt;/jndi-info&gt;
+    <span class="bold"><strong>&lt;/res-ref&gt;</strong></span>
+    <span class="bold"><strong>&lt;res-env-ref&gt;</strong></span>
+        &lt;jndi-info&gt;
+            &lt;ref-name&gt;jms/SalaryInfo&lt;/ref-name&gt;
+            &lt;export-name&gt;jms/salary_info_queue1&lt;/export-name&gt;
+        &lt;/jndi-info&gt;
+    <span class="bold"><strong>&lt;/res-env-ref&gt;</strong></span>
+&lt;/jeus-client-dd&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>jeus-client-dd.xml 파일의 각 element에 대한 설명은 "JEUS XML Reference"를
+        참고한다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Application_Client_Module_Packaging"></a>1.4. 패키징</h2></div></div></div>
+    
+
+    <p><a id="d4e516" class="indexterm"></a>클라이언트 모듈의 패키징 방식은 수동 패키징 방식과 IDE를 사용한 패키징 방식으로 나눠진다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><span><strong class="guibutton">수동 패키징 <a id="d4e522" class="indexterm"></a></strong></span></p>
+
+        <p>필요하다면 사용자의 컴퓨터에 설치되어 있는 텍스트 에디터나 XML 에디터를 사용해서 DD XML 파일을 생성하고,
+        필요한 파일을 모아서 Java에서 제공하는 JAR 툴을 사용하여 클라이언트 모듈에 대한 JAR 파일을 생성한다.</p>
+
+        <p>애플리케이션 클라이언트를 패키징하려면 애플리케이션을 구성하고 있는 클래스 파일과 필요하다면
+        <span><strong class="guibutton">application-client.xml</strong></span>,
+        <span><strong class="guibutton">jeus-client-dd.xml</strong></span> 파일이 포함되어 있어야 한다.</p>
+
+        <p>콘솔에서는 <span><strong class="guibutton">jar</strong></span> 명령어를 사용하여 클라이언트 모듈에 대한 JAR 파일을
+        생성한다. 표준에서는 JAR 파일의 MANIFEST.MF에 Main-Class 속성으로 이 JAR 파일이 실행될 때 사용할
+        메인 클래스를 지정할 수 있다. 이 경우 JEUS 클라이언트 컨테이너는 메인 클래스를 알려주지 않아도 자동으로 이 클래스를
+        실행한다.</p>
+
+        <p>다음은 jar 명령어를 사용하여 JAR 파일을 생성하는 예이다.</p>
+
+        <pre class="programlisting">jar cvf hello-client.jar *</pre>
+      </li><li>
+        <p><span><strong class="guibutton">IDE를 사용한 패키징 <a id="d4e535" class="indexterm"></a></strong></span></p>
+
+        <p>Eclipse나 NetBeans, IntelliJ IDEA와 같이 Java EE 환경을 지원하는 IDE 툴에서
+        생성한다. 이 방법은 각 IDE의 도움말을 참고한다.</p>
+      </li></ul></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Application_Client_Module_Deployment"></a>1.5. Deploy<a id="d4e541" class="indexterm"></a></h2></div></div></div>
+    
+
+    <p>애플리케이션 클라이언트 모듈은 수동으로 직접 deploy를 진행하거나 JEUS WebAdmin를 사용한다.</p>
+
+    <p>모듈에는 필요에 따라 Java EE 표준 DD 파일인 application-client.xml과 JEUS에서 제공하는
+    jeus-client-dd.xml이 있다. 애플리케이션 클라이언트에 대한 모듈 파일을 생성한 후 해당 파일을 원하는 위치로
+    이동한다.</p>
+
+    <p>만약 웹 서비스 클라이언트로 동작하는 기능이 있다면 추가로 콘솔 툴(jeusadmin)이나 WebAdmin을 통해
+    deploy하거나 <span><strong class="guibutton">appcompiler</strong></span>를 사용해야 웹 서비스 Stub이
+    생성된다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>1. WebAdmin을 사용하는 방법에 대해서는 <a xmlns="" href="../web-manager/index.html" class="olink">"JEUS WebAdmin 안내서"</a>를 참고한다.</p>
+
+      <p>2. deploy에 대한 자세한 내용은 <a xmlns="" href="../deployment/index.html" class="olink">"JEUS Applications &amp; Deployment 안내서"</a>를
+      참고한다.</p>
+    </div>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Application_Client_Module_Execution"></a>1.6. 실행</h2></div></div></div>
+    
+
+    <p>본 절에서는 각 서비스별로 추가적으로 필요한 JEUS 라이브러리와 콘솔에서 모듈을 실행하는 방법에 대해
+    설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>애플리케이션 클라이언트로 웹 서비스를 사용할 경우 라이브러리 실행 단계에서 기본 라이브러리인
+    JEUS_HOME/lib/client/clientcontainer.jar 외에 추가적으로 필요한 라이브러리들이 존재한다. 이들은
+    대부분 JEUS_HOME/lib/system(이하 SYSTEM_LIB_DIR) 아래에 위치한다.</p>
+
+    <p>다음은 서비스별 추가적으로 필요한 JEUS 라이브러리 목록이다.</p>
+
+    <div class="informaltable">
+      
+
+      <table border="1"><colgroup><col width="230" align="left"/><col/></colgroup><thead><tr><th align="left">서비스</th><th align="left">JEUS 라이브러리</th></tr></thead><tbody><tr><td align="left">JMS(Java Message Service)</td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                  <p>SYSTEM_LIB_DIR/jms.jar</p>
+                </li></ul></div></td></tr><tr><td align="left">Web Service</td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                  <p>SYSTEM_LIB_DIR/mail.jar</p>
+                </li><li style="list-style-type: circle">
+                  <p>SYSTEM_LIB_DIR/jeus-ws.jar</p>
+                </li><li style="list-style-type: circle">
+                  <p>JEUS_HOME/lib/shared/wsit-2.3/webservices-rt.jar</p>
+                </li><li style="list-style-type: circle">
+                  <p>SYSTEM_LIB_DIR/resolver.jar</p>
+                </li></ul></div></td></tr><tr><td align="left">JMX(Java Management eXtensions)</td><td><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                  <p>SYSTEM_LIB_DIR/jmxremote.jar</p>
+                </li></ul></div></td></tr></tbody></table>
+    </div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>웹 서비스에 대한 자세한 내용은 <a xmlns="" href="../web-service/index.html" class="olink">"JEUS Web Service 안내서"</a>를 참고한다.</p>
+      </div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Usage_In_Console"></a>1.6.1. 콘솔에서 실행</h3></div></div></div>
+      
+
+      <p><a id="d4e601" class="indexterm"></a>콘솔에서 모듈을 실행하기 위해서 <span><strong class="guibutton">appclient</strong></span>를 사용한다.
+      appclient는 JEUS_HOME\bin에 존재하는 스크립트로 클라이언트 컨테이너를 통해 애플리케이션 클라이언트 모듈을
+      실행한다.</p>
+
+      <p>다음은 JEUS에서 제공하는 클라이언트 컨테이너의 command line 형식이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>사용법</p>
+
+          <pre class="programlisting"><span class="bold"><strong>appclient</strong></span> -client <span class="emphasis"><em>client_jar_path</em></span> 
+         [-main <span class="emphasis"><em>main_class</em></span>]
+         [-cp <span class="emphasis"><em>classpath</em></span>] 
+         <span class="emphasis"><em>application_arguments</em></span>...</pre>
+
+          <p>다음은 명령어 옵션에 대한 설명이다.</p>
+
+          <div class="informaltable">
+              <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">옵션</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">-client
+                    <span class="emphasis"><em>client_jar_path</em></span></td><td>실행할 애플리케이션 클라이언트의 패스를 지정한다.</td></tr><tr><td align="left">[-main <span class="emphasis"><em>main_class</em></span>]</td><td>애플리케이션 클라이언트의 Main-Class를 지정한다. 클라이언트의 클래스 패스가 지정된
+                    경로에 META-INF\MANIFEST.MF의 설정 정보에 Main-Class가 지정되어 있다면 이
+                    옵션이 필요하지 않다.</td></tr><tr><td align="left">[-cp <span class="emphasis"><em>classpath</em></span>]</td><td>필요한 경우 클라이언트 실행에 필요한 클래스 패스를 지정한다.</td></tr></tbody></table>
+            </div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>예제</p>
+
+          <p>위의 예제를 실행하면 다음과 같다. 애플리케이션 클라이언트가 정상적으로 실행되기 위해서 Hello EJB가
+          deploy되어 있어야 한다.</p>
+
+          <pre class="programlisting">JEUS_HOME/samples/client/hello/hello-client/dist$ appclient -client hello-client.jar
+[2016.08.03 14:44:46][0] [t-1] [CLIENT-0050] Starting the Application Client Container - JEUS 8
+EJB output : Hello EJB!</pre>
+
+          <p>위의 내용 중 JEUS 로그를 출력하지 않으려면 다음을 추가로 설정한다.</p>
+
+          <pre class="programlisting">-Djeus.log.level=OFF</pre>
+
+          <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+              <p>로그 설정에 대한 자세한 설명은 <a xmlns="" href="../server/chapter_jeus_logging.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “제8장 Logging”</a>을 참고한다.</p>
+            </div>
+        </li></ul></div>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="about.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_JEUS_Advanced_Application_Client.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">안내서에 대하여 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제2장 고급 애플리케이션 클라이언트</td></tr></table></div><div xmlns="" align="center"/></body></html>

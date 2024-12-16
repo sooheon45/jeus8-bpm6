@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제2장 프로바이더 설정</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS JPA 안내서"/><link rel="up" href="index.html" title="JEUS JPA 안내서"/><link rel="prev" href="chapter_intro.html" title="제1장 소개"/><link rel="next" href="chapter_jeus_configuration.html" title="제3장 프로바이더 변경"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제2장 프로바이더 설정</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_intro.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_jeus_configuration.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_provider_configuration"></a>제2장 프로바이더 설정</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_provider_configuration.html#d4e408">2.1. 데이터베이스 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_provider_configuration.html#d4e411">2.1.1. 사용 환경별 설정</a></span></dt><dt><span class="section"><a href="chapter_provider_configuration.html#d4e501">2.1.2. 데이터베이스 타입 설정</a></span></dt><dt><span class="section"><a href="chapter_provider_configuration.html#d4e569">2.1.3. 스키마 자동 생성 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_provider_configuration.html#d4e757">2.2. Caching</a></span></dt><dt><span class="section"><a href="chapter_provider_configuration.html#d4e845">2.3. Query 힌트</a></span></dt><dt><span class="section"><a href="chapter_provider_configuration.html#d4e891">2.4. Logging 설정</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 JEUS의 기본 프로바이더인 EclipseLink에 대한 설정을 설명한다. 이러한 설정은 JPA 스펙에서 정의되지
+  않는 기능을 구현하기 위해 필요한 부분으로, 각 애플리케이션에 맞게 정확하게 설정되어야 한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e408"></a>2.1. 데이터베이스 설정</h2></div></div></div>
+    
+
+    <p>사용 환경, 데이터베이스 타입에 따른 설정과 자동으로 데이터베이스 스키마를 생성하는 설정에 대해 설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e411"></a>2.1.1. 사용 환경별 설정</h3></div></div></div>
+      
+
+      <p>사용 환경에 따라 데이터베이스의 설정 방법이 달라진다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e416"></a>Java EE 환경</h4>
+
+      <p><a id="d4e418" class="indexterm"></a>Java EE 환경(또는 모드)은 JEUS의 Managed Server(이하 MS) 위에서 웹 컨테이너,
+      EJB 컨테이너, 애플리케이션 클라이언트 컨테이너를 의미한다.</p><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>좀 더 정확하게는 각 컨테이너에서 컨트롤하는 Thread를 의미한다. 예를 들어 웹 엔진에 설정하는 Web
+          Thread Pool의 Thread이다. 만약 애플리케이션이 직접 생성한 Thread Pool의 Thread처럼 컨테이너가
+          관리하지 않는 Thread 상에서는 Java SE 환경과 똑같다.</p>
+        </div><div class="literallayout"><p/></div>
+
+      <p/>
+
+      <p>사용할 데이터베이스 대상에 대한 설정은 persistence.xml Descriptor에 설정한다. 사용할 트랜잭션의
+      종류에 따라서 &lt;jta-data-source&gt;와 &lt;non-jta-data-source&gt; 값을
+      설정한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>글로벌 트랜잭션을 사용하는 경우</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>&lt;transaction-type&gt;의 값을 'JTA'로 설정한다.</p>
+            </li></ul></div>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>&lt;jta-data-source&gt;에 해당 데이터소스의 JNDI 이름을 설정한다.</p>
+            </li></ul></div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>로컬 트랜잭션을 사용하는 경우</p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>&lt;transaction-type&gt;의 값을 'RESOURCE_LOCAL'로
+              설정한다.</p>
+            </li></ul></div>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>&lt;non-jta-data-source&gt;에 해당 데이터소스의 JNDI 이름을
+              설정한다.</p>
+            </li></ul></div>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="example"><a id="d4e445"></a><p class="title"><b>[예 2.1] Java EE 모드에서 데이터베이스 설정 예</b></p><div class="example-contents">
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;persistence xmlns="http://java.sun.com/xml/ns/persistence"&gt;
+  &lt;persistence-unit name="em" transaction-type="JTA"&gt;
+    &lt;jta-data-source&gt;jdbc/MyDB&lt;/jta-data-source&gt;
+  &lt;/persistence-unit&gt;
+&lt;/persistence&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>1. Java EE 환경에서는 &lt;transaction-type&gt; 값을 지정하지 않을 경우 기본적으로
+        JTA 트랜잭션으로 설정한다.</p>
+
+        <p>2. JEUS에서 DB 데이터소스를 설정하는 방법은 <a xmlns="" href="../server/chapter_datasource.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “제6장 DB Connection Pool과 JDBC”</a>를 참고한다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e457"></a>Java SE 환경<a id="d4e458" class="indexterm"></a></h4>
+
+      <p>Java SE 환경(또는 모드)은 Java EE 컨테이너에서 사용하지 않고 Java Standalone 클라이언트와
+      같은 환경에서 사용하는 경우를 말한다. 이때는 로컬 트랜잭션만 사용할 수 있으며, 사용되는 데이터베이스의 JDBC 설정을
+      프로퍼티로 설정해야 한다.</p>
+
+      <p/>
+
+      <p>다음의 예제와 같이 <span><strong class="guibutton">&lt;transaction-type&gt;</strong></span>의 값을
+      'RESOURCE_LOCAL'로 설정한다.</p>
+
+      <div class="example"><a id="d4e465"></a><p class="title"><b>[예 2.2] Java SE 모드에서 데이터베이스 설정 예</b></p><div class="example-contents">
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;persistence xmlns="http://java.sun.com/xml/ns/persistence"&gt;
+  &lt;persistence-unit name="em" transaction-type="RESOURCE_LOCAL"&gt;
+    &lt;properties&gt;
+      &lt;property name="eclipselink.jdbc.driver"
+                value="org.apache.derby.jdbc.ClientDriver"/&gt;
+      &lt;property name="eclipselink.jdbc.url"
+                value="jdbc:derby://localhost:1527/testdb"/&gt;
+      &lt;property name="eclipselink.jdbc.user" value="APP"/&gt;
+      &lt;property name="eclipselink.jdbc.password" value="APP"/&gt;
+    &lt;/properties&gt;
+  &lt;/persistence-unit&gt;
+&lt;/persistence&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+
+      <p>다음은 프로퍼티 값에 대한 설명이다.<a id="d4e471" class="indexterm"></a></p>
+
+      <div class="informaltable"><a id="table_javase_database_properties"></a>
+        <table border="1"><colgroup><col width="150"/><col/></colgroup><thead><tr><th>프로퍼티 값</th><th>설명</th></tr></thead><tbody><tr><td>eclipselink.jdbc.driver<a id="d4e483" class="indexterm"></a></td><td>대상 데이터베이스의 JDBC 드라이버 클래스 이름이다.</td></tr><tr><td>eclipselink.jdbc.url<a id="d4e488" class="indexterm"></a></td><td>대상 데이터베이스의 JDBC URL이다.</td></tr><tr><td>eclipselink.jdbc.user<a id="d4e493" class="indexterm"></a></td><td>대상 데이터베이스의 사용자명이다.</td></tr><tr><td>eclipselink.jdbc.password<a id="d4e498" class="indexterm"></a></td><td>대상 데이터베이스의 패스워드이다.</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e501"></a>2.1.2. 데이터베이스 타입 설정</h3></div></div></div>
+      
+
+      <p>기본적으로 해당 데이터베이스 타입을 JDBC 커넥션 정보를 통해 자동으로 감지한다. 자동 감지 기능이 제대로 동작하지
+      않거나, 별도의 다른 데이터베이스를 사용하는 경우라면 'eclipselink.target-database' 프로퍼티를 설정할 수
+      있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>데이터베이스 타입은 JDBC 드라이버의 DatabaseMetaData.getDatabaseProductName()을
+        사용하여, 데이터베이스 벤더 이름을 regular expression으로 비교하는 방식을 사용한다.</p>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <div class="example"><a id="d4e508"></a><p class="title"><b>[예 2.3] 데이터베이스 타입 설정 예</b></p><div class="example-contents">
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;persistence xmlns="http://java.sun.com/xml/ns/persistence"&gt;
+  &lt;persistence-unit name="em"&gt;
+    &lt;jta-data-source&gt;jdbc/MyDB&lt;/jta-data-source&gt;
+    &lt;properties&gt;
+      &lt;property name="eclipselink.target-database" value="DB2"/&gt;
+    &lt;/properties&gt;
+  &lt;/persistence-unit&gt;
+&lt;/persistence&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <p>다음은 지원되는 데이터베이스 타입 값에 대한 설명이다.<a id="d4e513" class="indexterm"></a></p>
+
+      <div class="informaltable"><a id="table_target-database_properties"></a>
+        <table border="1"><colgroup><col width="170"/><col/></colgroup><thead><tr><th>값</th><th>설명</th></tr></thead><tbody><tr><td>Auto</td><td>자동 감지(기본값)</td></tr><tr><td>Cloudscape</td><td>Cloudscape DBMS</td></tr><tr><td>DB2</td><td>IBM DB2 DBMS</td></tr><tr><td>DB2Mainframe</td><td>IBM DB2 Mainframe DBMS</td></tr><tr><td>Derby</td><td>Apache Derby DBMS</td></tr><tr><td>HSQL</td><td>HSQL DBMS</td></tr><tr><td>JavaDB</td><td>JavaDB DBMS</td></tr><tr><td>MySQL4</td><td>MySQL DBMS</td></tr><tr><td>Oracle</td><td>Oracle DBMS</td></tr><tr><td>PostreSQL</td><td>PostreSQL DBMS</td></tr><tr><td>SQLServer</td><td>Microsoft SQLServer DBMS</td></tr><tr><td>Sybase</td><td>Sybase DBMS</td></tr><tr><td>Customized class name</td><td>기본적으로 지원되지 않는 DBMS를 추가할 때 사용한다.</td></tr><tr><td>그 외</td><td>그 외의 DB에 대해서는 eclipselink의 Persistence Property
+              Extensions Reference 페이지에서 target-database 부분을 참고한다.</td></tr></tbody></table>
+      </div>
+
+      <p>기본적으로 지원되지 않는 DBMS의 경우 별도로 DBMS 지원 기능을 구현하여 사용할 수 있다. 이때는 해당 클래스
+      이름을 지정한다. 이에 대한 자세한 내용은 본 안내서의 <a href="about.html#reference_site" title=". 참고 자료">참고
+      자료</a>를 참고한다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e569"></a>2.1.3. 스키마 자동 생성 설정</h3></div></div></div>
+      
+
+      <p>자동으로 DB 스키마를 생성하는 기능을 사용하는 경우 설정한다. 이를 사용하면 애플리케이션을 deploy할 때 DB
+      테이블 및 제약 사항(Constraints)을 자동으로 생성한다.</p>
+
+      <div class="example"><a id="d4e572"></a><p class="title"><b>[예 2.4] 스키마 자동 생성 설정 예</b></p><div class="example-contents">
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;persistence xmlns="http://java.sun.com/xml/ns/persistence"&gt;
+  &lt;persistence-unit name="em"&gt;
+    &lt;jta-data-source&gt;jdbc/MyDB&lt;/jta-data-source&gt;
+    &lt;properties&gt;
+      ...
+      &lt;property name="eclipselink.ddl-generation" value="create-tables" /&gt; 
+      ...
+    &lt;/properties&gt;
+  &lt;/persistence-unit&gt;
+&lt;/persistence&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <p>관련된 프로퍼티 설정은 다음과 같다.</p>
+
+      <p/>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="200" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">eclipselink.ddl-generation<a id="d4e588" class="indexterm"></a></td><td><p>스키마 DDL(Data Descriptor Language)을 어떤식으로 생성할지
+              설정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                    <p>none : 아무것도 하지 않는다. (기본값)</p>
+                  </li><li style="list-style-type: circle">
+                    <p>create-tables : 존재하지 않는 테이블을 생성하며, 기존 테이블은 그대로
+                    남겨둔다.</p>
+                  </li><li style="list-style-type: circle">
+                    <p>drop-and-create-tables : 기존에 존재하는 테이블을 삭제하고 다시
+                    생성한다.</p>
+                  </li><li style="list-style-type: circle">
+                    <p>create-or-extend-tables : 테이블을 생성하되, 기존에 존재하는 테이블이
+                    있으면 없는 column만 추가한다.</p>
+                  </li></ul></div></td></tr></tbody></table>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>DDL을 생성할 때 기본적으로 다음과 같이 Java 타입을 해당 데이터베이스 SQL 타입에 맞게
+      생성한다.<a id="d4e604" class="indexterm"></a></p>
+
+      <p/>
+
+      <div class="informaltable"><a id="table_java_to_sql_type_mappings"></a>
+        <table border="1"><colgroup><col/><col/><col/><col/><col/><col/><col/></colgroup><thead><tr><th align="left">Java Type</th><th align="left">Derby, JavaDB, Cloudscape</th><th align="left">Oracle</th><th align="left">DB2</th><th align="left">Sybase</th><th align="left">SQLServer</th><th align="left">MySQL</th></tr></thead><tbody><tr><td align="left">boolean, Boolean</td><td align="left">SMALLINT</td><td align="left">NUMBER(1)</td><td align="left">SMALLINT</td><td align="left">BIT</td><td align="left">BIT</td><td align="left">TINYINT(1)</td></tr><tr><td align="left">int, Integer</td><td align="left">INTEGER</td><td align="left">NUMBER(10)</td><td align="left">INTEGER</td><td align="left">INTEGER</td><td align="left">INTEGER</td><td align="left">INTEGER</td></tr><tr><td align="left">long, Long</td><td align="left">BIGINT</td><td align="left">NUMBER(19)</td><td align="left">INTEGER</td><td align="left">NUMERIC(19)</td><td align="left">NUMERIC(19)</td><td align="left">BIGINT</td></tr><tr><td align="left">float, Float</td><td align="left">FLOAT</td><td align="left">NUMERIC(19,4)</td><td align="left">FLOAT</td><td align="left">FLOAT(16)</td><td align="left">FLOAT(16)</td><td align="left">FLOAT</td></tr><tr><td align="left">double, Double</td><td align="left">FLOAT</td><td align="left">NUMERIC(19,4)</td><td align="left">FLOAT</td><td align="left">FLOAT(32)</td><td align="left">FLOAT(32)</td><td align="left">DOUBLE</td></tr><tr><td align="left">short, Short</td><td align="left">SMALLINT</td><td align="left">NUMBER(5)</td><td align="left">SMALLINT</td><td align="left">SMALLINT</td><td align="left">SMALLINT</td><td align="left">SMALLINT</td></tr><tr><td align="left">byte, Byte</td><td align="left">SMALLINT</td><td align="left">NUMBER(3)</td><td align="left">SMALLINT</td><td align="left">SMALLINT</td><td align="left">SMALLINT</td><td align="left">SMALLINT</td></tr><tr><td align="left">java.lang.Number</td><td align="left">DECIMAL</td><td align="left">NUMBER(38)</td><td align="left">DECIMAL(15)</td><td align="left">NUMERIC(38)</td><td align="left">NUMERIC(28)</td><td align="left">DECIMAL(38)</td></tr><tr><td align="left">java.math.BigInteger</td><td align="left">BIGINT</td><td align="left">NUMBER(38)</td><td align="left">BIGINT</td><td align="left">NUMERIC(38)</td><td align="left">NUMERIC(28)</td><td align="left">BIGINT</td></tr><tr><td align="left">java.math.BigDecimal</td><td align="left">DECIMAL</td><td align="left">NUMBER(38)</td><td align="left">DECIMAL(15)</td><td align="left">NUMERIC(38)</td><td align="left">NUMERIC(28)</td><td align="left">DECIMAL(38)</td></tr><tr><td align="left">java.lang.String</td><td align="left">VARCHAR(255)</td><td align="left">VARCHAR(255)</td><td align="left">VARCHAR(255)</td><td align="left">VARCHAR(255)</td><td align="left">VARCHAR(255)</td><td align="left">VARCHAR(255)</td></tr><tr><td align="left">char, Character</td><td align="left">CHAR(1)</td><td align="left">CHAR(1)</td><td align="left">CHAR(1)</td><td align="left">CHAR(1)</td><td align="left">CHAR(1)</td><td align="left">CHAR(1)</td></tr><tr><td align="left">byte[], Byte[], java.sql.Blob</td><td align="left">BLOB(64000)</td><td align="left">LONG RAW</td><td align="left">BLOB(64000)</td><td align="left">TEXT</td><td align="left">TEXT</td><td align="left">TEXT(64000)</td></tr><tr><td align="left">char[], Character[], java.sql.Clob</td><td align="left">CLOB(64000)</td><td align="left">LONG</td><td align="left">CLOB(64000)</td><td align="left">TEXT</td><td align="left">TEXT</td><td align="left">TEXT(64000)</td></tr><tr><td align="left">java.sql.Date</td><td align="left">DATE</td><td align="left">DATE</td><td align="left">DATE</td><td align="left">DATETIME</td><td align="left">DATETIME</td><td align="left">DATE</td></tr><tr><td align="left">java.sql.Time</td><td align="left">TIME</td><td align="left">DATE</td><td align="left">TIME</td><td align="left">DATETIME</td><td align="left">DATETIME</td><td align="left">TIME</td></tr><tr><td align="left">java.sql.Timestamp</td><td align="left">TIMESTAMP</td><td align="left">DATE</td><td align="left">TIMESTAMP</td><td align="left">DATETIME</td><td align="left">DATETIME</td><td align="left">DATETIME</td></tr></tbody></table>
+      </div>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e757"></a>2.2. Caching</h2></div></div></div>
+    
+
+    <p><a id="d4e760" class="indexterm"></a>JPA에서는 기본적으로 Persistence Context라고 하는 1st-level Caching을
+    지원하고 있다. 하지만, 일반적으로 Persistence Context는 트랜잭션별로 새로 생성되기 때문에(Extended
+    Persistence Context는 이에 해당하지 않음) 트랜잭션 간에 Caching을 지원하지 않는다. 이를 보완하기 위해
+    Eclipse Link 에서는 2nd-level Caching 기능을 제공한다.</p>
+
+    <p><a id="d4e763" class="indexterm"></a>2nd-level Caching은 EntityManagerFactory 레벨에서 지원되기 때문에, 동일한
+    EntityManagerFactory에서 생성된 모든 EntityManager의 경우 이 공유 Cache를 사용하게 된다. 즉,
+    Persistence Context에 없는 Entity를 가져올 때 2nd-level Caching을 참고하여 존재하는 경우에 이를
+    가져온다. 따라서 반복적인 Read 작업의 경우 성능 향상을 가져오게 된다.</p>
+
+    <div class="example"><a id="d4e765"></a><p class="title"><b>[예 2.5] Caching 방식 설정 예</b></p><div class="example-contents">
+      
+
+      <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;persistence xmlns="http://java.sun.com/xml/ns/persistence"&gt;
+  &lt;persistence-unit name="em"&gt;
+    &lt;jta-data-source&gt;jdbc/MyDB&lt;/jta-data-source&gt;
+    &lt;properties&gt;
+      ...
+      &lt;property name="eclipselink.ddl-generation" value="create-tables" /&gt;
+      &lt;property name="eclipselink.cache.type.default" value="NONE" /&gt;
+      &lt;property name="eclipselink.cache.size.default" value="999" /&gt;
+      &lt;property name="eclipselink.cache.shared.default" value="false" /&gt; 
+      ...
+    &lt;/properties&gt;
+  &lt;/persistence-unit&gt;
+&lt;/persistence&gt;</pre>
+    </div></div><br class="example-break"/>
+
+    <p>다음은 Caching에 관련된 옵션에 대한 설명이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="220" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">eclipselink.cache.type.default<a id="d4e780" class="indexterm"></a></td><td><p>Caching 방식을 설정한다.</p> <p>아래의 옵션들 이외의 옵션이나 옵션에
+            대한 자세한 설정은 EclipseLink User Guide의 Cache Type and Size 항목을
+            참고한다.</p> <div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                  <p>Full : 객체를 Hard reference로 caching한다. 따라서 Entity가 삭제되기
+                  전까지 항상 Cache에 존재하게 된다.</p>
+                </li><li style="list-style-type: circle">
+                  <p>Weak : 객체를 Weak reference로 caching한다. Garbage
+                  Collection(GC)이 되면 사라진다.</p>
+                </li><li style="list-style-type: circle">
+                  <p>Soft : Weak와 유사하지만, 메모리가 부족할 때만 객체를 삭제한다. (기본값)</p>
+                </li><li style="list-style-type: circle">
+                  <p>NONE : 객체를 Cache에 저장하지 않는다. 사용을 권장하지 않으며 Caching 기능을
+                  사용하고 싶지 않다면, eclipselink.cache.shared.xxx 프로퍼티를 설정하기를
+                  권장한다.</p>
+                </li></ul></div></td></tr><tr><td align="left">eclipselink.cache.size.default<a id="d4e796" class="indexterm"></a></td><td>Cache에 저장될 최대 객체수를 설정한다. (기본값: 1000)</td></tr><tr><td align="left">eclipselink.cache.shared.default<a id="d4e801" class="indexterm"></a></td><td><p>공유 Cache를 사용할지 여부를 설정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                  <p>true : 객체가 공유 Cache에 저장된다. 모든 EntityManager는 Caching을
+                  사용하게 된다. (기본값)</p>
+                </li><li style="list-style-type: circle">
+                  <p>false : 객체가 공유 Cache에 저장되지 않는다. 따라서, EntityManager별로
+                  Cache를 공유하지 않는다. 이를 사용하면 2nd-level Caching을 하지 않는 효과가
+                  있다.</p>
+                </li></ul></div></td></tr><tr><td align="left">eclipselink.cache.type.&lt;<span class="emphasis"><em>ENTITY</em></span>&gt;<a id="d4e813" class="indexterm"></a></td><td><p>Entity별로 Caching을 하는 방식을
+            지정한다.</p><p>&lt;<span class="emphasis"><em>ENTITY</em></span>&gt;는 Entity 이름
+            또는 fully-qualified 클래스 이름이 될 수 있다. 해당 Entity와 관계를 가지는 모든 Entity는
+            같은 설정을 가져야 한다. </p><p>eclipselink.cache.type.default의 값 설명과
+            동일하다.</p></td></tr><tr><td align="left">eclipselink.cache.size.&lt;<span class="emphasis"><em>ENTITY</em></span>&gt;<a id="d4e823" class="indexterm"></a></td><td><p>Entity별로 Cache 사이즈를 지정한다.</p><p>
+            &lt;<span class="emphasis"><em>ENTITY</em></span>&gt;는 Entity 이름 또는 fully-qualified
+            클래스 이름이 될 수 있다. </p><p>eclipselink.cache.size.default의 값 설명과
+            동일하다.</p></td></tr><tr><td align="left">eclipselink.cache.shared.&lt;<span class="emphasis"><em>ENTITY</em></span>&gt;<a id="d4e833" class="indexterm"></a></td><td><p>Entity별로 공유 Cache를 사용할지를 지정한다.</p><p>
+            &lt;<span class="emphasis"><em>ENTITY</em></span>&gt;는 Entity 이름 또는 fully-qualified
+            클래스 이름이 될 수 있다. 해당 Entity와 관계를 가지는 모든 Entity는 동일한 설정을 가져야 한다.
+            </p><p>eclipselink.cache.shared.default의 값 설명과
+            동일하다.</p></td></tr></tbody></table>
+    </div>
+
+    <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+        <p>2nd-level Caching이 사용될 때 주의할 것은 외부 애플리케이션에 의해 또는 직접 데이터베이스의 데이터를
+        변경하는 경우 해당 내용이 Caching에 반영되지 않는다는 점이다. 이런 경우 데이터베이스의 최신 값이 아닌 Caching된
+        값이 리턴되기 때문에 애플리케이션에 이를 고려해야 한다.</p>
+
+        <p>Caching 옵션을 애플리케이션 환경을 고려하여 적절히 설정하거나, EntityManager.refresh(),
+        eclipselink.refresh Query 힌트 또는 locking(pessimistic/optimistic) 등을
+        사용하여 이런 문제를 피할 수 있다.</p>
+      </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e845"></a>2.3. Query 힌트</h2></div></div></div>
+    
+
+    <p><a id="d4e848" class="indexterm"></a>Query 힌트는 Query 객체를 사용할 때 프로바이더에서 제공하는 기능을 사용하도록 한다.</p>
+
+    <p>다음 예제와 같이 Query를 실행할 때 설정할 수도 있고, Named Query를 사용하는 경우 @QueryHint
+    Annotation을 사용하여 지정할 수도 있다.</p>
+
+    <div class="example"><a id="example_query_hint"></a><p class="title"><b>[예 2.6] Query 힌트 사용 예제</b></p><div class="example-contents">
+        
+
+        <pre class="programlisting">List employees = em.createQuery("SELECT e FROM Employee e WHERE e.name = :name")
+      .setParameter("name", name)
+      .setHint("eclipselink.refresh", true)
+      .getResultList();</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p/>
+
+    <p>제공하는 Query 힌트는 다음과 같다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">eclipselink.pessimistic-lock<a id="d4e868" class="indexterm"></a></td><td><p>SELECT할 때 Pessimistic Locking을 사용할지 여부를
+            설정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                  <p>NoLock : 사용하지 않는다. (기본값)</p>
+                </li><li style="list-style-type: circle">
+                  <p>Lock : SELECT ... FOR UPDATE 문을 사용해 Locking을
+                  한다.</p>
+                </li><li style="list-style-type: circle">
+                  <p>NoLockWait : SELECT ... FOR UPDATE NO WAIT 문을 사용해
+                  Locking을 한다.</p>
+                </li></ul></div></td></tr><tr><td align="left">eclipselink.refresh<a id="d4e881" class="indexterm"></a></td><td><p>데이터베이스에서 최신 값을 가져와 Caching을 업데이트할지 여부를
+            설정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                  <p>true : 최신 값을 가져오고 Caching을 업데이트한다.</p>
+                </li><li style="list-style-type: circle">
+                  <p>false : Cache에 있는 값을 사용한다. (기본값)</p>
+                </li></ul></div></td></tr></tbody></table>
+    </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e891"></a>2.4. Logging 설정</h2></div></div></div>
+    
+
+    <p>좀 더 자세한 로그를 보고 싶다면 Logging 레벨을 설정할 수 있다.</p>
+
+    <p>기본적으로 Logging 레벨은 JEUS 서버에 전체적으로 적용되는 레벨(기본적으로 INFO)을 따르게 되지만, 이를
+    Persistence Unit별로 변경할 경우 eclipselink.logging.level 프로퍼티로 설정할 수 있다.</p>
+
+    <p><a id="d4e896" class="indexterm"></a>Logger의 경우 Java EE 모드에서는 기본적으로 JEUS에서 제공되는 Logger(JEUS
+    Logger)를 사용하게 되며, Java SE 모드에서는 standard output으로 출력되는 DefaultLogger를 사용하게
+    된다. 이를 변경하려면 eclipselink.logging.logger 프로퍼티로 설정할 수 있다.</p>
+
+    <p/>
+
+    <div class="example"><a id="d4e899"></a><p class="title"><b>[예 2.7] Logging 설정 예</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;persistence xmlns="http://java.sun.com/xml/ns/persistence"&gt;
+  &lt;persistence-unit name="em"&gt;
+    &lt;jta-data-source&gt;jdbc/MyDB&lt;/jta-data-source&gt;
+    &lt;properties&gt;
+      ...
+      &lt;property name="eclipselink.logging.level" value="FINE"/&gt;
+      &lt;property name="eclipselink.logging.logger" value="DefaultLogger"/&gt;
+      ...
+    &lt;/properties&gt;
+  &lt;/persistence-unit&gt;
+&lt;/persistence&gt;</pre>
+    </div></div><br class="example-break"/>
+
+    <p>다음은 설정에 대한 자세한 설명이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">eclipselink.logging.level<a id="d4e913" class="indexterm"></a></td><td><p>Logging 레벨을 지정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                  <p>OFF : Logging을 하지 않는다.</p>
+                </li><li style="list-style-type: circle">
+                  <p>SEVERE</p>
+                </li><li style="list-style-type: circle">
+                  <p>WARNING</p>
+                </li><li style="list-style-type: circle">
+                  <p>INFO (기본값)</p>
+                </li><li style="list-style-type: circle">
+                  <p>CONFIG</p>
+                </li><li style="list-style-type: circle">
+                  <p>FINE : SQL 관련 정보를 조회하려면 이 레벨로 설정한다.</p>
+                </li><li style="list-style-type: circle">
+                  <p>FINER</p>
+                </li><li style="list-style-type: circle">
+                  <p>FINEST</p>
+                </li></ul></div></td></tr><tr><td align="left">eclipselink.logging.logger<a id="d4e936" class="indexterm"></a></td><td><p>사용할 Logger를 지정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                  <p>JEUSLogger : JEUS에서 제공되는 Logger이다. (Java EE 모드인 경우
+                  기본값)</p>
+                </li><li style="list-style-type: circle">
+                  <p>DefaultLogger : 기본 standard output Logger이다. (Java SE
+                  모드인 경우 기본값)</p>
+                </li><li style="list-style-type: circle">
+                  <p>JavaLogger : java.util.logging Logger이다.</p>
+                </li><li style="list-style-type: circle">
+                  <p>Custom class name : 별도의 Logger를 구현한 경우 지정한다.</p>
+                </li></ul></div></td></tr></tbody></table>
+    </div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>EclipseLink에 대한 자세한 설정은 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://wiki.eclipse.org/EclipseLink/UserGuide/JPA" target="_top">http://wiki.eclipse.org/EclipseLink/UserGuide/JPA</a>를
+      참고한다.</p>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_intro.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_jeus_configuration.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제1장 소개 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제3장 프로바이더 변경</td></tr></table></div><div xmlns="" align="center"/></body></html>

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Appendix B. JDBC 데이터소스 구성 예제</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Server 안내서"/><link rel="up" href="index.html" title="JEUS Server 안내서"/><link rel="prev" href="appendix_jeus_port.html" title="Appendix A. JEUS에서 사용하는 Port"/><link rel="next" href="idx.html" title="색인"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">Appendix B. JDBC 데이터소스 구성 예제</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="appendix_jeus_port.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="idx.html">다음</a></td></tr></table><hr/></div><div class="appendix" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="appendix_datasource_examples"></a>Appendix B. JDBC 데이터소스 구성 예제</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="appendix_datasource_examples.html#d4e8551">B.1. 개요</a></span></dt><dt><span class="section"><a href="appendix_datasource_examples.html#sect_Oracle_Thin_Config">B.2. Oracle Thin(Type4) 구성 예제</a></span></dt><dd><dl><dt><span class="section"><a href="appendix_datasource_examples.html#sect_Oracle_Thin_Connection_Pool_Datasource">B.2.1. Oracle Thin Connection Pool 데이터소스</a></span></dt><dt><span class="section"><a href="appendix_datasource_examples.html#d4e8591">B.2.2. Oracle Thin XA 데이터소스</a></span></dt></dl></dd><dt><span class="section"><a href="appendix_datasource_examples.html#sect_Oracle_OCI_Config">B.3. Oracle OCI (Type2) 구성 예제</a></span></dt><dd><dl><dt><span class="section"><a href="appendix_datasource_examples.html#d4e8610">B.3.1. Oracle OCI Connection Pool 데이터소스</a></span></dt></dl></dd><dt><span class="section"><a href="appendix_datasource_examples.html#d4e8628">B.4. DB2 구성 예제</a></span></dt><dd><dl><dt><span class="section"><a href="appendix_datasource_examples.html#d4e8630">B.4.1. DB2 Type4(JCC) Connection Pool 데이터소스</a></span></dt><dt><span class="section"><a href="appendix_datasource_examples.html#sect_DB2_XA_Datasource">B.4.2. DB2 Type4(JCC) XA 데이터소스</a></span></dt><dt><span class="section"><a href="appendix_datasource_examples.html#sect_DB2_Type_2_XA_Datasource">B.4.3. DB2 Type2(JCC) XA 데이터소스</a></span></dt></dl></dd><dt><span class="section"><a href="appendix_datasource_examples.html#sect_Sybase_jConnect_Config">B.5. Sybase 구성 예제</a></span></dt><dd><dl><dt><span class="section"><a href="appendix_datasource_examples.html#sect_Sybase_jConnect_5_x_Connection_Pool_Datasource">B.5.1. Sybase jConnect 5.x Connection Pool 데이터소스</a></span></dt><dt><span class="section"><a href="appendix_datasource_examples.html#sect_Sybase_jConnect_6_x_XA_Datasource">B.5.2. Sybase jConnect 6.x XA 데이터소스</a></span></dt></dl></dd><dt><span class="section"><a href="appendix_datasource_examples.html#sect_MSSQL_2005_Config">B.6. MSSQL 구성 예제</a></span></dt><dd><dl><dt><span class="section"><a href="appendix_datasource_examples.html#sect_MSSQL_2005_Connection_Pool_Datasource">B.6.1. MSSQL 2005 Connection Pool 데이터소스</a></span></dt></dl></dd><dt><span class="section"><a href="appendix_datasource_examples.html#sect_Informix_Type_4_Config">B.7. Informix 구성 예제</a></span></dt><dd><dl><dt><span class="section"><a href="appendix_datasource_examples.html#sect_Informix_Type_4_Connection_Pool_Datasource">B.7.1. Informix Connection Pool 데이터소스</a></span></dt></dl></dd><dt><span class="section"><a href="appendix_datasource_examples.html#sect_Tibero_Type_4_Config">B.8. Tibero 구성 예제</a></span></dt><dd><dl><dt><span class="section"><a href="appendix_datasource_examples.html#sect_Tibero_Connection_Pool_Datasource">B.8.1. Tibero Connection Pool 데이터소스</a></span></dt></dl></dd><dt><span class="section"><a href="appendix_datasource_examples.html#sect_MySQL_Config">B.9. MySQL 5.x 구성 예제</a></span></dt><dd><dl><dt><span class="section"><a href="appendix_datasource_examples.html#sect_MySQL_Connection_Pool_Datasource">B.9.1. MySQL Connector/J Connection Pool 데이터소스</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 부록에서는 주요 DB 벤더들에 대한 데이터소스 설정 예제를 제공한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e8551"></a>B.1. 개요</h2></div></div></div>
+    
+
+    <p>본 부록에서 설정 예제를 제공하는 JDBC 데이터소스는 다음과 같다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>Oracle Thin</p>
+        </li><li>
+          <p>Oracle OCI</p>
+        </li><li>
+          <p>DB2 Type4(JCC)</p>
+        </li><li>
+          <p>DB2 Type2(JCC)</p>
+        </li><li>
+          <p>Sybase jConnect 5.x, 6.x</p>
+        </li><li>
+          <p>MSSQL 2005 Type4</p>
+        </li><li>
+          <p>Informix Type4</p>
+        </li><li>
+          <p>Tibero Type4</p>
+        </li><li>
+          <p>MySQL 5.x Type4</p>
+        </li></ul></div>
+
+    <p>본 부록을 참고하여 WebAdmin을 통해 데이터소스 설정을 하면 된다. WebAdmin을 통해 데이터소스를 설정하는
+    방법은 <a href="chapter_datasource.html#sect_Data_Source_Configuration" title="6.4. 데이터소스 설정">“6.4. 데이터소스 설정”</a>을 참고한다.</p>
+
+    
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Oracle_Thin_Config"></a>B.2. Oracle Thin(Type4) 구성 예제</h2></div></div></div>
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Oracle_Thin_Connection_Pool_Datasource"></a>B.2.1. Oracle Thin Connection Pool 데이터소스</h3></div></div></div>
+      
+
+      <p>다음은 WebAdmin에서 Oracle Thin Connection Pool 데이터소스를 구성한 예이다. </p><div class="figure"><a id="d4e8581"></a><p class="title"><b>[그림 B.1] Oracle Thin Connection Pool 데이터소스 구성 예 (1)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_ora_thin_cpds.png" align="top" width="711" alt="Oracle Thin Connection Pool 데이터소스 구성 예 (1)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p><div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_ora_thin_cpds2.png" align="top" width="711"/></td></tr></table></div>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e8591"></a>B.2.2. Oracle Thin XA 데이터소스</h3></div></div></div>
+      
+
+      <p>다음은 WebAdmin에서 Oracle Thin XA 데이터소스를 구성한 예이다.</p>
+
+      <div class="figure"><a id="d4e8595"></a><p class="title"><b>[그림 B.2] Oracle Thin XA 데이터소스 구성 예 (1)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_ora_thin_xads.png" align="top" width="711" alt="Oracle Thin XA 데이터소스 구성 예 (1)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <div class="figure"><a id="d4e8601"></a><p class="title"><b>[그림 B.3] Oracle Thin XA 데이터소스 구성 예 (2)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_ora_thin_xads2.png" align="top" width="711" alt="Oracle Thin XA 데이터소스 구성 예 (2)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Oracle_OCI_Config"></a>B.3. Oracle OCI (Type2) 구성 예제</h2></div></div></div>
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e8610"></a>B.3.1. Oracle OCI Connection Pool 데이터소스</h3></div></div></div>
+      
+
+      <p>Oracle OCI 드라이버를 사용하기 위해서는 선행 작업이 필요한데, JEUS를 실행할 때
+      -Djava.library.path로 Oracle OCI 드라이버의 네이티브 라이브러리 경로를 설정해야 한다.</p>
+
+      <div class="figure"><a id="d4e8614"></a><p class="title"><b>[그림 B.4] Oracle OCI Connection Pool 데이터소스 구성 예 (1)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_ora_oci_cpds.png" align="top" width="711" alt="Oracle OCI Connection Pool 데이터소스 구성 예 (1)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <div class="figure"><a id="d4e8620"></a><p class="title"><b>[그림 B.5] Oracle OCI Connection Pool 데이터소스 구성 예 (2)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_ora_oci_cpds2.png" align="top" width="711" alt="Oracle OCI Connection Pool 데이터소스 구성 예 (2)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e8628"></a>B.4. DB2 구성 예제</h2></div></div></div>
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e8630"></a>B.4.1. DB2 Type4(JCC) Connection Pool 데이터소스</h3></div></div></div>
+      
+
+      <p>다음은 WebAdmin에서 DB2 Type4 Connection Pool 데이터소스를 구성한 예이다. </p><div class="figure"><a id="d4e8633"></a><p class="title"><b>[그림 B.6] DB2 Type4 Connection Pool 데이터소스 구성 예 (1)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_db2_type4_cpds.png" align="top" width="711" alt="DB2 Type4 Connection Pool 데이터소스 구성 예 (1)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p><div class="figure"><a id="d4e8638"></a><p class="title"><b>[그림 B.7] DB2 Type4 Connection Pool 데이터소스 구성 예 (2)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_db2_type4_cpds2.png" align="top" width="711" alt="DB2 Type4 Connection Pool 데이터소스 구성 예 (2)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_DB2_XA_Datasource"></a>B.4.2. DB2 Type4(JCC) XA 데이터소스</h3></div></div></div>
+      
+
+      <p>다음은 DB2 Type4 XA 데이터소스를 구성한 에이다.</p>
+
+      <div class="figure"><a id="d4e8649"></a><p class="title"><b>[그림 B.8] DB2 Type4 XA 데이터소스 구성 예 (1)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_db2_type4_xads.png" align="top" width="711" alt="DB2 Type4 XA 데이터소스 구성 예 (1)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <div class="figure"><a id="d4e8655"></a><p class="title"><b>[그림 B.9] DB2 Type4 XA 데이터소스 구성 예 (2)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_db2_type4_xads2.png" align="top" width="711" alt="DB2 Type4 XA 데이터소스 구성 예 (2)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_DB2_Type_2_XA_Datasource"></a>B.4.3. DB2 Type2(JCC) XA 데이터소스</h3></div></div></div>
+      
+
+      <p>DB2 Type 2 드라이버를 사용하기 위해서는 DB2 클라이언트를 설치하여 DB Alias를 설정한 뒤 JEUS를
+      실행할 때 -Djava.library.path 또는 시스템의 라이브러리 경로에 DB2 클라이언트의 네이티브 라이브러리 경로를
+      설정해야 한다. 다음의 예제에서 Database Name이 DB Alias가 되고 DB2 서버 주소와 포트 번호는 입력할 필요가
+      없다.</p>
+
+      <div class="figure"><a id="d4e8666"></a><p class="title"><b>[그림 B.10] DB2 Type2 XA 데이터소스 구성 예 (1)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_db2_type2_xads.png" align="top" width="711" alt="DB2 Type2 XA 데이터소스 구성 예 (1)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <div class="figure"><a id="d4e8672"></a><p class="title"><b>[그림 B.11] DB2 Type2 XA 데이터소스 구성 예 (2)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_db2_type2_xads2.png" align="top" width="711" alt="DB2 Type2 XA 데이터소스 구성 예 (2)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Sybase_jConnect_Config"></a>B.5. Sybase 구성 예제</h2></div></div></div>
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Sybase_jConnect_5_x_Connection_Pool_Datasource"></a>B.5.1. Sybase jConnect 5.x Connection Pool 데이터소스</h3></div></div></div>
+      
+
+      <p>다음은 WebAdmin에서 Sybase jConnect 5.x Connection Pool 데이터소스를 구성한
+      예이다.</p>
+
+      <div class="figure"><a id="d4e8686"></a><p class="title"><b>[그림 B.12] Sybase jConnect 5.x Connection Pool 데이터소스 구성 예 (1)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_syb_jconn5_cpds.png" align="top" width="711" alt="Sybase jConnect 5.x Connection Pool 데이터소스 구성 예 (1)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p><div class="figure"><a id="d4e8691"></a><p class="title"><b>[그림 B.13] Sybase jConnect 5.x Connection Pool 데이터소스 구성 예 (2)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_syb_jconn5_cpds2.png" align="top" width="711" alt="Sybase jConnect 5.x Connection Pool 데이터소스 구성 예 (2)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Sybase_jConnect_6_x_XA_Datasource"></a>B.5.2. Sybase jConnect 6.x XA 데이터소스</h3></div></div></div>
+      
+
+      <p>다음은 WebAdmin에서 Sybase jConnect 6.x XA 데이터소스를 구성한 예이다.</p>
+
+      <div class="figure"><a id="d4e8703"></a><p class="title"><b>[그림 B.14] Sybase jConnect 6.x XA 데이터소스 구성 예 (1)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_syb_jconn6_xads.png" align="top" width="711" alt="Sybase jConnect 6.x XA 데이터소스 구성 예 (1)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p><div class="figure"><a id="d4e8708"></a><p class="title"><b>[그림 B.15] Sybase jConnect 6.x XA 데이터소스 구성 예 (2)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_syb_jconn6_xads2.png" align="top" width="711" alt="Sybase jConnect 6.x XA 데이터소스 구성 예 (2)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_MSSQL_2005_Config"></a>B.6. MSSQL 구성 예제</h2></div></div></div>
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_MSSQL_2005_Connection_Pool_Datasource"></a>B.6.1. MSSQL 2005 Connection Pool 데이터소스</h3></div></div></div>
+      
+
+      <p>다음은 WebAdmin을 사용해서 MSSQL 2005 Connection Pool을 구성한 예이다.</p>
+
+      <div class="figure"><a id="d4e8722"></a><p class="title"><b>[그림 B.16] MSSQL 2005 Connection Pool 데이터소스 구성 예 (1)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_mssql_2005_cpds.png" align="top" width="711" alt="MSSQL 2005 Connection Pool 데이터소스 구성 예 (1)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <div class="figure"><a id="d4e8728"></a><p class="title"><b>[그림 B.17] MSSQL 2005 Connection Pool 데이터소스 구성 예 (2)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_mssql_2005_cpds2.png" align="top" width="711" alt="MSSQL 2005 Connection Pool 데이터소스 구성 예 (2)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>ODBC 설정은 JDBC보다 먼저 설정되어야 한다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Informix_Type_4_Config"></a>B.7. Informix 구성 예제</h2></div></div></div>
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Informix_Type_4_Connection_Pool_Datasource"></a>B.7.1. Informix Connection Pool 데이터소스</h3></div></div></div>
+      
+
+      <p>다음은 WebAdmin을 사용해서 Informix Connection Pool 데이터소스를 구성한 예이다.</p>
+
+      <div class="figure"><a id="d4e8744"></a><p class="title"><b>[그림 B.18] Informix Connection Pool 데이터소스 구성 예 (1)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_informix_cpds.png" align="top" width="711" alt="Informix Connection Pool 데이터소스 구성 예 (1)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <div class="figure"><a id="d4e8750"></a><p class="title"><b>[그림 B.19] Informix Connection Pool 데이터소스 구성 예 (2)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_informix_cpds2.png" align="top" width="711" alt="Informix Connection Pool 데이터소스 구성 예 (2)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Tibero_Type_4_Config"></a>B.8. Tibero 구성 예제</h2></div></div></div>
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Tibero_Connection_Pool_Datasource"></a>B.8.1. Tibero Connection Pool 데이터소스</h3></div></div></div>
+      
+
+      <p>다음은 WebAdmin을 사용해서 Tibero Connection Pool 데이터소스를 구성한 예이다.</p>
+
+      <div class="figure"><a id="d4e8763"></a><p class="title"><b>[그림 B.20] Tibero Connection Pool 데이터소스 구성 예 (1)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_tibero_cpds.png" align="top" width="711" alt="Tibero Connection Pool 데이터소스 구성 예 (1)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p><div class="figure"><a id="d4e8768"></a><p class="title"><b>[그림 B.21] Tibero Connection Pool 데이터소스 구성 예 (2)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_tibero_cpds2.png" align="top" width="711" alt="Tibero Connection Pool 데이터소스 구성 예 (2)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_MySQL_Config"></a>B.9. MySQL 5.x 구성 예제</h2></div></div></div>
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_MySQL_Connection_Pool_Datasource"></a>B.9.1. MySQL Connector/J Connection Pool 데이터소스</h3></div></div></div>
+      
+
+      <p>다음은 WebAdmin을 사용해서 MySQL Connector/J Connection Pool 데이터소스를 구성한
+      예이다.</p>
+
+      <div class="figure"><a id="d4e8782"></a><p class="title"><b>[그림 B.22] MySQL Connector/J Connection Pool 데이터소스 구성 예 (1)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_mysql_cpds.png" align="top" width="711" alt="MySQL Connector/J Connection Pool 데이터소스 구성 예 (1)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p><div class="figure"><a id="d4e8787"></a><p class="title"><b>[그림 B.23] MySQL Connector/J Connection Pool 데이터소스 구성 예 (2)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/appendix/figure_mysql_cpds2.png" align="top" width="711" alt="MySQL Connector/J Connection Pool 데이터소스 구성 예 (2)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="appendix_jeus_port.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="idx.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">Appendix A. JEUS에서 사용하는 Port </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 색인</td></tr></table></div><div xmlns="" align="center"/></body></html>

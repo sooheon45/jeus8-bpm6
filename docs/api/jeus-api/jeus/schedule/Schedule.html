@@ -1,0 +1,267 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>Schedule</title>
+      <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="Schedule (JEUS API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.schedule</font><br>Class Schedule
+      </h2><pre>java.lang.Object<br>  <img src="../../resource/inherit.gif" alt="extended by"><b>jeus.schedule.Schedule</b></pre><dl>
+         <dt><b>All Implemented Interfaces:</b><dd>java.io.Serializable, <a href="../../jeus/schedule/ScheduleListener.html">ScheduleListener</a></dd>
+         </dt>
+      </dl>
+      <dl>
+         <dt><b>Direct Known Subclasses:</b><dd><a href="../../jeus/schedule/DailySchedule.html">DailySchedule</a>, <a href="../../jeus/schedule/RemoteSchedule.html">RemoteSchedule</a></dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public class <b>Schedule</b><dt>extends java.lang.Object</dt><dt>implements java.io.Serializable, <a href="../jeus/schedule/ScheduleListener.html">ScheduleListener</a></dt></pre></dl>이 class는 Scheduler에 의해 스케쥴링될 작업(Task)을 나타낸다.
+      이 class는 JEUS 5.0 이전 Scheduler와의 호환성을 위해 제공된다.
+      Scheduler에 의해 호출될 callback method로 onTime() 외에 nextTime()이 제공되며
+      nextTime()은 Scheduler에 등록시에 호출될 시간을 주지 않은 경우(5.0 이전방식)에
+      다음수행 시간을 결정하기 위해 호출된다.
+      
+      <p>
+      작업을 정의하기 위해서는 이 클래스를 상속하여 onTime()과 nextTime() callback method를 override 한다.
+      
+      <p>
+      <b>Note</b>: 모든 Schedule task는 multi-thread 방식으로 변경되었기 때문에
+      기존에 사용되던 threaded flag는 더 이상 사용되지 않는다.<br><p>
+         <dl>
+            <dt></dt>
+            <dt><b>See Also:</b><dd><a href="../../jeus/schedule/Scheduler.html"><code>Scheduler</code></a></dd>
+            </dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Schedule.html#Schedule()">Schedule</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="Schedule.html#isThreaded()">isThreaded</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>This is no more used.</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td><code><b><a href="Schedule.html#nextTime(long)">nextTime</a></b>(long currentTime)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   작업이 수행될 다음 절대 시간(milli second)을 리턴한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract void</code></font></td>
+               <td><code><b><a href="Schedule.html#onTime()">onTime</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Scheduler에 등록된 시간이 되면 이 method가 호출된다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Schedule.html#setThreaded(boolean)">setThreaded</a></b>(boolean b)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>This is no more used.</i></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></td>
+            </tr>
+         </table>&nbsp;
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="Schedule()"></a><h3>Schedule</h3><pre>public <b>Schedule</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="onTime()"></a><h3>onTime</h3><pre>public abstract void <b>onTime</b>()<br></pre><dl>
+            <dd>Scheduler에 등록된 시간이 되면 이 method가 호출된다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code><a href="../../jeus/schedule/ScheduleListener.html#onTime()">onTime</a></code> in interface <code><a href="../../jeus/schedule/ScheduleListener.html">ScheduleListener</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="isThreaded()"></a><h3>isThreaded</h3><pre>public boolean <b>isThreaded</b>()<br></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>This is no more used.</i><br><br>Multi-thread 방식으로 동작하는지 여부를 리턴한다(더 이상 사용되지 않음).
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>Always true</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setThreaded(boolean)"></a><h3>setThreaded</h3><pre>public void <b>setThreaded</b>(<code>boolean</code> b)<br></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>This is no more used.</i><br><br>Multi-thread 방식으로 동작할 지 설정한다(더 이상 사용되지 않음).
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>b</code> - true for multi-thread mode
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="nextTime(long)"></a><h3>nextTime</h3><pre>public long <b>nextTime</b>(<code>long</code> currentTime)<br></pre><dl>
+            <dd>작업이 수행될 다음 절대 시간(milli second)을 리턴한다.
+               Scheduler에 작업 등록시 registerSchedule()를 이용한 경우에만 사용된다.
+               이 메소드는 처음 onTime()이 불릴 시간을 알기위해 먼저 호출되며, onTime()이 호출된 후 다음 시간을 알기 위해서 호출된다.  
+               이 method를 재정의하지 않으면 기본 값으로 현재 시간으로 부터 60초 이후를 넘겨준다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>currentTime</code> - 현재 시간(millis)
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>다음 작업 수행 시간(millis)</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

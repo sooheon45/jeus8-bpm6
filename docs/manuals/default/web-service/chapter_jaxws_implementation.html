@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제3장 JEUS 웹 서비스 구현</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Service 안내서"/><link rel="up" href="pt01.html" title="Part I. JEUS 8 웹 서비스"/><link rel="prev" href="pt01.html" title="Part I. JEUS 8 웹 서비스"/><link rel="next" href="chapter_jaxws_package.html" title="제4장 웹 서비스 생성과 배치"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제3장 JEUS 웹 서비스 구현</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="pt01.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part I. JEUS 8 웹 서비스</td><td width="20%" align="right"> <a accesskey="n" href="chapter_jaxws_package.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jaxws_implementation"></a>제3장 JEUS 웹 서비스 구현</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jaxws_implementation.html#d4e1068">3.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jaxws_implementation.html#java_class_web_service_impl">3.2. Java 클래스 웹 서비스의 구현</a></span></dt><dt><span class="section"><a href="chapter_jaxws_implementation.html#d4e1146">3.3. EJB 웹 서비스의 구현</a></span></dt><dt><span class="section"><a href="chapter_jaxws_implementation.html#d4e1207">3.4. WSDL로부터 웹 서비스 구현</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 Java 클래스와 EJB, WSDL로 JEUS 웹 서비스를 구현하는 방법에 대해서 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e1068"></a>3.1. 개요</h2></div></div></div>
+    
+
+    <p>JEUS 8 웹 서비스는 Java EE 7 웹 서비스 표준인 <span><strong class="guibutton">JAX-WS 방식</strong></span> 웹
+    서비스를 지원한다.<a id="d4e1072" class="indexterm"></a></p>
+
+    <p>Java EE 7 웹 서비스의 표준인 JAX-WS 웹 서비스는 JAXB(XML 문서와 Java 오브젝트 간의 데이터
+    바인딩을 위한 표준), SAAJ(XML SOAP 메시지를 구현 및 수정할 수 있도록 해주는 표준 API, JAX-RPC 웹 서비스
+    모델에서는 메시지 핸들러를 구현하기 위해 이를 직접 개발자가 사용했으나 JAX-WS 웹 서비스 모델에서는 메시지 핸들러를 위한 기본
+    Framework를 제공하며 SAAJ는 그 뒤에서 동작하게 된다)와 더불어 웹 서비스의 중심 컴포넌트에 해당되며 기존의 JAX-RPC
+    웹 서비스를 대신하기 위해 개발되었다.</p>
+
+    <p><a id="d4e1076" class="indexterm"></a>JAX-RPC는 역사적으로 볼 때 JAXB가 개발되어 모습을 드러내기 전에 발표되었기 때문에 JAXB가
+    담당하는 데이터 바인딩 기능 또한 기본적으로 내포하고 있었다. 하지만 점점 XML에 관련된 표준들에 있어서 여러 가지 기능 추가와
+    함께 JAX-RPC 웹 서비스가 이를 유지보수하기 어려워지게 되었고, 데이터 바인딩에 집중하는 JAXB의 기능이 향상됨에 따라 더
+    이상 JAX-RPC가 데이터 바인딩 기능을 유지할 필요성이 없어지게 되었다. 이에 따라 순수 웹 서비스의 기능은 JAX-WS가 기존
+    JAX-RPC 웹 서비스가 함께 관여하던 데이터 바인딩 기능은 JAXB가 독립적으로 관리하게 된다. JAXB에 관해서는 뒤에서 자세히
+    다루도록 한다.</p>
+
+    <p>기본적으로 JAX-WS의 내용은 JSR 224(<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://jcp.org/jsr/detail/224.jsp" target="_top">http://jcp.org/jsr/detail/224.jsp</a>)에서
+    기술되어 있다. JAX-WS는 Java SE 5의 Annotation 기능에 힘입어 기존의 여러 웹 서비스 Deployment
+    Descriptor(이하 DD) 파일들을 Annotation으로 처리, POJO(Plain Old Java Object) 방식의 웹
+    서비스를 구성할 수 있게 되었다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p/>
+
+    <p>본 장에서는 간단한 Java 클래스 파일로부터 그리고 WSDL로부터 JAX-WS 웹 서비스를 구현하는 방법에 대해
+    설명한다. Java 클래스로부터 웹 서비스를 구현할 때에는 서비스 Endpoint 구현 클래스만을 가지고 Annotation을
+    사용하여 <span><strong class="guibutton">wsgen</strong></span> 툴을 사용, Portable Artifact들을 얻는다. 그리고
+    WSDL로부터 웹 서비스를 구현할 때에는 작성한 WSDL 파일로부터 <span><strong class="guibutton">wsimport</strong></span> 툴을
+    사용하고, 서비스 Endpoint 인터페이스와 Portable Artifact들을 생성한 후 이를 구현하는 구현체 Java 클래스를
+    작성한다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="java_class_web_service_impl"></a>3.2. Java 클래스 웹 서비스의 구현</h2></div></div></div>
+    
+
+    <p>Java Endpoint 구현 클래스로부터 웹 서비스를 구현할 때 이 Java Endpoint 구현 클래스에는
+    JAX-WS에 의해 약속된 다음의 몇 가지 규칙이 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>javax.jws.WebService Annotation을 수반해야 한다.</p>
+      </li><li>
+        <p>메소드는 javax.jws.WebMethod Annotation을 수반할 수 있다.</p>
+      </li><li>
+        <p>모든 메소드들은 서비스 고유의 특정 Exception들과 함께 java.rmi.RemoteException을 던질
+        수 있다.</p>
+      </li><li>
+        <p>모든 메소드의 파라미터들과 반환 타입은 JAXB의 Java로부터 XML 스키마로의 매핑 정의에 명시된 것이어야
+        한다.</p>
+      </li><li>
+        <p>메소드의 파라미터 또는 반환 타입은 java.rmi.Remote 인터페이스를 직간접적으로 구현하는 것이어서는
+        안된다.</p>
+      </li></ul></div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>위의 규칙을 따른 간단한 Java Endpoint 구현 클래스의 예는 다음과 같다.</p><div class="example"><a id="d4e1103"></a><p class="title"><b>[예 3.1] &lt;&lt; Addnumbersimpl.java &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">package fromjava.server;
+
+@WebService
+public class AddNumbersImpl {
+
+    public int addNumbers(int number1, int number2) {
+        return number1 + number2;
+    }
+}</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p>위와 같이 @WebService라는 Annotation이 추가된 것을 주목하기 바란다. 이렇게 Annotation으로
+    'WebService'라고 설정하고 Endpoint 구현 로직을 구성하면 기본적인 서버의 웹 서비스 프로그래밍은 모두 완료된 것이다.
+    이렇게 Java Endpoint 구현 클래스를 구현했으면 다음으로는 JEUS 8 웹 서비스에서 제공하는 툴을 사용하여 Portable
+    Artifact들을 생성해야 한다. 이러한 Portable Artifact들은 메소드들의 호출 또는 응답을 Java 오브젝트로 변환
+    또는 XML 문서로 변환하는 데 사용되는 몇 가지 Java Bean 클래스들과 서비스 고유의 특정 Exception 클래스들로
+    이루어진다. 이러한 Portable Artifact들을 생성하기 위해 JEUS 8 웹 서비스에서 제공해주는 툴인
+    <span><strong class="guibutton">wsgen</strong></span>을 사용한다.</p>
+
+    <p>다음은 <span><strong class="guibutton">wsgen</strong></span>의 사용법에 대한 설명이다.</p>
+
+    <pre class="screen">$ <span class="bold"><strong>wsgen</strong></span> -help
+
+Usage: WSGEN [options] &lt;SEI&gt;
+
+where [options] include:
+  -classpath &lt;path&gt;          specify where to find input class files
+  -cp &lt;path&gt;                 same as -classpath &lt;path&gt;
+  -d &lt;directory&gt;             specify where to place generated output files
+  -extension                 allow vendor extensions - functionality
+                             not specified by the specification.
+                             Use of extensions may result in
+                             applications that are not portable or
+                             may not interoperate with other implementations 
+  -help                      display help
+  -keep                      keep generated files
+  -r &lt;directory&gt;             resource destination directory, specify
+                             where to place resouce files such as WSDLs
+  -s &lt;directory&gt;             specify where to place generated source files
+  -verbose                   output messages about what the compiler is doing
+  -version                   print version information
+  -wsdl[:protocol]           generate a WSDL file. The protocol is optional.
+                             Valid protocols are [soap1.1, Xsoap1.2],
+                             the default is soap1.1.
+                             The non stanadard protocols [Xsoap1.2]
+                             can only be used in conjunction with the
+                             -extension option.
+  -servicename &lt;name&gt;        specify the Service name to use in the generated 
+                             WSDL Used in conjunction with the -wsdl option.
+  -portname &lt;name&gt;           specify the Port name to use in the generated 
+                             WSDL Used in conjunction with the -wsdl option.
+
+Examples:
+  wsgen -cp . example.Stock
+  wsgen -cp . example.Stock -wsdl
+        -servicename {http://mynamespace}MyService</pre>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS 8 웹 서비스는 wsgen의 Ant Task도 지원하는데 보다 자세한 콘솔 명령에 대한 설명과 Ant
+        Task 항목에 대한 설명은 <a xmlns="" href="../reference-book/ch05.html#sect_wsgen" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “5.5.3. wsgen”</a>과 <a xmlns="" href="../reference-book/ch05.html#sect_wsgen_plugin" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “5.6.1. wsgen”“5.8.1. 설치”</a>를 참고한다.</p>
+      </div>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>wsgen 툴을 사용하여 위에서 생성한 Java Endpoint 구현 클래스를 사용하여 다음과 같이 Portable
+    Artifact들을 생성한다.</p><div class="example"><a id="d4e1121"></a><p class="title"><b>[예 3.2] &lt;&lt; build.xml &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">...
+&lt;target name="build_server" depends="init"&gt;
+    &lt;antcall target="do-compile"&gt;
+        &lt;param name="javac.excludes" value="fromjava/client/" /&gt;
+    &lt;/antcall&gt;
+    &lt;antcall target="wsgen"&gt;
+        &lt;param name="sib.file" value="fromjava.server.AddNumbersImpl" /&gt;
+    &lt;/antcall&gt;
+    &lt;antcall target="do-package-war" /&gt;
+&lt;/target&gt;
+...</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p/>
+
+    <p>wsgen 툴을 사용하여 위의 AddnumbersImpl Java Endpoint 구현 클래스로부터 Portable
+    Artifact들과 WSDL 파일을 생성하면 그 결과는 다음과 같다.</p><pre class="screen">AddNumbersImplService.wsdl
+AddNumbersImplService_schema1.xsd
+fromjava/server/jaxws/AddNumbers.class
+fromjava/server/jaxws/AddNumbersResponse.class</pre>
+
+    <p>AddNumbers와 AddNumbersResponse 파일들은 각각 JAXB가 addNumbers 메소드에 대한 요청과
+    응답을 Java 오브젝트나 XML 문서로 변환하기 위해 사용하는 Java Bean이다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>AddNumbersImplService.wsdl 파일은 이 웹 서비스의 WSDL 파일을 나타내며
+    AddNumbersImplService_schema1.xsd 스키마 파일은 이 웹 서비스에 의해서 사용되는 데이터 타입을 정의한
+    것이고 WSDL 문서 내부에서 사용되고 있다.</p>
+
+    <p>다음은 각 파일의 구현된 내용이다.</p>
+
+    <div class="example"><a id="d4e1132"></a><p class="title"><b>[예 3.3] &lt;&lt; AddNumbersImplService.wsdl &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;definitions targetNamespace="http://server.fromjava/"
+    name="AddNumbersImplService" xmlns:tns="http://server.fromjava/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"&gt;
+    &lt;types&gt;
+        &lt;xsd:schema&gt;
+            &lt;xsd:import namespace="http://server.fromjava/"
+                schemaLocation="AddNumbersImplService_schema1.xsd" /&gt;
+        &lt;/xsd:schema&gt;
+    &lt;/types&gt;
+    &lt;message name="addNumbers"&gt;
+        &lt;part name="parameters" element="tns:addNumbers" /&gt;
+    &lt;/message&gt;
+    &lt;message name="addNumbersResponse"&gt;
+        &lt;part name="parameters" element="tns:addNumbersResponse" /&gt;
+    &lt;/message&gt;
+    &lt;portType name="AddNumbersImpl"&gt;
+        &lt;operation name="addNumbers"&gt;
+            &lt;input message="tns:addNumbers" /&gt;
+            &lt;output message="tns:addNumbersResponse" /&gt;
+        &lt;/operation&gt;
+    &lt;/portType&gt;
+    &lt;binding name="AddNumbersImplPortBinding" type="tns:AddNumbersImpl"&gt;
+        &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+            style="document" /&gt;
+        &lt;operation name="addNumbers"&gt;
+            &lt;soap:operation soapAction="" /&gt;
+            &lt;input&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/input&gt;
+            &lt;output&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/output&gt;
+        &lt;/operation&gt;
+    &lt;/binding&gt;
+    &lt;service name="AddNumbersImplService"&gt;
+        &lt;port name="AddNumbersImplPort"
+            binding="tns:AddNumbersImplPortBinding"&gt;
+            &lt;soap:address location="REPLACE_WITH_ACTUAL_URL" /&gt;
+        &lt;/port&gt;
+    &lt;/service&gt;
+&lt;/definitions&gt;</pre>
+      </div></div><p><br class="example-break"/>위와 같이 WSDL 파일의 &lt;message&gt; element들에 대해 서버의 Portable
+    Artifact들이 생성됨을 알 수 있다. 이러한 Portable Artifact들은 실제로 JAX-WS 엔진과 Endpoint
+    클래스 간의 메시지를 전달하는 역할을 한다.</p>
+
+    <p>2가지 &lt;message&gt; element의 Portable Artifact Java 클래스는 AddNumbers와
+    AddNumbersResponse이다.</p>
+
+    <p>다음은 클라이언트로부터 호출되는 메시지인 AddNumbers에 대한 Java Bean 클래스이다.</p>
+
+    <div class="example"><a id="d4e1137"></a><p class="title"><b>[예 3.4] &lt;&lt; AddNumbers.java &gt;&gt;</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting">@XmlRootElement(name = "addNumbers", namespace = "http://server.fromjava/")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "addNumbers", namespace = "http://server.fromjava/", 
+         propOrder = {"arg0", "arg1" })
+public class AddNumbers {
+
+    @XmlElement(name = "arg0", namespace = "")
+    private int arg0;
+
+    @XmlElement(name = "arg1", namespace = "")
+    private int arg1;
+
+    public int getArg0() {
+        return this.arg0;
+    }
+
+    public void setArg0(int arg0) {
+        this.arg0 = arg0;
+    }
+
+    public int getArg1() {
+        return this.arg1;
+    }
+
+    public void setArg1(int arg1) {
+        this.arg1 = arg1;
+    }
+}</pre>
+    </div></div><br class="example-break"/>
+
+    <p/>
+
+    <p/>
+
+    <p>다음은 서비스로부터 리턴되는 메시지인 AddNumbersResponse &lt;message&gt; element에 대한
+    Java Bean 클래스이다.</p>
+
+    <div class="example"><a id="d4e1143"></a><p class="title"><b>[예 3.5] &lt;&lt; AddNumbersResponse.java &gt;&gt;</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting">@XmlRootElement(name = "addNumbersResponse", namespace = "http://server.fromjava/")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "addNumbersResponse", namespace = "http://server.fromjava/")
+public class AddNumbersResponse {
+
+    @XmlElement(name = "return", namespace = "")
+    private int _return;
+
+    public int get_return() {
+        return this._return;
+    }
+
+    public void set_return(int _return) {
+        this._return = _return;
+    }
+}</pre>
+    </div></div><br class="example-break"/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e1146"></a>3.3. EJB 웹 서비스의 구현</h2></div></div></div>
+    
+
+    <p>본 절에서는 EJB 컨테이너에서 동작하는 Stateless Session Bean을 사용하여 구현하는 EJB 웹 서비스
+    프로그래밍 모델에 대해 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JEUS 8에서 제공하는 EJB 3.0 프로그래밍 모델은 서비스 Endpoint 구현 클래스를 더욱 쉽게 작성할 수 있도록
+    여러 가지 기능들을 제공하고 있는데, javax.ejb.SessionBean 또는 javax.ejb.EntityBean 인터페이스를
+    더 이상 구현하지 않고 Annotation으로 명시하며 Session Bean의 경우 컴포넌트 인터페이스 또는 홈 인터페이스를 더
+    이상 구현하지 않아도 되는 것들이 그 중 일부이다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS 8에서 제공하는 기능에 대한 보다 더 자세한 내용은 <a xmlns="" href="../ejb/index.html" class="olink">"JEUS EJB 안내서"</a>를 참고한다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JEUS 8에서 제공하는 EJB 3.0 기능을 이용해서 구현한 Bean 클래스를 구현한 뒤, 이를 JAX-WS 서비스
+    Endpoint 구현 클래스로 사용하기 위해서는 단순히 Bean 클래스에 @WebService Annotation을 설정한다. 위의
+    규칙을 따른 간단한 EJB Endpoint 구현 클래스의 예는 다음과 같다.</p>
+
+    <div class="example"><a id="d4e1160"></a><p class="title"><b>[예 3.6] &lt;&lt; Addnumbersimpl.java &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">package fromejb.server;
+
+@Stateless
+@WebService
+public class AddNumbersImpl {
+
+    public AddNumbersImpl() {
+
+    }
+
+    public int addNumbers(int number1, int number2) {
+        return number1 + number2;
+    }
+}</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p>위와 같이 @Stateless라는 Annotation과 @WebService라는 Annotation이 추가된 것을
+    주목한다. 이렇게 Annotation으로 "WebService"라고 설정하고 Endpoint 구현 로직을 구성하면 기본적인 서버의 웹
+    서비스 프로그래밍은 모두 완료된 것이다.</p>
+
+    <p>이렇게 EJB Endpoint 구현 클래스를 구현했으면 다음으로는 JEUS 8 웹 서비스에서 제공하는 툴을 사용하여
+    Portable Artifact들을 생성해야 한다. 이러한 Portable Artifact들은 메소드들의 호출 또는 응답을 Java
+    오브젝트로 변환 또는 XML 문서로 변환할 때 사용되는 몇 가지 Java Bean 클래스들과 서비스 고유의 특정 Exception
+    클래스들로 이루어진다. 이러한 Portable Artifact들을 생성하기 위해 JEUS 8 웹 서비스에서 제공해주는 툴인
+    <span><strong class="guibutton">wsgen</strong></span>을 사용한다.</p>
+
+    <p>다음은 <span><strong class="guibutton">wsgen</strong></span>의 사용법에 대한 설명이다.</p>
+
+    <pre class="screen">$ <span class="bold"><strong>wsgen</strong></span> -help
+
+Usage: WSGEN [options] &lt;SEI&gt;
+
+where [options] include:
+  -classpath &lt;path&gt;          specify where to find input class files
+  -cp &lt;path&gt;                 same as -classpath &lt;path&gt;
+  -d &lt;directory&gt;             specify where to place generated output files
+  -extension                 allow vendor extensions - functionality
+                             not specified by the specification.
+                             Use of extensions may result in
+                             applications that are not portable or
+                             may not interoperate with other implementations
+  -help                      display help
+  -keep                      keep generated files
+  -r &lt;directory&gt;             resource destination directory, specify
+                             where to place resouce files such as WSDLs
+  -s &lt;directory&gt;             specify where to place generated source files
+  -verbose                   output messages about what the compiler is doing
+  -version                   print version information
+  -wsdl[:protocol]           generate a WSDL file. The protocol is optional.
+                             Valid protocols are [soap1.1, Xsoap1.2],
+                             the default is soap1.1.
+                             The non stanadard protocols [Xsoap1.2]
+                             can only be used in conjunction with the
+                             -extension option.
+  -servicename &lt;name&gt;        specify the Service name to use in the generated 
+                             WSDL Used in conjunction with the -wsdl option.
+  -portname &lt;name&gt;           specify the Port name to use in the generated 
+                             WSDL Used in conjunction with the -wsdl option.
+
+Examples:
+  wsgen -cp . example.Stock
+  wsgen -cp . example.Stock -wsdl
+        -servicename {http://mynamespace}MyService</pre>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS 8 웹 서비스는 wsgen의 Ant Task도 지원하는데 보다 자세한 콘솔 명령에 대한 설명과 Ant
+        Task 항목에 대한 설명은 <a xmlns="" href="../reference-book/ch05.html#sect_wsgen" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “5.5.3. wsgen”</a>과 <a xmlns="" href="../reference-book/ch05.html#sect_wsgen_plugin" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “5.6.1. wsgen”“5.8.1. 설치”</a>를 참고한다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>wsgen 툴을 사용하여 위에서 생성한 Java Endpoint 구현 클래스를 사용해서 다음과 같이 Portable
+    Artifact들을 생성한다.</p><div class="example"><a id="d4e1179"></a><p class="title"><b>[예 3.7] &lt;&lt; build.xml &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">...
+
+&lt;target name="build_server" depends="init"&gt;
+    &lt;antcall target="do-compile"&gt;
+        &lt;param name="javac.excludes" value="fromejb/client/" /&gt;
+    &lt;/antcall&gt;
+    &lt;antcall target="wsgen"&gt;
+        &lt;param name="sib.file" value="fromejb.server.AddNumbersImpl" /&gt;
+    &lt;/antcall&gt;
+    &lt;antcall target="do-package-jar" /&gt;
+&lt;/target&gt;
+
+...</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p>wsgen 툴을 사용하여 위의 AddnumbersImpl EJB Endpoint 구현 클래스로부터 Portable
+    Artifact들과 WSDL 파일을 생성하면 그 결과는 다음과 같다.</p><pre class="screen">AddNumbersImplService.wsdl
+AddNumbersImplService_schema1.xsd
+fromjava/server/jaxws/AddNumbers.class
+fromjava/server/jaxws/AddNumbersResponse.class</pre>
+
+    <p>AddNumbers와 AddNumbersResponse 파일들은 각각 JAXB가 addNumbers 메소드에 대한 요청과
+    응답을 Java 오브젝트나 XML 문서로 변환하기 위해 사용하는 Java Bean이다.</p>
+
+    <p>AddNumbersImplService.wsdl 파일은 이 웹 서비스의 WSDL 파일을 나타내며
+    AddNumbersImplService_schema1.xsd 스키마 파일은 이 웹 서비스에 의해서 사용되는 데이터 타입을 정의한
+    것이고 WSDL 문서 내부에서 사용되고 있다.</p>
+
+    <p>다음은 각 파일의 구현된 내용이다.</p>
+
+    <div class="example"><a id="d4e1188"></a><p class="title"><b>[예 3.8] &lt;&lt; AddNumbersImplService.wsdl &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;definitions targetNamespace="http://server.fromejb/"
+    name="AddNumbersImplService" xmlns:tns="http://server.fromejb/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"&gt;
+    &lt;types&gt;
+        &lt;xsd:schema&gt;
+            &lt;xsd:import namespace="http://server.fromejb/"
+                schemaLocation="AddNumbersImplService_schema1.xsd" /&gt;
+        &lt;/xsd:schema&gt;
+    &lt;/types&gt;
+    &lt;message name="addNumbers"&gt;
+        &lt;part name="parameters" element="tns:addNumbers" /&gt;
+    &lt;/message&gt;
+    &lt;message name="addNumbersResponse"&gt;
+        &lt;part name="parameters" element="tns:addNumbersResponse" /&gt;
+    &lt;/message&gt;
+    &lt;portType name="AddNumbersImpl"&gt;
+        &lt;operation name="addNumbers"&gt;
+            &lt;input message="tns:addNumbers" /&gt;
+            &lt;output message="tns:addNumbersResponse" /&gt;
+        &lt;/operation&gt;
+    &lt;/portType&gt;
+    &lt;binding name="AddNumbersImplPortBinding" type="tns:AddNumbersImpl"&gt;
+        &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+            style="document" /&gt;
+        &lt;operation name="addNumbers"&gt;
+            &lt;soap:operation soapAction="" /&gt;
+            &lt;input&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/input&gt;
+            &lt;output&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/output&gt;
+        &lt;/operation&gt;
+    &lt;/binding&gt;
+    &lt;service name="AddNumbersImplService"&gt;
+        &lt;port name="AddNumbersImplPort"
+            binding="tns:AddNumbersImplPortBinding"&gt;
+            &lt;soap:address location="REPLACE_WITH_ACTUAL_URL" /&gt;
+        &lt;/port&gt;
+    &lt;/service&gt;
+&lt;/definitions&gt;</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p>위와 같이 WSDL 파일의 &lt;message&gt; element들에 대해 서버의 Portable Artifact들이
+    생성된 것을 알 수 있다. 이러한 Portable Artifact들은 실제로 JAX-WS 엔진과 Endpoint 클래스 간의 메시지를
+    전달하는 역할을 한다.</p>
+
+    <p>2가지 &lt;message&gt; element의 Portable Artifact Java 클래스는 AddNumbers와
+    AddNumbersResponse이다.</p>
+
+    <p>다음은 클라이언트로부터 호출되는 메시지인 AddNumbers에 대한 Java Bean 클래스이다.</p>
+
+    <div class="example"><a id="d4e1194"></a><p class="title"><b>[예 3.9] &lt;&lt; AddNumbers.java &gt;&gt;</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting">@XmlRootElement(name = "addNumbers", namespace = "http://server.fromejb/")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "addNumbers", namespace = "http://server.fromejb/", propOrder = {
+        "arg0", "arg1" })
+public class AddNumbers {
+
+    @XmlElement(name = "arg0", namespace = "")
+    private int arg0;
+
+    @XmlElement(name = "arg1", namespace = "")
+    private int arg1;
+
+    public int getArg0() {
+        return this.arg0;
+    }
+
+    public void setArg0(int arg0) {
+        this.arg0 = arg0;
+    }
+
+    public int getArg1() {
+        return this.arg1;
+    }
+
+    public void setArg1(int arg1) {
+        this.arg1 = arg1;
+    }
+}</pre>
+    </div></div><br class="example-break"/>
+
+    <p/>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 서비스로부터 리턴되는 메시지인 AddNumbersResponse &lt;message&gt; element에 대한
+    Java Bean 클래스이다.</p>
+
+    <div class="example"><a id="d4e1201"></a><p class="title"><b>[예 3.10] &lt;&lt; AddNumbersResponse.java &gt;&gt;</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting">@XmlRootElement(name = "addNumbersResponse", namespace = "http://server.fromejb/")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "addNumbersResponse", namespace = "http://server.fromejb/")
+public class AddNumbersResponse {
+
+    @XmlElement(name = "return", namespace = "")
+    private int _return;
+
+    public int get_return() {
+        return this._return;
+    }
+
+    public void set_return(int _return) {
+        this._return = _return;
+    }
+}</pre>
+    </div></div><br class="example-break"/>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e1207"></a>3.4. WSDL로부터 웹 서비스 구현</h2></div></div></div>
+    
+
+    <p>WSDL로부터 웹 서비스를 구현할 때에는 JEUS 8 웹 서비스에서 제공하는 툴인
+    <span><strong class="guibutton">wsimport</strong></span>를 사용해서 우선 서비스 Endpoint 인터페이스를 생성해야
+    한다.</p>
+
+    <p>다음은 본 절에서 사용하는 WSDL 파일의 예이다.</p>
+
+    <p/>
+
+    <div class="example"><a id="d4e1214"></a><p class="title"><b>[예 3.11] &lt;&lt; AddNumbers.wsdl &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;definitions name="AddNumbers" targetNamespace="urn:AddNumbers"
+             xmlns:impl="urn:AddNumbers"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"&gt;
+    &lt;types&gt;
+        &lt;xsd:schema elementFormDefault="qualified"
+                    targetNamespace="urn:AddNumbers"
+                    xmlns="http://www.w3.org/2001/XMLSchema"&gt;
+            &lt;complexType name="addNumbersResponse"&gt;
+                &lt;sequence&gt;
+                    &lt;element name="return" type="xsd:int" /&gt;
+                &lt;/sequence&gt;
+            &lt;/complexType&gt;
+            &lt;element name="addNumbersResponse"
+                     type="impl:addNumbersResponse" /&gt;
+            &lt;complexType name="addNumbers"&gt;
+                &lt;sequence&gt;
+                    &lt;element name="arg0" type="xsd:int" /&gt;
+                    &lt;element name="arg1" type="xsd:int" /&gt;
+                &lt;/sequence&gt;
+            &lt;/complexType&gt;
+            &lt;element name="addNumbers" type="impl:addNumbers" /&gt;
+        &lt;/xsd:schema&gt;
+    &lt;/types&gt;
+
+    &lt;message name="addNumbers"&gt;
+        &lt;part name="parameters" element="impl:addNumbers" /&gt;
+    &lt;/message&gt;
+    &lt;message name="addNumbersResponse"&gt;
+        &lt;part name="result" element="impl:addNumbersResponse" /&gt;
+    &lt;/message&gt;
+
+    &lt;portType name="AddNumbersPortType"&gt;
+        &lt;operation name="addNumbers"&gt;
+            &lt;input message="impl:addNumbers" name="add" /&gt;
+            &lt;output message="impl:addNumbersResponse"
+                    name="addResponse" /&gt;
+        &lt;/operation&gt;
+    &lt;/portType&gt;
+
+    &lt;binding name="AddNumbersBinding"
+             type="impl:AddNumbersPortType"&gt;
+        &lt;soap:binding
+            transport="http://schemas.xmlsoap.org/soap/http"
+            style="document" /&gt;
+        &lt;operation name="addNumbers"&gt;
+            &lt;soap:operation soapAction="" /&gt;
+            &lt;input&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/input&gt;
+            &lt;output&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/output&gt;
+        &lt;/operation&gt;
+    &lt;/binding&gt;
+
+    &lt;service name="AddNumbersService"&gt;
+        &lt;port name="AddNumbersPort" binding="impl:AddNumbersBinding"&gt;
+            &lt;soap:address location="REPLACE_WITH_ACTUAL_URL" /&gt;
+        &lt;/port&gt;
+    &lt;/service&gt;
+&lt;/definitions&gt;</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>이와 같이 WSDL 파일을 구현했으면 다음으로는 JEUS 8 웹 서비스에서 제공하는
+    <span><strong class="guibutton">wsimport</strong></span> 툴을 사용하여 서비스 Endpoint 인터페이스와 Portable
+    Artifact들을 생성해야 한다.</p>
+
+    <p>다음은 <span><strong class="guibutton">wsimport</strong></span>의 사용법에 대한 설명이다.</p>
+
+    <pre class="screen">$ <span class="bold"><strong>wsimport</strong></span> -help
+
+Usage: wsimport [options] &lt;WSDL_URI&gt;
+
+where [options] include:
+  -b &lt;path&gt;                 specify jaxws/jaxb binding files or additional schemas
+                            (Each &lt;path&gt; must have its own -b)
+  -B&lt;jaxbOption&gt;           Pass this option to JAXB schema compiler
+  -catalog &lt;file&gt;           specify catalog file to resolve external
+                            entity references supports TR9401,
+                            XCatalog, and OASIS XML Catalog format.
+  -d &lt;directory&gt;            specify where to place generated output files
+  -extension                allow vendor extensions - functionality
+                            not specified by the specification. Use
+                            of extensions may result in applications
+                            that are not portable or may not
+                            interoperate with other implementations
+  -help                     display help
+  -httpproxy:&lt;host&gt;:&lt;port&gt;  specify a HTTP proxy server (port defaultsto 8080)
+  -keep                     keep generated files
+  -p &lt;pkg&gt;                  specifies the target package
+  -quiet                    suppress wsimport output
+  -s &lt;directory&gt;            specify where to place generated source files
+  -target &lt;version&gt;         enerate code as per the given JAXWS spec version
+                            e.g. 2.0 will generate compliant code for JAXWS 2.0 spec
+  -verbose                  output messages about what the compiler is doing
+  -version                  print version information
+  -wsdllocation &lt;location&gt;  @WebServiceClient.wsdlLocation value
+
+Examples:
+  wsimport stock.wsdl -b stock.xml -b stock.xjb
+  wsimport -d generated http://example.org/stock?wsdl</pre>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS 8 웹 서비스는 wsimport의 Ant Task도 지원하는데, 보다 자세한 콘솔 명령에 대한 설명과
+        Ant Task 항목에 대한 설명은 <a xmlns="" href="../reference-book/ch05.html#sect_wsimport" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “5.5.4. wsimport”</a>와 <a xmlns="" href="../reference-book/ch05.html#sect_wsimport_plugin" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “5.6.2. wsimport”</a>를 참고한다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>wsimport 툴을 사용하여 위에서 생성한 WSDL 파일로 다음과 같이 서비스 Endpoint 인터페이스와
+    Portable Artifact들을 생성한다.</p><div class="example"><a id="d4e1234"></a><p class="title"><b>[예 3.12] &lt;&lt; build.xml &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">...
+
+&lt;target name="build_server" depends="init"&gt;
+    &lt;mkdir dir="${build.classes.dir}" /&gt;
+    &lt;antcall target="wsimport"&gt;
+        &lt;param name="package.name" value="fromwsdl.server" /&gt;
+        &lt;param name="binding.file" value="" /&gt;
+        &lt;param name="wsdl.file" value="${src.web}/WEB-INF/wsdl/AddNumbers.wsdl" /&gt;
+    &lt;/antcall&gt;
+    &lt;antcall target="do-compile"&gt;
+        &lt;param name="javac.excludes" value="fromwsdl/client/" /&gt;
+    &lt;/antcall&gt;
+    &lt;antcall target="do-package-war" /&gt;
+&lt;/target&gt;
+
+...</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p>위의 wsimport Ant Task의 결과로 생성되는 서비스 Endpoint 인터페이스 및 Portable
+    Artifact들은 다음과 같다.</p><pre class="screen">fromwsdl/server/AddNumbers.class
+fromwsdl/server/AddNumbersPortType.class
+fromwsdl/server/AddNumbersResponse.class
+fromwsdl/server/AddNumbersService.class
+fromwsdl/server/ObjectFactory.class
+fromwsdl/server/package-info.class</pre>
+
+    <p>AddNumbers와 AddNumbersResponse 파일들은 각각 JAXB가 addNumbers 메소드에 대한 요청과
+    응답을 Java 오브젝트나 XML 문서로 변환하기 위해 사용하는 Java Bean이다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>AddNumbersPortType 파일은 서비스 Endpoint 인터페이스를 나타내며, AddNumbersService
+    파일은 클라이언트에서 Proxy의 용도로 사용하는 Java 클래스이다. 그리고 나머지 ObjectFactory 클래스와
+    package-info 클래스는 JAXB가 생성한 파일들이다.</p>
+
+    <p>이러한 각각의 파일들의 내용은 다음과 같다. 먼저 <span><strong class="guibutton">wsimport</strong></span> 툴을 사용하여
+    위의 WSDL 파일로부터 얻은 서비스 Endpoint 인터페이스인 AddNumbersPortType 클래스를 구현한다.
+    </p><div class="example"><a id="d4e1244"></a><p class="title"><b>[예 3.13] &lt;&lt; AddNumbersPortType.java &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">@WebService(name = "AddNumbersPortType", targetNamespace = "urn:AddNumbers")
+@XmlSeeAlso( { ObjectFactory.class })
+public interface AddNumbersPortType {
+    @WebMethod
+    @WebResult(targetNamespace = "urn:AddNumbers")
+    @RequestWrapper(localName = "addNumbers",
+        targetNamespace = "urn:AddNumbers",
+        className = "fromwsdl.server.AddNumbers")
+    @ResponseWrapper(localName = "addNumbersResponse",
+        targetNamespace = "urn:AddNumbers",
+        className = "fromwsdl.server.AddNumbersResponse")
+    public int addNumbers(
+            @WebParam(name = "arg0", targetNamespace = "urn:AddNumbers")
+            int arg0,
+            @WebParam(name = "arg1", targetNamespace = "urn:AddNumbers")
+            int arg1);
+}</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p>위와 같이 생성된 서비스 Endpoint 인터페이스는 동적 바인딩(Dynamic binding) 또는 런타임에 필요한
+    Annotation들을 가지고 있다. 이러한 Annotation들은 XML 문서에서 Java 오브젝트 또는 Java 오브젝트에서
+    XML 문서로의 변환을 위해 필요하다.</p><div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+        <p>이 서비스 Endpoint 인터페이스는 다시 WSDL과 스키마 파일들을 생성하는 데 사용될 수 있다. 그러나 이렇게
+        생성된 WSDL과 스카미 파일은 그 서비스 Endpoint 인터페이스를 얻기 위해 사용된 본래의 WSDL과 스키마 파일과
+        일치하지 않을 수 있다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p><a id="d4e1253" class="indexterm"></a><a id="d4e1255" class="indexterm"></a>또한 JAXB가 addNumbers 메소드에 대한 요청과 응답을 Java 오브젝트나 XML 문서로 변환하기
+    위해 사용하는 Java Bean 클래스인 AddNumbers 클래스와 AddNumbersResponse 클래스는 다음과
+    같다.</p><div class="example"><a id="d4e1257"></a><p class="title"><b>[예 3.14] &lt;&lt; AddNumbers.java &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "addNumbers", propOrder = { "arg0", "arg1" })
+public class AddNumbers {
+
+    protected int arg0;
+
+    protected int arg1;
+
+    public int getArg0() {
+        return arg0;
+    }
+    public void setArg0(int value) {
+        this.arg0 = value;
+    }
+    public int getArg1() {
+        return arg1;
+    }
+    public void setArg1(int value) {
+        this.arg1 = value;
+    }
+}</pre>
+      </div></div><p><br class="example-break"/></p><div class="example"><a id="d4e1260"></a><p class="title"><b>[예 3.15] &lt;&lt; AddNumbersResponse.java &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "addNumbersResponse", propOrder = { "_return" })
+public class AddNumbersResponse {
+
+    @XmlElement(name = "return")
+    protected int _return;
+
+    public int getReturn() {
+        return _return;
+    }
+    public void setReturn(int value) {
+        this._return = value;
+    }
+}</pre>
+      </div></div><p><br class="example-break"/>이 2개의 Java Bean 클래스는 위에서 작성한 WSDL 파일의 &lt;message&gt;
+    element들인 AddNumbers, AddNumbersResponse에 해당하는 것을 알 수 있다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음으로는 이렇게 WSDL로부터 생성된 서비스 Endpoint 인터페이스와 Portable Artifact들 중 실제로
+    서비스에 관한 비즈니스 로직을 담고 있는 서비스 Endpoint 구현체 클래스를 작성하는 일이다. 이 구현체 Java 클래스를
+    생성하기 위해서는 우선 서비스 Endpoint 인터페이스의 이름을 명시하는 Annotation을 이 구현체 Java 클래스에 제공해야
+    한다. 또한 작성한 WSDL 파일의 위치와 WSDL 파일의 name space(Target Name Space), 서비스 이름, 포트
+    이름을 설정한다.</p>
+
+    <div class="example"><a id="d4e1267"></a><p class="title"><b>[예 3.16] &lt;&lt; AddNumbersImpl.java &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">package fromwsdl.server;
+
+@javax.jws.WebService(
+<span class="emphasis"><em>        endpointInterface = "fromwsdl.server.AddNumbersPortType",
+        wsdlLocation="WEB-INF/wsdl/AddNumbers.wsdl",
+        targetNamespace = "urn:AddNumbers",
+        serviceName = "AddNumbersService",
+        portName = "AddNumbersPort"</em></span>
+)
+public class AddNumbersImpl {
+    public int addNumbers(int number1, int number2) {
+        return number1 + number2;
+    }
+}</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p>위와 같이 구현체 Java 클래스에 서비스 Endpoint 인터페이스의 이름을 @WebService라는
+    Annotation에 endpointInterface, wsdlLocation, targetNamespace, serviceName,
+    portName이라는 변수들로 값을 지정해주는 것을 알 수 있다.</p>
+
+    <p/>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="pt01.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="pt01.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="chapter_jaxws_package.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">Part I. JEUS 8 웹 서비스 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제4장 웹 서비스 생성과 배치</td></tr></table></div><div xmlns="" align="center"/></body></html>

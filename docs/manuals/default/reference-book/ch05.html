@@ -1,0 +1,2354 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제5장 Ant Task</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Reference Book"/><link rel="up" href="ant-tasks.html" title="Part III. Ant Tasks"/><link rel="prev" href="ant-tasks.html" title="Part III. Ant Tasks"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제5장 Ant Task</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="ant-tasks.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part III. Ant Tasks</td><td width="20%" align="right"> </td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="d4e22282"></a>제5장 Ant Task</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="ch05.html#jeus_ant_task">5.1. 개요</a></span></dt><dt><span class="section"><a href="ch05.html#jeus_server_ant_task">5.2. Setup Ant Task</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#jeus_setup_create-domain_ant_task">5.2.1. create-domain</a></span></dt></dl></dd><dt><span class="section"><a href="ch05.html#jeus_server_ant_task">5.3. 서버 제어 Ant Task</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#jeus_server_boot_ant_task">5.3.1. boot</a></span></dt><dt><span class="section"><a href="ch05.html#jeus_server_down_ant_task">5.3.2. down</a></span></dt><dt><span class="section"><a href="ch05.html#d4e22595">5.3.3. 실행하기</a></span></dt></dl></dd><dt><span class="section"><a href="ch05.html#jeus_ejb_ant_task">5.4. EJB Ant Task</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#jeus_ejb_appcompiler_ant_task">5.4.1. appcompiler  </a></span></dt><dt><span class="section"><a href="ch05.html#jeus_ejb_ejbddinit_ant_task">5.4.2. ejbddinit</a></span></dt></dl></dd><dt><span class="section"><a href="ch05.html#webservice_appendix_ant_task">5.5. 웹 서비스 Ant Task</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#sect_java2wsdl">5.5.1. java2wsdl</a></span></dt><dt><span class="section"><a href="ch05.html#sect_wsdl2java">5.5.2. wsdl2java</a></span></dt><dt><span class="section"><a href="ch05.html#sect_wsgen">5.5.3. wsgen</a></span></dt><dt><span class="section"><a href="ch05.html#sect_wsimport">5.5.4. wsimport</a></span></dt><dt><span class="section"><a href="ch05.html#sect_xjc">5.5.5. xjc</a></span></dt><dt><span class="section"><a href="ch05.html#sect_schemagen">5.5.6. schemagen</a></span></dt></dl></dd><dt><span class="section"><a href="ch05.html#jaxws_maven_plugin">5.6. 웹 서비스 Maven Plugin</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#sect_wsgen_plugin">5.6.1. wsgen</a></span></dt><dt><span class="section"><a href="ch05.html#sect_wsimport_plugin">5.6.2. wsimport</a></span></dt></dl></dd><dt><span class="section"><a href="ch05.html#jeusadmin_ant_task">5.7. jeusadmin 명령어 실행</a></span></dt><dt><span class="section"><a href="ch05.html#jeus_maven_plugin">5.8. Maven Plugin</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#sect_wsgen_plugin">5.8.1. 설치</a></span></dt><dt><span class="section"><a href="ch05.html#d4e23816">5.8.2. Maven Plugin Goals</a></span></dt></dl></dd></dl></div>
+    
+
+    <p>본 장에서는 Ant Task에 대해서 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jeus_ant_task"></a>5.1. 개요</h2></div></div></div>
+  
+
+  <p>JEUS에서는 애플리케이션을 개발하면서 특정 작업을 자동화하기 위해 다음과 같은 Ant Task를 제공한다. 사용자는 Ant를
+  통해 실행해야 할 Task를 기술한 Build 파일을 작성해야 한다.</p>
+
+  <p>본 절에서는 각 기능들의 Build 파일에 기술되어야 할 내용들에 대해서 설명하고, 이를 통해 각 Ant Task를 실행하는
+  과정을 설명한다. Ant에 대한 설정법과 사용법은 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://ant.apache.org" target="_top">http://ant.apache.org</a>를
+  참조한다.</p>
+
+  <p/>
+
+  <h3><a id="d4e22293"></a>Build 파일 : build.xml</h3>
+
+  <p>build.xml은 Ant Task를 기술한 XML 형식의 Ant Build 파일이다. Build 파일의 중요한 부분은
+  &lt;project&gt;에 포함되어 있으며, 일반적으로 1개의 프로젝트에 여러 개의 &lt;target&gt;이 존재한다.
+  &lt;target&gt;은 실제 실행해야 하는 Ant Task 작업을 정의한다.</p>
+
+  <p>JEUS에서 제공하는 Ant Task를 사용하기 위해서는 다음과 같이 Task definition을 build.xml에
+  추가해야 한다.</p><pre class="programlisting">&lt;taskdef resource="jeus/util/ant/jeusant.properties"&gt;
+    &lt;classpath&gt;
+        &lt;path refid="jeus.libraries"/&gt;
+    &lt;/classpath&gt;
+&lt;/taskdef&gt;</pre>
+
+  <p>프로젝트의 속성들은 &lt;project&gt;의 하위에 정의하며, "${property-name}"의 표현식을 통해 프로젝트
+  내에서 속성 값들을 사용할 수 있다.</p>
+
+  <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+      <p>JEUS에서 제공하는 Ant Task를 이용할 때는 가급적 Build 파일의 project에 "jeus.home"을
+      설정해주는 것이 안전하다. 이는 하나의 project에서 다수의 서로 다른 target을 수행할 때 특정 Target은
+      JEUS_HOME 정보를 필요로 하는 것이 존재할 수 있기 때문이다.</p>
+
+      <p>JEUS_HOME은 static final 변수여서 하나의 JVM에서 처음 설정되는 값으로 고정되는 특징이 있다. 만약
+      JEUS_HOME 정보가 필요없는 Target이 먼저 수행되면, JEUS_HOME에 null 값이 설정된다. 다음 순서로
+      JEUS_HOME이 필요한 Target이 수행될 때 앞의 Target이 설정한 JEUS_HOME의 값을 이용하게 되므로 원하는
+      동작과 다르게 동작할 수 있다.</p>
+    </div>
+
+  <p/>
+
+  <p/>
+</div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jeus_server_ant_task"></a>5.2. Setup Ant Task</h2></div></div></div>
+  
+
+  <p>본 절에서는 JEUS 환경을 구성하는 Ant Task를 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus_setup_create-domain_ant_task"></a>5.2.1. create-domain<a id="d4e22310" class="indexterm"></a><a id="d4e22313" class="indexterm"></a></h3></div></div></div>
+    
+
+    <p>create-domain Ant Task를 통해 새로운 도메인 환경을 구성할 수 있다.</p>
+
+    <p>JEUS_HOME/setup 하위에 제공되는 build.xml에 존재하는 Task로써 다음 파일에서기본 설정 값을 확인할
+    수 있다.</p>
+
+    <pre class="programlisting">JEUS_HOME/setup/domain-config-template.properties</pre>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 create-domain Task의 속성에 대한 설명이다.</p>
+
+    <div class="informaltable"><a id="table_create-domain"></a>
+        <table border="1"><colgroup><col width="150"/><col/></colgroup><thead><tr><th align="left">속성</th><th align="left">설명</th></tr></thead><tbody><tr><td>domain<a id="d4e22332" class="indexterm"></a></td><td>환경을 구성할 도메인의 이름이다. (기본값: jeus_domain)</td></tr><tr><td>servername<a id="d4e22338" class="indexterm"></a></td><td>DAS의 이름이다. (기본값: adminServer)</td></tr><tr><td>nodename<a id="d4e22344" class="indexterm"></a></td><td>DAS에서 사용하는 node 이름이다. (기본값: node1)</td></tr><tr><td>jeus.address<a id="d4e22350" class="indexterm"></a></td><td>DAS의 기본 동작 주소이다. (기본값: 0.0.0.0 )</td></tr><tr><td>jeus.port<a id="d4e22356" class="indexterm"></a></td><td>DAS의 기본 동작 포트이다. (기본값: 9736)</td></tr><tr><td>jms.port<a id="d4e22362" class="indexterm"></a></td><td>DAS의 JMS 동작 포트이다. (기본값: 9741)</td></tr><tr><td>http.port<a id="d4e22368" class="indexterm"></a></td><td>DAS의 HTTP 동작 포트이다. (기본값: 8808)</td></tr><tr><td>jvm.config<a id="d4e22374" class="indexterm"></a></td><td>DAS의 JVM 설정이다. (기본값: -Xmx1024m
+              -XX:MaxPermSize=128m)</td></tr><tr><td>jeus.username<a id="d4e22380" class="indexterm"></a></td><td>도메인의 관리 계정 이름이다. 도메인의 관리 계정 이름으로 반드시 변경할 것을 권장한다. (기본값:
+              administrator)</td></tr><tr><td>jeus.password<a id="d4e22386" class="indexterm"></a></td><td>도메인의 관리 계정 패스워드로 평문으로는 jeus이며 base64로 인코딩된 값이다. Ant 설정을
+              통해 변경하거나 jeusadmin의 set-password 명령을 통해 반드시 변경할 것을 권장한다. (기본값:
+              {base64}amV1cw==)</td></tr><tr><td>usevirtualmulticast<a id="d4e22392" class="indexterm"></a></td><td>SCF(System Clustering Framework)를 사용할 때 TCP 통신을 이용한 가상
+              멀티캐스트를 사용할지 여부를 설정한다. (true | false, 기본값: false)</td></tr><tr><td>heartbeataddress<a id="d4e22398" class="indexterm"></a></td><td><p>SCF에 사용되는 heartbeat 주소이다.
+              </p><p>uservirtualmulticast 값이 true일 경우 적용되지 않는다. (기본값:
+              230.30.1.1)</p></td></tr><tr><td>heartbeatport<a id="d4e22406" class="indexterm"></a></td><td><p>SCF에 사용되는 heartbeat 포트이다.
+              </p><p>uservirtualmulticast 값이 true일 경우 적용되지 않는다. (기본값:
+              3030)</p></td></tr></tbody></table>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    
+
+    <h4><a id="d4e22414"></a>예제</h4>
+
+    <p>다음은 Ant Task를 통한 도메인 생성 예제이다.</p>
+
+    <p>도메인의 이름은 'domain1', DAS의 이름은 'adminServer', DAS의 jvm 설정은 '-Xmx512m
+    -XX:MaxPermSize=256m'로 설정한 예제이다. 모두 기본값이 존재하므로 굳이 옵션을 모두 줄 필요는 없으나 아래의
+    예제에는 방법을 설명하기 위해 옵션을 설정하였다.</p>
+
+    <pre class="screen">JEUS_HOME/setup$ <span><strong class="guibutton">ant create-domain -Ddomain=domain1 -Dservername=adminServer 
+-Djvm.config="-Xmx512m -XX:MaxPermSize=256m" -Dheartbeataddress=230.30.1.1 
+-Dheartbeatport=3030</strong></span>
+Buildfile: JEUS_HOME/setup/build.xml
+
+create-domain:
+[echo] Creating a domain configuration: domaindir="JEUS_HOME/domains/domain1 
+domain = domain1, server-name = adminServer, admin password={base64}amV1cw==, 
+server base port=9736, server base listen address=${jeus.address}
+[mkdir] Created dir: JEUS_HOME/domains/domain1
+[mkdir] Created dir: JEUS_HOME/domains/domain1/.applications
+[mkdir] Created dir: JEUS_HOME/domains/domain1/.deploymentplans
+[mkdir] Created dir: JEUS_HOME/domains/domain1/bin
+[mkdir] Created dir: JEUS_HOME/domains/domain1/config
+[mkdir] Created dir: JEUS_HOME/domains/domain1/lib
+[mkdir] Created dir: JEUS_HOME/domains/domain1/lib/application
+[mkdir] Created dir: JEUS_HOME/domains/domain1/servers
+[mkdir] Created dir: JEUS_HOME/domains/domain1/config/servlet
+[mkdir] Created dir: JEUS_HOME/domains/domain1/config/security
+[copy] Copying 2 files to JEUS_HOME/domains/domain1/config
+[copy] Copying 1 file to JEUS_HOME/domains/domain1/config/servlet
+[copy] Copying 1 file to JEUS_HOME/domains/domain1/config/security
+[copy] Copied 1 empty directory to 1 empty directory under JEUS_HOME/domains/domain1/config/security
+[copy] Copying 3 files to JEUS_HOME/domains/domain1/config/security
+[echo] productionmode = true
+[java] JVM args ignored when same JVM is used.
+[copy] Copying 3 files to JEUS_HOME/domains/domain1/bin
+[mkdir] Created dir: JEUS_HOME/domains/domain1/servers/adminServer
+[mkdir] Created dir: JEUS_HOME/domains/domain1/servers/adminServer/bin
+[mkdir] Created dir: JEUS_HOME/domains/domain1/servers/adminServer/.workspace
+[mkdir] Created dir: JEUS_HOME/domains/domain1/servers/adminServer/.workspace/deployed
+[mkdir] Created dir: JEUS_HOME/domains/domain1/servers/adminServer/.workspace/deployed/deploymentplans
+[mkdir] Created dir: JEUS_HOME/domains/domain1/servers/adminServer/logs
+[mkdir] Created dir: JEUS_HOME/domains/domain1/servers/adminServer/lib
+[mkdir] Created dir: JEUS_HOME/domains/domain1/servers/adminServer/lib/application
+
+BUILD SUCCESSFUL
+Total time: 2 seconds
+JEUS_HOME/setup$ </pre>
+
+    <p/>
+  </div>
+</div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jeus_server_ant_task"></a>5.3. 서버 제어 Ant Task</h2></div></div></div>
+  
+
+  <p>본 절에서는 서버를 제어하는 Ant Task를 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus_server_boot_ant_task"></a>5.3.1. boot<a id="d4e22427" class="indexterm"></a><a id="d4e22430" class="indexterm"></a></h3></div></div></div>
+    
+
+    <p>boot Task는 서버를 기동한다. boot Task를 통해 서버를 기동할 때에는 노드 매니저로 명령을 보내 노드
+    매니저에서 해당 서버를 기동한다. 따라서 반드시 노드 매니저가 기동된 상태여야 한다.</p>
+
+    <p>다음은 boot Task의 속성에 대한 설명이다.</p>
+
+    <div class="informaltable"><a id="table_boot"></a>
+        <table border="1"><colgroup><col width="130"/><col/></colgroup><thead><tr><th align="left">속성</th><th align="left">설명</th></tr></thead><tbody><tr><td>domainName<a id="d4e22445" class="indexterm"></a></td><td>기동할 서버가 속한 도메인 이름을 설정한다. (필수 입력항목, String 타입)</td></tr><tr><td>serverName<a id="d4e22451" class="indexterm"></a></td><td>기동할 서버의 이름을 설정한다. (필수 입력항목, String 타입)</td></tr><tr><td>host<a id="d4e22457" class="indexterm"></a></td><td>노드매니저에 접속할 Host를 설정한다. (필수 입력항목, String 타입)</td></tr><tr><td>port<a id="d4e22463" class="indexterm"></a></td><td>노드 매니저에 접속할 Port를 설정한다. (필수 입력항목, Integer 타입)</td></tr><tr><td>dasUrl<a id="d4e22469" class="indexterm"></a></td><td>MS를 부팅할 때에 DAS의 url을 설정한다. (String 타입)</td></tr><tr><td>connectionType<a id="d4e22475" class="indexterm"></a></td><td>노드 매니저에 접속할 connection type을 설정한다. ssl, plain 중 하나로 설정할 수
+              있다. (String 타입)</td></tr><tr><td>truststorePath<a id="d4e22481" class="indexterm"></a></td><td>노드 매니저가 ssl type으로 기동되어 있는 경우 노드 매니저 접속을 위해 인증하는 데 필요한
+              Truststore 파일의 경로를 설정한다. (String 타입)</td></tr><tr><td>truststorePassword<a id="d4e22487" class="indexterm"></a></td><td>노드 매니저가 ssl type으로 기동되어 있는 경우 노드 매니저 접속을 위해 인증하는 데 필요한
+              Truststore 파일의 패스워드를 설정한다. (String 타입)</td></tr><tr><td>adminServer<a id="d4e22493" class="indexterm"></a></td><td>기동할 서버가 DAS인지 MS인지 여부를 설정한다. (필수 입력항목, Boolean
+              타입)</td></tr><tr><td>force<a id="d4e22499" class="indexterm"></a></td><td><p>서버를 기동할 때 deploy 실패 등의 이유로 인해 서버가 STANDBY 상태에 머무르는
+              경우 서버를 강제로 RUNNING 상태로 만들어 줄지 여부를 설정한다. </p><p>(기본값:
+              false)</p></td></tr><tr><td>standby<a id="d4e22507" class="indexterm"></a></td><td>서버를 STANDBY 상태까지만 기동한다. (기본값: false)</td></tr><tr><td>username<a id="d4e22513" class="indexterm"></a></td><td>서버를 기동할 사용자명을 설정한다. (필수 입력항목, String 타입)</td></tr><tr><td>password<a id="d4e22519" class="indexterm"></a></td><td>서버를 기동할 패스워드를 설정한다. (필수 입력항목, String 타입)</td></tr></tbody></table>
+      </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus_server_down_ant_task"></a>5.3.2. down<a id="d4e22525" class="indexterm"></a><a id="d4e22528" class="indexterm"></a></h3></div></div></div>
+    
+
+    <p>down Task는 JEUS를 종료한다.</p>
+
+    <p>다음은 down Task 속성에 대한 설명이다.</p>
+
+    <div class="informaltable"><a id="table_down"></a>
+        <table border="1"><colgroup><col width="130"/><col/></colgroup><thead><tr><th align="left">속성</th><th align="left">설명</th></tr></thead><tbody><tr><td>domainName<a id="d4e22543" class="indexterm"></a></td><td>종료할 서버가 속한 도메인 이름을 설정한다. (필수 입력항목, String 타입)</td></tr><tr><td>serverName<a id="d4e22549" class="indexterm"></a></td><td>종료할 서버의 이름을 설정한다. (필수 입력항목, String 타입)</td></tr><tr><td>host<a id="d4e22555" class="indexterm"></a></td><td>노드 매니저에 접속할 Host를 설정한다. (필수 입력항목, String 타입)</td></tr><tr><td>port<a id="d4e22561" class="indexterm"></a></td><td>노드 매니저에 접속할 Port를 설정한다. (필수 입력항목, Integer 타입)</td></tr><tr><td>connectionType<a id="d4e22567" class="indexterm"></a></td><td>노드 매니저에 접속할 connection type을 설정한다. ssl, plain 중 하나로 설정할 수
+              있다. (String 타입)</td></tr><tr><td>truststorePath<a id="d4e22573" class="indexterm"></a></td><td>노드 매니저가 ssl type으로 기동되어 있는 경우 노드 매니저 접속을 위해 인증하는 데 필요한
+              Truststore 파일의 경로를 설정한다. (String 타입)</td></tr><tr><td>truststorePassword<a id="d4e22579" class="indexterm"></a></td><td>노드 매니저가 ssl type으로 기동되어 있는 경우 노드 매니저 접속을 위해 인증하는 데 필요한
+              Truststore 파일의 패스워드를 설정한다. (String 타입)</td></tr><tr><td>username<a id="d4e22585" class="indexterm"></a></td><td>서버를 종료할 사용자명을 설정한다. (필수 입력항목, String 타입)</td></tr><tr><td>password<a id="d4e22591" class="indexterm"></a></td><td>서버를 종료할 패스워드를 설정한다. (필수 입력항목, String 타입)</td></tr></tbody></table>
+      </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e22595"></a>5.3.3. 실행하기</h3></div></div></div>
+    
+
+    <p>build.xml을 작성한 예제와 해당 파일을 통해 서버의 boot, down을 실행하는 예제에 대해
+    설명한다.</p>
+
+    <p/>
+
+    <h4><a id="d4e22600"></a>build.xml 작성 예제</h4>
+
+    <p>다음은 domain1에 'adminServer'라는 이름을을 가진 DAS를 boot, down하는 build.xml
+    예제이다.</p>
+
+    <div class="example"><a id="d4e22603"></a><p class="title"><b>[예 5.1] boot &amp; down Ant Task build 파일 예제 :
+        &lt;&lt;build.xml&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0"?&gt;
+
+&lt;project name="example" default="boot" basedir="."&gt;
+  &lt;property environment="env"/&gt;
+  &lt;!-- jeus.home project property is required
+       when you run the various tasks in an ant jvm and
+       one of the various tasks requirs JEUS_HOME information --&gt;
+  &lt;property name="jeus.home" value="${env.JEUS_HOME}"/&gt;
+
+  &lt;!-- set properties to be needed for boot &amp; down task --&gt;
+  &lt;property name="domain.name" value="domain1"/&gt;
+  &lt;property name="server.name" value="adminServer"/&gt;
+  &lt;property name="das.url" value=""/&gt;
+  &lt;property name="force" value="false"/&gt;
+  &lt;property name="standby" value="false"/&gt;
+  &lt;property name="host" value="host1"/&gt;
+  &lt;property name="port" value="9736"/&gt;
+  &lt;property name="connect.type" value="plain"/&gt;
+  &lt;property name="truststore.path" value=""/&gt;
+  &lt;property name="truststore.password" value=""/&gt;
+  &lt;property name="username" value="administrator"/&gt;
+  &lt;property name="password" value="jeus"/&gt;
+  &lt;property name="isAdminServer" value="false"/&gt;
+
+  &lt;!-- set the library-classpath or to run the task class --&gt;
+  &lt;path id="jeus.libraries"&gt;
+    &lt;fileset dir="${jeus.home}/lib/system" includes="*.jar"/&gt;
+  &lt;/path&gt;
+
+  &lt;!-- include the task definition resource file --&gt;
+  &lt;taskdef resource="jeus/util/ant/jeusant.properties"&gt;
+    &lt;classpath&gt;
+      &lt;path refid="jeus.libraries"/&gt;
+    &lt;/classpath&gt;
+  &lt;/taskdef&gt;
+
+  &lt;target name="init"&gt;
+  &lt;/target&gt;
+
+  &lt;!-- boot task --&gt;
+  &lt;target name="boot" depends="init"&gt;
+    &lt;boot domainName="${domain.name}"
+          serverName="${server.name}"
+          host="${host}"
+          port="${port}"
+          connectionType="${connect.type}"
+          truststorePath="${truststore.path}"
+          truststorePassword="${truststore.password}"
+          adminServer="${isAdminServer}"
+          dasUrl="${das.url}"
+          force="${force}"
+          standby="${standby}"
+          username="${username}"
+          password="${password}"/&gt;
+	&lt;/target&gt;
+
+  &lt;!-- down task --&gt;
+  &lt;target name="down" depends="init"&gt;
+    &lt;down domainName="${domain.name}"
+          serverName="${server.name}"
+          host="${host}"
+          port="${port}"
+          connectionType="${connect.type}"
+          truststorePath="${truststore.path}"
+          truststorePassword="${truststore.password}"
+          username="${username}"
+          password="${password}"/&gt;
+	&lt;/target&gt;
+
+&lt;/project&gt;
+</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <h4><a id="d4e22613"></a>실행 예제</h4>
+
+    <p>Ant를 통해 서버를 기동하기 위해서는 노드 매니저가 'startNodeManager' 스크립트를 통해 기동된 상태여야
+    한다. 이 상태에서 boot 명령을 실행하면 서버가 기동되고, 여기서 down 명령을 실행하면 다시 서버가 종료 된다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>boot</p>
+
+          <pre class="screen">$ <span class="bold"><strong>ant boot</strong></span>
+Buildfile: build.xml
+
+init:
+
+boot:
+     [boot] Succeed to start server [adminServer]
+
+BUILD SUCCESSFUL
+Total time: 11 seconds</pre>
+        </li><li>
+          <p>down</p>
+
+          <pre class="screen">$ <span class="bold"><strong>ant down</strong></span>
+Buildfile: build.xml
+
+init:
+
+down:
+     [down] Succeed to stop server [adminServer]
+
+BUILD SUCCESSFUL
+Total time: 0 seconds</pre>
+        </li></ul></div>
+
+    <p/>
+  </div>
+</div>
+
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jeus_ejb_ant_task"></a>5.4. EJB Ant Task</h2></div></div></div>
+  
+
+  <p>JEUS를 기반으로 EJB 컴포넌트를 개발할 때 작업을 편리하게 수행할 수 있도록 몇 가지의 Ant Task를
+  제공한다.</p>
+
+  
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus_ejb_appcompiler_ant_task"></a>5.4.1. appcompiler <a id="d4e22632" class="indexterm"></a> <a id="d4e22635" class="indexterm"></a></h3></div></div></div>
+    
+
+    <p>appcompiler Ant Task는 pre-deployment 작업 후 EJB 모듈 또는 개별적인 EJB Bean에
+    대해서 필요한 RMI Stub과 Skeleton 클래스를 임의로 생성하고 싶을 때 사용한다. 또한 이것은 클라이언트에서 원격지에 있는
+    디플로이된 Bean과 통신할 때 필요한 클래스 파일들 즉 EJB 클라이언트 JAR를 생성할 수 있다.</p>
+
+    <p/>
+
+    <p>다음은 appcompiler Ant Task 속성에 대한 설명이다.</p>
+
+    <div class="informaltable"><a id="table_appcompiler"></a>
+      <table border="1"><colgroup><col width="120"/><col/></colgroup><thead><tr><th align="left">속성</th><th align="left">설명</th></tr></thead><tbody><tr><td>jeusHome<a id="d4e22650" class="indexterm"></a></td><td>JEUS_HOME을 설정한다. (String 타입)</td></tr><tr><td>client<a id="d4e22656" class="indexterm"></a></td><td>생성될 Stub 클래스들이 포함될 클라이언트 뷰 파일을 설정한다. (String 타입)</td></tr><tr><td>keep<a id="d4e22662" class="indexterm"></a></td><td>컴파일 과정에서 생성된 소스를 유지할 것인지를 설정한다. (기본값: false)</td></tr><tr><td>jspmap<a id="d4e22668" class="indexterm"></a></td><td><p>servlet-mapping table(jeus_jspmap.xml)을 생성할 것인지를
+            설정한다. </p><p>(기본값: false)</p></td></tr><tr><td>ejbJar<a id="d4e22676" class="indexterm"></a></td><td>컴파일할 때 사용할 ejb-jar.xml 파일을 설정한다. (String 타입)</td></tr><tr><td>jeusEjbDd<a id="d4e22682" class="indexterm"></a></td><td>컴파일할 때 사용할 jeus-ejb-dd.xml 파일을 설정한다. (String 타입)</td></tr><tr><td>name<a id="d4e22688" class="indexterm"></a></td><td>deploy에 사용할 이름을 설정한다. (String 타입)</td></tr><tr><td>target<a id="d4e22694" class="indexterm"></a></td><td><p>컴파일할 대상 애플리케이션, stand-alone 모듈 파일을 설정한다. (필수 입력항목,
+            String 타입)</p></td></tr></tbody></table>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    <h4><a id="d4e22702"></a>예제 </h4>
+
+    <p>다음은 build.xml을 작성한 예제와 build.xml을 통해 appcompiler를 실행하는 예제이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">build.xml 작성 예제</strong></span></p>
+
+          <div class="example"><a id="d4e22709"></a><p class="title"><b>[예 5.2] appcompiler Ant Task build 파일 예제 :
+            &lt;&lt;build.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0"?&gt;
+
+&lt;project name="example" default="appcompiler" basedir="."&gt;
+  &lt;property environment="env"/&gt;
+  &lt;!-- jeus.home project property is required
+       when you run the various tasks in an ant jvm and
+       one of the various tasks requirs JEUS_HOME information --&gt;
+  &lt;property name="jeus.home" value="${env.JEUS_HOME}"/&gt;
+
+  &lt;!-- set properties to be needed for appcompiler task --&gt;
+  &lt;property name="client" value="client_view.jar"/&gt;
+  &lt;property name="keep" value="false"/&gt;
+  &lt;property name="jspmap" value="false"/&gt;
+  &lt;property name="ejbjar" value="ejb-jar.xml"/&gt;
+  &lt;property name="jeusejbdd" value="jeus-ejb-dd.xml"/&gt;
+  &lt;property name="targetfile" value="ejb"/&gt;
+
+  &lt;!-- set the library-classpath or to run the task class --&gt;
+  &lt;path id="jeus.libraries"&gt;
+    &lt;fileset dir="${jeus.home}/lib/system" includes="*.jar"/&gt;
+  &lt;/path&gt;
+
+  &lt;!-- include the task definition resource file --&gt;
+  &lt;taskdef resource="jeus/util/ant/jeusant.properties"&gt;
+    &lt;classpath&gt;
+      &lt;path refid="jeus.libraries"/&gt;
+    &lt;/classpath&gt;
+  &lt;/taskdef&gt;
+
+  &lt;target name="init"&gt;
+  &lt;/target&gt;
+
+  &lt;!-- appcompiler task --&gt;
+  &lt;target name="appcompiler" depends="init"&gt;
+    &lt;appcompiler jeusHome="${jeus.home}"
+                 client="${client}"
+                 keep="${keep}"
+                 jspmap="${jspmap}"
+                 ejbJar="${ejbjar}"
+                 jeusEjbDd="${jeusejbdd}"
+                 target="${targetfile}"/&gt;
+  &lt;/target&gt;
+
+&lt;/project&gt;
+</pre>
+          </div></div><br class="example-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">실행 예제</strong></span></p><pre class="screen">$ <span><strong class="guibutton">ant appcompiler</strong></span>
+Buildfile: build.xml
+
+init:
+
+appcompiler:
+
+BUILD SUCCESSFUL
+Total time: 3 minutes 7 seconds</pre>
+        </li></ul></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="jeus_ejb_ejbddinit_ant_task"></a>5.4.2. ejbddinit</h3></div></div></div>
+    
+
+    <p>ejbddinit Ant Task는 JEUS EJB DD를 생성할 때 이용한다. ejbddinit에 대한 자세한 설명은
+    <a href="ch04.html#chapter_ejbddinit" title="4.4. ejbddinit">“4.4. ejbddinit”</a>을 참고한다.</p>
+
+    <p/>
+
+    <p>다음은 ejbddinit Ant Task의 속성에 대한 설명이다.</p>
+
+    <div class="informaltable"><a id="table_ejbddinit"></a>
+      <table border="1"><colgroup><col width="180"/><col/></colgroup><thead><tr><th align="left">속성</th><th align="left">설명</th></tr></thead><tbody><tr><td>propertyFile</td><td>ejbddinit 실행할 때 참조할 프로퍼티 파일을 지정한다. (String 타입)</td></tr><tr><td>logginginglevel</td><td><p>ejbddinit 실행할 때 화면에 출력되는 로그의 레벨을 지정한다.</p><p>이
+            레벨은 Jave SE logging API의 레벨을 따른다. (기본값: INFO)</p></td></tr><tr><td>target</td><td><p>ejbddint 실행 대상이 되는 EJB 모듈의 경로를 지정한다. EJB 모듈은 JAR
+            archive 또는 디렉터리일 수 있다.</p><p>(필수 입력항목, 프로퍼티 파일이 Target 정보를
+            설정한 경우 생략 가능) </p></td></tr></tbody></table>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>ejbddinit Ant Task 스크립트에 제한적으로 ejbddinit 프로퍼티를 설정할 수 있다.</p>
+
+    <p>ejbddinit 프로퍼티 파일의 프로퍼티는 ejbddinit Ant Task 스크립트에서 다음과 같은 규칙으로 설정되어야
+    한다. ejbddinit 프로퍼티에 대한 자세한 내용은 <a href="ch04.html#ejbddinit_properties" title="4.4. 프로퍼티 목록">절 4.4. “프로퍼티 목록”</a>을
+    참고한다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="180"/><col/></colgroup><thead><tr><th align="left">ejbddinit 프로퍼티 파일</th><th align="left">ejbddinit Ant 스크립트</th></tr></thead><tbody><tr><td align="left">export-name=%{ejb-class}</td><td>&lt;property name="export-name"
+            value="%{ejb-class}"/&gt;</td></tr><tr><td align="left">thread-max=100</td><td>&lt;property name="thread-max" value="100"/&gt;</td></tr><tr><td align="left">HelloBean.export-port=55555</td><td>build.xml에서는 특정 EJB 컴포넌트(HelloBean)에 대한 ejbddinit 프로퍼티 설정이
+            불가능</td></tr></tbody></table>
+    </div>
+
+    <p>ejbddinit 프로퍼티 파일과 같이 Ant 스크립트에서도 export-name 프로퍼티에 대하여
+    "%{ejb-class}"와 같은 패턴을 사용할 수 있다. export-name 과 관련된 패턴 사용에 관한 내용은 <a href="ch04.html#export_name_pattern" title="4.4. export-name 프로퍼티에 대한 패턴 지원">절 4.4. “export-name 프로퍼티에 대한 패턴
+  지원”</a>을 참고한다.</p>
+
+    <p>Ant 스크립트에서는 특정 EJB 컴포넌트에 대한 ejbddinit 프로퍼티 설정은 지원하지 않으므로 특정 EJB
+    컴포넌트에 대한 ejbddinit 프로퍼티 설정이 필요한 경우에는 ejbddinit 프로퍼티 파일을 따로 작성해야 한다. 특정 EJB
+    컴포넌트에 대한 설정은 ejbddinit 프로퍼티 파일과 Ant 스크립트의 공통 설정보다 우선한다. ejbddinit 프로퍼티 파일과
+    ejbddinit Ant 스크립트에 동일한 설정이 존재할 경우에는 Ant 스크립트의 설정을 우선한다.</p>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <h4><a id="d4e22772"></a>예제 </h4>
+
+    <p>ejbddinit Ant 스크립트 작성 예와 ejbddinit Ant Task를 실행하는 예는 아래와 같다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">ejbddinit Ant 스크립트 작성 예</strong></span></p>
+
+          <div class="example"><a id="d4e22779"></a><p class="title"><b>[예 5.3] ejbddinit Ant 스크립트 예제</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0"?&gt;
+&lt;project name="example" default="ejbddinit" basedir="."&gt;
+  &lt;property environment="env"/&gt;
+  &lt;!-- jeus.home project property is required
+       when you run the various tasks in an ant jvm and
+       one of the various tasks requirs JEUS_HOME information --&gt;
+  &lt;property name="jeus.home" value="${env.JEUS_HOME}"/&gt;
+
+  &lt;!-- set properties to be needed for ejbddinit task --&gt;
+  &lt;property name="targetfile" value="ejb.jar"/&gt;
+  &lt;property name="logginglevel" value="FINE"/&gt;
+  &lt;property name="propertyfile" value="ejbddinit.properties"/&gt;
+  
+  &lt;!-- set properties to be needed for ejbddinit properties --&gt;
+  &lt;property name="export-name" value="%{ejb-class}"/&gt;
+  &lt;property name="thread-max" value="100"/&gt;
+
+  &lt;!-- set the library-classpath or to run the task class --&gt;
+  &lt;path id="jeus.libraries"&gt;
+    &lt;fileset dir="${jeus.home}/lib/system" includes="*.jar"/&gt;
+  &lt;/path&gt;
+
+  &lt;!-- include the task definition resource file --&gt;
+  &lt;taskdef resource="jeus/util/ant/jeusant.properties"&gt;
+    &lt;classpath&gt;
+      &lt;path refid="jeus.libraries"/&gt;
+    &lt;/classpath&gt;
+  &lt;/taskdef&gt;
+
+  &lt;target name="init"&gt;
+  &lt;/target&gt;
+
+  &lt;!-- ejbddinit task --&gt;
+  &lt;target name="ejbddinit" depends="init"&gt;
+    &lt;ejbddinit loggingLevel="${logginglevel}"
+               property="${propertyfile}"
+               target="${targetfile}"
+               exportName="${export-name}"
+               threadMax="${thread-max}"&gt;
+    &lt;/ejbddinit&gt;
+  &lt;/target&gt;
+&lt;/project&gt;
+  </pre>
+          </div></div><br class="example-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">ejbddinit Ant Task 실행 예</strong></span></p><pre class="screen">$ <span><strong class="guibutton">ant ejbddinit</strong></span>
+Buildfile: build.xml
+
+init:
+
+ejbddinit: 
+[ejbddinit] LoadFile: /jeus/sample/ejbddinit.properties
+[ejbddinit] Source=/jeus/sample/ejbddinit/ejb.jar
+[ejbddinit] Successfully configured the parameters.
+[ejbddinit] Deployment descriptor initialization started.
+[ejbddinit] Creating JEUS descriptors.
+[ejbddinit] Deployment descriptor initialization finished.
+
+BUILD SUCCESSFUL
+Total time: 2 seconds </pre>
+        </li></ul></div>
+  </div>
+</div>
+
+    
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="webservice_appendix_ant_task"></a>5.5. 웹 서비스 Ant Task</h2></div></div></div>
+  
+
+  <p>본 절에서는 JEUS에서 웹 서비스 생성과 웹 서비스 클라이언트를 위해 제공하는 Ant Task에 대해서
+  설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_java2wsdl"></a>5.5.1. java2wsdl</h3></div></div></div>
+    
+
+    <p>java2wsdl Task는 SET(Service Endpoint Interface) 클래스와 임의의 Java로 구현한
+    클래스로부터 다음의 파일을 생성한다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>웹 서비스의 WSDL파일</p>
+        </li><li>
+          <p>JAX-RPC 매핑 파일</p>
+        </li></ul></div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>java2wsdl Ant Task를 정의하는 클래스는
+        'jeus.util.ant.webservices.Java2WsdlTask' 이다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p/>
+
+    <p>다음은 java2wsdl의 속성에 대한 설명이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="120"/><col/></colgroup><thead><tr><th>속성</th><th>설명</th></tr></thead><tbody><tr><td>configfilepath<a id="d4e22815" class="indexterm"></a></td><td>웹 서비스 설정 파일의 경로를 설정한다. (필수 입력항목, String 타입)</td></tr><tr><td>classpath<a id="d4e22821" class="indexterm"></a></td><td><p>웹 서비스를 구성하는 컴파일된 Java 클래스에 대한 클래스 패스를 설정한다.
+            </p><p>(필수 입력항목, String 타입)</p></td></tr><tr><td>destDir<a id="d4e22829" class="indexterm"></a></td><td>생성된 WSDL 파일이 놓일 디렉터리의 절대 경로를 설정한다. (String 타입)</td></tr><tr><td>level<a id="d4e22835" class="indexterm"></a></td><td>로그 레벨을 설정한다. (String 타입)</td></tr><tr><td>verbose<a id="d4e22841" class="indexterm"></a></td><td>Verbose 메시지를 출력 여부를 설정한다. (기본값: false)</td></tr></tbody></table>
+    </div>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <h4><a id="d4e22848"></a>Nested Element</h4><p>&lt;java2wsdl&gt;은 Ant의
+    &lt;classpath&gt; element를 가지고 있다.</p>
+
+    <p/>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <h4><a id="d4e22853"></a>예제 </h4>
+
+    <p>build.xml을 작성한 예제와 이 build.xml을 통해 java2wsdl을 실행시키는 예를 설명한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">build.xml 작성 예제</strong></span></p>
+
+          <div class="example"><a id="d4e22860"></a><p class="title"><b>[예 5.4] java2wsdl Ant Task build 파일 예제 :
+            &lt;&lt;build.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="java2wsdl" default="build" basedir="."&gt;
+    &lt;property name="is.app-client.module" value="true" /&gt;
+    &lt;import file="../../common/common-build.xml" /&gt;    
+    &lt;taskdef name="java2wsdl"
+             classname="jeus.util.ant.webservices.Java2WsdlTask"&gt;
+        &lt;classpath refid="jeus.libraries.classpath" /&gt;
+    &lt;/taskdef&gt;
+    &lt;target name="-post-compile"&gt;
+        &lt;java2wsdl destDir="${build.classes.dir}"
+                   verbose="true"
+                   configfilepath="${src.conf}/service-config.xml"&gt;
+            &lt;classpath refid="classpath" /&gt;
+        &lt;/java2wsdl&gt;
+    &lt;/target&gt;
+&lt;/project&gt;</pre>
+          </div></div><br class="example-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">실행 예제</strong></span></p>
+
+          <pre class="screen">$ <span class="bold"><strong>jant</strong></span>
+
+...
+
+[java2wsdl] Building Web Services : DocLitEchoService
+[java2wsdl] Generating WSDL File - jeus/build/classes/DocLitEchoService.wsdl
+[java2wsdl] Generating JAX-RPC Mapping File - jeus/build/classes/DocLitEchoService-mapping.xml
+
+...
+
+BUILD SUCCESSFUL
+Total time: 11 seconds</pre>
+        </li></ul></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_wsdl2java"></a>5.5.2. wsdl2java</h3></div></div></div>
+    
+
+    <p/>
+
+    <p>wsdl2java Task는 웹 서비스의 WSDL로부터 다음의 2개 중에 하나를 생성한다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>클라이언트 측 웹 서비스의 Stub Java 소스 코드들</p>
+        </li><li>
+          <p>서버 측 웹 서비스의 인터페이스 Java 소스 코드들</p>
+        </li></ul></div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>wsdl2java Ant Task를 정의하는 클래스는
+        'jeus.util.ant.webservices.Wsdl2JavaTask' 이다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p/>
+
+    <p>다음은 wsdl2java의 속성에 대한 설명이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="120"/><col/></colgroup><thead><tr><th>속성</th><th>설명</th></tr></thead><tbody><tr><td>wsdl<a id="d4e22895" class="indexterm"></a></td><td>Java 소스 파일을 생성하기 위해서 사용되는 WSDL의 URL이나 절대 경로를 설정한다. (필수
+            입력항목, String 타입)</td></tr><tr><td>mode<a id="d4e22901" class="indexterm"></a></td><td><p>Java 소스 파일을 생성하기 위해서 사용되는 MODE를 설정한다. (필수 입력항목,
+            String 타입) </p><p>다음 중에 하나를 설정한다. </p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                  <p>gen:client</p>
+                </li><li style="list-style-type: circle">
+                  <p>gen:server</p>
+                </li><li style="list-style-type: circle">
+                  <p>gen</p>
+                </li><li style="list-style-type: circle">
+                  <p>import:client</p>
+                </li><li style="list-style-type: circle">
+                  <p>import:server</p>
+                </li><li style="list-style-type: circle">
+                  <p>import</p>
+                </li></ul></div></td></tr><tr><td>destDir<a id="d4e22922" class="indexterm"></a></td><td><p>생성된 Java 파일이 놓일 디렉터리의 절대 경로를 설정한다. </p><p>(필수
+            입력항목, String 타입) </p></td></tr><tr><td>classDestDir<a id="d4e22930" class="indexterm"></a></td><td>컴파일된 클래스 파일이 생성될 디렉터리를 설정한다. (String 타입)</td></tr><tr><td>inputMapping<a id="d4e22936" class="indexterm"></a></td><td>Java 클래스를 생성하기 위하여 사용되는 입력 JAX-RPC 매핑 파일을 설정한다. (String
+            타입)</td></tr><tr><td>package<a id="d4e22942" class="indexterm"></a></td><td><p>WSDL의 모든 Namespace URI에 대한 Java 패키지 이름을 설정한다.
+            </p><p>(String 타입)</p></td></tr><tr><td>outputMapping<a id="d4e22950" class="indexterm"></a></td><td>입력 WSDL에 대한 출력 JAX-RPC 매핑 파일을 설정한다. (String 타입)</td></tr><tr><td>doCompile<a id="d4e22956" class="indexterm"></a></td><td>true일 때 생성된Java 소스 파일들은 컴파일된다. (기본값: true)</td></tr><tr><td>username<a id="d4e22962" class="indexterm"></a></td><td>WSDL의 URL로 접근할 때 필요한 사용자 이름이다. (String 타입)</td></tr><tr><td>password<a id="d4e22968" class="indexterm"></a></td><td>WSDL의 URL로 접근할 때 필요한 패스워드이다. (String 타입)</td></tr><tr><td>keepSrc<a id="d4e22974" class="indexterm"></a></td><td>true로 설정하면 생성된Java 소스 파일들은 삭제되지 않는다. (기본값: true)</td></tr><tr><td>nowrapped<a id="d4e22980" class="indexterm"></a></td><td><p>true로 설정하면 WSDL에 대한 wrapped MODE 탐지를 사용할 수
+            없다.</p><p>(기본값: false)</p></td></tr><tr><td>dataHandlerOnly<a id="d4e22988" class="indexterm"></a></td><td><p>true로 설정하면 MIME 타입에 대하여 javax.activation.DataHandler를
+            적용한다. </p><p>(기본값: false)</p></td></tr><tr><td>nodatabinding<a id="d4e22996" class="indexterm"></a></td><td><p>모든 WSDL massage part에 대하여 javax.xml.soap.SOAPElement를
+            적용한다. </p><p>(기본값: false)</p></td></tr><tr><td>soapver<a id="d4e23004" class="indexterm"></a></td><td><p>stub/tie 클래스에서 사용되는 SOAP 버전을
+            설정한다.</p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                  <p>11 : SOAP 1.1(기본값)</p>
+                </li><li style="list-style-type: circle">
+                  <p>12 : SOAP 1.2</p>
+                </li></ul></div></td></tr><tr><td>resolveDir<a id="d4e23017" class="indexterm"></a></td><td>원격의 WSDL 파일(스키마 포함)을 로컬 저장소에 저장할 때 값을 설정할 수 있다. (String
+            타입)</td></tr><tr><td>DDGen<a id="d4e23023" class="indexterm"></a></td><td>JEUS의 기본적인 배치 서술자(webservices.xml 파일과 MODE가 web인 경우
+            web.xml, ejb인 경우 ejb-jar.xml 파일)를 생성할 때 사용한다. (String 타입)</td></tr><tr><td>level<a id="d4e23029" class="indexterm"></a></td><td>로그 레벨을 설정한다. (String 타입)</td></tr><tr><td>verbose<a id="d4e23035" class="indexterm"></a></td><td>Verbose 출력은 true일때 가능하다. (기본값: false)</td></tr></tbody></table>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    <h4><a id="sect_wsdl2java_Nessted_Element"></a>Nested
+    Element</h4>
+
+    <p>&lt;wsdl2java&gt;는 중첩된 Ant의 &lt;classpath&gt;와 &lt;mapping&gt;
+    element를 가지고 있다. &lt;wsdl2java&gt; Ant Task의 구조는 다음과 같다(+는 한 개 이상의
+    element를 가질 수 있음을 의미한다).</p>
+
+    <div class="figure"><a id="d4e23044"></a><p class="title"><b>[그림 5.1] wsdl2java Task 구성</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="180"><tr><td align="left"><img src="resources/figure_webservice-anttasks-wsdl2java.png" align="top" width="180" alt="wsdl2java Task 구성"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <div class="literallayout"><p/></div>
+
+    <h4><a id="sect_mapping"></a>&lt;mapping&gt;</h4>
+
+    <p>Java 패키지와 WSDL Namespace 사이의 매핑이다. 사용자가 &lt;mapping&gt;을 생략하면 모든
+    Namespace URI는 &lt;wsdl2java&gt; element인 package attribute에 기술된 패키지로
+    매핑된다.</p>
+
+    <p>다음은 &lt;mapping&gt;의 속성에 대한 설명이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="120"/><col/></colgroup><thead><tr><th>속성</th><th>설명</th></tr></thead><tbody><tr><td>package<a id="d4e23064" class="indexterm"></a></td><td>Java 패키지의 이름이다. (필수 입력항목, String 타입)</td></tr><tr><td>namespace<a id="d4e23070" class="indexterm"></a></td><td>WSDL의 Namespace URI이다. (필수 입력항목, String 타입)</td></tr></tbody></table>
+    </div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>만약 사용자가 &lt;wsdl2java&gt; element의 package 속성을 설정하면 이 속성 값이
+      &lt;mapping&gt; element로 설정된 값에 우선한다. 즉, &lt;mapping&gt; element로 설정된 값은
+      무의미해진다.</p>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    <h4><a id="d4e23078"></a>예제 </h4>
+
+    <p>build.xml을 작성한 예제와 이 build.xml을 통해 wsdl2java를 실행하는 예제를 설명한다.</p>
+
+    <p/>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">build.xml 작성 예제</strong></span></p>
+
+          <div class="example"><a id="d4e23086"></a><p class="title"><b>[예 5.5] wsdl2java Ant Task build 파일 예제 :
+            &lt;&lt;build.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="wsdl2java" default="build" basedir="."&gt;
+    &lt;property name="is.app-client.module" value="true" /&gt;
+    &lt;import file="../../../common/common-build.xml" /&gt;
+    &lt;taskdef name="wsdl2java"
+             classname="jeus.util.ant.webservices.Wsdl2JavaTask"&gt;
+        &lt;classpath refid="jeus.libraries.classpath" /&gt;
+    &lt;/taskdef&gt;
+    &lt;target name="-pre-compile"&gt;
+        &lt;mkdir dir="${build.classes.dir}" /&gt;
+        &lt;wsdl2java destDir="${build.classes.dir}"
+                   verbose="true"
+                   mode="import:server"
+                   doCompile="true"
+                   noDataBinding="true"
+                   package="sample.nodatabinding.service"
+                   outputmapping="${build.classes.dir}/BookQuoteService-mapping.xml"
+                   wsdl="${src.conf}/BookQuoteService.wsdl"&gt;
+            &lt;classpath refid="classpath" /&gt;
+        &lt;/wsdl2java&gt;
+    &lt;/target&gt;
+&lt;/project&gt;</pre>
+          </div></div><br class="example-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">실행 예제</strong></span></p>
+
+          
+
+          <pre class="screen">$ <span class="bold"><strong>jant</strong></span>
+Buildfile: build.xml
+...
+[wsdl2java] Compiling generated sources(1)...
+...
+BUILD SUCCESSFUL
+Total time: 6 seconds</pre>
+        </li></ul></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_wsgen"></a>5.5.3. wsgen</h3></div></div></div>
+    
+
+    <p>wsgen Task는 service endpoint interface 클래스(그리고 임의의 Java로 구현한 클래스)로부터
+    다음을 생성한다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>Portable Artifacts</p>
+        </li><li>
+          <p>웹 서비스의 WSDL파일(옵션)</p>
+        </li></ul></div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>wsgen Ant Task를 정의하는 클래스는 'jeus.webservices.jaxws.tools.WsGen2'
+        이다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p/>
+
+    <p>다음은 wsgen 속성에 대한 설명이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="120"/><col/></colgroup><thead><tr><th>속성</th><th>설명</th></tr></thead><tbody><tr><td>sei<a id="d4e23120" class="indexterm"></a></td><td>service endpoint interface 클래스 이름을 설정한다. (필수 입력항목, String
+            타입)</td></tr><tr><td>destdir<a id="d4e23126" class="indexterm"></a></td><td><p>생성된 클래스 파일이 놓일 디렉터리의 절대 경로를 설정한다. </p><p>(필수
+            입력항목, String 타입)</p></td></tr><tr><td>classpath<a id="d4e23134" class="indexterm"></a></td><td>입력으로 들어오는 클래스 파일들을 찾을 위치를 설정한다. (String 타입)</td></tr><tr><td>cp<a id="d4e23140" class="indexterm"></a></td><td>classpath 속성과 같다. (String 타입)</td></tr><tr><td>resourcedestdir<a id="d4e23146" class="indexterm"></a></td><td><p>genwsdl 속성과 함께 사용한다. WSDL 파일을 생성할 위치를
+            설정한다.</p><p> (String 타입)</p></td></tr><tr><td>sourcedestdir<a id="d4e23154" class="indexterm"></a></td><td>생성되는 소스 파일들의 위치를 설정한다. (String 타입)</td></tr><tr><td>keep<a id="d4e23160" class="indexterm"></a></td><td>생성되는 파일들을 보존 여부를 설정한다. (기본값: false)</td></tr><tr><td>verbose<a id="d4e23166" class="indexterm"></a></td><td>Verbose 메시지를 출력 여부를 설정한다. (기본값: false)</td></tr><tr><td>genwsdl<a id="d4e23172" class="indexterm"></a></td><td>WSDL 파일이 생성 여부를 설정한다. (기본값: false)</td></tr><tr><td>protocol<a id="d4e23178" class="indexterm"></a></td><td><p>genwsdl 속성과 함께 사용한다. </p><p>wsdl:binding
+            Element에 사용될 프로토콜을 설정한다. </p><p>기본값은 soap1.1이며 Xsoap1.2
+            Xsoap1.2와 같은 값들이 가능하다. Xsoap1.2는 표준은 아니며 extension 속성과 함께 쓰일 수 있다.
+            (String 타입)</p></td></tr><tr><td>servicename<a id="d4e23187" class="indexterm"></a></td><td>genwsdl 속성과 함께 사용한다. 생성되는 WSDL 파일의 특정 wsdl:service Element의
+            이름을 설정할 때 사용한다. (String 타입)</td></tr><tr><td>portname<a id="d4e23193" class="indexterm"></a></td><td>genwsdl 속성과 함께 사용한다. 생성되는 WSDL 파일의 특정 wsdl:portname
+            Element의 이름을 설정할 때 사용된다. (String 타입)</td></tr><tr><td>extension<a id="d4e23199" class="indexterm"></a></td><td>벤더 특정의 확장성을 설정할 때 사용한다. 상호 운용 및 이식성이 떨어질 수 있다. (Boolean
+            타입)</td></tr><tr><td>policy<a id="d4e23205" class="indexterm"></a></td><td>웹 서비스 정책 설정 파일을 읽어 들인다. (String 타입)</td></tr></tbody></table>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    <h4><a id="d4e23212"></a>예제</h4>
+
+    <p>build.xml을 작성한 예제와 이 build.xml을 통해 wsgen을 실행한는 예제이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">build.xml 작성 예제</strong></span></p>
+
+          <div class="example"><a id="d4e23219"></a><p class="title"><b>[예 5.6] wsgen Ant Task build 파일 예제 :
+            &lt;&lt;build.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="wsgen" default="build" basedir="."&gt;
+    &lt;property name="is.app-client.module" value="true" /&gt;
+    &lt;import file="../../common/common-build.xml" /&gt;
+    &lt;taskdef name="wsgen" classname="com.sun.tools.ws.ant.WsGen"&gt;
+        &lt;classpath refid="jeus.libraries.classpath" /&gt;
+    &lt;/taskdef&gt;
+    &lt;target name="-post-compile"&gt;
+        &lt;wsgen sei="fromjava.server.AddNumbersImpl"
+               destdir="${build.classes.dir}"
+               classpath="${build.classes.dir}"
+               resourcedestdir="${build.classes.dir}"
+               sourcedestdir="${build.classes.dir}"
+               genwsdl="true" /&gt;
+    &lt;/target&gt;
+&lt;/project&gt;</pre>
+          </div></div><br class="example-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">실행 예제</strong></span></p>
+
+          <pre class="screen">$ <span><strong class="guibutton">jant</strong></span>
+Buildfile: build.xml
+...
+
+     [echo] Compiling wsgen...
+...
+
+BUILD SUCCESSFUL
+Total time: 6 seconds</pre>
+
+          <p/>
+        </li></ul></div>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_wsimport"></a>5.5.4. wsimport</h3></div></div></div>
+    
+
+    <p/>
+
+    <p>wsimport Task는 웹 서비스의 WSDL로부터 다음의 2개 중에 하나를 생성한다</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>클라이언트 측 웹 서비스의 Stub Java 소스 코드들</p>
+        </li><li>
+          <p>서버 측 웹 서비스의 인터페이스 Java 소스 코드들</p>
+        </li></ul></div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>wsimport Ant Task를 정의하는 클래스는
+        'jeus.webservices.jaxws.tools.WsImport2' 이다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p/>
+
+    <p>다음은 wsimport 속성에 대한 설명이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="120"/><col/></colgroup><thead><tr><th>속성</th><th>설명</th></tr></thead><tbody><tr><td>wsdl<a id="d4e23257" class="indexterm"></a></td><td>Java 소스 파일을 생성하기 위해서 사용되는 WSDL의 URL이나 절대 경로를 설정한다. (필수
+            입력항목, String 타입)</td></tr><tr><td>destDir<a id="d4e23263" class="indexterm"></a></td><td>생성된 Java 파일이 놓일 디렉터리의 절대 경로를 설정한다. (String 타입)</td></tr><tr><td>sourcedestdir<a id="d4e23269" class="indexterm"></a></td><td>생성된 소스 파일들이 놓일 위치를 설정한다. 이 속성을 지정하면 keep 속성이 자동으로 설정된다.
+            (String 타입)</td></tr><tr><td>keep<a id="d4e23275" class="indexterm"></a></td><td>생성되는 파일들을 보존 여부를 설정한다. (기본값: false)</td></tr><tr><td>verbose<a id="d4e23281" class="indexterm"></a></td><td>Verbose 출력은 true일때 가능하다. (기본값: false)</td></tr><tr><td>binding<a id="d4e23287" class="indexterm"></a></td><td>외부의 JAX-WS 또는 JAXB 바인딩 파일들을 설정한다. (String 타입)</td></tr><tr><td>extension<a id="d4e23293" class="indexterm"></a></td><td>벤더 특정의 확장성을 설정할 때 사용한다. 상호 운용 및 이식성이 떨어질 수 있다. (Boolean
+            타입)</td></tr><tr><td>wsdllocation<a id="d4e23299" class="indexterm"></a></td><td>WSDL URI를 이 속성에 명시하면 그 URI 값이 생성되는 SEI와 서비스 인터페이스의
+            @WebService.wsdlLocation Annotation과
+            @WebServiceClient.wsdlLocation Annotation에 설정된다. (String
+            타입)</td></tr><tr><td>catalog<a id="d4e23305" class="indexterm"></a></td><td>TR9401, XCatalog, OASIS XML Catalog 형식과 같은 외부의 Entity 참조값을
+            설정할 수 있다. 또한 Ant xmlcatalog 타입을 사용할 수 있다. (String 타입)</td></tr><tr><td>package<a id="d4e23311" class="indexterm"></a></td><td><p>WSDL의 모든 Namespace URI에 대한 Java 패키지 이름을 설정한다.
+            </p><p>(String 타입)</p></td></tr><tr><td>target<a id="d4e23319" class="indexterm"></a></td><td>이곳에 지정된 JAXWS 스펙 버전에 따라 코드를 생성한다. (String 타입)</td></tr><tr><td>quiet<a id="d4e23325" class="indexterm"></a></td><td>출력 메시지들을 출력 여부를 설정한다. (기본값: false)</td></tr><tr><td>policy<a id="d4e23331" class="indexterm"></a></td><td>웹 서비스 정책 설정 파일을 읽어 들인다. (String 타입)</td></tr></tbody></table>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    <h4><a id="d4e23338"></a>예제</h4>
+
+    <p>다음은 build.xml을 작성한 예제와 build.xml을 통해 wsimport을 실행하는 예제이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">build.xml 작성 예제</strong></span></p>
+
+          <div class="example"><a id="d4e23345"></a><p class="title"><b>[예 5.7] wsimport Ant Task build 파일 예제 :
+            &lt;&lt;build.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="wsimport" default="build" basedir="."&gt;
+	&lt;property name="is.app-client.module" value="true" /&gt;
+    &lt;import file="../../common/common-build.xml" /&gt;
+    &lt;taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport"&gt;
+        &lt;classpath refid="jeus.libraries.classpath" /&gt;
+    &lt;/taskdef&gt;
+    &lt;target name="-pre-compile"&gt;
+        &lt;mkdir dir="${build.classes.dir}" /&gt;
+        &lt;wsimport wsdl="${src.conf}/AddNumbers.wsdl"
+                  destDir="${build.classes.dir}"
+                  sourcedestdir="${build.classes.dir}"
+                  package="fromwsdl.server" /&gt;
+    &lt;/target&gt;
+&lt;/project&gt;</pre>
+          </div></div><br class="example-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">실행 예제</strong></span></p>
+
+          <pre class="screen">$ <span><strong class="guibutton">jant</strong></span>
+Buildfile: build.xml
+...
+
+ [wsimport] Consider using &lt;depends&gt;/&lt;produces&gt; so that wsimport won't do
+unnecessary compilation
+ [wsimport] parsing WSDL...
+ [wsimport]
+ [wsimport]
+ [wsimport] generating code...
+...
+
+BUILD SUCCESSFUL
+Total time: 6 seconds</pre>
+
+          <p/>
+        </li></ul></div>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_xjc"></a>5.5.5. xjc</h3></div></div></div>
+    
+
+    <p>xjc Task는 XML 스키마 파일을 Java 프로그래밍 언어로 된 JAXB Content 클래스들로
+    변환한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p/>
+
+    <p>다음은 xjc 속성에 대한 설명이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="120"/><col/></colgroup><thead><tr><th>속성</th><th>설명</th></tr></thead><tbody><tr><td>wsdl<a id="d4e23373" class="indexterm"></a></td><td>컴파일하려는 스키마 파일이다. (필수 입력항목, String 타입)</td></tr><tr><td>binding<a id="d4e23379" class="indexterm"></a></td><td>스키마 파일에 적용될 외부 추가 바인딩 파일이다. (String 타입)</td></tr><tr><td>package<a id="d4e23385" class="indexterm"></a></td><td>이 옵션을 명시하면 생성되는 코드는 이 Java 패키지 하위에 위치한다. 이 옵션은 Command
+            Line의 -p 옵션과 동일한 효과를 갖는다. (String 타입)</td></tr><tr><td>destdir<a id="d4e23391" class="indexterm"></a></td><td>생성된 코드는 이 디렉터리 하위에 생성된다. (필수 입력항목, String 타입)</td></tr><tr><td>readonly<a id="d4e23397" class="indexterm"></a></td><td>true일 경우에 Java 소스 파일들은 읽기 가능 모드이다. (기본값: false)</td></tr><tr><td>extension<a id="d4e23403" class="indexterm"></a></td><td>true일 경우에 XJC 바인딩 컴파일러는 확장 모드로 실행된다. (기본값: false)</td></tr><tr><td>catalog<a id="d4e23409" class="indexterm"></a></td><td>TR9401, XCatalog, OASIS XML Catalog 포맷과 같은 외부 카탈로그 파일을 설정할
+            때 사용한다. (String 타입)</td></tr><tr><td>removeOldOutput<a id="d4e23415" class="indexterm"></a></td><td>"yes" 값으로 설정되면 produces Element가 가리키는 파일들은 XJC 바인딩 컴파일러가 소스
+            파일들을 재컴파일하기 전에 모두 삭제된다. (String 타입, "yes"|"no")</td></tr><tr><td>source<a id="d4e23421" class="indexterm"></a></td><td>사용할 스키마 컴파일러의 버전을 명시한다. (String 타입, 1.0|2.0)</td></tr></tbody></table>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    <h4><a id="d4e23428"></a>예제</h4>
+
+    <p>다음은 build.xml을 작성한 예제와 build.xml을 통해 xjc를 실행하는 예제이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">build.xml 작성 예제</strong></span></p>
+
+          <div class="example"><a id="d4e23435"></a><p class="title"><b>[예 5.8] xjc Ant Task build 파일 예제 :
+            &lt;&lt;build.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="xjc" default="build" basedir="."&gt;
+    &lt;property name="is.app-client.module" value="true" /&gt;
+    &lt;import file="../../common/common-build.xml" /&gt;
+    &lt;taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask"&gt;
+        &lt;classpath refid="jeus.libraries.classpath" /&gt;
+    &lt;/taskdef&gt;
+    &lt;target name="-pre-compile"&gt;
+        &lt;mkdir dir="${build.classes.dir}" /&gt;
+        &lt;xjc schema="${src.conf}/ts.xsd"
+             package="com.tmaxsoft"
+             destdir="${build.classes.dir}"&gt;
+            &lt;produces dir="${build.classes.dir}/com/tmaxsoft"
+                      includes="**/*.java" /&gt;
+            &lt;classpath refid="jeus.libraries.classpath" /&gt;
+            &lt;classpath refid="classpath" /&gt;
+        &lt;/xjc&gt;
+    &lt;/target&gt;
+&lt;/project&gt;</pre>
+          </div></div><br class="example-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">실행 예제</strong></span></p>
+
+          
+
+          <pre class="screen">$ <span><strong class="guibutton">jant</strong></span>
+Buildfile: build.xml
+
+...
+
+      [xjc] jeus/build/classes/com/tmaxsoft is not found and thus excluded from
+the dependency check
+      [xjc] Compiling file:/jeus/src/conf/ts.xsd
+      [xjc] Writing output to jeus/build/classes
+
+...
+
+BUILD SUCCESSFUL
+Total time: 4 seconds</pre>
+        </li></ul></div>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_schemagen"></a>5.5.6. schemagen</h3></div></div></div>
+    
+
+    <p>schemagen Task는 Java 클래스들에 나타나는 각각의 Namespace에 대해 하나의 스키마 파일을
+    생성한다.</p>
+
+    <p/>
+
+    <p/>
+
+    <p>다음은 schemagen의 속성에 대한 설명이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="120"/><col/></colgroup><thead><tr><th>속성</th><th>설명</th></tr></thead><tbody><tr><td>destdir<a id="d4e23461" class="indexterm"></a></td><td>생성되는 스키마 파일을 위치시킬 디렉터리를 설정한다. (String 타입)</td></tr><tr><td>classpath<a id="d4e23467" class="indexterm"></a></td><td>클래스 패스를 설정한다. (String 타입)</td></tr></tbody></table>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    <h4><a id="d4e23474"></a>예제</h4>
+
+    <p>build.xml을 작성한 예제와 build.xml을 통해 schemagen을 실행하는 예제이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">build.xml 작성 예제</strong></span></p>
+
+          <p/>
+
+          <div class="example"><a id="d4e23482"></a><p class="title"><b>[예 5.9] schemagen Ant Task build 파일 예제 :
+            &lt;&lt;build.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="schemagen" default="build" basedir="."&gt;
+    &lt;property name="is.app-client.module" value="true" /&gt;
+    &lt;import file="../../common/common-build.xml" /&gt;
+    &lt;taskdef name="schemagen" classname="com.sun.tools.jxc.SchemaGenTask"&gt;
+        &lt;classpath refid="jeus.libraries.classpath" /&gt;
+    &lt;/taskdef&gt;
+    &lt;target name="-pre-compile"&gt;
+        &lt;mkdir dir="${build.classes.dir}" /&gt;
+        &lt;schemagen destdir="${build.classes.dir}"&gt;
+            &lt;src path="${src.dir}" /&gt;
+            &lt;classpath refid="jeus.libraries.classpath" /&gt;
+            &lt;classpath refid="classpath" /&gt;
+        &lt;/schemagen&gt;
+    &lt;/target&gt;
+&lt;/project&gt;</pre>
+          </div></div><br class="example-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">실행 예제</strong></span></p>
+
+          <pre class="screen">$ <span><strong class="guibutton">jant</strong></span>
+Buildfile: build.xml
+
+...
+
+[schemagen] Generating schema from 2 source files
+[schemagen] Note: Writing jeus/schema1.xsd
+
+...
+
+BUILD SUCCESSFUL
+Total time: 5 seconds</pre>
+
+          <p/>
+        </li></ul></div>
+  </div>
+</div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jaxws_maven_plugin"></a>5.6. 웹 서비스 Maven Plugin</h2></div></div></div>
+  
+
+  <p>본 절에서는 JEUS에서 JAX-WS 기반의 웹 서비스 생성과 웹 서비스 클라이언트를 위해 제공하는 Maven Plugin에
+  대해서 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_wsgen_plugin"></a>5.6.1. wsgen</h3></div></div></div>
+    
+
+    <p>wsgen Plugin은 service endpoint interface 클래스(그리고 임의의 Java로 구현한
+    클래스)로부터 다음을 생성한다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>Portable Artifacts</p>
+        </li><li>
+          <p>웹 서비스의 WSDL파일(옵션)</p>
+        </li></ul></div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>wsgen plugin은 JEUS_HOME/lib/client/jeus-ws-maven-plugin.jar으로
+        제공된다. wsgen plugin을 사용하기 위해서는 다음 작업이 선행되어야 한다.</p>
+
+        <p>1. jeus-ws-maven-plugin.jar 파일을 로컬 Repository에 install한다.</p>
+
+        <p>2. JDK 7 환경에서는 Maven option에
+        '-Djava.endorsed.dirs=JEUS_HOME/lib/endorsed'를 추가한다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p/>
+
+    <p>다음은 wsgen plugin 속성에 대한 설명이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="120"/><col/></colgroup><thead><tr><th>속성</th><th>설명</th></tr></thead><tbody><tr><td>sei<a id="d4e23523" class="indexterm"></a></td><td>SEI 클래스의 이름을 설정한다. (필수 입력항목, String 타입)</td></tr><tr><td>destDir<a id="d4e23529" class="indexterm"></a></td><td><p>생성된 클래스 파일이 놓일 디렉터리의 절대 경로를 설정한다. </p><p>(기본값:
+            ${project.build.outputDirectory})</p></td></tr><tr><td>resourceDestDir<a id="d4e23537" class="indexterm"></a></td><td><p>genwsdl 속성과 함께 사용한다. WSDL 파일을 생성할 위치를 설정한다.
+            </p><p>(기본값:
+            ${project.build.directory}/generated-sources/wsdl)</p></td></tr><tr><td>sourceDestDir<a id="d4e23545" class="indexterm"></a></td><td><p>생성되는 소스 파일들의 위치를 설정한다.</p><p> (기본값:
+            ${project.build.directory}/generated-sources/wsgen)</p></td></tr><tr><td>keep<a id="d4e23553" class="indexterm"></a></td><td>생성되는 파일들을 보존 여부를 설정한다. (기본값: true)</td></tr><tr><td>verbose<a id="d4e23559" class="indexterm"></a></td><td>Verbose 메시지를 출력 여부를 설정한다. (기본값: false)</td></tr><tr><td>genWsdl<a id="d4e23565" class="indexterm"></a></td><td>WSDL 파일이 생성 여부를 설정한다. (기본값: false)</td></tr><tr><td>protocol<a id="d4e23571" class="indexterm"></a></td><td>genwsdl 속성과 함께 쓰이며 wsdl:binding Element에 사용될 프로토콜을 설정한다.
+            기본값은 soap1.1 이며 Xsoap1.2 Xsoap1.2와 같은 값들이 가능하다. Xsoap1.2는 표준은 아니며
+            extension 속성과 함께 쓰일 수 있다. (String 타입)</td></tr><tr><td>servicename<a id="d4e23577" class="indexterm"></a></td><td>genwsdl 속성과 함께 사용한다. 생성되는 WSDL 파일의 특정 wsdl:service Element의
+            이름을 설정할 때 사용한다. (String 타입)</td></tr><tr><td>portname<a id="d4e23583" class="indexterm"></a></td><td>genwsdl 속성과 함께 사용한다. 생성되는 WSDL 파일의 특정 wsdl:portname
+            Element의 이름을 설정할 때 사용된다. (String 타입)</td></tr><tr><td>extension<a id="d4e23589" class="indexterm"></a></td><td>벤더 특정의 확장성을 설정할 때 사용한다. 상호 운용 및 이식성이 떨어질 수 있다. (기본값:
+            false)</td></tr></tbody></table>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    <h4><a id="d4e23596"></a>예제 </h4>
+
+    <p>pom.xml을 작성한 예제와 이 pom.xml을 통해 wsgen plugin을 실행하는 예제에 대한
+    설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">pom.xml 작성 예제</strong></span></p>
+
+          <div class="example"><a id="d4e23603"></a><p class="title"><b>[예 5.10] wsgen plugin pom 파일 예제 : &lt;&lt;pom.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    
+    &lt;groupId&gt;jeus.webservices.maven.sample&lt;/groupId&gt;
+    &lt;artifactId&gt;wsgen_sample&lt;/artifactId&gt;
+    &lt;version&gt;0.0.1&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+    
+    &lt;name&gt;${project.artifactId}&lt;/name&gt;
+    
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;jeus.ws&lt;/groupId&gt;
+                &lt;artifactId&gt;jeus-ws-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;0.0.1&lt;/version&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;wsgen_test&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;wsgen&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;sei&gt;jeus.webservices.sample.EchoService&lt;/sei&gt;
+                            &lt;extension&gt;true&lt;/extension&gt;
+                            &lt;genWsdl&gt;true&lt;/genWsdl&gt;
+                            &lt;keep&gt;true&lt;/keep&gt;
+                            &lt;inlineSchemas&gt;true&lt;/inlineSchemas&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+
+                &lt;dependencies&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;com.sun&lt;/groupId&gt;
+                        &lt;artifactId&gt;tools&lt;/artifactId&gt;
+                        &lt;version&gt;1.6&lt;/version&gt;
+                        &lt;scope&gt;system&lt;/scope&gt;
+                        &lt;systemPath&gt;${java.home}/../lib/tools.jar&lt;/systemPath&gt;
+                    &lt;/dependency&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+                        &lt;artifactId&gt;jaxws-tools&lt;/artifactId&gt;
+                        &lt;version&gt;2.2&lt;/version&gt;
+                        &lt;scope&gt;system&lt;/scope&gt;
+                        &lt;systemPath&gt;${jeus.home}/lib/system/jaxws-tools.jar&lt;/systemPath&gt;
+                    &lt;/dependency&gt;
+                &lt;/dependencies&gt;
+            &lt;/plugin&gt;
+            
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.3.2&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;1.6&lt;/source&gt;
+                    &lt;target&gt;1.6&lt;/target&gt;
+                    &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+                    &lt;compilerArguments&gt;
+                        &lt;endorseddirs&gt;${jeus.home}/lib/endorsed&lt;/endorseddirs&gt;
+                    &lt;/compilerArguments&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;  
+    &lt;/build&gt;
+
+&lt;/project&gt;
+</pre>
+          </div></div><br class="example-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">실행 예제</strong></span></p>
+
+          <pre class="screen">$ <span><strong class="guibutton">mvn -Djeus.home=${JEUS_HOME} process-classes</strong></span>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building wsgen_sample 0.0.1
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ wsgen_sample ---
+[INFO] skip non existing resourceDirectory /jeus/wsgen/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ wsgen_sample ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- jeus-ws-maven-plugin:0.0.1:wsgen (wsgen_test) @ wsgen_sample ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 3.773s
+[INFO] ------------------------------------------------------------------------
+</pre>
+
+          <p/>
+        </li></ul></div>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_wsimport_plugin"></a>5.6.2. wsimport</h3></div></div></div>
+    
+
+    <p>wsimport Plugin은 웹 서비스의 WSDL로부터 다음의 2개 중에 하나를 생성한다</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>클라이언트 측 웹 서비스의 Stub Java 소스 코드들</p>
+        </li><li>
+          <p>서버 측 웹 서비스의 인터페이스 Java 소스 코드들</p>
+        </li></ul></div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>wsimport plugin은 JEUS_HOME/lib/client/jeus-ws-maven-plugin.jar으로
+        제공된다. wsimport plugin을 사용하기 위해서는 다음 작업이 선행되어야 한다.</p>
+
+        <p>1. jeus-ws-maven-plugin.jar 파일을 로컬 Repository에 install한다.</p>
+
+        <p>2. JDK 7 환경에서는 mavan option에
+        '-Djava.endorsed.dirs=JEUS_HOME/lib/endorsed'를 추가한다.</p>
+      </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p/>
+
+    <p>다음은 wsimport plugin 속성에 대한 설명이다.</p>
+
+    <div class="informaltable">
+      <table border="1"><colgroup><col width="120"/><col/></colgroup><thead><tr><th>속성</th><th>설명</th></tr></thead><tbody><tr><td>wsdlDirectory<a id="d4e23642" class="indexterm"></a></td><td>Java 소스 파일을 생성하기 위해서 사용되는 WSDL 파일들을 포함한 디렉터리 경로를 설정한다.
+            (기본값: ${basedir}/src/wsdl)</td></tr><tr><td>wsdlFiles<a id="d4e23648" class="indexterm"></a></td><td>Local WSDL 파일 리스트를 설정한다. (String 타입)</td></tr><tr><td>wsdlUrls<a id="d4e23654" class="indexterm"></a></td><td>External WSDL URL 리스트를 설정한다. (String 타입)</td></tr><tr><td>destDir<a id="d4e23660" class="indexterm"></a></td><td><p>생성된 Java 파일이 놓일 디렉터리 경로를 설정한다. </p><p>(기본값:
+            ${project.build.outputDirectory})</p></td></tr><tr><td>sourceDestDir<a id="d4e23668" class="indexterm"></a></td><td>생성된 소스 파일들이 놓일 위치를 설정한다. 이 속성을 지정하면 keep 속성이 자동으로 설정된다.
+            (기본값:
+            ${project.build.directory}/generated-sources/wsimport)</td></tr><tr><td>keep<a id="d4e23674" class="indexterm"></a></td><td>생성되는 파일들을 보존 여부를 설정한다. (기본값: true)</td></tr><tr><td>verbose<a id="d4e23680" class="indexterm"></a></td><td>Verbose 출력은 true일 때 가능하다. (기본값: false)</td></tr><tr><td>bindingDirectory<a id="d4e23686" class="indexterm"></a></td><td><p>JAX-WS 또는 JAXB 바인딩 파일들을 포함한 디렉터리 경로를 설정한다.
+            </p><p>(기본값: ${basedir}/src/jaxws)</p></td></tr><tr><td>bindingFiles<a id="d4e23694" class="indexterm"></a></td><td>JAX-WS 또는 JAXB 바인딩 파일 리스트를 설정한다. (String 타입)</td></tr><tr><td>extension<a id="d4e23700" class="indexterm"></a></td><td>벤더 특정의 확장성을 설정할 때 사용한다. 상호 운용 및 이식성이 떨어질 수 있다. (기본값:
+            false)</td></tr><tr><td>wsdlLocation<a id="d4e23706" class="indexterm"></a></td><td>WSDL URI를 이 속성에 명시하면 그 URI 값이 생성되는 service end-point
+            interface와 서비스 인터페이스의 @WebService.wsdlLocation Annotation과
+            @WebServiceClient.wsdlLocation Annotation에 설정된다.</td></tr><tr><td>catalog<a id="d4e23712" class="indexterm"></a></td><td>TR9401, XCatalog, OASIS XML Catalog 형식과 같은 외부의 Entity 참조값을
+            설정할 수 있다. 또한 Ant xmlcatalog 타입을 사용할 수 있다.</td></tr><tr><td>packageName<a id="d4e23718" class="indexterm"></a></td><td><p>WSDL의 모든 Namespace URI에 대한 Java 패키지 이름을 설정한다.
+            </p><p>(String 타입)</p></td></tr><tr><td>target<a id="d4e23726" class="indexterm"></a></td><td>이곳에 지정된 JAXWS 스펙 버전에 따라 코드를 생성한다. (String 타입)</td></tr><tr><td>quiet<a id="d4e23732" class="indexterm"></a></td><td>출력 메시지들을 출력 여부를 설정한다. (기본값: false)</td></tr></tbody></table>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    
+
+    <h4><a id="d4e23739"></a>예제 </h4>
+
+    <p>다음은 pom.xml을 작성한 예제와 pom.xml을 통해 wsimport plugin을 실행하는 예제에 대한
+    설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">pom.xml 작성 예제</strong></span></p>
+
+          <div class="example"><a id="d4e23746"></a><p class="title"><b>[예 5.11] wsimport plugin pom 파일 예제 : &lt;&lt;pom.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    
+    &lt;groupId&gt;jeus.webservices.maven.sample&lt;/groupId&gt;
+    &lt;artifactId&gt;wsimport_sample&lt;/artifactId&gt;
+    &lt;version&gt;0.0.1&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+    
+    &lt;name&gt;${project.artifactId}&lt;/name&gt;
+    
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;jeus.ws&lt;/groupId&gt;
+                &lt;artifactId&gt;jeus-ws-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;0.0.1&lt;/version&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;wsimport_test&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;wsimport&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;packageName&gt;jeus.webservices.sample.test&lt;/packageName&gt;
+                            &lt;wsdlDirectory&gt;${basedir}/src/wsdl&lt;/wsdlDirectory&gt;
+                            &lt;wsdlFiles&gt;
+                                &lt;wsdlFile&gt;EchoService.wsdl&lt;/wsdlFile&gt;
+                            &lt;/wsdlFiles&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+
+                &lt;dependencies&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;com.sun&lt;/groupId&gt;
+                        &lt;artifactId&gt;tools&lt;/artifactId&gt;
+                        &lt;version&gt;1.6&lt;/version&gt;
+                        &lt;scope&gt;system&lt;/scope&gt;
+                        &lt;systemPath&gt;${java.home}/../lib/tools.jar&lt;/systemPath&gt;
+                    &lt;/dependency&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+                        &lt;artifactId&gt;jaxws-tools&lt;/artifactId&gt;
+                        &lt;version&gt;2.2&lt;/version&gt;
+                        &lt;scope&gt;system&lt;/scope&gt;
+                        &lt;systemPath&gt;${jeus.home}/lib/system/jaxws-tools.jar&lt;/systemPath&gt;
+                    &lt;/dependency&gt;
+                &lt;/dependencies&gt;
+            &lt;/plugin&gt;
+            
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.3.2&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;1.6&lt;/source&gt;
+                    &lt;target&gt;1.6&lt;/target&gt;
+                    &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+                    &lt;compilerArguments&gt;
+                        &lt;endorseddirs&gt;${jeus.home}/lib/endorsed&lt;/endorseddirs&gt;
+                    &lt;/compilerArguments&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;  
+    &lt;/build&gt;
+
+&lt;/project&gt;
+</pre>
+          </div></div><br class="example-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">실행 예제</strong></span></p>
+
+          <pre class="screen">$ <span><strong class="guibutton">mvn -Djeus.home=${JEUS_HOME} generate-sources</strong></span>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building wsimport_sample 0.0.1
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- jeus-ws-maven-plugin:0.0.1:wsimport (wsimport_test) @ wsimport_sample ---
+[INFO] Processing: file:/jeus/wsimport/src/wsdl/EchoService.wsdl
+[INFO] jaxws:wsimport args: [-keep, -s, /jeus/wsimport/target/generated-sources/wsimport, 
+-Xnocompile, -p, jeus.webservices.sample.test, file:/jues/wsimport/src/wsdl/EchoService.wsdl]
+parsing WSDL...
+
+
+
+Generating code...
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.052s
+[INFO] ------------------------------------------------------------------------
+</pre>
+
+          <p/>
+        </li></ul></div>
+
+    <p/>
+
+    <p/>
+  </div>
+</div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jeusadmin_ant_task"></a>5.7. jeusadmin 명령어 실행</h2></div></div></div>
+  
+
+  <p>Ant Build 파일(일반적으로 build.xml)을 편집하여 jeusadmin 명령어를 실행하는 방법을 소개한다. 예제를
+  통해 Ant Target을 작성하는 방법을 설명한다.</p>
+
+  <p/>
+
+  <h3><a id="d4e23763"></a>예제 </h3>
+
+  <p>다음은 Ant를 사용하여 server-info 명령어 수행하는 예제이다. </p><pre class="programlisting">&lt;project name="check-server-state-example" default="check-server-state"&gt;
+    &lt;property environment="env"/&gt;
+    &lt;property name="jeus.home" value="${env.JEUS_HOME}"/&gt;
+    &lt;property name="jeus.home.bin" value="${jeus.home}/bin"/&gt;
+    &lt;property name="unix.jeusadmin" value="${jeus.home.bin}/jeusadmin"/&gt;
+    &lt;property name="windows.jeusadmin" value="${jeus.home.bin}/jeusadmin.cmd"/&gt;
+    &lt;property name="jeusadmin.args" value="-u administrator -p jeus -host host1 -port 9736 -verbose"/&gt;
+    &lt;property name="server.name" value="adminServer"/&gt;
+    &lt;property name="cmd.target" value="server-info -server ${server.name} -state"/&gt;
+    
+    &lt;condition property="isWindows"&gt;
+        &lt;os family="windows"/&gt;
+    &lt;/condition&gt;
+    &lt;condition property="isUnix"&gt;
+        &lt;os family="unix"/&gt;
+    &lt;/condition&gt;
+
+    &lt;target name="check-server-state"&gt;
+        &lt;antcall target="check-server-state-unix"/&gt;
+        &lt;antcall target="check-server-state-windows"/&gt;
+    &lt;/target&gt;
+
+    &lt;target name="check-server-state-windows" if="isWindows"&gt;
+        &lt;echo&gt;${windows.jeusadmin} ${jeusadmin.args} ${cmd.target}&lt;/echo&gt;
+        &lt;exec executable="${windows.jeusadmin}" osfamily="windows" spawn="false" 
+              failonerror="true"&gt;
+            &lt;arg line="${jeusadmin.args}"/&gt;
+            &lt;arg value="${cmd.target}"/&gt;
+        &lt;/exec&gt;
+    &lt;/target&gt;
+
+    &lt;target name="check-server-state-unix" if="isUnix"&gt;
+        &lt;echo&gt;${unix.jeusadmin} ${jeusadmin.args} ${cmd.target}&lt;/echo&gt;
+        &lt;exec executable="${unix.jeusadmin}" osfamily="unix" spawn="false" 
+              failonerror="true"&gt;
+            &lt;arg line="${jeusadmin.args}"/&gt;
+            &lt;arg value="${cmd.target}"/&gt;
+        &lt;/exec&gt;
+    &lt;/target&gt;
+&lt;/project&gt;</pre>
+
+  <div class="itemizedlist"><ul type="circle"><li style="list-style-type: circle">
+      <p>jeus.home은 JEUS가 설치되어 있는 위치를 가리킨다. 위 예제에서는 시스템 환경 변수 JEUS_HOME에 해당
+      위치가 저장되어 있는 것으로 가정하였다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS에서 제공하는 jant 스크립트를 사용하여 ant를 실행할 경우 JEUS_HOME을 별도로 지정하지 않아도
+        된다.</p>
+      </div>
+    </li><li style="list-style-type: circle">
+      <p>unix.jeusadmin과 windows.jeusadmin은 jeusadmin 툴을 실행하기 위한 스크립트의 위치를
+      가리킨다. 일반적으로 jeusadmin 스크립트는 JEUS_HOME/bin 아래에 위치한다. UNIX와 Windows 운영체제에서
+      스크립트 이름이 다르기 때문에 property를 2개 사용하였다.</p>
+    </li><li style="list-style-type: circle">
+      <p>jeusadmin.args는 jeusadmin 툴을 실행할 때 사용할 인자값들이다. 사용자 이름, 비밀번호, 호스트
+      주소, 포트 번호, 상세 출력(verbose) 여부 등 필요한 옵션을 설정한다. 옵션에 대한 자세한 내용은 <a href="ch04.html#jeusadmin-jeusadmin" title="4.2.1.1. jeusadmin">“4.2.1.1. jeusadmin”</a>을 참고한다.</p>
+    </li><li style="list-style-type: circle">
+      <p>cmd.target은 실행할 명령어를 지정한다. 예제에서는 server-info 명령어를 사용하여 서버 상태를
+      확인하고자 하였으므로, 'server-info -server ${server.name} -state'로 설정하였다.
+      jeusadmin에서 사용할 수 있는 명령어에 대한 자세한 사항은 <a href="console-tools.html" title="Part II. 콘솔 명령어와 툴">“Part II, 콘솔 명령어와 툴”</a>을
+      참고한다.</p>
+    </li><li style="list-style-type: circle">
+      <p>check-server-state-windows와 check-server-state-unix target들에서는
+      exec task를 사용하여 jeusadmin을 실행한다. osfamily 속성을 사용하여 운영체제의 종류에 맞는 스크립트가
+      실행될 수 있게 하였다. &lt;exec&gt; 태그에서 spawn 속성을 false로 주어야 Ant를 통해 수행 결과를 확인할
+      수 있다. 만약 명령어 수행이 실패하였을 때 Ant build가 실패하게 할 경우 failonerror 속성을 true로
+      설정한다.</p>
+    </li></ul></div>
+
+  <p/>
+
+  <p/>
+
+  <p/>
+
+  <div class="literallayout"><p/></div>
+
+  <p>예제를 UNIX 운영체제에서 실행한 결과는 다음과 같다.</p>
+
+  <pre class="screen">JEUS_HOME/bin$<span class="bold"><strong>jant check-server-state</strong></span>
+Buildfile: JEUS_HOME/bin/build.xml
+
+check-server-state:
+
+check-server-state-unix:
+     [echo] JEUS_HOME/bin/jeusadmin -u administrator -p jeus -host host1 -port 9736 -verbose server-info -server adminServer -state
+     [exec] Verbose output is enabled.
+     [exec] Attempting to connect to localhost:9736.
+     [exec] The connection has been established to Domain Administration Server adminServer in the domain domain1.
+     [exec] RUNNING
+     [exec] 
+
+check-server-state-windows:
+
+BUILD SUCCESSFUL
+Total time: 1 second
+JEUS_HOME/bin$
+</pre>
+</div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jeus_maven_plugin"></a>5.8. Maven Plugin</h2></div></div></div>
+  
+
+  <p>본 절에서는 JEUS Maven Plugin에 대해 설명한다. JEUS Maven Plugin을 사용하면 Apache
+  Maven을 사용하여 JEUS 서버를 기동하거나, 애플리케이션을 배포하는 등과 같은 작업을 수행할 수 있다.</p>
+
+  <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>본 절에서는 Apache Maven에 대한 기본적인 내용은 서술하지 않으며, 독자가 이미 Apache Maven에 대한
+      충분한 지식을 갖추고 있고, Apache Maven이 이미 정상적으로 설치되어 있다고 가정하고 설명을 진행한다. Apache
+      Maven에 대한 사항은 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://maven.apache.org" target="_top">http://maven.apache.org</a>을
+      참고하도록 한다.</p>
+    </div>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_wsgen_plugin"></a>5.8.1. 설치</h3></div></div></div>
+    
+
+    <p>JEUS Maven Plugin을 사용하기 위해서는 플러그인을 설치하는 작업을 먼저 진행해야 한다.</p>
+
+    <p>JEUS Maven Plugin은 다음 경로에서 찾을 수 있다. </p><pre class="programlisting">JEUS_HOME/lib/systemapps/jeus-maven-plugin.jar</pre>
+
+    <p/>
+
+    <p>설치 과정은 다음과 같다.</p>
+
+    <div class="orderedlist"><ol type="1"><li>
+        <p>jeus-maven-plugin.jar를 임의의 디렉터리에 복사한다(디렉터리 이름은 임의로 설정한다).</p>
+
+        <pre class="screen">mkdir /home/user1/jeus-maven-plugin
+cd /home/user1/jeus-maven-plugin
+cp JEUS_HOME/lib/systemapps/jeus-maven-plugin.jar /home1/user/jeus-maven-plugin</pre>
+      </li><li>
+        <p>임의의 디렉터리로 이동한 후 jeus-maven-plugin.jar에 압축되어 있는 pom.xml을
+        푼다.</p>
+
+        <pre class="screen">jar xvf /home/user1/jeus-maven-plugin/jeus-maven-plugin META-INF/maven/jeus.tool/jeus-maven-plugin/pom.xml</pre>
+      </li><li>
+        <p>다음 명령어를 이용하여 JEUS Maven Plugin을 사용자의 maven local repository에
+        설치한다.</p>
+
+        <pre class="screen">mvn install:install-file -Dfile=/home/user1/jeus-maven-plugin/jeus-maven-plugin.jar -DpomFile=META-INF/maven/jeus.tool/jeus-maven-plugin/pom.xml</pre>
+      </li></ol></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e23816"></a>5.8.2. Maven Plugin Goals</h3></div></div></div>
+    
+
+    <p>JEUS Maven Plugin에서 제공하는 goal들에 대해 설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e23819"></a>5.8.2.1. start-das</h4></div></div></div>
+      
+
+      <p>DAS(start-das)를 기동한다. 내부적으로는 JEUS_HOME/bin 아래에 있는 스크립트를
+      실행한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>사용법 </p><pre class="programlisting">jeus.tool:jeus-maven-plugin:start-das</pre>
+          </li><li>
+            <p>매개변수</p>
+
+            <p>아래 매개변수 중 user와 password, filename은 필수 입력항목이 아니지만,
+            user/password 또는 filename 중 하나는 반드시 설정해야 한다.</p>
+
+            <p/>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="100" align="left"/><col width="120" align="left"/><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">매개변수 이름</th><th align="left">프로퍼티 이름</th><th align="left">타입</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">jeusHome</td><td align="left">jeus.home</td><td align="left">java.lang.String</td><td><p>JEUS가 설치되어 있는 경로를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">host</td><td align="left">jeus.server.host</td><td align="left">java.lang.String</td><td><p>DAS의 host address를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">port</td><td align="left">jeus.server.port</td><td align="left">java.lang.Integer</td><td>DAS의 포트 번호를 설정한다. (필수 입력항목)</td></tr><tr><td align="left">user</td><td align="left">jeus.user.name</td><td align="left">java.lang.String</td><td>JEUS 사용자 이름을 설정한다.</td></tr><tr><td align="left">password</td><td align="left">jeus.user.password</td><td align="left">java.lang.String</td><td>JEUS 사용자 비밀번호를 설정한다.</td></tr><tr><td align="left">domain</td><td align="left">jeus.domain.name</td><td align="left">java.lang.String</td><td><p>DAS가 속한 domain 이름을 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">server</td><td align="left">jeus.server.name</td><td align="left">java.lang.String</td><td>DAS 이름을 설정한다. (필수 입력항목)</td></tr><tr><td align="left">filename</td><td align="left">jeus.auth.file</td><td align="left">java.lang.String</td><td>JEUS 인증할 때 사용할 계정 정보 파일을 설정한다.
+                    startDomainAdminServer 스크립트에서 제공하는 f 옵션과 동일하다.</td></tr><tr><td align="left">waitingTime</td><td align="left">jeus.boot.timeout</td><td align="left">java.lang.Integer</td><td>JEUS를 기동시키고 난 후 플러그인에서는 일정 시간 동안 기다리면서 서버가 제대로
+                    기동되었는지 여부를 검사하여 goal이 성공적으로 수행되었는지 여부를 판단한다. 이때 얼마나 기다릴지
+                    설정하는 값이다. (단위: 초, 기본값: 10초)</td></tr><tr><td align="left">cachelogin</td><td align="left">jeus.server.start.cachelogin</td><td align="left">boolean</td><td>기동할 때 사용한 인증 정보를 저장할지 여부를 설정한다. (기본값:
+                    false)</td></tr><tr><td align="left">force</td><td align="left">jeus.server.start.forced</td><td align="left">boolean</td><td>기동할 때 설정되어 있는 애플리케이션이 모두 RUNNING 상태가 되지 않더라도 부팅이
+                    완료되게 한다. (기본값: false)</td></tr><tr><td align="left">rolling</td><td align="left">jeus.server.start.rolling</td><td align="left">boolean</td><td><p>Rolling patch 기능 사용 여부를 설정한다.
+                    </p><p>(기본값: false)</p></td></tr><tr><td align="left">verbose</td><td align="left">jeus.server.start.verbose</td><td align="left">boolean</td><td><p>상세 출력 사용 여부를 설정한다. </p><p>(기본값:
+                    false)</p></td></tr><tr><td align="left">standby</td><td align="left">jeus.server.start.standby</td><td align="left">boolean</td><td><p>Standby booting 사용 여부를 설정한다.
+                    </p><p>(기본값: false)</p></td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p>예제</p>
+
+            <p>매개변수는 pom.xml에 설정하거나 command line에서 실행할 때 지정할 수 있다.</p>
+
+            <p>다음은 pom.xml에 설정을 한 예제이다.</p>
+
+            <pre class="programlisting">&lt;!-- JEUS Maven Plugin - start-das --&gt;
+&lt;plugin&gt;
+    &lt;groupId&gt;jeus.tool&lt;/groupId&gt;
+    &lt;artifactId&gt;jeus-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;8.0.0.0&lt;/version&gt;
+    &lt;configuration&gt;
+      &lt;jeusHome&gt;/home/user1/jeus&lt;/jeusHome&gt;
+    &lt;host&gt;host1&lt;/host&gt;
+    &lt;port&gt;9736&lt;/port&gt;
+    &lt;user&gt;administrator&lt;/user&gt;
+    &lt;password&gt;jeus&lt;/password&gt;
+    &lt;domain&gt;domain1&lt;/domain&gt;
+    &lt;server&gt;adminServer&lt;/server&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+
+            <p>goal을 실행하였을 경우 출력되는 결과는 다음과 같다.</p>
+
+            <pre class="programlisting">$ <span><strong class="guibutton">mvn jeus.tool:jeus-maven-plugin:start-das</strong></span>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building maven-sample-project 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- jeus-maven-plugin:8.0.0.0:start-das (default-cli) @ maven-sample ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 11.414s
+[INFO] Finished at: Mon Feb 17 16:16:39 KST 2014
+[INFO] Final Memory: 2M/61M
+[INFO] ------------------------------------------------------------------------
+</pre>
+          </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e23932"></a>5.8.2.2. start-ms</h4></div></div></div>
+      
+
+      <p>MS를 기동한다. 내부적으로는 JEUS_HOME/bin 아래에 있는 스크립트를 실행한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>사용법</p>
+
+            <pre class="programlisting">jeus.tool:jeus-maven-plugin:start-ms</pre>
+          </li><li>
+            <p>매개변수</p>
+
+            <p>아래 매개변수 중 user와 password, filename은 필수 입력항목이 아니지만,
+            user/password 또는 filename 중 하나는 반드시 설정해야 한다.</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="100" align="left"/><col width="120" align="left"/><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">매개변수 이름</th><th align="left">프로퍼티 이름</th><th align="left">타입</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">jeusHome</td><td align="left">jeus.home</td><td align="left">java.lang.String</td><td><p>JEUS가 설치되어 있는 경로를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">host</td><td align="left">jeus.server.host</td><td align="left">java.lang.String</td><td><p>DAS의 host address를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">port</td><td align="left">jeus.server.port</td><td align="left">java.lang.Integer</td><td>DAS의 포트 번호를 설정한다. (필수 입력항목)</td></tr><tr><td align="left">user</td><td align="left">jeus.user.name</td><td align="left">java.lang.String</td><td>JEUS 사용자 이름을 설정한다.</td></tr><tr><td align="left">password</td><td align="left">jeus.user.password</td><td align="left">java.lang.String</td><td>JEUS 사용자 비밀번호를 설정한다.</td></tr><tr><td align="left">domain</td><td align="left">jeus.domain.name</td><td align="left">java.lang.String</td><td><p>DAS가 속한 domain 이름을 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">server</td><td align="left">jeus.server.name</td><td align="left">java.lang.String</td><td>DAS 이름을 설정한다. (필수 입력항목)</td></tr><tr><td align="left">filename</td><td align="left">jeus.auth.file</td><td align="left">java.lang.String</td><td>JEUS를 인증할 때 사용할 계정 정보 파일을 설정한다.
+                    startDomainAdminServer 스크립트에서 제공하는 f 옵션과 동일하다.</td></tr><tr><td align="left">waitingTime</td><td align="left">jeus.boot.timeout</td><td align="left">java.lang.Integer</td><td>JEUS를 기동시키고 난 후 플러그인에서는 일정 시간 동안 기다리면서 서버가 제대로
+                    기동되었는지 여부를 검사하여 goal이 성공적으로 수행되었는지 여부를 판단한다. 이때 얼마나 기다릴지
+                    설정하는 값이다. (단위: 초, 기본값: 10초)</td></tr><tr><td align="left">cachelogin</td><td align="left">jeus.server.start.cachelogin</td><td align="left">boolean</td><td>기동할 때 사용한 인증 정보를 저장할지 여부를 설정한다. (기본값:
+                    false)</td></tr><tr><td align="left">force</td><td align="left">jeus.server.start.forced</td><td align="left">boolean</td><td>기동할 때 설정되어 있는 애플리케이션이 모두 RUNNING 상태가 되지 않더라도 부팅이
+                    완료되게 한다. (기본값: false)</td></tr><tr><td align="left">rolling</td><td align="left">jeus.server.start.rolling</td><td align="left">boolean</td><td><p>Rolling patch 기능 사용 여부를 설정한다.
+                    </p><p>(기본값: false)</p></td></tr><tr><td align="left">verbose</td><td align="left">jeus.server.start.verbose</td><td align="left">boolean</td><td>상세 출력 사용 여부를 설정한다. (기본값: false)</td></tr><tr><td align="left">standby</td><td align="left">jeus.server.start.standby</td><td align="left">boolean</td><td><p>Standby booting 사용 여부를 설정한다.
+                    </p><p>(기본값: false)</p></td></tr><tr><td align="left">dasurl</td><td align="left">jeus.server.start.dasurl</td><td align="left">java.lang.String</td><td>MS가 속한 domain을 관리하는 DAS의 url을 설정한다. (필수
+                    입력항목)</td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p>예제</p>
+
+            <p>매개변수는 pom.xml에 설정하거나 command line에서 실행할 때 지정할 수 있다.</p>
+
+            <p>다음은 pom.xml에 설정을 한 예제이다.</p>
+
+            <pre class="programlisting">&lt;!-- JEUS Maven Plugin - start-ms --&gt;
+&lt;plugin&gt;
+  &lt;groupId&gt;jeus.tool&lt;/groupId&gt;
+  &lt;artifactId&gt;jeus-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;8.0.0.0&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;jeusHome&gt;/home/user1/jeus&lt;/jeusHome&gt;
+    &lt;host&gt;host1&lt;/host&gt;
+    &lt;port&gt;9736&lt;/port&gt;
+    &lt;user&gt;administrator&lt;/user&gt;
+    &lt;password&gt;jeus&lt;/password&gt;
+    &lt;domain&gt;domain1&lt;/domain&gt;
+    &lt;server&gt;server1&lt;/server&gt;
+    &lt;dasurl&gt;host1:9736&lt;/dasurl&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+
+            <p>goal을 실행하였을 경우 출력되는 결과는 다음과 같다.</p>
+
+            <pre class="programlisting">$ <span><strong class="guibutton">mvn jeus.tool:jeus-maven-plugin:start-ms</strong></span>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building maven-sample-project 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- jeus-maven-plugin:8.0.0.0:start-ms (default-cli) @ maven-sample ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 11.161s
+[INFO] Finished at: Mon Feb 17 16:36:16 KST 2014
+[INFO] Final Memory: 2M/61M
+[INFO] ------------------------------------------------------------------------</pre>
+          </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e24048"></a>5.8.2.3. stop-jeus</h4></div></div></div>
+      
+
+      <p>접속한 서버를 종료시킨다. 내부적으로는 콘솔 툴(jeusadmin)에서 제공하는 one-step execution
+      기능을 사용하여 <span><strong class="guibutton">local-shutdown</strong></span> 명령어를 실행한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>사용법</p>
+
+            <pre class="programlisting">jeus.tool:jeus-maven-plugin:stop-jeus</pre>
+
+            <p/>
+          </li><li>
+            <p>매개변수</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="100" align="left"/><col width="130" align="left"/><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">매개변수 이름</th><th align="left">프로퍼티 이름</th><th align="left">타입</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">jeusHome</td><td align="left">jeus.home</td><td align="left">java.lang.String</td><td><p>JEUS가 설치되어 있는 경로를 설정한다.</p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">host</td><td align="left">jeus.server.host</td><td align="left">java.lang.String</td><td><p>jeusadmin으로 접속할 서버의 주소이다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">port</td><td align="left">jeus.server.port</td><td align="left">java.lang.Integer</td><td>jeusadmin으로 접속할 서버의 포트 번호이다. (기본값: 9736, 필수
+                    입력항목)</td></tr><tr><td align="left">user</td><td align="left">jeus.user.name</td><td align="left">java.lang.String</td><td><p>JEUS 사용자 이름을 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">password</td><td align="left">jeus.user.password</td><td align="left">java.lang.String</td><td><p>JEUS 사용자 비밀번호를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">args</td><td align="left">없음</td><td align="left">java.util.List</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다. pom.xml에 설정할 경우 사용하는 것을 권장한다.</td></tr><tr><td align="left">arg</td><td align="left">jeus.jeusadmin.command.arguments</td><td align="left">java.lang.String</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다.</td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p>예제</p>
+
+            <p>매개변수는 pom.xml에 설정하거나 command line에서 실행할 때 지정할 수 있다.</p>
+
+            <p>다음은 pom.xml에 설정을 한 예제이다.</p>
+
+            <pre class="programlisting">&lt;!-- JEUS Maven Plugin - stop-jeus --&gt;
+&lt;plugin&gt;
+  &lt;groupId&gt;jeus.tool&lt;/groupId&gt;
+  &lt;artifactId&gt;jeus-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;8.0.0.0&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;jeusHome&gt;/home/user1/jeus&lt;/jeusHome&gt;
+    &lt;host&gt;host1&lt;/host&gt;
+    &lt;port&gt;9736&lt;/port&gt;
+    &lt;user&gt;administrator&lt;/user&gt;
+    &lt;password&gt;jeus&lt;/password&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+
+            <p>goal을 실행하였을 경우 일반적으로 출력되는 결과는 다음과 같다.</p>
+
+            <pre class="programlisting">$ <span><strong class="guibutton">mvn jeus.tool:jeus-maven-plugin:stop-jeus</strong></span>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building maven-sample-project 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- jeus-maven-plugin:8.0.0.0:stop-jeus (default-cli) @ maven-sample ---
+[INFO] jeus.home = /home/user1/jeus
+[INFO] jeusadmin.path = /home/user1/jeus/bin/jeusadmin
+[INFO] jeusadmin.one-step-execution-command = [local-shutdown]
+[INFO] Attempting to connect to host1:9736.
+[INFO] The connection has been established to Domain Administration Server adminServer in the domain domain1.
+[INFO] The server [adminServer] has been shut down successfully.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.690s
+[INFO] Finished at: Mon Feb 17 17:19:10 KST 2014
+[INFO] Final Memory: 2M/61M
+[INFO] ------------------------------------------------------------------------
+</pre>
+          </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e24124"></a>5.8.2.4. deploy</h4></div></div></div>
+      
+
+      <p>애플리케이션을 deploy한다. 내부적으로는 콘솔 툴(jeusadmin)에서 제공하는 one-step execution
+      기능을 사용하여 <span><strong class="guibutton">deploy-application</strong></span> 명령어를
+      실행한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>사용법 </p><pre class="programlisting">jeus.tool:jeus-maven-plugin:deploy</pre>
+
+            <p/>
+          </li><li>
+            <p>매개변수</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="100" align="left"/><col width="120" align="left"/><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">매개변수 이름</th><th align="left">프로퍼티 이름</th><th align="left">타입</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">jeusHome</td><td align="left">jeus.home</td><td align="left">java.lang.String</td><td><p>JEUS가 설치되어 있는 경로를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">host</td><td align="left">jeus.server.host</td><td align="left">java.lang.String</td><td><p>jeusadmin으로 접속할 서버의 주소이다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">port</td><td align="left">jeus.server.port</td><td align="left">java.lang.Integer</td><td>jeusadmin으로 접속할 서버의 포트 번호이다. (기본값: 9736, 필수
+                    입력항목)</td></tr><tr><td align="left">user</td><td align="left">jeus.user.name</td><td align="left">java.lang.String</td><td><p>JEUS 사용자 이름을 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">password</td><td align="left">jeus.user.password</td><td align="left">java.lang.String</td><td><p>JEUS 사용자 비밀번호를 설정한다.</p><p> (필수
+                    입력항목)</p></td></tr><tr><td align="left">args</td><td align="left">없음</td><td align="left">java.util.List</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다. pom.xml에 설정할 경우 사용하는 것을 권장한다.</td></tr><tr><td align="left">arg</td><td align="left">jeus.jeusadmin.command.arguments</td><td align="left">java.lang.String</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다.</td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p>예제</p>
+
+            <p>매개변수는 pom.xml에 설정하거나 command line에서 실행할 때 지정할 수 있다.</p>
+
+            <p>다음은 pom.xml에 설정을 한 예제이다.</p>
+
+            <pre class="programlisting">&lt;!-- JEUS Maven Plugin - deploy --&gt;
+&lt;plugin&gt;
+  &lt;groupId&gt;jeus.tool&lt;/groupId&gt;
+  &lt;artifactId&gt;jeus-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;8.0.0.0&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;jeusHome&gt;/home/user1/jeus&lt;/jeusHome&gt;
+    &lt;host&gt;host1&lt;/host&gt;
+    &lt;port&gt;9736&lt;/port&gt;
+    &lt;user&gt;administrator&lt;/user&gt;
+    &lt;password&gt;jeus&lt;/password&gt;
+    &lt;args&gt;
+      &lt;param&gt;myWeb&lt;/param&gt;
+      &lt;param&gt;-servers adminServer&lt;/param&gt;
+    &lt;/args&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+
+            <p>goal을 실행하였을 경우 일반적으로 출력되는 결과는 다음과 같다.</p>
+
+            <pre class="programlisting">$ <span><strong class="guibutton">mvn jeus.tool:jeus-maven-plugin:deploy</strong></span>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building maven-sample-project 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- jeus-maven-plugin:8.0.0.0:deploy (default-cli) @ maven-sample ---
+[INFO] jeus.home = /home/user1/jeus
+[INFO] jeusadmin.path = /home/user1/jeus/bin/jeusadmin
+[INFO] jeusadmin.one-step-execution-command = [deploy-application myWeb -servers adminServer ]
+[INFO] Attempting to connect to host1:9736.
+[INFO] The connection has been established to Domain Administration Server adminServer in the domain domain1.
+[INFO] deploy the application for the application [myWeb] succeeded.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.116s
+[INFO] Finished at: Mon Feb 17 16:50:32 KST 2014
+[INFO] Final Memory: 2M/61M
+[INFO] ------------------------------------------------------------------------
+</pre>
+          </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e24198"></a>5.8.2.5. undeploy</h4></div></div></div>
+      
+
+      <p>deploy했던 애플리케이션을 undeploy한다. 내부적으로는 콘솔 툴(jeusadmin)에서 제공하는
+      one-step execution 기능을 사용하여 <span><strong class="guibutton">undeploy-application</strong></span>
+      명령어를 실행한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>사용법</p>
+
+            <pre class="programlisting">jeus.tool:jeus-maven-plugin:undeploy</pre>
+
+            <p/>
+          </li><li>
+            <p>매개변수</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="100" align="left"/><col width="120" align="left"/><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">매개변수 이름</th><th align="left">프로퍼티 이름</th><th align="left">타입</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">jeusHome</td><td align="left">jeus.home</td><td align="left">java.lang.String</td><td><p>JEUS가 설치되어 있는 경로를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">host</td><td align="left">jeus.server.host</td><td align="left">java.lang.String</td><td><p>jeusadmin으로 접속할 서버의 주소이다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">port</td><td align="left">jeus.server.port</td><td align="left">java.lang.Integer</td><td><p>jeusadmin으로 접속할 서버의 포트 번호이다.
+                    </p><p>(기본값: 9736, 필수 입력항목)</p></td></tr><tr><td align="left">user</td><td align="left">jeus.user.name</td><td align="left">java.lang.String</td><td>JEUS 사용자 이름을 설정한다. (필수 입력항목)</td></tr><tr><td align="left">password</td><td align="left">jeus.user.password</td><td align="left">java.lang.String</td><td><p>JEUS 사용자 비밀번호를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">args</td><td align="left">없음</td><td align="left">java.util.List</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다. pom.xml에 설정할 경우 사용하는 것을 권장한다.</td></tr><tr><td align="left">arg</td><td align="left">jeus.jeusadmin.command.arguments</td><td align="left">java.lang.String</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다.</td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p>예제</p>
+
+            <p>매개변수는 pom.xml에 설정하거나 command line에서 실행할 때 지정할 수 있다.</p>
+
+            <p>다음은 pom.xml에 설정을 한 예제이다.</p>
+
+            <pre class="programlisting">&lt;!-- JEUS Maven Plugin - undeploy --&gt;
+&lt;plugin&gt;
+  &lt;groupId&gt;jeus.tool&lt;/groupId&gt;
+  &lt;artifactId&gt;jeus-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;8.0.0.0&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;jeusHome&gt;/home/user1/jeus&lt;/jeusHome&gt;
+    &lt;host&gt;host1&lt;/host&gt;
+    &lt;port&gt;9736&lt;/port&gt;
+    &lt;user&gt;administrator&lt;/user&gt;
+    &lt;password&gt;jeus&lt;/password&gt;
+    &lt;args&gt;
+      &lt;param&gt;myWeb&lt;/param&gt;
+    &lt;/args&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+
+            <p>goal을 실행하였을 경우 일반적으로 출력되는 결과는 다음과 같다.</p>
+
+            <pre class="programlisting">$ <span><strong class="guibutton">mvn jeus.tool:jeus-maven-plugin:undeploy</strong></span>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building maven-sample-project 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- jeus-maven-plugin:8.0.0.0:undeploy (default-cli) @ maven-sample ---
+[INFO] jeus.home = /home/user1/jeus
+[INFO] jeusadmin.path = /home/user1/jeus/bin/jeusadmin
+[INFO] jeusadmin.one-step-execution-command = [undeploy-application myWeb ]
+[INFO] Attempting to connect to host1:9736.
+[INFO] The connection has been established to Domain Administration Server adminServer in the domain domain1.
+[INFO] Undeploying [myWeb] (This may take time due to graceful undeployment) ..........
+[INFO] undeploy the application for the application [myWeb] succeeded.
+[INFO] successfully undeployed (elapsed = 147ms)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.814s
+[INFO] Finished at: Mon Feb 17 17:06:40 KST 2014
+[INFO] Final Memory: 2M/61M
+[INFO] ------------------------------------------------------------------------
+</pre>
+          </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e24272"></a>5.8.2.6. start-app</h4></div></div></div>
+      
+
+      <p>deploy한 애플리케이션의 서비스를 시작한다. 내부적으로는 콘솔 툴(jeusadmin)에서 제공하는 one-step
+      execution 기능을 사용하여 <span><strong class="guibutton">start-application</strong></span> 명령어를
+      실행한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>사용법</p>
+
+            <pre class="programlisting">jeus.tool:jeus-maven-plugin:start-app</pre>
+
+            <p/>
+          </li><li>
+            <p>매개변수</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="100" align="left"/><col width="120" align="left"/><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">매개변수 이름</th><th align="left">프로퍼티 이름</th><th align="left">타입</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">jeusHome</td><td align="left">jeus.home</td><td align="left">java.lang.String</td><td><p>JEUS가 설치되어 있는 경로를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">host</td><td align="left">jeus.server.host</td><td align="left">java.lang.String</td><td><p>jeusadmin으로 접속할 서버의 주소이다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">port</td><td align="left">jeus.server.port</td><td align="left">java.lang.Integer</td><td>jeusadmin으로 접속할 서버의 포트 번호이다. (기본값: 9736, 필수
+                    입력항목)</td></tr><tr><td align="left">user</td><td align="left">jeus.user.name</td><td align="left">java.lang.String</td><td>JEUS 사용자 이름을 설정한다. (필수 입력항목)</td></tr><tr><td align="left">password</td><td align="left">jeus.user.password</td><td align="left">java.lang.String</td><td><p>JEUS 사용자 비밀번호를 설정한다.</p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">args</td><td align="left">없음</td><td align="left">java.util.List</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다. pom.xml에 설정할 경우 사용하는 것을 권장한다.</td></tr><tr><td align="left">arg</td><td align="left">jeus.jeusadmin.command.arguments</td><td align="left">java.lang.String</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다.</td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p>예제</p>
+
+            <p>매개변수는 pom.xml에 설정하거나 command line에서 실행할 때 지정할 수 있다.</p>
+
+            <p>다음은 pom.xml에 설정을 한 예제이다.</p>
+
+            <pre class="programlisting">&lt;!-- JEUS Maven Plugin - start-app --&gt;
+&lt;plugin&gt;
+  &lt;groupId&gt;jeus.tool&lt;/groupId&gt;
+  &lt;artifactId&gt;jeus-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;8.0.0.0&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;jeusHome&gt;/home/user1/jeus&lt;/jeusHome&gt;
+    &lt;host&gt;host1&lt;/host&gt;
+    &lt;port&gt;9736&lt;/port&gt;
+    &lt;user&gt;administrator&lt;/user&gt;
+    &lt;password&gt;jeus&lt;/password&gt;
+    &lt;args&gt;
+      &lt;param&gt;myWeb&lt;/param&gt;
+    &lt;/args&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+
+            <p>goal을 실행하였을 경우 일반적으로 출력되는 결과는 다음과 같다.</p>
+
+            <pre class="programlisting">$ <span><strong class="guibutton">mvn jeus.tool:jeus-maven-plugin:start-app</strong></span>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building maven-sample-project 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- jeus-maven-plugin:8.0.0.0:start-app (default-cli) @ maven-sample ---
+[INFO] jeus.home = /home/user1/jeus
+[INFO] jeusadmin.path = /home/user1/jeus/bin/jeusadmin
+[INFO] jeusadmin.one-step-execution-command = [start-application myWeb ]
+[INFO] Attempting to connect to host1:9736.
+[INFO] The connection has been established to Domain Administration Server adminServer in the domain domain1.
+[INFO] start the application for the application [myWeb] succeeded.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.678s
+[INFO] Finished at: Mon Feb 17 17:14:07 KST 2014
+[INFO] Final Memory: 2M/61M
+[INFO] ------------------------------------------------------------------------
+</pre>
+          </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e24344"></a>5.8.2.7. stop-app</h4></div></div></div>
+      
+
+      <p>서비스 중인 애플리케이션을 정지시킨다. 내부적으로는 콘솔 툴(jeusadmin)에서 제공하는 one-step
+      execution 기능을 사용하여 <span><strong class="guibutton">stop-application</strong></span> 명령어를
+      실행한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>사용법</p>
+
+            <pre class="programlisting">jeus.tool:jeus-maven-plugin:stop-app</pre>
+
+            <p/>
+          </li><li>
+            <p>매개변수</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="100" align="left"/><col width="120" align="left"/><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">매개변수 이름</th><th align="left">프로퍼티 이름</th><th align="left">타입</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">jeusHome</td><td align="left">jeus.home</td><td align="left">java.lang.String</td><td><p>JEUS가 설치되어 있는 경로를 설정한다.</p><p> (필수
+                    입력항목)</p></td></tr><tr><td align="left">host</td><td align="left">jeus.server.host</td><td align="left">java.lang.String</td><td><p>jeusadmin으로 접속할 서버의 주소이다.</p><p> (필수
+                    입력항목)</p></td></tr><tr><td align="left">port</td><td align="left">jeus.server.port</td><td align="left">java.lang.Integer</td><td>jeusadmin으로 접속할 서버의 포트 번호이다. (기본값: 9736, 필수
+                    입력항목)</td></tr><tr><td align="left">user</td><td align="left">jeus.user.name</td><td align="left">java.lang.String</td><td>JEUS 사용자 이름을 설정한다. (필수 입력항목)</td></tr><tr><td align="left">password</td><td align="left">jeus.user.password</td><td align="left">java.lang.String</td><td><p>JEUS 사용자 비밀번호를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">args</td><td align="left">없음</td><td align="left">java.util.List</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다. pom.xml에 설정할 경우 사용하는 것을 권장한다.</td></tr><tr><td align="left">arg</td><td align="left">jeus.jeusadmin.command.arguments</td><td align="left">java.lang.String</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다.</td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p>예제</p>
+
+            <p>매개변수는 pom.xml에 설정하거나 command line에서 실행할 때 지정할 수 있다.</p>
+
+            <p>다음은 pom.xml에 설정을 한 예제이다.</p>
+
+            <pre class="programlisting">&lt;!-- JEUS Maven Plugin - stop-app --&gt;
+&lt;plugin&gt;
+  &lt;groupId&gt;jeus.tool&lt;/groupId&gt;
+  &lt;artifactId&gt;jeus-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;8.0.0.0&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;jeusHome&gt;/home/user1/jeus&lt;/jeusHome&gt;
+    &lt;host&gt;host1&lt;/host&gt;
+    &lt;port&gt;9736&lt;/port&gt;
+    &lt;user&gt;administrator&lt;/user&gt;
+    &lt;password&gt;jeus&lt;/password&gt;
+    &lt;args&gt;
+      &lt;param&gt;myWeb&lt;/param&gt;
+    &lt;/args&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+
+            <p>goal을 실행하였을 경우 일반적으로 출력되는 결과는 다음과 같다.</p>
+
+            <pre class="programlisting">$ <span><strong class="guibutton">mvn jeus.tool:jeus-maven-plugin:stop-app</strong></span>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building maven-sample-project 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- jeus-maven-plugin:8.0.0.0:stop-app (default-cli) @ maven-sample ---
+[INFO] jeus.home = /home/user1/jeus
+[INFO] jeusadmin.path = /home/user1/jeus/bin/jeusadmin
+[INFO] jeusadmin.one-step-execution-command = [stop-application myWeb ]
+[INFO] Attempting to connect to host1:9736.
+[INFO] The connection has been established to Domain Administration Server adminServer in the domain domain1.
+[INFO] stop the application for the application [myWeb] succeeded.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.635s
+[INFO] Finished at: Mon Feb 17 17:16:48 KST 2014
+[INFO] Final Memory: 2M/61M
+[INFO] ------------------------------------------------------------------------
+</pre>
+          </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e24419"></a>5.8.2.8. install-app</h4></div></div></div>
+      
+
+      <p>애플리케이션을 DAS에 설치한다. 내부적으로는 콘솔 툴(jeusadmin)에서 제공하는 one-step
+      execution 기능을 사용하여 <span><strong class="guibutton">install-application</strong></span> 명령어를
+      실행한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>사용법</p>
+
+            <pre class="programlisting">jeus.tool:jeus-maven-plugin:install-app</pre>
+
+            <p/>
+          </li><li>
+            <p>매개변수</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="100" align="left"/><col width="120" align="left"/><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">매개변수 이름</th><th align="left">프로퍼티 이름</th><th align="left">타입</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">jeusHome</td><td align="left">jeus.home</td><td align="left">java.lang.String</td><td><p>JEUS가 설치되어 있는 경로를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">host</td><td align="left">jeus.server.host</td><td align="left">java.lang.String</td><td><p>jeusadmin으로 접속할 서버의 주소이다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">port</td><td align="left">jeus.server.port</td><td align="left">java.lang.Integer</td><td>jeusadmin으로 접속할 서버의 포트 번호이다. (기본값: 9736, 필수
+                    입력항목)</td></tr><tr><td align="left">user</td><td align="left">jeus.user.name</td><td align="left">java.lang.String</td><td>JEUS 사용자 이름을 설정한다. (필수 입력항목)</td></tr><tr><td align="left">password</td><td align="left">jeus.user.password</td><td align="left">java.lang.String</td><td><p>JEUS 사용자 비밀번호를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">args</td><td align="left">없음</td><td align="left">java.util.List</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다. pom.xml에 설정할 경우 사용하는 것을 권장한다.</td></tr><tr><td align="left">arg</td><td align="left">jeus.jeusadmin.command.arguments</td><td align="left">java.lang.String</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다.</td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p>예제</p>
+
+            <p>매개변수는 pom.xml에 설정하거나 command line에서 실행할 때 지정할 수 있다.</p>
+
+            <p>다음은 pom.xml에 설정을 한 예제이다.</p>
+
+            <pre class="programlisting">&lt;!-- JEUS Maven Plugin - install-app --&gt;
+&lt;plugin&gt;
+  &lt;groupId&gt;jeus.tool&lt;/groupId&gt;
+  &lt;artifactId&gt;jeus-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;8.0.0.0&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;jeusHome&gt;/home/user1/jeus&lt;/jeusHome&gt;
+    &lt;host&gt;host1&lt;/host&gt;
+    &lt;port&gt;9736&lt;/port&gt;
+    &lt;user&gt;administrator&lt;/user&gt;
+    &lt;password&gt;jeus&lt;/password&gt;
+    &lt;args&gt;
+      &lt;param&gt;/home/user/myWeb.war&lt;/param&gt;
+      &lt;param&gt;-id myWeb&lt;/param&gt;
+    &lt;/args&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+
+            <p>goal을 실행하였을 경우 일반적으로 출력되는 결과는 다음과 같다.</p>
+
+            <pre class="programlisting">$ <span><strong class="guibutton">mvn jeus.tool:jeus-maven-plugin:install-app</strong></span>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building maven-sample-project 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- jeus-maven-plugin:8.0.0.0:install-app (default-cli) @ maven-sample ---
+[INFO] jeus.home = /home/user1/jeus
+[INFO] jeusadmin.path = /home/user1/jeus/bin/jeusadmin
+[INFO] jeusadmin.one-step-execution-command = [install-application /home/user/myWeb.war -id myWeb ]
+[INFO] Attempting to connect to host1:9736.
+[INFO] The connection has been established to Domain Administration Server adminServer in the domain domain1.
+[INFO] Successfully installed the application [myWeb].
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.019s
+[INFO] Finished at: Mon Feb 17 17:22:57 KST 2014
+[INFO] Final Memory: 2M/77M
+[INFO] ------------------------------------------------------------------------
+</pre>
+          </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e24491"></a>5.8.2.9. uninstall-app</h4></div></div></div>
+      
+
+      <p>DAS에 설치되어 있는 애플리케이션을 제거한다. 내부적으로는 콘솔 툴(jeusadmin)에서 제공하는 one-step
+      execution 기능을 사용하여 <span><strong class="guibutton">uninstall-application</strong></span> 명령어를
+      실행한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>사용법</p>
+
+            <pre class="programlisting">jeus.tool:jeus-maven-plugin:uninstall-app</pre>
+
+            <p/>
+          </li><li>
+            <p>매개변수</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="100" align="left"/><col width="120" align="left"/><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">매개변수 이름</th><th align="left">프로퍼티 이름</th><th align="left">타입</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">jeusHome</td><td align="left">jeus.home</td><td align="left">java.lang.String</td><td><p>JEUS가 설치되어 있는 경로를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">host</td><td align="left">jeus.server.host</td><td align="left">java.lang.String</td><td><p>jeusadmin으로 접속할 서버의 주소이다.</p><p> (필수
+                    입력항목)</p></td></tr><tr><td align="left">port</td><td align="left">jeus.server.port</td><td align="left">java.lang.Integer</td><td>jeusadmin으로 접속할 서버의 포트 번호이다. (기본값: 9736, 필수
+                    입력항목)</td></tr><tr><td align="left">user</td><td align="left">jeus.user.name</td><td align="left">java.lang.String</td><td>JEUS 사용자 이름을 설정한다. (필수 입력항목)</td></tr><tr><td align="left">password</td><td align="left">jeus.user.password</td><td align="left">java.lang.String</td><td><p>JEUS 사용자 비밀번호를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">args</td><td align="left">없음</td><td align="left">java.util.List</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다. pom.xml에 설정할 경우 사용하는 것을 권장한다.</td></tr><tr><td align="left">arg</td><td align="left">jeus.jeusadmin.command.arguments</td><td align="left">java.lang.String</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다.</td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p>예제</p>
+
+            <p>매개변수는 pom.xml에 설정하거나 command line에서 실행할 때 지정할 수 있다.</p>
+
+            <p>다음은 pom.xml에 설정을 한 예제이다.</p>
+
+            <pre class="programlisting">&lt;!-- JEUS Maven Plugin - uninstall-app --&gt;
+&lt;plugin&gt;
+  &lt;groupId&gt;jeus.tool&lt;/groupId&gt;
+  &lt;artifactId&gt;jeus-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;8.0.0.0&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;jeusHome&gt;/home/user1/jeus&lt;/jeusHome&gt;
+    &lt;host&gt;host1&lt;/host&gt;
+    &lt;port&gt;9736&lt;/port&gt;
+    &lt;user&gt;administrator&lt;/user&gt;
+    &lt;password&gt;jeus&lt;/password&gt;
+    &lt;args&gt;
+      &lt;param&gt;myWeb&lt;/param&gt;
+    &lt;/args&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+
+            <p>goal을 실행하였을 경우 일반적으로 출력되는 결과는 다음과 같다.</p>
+
+            <pre class="programlisting">$ <span><strong class="guibutton">mvn jeus.tool:jeus-maven-plugin:uninstall-app</strong></span>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building maven-sample-project 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- jeus-maven-plugin:8.0.0.0:uninstall-app (default-cli) @ maven-sample ---
+[INFO] jeus.home = /home/user1/jeus
+[INFO] jeusadmin.path = /home/user1/jeus/bin/jeusadmin
+[INFO] jeusadmin.one-step-execution-command = [uninstall-application myWeb ]
+[INFO] Attempting to connect to host1:9736.
+[INFO] The connection has been established to Domain Administration Server adminServer in the domain domain1.
+[INFO] uninstall the application for the application [myWeb] succeeded. : Successfully deleted [myWeb].
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.654s
+[INFO] Finished at: Mon Feb 17 17:24:42 KST 2014
+[INFO] Final Memory: 2M/61M
+[INFO] ------------------------------------------------------------------------
+</pre>
+          </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e24563"></a>5.8.2.10. jeusadmin</h4></div></div></div>
+      
+
+      <p>지정한 jeusadmin 명령어를 실행한다. 내부적으로는 콘솔 툴(jeusadmin)에서 제공하는 one-step
+      execution 기능을 사용한다.</p><div class="itemizedlist"><ul type="disc"><li>
+            <p>사용법</p>
+
+            <pre class="programlisting">jeus.tool:jeus-maven-plugin:jeusadmin</pre>
+
+            <p/>
+          </li><li>
+            <p>매개변수</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="100" align="left"/><col width="120" align="left"/><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">매개변수 이름</th><th align="left">프로퍼티 이름</th><th align="left">타입</th><th align="left">설명</th></tr></thead><tbody><tr><td align="left">jeusHome</td><td align="left">jeus.home</td><td align="left">java.lang.String</td><td><p>JEUS가 설치되어 있는 경로를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">host</td><td align="left">jeus.server.host</td><td align="left">java.lang.String</td><td><p>jeusadmin으로 접속할 서버의 주소이다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">port</td><td align="left">jeus.server.port</td><td align="left">java.lang.Integer</td><td>jeusadmin으로 접속할 서버의 포트 번호이다. (기본값: 9736, 필수
+                    입력항목)</td></tr><tr><td align="left">user</td><td align="left">jeus.user.name</td><td align="left">java.lang.String</td><td>JEUS 사용자 이름을 설정한다. (필수 입력항목)</td></tr><tr><td align="left">password</td><td align="left">jeus.user.password</td><td align="left">java.lang.String</td><td><p>JEUS 사용자 비밀번호를 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr><tr><td align="left">args</td><td align="left">없음</td><td align="left">java.util.List</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다. pom.xml에 설정할 경우 사용하는 것을 권장한다.</td></tr><tr><td align="left">arg</td><td align="left">jeus.jeusadmin.command.arguments</td><td align="left">java.lang.String</td><td>명령어를 실행할 때 넘겨줄 인자값들을 설정한다. arg와 args 둘 다 설정하였을 경우
+                    arg가 우선한다.</td></tr><tr><td align="left">command</td><td align="left">jeus.jeusadmin.command</td><td align="left">java.lang.String</td><td><p>실행할 jeusadmin 명령어 이름을 설정한다. </p><p>(필수
+                    입력항목)</p></td></tr></tbody></table>
+            </div>
+          </li><li>
+            <p>예제</p>
+
+            <p>매개변수는 pom.xml에 설정하거나 command line에서 실행할 때 지정할 수 있다.</p>
+
+            <p>다음은 pom.xml에 설정을 한 예제이며, 수행할 명령어는 <span><strong class="guibutton">server-info
+            -server adminServer -state</strong></span>이다.</p>
+
+            <pre class="programlisting">&lt;!-- JEUS Maven Plugin - jeusadmin --&gt;
+&lt;plugin&gt;
+  &lt;groupId&gt;jeus.tool&lt;/groupId&gt;
+  &lt;artifactId&gt;jeus-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;8.0.0.0&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;jeusHome&gt;/home/user1/jeus&lt;/jeusHome&gt;
+    &lt;host&gt;host1&lt;/host&gt;
+    &lt;port&gt;9736&lt;/port&gt;
+    &lt;user&gt;administrator&lt;/user&gt;
+    &lt;password&gt;jeus&lt;/password&gt;
+    &lt;command&gt;server-info&lt;/command&gt;
+    &lt;args&gt;
+      &lt;param&gt;-server adminServer&lt;/param&gt;
+      &lt;param&gt;-state&lt;/param&gt;
+    &lt;/args&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+
+            <p>goal을 실행하였을 경우 출력되는 결과는 다음과 같다.</p>
+
+            <pre class="programlisting">$ <span><strong class="guibutton">mvn jeus.tool:jeus-maven-plugin:jeusadmin</strong></span>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building maven-sample-project 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- jeus-maven-plugin:8.0.0.0:jeusadmin (default-cli) @ maven-sample ---
+[INFO] jeus.home = /home/user1/jeus
+[INFO] jeusadmin.path = /home/user1/jeus/bin/jeusadmin
+[INFO] jeusadmin.one-step-execution-command = [server-info -server adminServer -state ]
+[INFO] Attempting to connect to host1:9736.
+[INFO] The connection has been established to Domain Administration Server adminServer in the domain domain1.
+[INFO] RUNNING
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.642s
+[INFO] Finished at: Mon Feb 17 17:29:13 KST 2014
+[INFO] Final Memory: 2M/77M
+[INFO] ------------------------------------------------------------------------</pre>
+          </li></ul></div>
+    </div>
+  </div>
+</div>
+  </div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ant-tasks.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="ant-tasks.html">위로</a></td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">Part III. Ant Tasks </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div><div xmlns="" align="center"/></body></html>

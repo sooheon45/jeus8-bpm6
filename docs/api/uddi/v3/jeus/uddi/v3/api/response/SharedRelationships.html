@@ -1,0 +1,456 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>SharedRelationships</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="SharedRelationships (JEUS UDDI 3.0 Client API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.uddi.v3.api.response</font><br>Class SharedRelationships
+      </h2><pre>java.lang.Object<br>  <img src="../../../../../resource/inherit.gif" alt="extended by"><a href="../../../../../jeus/uddi/v3/AbstractRegistryObject.html">jeus.uddi.v3.AbstractRegistryObject</a><br>     <img src="../../../../../resource/inherit.gif" alt="extended by"><b>jeus.uddi.v3.api.response.SharedRelationships</b></pre><dl>
+         <dt><b>All Implemented Interfaces:</b><dd>java.io.Serializable, <a href="../../../../../jeus/uddi/datatype/RegistryObject.html">RegistryObject</a></dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public class <b>SharedRelationships</b><dt>extends <a href="../../../../../jeus/uddi/v3/AbstractRegistryObject.html">AbstractRegistryObject</a></dt></pre></dl>SharedRelationships.java의 data type class. 
+      <p>
+      <p>다음 schema는 UDDI version 3.0 Schema에서 인용한다.
+      <p>
+      <pre>
+      &lt;element name="sharedRelationships" type="{urn:uddi-org:api_v3}sharedRelationships"/>
+      &lt;complexType name="sharedRelationships">
+      &lt;complexContent>
+      &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+      &lt;sequence>
+      &lt;element ref="{urn:uddi-org:api_v3}keyedReference" maxOccurs="unbounded"/>
+      &lt;element ref="{urn:uddi-org:api_v3}publisherAssertion" maxOccurs="unbounded" minOccurs="0"/>
+      &lt;/sequence>
+      &lt;attribute name="direction" use="required" type="{urn:uddi-org:api_v3}direction" />
+      &lt;/restriction>
+      &lt;/complexContent>
+      &lt;/complexType>
+      </pre><br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../../jeus/uddi/v3/api/response/SharedRelationships.html#DIRECTION_FROM_KEY">DIRECTION_FROM_KEY</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../../jeus/uddi/v3/api/response/SharedRelationships.html#DIRECTION_TO_KEY">DIRECTION_TO_KEY</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="SharedRelationships.html#SharedRelationships()">SharedRelationships</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   기본 생성자.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="SharedRelationships.html#SharedRelationships(java.lang.Object)">SharedRelationships</a></b>(java.lang.Object object)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="SharedRelationships.html#SharedRelationships(java.lang.Object, org.w3c.dom.Element)">SharedRelationships</a></b>(java.lang.Object object, org.w3c.dom.Element base)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="SharedRelationships.html#SharedRelationships(java.util.Vector)">SharedRelationships</a></b>(java.util.Vector keyedReferenceVector)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   필수 값을 가지고 객체를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="SharedRelationships.html#SharedRelationships(org.w3c.dom.Element)">SharedRelationships</a></b>(org.w3c.dom.Element base)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   DOM Tree로 부터 객체를 생성한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SharedRelationships.html#addKeyedReference(jeus.uddi.v3.datatype.KeyedReference)">addKeyedReference</a></b>(<a href="../../../../../jeus/uddi/v3/datatype/KeyedReference.html">KeyedReference</a> keyedReference)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   keyedReference를 더한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SharedRelationships.html#addPublisherAssertion(jeus.uddi.v3.datatype.assertion.PublisherAssertion)">addPublisherAssertion</a></b>(<a href="../../../../../jeus/uddi/v3/datatype/assertion/PublisherAssertion.html">PublisherAssertion</a> publisherAssertion)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   publisherAssertion을 더한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="SharedRelationships.html#getDirection()">getDirection</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   direction을 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.Vector</code></font></td>
+               <td><code><b><a href="SharedRelationships.html#getKeyedReferenceVector()">getKeyedReferenceVector</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   keyedReferences를 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.xml.bind.JAXBElement</code></font></td>
+               <td><code><b><a href="SharedRelationships.html#getMarshallingJAXBElement()">getMarshallingJAXBElement</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.uddi.xmlbinding.v3.datatype.SharedRelationshipsType</code></font></td>
+               <td><code><b><a href="SharedRelationships.html#getMarshallingObject()">getMarshallingObject</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.Vector</code></font></td>
+               <td><code><b><a href="SharedRelationships.html#getPublisherAssertionVector()">getPublisherAssertionVector</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   publisherAssertion을 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SharedRelationships.html#setDirection(java.lang.String)">setDirection</a></b>(java.lang.String direction)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   direction을 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SharedRelationships.html#setKeyedReferenceVector(java.util.Vector)">setKeyedReferenceVector</a></b>(java.util.Vector keyedReferenceVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   keyedReference를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SharedRelationships.html#setPublisherAssertionVector(java.util.Vector)">setPublisherAssertionVector</a></b>(java.util.Vector publisherAssertionVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   publisherAssertion을 설정한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_jeus.uddi.v3.AbstractRegistryObject"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class jeus.uddi.v3.<a href="../../../../../jeus/uddi/v3/AbstractRegistryObject.html">AbstractRegistryObject</a></b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><a href="../../../jeus/uddi/v3/AbstractRegistryObject.html#getVersion()">getVersion</a>, <a href="../../../jeus/uddi/v3/AbstractRegistryObject.html#toXML()">toXML</a>, <a href="../../../jeus/uddi/v3/AbstractRegistryObject.html#toXML(org.w3c.dom.Node)">toXML</a></code></td>
+            </tr>
+         </table>&nbsp;<a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></td>
+            </tr>
+         </table>&nbsp;
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="DIRECTION_FROM_KEY"></a><h3>DIRECTION_FROM_KEY</h3><pre>public static final java.lang.String <b>DIRECTION_FROM_KEY</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="DIRECTION_TO_KEY"></a><h3>DIRECTION_TO_KEY</h3><pre>public static final java.lang.String <b>DIRECTION_TO_KEY</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="SharedRelationships()"></a><h3>SharedRelationships</h3><pre>public <b>SharedRelationships</b>()<br></pre><dl>
+            <dd>기본 생성자.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="SharedRelationships(java.util.Vector)"></a><h3>SharedRelationships</h3><pre>public <b>SharedRelationships</b>(<code>java.util.Vector</code> keyedReferenceVector)<br></pre><dl>
+            <dd>필수 값을 가지고 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="SharedRelationships(org.w3c.dom.Element)"></a><h3>SharedRelationships</h3><pre>public <b>SharedRelationships</b>(<code>org.w3c.dom.Element</code> base)<br>                          throws <code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></pre><dl>
+            <dd>DOM Tree로 부터 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="SharedRelationships(java.lang.Object)"></a><h3>SharedRelationships</h3><pre>public <b>SharedRelationships</b>(<code>java.lang.Object</code> object)<br></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i></dd>
+         </dl>
+         <hr><a name="SharedRelationships(java.lang.Object, org.w3c.dom.Element)"></a><h3>SharedRelationships</h3><pre>public <b>SharedRelationships</b>(<code>java.lang.Object</code> object,<br>                           <code>org.w3c.dom.Element</code> base)<br></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i></dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getMarshallingObject()"></a><h3>getMarshallingObject</h3><pre>public jeus.uddi.xmlbinding.v3.datatype.SharedRelationshipsType <b>getMarshallingObject</b>()<br>                                                                                   throws <code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i><br><br>&nbsp;
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMarshallingJAXBElement()"></a><h3>getMarshallingJAXBElement</h3><pre>public javax.xml.bind.JAXBElement <b>getMarshallingJAXBElement</b>()<br>                                                          throws <code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i><br><br>&nbsp;
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getDirection()"></a><h3>getDirection</h3><pre>public java.lang.String <b>getDirection</b>()<br></pre><dl>
+            <dd>direction을 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>string</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getKeyedReferenceVector()"></a><h3>getKeyedReferenceVector</h3><pre>public java.util.Vector <b>getKeyedReferenceVector</b>()<br></pre><dl>
+            <dd>keyedReferences를 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>vector</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getPublisherAssertionVector()"></a><h3>getPublisherAssertionVector</h3><pre>public java.util.Vector <b>getPublisherAssertionVector</b>()<br></pre><dl>
+            <dd>publisherAssertion을 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>vector</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setDirection(java.lang.String)"></a><h3>setDirection</h3><pre>public void <b>setDirection</b>(<code>java.lang.String</code> direction)<br></pre><dl>
+            <dd>direction을 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setKeyedReferenceVector(java.util.Vector)"></a><h3>setKeyedReferenceVector</h3><pre>public void <b>setKeyedReferenceVector</b>(<code>java.util.Vector</code> keyedReferenceVector)<br></pre><dl>
+            <dd>keyedReference를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setPublisherAssertionVector(java.util.Vector)"></a><h3>setPublisherAssertionVector</h3><pre>public void <b>setPublisherAssertionVector</b>(<code>java.util.Vector</code> publisherAssertionVector)<br></pre><dl>
+            <dd>publisherAssertion을 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addPublisherAssertion(jeus.uddi.v3.datatype.assertion.PublisherAssertion)"></a><h3>addPublisherAssertion</h3><pre>public void <b>addPublisherAssertion</b>(<code><a href="../../../../../jeus/uddi/v3/datatype/assertion/PublisherAssertion.html">PublisherAssertion</a></code> publisherAssertion)<br></pre><dl>
+            <dd>publisherAssertion을 더한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addKeyedReference(jeus.uddi.v3.datatype.KeyedReference)"></a><h3>addKeyedReference</h3><pre>public void <b>addKeyedReference</b>(<code><a href="../../../../../jeus/uddi/v3/datatype/KeyedReference.html">KeyedReference</a></code> keyedReference)<br></pre><dl>
+            <dd>keyedReference를 더한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

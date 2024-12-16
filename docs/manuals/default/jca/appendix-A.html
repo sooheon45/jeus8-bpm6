@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Appendix A. 환경설정 주의사항</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS JCA 안내서"/><link rel="up" href="index.html" title="JEUS JCA 안내서"/><link rel="prev" href="chap_packaging-and-deployment.html" title="제4장 리소스 어댑터"/><link rel="next" href="idx.html" title="색인"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">Appendix A. 환경설정 주의사항</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chap_packaging-and-deployment.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="idx.html">다음</a></td></tr></table><hr/></div><div class="appendix" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="appendix-A"></a>Appendix A. 환경설정 주의사항</h2></div></div></div>
+  
+
+  <p>jeus-connector-dd.xml을 작성할 때 반드시 고려해야 할 사항은 다음과 같다.</p>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p><span><strong class="guibutton">ra.xml에
+      &lt;outbound-resourceadapter&gt;&lt;connection-definition&gt; 존재
+      유무</strong></span></p>
+
+      <p>리소스 어댑터는 인바운드 목적만으로 사용할 수 있기 때문에 아웃바운드 설정이 없을 수도 있다. 이런 경우에는
+      jeus-connector-dd.xml을 작성하지 않아도 된다. 그러나 &lt;connection-definition&gt;이
+      있을 경우에는 그에 맞춰서 Connection Pool을 생성해야 하므로 반드시 jeus-connector-dd.xml나
+      domain.xml의 external-source에 connector 설정이 있어야 한다.</p>
+    </li><li>
+      <p><span><strong class="guibutton">ra.xml에
+      &lt;outbound-resourceadapter&gt;&lt;connection-definition&gt;이 2개 이상
+      존재하는 경우</strong></span></p>
+
+      <p>&lt;connection-definition&gt;이 2개 이상 설정된 경우에는 그에 맞춰서 최소 하나 이상의
+      Connection Pool을 생성해야 한다. 이때 주의할 점은 각각의 &lt;connection-definition&gt;
+      설정에 맞춰 &lt;connectionfactory-interface&gt; 값을 jeus-connector-dd.xml나
+      domain.xml의 external-source에 connector 설정이 있어야 한다. <a href="chapter_outbound-management.html#sect_connection-pool-example" title="2.3. Connection Pool 설정 예제">“2.3. Connection Pool 설정 예제”</a>를 참고한다.</p>
+
+      <p>만약 Connection Pool을 생성하지 않으려면 ra.xml을 조정한다.</p>
+    </li><li>
+      <p><span><strong class="guibutton">Work Manager 설정을 조정하고 싶은 경우</strong></span></p>
+
+      <p>jeus-connector-dd.xml을 설정하지 않아도 기본적으로 리소스 어댑터에게 Work Manager를
+      제공한다. Work Manager는 리소스 어댑터가 필요할 때 가져가서 사용하는 것이기 때문에 JEUS는 처음부터 이를 초기화하지
+      않는다.</p>
+
+      <p>대신 실제 요청을 할 때 Work Manager를 생성한다. Work Manager를 Thread Pool 설정이라고
+      할 수 있는데 Thread 수를 조정하고 싶은 경우에는 jeus-connector-dd.xml을 작성하여 Work Manager를
+      설정한다. Work Manager 설정 방법에 대한 자세한 내용은<a href="chapter_inbound-management.html#sect_work-manager-config" title="3.1.2. Work Manager 설정">“3.1.2. Work Manager 설정”</a>을 참고한다.</p>
+    </li></ul></div>
+
+  <p/>
+
+  <p/>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chap_packaging-and-deployment.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="idx.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제4장 리소스 어댑터 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 색인</td></tr></table></div><div xmlns="" align="center"/></body></html>

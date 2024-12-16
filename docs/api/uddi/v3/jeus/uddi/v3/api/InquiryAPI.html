@@ -1,0 +1,474 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>InquiryAPI</title>
+      <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="InquiryAPI (JEUS UDDI 3.0 Client API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.uddi.v3.api</font><br>Interface InquiryAPI
+      </h2><pre></pre><dl>
+         <dt><b>All Known Implementing Classes:</b><dd><a href="../../../../jeus/uddi/v3/client/UDDIClient.html">UDDIClient</a></dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public interface <b>InquiryAPI</b></pre></dl>&nbsp;<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#find_binding(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, jeus.uddi.v3.datatype.CategoryBag, int, int)">find_binding</a></b>(java.lang.String serviceKey, java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, <a href="../../../../jeus/uddi/v3/datatype/TModelBag.html">TModelBag</a> tModelBag, <a href="../../../../jeus/uddi/v3/api/request/inquiry/FindTModel.html">FindTModel</a> findTModel, <a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a> categoryBag, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   입력 조건에 적합한 bindingTemplate elements를 찾는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BusinessList.html">BusinessList</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#find_business(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, int, int)">find_business</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, java.lang.String name, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   입력 조건에 적합한 businessEntity elements를 찾는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BusinessList.html">BusinessList</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#find_business(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.util.Vector, jeus.uddi.v3.datatype.IdentifierBag, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, jeus.uddi.v3.datatype.DiscoveryURLs, jeus.uddi.v3.api.request.inquiry.FindRelatedBusinesses, int, int)">find_business</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, java.util.Vector nameVector, <a href="../../../../jeus/uddi/v3/datatype/IdentifierBag.html">IdentifierBag</a> identifierBag, <a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a> categoryBag, <a href="../../../../jeus/uddi/v3/datatype/TModelBag.html">TModelBag</a> tModelBag, <a href="../../../../jeus/uddi/v3/api/request/inquiry/FindTModel.html">FindTModel</a> findTModel, <a href="../../../../jeus/uddi/v3/datatype/DiscoveryURLs.html">DiscoveryURLs</a> discoveryURLs, <a href="../../../../jeus/uddi/v3/api/request/inquiry/FindRelatedBusinesses.html">FindRelatedBusinesses</a> findRelatedBusinesses, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   입력 조건에 적합한 businessEntity elements를 찾는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/RelatedBusinessesList.html">RelatedBusinessesList</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#find_relatedBusinesses(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, java.lang.String, java.lang.String, jeus.uddi.v3.datatype.KeyedReference, int, int)">find_relatedBusinesses</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, java.lang.String businessKey, java.lang.String fromKey, java.lang.String toKey, <a href="../../../../jeus/uddi/v3/datatype/KeyedReference.html">KeyedReference</a> keyedReference, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   입력  key를 갖는 business와 관계되어 있는 businessEntity elements를 찾는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/ServiceList.html">ServiceList</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#find_service(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, int, int)">find_service</a></b>(java.lang.String businessKey, java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, java.lang.String name, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   입력 조건에 적합한 businessService elements를 찾는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/ServiceList.html">ServiceList</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#find_service(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.util.Vector, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, int, int)">find_service</a></b>(java.lang.String businessKey, java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, java.util.Vector nameVector, <a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a> categoryBag, <a href="../../../../jeus/uddi/v3/datatype/TModelBag.html">TModelBag</a> tModelBag, <a href="../../../../jeus/uddi/v3/api/request/inquiry/FindTModel.html">FindTModel</a> findTModel, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   입력 조건에 적합한 businessService elements를 찾는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/TModelList.html">TModelList</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#find_tModel(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.IdentifierBag, int, int)">find_tModel</a></b>(java.lang.String authInfo, <a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a> findQualifiers, java.lang.String name, <a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a> categoryBag, <a href="../../../../jeus/uddi/v3/datatype/IdentifierBag.html">IdentifierBag</a> identifierBag, int maxRows, int listHead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   입력 조건에 적합한 tModel elements를 찾는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#get_bindingDetail(java.lang.String, java.lang.String)">get_bindingDetail</a></b>(java.lang.String authInfo, java.lang.String bindingKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   입력  bindingKey에 상응하는 binding element의 상세 정보를 요청한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#get_bindingDetail(java.lang.String, java.util.Vector)">get_bindingDetail</a></b>(java.lang.String authInfo, java.util.Vector bindingKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   하나 이상의 입력  bindingKey에 상응하는 binding elements의 상세 정보를 요청한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#get_businessDetail(java.lang.String, java.lang.String)">get_businessDetail</a></b>(java.lang.String authInfo, java.lang.String businessKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   입력  businessKey 상응하는 business element의 상세 정보를 요청한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#get_businessDetail(java.lang.String, java.util.Vector)">get_businessDetail</a></b>(java.lang.String authInfo, java.util.Vector businessKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   하나 이상의 입력  businessKey에 상응하는 business elements의 상세 정보를 요청한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/OperationalInfos.html">OperationalInfos</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#get_operationalInfo(java.lang.String, java.lang.String)">get_operationalInfo</a></b>(java.lang.String authInfo, java.lang.String entityKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   입력  UDDI entityKey 상응하는 UDDI entity를 요청한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/OperationalInfos.html">OperationalInfos</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#get_operationalInfo(java.lang.String, java.util.Vector)">get_operationalInfo</a></b>(java.lang.String authInfo, java.util.Vector entityKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   하나 이상의 입력  UDDI entityKey 상응하는 UDDI entities를 요청한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#get_serviceDetail(java.lang.String, java.lang.String)">get_serviceDetail</a></b>(java.lang.String authInfo, java.lang.String serviceKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   입력  serviceKey 상응하는 service element의 상세 정보를 요청한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#get_serviceDetail(java.lang.String, java.util.Vector)">get_serviceDetail</a></b>(java.lang.String authInfo, java.util.Vector serviceKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   하나 이상의 입력  serviceKey에 상응하는 service elements의 상세 정보를 요청한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#get_tModelDetail(java.lang.String, java.lang.String)">get_tModelDetail</a></b>(java.lang.String authInfo, java.lang.String tModelKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   입력  serviceKey 상응하는 tModel element의 상세 정보를 요청한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a></code></font></td>
+               <td><code><b><a href="InquiryAPI.html#get_tModelDetail(java.lang.String, java.util.Vector)">get_tModelDetail</a></b>(java.lang.String authInfo, java.util.Vector tModelKeyStrings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   하나 이상의 입력  tModelKey에 상응하는 tModel elements의 상세 정보를 요청한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="get_bindingDetail(java.lang.String, java.lang.String)"></a><h3>get_bindingDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a> <b>get_bindingDetail</b>(<code>java.lang.String</code> authInfo,<br>                                       <code>java.lang.String</code> bindingKey)<br>                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>입력  bindingKey에 상응하는 binding element의 상세 정보를 요청한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>bindingDetail</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_businessDetail(java.lang.String, java.lang.String)"></a><h3>get_businessDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a> <b>get_businessDetail</b>(<code>java.lang.String</code> authInfo,<br>                                         <code>java.lang.String</code> businessKey)<br>                                       throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>입력  businessKey 상응하는 business element의 상세 정보를 요청한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>businessDetail</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_operationalInfo(java.lang.String, java.lang.String)"></a><h3>get_operationalInfo</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/OperationalInfos.html">OperationalInfos</a> <b>get_operationalInfo</b>(<code>java.lang.String</code> authInfo,<br>                                            <code>java.lang.String</code> entityKey)<br>                                          throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                 <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                 <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>입력  UDDI entityKey 상응하는 UDDI entity를 요청한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>operationalInfos</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_serviceDetail(java.lang.String, java.lang.String)"></a><h3>get_serviceDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a> <b>get_serviceDetail</b>(<code>java.lang.String</code> authInfo,<br>                                       <code>java.lang.String</code> serviceKey)<br>                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>입력  serviceKey 상응하는 service element의 상세 정보를 요청한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>serviceDetail</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_tModelDetail(java.lang.String, java.lang.String)"></a><h3>get_tModelDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a> <b>get_tModelDetail</b>(<code>java.lang.String</code> authInfo,<br>                                     <code>java.lang.String</code> tModelKey)<br>                                   throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                          <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                          <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>입력  serviceKey 상응하는 tModel element의 상세 정보를 요청한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>tModelDetail</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_service(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, int, int)"></a><h3>find_service</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/ServiceList.html">ServiceList</a> <b>find_service</b>(<code>java.lang.String</code> businessKey,<br>                                <code>java.lang.String</code> authInfo,<br>                                <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                                <code>java.lang.String</code> name,<br>                                <code>int</code> maxRows,<br>                                <code>int</code> listHead)<br>                              throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>입력 조건에 적합한 businessService elements를 찾는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>serviceList</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_service(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.util.Vector, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, int, int)"></a><h3>find_service</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/ServiceList.html">ServiceList</a> <b>find_service</b>(<code>java.lang.String</code> businessKey,<br>                                <code>java.lang.String</code> authInfo,<br>                                <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                                <code>java.util.Vector</code> nameVector,<br>                                <code><a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a></code> categoryBag,<br>                                <code><a href="../../../../jeus/uddi/v3/datatype/TModelBag.html">TModelBag</a></code> tModelBag,<br>                                <code><a href="../../../../jeus/uddi/v3/api/request/inquiry/FindTModel.html">FindTModel</a></code> findTModel,<br>                                <code>int</code> maxRows,<br>                                <code>int</code> listHead)<br>                              throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                     <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>입력 조건에 적합한 businessService elements를 찾는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>serviceList</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_binding(java.lang.String, java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, jeus.uddi.v3.datatype.CategoryBag, int, int)"></a><h3>find_binding</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a> <b>find_binding</b>(<code>java.lang.String</code> serviceKey,<br>                                  <code>java.lang.String</code> authInfo,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/TModelBag.html">TModelBag</a></code> tModelBag,<br>                                  <code><a href="../../../../jeus/uddi/v3/api/request/inquiry/FindTModel.html">FindTModel</a></code> findTModel,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a></code> categoryBag,<br>                                  <code>int</code> maxRows,<br>                                  <code>int</code> listHead)<br>                                throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>입력 조건에 적합한 bindingTemplate elements를 찾는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>bindingDetail</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_bindingDetail(java.lang.String, java.util.Vector)"></a><h3>get_bindingDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BindingDetail.html">BindingDetail</a> <b>get_bindingDetail</b>(<code>java.lang.String</code> authInfo,<br>                                       <code>java.util.Vector</code> bindingKeyStrings)<br>                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>하나 이상의 입력  bindingKey에 상응하는 binding elements의 상세 정보를 요청한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>bindingDetail</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_businessDetail(java.lang.String, java.util.Vector)"></a><h3>get_businessDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BusinessDetail.html">BusinessDetail</a> <b>get_businessDetail</b>(<code>java.lang.String</code> authInfo,<br>                                         <code>java.util.Vector</code> businessKeyStrings)<br>                                       throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                              <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>하나 이상의 입력  businessKey에 상응하는 business elements의 상세 정보를 요청한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>businessDetail</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_operationalInfo(java.lang.String, java.util.Vector)"></a><h3>get_operationalInfo</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/OperationalInfos.html">OperationalInfos</a> <b>get_operationalInfo</b>(<code>java.lang.String</code> authInfo,<br>                                            <code>java.util.Vector</code> entityKeyStrings)<br>                                          throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                 <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                 <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>하나 이상의 입력  UDDI entityKey 상응하는 UDDI entities를 요청한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>operationalInfos</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_serviceDetail(java.lang.String, java.util.Vector)"></a><h3>get_serviceDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/ServiceDetail.html">ServiceDetail</a> <b>get_serviceDetail</b>(<code>java.lang.String</code> authInfo,<br>                                       <code>java.util.Vector</code> serviceKeyStrings)<br>                                     throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                            <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>하나 이상의 입력  serviceKey에 상응하는 service elements의 상세 정보를 요청한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>serviceDetail</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="get_tModelDetail(java.lang.String, java.util.Vector)"></a><h3>get_tModelDetail</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/TModelDetail.html">TModelDetail</a> <b>get_tModelDetail</b>(<code>java.lang.String</code> authInfo,<br>                                     <code>java.util.Vector</code> tModelKeyStrings)<br>                                   throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                          <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                          <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>하나 이상의 입력  tModelKey에 상응하는 tModel elements의 상세 정보를 요청한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>tModelDetail</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_business(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, int, int)"></a><h3>find_business</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BusinessList.html">BusinessList</a> <b>find_business</b>(<code>java.lang.String</code> authInfo,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                                  <code>java.lang.String</code> name,<br>                                  <code>int</code> maxRows,<br>                                  <code>int</code> listHead)<br>                                throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>입력 조건에 적합한 businessEntity elements를 찾는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>businessList</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_relatedBusinesses(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, java.lang.String, java.lang.String, jeus.uddi.v3.datatype.KeyedReference, int, int)"></a><h3>find_relatedBusinesses</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/RelatedBusinessesList.html">RelatedBusinessesList</a> <b>find_relatedBusinesses</b>(<code>java.lang.String</code> authInfo,<br>                                                    <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                                                    <code>java.lang.String</code> businessKey,<br>                                                    <code>java.lang.String</code> fromKey,<br>                                                    <code>java.lang.String</code> toKey,<br>                                                    <code><a href="../../../../jeus/uddi/v3/datatype/KeyedReference.html">KeyedReference</a></code> keyedReference,<br>                                                    <code>int</code> maxRows,<br>                                                    <code>int</code> listHead)<br>                                                  throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                                         <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                                         <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>입력  key를 갖는 business와 관계되어 있는 businessEntity elements를 찾는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>relatedBusinessesList</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_tModel(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.lang.String, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.IdentifierBag, int, int)"></a><h3>find_tModel</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/TModelList.html">TModelList</a> <b>find_tModel</b>(<code>java.lang.String</code> authInfo,<br>                              <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                              <code>java.lang.String</code> name,<br>                              <code><a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a></code> categoryBag,<br>                              <code><a href="../../../../jeus/uddi/v3/datatype/IdentifierBag.html">IdentifierBag</a></code> identifierBag,<br>                              <code>int</code> maxRows,<br>                              <code>int</code> listHead)<br>                            throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                   <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                   <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>입력 조건에 적합한 tModel elements를 찾는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>tModelList</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="find_business(java.lang.String, jeus.uddi.v3.datatype.FindQualifiers, java.util.Vector, jeus.uddi.v3.datatype.IdentifierBag, jeus.uddi.v3.datatype.CategoryBag, jeus.uddi.v3.datatype.TModelBag, jeus.uddi.v3.api.request.inquiry.FindTModel, jeus.uddi.v3.datatype.DiscoveryURLs, jeus.uddi.v3.api.request.inquiry.FindRelatedBusinesses, int, int)"></a><h3>find_business</h3><pre>public <a href="../../../../jeus/uddi/v3/api/response/BusinessList.html">BusinessList</a> <b>find_business</b>(<code>java.lang.String</code> authInfo,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/FindQualifiers.html">FindQualifiers</a></code> findQualifiers,<br>                                  <code>java.util.Vector</code> nameVector,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/IdentifierBag.html">IdentifierBag</a></code> identifierBag,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a></code> categoryBag,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/TModelBag.html">TModelBag</a></code> tModelBag,<br>                                  <code><a href="../../../../jeus/uddi/v3/api/request/inquiry/FindTModel.html">FindTModel</a></code> findTModel,<br>                                  <code><a href="../../../../jeus/uddi/v3/datatype/DiscoveryURLs.html">DiscoveryURLs</a></code> discoveryURLs,<br>                                  <code><a href="../../../../jeus/uddi/v3/api/request/inquiry/FindRelatedBusinesses.html">FindRelatedBusinesses</a></code> findRelatedBusinesses,<br>                                  <code>int</code> maxRows,<br>                                  <code>int</code> listHead)<br>                                throws <code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code>,<br>                                       <code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></pre><dl>
+            <dd>입력 조건에 적합한 businessEntity elements를 찾는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>businessList</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code><br><code><a href="../../../../jeus/uddi/v3/client/UDDIException.html">UDDIException</a></code><br><code><a href="../../../../jeus/uddi/client/transport/TransportException.html">TransportException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

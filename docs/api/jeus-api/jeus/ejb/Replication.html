@@ -1,0 +1,139 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>Replication</title>
+      <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="Replication (JEUS API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  <a href="#annotation_type_required_element_summary">REQUIRED</a>
+                  &nbsp;|&nbsp;
+                  OPTIONAL</font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#annotation_type_element_detail">ELEMENT</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.ejb</font><br>Annotation Type Replication
+      </h2><pre></pre><dl>
+         <dt></dt>
+      </dl>
+      <hr>
+      <dl><pre><font size="-1">@Target(value=METHOD})<br>@Retention(value=RUNTIME)<br></font>public @interface <b>Replication</b></pre></dl>클러스터링 환경에서 해당 EJB 빈의 상태를 어떻게 방식으로 복제(replication)할 지를 설정한다.
+      <p/>
+      현재 Synchronous, Asynchronous 방식을 지원하며 기본적으로는 Synchronous 방식이 사용되며, 
+      idempotent 메소드는 복제가 이루어지지 않는다.
+      <ul>
+      <li>Synchronous(SYNC) - 메소드가 호출이 끝난 시점에 백업 세션 서버로 복제가 이루어진다.</li>
+      <li>Asynchronous(ASYNC) - 메소드 호출이 끝나고 리턴이 된 이후에 비동기적으로 복제가 이루어진다.</li>
+      <li>None - 해당 메소드 호출에 대해서는 복제를 하지 않는다.</li>
+      </ul>
+      Synchronous 방식은 메소드 호출이 끝나면 바로 복제가 되기 때문에 좀더 세션 상태를 최신으로 유지하는데 도움이 되지만,
+      Asynchronous 방식에 비해 성능상의 단점이 있으므로 사용 환경에 맞게 적절히 선택하여 사용한다. 
+      <p/>
+      Stateful session 빈 클래스 혹은 빈 클래스에 있는 메소드에 대해서 이 어노테이션을 지정할 수 있으며,
+      빈 클래스에 사용된 값은 명시적으로 설정을 하지 않은 메소드에 대해서 적용된다.<br><p>
+         <dl>
+            <dt><b>Since: </b><dd>JEUS 6.0</dd>
+            </dt>
+            <dt><b>See Also:</b><dd><a href="../../jeus/ejb/ReplicationMode.html"><code>ReplicationMode</code></a></dd>
+            </dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="annotation_type_required_element_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Required Element Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../jeus/ejb/ReplicationMode.html">ReplicationMode</a></code></font></td>
+               <td><code><b><a href="../../jeus/ejb/Replication.html#value()">value</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="annotation_type_element_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Element Detail</b></font></th>
+            </tr>
+         </table><a name="value()"></a><h3>value</h3><pre>public abstract <a href="../../jeus/ejb/ReplicationMode.html">ReplicationMode</a> <b>value</b></pre></p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  <a href="#annotation_type_required_element_summary">REQUIRED</a>
+                  &nbsp;|&nbsp;
+                  OPTIONAL</font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#annotation_type_element_detail">ELEMENT</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

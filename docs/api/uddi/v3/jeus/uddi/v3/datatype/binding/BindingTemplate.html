@@ -1,0 +1,561 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>BindingTemplate</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="BindingTemplate (JEUS UDDI 3.0 Client API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.uddi.v3.datatype.binding</font><br>Class BindingTemplate
+      </h2><pre>java.lang.Object<br>  <img src="../../../../../resource/inherit.gif" alt="extended by"><a href="../../../../../jeus/uddi/v3/AbstractRegistryObject.html">jeus.uddi.v3.AbstractRegistryObject</a><br>     <img src="../../../../../resource/inherit.gif" alt="extended by"><b>jeus.uddi.v3.datatype.binding.BindingTemplate</b></pre><dl>
+         <dt><b>All Implemented Interfaces:</b><dd>java.io.Serializable, <a href="../../../../../jeus/uddi/datatype/RegistryObject.html">RegistryObject</a></dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public class <b>BindingTemplate</b><dt>extends <a href="../../../../../jeus/uddi/v3/AbstractRegistryObject.html">AbstractRegistryObject</a></dt></pre></dl>bindingTemplate의 data type class. 
+      <p>
+      <p>다음 schema는 UDDI version 3.0 Schema에서 인용한다.
+      <p>
+      <pre>
+      &lt;element name="bindingTemplate" type="{urn:uddi-org:api_v3}bindingTemplate"/>
+      &lt;complexType name="bindingTemplate">
+      &lt;complexContent>
+      &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+      &lt;sequence>
+      &lt;element ref="{urn:uddi-org:api_v3}description" maxOccurs="unbounded" minOccurs="0"/>
+      &lt;choice>
+      &lt;element ref="{urn:uddi-org:api_v3}accessPoint"/>
+      &lt;element ref="{urn:uddi-org:api_v3}hostingRedirector"/>
+      &lt;/choice>
+      &lt;element ref="{urn:uddi-org:api_v3}tModelInstanceDetails" minOccurs="0"/>
+      &lt;element ref="{urn:uddi-org:api_v3}categoryBag" minOccurs="0"/>
+      &lt;element ref="{http://www.w3.org/2000/09/xmldsig#}Signature" maxOccurs="unbounded" minOccurs="0"/>
+      &lt;/sequence>
+      &lt;attribute name="serviceKey" type="{urn:uddi-org:api_v3}serviceKey" />
+      &lt;attribute name="bindingKey" type="{urn:uddi-org:api_v3}bindingKey" />
+      &lt;/restriction>
+      &lt;/complexContent>
+      &lt;/complexType>
+      </pre><br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="BindingTemplate.html#BindingTemplate()">BindingTemplate</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   기본 생성자.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="BindingTemplate.html#BindingTemplate(java.lang.Object)">BindingTemplate</a></b>(java.lang.Object object)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="BindingTemplate.html#BindingTemplate(java.lang.Object, org.w3c.dom.Element)">BindingTemplate</a></b>(java.lang.Object object, org.w3c.dom.Element base)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="BindingTemplate.html#BindingTemplate(jeus.uddi.v3.datatype.binding.AccessPoint)">BindingTemplate</a></b>(<a href="../../../../../jeus/uddi/v3/datatype/binding/AccessPoint.html">AccessPoint</a> accessPoint)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   필수 값을 가지고 객체를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="BindingTemplate.html#BindingTemplate(jeus.uddi.v3.datatype.binding.HostingRedirector)">BindingTemplate</a></b>(<a href="../../../../../jeus/uddi/v3/datatype/binding/HostingRedirector.html">HostingRedirector</a> hostingRedirector)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   필수 값을 가지고 객체를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="BindingTemplate.html#BindingTemplate(org.w3c.dom.Element)">BindingTemplate</a></b>(org.w3c.dom.Element base)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   DOM Tree로 부터 객체를 생성한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#addDescription(jeus.uddi.v3.datatype.Description)">addDescription</a></b>(<a href="../../../../../jeus/uddi/v3/datatype/Description.html">Description</a> description)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   description을 더한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../../jeus/uddi/v3/datatype/binding/AccessPoint.html">AccessPoint</a></code></font></td>
+               <td><code><b><a href="BindingTemplate.html#getAccessPoint()">getAccessPoint</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   accessPoint를 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>org.w3c.dom.Element</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#getBaseElement()">getBaseElement</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#getBindingKey()">getBindingKey</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   bindingKey를 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a></code></font></td>
+               <td><code><b><a href="BindingTemplate.html#getCategoryBag()">getCategoryBag</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   categoryBag을 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.Vector</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#getDescriptionVector()">getDescriptionVector</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   descriptions을 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../../jeus/uddi/v3/datatype/binding/HostingRedirector.html">HostingRedirector</a></code></font></td>
+               <td><code><b><a href="BindingTemplate.html#getHostingRedirector()">getHostingRedirector</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   hostingRedirector를 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.xml.bind.JAXBElement</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#getMarshallingJAXBElement()">getMarshallingJAXBElement</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.uddi.xmlbinding.v3.datatype.BindingTemplateType</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#getMarshallingObject()">getMarshallingObject</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#getServiceKey()">getServiceKey</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   serviceKey를 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../../../jeus/uddi/v3/datatype/binding/TModelInstanceDetails.html">TModelInstanceDetails</a></code></font></td>
+               <td><code><b><a href="BindingTemplate.html#getTModelInstanceDetails()">getTModelInstanceDetails</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   tModelInstanceDetails를 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#setAccessPoint(jeus.uddi.v3.datatype.binding.AccessPoint)">setAccessPoint</a></b>(<a href="../../../../../jeus/uddi/v3/datatype/binding/AccessPoint.html">AccessPoint</a> accessPoint)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   accessPoint를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#setBindingKey(java.lang.String)">setBindingKey</a></b>(java.lang.String bindingKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   bindingKey를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#setCategoryBag(jeus.uddi.v3.datatype.CategoryBag)">setCategoryBag</a></b>(<a href="../../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a> categoryBag)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   categoryBag을 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#setDescriptionVector(java.util.Vector)">setDescriptionVector</a></b>(java.util.Vector descriptionVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   descriptions을 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#setHostingRedirector(jeus.uddi.v3.datatype.binding.HostingRedirector)">setHostingRedirector</a></b>(<a href="../../../../../jeus/uddi/v3/datatype/binding/HostingRedirector.html">HostingRedirector</a> hostingRedirector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   hostingRedirector를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#setServiceKey(java.lang.String)">setServiceKey</a></b>(java.lang.String serviceKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   serviceKey를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="BindingTemplate.html#setTModelInstanceDetails(jeus.uddi.v3.datatype.binding.TModelInstanceDetails)">setTModelInstanceDetails</a></b>(<a href="../../../../../jeus/uddi/v3/datatype/binding/TModelInstanceDetails.html">TModelInstanceDetails</a> tModelInstanceDetails)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   tModelInstanceDetails를 설정한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_jeus.uddi.v3.AbstractRegistryObject"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class jeus.uddi.v3.<a href="../../../../../jeus/uddi/v3/AbstractRegistryObject.html">AbstractRegistryObject</a></b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><a href="../../../jeus/uddi/v3/AbstractRegistryObject.html#getVersion()">getVersion</a>, <a href="../../../jeus/uddi/v3/AbstractRegistryObject.html#toXML()">toXML</a>, <a href="../../../jeus/uddi/v3/AbstractRegistryObject.html#toXML(org.w3c.dom.Node)">toXML</a></code></td>
+            </tr>
+         </table>&nbsp;<a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></td>
+            </tr>
+         </table>&nbsp;
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="BindingTemplate()"></a><h3>BindingTemplate</h3><pre>public <b>BindingTemplate</b>()<br></pre><dl>
+            <dd>기본 생성자.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="BindingTemplate(jeus.uddi.v3.datatype.binding.AccessPoint)"></a><h3>BindingTemplate</h3><pre>public <b>BindingTemplate</b>(<code><a href="../../../../../jeus/uddi/v3/datatype/binding/AccessPoint.html">AccessPoint</a></code> accessPoint)<br></pre><dl>
+            <dd>필수 값을 가지고 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="BindingTemplate(jeus.uddi.v3.datatype.binding.HostingRedirector)"></a><h3>BindingTemplate</h3><pre>public <b>BindingTemplate</b>(<code><a href="../../../../../jeus/uddi/v3/datatype/binding/HostingRedirector.html">HostingRedirector</a></code> hostingRedirector)<br></pre><dl>
+            <dd>필수 값을 가지고 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="BindingTemplate(org.w3c.dom.Element)"></a><h3>BindingTemplate</h3><pre>public <b>BindingTemplate</b>(<code>org.w3c.dom.Element</code> base)<br>                      throws <code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></pre><dl>
+            <dd>DOM Tree로 부터 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="BindingTemplate(java.lang.Object)"></a><h3>BindingTemplate</h3><pre>public <b>BindingTemplate</b>(<code>java.lang.Object</code> object)<br></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i></dd>
+         </dl>
+         <hr><a name="BindingTemplate(java.lang.Object, org.w3c.dom.Element)"></a><h3>BindingTemplate</h3><pre>public <b>BindingTemplate</b>(<code>java.lang.Object</code> object,<br>                       <code>org.w3c.dom.Element</code> base)<br></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i></dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getMarshallingObject()"></a><h3>getMarshallingObject</h3><pre>public jeus.uddi.xmlbinding.v3.datatype.BindingTemplateType <b>getMarshallingObject</b>()<br>                                                                               throws <code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i><br><br>&nbsp;
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMarshallingJAXBElement()"></a><h3>getMarshallingJAXBElement</h3><pre>public javax.xml.bind.JAXBElement <b>getMarshallingJAXBElement</b>()<br>                                                          throws <code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i><br><br>&nbsp;
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getBaseElement()"></a><h3>getBaseElement</h3><pre>public org.w3c.dom.Element <b>getBaseElement</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="getBindingKey()"></a><h3>getBindingKey</h3><pre>public java.lang.String <b>getBindingKey</b>()<br></pre><dl>
+            <dd>bindingKey를 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>string</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getServiceKey()"></a><h3>getServiceKey</h3><pre>public java.lang.String <b>getServiceKey</b>()<br></pre><dl>
+            <dd>serviceKey를 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>string</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getDescriptionVector()"></a><h3>getDescriptionVector</h3><pre>public java.util.Vector <b>getDescriptionVector</b>()<br></pre><dl>
+            <dd>descriptions을 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>vector</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getAccessPoint()"></a><h3>getAccessPoint</h3><pre>public <a href="../../../../../jeus/uddi/v3/datatype/binding/AccessPoint.html">AccessPoint</a> <b>getAccessPoint</b>()<br></pre><dl>
+            <dd>accessPoint를 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>accessPoint</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getHostingRedirector()"></a><h3>getHostingRedirector</h3><pre>public <a href="../../../../../jeus/uddi/v3/datatype/binding/HostingRedirector.html">HostingRedirector</a> <b>getHostingRedirector</b>()<br></pre><dl>
+            <dd>hostingRedirector를 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>hostingRedirector</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getTModelInstanceDetails()"></a><h3>getTModelInstanceDetails</h3><pre>public <a href="../../../../../jeus/uddi/v3/datatype/binding/TModelInstanceDetails.html">TModelInstanceDetails</a> <b>getTModelInstanceDetails</b>()<br></pre><dl>
+            <dd>tModelInstanceDetails를 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>tModelInstanceDetails</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getCategoryBag()"></a><h3>getCategoryBag</h3><pre>public <a href="../../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a> <b>getCategoryBag</b>()<br></pre><dl>
+            <dd>categoryBag을 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>categoryBag</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setBindingKey(java.lang.String)"></a><h3>setBindingKey</h3><pre>public void <b>setBindingKey</b>(<code>java.lang.String</code> bindingKey)<br></pre><dl>
+            <dd>bindingKey를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setServiceKey(java.lang.String)"></a><h3>setServiceKey</h3><pre>public void <b>setServiceKey</b>(<code>java.lang.String</code> serviceKey)<br></pre><dl>
+            <dd>serviceKey를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setDescriptionVector(java.util.Vector)"></a><h3>setDescriptionVector</h3><pre>public void <b>setDescriptionVector</b>(<code>java.util.Vector</code> descriptionVector)<br></pre><dl>
+            <dd>descriptions을 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setAccessPoint(jeus.uddi.v3.datatype.binding.AccessPoint)"></a><h3>setAccessPoint</h3><pre>public void <b>setAccessPoint</b>(<code><a href="../../../../../jeus/uddi/v3/datatype/binding/AccessPoint.html">AccessPoint</a></code> accessPoint)<br></pre><dl>
+            <dd>accessPoint를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setHostingRedirector(jeus.uddi.v3.datatype.binding.HostingRedirector)"></a><h3>setHostingRedirector</h3><pre>public void <b>setHostingRedirector</b>(<code><a href="../../../../../jeus/uddi/v3/datatype/binding/HostingRedirector.html">HostingRedirector</a></code> hostingRedirector)<br></pre><dl>
+            <dd>hostingRedirector를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setTModelInstanceDetails(jeus.uddi.v3.datatype.binding.TModelInstanceDetails)"></a><h3>setTModelInstanceDetails</h3><pre>public void <b>setTModelInstanceDetails</b>(<code><a href="../../../../../jeus/uddi/v3/datatype/binding/TModelInstanceDetails.html">TModelInstanceDetails</a></code> tModelInstanceDetails)<br></pre><dl>
+            <dd>tModelInstanceDetails를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setCategoryBag(jeus.uddi.v3.datatype.CategoryBag)"></a><h3>setCategoryBag</h3><pre>public void <b>setCategoryBag</b>(<code><a href="../../../../../jeus/uddi/v3/datatype/CategoryBag.html">CategoryBag</a></code> categoryBag)<br></pre><dl>
+            <dd>categoryBag을 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addDescription(jeus.uddi.v3.datatype.Description)"></a><h3>addDescription</h3><pre>public void <b>addDescription</b>(<code><a href="../../../../../jeus/uddi/v3/datatype/Description.html">Description</a></code> description)<br></pre><dl>
+            <dd>description을 더한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

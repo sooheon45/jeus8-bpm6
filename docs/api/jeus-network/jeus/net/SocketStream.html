@@ -1,0 +1,1441 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>SocketStream</title>
+      <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="SocketStream (JEUS Network Library)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  <a href="#nested_class_summary">NESTED</a>
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.net</font><br>Class SocketStream
+      </h2><pre>java.lang.Object<br>  <img src="../../resource/inherit.gif" alt="extended by"><b>jeus.net.SocketStream</b></pre><dl>
+         <dt><b>All Implemented Interfaces:</b><dd>jeus.io.handler.StreamContentReceiver</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public class <b>SocketStream</b><dt>extends java.lang.Object</dt><dt>implements jeus.io.handler.StreamContentReceiver</dt></pre></dl>SocketStream은 물리적 소켓과 일대일 대응되며 소켓을 관리하고 쓰기 작업을 하는데 주로 사용된다.
+      내부적으로는 StreamHandler로 부터 읽기가 완료된 데이터를 받아 메시지로 변환시키고 이 메시지가
+      NetworkControlPacket인 경우 이에 대한 처리도 담당하고 있다. 또한 SocketStream은 안전한 소켓
+      Close를 위해 Close 상태 관리도 담당하고 있어 JEUS NETWORK LIBRARY에서 아주 중요한 역할을 담당하는
+      클래스이다. 이 class의 역할은 다음과 같다.
+      <p/>
+      1. 현재 connection의 정보
+      2. 현재 connection의 제거 기능
+      3. 현재 connection으로 data를 보내는 통로<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="nested_class_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Nested Class Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>public class</code></font></td>
+               <td><code><b><a href="../../jeus/net/SocketStream.MessageProcessor.html">SocketStream.MessageProcessor</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream을 통해 들어온 메시지를 처리하기 위한 클래스.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static long</code></font></td>
+               <td><code><b><a href="../../jeus/net/SocketStream.html#GRACE_CLOSING_TIMEOUT">GRACE_CLOSING_TIMEOUT</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Graceful close를 사용할때, hand-shaking과정에서 상대방 socketStream의 응답을 기다리는 timeout.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SocketStream.html#checkConnection()">checkConnection</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결이 되어있는지를 확인한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.Collection&lt;jeus.net.ReplyListener&gt;</code></font></td>
+               <td><code><b><a href="SocketStream.html#clearReplyListeners()">clearReplyListeners</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream의 모든 ReplyLister들을 제거한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static <a href="../../jeus/net/SocketStream.html">SocketStream</a></code></font></td>
+               <td><code><b><a href="SocketStream.html#createSocketStream(java.net.Socket, jeus.net.connection.ConnectionManager, jeus.net.ConnectionListener)">createSocketStream</a></b>(java.net.Socket socket, jeus.net.connection.ConnectionManager connectionManager, <a href="../../jeus/net/ConnectionListener.html">ConnectionListener</a> listener)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream을 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SocketStream.html#destroy()">destroy</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream을 닫는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.io.buffer.Buffer</code></font></td>
+               <td><code><b><a href="SocketStream.html#getBuffer(int)">getBuffer</a></b>(int size)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamContentHandlerCreator를 통해 Buffer를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.nio.ByteBuffer</code></font></td>
+               <td><code><b><a href="SocketStream.html#getByteBuffer(int)">getByteBuffer</a></b>(int size)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamContentHandlerCreator를 통해 ByteBuffer를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.Object</code></font></td>
+               <td><code><b><a href="SocketStream.html#getConnectionLock()">getConnectionLock</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결을 할때 사용하는 lock인 Connection lock을 가져온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="SocketStream.html#getHostName()">getHostName</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../jeus/net/ConnectionListener.html">ConnectionListener</a></code></font></td>
+               <td><code><b><a href="SocketStream.html#getListener()">getListener</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream의 ConnectionListener를 얻어온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../jeus/net/SocketID.html">SocketID</a></code></font></td>
+               <td><code><b><a href="SocketStream.html#getLocalSocketID()">getLocalSocketID</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream의 SocketID를 얻어온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td><code><b><a href="SocketStream.html#getPort()">getPort</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream에서 사용하고 있는 port번호를 얻어온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.io.buffer.Buffer</code></font></td>
+               <td><code><b><a href="SocketStream.html#getReplyBuffer(int)">getReplyBuffer</a></b>(int size)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamContentHandlerCreator를 통해 Reply를 처리할 Buffer를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.nio.ByteBuffer</code></font></td>
+               <td><code><b><a href="SocketStream.html#getReplyByteBuffer(int)">getReplyByteBuffer</a></b>(int size)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamContentHandlerCreator를 통해 Reply를 처리할 ByteBuffer를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td><code><b><a href="SocketStream.html#getReplyID()">getReplyID</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   현재의 ReplyID를 얻어온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.io.buffer.Buffer</code></font></td>
+               <td><code><b><a href="SocketStream.html#getReplyRequestBuffer(int)">getReplyRequestBuffer</a></b>(int size)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamContentHandlerCreator를 통해 Request와 Reply를 처리할 Buffer를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.nio.ByteBuffer</code></font></td>
+               <td><code><b><a href="SocketStream.html#getReplyRequestByteBuffer(int)">getReplyRequestByteBuffer</a></b>(int size)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamContentHandlerCreator를 통해 Request와 Reply를 처리할 ByteBuffer를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.io.buffer.Buffer</code></font></td>
+               <td><code><b><a href="SocketStream.html#getRequestBuffer(int)">getRequestBuffer</a></b>(int size)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamContentHandlerCreator를 통해 Request를 처리할 Buffer를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.nio.ByteBuffer</code></font></td>
+               <td><code><b><a href="SocketStream.html#getRequestByteBuffer(int)">getRequestByteBuffer</a></b>(int size)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamContentHandlerCreator를 통해 Request를 처리할 ByteBuffer를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.net.Socket</code></font></td>
+               <td><code><b><a href="SocketStream.html#getSocket()">getSocket</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream의 Socket을 얻어온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../jeus/net/SocketID.html">SocketID</a></code></font></td>
+               <td><code><b><a href="SocketStream.html#getSocketID()">getSocketID</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream의 remote SocketID를 얻어온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a></code></font></td>
+               <td><code><b><a href="SocketStream.html#getStreamHandler()">getStreamHandler</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream의 handler인 StreamHandler를 가져온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#isClosed()">isClosed</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream이 닫혀있는지 확인한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#isCrossConnectionCloseReceived()">isCrossConnectionCloseReceived</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream이 CrossConnection에대한 close 메시지를 받았는지 확인한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#isEstablished()">isEstablished</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream이 연결되어있는지를 확인한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SocketStream.html#receiveContent(java.lang.Object, jeus.io.handler.StreamHandler, byte[])">receiveContent</a></b>(java.lang.Object obj, <a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a> reader, byte[] header)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream에 데이터가 들어왔을때 불린다.
+                  
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SocketStream.html#receiveException(java.lang.Exception, jeus.io.handler.StreamHandler)">receiveException</a></b>(java.lang.Exception exception, <a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a> reader)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream에 Exception 전달되어 들어왔을때 불린다.
+                  
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#requireSequentialProcess()">requireSequentialProcess</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SocketStream.html#sendShutdownPacket(java.lang.Exception)">sendShutdownPacket</a></b>(java.lang.Exception ex)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SocketStream.html#setClientSocketID(int)">setClientSocketID</a></b>(int connectionType)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream의  <a href="../../jeus/net/SocketID.html"><code>SocketID</code></a>를 client쪽으로 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SocketStream.html#setSocketID(jeus.net.SocketID)">setSocketID</a></b>(<a href="../../jeus/net/SocketID.html">SocketID</a> socketID)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream의 remote의 SocketID를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SocketStream.html#setStreamHandler(jeus.io.handler.StreamHandler)">setStreamHandler</a></b>(<a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a> streamHandler)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream에서 사용하는 StreamHandler를 등록한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="SocketStream.html#toString()">toString</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SocketStream에대한 요약된 정보를 나타낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SocketStream.html#unregisterReplyListener(int)">unregisterReplyListener</a></b>(int seq)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   ReplyListener의 등록을 취소한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#write(byte[])">write</a></b>(byte[] message)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 메시지를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#write(byte[], int, int)">write</a></b>(byte[] message, int offset, int length)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 메시지를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#write(byte[], jeus.net.ReplyListener)">write</a></b>(byte[] message, jeus.net.ReplyListener receiver)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 메시지를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#write(byte[], jeus.net.ReplyListener, boolean)">write</a></b>(byte[] message, jeus.net.ReplyListener receiver, boolean flowControl)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 메시지를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#write(java.lang.Object)">write</a></b>(java.lang.Object message)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 메시지를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#write(java.lang.Object, jeus.net.ReplyListener)">write</a></b>(java.lang.Object message, jeus.net.ReplyListener receiver)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 메시지를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#write(java.lang.Object, jeus.net.ReplyListener, boolean)">write</a></b>(java.lang.Object message, jeus.net.ReplyListener receiver, boolean flowControl)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 메시지를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#write(java.nio.ByteBuffer)">write</a></b>(java.nio.ByteBuffer message)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 메시지를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#write(java.nio.ByteBuffer, jeus.net.ReplyListener)">write</a></b>(java.nio.ByteBuffer message, jeus.net.ReplyListener receiver)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 메시지를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#write(jeus.io.buffer.Buffer)">write</a></b>(jeus.io.buffer.Buffer message)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 메시지를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#write(jeus.io.buffer.Buffer, jeus.net.ReplyListener)">write</a></b>(jeus.io.buffer.Buffer message, jeus.net.ReplyListener receiver)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 메시지를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(byte[])">writeReply</a></b>(byte[] message)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(byte[], int)">writeReply</a></b>(byte[] message, int replyID)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(byte[], int, int, int)">writeReply</a></b>(byte[] message, int offset, int length, int replyID)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(byte[], int, int, int, jeus.net.ReplyListener)">writeReply</a></b>(byte[] message, int offset, int length, int replyID, jeus.net.ReplyListener replyListener)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(byte[], int, jeus.net.ReplyListener)">writeReply</a></b>(byte[] message, int replyID, jeus.net.ReplyListener replyListener)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(byte[], jeus.net.ReplyListener)">writeReply</a></b>(byte[] message, jeus.net.ReplyListener replyListener)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(java.lang.Object)">writeReply</a></b>(java.lang.Object obj)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(java.lang.Object, int)">writeReply</a></b>(java.lang.Object obj, int replyID)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(java.lang.Object, int, jeus.net.ReplyListener)">writeReply</a></b>(java.lang.Object obj, int seqInt, jeus.net.ReplyListener replyListener)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(java.lang.Object, jeus.net.ReplyListener)">writeReply</a></b>(java.lang.Object obj, jeus.net.ReplyListener replyListener)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(java.nio.ByteBuffer)">writeReply</a></b>(java.nio.ByteBuffer obj)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(java.nio.ByteBuffer, int)">writeReply</a></b>(java.nio.ByteBuffer obj, int replyID)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(java.nio.ByteBuffer, int, jeus.net.ReplyListener)">writeReply</a></b>(java.nio.ByteBuffer obj, int seqInt, jeus.net.ReplyListener replyListener)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SocketStream.html#writeReply(java.nio.ByteBuffer, jeus.net.ReplyListener)">writeReply</a></b>(java.nio.ByteBuffer obj, jeus.net.ReplyListener replyListener)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   연결된 SocketStream으로 Reply를 보낸다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></td>
+            </tr>
+         </table>&nbsp;
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="GRACE_CLOSING_TIMEOUT"></a><h3>GRACE_CLOSING_TIMEOUT</h3><pre>public static long <b>GRACE_CLOSING_TIMEOUT</b></pre><dl>
+            <dd>Graceful close를 사용할때, hand-shaking과정에서 상대방 socketStream의 응답을 기다리는 timeout.
+               Graceful close는 SocketStream을 닫을 때, 연결된 상대방 SocketStream과의 hand-shaking을 한 후, socket을 닫는 방식이다.
+               동적으로 변경될 수 있다.
+               <p/>
+               기본값은 10000ms
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getConnectionLock()"></a><h3>getConnectionLock</h3><pre>public java.lang.Object <b>getConnectionLock</b>()<br></pre><dl>
+            <dd>연결을 할때 사용하는 lock인 Connection lock을 가져온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>연결을 할때 사용하는 Connection lock</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="requireSequentialProcess()"></a><h3>requireSequentialProcess</h3><pre>public boolean <b>requireSequentialProcess</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>requireSequentialProcess</code> in class <code>StreamContentReceiver</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="destroy()"></a><h3>destroy</h3><pre>public void <b>destroy</b>()<br></pre><dl>
+            <dd>SocketStream을 닫는다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="getStreamHandler()"></a><h3>getStreamHandler</h3><pre>public <a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a> <b>getStreamHandler</b>()<br></pre><dl>
+            <dd>SocketStream의 handler인 StreamHandler를 가져온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>SocketStream의 StreamHandler</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getListener()"></a><h3>getListener</h3><pre>public <a href="../../jeus/net/ConnectionListener.html">ConnectionListener</a> <b>getListener</b>()<br></pre><dl>
+            <dd>SocketStream의 ConnectionListener를 얻어온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>SocketStream에 연결된 ConnectionListener</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getPort()"></a><h3>getPort</h3><pre>public int <b>getPort</b>()<br></pre><dl>
+            <dd>SocketStream에서 사용하고 있는 port번호를 얻어온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>SocketStream에서 사용하고 있는 port번호</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getHostName()"></a><h3>getHostName</h3><pre>public java.lang.String <b>getHostName</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="getSocketID()"></a><h3>getSocketID</h3><pre>public <a href="../../jeus/net/SocketID.html">SocketID</a> <b>getSocketID</b>()<br></pre><dl>
+            <dd>SocketStream의 remote SocketID를 얻어온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>SocketStream의 remote SocketID</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getLocalSocketID()"></a><h3>getLocalSocketID</h3><pre>public <a href="../../jeus/net/SocketID.html">SocketID</a> <b>getLocalSocketID</b>()<br></pre><dl>
+            <dd>SocketStream의 SocketID를 얻어온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>SocketStream의 SocketID</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getSocket()"></a><h3>getSocket</h3><pre>public java.net.Socket <b>getSocket</b>()<br></pre><dl>
+            <dd>SocketStream의 Socket을 얻어온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>SocketStream의 Socket</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="isClosed()"></a><h3>isClosed</h3><pre>public boolean <b>isClosed</b>()<br></pre><dl>
+            <dd>SocketStream이 닫혀있는지 확인한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>SocketStream이 닫혀있는지 여부</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="isEstablished()"></a><h3>isEstablished</h3><pre>public boolean <b>isEstablished</b>()<br></pre><dl>
+            <dd>SocketStream이 연결되어있는지를 확인한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>SocketStream이 연결되어있는지 여부</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="toString()"></a><h3>toString</h3><pre>public java.lang.String <b>toString</b>()<br></pre><dl>
+            <dd>SocketStream에대한 요약된 정보를 나타낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Overrides:</b><dd><code>toString</code> in class <code>Object</code></dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>SocketStream에대한 정보</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="isCrossConnectionCloseReceived()"></a><h3>isCrossConnectionCloseReceived</h3><pre>public boolean <b>isCrossConnectionCloseReceived</b>()<br></pre><dl>
+            <dd>SocketStream이 CrossConnection에대한 close 메시지를 받았는지 확인한다.
+               <p/>
+               cross connection에 대한 고찰
+               1. 한 노드에서 다른 노드로 접속을 하고자 하는 thread 간에 하나만 connect를 하도록 하는 것은
+               Endpoint의 getSocketStream() method에서 target당 하나의 ticket을 받아서 그 ticket에 lock을 걸고
+               connection을 맺고 나머지 thread는 그 ticket을 얻기위해 대기하는 식으로 해서 하나의 thread만 connect를
+               수행하도록 처리하였다.
+               <p/>
+               2. 두 노드가 서로 동시에 connect를 수행하는 시나리오에서는 자기 노드의 listen socket ID와 상대 노드의
+               listen socket ID를 비교해서 connect를 누가 할 지 정한다. connect를 수행하지 말아야 할 노드에서 connect를 수행했다면
+               현재, 상대 노드로의 접속을 시도하지 않는 상황이라면 그냥 접속을 허용한다. 또는 connect를 해도 되는 노드라면 접속을 허용한다.
+               이 경우 접속을 허용하기로 결정한 후에 이 노드로 connect를 하려는 thread가 생긴다면 이 thread는 접속을 허용하기로
+               한 socket stream을 등록할때까지 대기해야 한다. 따라서 Endpoint의 getSocketStream에서와 같이 ticket을 발급받고
+               socket stream을 등록한다. 이때 주의할 점은 접속을 허용하기로 결정하기 전에 connectionManager의 lock을 잡고
+               ticket을 발급받아야 connect를 수행하는 thread와의 ticket 발급 경쟁에 의한 race condition이 발생하지 않는다.
+               <p/>
+               접속을 허용하지 않았다면 그 접속을 시도한 connect는 establish가 되지 않았고 OP_CLOSE에 의해 stream이 닫겨져 있는
+               것으로 지금 현재 자신에게 target 노드가 접속을 시도중이라는걸 알수 있다. 이 경우에는 connectionManager를 통해
+               해당 socket stream이 accept될 때까지 wait()하다가 accept가 되면 이를 사용하면 된다. (Connector 참고)
+               <p/>
+               3. 만약 접속을 허용하지 않고 자신이 접속하다가 여기서 error가 나는 경우 접속을 기다리는 connector가 계속 기다리게
+               된다는 문제가 있다. 이런 경우에는 timeout을 설정하고 max try count만큼만 시도하고 exception을 던지도록 하였다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>SocketStream이 CrossConnection에대한 close 메시지를 받았는지 여부</dd>
+                  </dt>
+                  <dt><b>See Also:</b><dd>jeus.net.connection.EndpointConnector#tryToConnect</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="clearReplyListeners()"></a><h3>clearReplyListeners</h3><pre>public java.util.Collection&lt;jeus.net.ReplyListener&gt; <b>clearReplyListeners</b>()<br></pre><dl>
+            <dd>SocketStream의 모든 ReplyLister들을 제거한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>제거된 ReplyListener들</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getReplyID()"></a><h3>getReplyID</h3><pre>public int <b>getReplyID</b>()<br></pre><dl>
+            <dd>현재의 ReplyID를 얻어온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>현재의 ReplyID</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="checkConnection()"></a><h3>checkConnection</h3><pre>public void <b>checkConnection</b>()<br>                          throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결이 되어있는지를 확인한다.
+               연결되어있지 않을때는 IOException이 발생한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - SocketStream이 연결되어있지 않을때
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(byte[])"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>byte[]</code> message)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 메시지를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보내려는 메시지
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>메시지가 보내졌는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(byte[])"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>byte[]</code> message)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보낼 reply
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(byte[], int)"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>byte[]</code> message,<br>                          <code>int</code> replyID)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보낼 reply<br><code>replyID</code> - 보낼 reply의 id
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(byte[], int, int)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>byte[]</code> message,<br>                     <code>int</code> offset,<br>                     <code>int</code> length)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 메시지를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보내려는 메시지<br><code>offset</code> - 보내려는 메시지를 담은 byte[]의 offset<br><code>length</code> - 보내려는 메시지를 담은 byte[]의 길이
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>메시지가 보내졌는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(byte[], int, int, int)"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>byte[]</code> message,<br>                          <code>int</code> offset,<br>                          <code>int</code> length,<br>                          <code>int</code> replyID)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보낼 reply<br><code>offset</code> - 보낼 reply가 담긴 byte array의 offset<br><code>length</code> - 보낼 reply가 담긴 byte array의 길이<br><code>replyID</code> - 보낼 reply의 id
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(byte[], int, int, int, jeus.net.ReplyListener)"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>byte[]</code> message,<br>                          <code>int</code> offset,<br>                          <code>int</code> length,<br>                          <code>int</code> replyID,<br>                          <code>jeus.net.ReplyListener</code> replyListener)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보낼 reply<br><code>offset</code> - 보낼 reply가 담긴 byte array의 offset<br><code>length</code> - 보낼 reply가 담긴 byte array의 길이<br><code>replyID</code> - 보낼 reply의 id<br><code>replyListener</code> - 보낸 reply의 응답을 처리할 ReplyListener
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(byte[], int, jeus.net.ReplyListener)"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>byte[]</code> message,<br>                          <code>int</code> replyID,<br>                          <code>jeus.net.ReplyListener</code> replyListener)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보낼 reply<br><code>replyID</code> - 보낼 reply의 id<br><code>replyListener</code> - 보낸 reply의 응답을 처리할 ReplyListener
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(byte[], jeus.net.ReplyListener)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>byte[]</code> message,<br>                     <code>jeus.net.ReplyListener</code> receiver)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 메시지를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보내려는 메시지<br><code>receiver</code> - 보낸 메시지의 응답을 처리할 ReplyListener
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>메시지가 보내졌는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(byte[], jeus.net.ReplyListener)"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>byte[]</code> message,<br>                          <code>jeus.net.ReplyListener</code> replyListener)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보낼 reply<br><code>replyListener</code> - 보낸 reply의 응답을 처리할 ReplyListener
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(byte[], jeus.net.ReplyListener, boolean)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>byte[]</code> message,<br>                     <code>jeus.net.ReplyListener</code> receiver,<br>                     <code>boolean</code> flowControl)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 메시지를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보내려는 메시지<br><code>receiver</code> - 보낸 메시지의 응답을 처리할 ReplyListener<br><code>flowControl</code> - 보내기 실패했을때 block될지 여부
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>메시지가 보내졌는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setClientSocketID(int)"></a><h3>setClientSocketID</h3><pre>public void <b>setClientSocketID</b>(<code>int</code> connectionType)<br></pre><dl>
+            <dd>SocketStream의  <a href="../../jeus/net/SocketID.html"><code>SocketID</code></a>를 client쪽으로 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>connectionType</code> - 설정할 SocketID의 connection type
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getByteBuffer(int)"></a><h3>getByteBuffer</h3><pre>public java.nio.ByteBuffer <b>getByteBuffer</b>(<code>int</code> size)<br></pre><dl>
+            <dd>StreamContentHandlerCreator를 통해 ByteBuffer를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>size</code> - 생성할 ByteBuffer의 크기
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 ByteBuffer</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getRequestByteBuffer(int)"></a><h3>getRequestByteBuffer</h3><pre>public java.nio.ByteBuffer <b>getRequestByteBuffer</b>(<code>int</code> size)<br></pre><dl>
+            <dd>StreamContentHandlerCreator를 통해 Request를 처리할 ByteBuffer를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>size</code> - 생성할 ByteBuffer의 크기
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 ByteBuffer</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getReplyByteBuffer(int)"></a><h3>getReplyByteBuffer</h3><pre>public java.nio.ByteBuffer <b>getReplyByteBuffer</b>(<code>int</code> size)<br></pre><dl>
+            <dd>StreamContentHandlerCreator를 통해 Reply를 처리할 ByteBuffer를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>size</code> - 생성할 ByteBuffer의 크기
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 ByteBuffer</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getReplyRequestByteBuffer(int)"></a><h3>getReplyRequestByteBuffer</h3><pre>public java.nio.ByteBuffer <b>getReplyRequestByteBuffer</b>(<code>int</code> size)<br></pre><dl>
+            <dd>StreamContentHandlerCreator를 통해 Request와 Reply를 처리할 ByteBuffer를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>size</code> - 생성할 ByteBuffer의 크기
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 ByteBuffer</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getBuffer(int)"></a><h3>getBuffer</h3><pre>public jeus.io.buffer.Buffer <b>getBuffer</b>(<code>int</code> size)<br></pre><dl>
+            <dd>StreamContentHandlerCreator를 통해 Buffer를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>size</code> - 생성할 ByteBuffer의 크기
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 ByteBuffer</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getRequestBuffer(int)"></a><h3>getRequestBuffer</h3><pre>public jeus.io.buffer.Buffer <b>getRequestBuffer</b>(<code>int</code> size)<br></pre><dl>
+            <dd>StreamContentHandlerCreator를 통해 Request를 처리할 Buffer를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>size</code> - 생성할 ByteBuffer의 크기
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 ByteBuffer</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getReplyBuffer(int)"></a><h3>getReplyBuffer</h3><pre>public jeus.io.buffer.Buffer <b>getReplyBuffer</b>(<code>int</code> size)<br></pre><dl>
+            <dd>StreamContentHandlerCreator를 통해 Reply를 처리할 Buffer를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>size</code> - 생성할 ByteBuffer의 크기
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 ByteBuffer</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getReplyRequestBuffer(int)"></a><h3>getReplyRequestBuffer</h3><pre>public jeus.io.buffer.Buffer <b>getReplyRequestBuffer</b>(<code>int</code> size)<br></pre><dl>
+            <dd>StreamContentHandlerCreator를 통해 Request와 Reply를 처리할 Buffer를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>size</code> - 생성할 ByteBuffer의 크기
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 ByteBuffer</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="unregisterReplyListener(int)"></a><h3>unregisterReplyListener</h3><pre>public void <b>unregisterReplyListener</b>(<code>int</code> seq)<br></pre><dl>
+            <dd>ReplyListener의 등록을 취소한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>seq</code> - 취소하고자 하는 ReplyListener
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="sendShutdownPacket(java.lang.Exception)"></a><h3>sendShutdownPacket</h3><pre>public void <b>sendShutdownPacket</b>(<code>java.lang.Exception</code> ex)<br>                             throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="receiveException(java.lang.Exception, jeus.io.handler.StreamHandler)"></a><h3>receiveException</h3><pre>public void <b>receiveException</b>(<code>java.lang.Exception</code> exception,<br>                             <code><a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a></code> reader)<br></pre><dl>
+            <dd>SocketStream에 Exception 전달되어 들어왔을때 불린다.
+                <a href="../../jeus/io/handler/StreamHandler.html"><code>StreamHandler</code></a>에 의해 호출된다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>receiveException</code> in class <code>StreamContentReceiver</code></dd>
+                  </dt>
+                  <dt><b>Parameters:</b><dd><code>exception</code> - 들어온 exception<br><code>reader</code> - 전달해준  <a href="../../jeus/io/handler/StreamHandler.html"><code>StreamHandler</code></a>&nbsp;
+                     </dd>
+                  </dt>
+                  <dt><b>See Also:</b><dd>jeus.io.handler.StreamContentReceiver</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(java.lang.Object)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>java.lang.Object</code> message)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 메시지를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보내려는 메시지
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>메시지가 보내졌는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(java.lang.Object)"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>java.lang.Object</code> obj)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>obj</code> - 보낼 reply
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(java.lang.Object, int)"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>java.lang.Object</code> obj,<br>                          <code>int</code> replyID)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>obj</code> - 보낼 reply<br><code>replyID</code> - 보낼 reply의 id
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(java.lang.Object, int, jeus.net.ReplyListener)"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>java.lang.Object</code> obj,<br>                          <code>int</code> seqInt,<br>                          <code>jeus.net.ReplyListener</code> replyListener)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>obj</code> - 보낼 reply<br><code>seqInt</code> - 보낼 reply의 id<br><code>replyListener</code> - 보낸 reply의 응답을 처리할 ReplyListener
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="receiveContent(java.lang.Object, jeus.io.handler.StreamHandler, byte[])"></a><h3>receiveContent</h3><pre>public void <b>receiveContent</b>(<code>java.lang.Object</code> obj,<br>                           <code><a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a></code> reader,<br>                           <code>byte[]</code> header)<br></pre><dl>
+            <dd>SocketStream에 데이터가 들어왔을때 불린다.
+                <a href="../../jeus/io/handler/StreamHandler.html"><code>StreamHandler</code></a>에 의해 호출된다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>receiveContent</code> in class <code>StreamContentReceiver</code></dd>
+                  </dt>
+                  <dt><b>Parameters:</b><dd><code>obj</code> - 들어온 데이터<br><code>reader</code> - 연결되어있는  <a href="../../jeus/io/handler/StreamHandler.html"><code>StreamHandler</code></a>&nbsp;<br><code>header</code> - 들어온 데이터의 header
+                     </dd>
+                  </dt>
+                  <dt><b>See Also:</b><dd>jeus.io.handler.StreamContentReceiver</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(java.lang.Object, jeus.net.ReplyListener)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>java.lang.Object</code> message,<br>                     <code>jeus.net.ReplyListener</code> receiver)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 메시지를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보내려는 메시지<br><code>receiver</code> - 보낸 메시지의 응답을 처리할 ReplyListener
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>메시지가 보내졌는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(java.lang.Object, jeus.net.ReplyListener)"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>java.lang.Object</code> obj,<br>                          <code>jeus.net.ReplyListener</code> replyListener)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>obj</code> - 보낼 reply<br><code>replyListener</code> - 보낸 reply의 응답을 처리할 ReplyListener
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(java.lang.Object, jeus.net.ReplyListener, boolean)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>java.lang.Object</code> message,<br>                     <code>jeus.net.ReplyListener</code> receiver,<br>                     <code>boolean</code> flowControl)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 메시지를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보내려는 메시지<br><code>receiver</code> - 보낸 메시지의 응답을 처리할 ReplyListener<br><code>flowControl</code> - 보내기 실패했을때 block될지 여부
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>메시지가 보내졌는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="createSocketStream(java.net.Socket, jeus.net.connection.ConnectionManager, jeus.net.ConnectionListener)"></a><h3>createSocketStream</h3><pre>public static <a href="../../jeus/net/SocketStream.html">SocketStream</a> <b>createSocketStream</b>(<code>java.net.Socket</code> socket,<br>                                              <code>jeus.net.connection.ConnectionManager</code> connectionManager,<br>                                              <code><a href="../../jeus/net/ConnectionListener.html">ConnectionListener</a></code> listener)<br></pre><dl>
+            <dd>SocketStream을 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>socket</code> - SocketStream에서 사용하는 socket<br><code>connectionManager</code> - Endpoint에서 socketStream을 관리하는 <code>connection.ConnectionManager</code>&nbsp;<br><code>listener</code> - SocketStream에 들어온 연결을 처리할  <a href="../../jeus/net/ConnectionListener.html"><code>ConnectionListener</code></a>&nbsp;
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>생성된 SocketStream</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(java.nio.ByteBuffer)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>java.nio.ByteBuffer</code> message)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 메시지를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보내려는 메시지
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>메시지가 보내졌는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(java.nio.ByteBuffer)"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>java.nio.ByteBuffer</code> obj)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.
+               여기의 ByteBuffer는 getReplyByteBuffer()에서 나온 ByteBuffer여야 한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>obj</code> - 보낼 reply
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(java.nio.ByteBuffer, int)"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>java.nio.ByteBuffer</code> obj,<br>                          <code>int</code> replyID)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>obj</code> - 보낼 reply<br><code>replyID</code> - 보낼 reply의 id
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(java.nio.ByteBuffer, int, jeus.net.ReplyListener)"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>java.nio.ByteBuffer</code> obj,<br>                          <code>int</code> seqInt,<br>                          <code>jeus.net.ReplyListener</code> replyListener)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>obj</code> - 보낼 reply<br><code>seqInt</code> - 보낼 reply의 id<br><code>replyListener</code> - 보낸 reply의 응답을 처리할 ReplyListener
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(java.nio.ByteBuffer, jeus.net.ReplyListener)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>java.nio.ByteBuffer</code> message,<br>                     <code>jeus.net.ReplyListener</code> receiver)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 메시지를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보내려는 메시지<br><code>receiver</code> - 응답을 처리할 <code>ReplyListener</code>&nbsp;
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>메시지가 보내졌는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeReply(java.nio.ByteBuffer, jeus.net.ReplyListener)"></a><h3>writeReply</h3><pre>public boolean <b>writeReply</b>(<code>java.nio.ByteBuffer</code> obj,<br>                          <code>jeus.net.ReplyListener</code> replyListener)<br>                        throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 Reply를 보낸다.
+               여기의 ByteBuffer는 getReplyRequestByteBuffer()에서 나온 ByteBuffer여야 한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>obj</code> - 보낼 reply<br><code>replyListener</code> - 보낸 reply의 응답을 처리할 ReplyListener
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>reply를 보냈는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(jeus.io.buffer.Buffer)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>jeus.io.buffer.Buffer</code> message)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 메시지를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보내려는 메시지
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>메시지가 보내졌는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(jeus.io.buffer.Buffer, jeus.net.ReplyListener)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>jeus.io.buffer.Buffer</code> message,<br>                     <code>jeus.net.ReplyListener</code> receiver)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>연결된 SocketStream으로 메시지를 보낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>message</code> - 보내려는 메시지<br><code>receiver</code> - 보낸 메시지의 응답을 처리할 ReplyListener
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>메시지가 보내졌는지 여부</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setStreamHandler(jeus.io.handler.StreamHandler)"></a><h3>setStreamHandler</h3><pre>public void <b>setStreamHandler</b>(<code><a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a></code> streamHandler)<br></pre><dl>
+            <dd>SocketStream에서 사용하는 StreamHandler를 등록한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>streamHandler</code> - SocketStream에서 사용할 StreamHandler
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setSocketID(jeus.net.SocketID)"></a><h3>setSocketID</h3><pre>public void <b>setSocketID</b>(<code><a href="../../jeus/net/SocketID.html">SocketID</a></code> socketID)<br></pre><dl>
+            <dd>SocketStream의 remote의 SocketID를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>socketID</code> - 설정할 remote SocketID
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  <a href="#nested_class_summary">NESTED</a>
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

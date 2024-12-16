@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Appendix A. Journal Store 추가 속성</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS MQ 안내서"/><link rel="up" href="index.html" title="JEUS MQ 안내서"/><link rel="prev" href="chapter_jeus-mq-special-func.html" title="제6장 JEUS MQ 특수 기능"/><link rel="next" href="appendix_jdbc-store-columns.html" title="Appendix B. JDBC Persistence Store 컬럼"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">Appendix A. Journal Store 추가 속성</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jeus-mq-special-func.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="appendix_jdbc-store-columns.html">다음</a></td></tr></table><hr/></div><div class="appendix" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="appendix_journal-store-properties"></a>Appendix A. Journal Store 추가 속성</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="appendix_journal-store-properties.html#d4e3176">A.1. 프로퍼티 레퍼런스</a></span></dt></dl></div>
+  
+
+  <p>Journal Store에 추가적으로 설정할 수 있는 속성들에 대해서 설명한다. 이 속성들은 고급 속성들로 플랫폼 사이에
+  발생할 수 있는 성능 문제나 기능의 상이함을 해결할 때 사용할 수 있다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e3176"></a>A.1. 프로퍼티 레퍼런스</h2></div></div></div>
+    
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.store.journal.control-file-name<a id="d4e3181" class="indexterm"></a></p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>컨트롤 파일(control file)을 다른 이름으로 지정할 때 사용된다. 특별한 경우를
+                  제외하고는 이 설정을 사용할 일은 없다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>control.dat</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.store.journal.log-file-mode<a id="d4e3199" class="indexterm"></a></p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>로그 파일을 열 때 사용하는 파일 모드를 지정한다. 'rw', 'rws', 'rwd' 등이
+                  설정될 수 있으며 'rw'로 설정될 경우 강제로 file force를 실행한다.<a id="d4e3210" class="indexterm"></a></td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>rwd</td></tr></tbody></table>
+          </div>
+      </li><li>
+        <p>jeus.store.journal.max-move-count<a id="d4e3218" class="indexterm"></a></p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>로그 파일이 가득차면 필요한 공간 확보를 위해 Overflow 처리를 통해서 레코드들의 위치를
+                  옮긴다. 오랫동안 사용되지 않는 레코드들이 로그 파일에 계속 남게 되면 성능이 저하되므로 제2의 저장소로
+                  옮긴다. 이때 레코드를 옮기는 최대 횟수를 지정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>1</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.store.journal.overflow-factor<a id="d4e3236" class="indexterm"></a></p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>현재 사용 중인 로그 파일에 이 값보다 작거나 같은 비율의 빈 공간이 남을 경우
+                  Overflow를 검사한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>0.5</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.store.journal.min-buffer-size<a id="d4e3254" class="indexterm"></a></p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>레코드들을 쓸 때 한 번에 batch write를 하기 위한 최소 버퍼
+                  사이즈이다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>4KB</td></tr></tbody></table>
+          </div>
+
+        
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.store.journal.max-buffer-size<a id="d4e3272" class="indexterm"></a></p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>레코드들을 쓸 때 한 번에 batch write를 하기 위한 최대 버퍼
+                  사이즈이다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>4MB</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.store.journal.use-direct-buffer<a id="d4e3290" class="indexterm"></a></p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>FileChannel을 통해서 write할 때 DirectByteBuffer를 사용할지 여부를
+                  설정한다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>false</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.store.journal.max-waiting-thread-count<a id="d4e3308" class="indexterm"></a></p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>버퍼의 사용을 대기하는 최대 스레드 개수이다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>32</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.store.journal.sync-forcefully<a id="d4e3326" class="indexterm"></a></p>
+
+        <div class="informaltable">
+            <table border="1"><colgroup><col width="80" align="left"/><col/></colgroup><tbody><tr><td align="left"><span><strong class="guibutton">설명 </strong></span></td><td>FileChannel을 열 때 log-file-mode에 관계없이 강제적으로 sync를 호출하는
+                  설정이다. 일부 OS에서 파일 모드가 제대로 적용되지 않을 수 있다.</td></tr><tr><td align="left"><span><strong class="guibutton">기본값 </strong></span></td><td>fasle</td></tr></tbody></table>
+          </div>
+      </li></ul></div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jeus-mq-special-func.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="appendix_jdbc-store-columns.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제6장 JEUS MQ 특수 기능 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> Appendix B. JDBC Persistence Store 컬럼</td></tr></table></div><div xmlns="" align="center"/></body></html>

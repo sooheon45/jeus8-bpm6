@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제13장 웹 서비스 정책</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Service 안내서"/><link rel="up" href="pt01.html" title="Part I. JEUS 8 웹 서비스"/><link rel="prev" href="chapter_jaxws_jms.html" title="제12장 JAX-WS JMS 기반 전송"/><link rel="next" href="chapter_jaxws_addressing.html" title="제14장 웹 서비스 Addressing"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제13장 웹 서비스 정책</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jaxws_jms.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part I. JEUS 8 웹 서비스</td><td width="20%" align="right"> <a accesskey="n" href="chapter_jaxws_addressing.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jaxws_policy"></a>제13장 웹 서비스 정책</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jaxws_policy.html#d4e2909">13.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jaxws_policy.html#wspolicy">13.2. 웹 서비스의 정책(WS-Policy)</a></span></dt><dt><span class="section"><a href="chapter_jaxws_policy.html#wspolicy_scenario">13.3. 서버 정책 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_policy.html#wspolicy_server_wsdl">13.3.1. WSDL로부터 웹 서비스 구성</a></span></dt><dt><span class="section"><a href="chapter_jaxws_policy.html#d4e3008">13.3.2. Java 클래스로부터 웹 서비스 구성</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxws_policy.html#wspolicy_client">13.4. 클라이언트의 정책 설정</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 웹 서비스의 정책 설정에 대한 기본적인 개념과 함께 간단한 시나리오에 대해 설명한다. 각각의 세부적인 웹 서비스
+  정책 설정에 관한 내용은 이후 각 장에서 자세히 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2909"></a>13.1. 개요</h2></div></div></div>
+    
+
+    <p>JEUS 웹 서비스는 웹 서비스 정책(WS-Policy)을 지원한다. 웹 서비스 정책이란 어떤 웹 서비스가 가지고 있는
+    여러 가지 기능들(JEUS 웹 서비스에서는 WS-Addressing, WS-RM, WS-TX, WS-Security)의 정책을
+    노출시키기 위한 표준 명세이다.<a id="d4e2912" class="indexterm"></a></p>
+
+    <p>JEUS 웹 서비스에서의 웹 서비스 정책 시나리오는 크게 서버 정책과 클라이언트 정책으로 구분할 수 있다. 서버는
+    WSDL을 통해 웹 서비스정책을 노출시킬 수 있고, 클라이언트는 웹 서비스의 정책에 맞는 기능을 자동으로 구성한다.</p>
+
+    <p/>
+
+    <p>웹 서비스의 각각 정책 설정은 <a href="chapter_jaxws_addressing.html" title="제14장 웹 서비스 Addressing">“제14장 웹 서비스 Addressing”</a>, <a href="chapter_jaxws_rm.html" title="제15장 신뢰성 메시징 기술">“제15장 신뢰성 메시징 기술”</a> , <a href="chapter_jaxws_tx.html" title="제16장 웹 서비스 트랜잭션">“제16장 웹 서비스 트랜잭션”</a> ,
+    <a href="chapter_jaxws_security.html" title="제17장 웹 서비스 보안">“제17장 웹 서비스 보안”</a>의 내용을 참고한다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="wspolicy"></a>13.2. 웹 서비스의 정책(WS-Policy)</h2></div></div></div>
+    
+
+    <p>본 절에서는 일반적인 웹 서비스의 정책(WS-Policy)에 대해 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>일반적인 웹 서비스 정책의 특징은 다음과 같다.<a id="d4e2927" class="indexterm"></a></p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>웹 서비스 정책 명세는 표현하기가 매우 유연하고 확장성이 있도록 설계되어 있다.</p>
+      </li><li>
+        <p>웹 서비스 정책은 하나 이상의 정책 전제(policy assertion)를 통해 표현된다.</p>
+      </li></ul></div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>자세한 표준 웹 서비스의 정책에 관한 스키마의 내용은 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://schemas.xmlsoap.org/ws/2004/09/policy/ws-policy.xsd" target="_top">http://schemas.xmlsoap.org/ws/2004/09/policy/ws-policy.xsd</a>를
+      참고한다.</p>
+    </div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <h3><a id="d4e2942"></a>웹 서비스 정책 프레임워크(Framework)</h3>
+
+    <p>다음은 웹 서비스 정책 프레임워크에 대한 설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>정책 컨테이너(Policy Container)<a id="d4e2947" class="indexterm"></a></p>
+
+        <p>웹 서비스 정책 프레임워크에서 가장 핵심이 되는 주요 컴퍼넌트는 "Policy"라는 element로 표현된 정책
+        컨테이너이다. 이 element는 ID 값을 부여받을 수 있어 다른 곳에서 이를 참조하거나 재사용할 수 있다. 또한 이
+        element는 전제(assertion) 또는 전제들의 조합들로 구성된다. 이러한 전제들은 정책 연산자(Operator)들로
+        이루어진다.</p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>정책 연산자(Operator)<a id="d4e2953" class="indexterm"></a></p>
+
+        <p>웹 서비스 정책 명세는 2개의 연산자와 하나의 속성을 정의하고 있다.</p>
+
+        <div class="itemizedlist"><ul type="circle"><li>
+            <p>ExactlyOne Operator<a id="d4e2959" class="indexterm"></a></p>
+
+            <p>하위 element에 전체 또는 연산자들이 어러 개인 경우 이 중 어느 하나만을 선택하여 정책으로 가지고
+            있겠다는 것을 나타내기 위한 연산자이다.</p>
+
+            <p>다음은 연산자 사용에 대한 예이다.</p>
+
+            <pre class="programlisting">&lt;wsp:Policy&gt;
+    &lt;wsp:ExactlyOne&gt;
+        &lt;wsse:SecurityToken&gt;
+            &lt;wsse:Token
+        ...
+        &lt;wsse:
+    ...
+&lt;/wsp:Policy&gt;</pre>
+          </li></ul></div>
+
+        <div class="itemizedlist"><ul type="circle"><li>
+            <p>All Operator<a id="d4e2967" class="indexterm"></a></p>
+
+            <p>하위 element에 전체 또는 연산자들이 어러 개인 경우 이 중 모든 것을 취합하여 정책으로 가지고
+            있겠다는 것을 나타내기 위한 연산자이다.</p>
+
+            <p>다음은 연산자 사용에 대한 예이다.</p>
+
+            <pre class="programlisting">&lt;wsp:Policy&gt;
+    &lt;wsp:All&gt;
+        &lt;wsse:SecurityToken&gt;
+            &lt;wsse:Token
+    ...
+&lt;/wsp:Policy&gt;</pre>
+          </li><li>
+            <p>Optional Operator<a id="d4e2974" class="indexterm"></a></p>
+
+            <p>하위 element에 전제 또는 연산자들이 이 속성으로 선언되어 있을 때 선택적으로 취할 수 있음을 나타내기
+            위한 연산자이다.</p>
+
+            <p>다음은 연산자 사용에 대한 예이다.</p>
+
+            <pre class="programlisting">&lt;wsp:Policy&gt;
+    &lt;wsse:Integrity wsp:optional="true"&gt;
+    ...
+&lt;/wsp:Policy&gt;</pre>
+          </li></ul></div>
+      </li></ul></div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="wspolicy_scenario"></a>13.3. 서버 정책 설정</h2></div></div></div>
+    
+
+    <p>서버의 웹 서비스 정책 설정 시나리오는 WSDL로부터 웹 서비스를 구성하는 시나리오와 Java 클래스로부터 웹 서비스를
+    구성하는 시나리오로 나눌 수 있다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="wspolicy_server_wsdl"></a>13.3.1. WSDL로부터 웹 서비스 구성</h3></div></div></div>
+      
+
+      <p>WSDL 문서로부터 웹 서비스 정책 설정이 적용된 웹 서비스를 구성하는 시나리오는 다음과 같다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WSDL 문서를 작성한다.</p>
+        </li><li>
+          <p>WSDL 문서에 웹 서비스 정책 설정을 한다.</p>
+        </li><li>
+          <p>wsimport 툴을 통해 Java Bean 객체들을 생성한다.</p>
+        </li><li>
+          <p>서비스 구현 클래스를 작성한다.</p>
+        </li><li>
+          <p>패키지된 서비스를 JEUS 서버에 deploy한다.</p>
+        </li></ol></div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e3002"></a>디렉터리 구조 </h4>
+
+      <p>WSDL 문서로부터 웹 서비스 정책 설정이 적용된 JEUS 웹 서비스를 패키징한다. 서버에 해당하는 웹 서비스를
+      WSDL 문서로부터 구성할 때의 디렉터리는 다음과 같다.</p>
+
+      <pre class="programlisting">war_root
+    |- WEB-INF
+        |- classes
+            |- ... (SEI, JAX-WS artifacts, Handler, Validator)
+        |- wsdl
+            |- <span class="bold"><strong>addnumbers.wsdl</strong></span></pre>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3008"></a>13.3.2. Java 클래스로부터 웹 서비스 구성</h3></div></div></div>
+      
+
+      <p>Java 클래스로부터 웹 서비스의 정책이 적용된 웹 서비스를 생성하기 위해서는 다음과 같이
+      <span><strong class="guibutton">wsgen</strong></span> 툴에 추가적으로 -policy 기능을 이용하여 wsit-endpoint.xml
+      파일을 생성해야 한다.</p>
+
+      <pre class="screen">$ <span class="bold"><strong>wsgen</strong></span> fromjava.server.AddNumbersImpl -d web/WEB-INF<span class="bold"><strong> -policy service-config.xml</strong></span></pre>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 service-config.xml의 실제 모습이다. 자세한 설정 내용에 관한 것은 이어지는 각각의 여러 가지 웹
+      서비스 기능을 위한 장에서 자세히 살펴보기로 한다. 여기에서는 아래에 강조한 부분들을 중점적으로 살펴보기로 한다.</p>
+
+      <div class="example"><a id="d4e3018"></a><p class="title"><b>[예 13.1] &lt;&lt; service-config.xml &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;web-services-config xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;policy&gt;
+        &lt;!-- Endpoint 전체에 적용하고자 하는 설정 --&gt;
+        <span class="bold"><strong>&lt;endpoint-policy-subject&gt;</strong></span>
+            &lt;addressing-policy&gt;
+                &lt;using-addressing&gt;true&lt;/using-addressing&gt;
+            &lt;/addressing-policy&gt;
+            &lt;!-- Endpoint의 어느 오퍼레이션(메소드)에 적용하고자 하는 설정 --&gt;
+            <span class="bold"><strong>&lt;operation-policy-subject&gt;</strong></span>
+                &lt;!-- 이 설정은 아래의 오퍼레이션(메소드)에 대해 적용된다 --&gt;
+                <span class="bold"><strong>&lt;operation-java-name&gt;</strong></span>addNumbers<span class="bold"><strong>&lt;/operation-java-name&gt;</strong></span>
+                &lt;!-- 클라이언트 요청 메시지에 적용하고자 하는 설정 --&gt;
+                <span class="bold"><strong>&lt;input-message-policy-subject&gt;</strong></span>
+                    ......
+                <span class="bold"><strong>&lt;/input-message-policy-subject&gt;</strong></span>
+                &lt;!-- 서버의 응답 메시지에 적용하고자 하는 설정 --&gt;
+                <span class="bold"><strong>&lt;output-message-policy-subject&gt;</strong></span>
+                    ......
+                <span class="bold"><strong>&lt;/output-message-policy-subject&gt;</strong></span>
+            <span class="bold"><strong>&lt;/operation-policy-subject&gt;</strong></span>
+        <span class="bold"><strong>&lt;/endpoint-policy-subject&gt;</strong></span>
+    &lt;/policy&gt;
+&lt;/web-services-config&gt;</pre>
+      </div></div><br class="example-break"/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>wsgen의 -policy 기능을 이용하여 웹 서비스를 위한 Java 클래스 및 wsit-endpoint.xml 파일을
+      얻었으면 다음과 같은 시나리오로 웹 서비스 정책이 적용된 웹 서비스를 생성한다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>서비스 구현 클래스를 작성한다.</p>
+        </li><li>
+          <p>jeus-webservices-config.xsd 스키마를 통해 service-config.xml 파일을
+          구성한다.</p>
+        </li><li>
+          <p>구성한 서비스 구현 클래스를 wsgen 툴을 통해 웹 서비스를 생성할 때 -policy 옵션을 이용하여
+          wsit-endpoint.xml 파일을 생성한다.</p>
+        </li><li>
+          <p>wsit-endpoint.xml 파일을 패키지될 WEB-INF 폴더 아래에 위치시킨다.</p>
+        </li><li>
+          <p>패키지된 서비스를 JEUS 서버에 deploy한다.</p>
+        </li></ol></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e3050"></a>디렉터리 구조 </h4>
+
+      <p>Java 클래스로부터 웹 서비스의 정책이 적용된 웹 서비스를 패키징한다. 서버에 해당하는 웹 서비스를 Java
+      클래스로부터 구성할 때의 디렉터리는 다음과 같다.</p>
+
+      <pre class="programlisting">war_root
+    |- WEB-INF
+          |- classes
+               |- ... (SEI, JAX-WS artifacts, Handler, Validator)
+          |- <span class="bold"><strong>wsit-Endpoint.xml</strong></span></pre>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="wspolicy_client"></a>13.4. 클라이언트의 정책 설정</h2></div></div></div>
+    
+
+    <p>클라이언트의 웹 서비스 정책 설정은 웹 서비스 보안과 같은 시나리오 외에는 보통 필요하지 않다. JEUS 웹 서비스는
+    기본적으로 런타임에 원격 웹 서비스의 WSDL에 포함된 웹 서비스 정책 설정을 이해하고 자동으로 그 정책에 적합한 환경을 제공해주기
+    때문이다. 그러나 웹 서비스 보안과 같은 특정의 시나리오에서 추가적인 설정이 필요한 경우가 존재할 수 있다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>웹 서비스 정책이 설정되어 있는 웹 서비스에 대해 추가적인 설정이 필요한 경우 클라이언트를 구성하는 시나리오는 다음과
+    같다.</p>
+
+    <div class="orderedlist"><ol type="1"><li>
+        <p>wsimport 툴을 통해 클라이언트 Java Bean 객체들을 구성한다.</p>
+      </li><li>
+        <p>원격의 WSDL 문서를 접근 가능한 저장소에 wsit-client.xml이라는 이름으로 저장한다.</p>
+
+        <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+            <p>JEUS 웹 서비스는 런타임에 원격의 WSDL에 설정되어 있는 웹 서비스 정책 설정을 통해 클라이언트 환경을
+            제공해주기 때문에 원격의 WSDL에 설정되어 있는 웹 서비스 정책 설정에 대한 내용은 삭제해도 된다.</p>
+          </div>
+      </li><li>
+        <p>wsit-client.xml에 클라이언트에서 필요한 추가적인 웹 서비스 정책을 설정한다.</p>
+      </li><li>
+        <p>JAR 패키징할 경우 wsit-client.xml을 패키지될 classes/META-INF 디렉터리에
+        위치시킨다.</p>
+
+        <p>WAR 패키징할 경우 wsit-client.xml 파일을 패키지될 WEB-INF 디렉터리 아래에
+        위치시킨다.</p>
+      </li><li>
+        <p>패키지된 서비스를 JEUS 서버에 deploy한다.</p>
+      </li></ol></div>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <h3><a id="d4e3083"></a>디렉터리 구조 </h3>
+
+    <p>웹 서비스 정책 설정을 적용한 JEUS 웹 서비스를 패키징한다. 일반적으로 컨테이너에서 실행되는 웹 서비스 클라이언트는
+    다음과 같다.</p>
+
+    <pre class="programlisting">war_root
+    |- WEB-INF
+          |- classes
+                |- ... (client classes, JAX-WS artifacts, Handler, Validator)
+                |- META-INF
+                     |- wsit-client.xml
+    |- index.jsp</pre>
+
+    <div class="literallayout"><p/></div>
+
+    <p>EJB 컨테이너에서 실행되는 웹 서비스 클라이언트 또는 독립 애플리케이션으로 실행되는 웹 서비스 클라이언트는 다음과
+    같다.</p>
+
+    <pre class="programlisting">jar_root
+    |- classes
+         |- ... (client classes, JAX-WS artifacts, Handler, Validator)
+         |- META-INF
+               |- wsit-client.xml</pre>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jaxws_jms.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="pt01.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="chapter_jaxws_addressing.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제12장 JAX-WS JMS 기반 전송 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제14장 웹 서비스 Addressing</td></tr></table></div><div xmlns="" align="center"/></body></html>

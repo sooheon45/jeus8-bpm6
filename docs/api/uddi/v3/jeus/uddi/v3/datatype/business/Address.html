@@ -1,0 +1,500 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>Address</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="Address (JEUS UDDI 3.0 Client API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.uddi.v3.datatype.business</font><br>Class Address
+      </h2><pre>java.lang.Object<br>  <img src="../../../../../resource/inherit.gif" alt="extended by"><a href="../../../../../jeus/uddi/v3/AbstractRegistryObject.html">jeus.uddi.v3.AbstractRegistryObject</a><br>     <img src="../../../../../resource/inherit.gif" alt="extended by"><b>jeus.uddi.v3.datatype.business.Address</b></pre><dl>
+         <dt><b>All Implemented Interfaces:</b><dd>java.io.Serializable, <a href="../../../../../jeus/uddi/datatype/RegistryObject.html">RegistryObject</a></dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public class <b>Address</b><dt>extends <a href="../../../../../jeus/uddi/v3/AbstractRegistryObject.html">AbstractRegistryObject</a></dt></pre></dl>address의 data type class. 
+      <p>
+      <p>다음 schema는 UDDI version 3.0 Schema에서 인용한다.
+      <p>
+      <pre>
+      &lt;element name="address" type="{urn:uddi-org:api_v3}address"/>
+      &lt;complexType name="address">
+      &lt;complexContent>
+      &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+      &lt;sequence>
+      &lt;element ref="{urn:uddi-org:api_v3}addressLine" maxOccurs="unbounded"/>
+      &lt;/sequence>
+      &lt;attribute name="tModelKey" type="{urn:uddi-org:api_v3}tModelKey" />
+      &lt;attribute name="useType" type="{urn:uddi-org:api_v3}useType" />
+      &lt;attribute ref="{http://www.w3.org/XML/1998/namespace}lang"/>
+      &lt;attribute name="sortCode" type="{urn:uddi-org:api_v3}sortCode" />
+      &lt;/restriction>
+      &lt;/complexContent>
+      &lt;/complexType>
+      </pre><br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Address.html#Address()">Address</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   기본 생성자.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Address.html#Address(java.lang.Object)">Address</a></b>(java.lang.Object object)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Address.html#Address(java.util.Vector)">Address</a></b>(java.util.Vector addressLineVector)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   필수 값을 가지고 객체를 생성한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Address.html#Address(org.w3c.dom.Element)">Address</a></b>(org.w3c.dom.Element base)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   DOM Tree로 부터 객체를 생성한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Address.html#addAddressLine(jeus.uddi.v3.datatype.business.AddressLine)">addAddressLine</a></b>(<a href="../../../../../jeus/uddi/v3/datatype/business/AddressLine.html">AddressLine</a> addressLine)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   addressLine을 더한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Address.html#addAddressLineString(java.lang.String)">addAddressLineString</a></b>(java.lang.String addressLine)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   addressLine을 더한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.Vector</code></font></td>
+               <td><code><b><a href="Address.html#getAddressLineStrings()">getAddressLineStrings</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   addressLines을 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.Vector</code></font></td>
+               <td><code><b><a href="Address.html#getAddressLineVector()">getAddressLineVector</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   addressLines을 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="Address.html#getLang()">getLang</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   사용 언어를 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.xml.bind.JAXBElement</code></font></td>
+               <td><code><b><a href="Address.html#getMarshallingJAXBElement()">getMarshallingJAXBElement</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.uddi.xmlbinding.v3.datatype.AddressType</code></font></td>
+               <td><code><b><a href="Address.html#getMarshallingObject()">getMarshallingObject</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="Address.html#getSortCode()">getSortCode</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   sortCode를 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="Address.html#getTModelKey()">getTModelKey</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   tModelKey를 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="Address.html#getUseType()">getUseType</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   useType을 얻는다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Address.html#setAddressLineStrings(java.util.Vector)">setAddressLineStrings</a></b>(java.util.Vector strings)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   addressLines을 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Address.html#setAddressLineVector(java.util.Vector)">setAddressLineVector</a></b>(java.util.Vector addressLineVector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   addressLines을 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Address.html#setLang(java.lang.String)">setLang</a></b>(java.lang.String lang)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   사용 언어를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Address.html#setSortCode(java.lang.String)">setSortCode</a></b>(java.lang.String sortCode)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   sortCode를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Address.html#setTModelKey(java.lang.String)">setTModelKey</a></b>(java.lang.String tModelKey)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   tModelKey를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Address.html#setUseType(java.lang.String)">setUseType</a></b>(java.lang.String useType)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   useType을 설정한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_jeus.uddi.v3.AbstractRegistryObject"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class jeus.uddi.v3.<a href="../../../../../jeus/uddi/v3/AbstractRegistryObject.html">AbstractRegistryObject</a></b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><a href="../../../jeus/uddi/v3/AbstractRegistryObject.html#getVersion()">getVersion</a>, <a href="../../../jeus/uddi/v3/AbstractRegistryObject.html#toXML()">toXML</a>, <a href="../../../jeus/uddi/v3/AbstractRegistryObject.html#toXML(org.w3c.dom.Node)">toXML</a></code></td>
+            </tr>
+         </table>&nbsp;<a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></td>
+            </tr>
+         </table>&nbsp;
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="Address()"></a><h3>Address</h3><pre>public <b>Address</b>()<br></pre><dl>
+            <dd>기본 생성자.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="Address(java.util.Vector)"></a><h3>Address</h3><pre>public <b>Address</b>(<code>java.util.Vector</code> addressLineVector)<br></pre><dl>
+            <dd>필수 값을 가지고 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="Address(org.w3c.dom.Element)"></a><h3>Address</h3><pre>public <b>Address</b>(<code>org.w3c.dom.Element</code> base)<br>              throws <code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></pre><dl>
+            <dd>DOM Tree로 부터 객체를 생성한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="Address(java.lang.Object)"></a><h3>Address</h3><pre>public <b>Address</b>(<code>java.lang.Object</code> object)<br></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i></dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getMarshallingObject()"></a><h3>getMarshallingObject</h3><pre>public jeus.uddi.xmlbinding.v3.datatype.AddressType <b>getMarshallingObject</b>()<br>                                                                       throws <code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i><br><br>&nbsp;
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMarshallingJAXBElement()"></a><h3>getMarshallingJAXBElement</h3><pre>public javax.xml.bind.JAXBElement <b>getMarshallingJAXBElement</b>()<br>                                                          throws <code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i><br><br>&nbsp;
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code><a href="../../../../../jeus/uddi/xmlbinding/BindException.html">BindException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getLang()"></a><h3>getLang</h3><pre>public java.lang.String <b>getLang</b>()<br></pre><dl>
+            <dd>사용 언어를 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>string</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getUseType()"></a><h3>getUseType</h3><pre>public java.lang.String <b>getUseType</b>()<br></pre><dl>
+            <dd>useType을 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>string</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getSortCode()"></a><h3>getSortCode</h3><pre>public java.lang.String <b>getSortCode</b>()<br></pre><dl>
+            <dd>sortCode를 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>string</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getTModelKey()"></a><h3>getTModelKey</h3><pre>public java.lang.String <b>getTModelKey</b>()<br></pre><dl>
+            <dd>tModelKey를 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>string</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getAddressLineVector()"></a><h3>getAddressLineVector</h3><pre>public java.util.Vector <b>getAddressLineVector</b>()<br></pre><dl>
+            <dd>addressLines을 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>vector</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getAddressLineStrings()"></a><h3>getAddressLineStrings</h3><pre>public java.util.Vector <b>getAddressLineStrings</b>()<br></pre><dl>
+            <dd>addressLines을 얻는다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>vector</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setLang(java.lang.String)"></a><h3>setLang</h3><pre>public void <b>setLang</b>(<code>java.lang.String</code> lang)<br></pre><dl>
+            <dd>사용 언어를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setUseType(java.lang.String)"></a><h3>setUseType</h3><pre>public void <b>setUseType</b>(<code>java.lang.String</code> useType)<br></pre><dl>
+            <dd>useType을 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setSortCode(java.lang.String)"></a><h3>setSortCode</h3><pre>public void <b>setSortCode</b>(<code>java.lang.String</code> sortCode)<br></pre><dl>
+            <dd>sortCode를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setTModelKey(java.lang.String)"></a><h3>setTModelKey</h3><pre>public void <b>setTModelKey</b>(<code>java.lang.String</code> tModelKey)<br></pre><dl>
+            <dd>tModelKey를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addAddressLineString(java.lang.String)"></a><h3>addAddressLineString</h3><pre>public void <b>addAddressLineString</b>(<code>java.lang.String</code> addressLine)<br></pre><dl>
+            <dd>addressLine을 더한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setAddressLineVector(java.util.Vector)"></a><h3>setAddressLineVector</h3><pre>public void <b>setAddressLineVector</b>(<code>java.util.Vector</code> addressLineVector)<br></pre><dl>
+            <dd>addressLines을 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setAddressLineStrings(java.util.Vector)"></a><h3>setAddressLineStrings</h3><pre>public void <b>setAddressLineStrings</b>(<code>java.util.Vector</code> strings)<br></pre><dl>
+            <dd>addressLines을 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addAddressLine(jeus.uddi.v3.datatype.business.AddressLine)"></a><h3>addAddressLine</h3><pre>public void <b>addAddressLine</b>(<code><a href="../../../../../jeus/uddi/v3/datatype/business/AddressLine.html">AddressLine</a></code> addressLine)<br></pre><dl>
+            <dd>addressLine을 더한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS UDDI 3.0 Client API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

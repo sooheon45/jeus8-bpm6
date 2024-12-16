@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제16장 user-cert-map.xml 설정</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS XML Reference"/><link rel="up" href="index.html" title="JEUS XML Reference"/><link rel="prev" href="security_appendix_policies.xml.html" title="제15장 policies.xml 보안 설정"/><link rel="next" href="chapter_cert-user-map.xml_XML_Configuration.html" title="제17장 cert-user-map.xml 설정"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제16장 user-cert-map.xml 설정</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="security_appendix_policies.xml.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_cert-user-map.xml_XML_Configuration.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_user-cert-map.xml_XML_Configuration"></a>제16장 user-cert-map.xml 설정</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_user-cert-map.xml_XML_Configuration.html#d4e153117">16.1. 소개</a></span></dt><dt><span class="section"><a href="chapter_user-cert-map.xml_XML_Configuration.html#d4e153171">16.2. XML Schema/XML 트리</a></span></dt><dt><span class="section"><a href="chapter_user-cert-map.xml_XML_Configuration.html#d4e153204">16.3. Element Reference</a></span></dt><dt><span class="section"><a href="chapter_user-cert-map.xml_XML_Configuration.html#d4e153450">16.4. user-cert-map.xml 파일 예제</a></span></dt></dl></div>
+    
+
+    <p>여기에서 user와 매핑되는 Keystore에 포함된 Certificate를 얻기 위한 정보들을 정의한
+    <code class="filename">user-cert-map.xml</code>에서 사용되는 설정을 찾을 수 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+            <p>XML Schema 파일:
+            <code class="filename">JEUS_HOME/lib/schemas/jeus/user-cert-map.xsd</code></p>
+        </li></ul></div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e153117"></a>16.1. 소개</h2></div></div></div>
+        
+
+        <p>레퍼런스는 다음 형식으로 구성되어 있다. </p><div class="orderedlist"><ol type="1"><li>
+      <p><span class="bold"><strong>XML Schema/XML 트리</strong></span>: XML 설정 파일의 모든
+      태그 리스트를 정리했다. 각 노드의 형식은 다음과 같다.</p><div class="orderedlist"><ol type="a"><li>
+            <p>태그 레퍼런스로 빨리 찾아보기 위해서 각 태그마다 인덱스 번호( 예: (11) )를 붙여 놓았다. 태그
+            레퍼런스에서는 이 번호 순서로 설명한다.</p>
+          </li><li>
+            <p>XML Schema에서 정의한 XML 태그명을 &lt;<span class="bold"><strong>tag
+            name</strong></span>&gt; 형식으로 표시한다.</p>
+          </li><li>
+            <p>XML Schema에서 정의한 Cardinality를 표시한다. “?” = 0개나 1개의 element,
+            “+” = 1개 이상의 element, “*” = 0개 이상의 element, (기호가 없음) = 정확히 1개의
+            element</p>
+          </li><li>
+            <p>몇몇 태그에는 “P” 문자를 붙여 놓았는데, 해당 태그는 성능에 관계되는 태그라는 것을 뜻한다. 이 태그는
+            설정을 튜닝할 때 사용된다.</p>
+          </li></ol></div>
+    </li><li>
+      <p><span class="bold"><strong>Element Reference</strong></span>: 트리에 있는 각 XML
+      태그를 설명한다.</p><div class="orderedlist"><ol type="a"><li>
+            <p><span class="bold"><strong>Dynamic</strong></span>: 동적 설정 반영 가능</p>
+          </li><li>
+            <p><span class="bold"><strong>Non-Dynamic</strong></span>: 동적 설정 반영 불가능, Dynamic이 설정되지 않은
+            항목들이 보통 이에 해당 하나 특별히 설명이 있는 경우 이 항목이 표시된다.</p>
+          </li><li>
+            <p><span class="bold"><strong>Description</strong></span>: 태그에 대한 간단한
+            설명.</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Description</strong></span>: 입력하는 값과
+            타입.</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Type</strong></span>: 값의 데이터 타입. (예:
+            String)</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Type Description</strong></span>: 값의 데이터 타입에 대한 설명 </p>
+          </li><li>
+            <p><span class="bold"><strong>Default Value</strong></span>: 해당 XML을 사용하지
+            않았을 때 기본적으로 사용되는 값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Defined Value</strong></span>: 이미 정해져 있는
+            값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Example</strong></span>: 해당 XML 태그에 대한
+            예.</p>
+          </li><li>
+            <p><span class="bold"><strong>Performance Recommendation</strong></span>:
+            성능 향상을 위해서 추천하는 값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Child Elements</strong></span>: 자신의 태그 안에
+            사용하는 태그.</p>
+          </li></ol></div>
+    </li></ol></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e153171"></a>16.2. XML Schema/XML 트리</h2></div></div></div>
+        
+
+        <div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.user-cert-map"></a>
+                (1)
+
+                <a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map">&lt;user-cert-map&gt;</a></p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.user-cert-map.user-cert"></a>
+                (2)
+
+                <a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert">&lt;user-cert&gt;</a>*</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.user-cert-map.user-cert.username"></a>
+                (3)
+
+                <a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.username">&lt;username&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.user-cert-map.user-cert.alias"></a>
+                (4)
+
+                <a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.alias">&lt;alias&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.user-cert-map.user-cert.keypassword"></a>
+                (5)
+
+                <a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.keypassword">&lt;keypassword&gt;</a>?</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.user-cert-map.user-cert.secretkey"></a>
+                (6)
+
+                <a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.secretkey">&lt;secretkey&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.user-cert-map.user-cert.secretkey.keyname"></a>
+                (7)
+
+                <a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.secretkey.keyname">&lt;keyname&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.user-cert-map.user-cert.secretkey.keyalgorithm"></a>
+                (8)
+
+                <a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.secretkey.keyalgorithm">&lt;keyalgorithm&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.user-cert-map.user-cert.secretkey.keyvalue"></a>
+                (9)
+
+                <a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.secretkey.keyvalue">&lt;keyvalue&gt;</a></p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e153204"></a>16.3. Element Reference</h2></div></div></div>
+        
+
+        <p>
+
+
+
+
+
+</p><p><a id="schema-table-reference.user-cert-map"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (1)
+                                <code class="code">
+<span class="bold"><strong>&lt;user-cert-map&gt;</strong></span>
+</code>
+<a id="d4e153217" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>User와 매핑되는 Keystore에 포함된 Certificate를 얻기 위한 정보들을 정의한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">UserCertMapType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (2)
+            <code class="code">
+<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert">user-cert</a>*</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.user-cert-map.user-cert"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (2)
+                                <code class="code">&lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map">user-cert-map</a>&gt; <span class="bold"><strong>&lt;user-cert&gt;</strong></span>
+</code>
+<a id="d4e153246" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>User와 Certificate 간의 매핑을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">UserCertType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (3)
+            <code class="code">
+<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.username">username</a>
+</code>
+</p>
+<p>
+            (4)
+            <code class="code">
+<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.alias">alias</a>
+</code>
+</p>
+<p>
+            (5)
+            <code class="code">
+<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.keypassword">keypassword</a>?</code>
+</p>
+<p>
+            (6)
+            <code class="code">
+<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.secretkey">secretkey</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.user-cert-map.user-cert.username"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (3)
+                                <code class="code">&lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map">user-cert-map</a>&gt; &lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert">user-cert</a>&gt; <span class="bold"><strong>&lt;username&gt;</strong></span>
+</code>
+<a id="d4e153285" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Keystore 내의 Certificate에 대한 Username을 정의한다. "Primary" identify로서 유일해야 한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.user-cert-map.user-cert.alias"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (4)
+                                <code class="code">&lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map">user-cert-map</a>&gt; &lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert">user-cert</a>&gt; <span class="bold"><strong>&lt;alias&gt;</strong></span>
+</code>
+<a id="d4e153308" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Keystore 내의 Certificate에 대한 Alias를 정의한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.user-cert-map.user-cert.keypassword"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (5)
+                                <code class="code">&lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map">user-cert-map</a>&gt; &lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert">user-cert</a>&gt; <span class="bold"><strong>&lt;keypassword&gt;</strong></span>
+</code>
+<a id="d4e153331" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Keystore 내의 Certificate에 대한 Private Key를 얻기 위한 keypassword를 정의한다.
+                                           암호화해서 저장할 때에는 {algorithm}ciphertext와 같은 형식으로 입력한다. ex) {DES}FQrLbQ/D8O1lDVS71L28rw==</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.user-cert-map.user-cert.secretkey"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (6)
+                                <code class="code">&lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map">user-cert-map</a>&gt; &lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert">user-cert</a>&gt; <span class="bold"><strong>&lt;secretkey&gt;</strong></span>
+</code>
+<a id="d4e153354" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Private Key를 정의한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">SecretKeyType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (7)
+            <code class="code">
+<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.secretkey.keyname">keyname</a>
+</code>
+</p>
+<p>
+            (8)
+            <code class="code">
+<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.secretkey.keyalgorithm">keyalgorithm</a>
+</code>
+</p>
+<p>
+            (9)
+            <code class="code">
+<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.secretkey.keyvalue">keyvalue</a>
+</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.user-cert-map.user-cert.secretkey.keyname"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (7)
+                                <code class="code">&lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map">user-cert-map</a>&gt; &lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert">user-cert</a>&gt; &lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.secretkey">secretkey</a>&gt; <span class="bold"><strong>&lt;keyname&gt;</strong></span>
+</code>
+<a id="d4e153391" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Private Key의 이름을 정의한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.user-cert-map.user-cert.secretkey.keyalgorithm"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (8)
+                                <code class="code">&lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map">user-cert-map</a>&gt; &lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert">user-cert</a>&gt; &lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.secretkey">secretkey</a>&gt; <span class="bold"><strong>&lt;keyalgorithm&gt;</strong></span>
+</code>
+<a id="d4e153415" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Private Key의 알고리즘을 나타낸다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.user-cert-map.user-cert.secretkey.keyvalue"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (9)
+                                <code class="code">&lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map">user-cert-map</a>&gt; &lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert">user-cert</a>&gt; &lt;<a href="chapter_user-cert-map.xml_XML_Configuration.html#schema-table-reference.user-cert-map.user-cert.secretkey">secretkey</a>&gt; <span class="bold"><strong>&lt;keyvalue&gt;</strong></span>
+</code>
+<a id="d4e153439" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>Private Key의 값을 base64 형태로 나타낸다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p>
+</p><p>
+</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e153450"></a>16.4. user-cert-map.xml 파일 예제</h2></div></div></div>
+        
+
+        <div class="example"><a id="d4e153452"></a><p class="title"><b>[예 16.1] user-cert-map.xml 파일 예제</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;user-cert-map xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+  &lt;user-cert&gt;
+    &lt;username&gt;choco&lt;/username&gt;
+    &lt;alias&gt;chococa&lt;/alias&gt;
+    &lt;keypassword&gt;changeit&lt;/keypassword&gt;
+    &lt;secretkey&gt;
+      &lt;keyname&gt;testkeypass&lt;/keyname&gt;
+      &lt;keyalgorithm&gt;AES&lt;/keyalgorithm&gt;
+      &lt;keyvalue&gt;bjhTUjJvSXRTOGlkVEdlNHJnM2N3VnljSDZXV0JkYz0=&lt;/keyvalue&gt;
+    &lt;/secretkey&gt;
+  &lt;/user-cert&gt;
+&lt;/user-cert-map&gt;</pre>
+        </div></div><br class="example-break"/>
+    </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="security_appendix_policies.xml.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_cert-user-map.xml_XML_Configuration.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제15장 policies.xml 보안 설정 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제17장 cert-user-map.xml 설정</td></tr></table></div><div xmlns="" align="center"/></body></html>

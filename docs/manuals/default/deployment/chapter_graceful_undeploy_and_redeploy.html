@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제2장 Graceful Undeployment와 Redeployment</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Applications &amp; Deployment 안내서"/><link rel="up" href="index.html" title="JEUS Applications &amp; Deployment 안내서"/><link rel="prev" href="chapter_application_management.html" title="제1장 도메인 환경에서 애플리케이션 관리"/><link rel="next" href="chapter_overview_of_javaee_application.html" title="제3장 애플리케이션"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제2장 Graceful Undeployment와 Redeployment</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_application_management.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_overview_of_javaee_application.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_graceful_undeploy_and_redeploy"></a>제2장 Graceful Undeployment와 Redeployment</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_graceful_undeploy_and_redeploy.html#sect_graceful_undeployment">2.1. Graceful Undeployment</a></span></dt><dt><span class="section"><a href="chapter_graceful_undeploy_and_redeploy.html#sect_graceful_redeployment">2.2. Graceful Redeployment</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_graceful_undeploy_and_redeploy.html#d4e1121">2.2.1. Graceful Redeploy를 사용하기 위한 전제 조건</a></span></dt><dt><span class="section"><a href="chapter_graceful_undeploy_and_redeploy.html#d4e1149">2.2.2. Graceful Redeploy에 대한 필수 고려 사항</a></span></dt><dt><span class="section"><a href="chapter_graceful_undeploy_and_redeploy.html#sect_graceful_redeployment_usages">2.2.3. Graceful Redeploy 사용 방법</a></span></dt><dt><span class="section"><a href="chapter_graceful_undeploy_and_redeploy.html#d4e1239">2.2.4. 웹 애플리케이션의 Graceful Redeploy</a></span></dt><dt><span class="section"><a href="chapter_graceful_undeploy_and_redeploy.html#d4e1259">2.2.5. EJB 애플리케이션의 Graceful Redeploy</a></span></dt><dt><span class="section"><a href="chapter_graceful_undeploy_and_redeploy.html#d4e1267">2.2.6. EAR 애플리케이션의 Graceful Redeploy</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 애플리케이션을 undeploy하고 redeploy할 때 이미 처리 중인 요청을 모두 처리해주고 undeploy나
+  redeploy 작업을 진행하도록 하는 Graceful Undeploy와 Graceful Redeploy에 대해 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_graceful_undeployment"></a>2.1. Graceful Undeployment</h2></div></div></div>
+    
+
+    <p><a id="d4e1080" class="indexterm"></a></p>
+
+    <p><span><strong class="guibutton">Graceful Undeploy</strong></span>는 애플리케이션에 undeploy 명령을 들어왔을
+    때 이미 서비스 중인 사용자 요청을 모두 처리해주고 undeploy가 진행되는 것을 의미한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>EAR, EJB, 웹 애플리케이션은 undeploy 명령이 들어왔을 때 사용자 요청 처리를 하고 undeploy를 진행하는
+    Graceful Undeploy로 진행한다. 단, EJB의 경우는 SessionBean만 Graceful Undeploy가
+    가능하다.</p>
+
+    <p>애플리케이션을 undeploy할 때 사용자로부터 온 요청 처리가 아직 미완료 상태라면, 해당 요청들이 모두 완료될 때까지
+    대기한 후에 undeploy를 수행한다. undeploy 명령을 할 때 -gracefultimeout을 옵션으로 줄 수 있고, 여기에
+    설정한 값에 따라 요청이 완료되기 전에 undeploy가 수행될 수도 있다. 아직 요청이 완료되지 않은 상태에서 Graceful
+    Timeout으로 undeploy를 해야 한다면 아직 처리 중인 남아있는 요청 Thread에 인터럽트 신호를 보낸다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>undeploy 명령이 들어오면 애플리케이션은 서비스를 할 수 없는 상태인 DISTRIBUTED로 바뀌게 된다. 그리고
+    이미 처리 중인 요청이 완료될 때까지 또는 사용자가 준 Graceful Timeout이 될 때까지 기다린다. Graceful
+    Undeploy를 진행하려면 사용자가 undeploy 명령을 내릴 때 적절한 -gracefultimeout을 옵션으로 주어야 한다.
+    gracefultimeout 옵션 값을 주지 않은 경우는 5분으로 동작한다. 5분 동안만 이미 처리 중인 요청의 완료를 보장해주기
+    때문에 적절한 값으로 설정해야 한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>애플리케이션이 DISTRIBUTED 상태이면 외부로부터 받은 요청들은 처리될 수 없다. 하지만 EAR의 경우는
+    undeploy 명령이 시작된 후에도 애플리케이션의 내부 요청은 수행될 수 있다. Standalone EJB의 경우에도 Bean이
+    여러 개라면 EJB의 undeploy 작업이 시작되어도 Bean 간의 요청은 처리될 수 있다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    
+
+    <p>다음은 어떤 상황에서 요청이 처리될 수 있는지를 나타낸 그림이다.</p>
+
+    <div class="figure"><a id="d4e1094"></a><p class="title"><b>[그림 2.1] EAR 애플리케이션의 Graceful Undeploy</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="474"><tr><td align="left"><img src="resources/figure_graceful_undeployment.png" align="top" width="474" alt="EAR 애플리케이션의 Graceful Undeploy"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p>위 그림에서 web에서 ejb1을 호출할 때에는 애플리케이션의 상태가 RUNNING이기 때문에 요청이 처리되는 데 아무런
+    문제가 없다. 하지만 ejb1이 ejb2를 호출하는 시점에는 이미 애플리케이션의 상태가 DISTRIBUTED로 바뀌었기 때문에 요청을
+    하더라도 해당 요청이 거부되어야 맞는 상황이라 생각할 수 있다. 하지만 이는 외부 애플리케이션에서 요청을 한 것이 아니고, 같은
+    EAR 애플리케이션 안에서의 요청이기 때문에 이미 애플리케이션이 DISTRIBUTED 상태가 되었더라도 요청이 처리되는 것을
+    보장받아야 한다.</p>
+
+    <p>위 그림에서처럼 web에서 ejb1을 호출하고, web의 호출을 받은 ejb1에서 ejb2를 호출하는 Call Stack은
+    하나의 요청이다. 다시 말해 EAR 애플리케이션의 관점에서 보면 ejb1에서 ejb2로의 요청은 새로운 요청이 아니라 web으로부터
+    시작한 이미 진행 중인 요청인 것이다. EAR 애플리케이션 내부가 아니라 외부 애플리케이션에서 이 애플리케이션의 ejb를 요청하는
+    경우라면 애플리케이션의 상태에 따라서 요청이 거부될 것이다. 하지만 EAR은 하나의 애플리케이션이기 때문에 EAR이
+    DISTRIBUTED 상태가 되었다고 해서 EAR 내부 요청인 ejb2에 대한 요청이 실패하면 안 된다. ejb2에 대한 요청은 계속
+    서비스되어야 하고 이 요청이 완료한 후에 undeploy될 수 있도록 보장한다. 요청이 오래 걸릴 수도 있기 때문에 undeploy
+    명령에서 준 Timeout이 실제 요청이 처리되는 시간보다 짧을 경우에는 정해진 시간만큼만 기다리고 Undeploy가 진행된다. 이때
+    요청 처리 중인 Thread에는 인터럽트 신호를 보내서 진행 중이던 작업을 중지한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>인터럽트 신호를 보낸다고 모든 작업이 중지되는 것은 아니다. Thread에서 처리 중인 작업에 따라 중지될 수도
+        있고 무시될 수도 있다. 인터럽트에 걸려 작업이 중지되어도 JEUS에서는 해당 Thread에 대해 특별히 처리하지 않는다.
+        애플리케이션 요청을 서비스하는 Thread에서 인터럽트가 걸린 것이기 때문에 애플리케이션이 이 상황을 고려하여 후처리를 잘
+        해주어야 한다. Thread 인터럽트에 대한 자세한 내용은 <a xmlns="" href="../server/chapter_server_control.html#jeus_thread_control" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “3.3.2. Thread 제어”</a>를 참고한다.</p>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    
+
+    <p>하나의 애플리케이션 내부에서의 요청에 대한 Graceful Undeploy는 EAR뿐만 아니라 Standalone EJB
+    애플리케이션에서도 적용된다. EJB 애플리케이션에 Bean이 여러 개 있다면 이 Bean들 사이의 요청도 같은 애플리케이션 내부의
+    요청이기 때문에 요청 중에 undeploy 명령이 들어와도 이미 처리 중인 요청은 모두 처리해주어야 한다.</p>
+
+    <p>undeploy 명령은 기본적으로 5분의 타임아웃이 적용된다. 5분의 시간 동안 애플리케이션의 요청을 보장해주는 것이
+    기본동작이다. -gracefultimeout 옵션(-to 옵션과 동일)을 줄 수 있어, 애플리케이션의 요청 보장 시간을 변경할 수
+    있고, 큰 값을 주어서 Graceful Undeploy를 수행할 수도 있다.</p>
+
+    <p>JEUS 6의 기본 동작처럼 처리 중인 요청을 기다리지 않고 undeploy를 진행하려면 -force(-f) 옵션을
+    사용한다. 이 경우 이미 처리 중인 애플리케이션 요청은 보장받지 못한다. Graceful Undeploy 방법에 대한 자세한 내용은
+    <a href="chapter_assembling_and_deploying_applications.html#sect_application_undeploy" title="4.3.5. 애플리케이션 Undeploy">“4.3.5. 애플리케이션 Undeploy”</a>를 참고한다.</p>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_graceful_redeployment"></a>2.2. Graceful Redeployment</h2></div></div></div>
+    
+
+    <p>Graceful Redeploy는 현재 서비스 중인 애플리케이션의 중단 없이 새로 redeploy한 애플리케이션으로
+    자연스럽게 서비스를 제공하는 메커니즘이다. 이 기능은 애플리케이션 타입별로 동작에 차이점을 가지고 있다.</p>
+
+    <p>본 절에서는 Graceful Redeploy를 사용하기 위해서 공통적으로 알아야 할 사항에 대해 설명하고 그 뒤에 각
+    애플리케이션 타입별 동작에 대해 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1121"></a>2.2.1. Graceful Redeploy를 사용하기 위한 전제 조건</h3></div></div></div>
+      
+
+      <p>Graceful Redeploy 사용을 위한 전제 조건은 다음과 같다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>WAR 파일이나 JAR 파일처럼 패키징된 애플리케이션이어야 한다.</p>
+          </li><li>
+            <p>디렉터리 형태의 애플리케이션의 경우 old와 new 애플리케이션의 디렉터리가 달라야 한다. 디렉터리 형태의
+            애플리케이션은 원본 디렉터리를 그대로 서비스 이미지로 사용하므로 old와 new 애플리케이션이 동일한 디렉터리를
+            가르킨다면 Graceful Redeploy의 요구 조건 자체를 만족시킬 수 없기 때문이다. 그러나 디렉터리 형태의
+            애플리케이션이라고 할지라도 Staging Mode Deploy한 경우에는 old와 new 애플리케이션이 동일한
+            디렉터리를 가르킬 수 있다. Staging Mode에서는 원본 디렉터리와는 별도로 old와 new 애플리케이션 각각에
+            대해서 서비스 이미지를 생성하기 때문이다.</p>
+          </li><li>
+            <p>애플리케이션 저장소에 있는 애플리케이션에 대해서는 new 애플리케이션을 명시하는 Redeploy가
+            불가능하다. 애플리케이션 저장소에 있는 애플리케이션은 고정적으로 도메인에 install되어있다는 속성을 가지므로
+            Redeploy에 의한 new 애플리케이션으로의 교체를 불허하기 때문이다. 때문에 애플리케이션 저장소에 있는
+            애플리케이션이 대해서는 new 애플리케이션을 명시를 전제하는 Graceful Redeploy 역시
+            불가능하다.</p>
+          </li><li>
+            <p>애플리케이션을 패키징할 때 META-INF/MANIFEST.MF 파일에 다음과 같은 필드를 추가해야
+            한다.</p>
+
+            <p>또한 디렉터리 형태의 애플리케이션에도 META-INF/MANIFEST.MF 파일을 추가하고 이 필드를
+            추가해야 한다.</p>
+
+            <pre class="programlisting">Jeus-Use-Graceful-Redeploy: true</pre>
+
+            <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+              <p>MANIFEST.MF 파일 규칙상 파일 맨 아랫줄에는 new line(\n)이 있어야 한다.</p>
+            </div>
+          </li><li>
+            <p>Redeploy 대상이 되는 애플리케이션 역시 위의 필드가 있어야 한다. 그렇지 않을 경우 일반적인
+            Redeploy가 수행된다.</p>
+          </li><li>
+            <p>디렉터리 형태의 애플리케이션의 경우 old와 new 애플리케이션의 표준 DD에
+            application-name과 module-name을 동일하게 설정해야 한다.</p>
+          </li><li>
+            <p>패키징된 파일의 last modified time이 서로 달라야 한다.</p>
+          </li><li>
+            <p>EJB의 경우 Session Bean(remote interface)에 대해서만 Graceful
+            Redeploy가 지원된다.</p>
+          </li><li>
+            <p>SHARED 모드의 애플리케이션의 경우 Graceful Redeploy를 지원하지 않는다. 이 경우 EAR로
+            같이 묶어서 사용할 것을 권장한다.</p>
+          </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1149"></a>2.2.2. Graceful Redeploy에 대한 필수 고려 사항</h3></div></div></div>
+      
+
+      <p>Graceful Redeploy를 수행할 때 다음의 사항을 반드시 고려해야 한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>서비스 시작 단계 전에 Graceful Redeploy 기능의 사용 여부를 결정해서 전제 조건에서 설명한 바와
+          같이 애플리케이션을 준비해야 한다.</p>
+        </li><li>
+          <p>기존 애플리케이션을 바로 undeploy하는 것이 아니고 일정 시간 동안 두 애플리케이션이 동시에 JVM에
+          존재한다. 따라서 JVM permgen 영역 크기에 대해서 미리 산정해야 한다. 충분한 permgen 영역이 확보되지 않을
+          경우 OutOfMemoryError가 발생할 수 있다.</p>
+        </li><li>
+          <p>JNI 라이브러리를 사용하는 경우 동시에 같은 라이브러리를 JVM에서 System.loadLibrary()로
+          로딩할 수 없다. 그러므로 JNI 라이브러리를 사용하는 경우에는 Graceful Redeploy를 사용할 수
+          없다.</p>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_graceful_redeployment_usages"></a>2.2.3. Graceful Redeploy 사용 방법</h3></div></div></div>
+      
+
+      <p>Graceful Redeploy는 redeploy 명령으로 사용 가능하다. 사용 방법은 실제 서비스 중에 발생할 수
+      있는 상황을 예로 들어서 설명한다.</p>
+
+      <p>먼저 다음과 같이 패키징된 WAR 파일들이 있다고 가정한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>old application : myservice.war (08/09/2016 1:00 pm)</p>
+        </li><li>
+          <p>new application : myservice.war (08/25/2016 11:00 am)</p>
+        </li><li>
+          <p>install id = myservice_war, context path = /myservice</p>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>서비스 제공자는 2016년 8월 25일 오전에 지난 9일에 패키징해서 deploy했던 myservice.war에
+      문제점이 있다는 것을 발견했다. 그래서 이를 수정하여 오전 11시에 새로 패키징을 했다. 하지만 이미 myservice.war를
+      사용 중인 고객들이 있어서 JEUS를 중단시킬 수 없으므로 Graceful Redeploy를 사용하기로 결정했다.</p>
+
+      <p>이러한 상황에서 서비스 제공자는 콘솔 툴을 통해서 다음과 같은 명령을 수행한다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;redeploy myservice_war -path /path_to_new_application/myservice.war</pre>
+
+      <p>redeploy 명령에 특별한 옵션을 주는 것이 아니라 META-INF/MANIFEST.MF 파일의 필드와 패키징
+      시간으로 JEUS에서 Graceful Redeploy 여부를 판단한다. 만약 2016년 8월 9일 오후 1시에 패키징한
+      애플리케이션의 META-INF/MANIFEST.MF 파일에 전제 조건에서 설명한 필드가 없거나 false로 지정되어 있다면
+      Normal Redeploy를 수행한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>클라이언트의 요청을 처리하는 데 많은 시간이 소요되는 경우에는 redeploy 명령에 이전 애플리케이션을 정해진
+        시간 안에 종료할 수 있는 Undeploy Timeout 값을 적절히 설정해서 사용한다.</p>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1183"></a>이전 버전 애플리케이션을 강제로 undeploy하는 방법</h4>
+
+      <p>Graceful Redeploy가 성공적으로 완료된 시점을 기준으로 새로운 서비스 사용자(고객)는 새로운
+      myservice.war를 사용하게 된다. 기존 서비스 사용자는 계속 이전 버전 myservice.war를 사용한다. 기존 서비스
+      사용자와 새로운 서비스 사용자를 구분하는 기본적인 기준은 커넥션(소켓 연결)이다. 웹 애플리케이션의 경우에는 HTTP
+      Session도 그 기준에 포함된다.</p>
+
+      <p>Graceful Redeploy의 기본 목적은 기존 서비스 사용자가 서비스 중단을 경험하지 않도록 하는 것이다. 따라서
+      이전 버전 myservice.war에 접근한 커넥션이나 그것을 통해 생성된 HTTP Session이 모두 사라질 때까지 이전 버전
+      myservice.war는 계속 undeploy되지 않는다. 만약 HTTP Session Timeout이 너무 길어서 일부
+      HTTP Session에 의해서 undeploy되지 않고 남아 있을 경우에는 서비스 관리자가 다음과 같이
+      <span><strong class="guibutton">undeploy</strong></span> 명령을 수행해서 강제로 undeploy할 수 있다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;undeploy -old myservice_war</pre>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1192"></a>이전 버전 애플리케이션을 일정 시간이 지난 뒤 자동으로 undeploy하는
+      방법</h4>
+
+      <p>이전 버전 myservice.war가 일정 시간 이상 지나면 자동으로 undeploy되게 할 수도 있다.
+      <span><strong class="guibutton">redeploy</strong></span> 명령을 내릴 때 timeout 옵션을 지정한다. timeout 값의
+      단위는 초이다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;redeploy -path /path_to_new_application/myservice.war -to 5</pre>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1200"></a>이전 버전 애플리케이션과 새로운 애플리케이션이 동시에 존재할 때 이전 버전 애플리케이션으로
+      rollback하는 방법</h4>
+
+      <p>이전 버전 myservice.war가 undeploy되지 않은 상황에서 서비스 제공자가 새로운
+      myservice.war에 문제점이 있음을 발견하였다. 이때 새로운 myservice.war를 undeploy하면 이전 버전
+      myservice.war로 rollback되어 정상적으로 서비스된다.</p>
+
+      <p>다음과 같이 <span><strong class="guibutton">undeploy</strong></span> 명령을 수행한다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;undeploy -new myservice_war</pre>
+
+      <div class="warning" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">경고</h3>
+        <p>새로운 애플리케이션에 다소 심각한 문제점이 있어서 바로 undeploy하는 상황에서 사용한다고 가정하고 새로운
+        애플리케이션은 즉시 undeploy한다. 따라서 새로운 애플리케이션을 사용하던 사용자는 서비스 중단을 경험하게 된다. 이러한
+        상황이 발생하길 원치 않는 경우에는 이전 버전 myservice.war가 undeploy된 후 그 myservice.war를
+        다시 redeploy하면 된다.</p>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="sect_graceful_redeployment_distonly"></a>새로운
+      애플리케이션을 distribute만 하는 방법</h4>
+
+      <p>새로운 myservice.war가 제대로 동작하는지 확인 후 실제로 사용자에게 제공하려면
+      <span><strong class="guibutton">redeploy</strong></span> 명령을 내릴 때 distribute만 하도록 지정한다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;redeploy myservice_war -path /path_to_new_application/myservice.war -distonly</pre>
+
+      <p>새로운 애플리케이션에 대한 서비스 동작 여부를 미리 확인하는 방법은 각 애플리케이션 타입별로 다르다. 새로운 웹
+      애플리케이션에 대한 동작에 대한 자세한 설명은 <a href="chapter_graceful_undeploy_and_redeploy.html#sect_web_module_graceful_redeployment_distonly" title="2.2.4. 새로운 웹 애플리케이션에 대한 동작 여부를 미리 확인하는 방법">절 2.2.4. “새로운 웹 애플리케이션에 대한
+      동작 여부를 미리 확인하는 방법”</a>을
+      참고한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>동작 확인을 한 뒤에 새로운 애플리케이션을 서비스하려면 <span><strong class="guibutton">start</strong></span> 명령을
+      실행한다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;start -new myservice_war</pre>
+
+      <p>새로운 애플리케이션에 문제가 있어서 undeploy하려면 -new 옵션을 주고
+      <span><strong class="guibutton">undeploy</strong></span> 명령을 실행한다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;undeploy -new myservice_war</pre>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1227"></a>이전 버전 애플리케이션과 새로운 애플리케이션 모두 undeploy하는
+      방법</h4>
+
+      <p>이전 버전 애플리케이션과 새로운 애플리케이션이 동시에 존재하는 경우에는 -old 또는 -new 옵션을 이용해서 어느
+      애플리케이션을 undeploy할지 명시적으로 설정해야 한다. 만약 두 애플리케이션을 모두 undeploy하려면 다음과 같이
+      -all 옵션을 지정해서 <span><strong class="guibutton">undeploy</strong></span> 명령을 수행한다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;undeploy -all myservice_war</pre>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1233"></a>이전 애플리케이션을 무조건 교체하는 방법</h4>
+
+      <p>Graceful Redeploy 대신 무조건 Normal Redeploy를 수행할 경우에는 다음과 같이
+      <span><strong class="guibutton">redeploy</strong></span> 명령을 수행한다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;redeploy myservice_war -path /path_to_new_application/myservice.war -force</pre>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1239"></a>2.2.4. 웹 애플리케이션의 Graceful Redeploy</h3></div></div></div>
+      
+
+      <p>기존 웹 컨텍스트에서 제공하는 서비스의 중단 없이 새로운 웹 컨텍스트를 redeploy하는 기능이다.</p>
+
+      <p>일반적인 redeploy는 기존 웹 컨텍스트를 undeploy하기 때문에 그 과정에서 서비스 이용자가 웹 브라우저에서
+      에러 페이지를 보게 될 수 있다. 하지만 Graceful Redeploy는 기존 웹 컨텍스트에 대한 서비스 이용자가 있으면 이를
+      undeploy하지 않고 그대로 유지한 상태에서 새로운 웹 컨텍스트를 deploy한다. 일시적으로 기존 웹 컨텍스트와 새로운 웹
+      컨텍스트가 동시에 존재하게 된다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>기존 웹 컨텍스트의 서비스 이용자를 판별하는 기준은 현재 진행 중인 요청 존재 여부와 HTTP Session 존재
+      여부이다. 현재 진행 중인 요청들의 경우 DB 지연 문제나 오랫동안 수행하는 Async Processing이 아니라면 시간이 오래
+      걸릴 만한 사항이 없을 것이다. 하지만 HTTP Session의 경우 최소한 유후 timeout만큼 남아있기 때문에 기존 웹
+      컨텍스트는 그 동안 undeploy되지 않는다. redeploy 수행자는 이런 점을 고려하여 기존 웹 컨텍스트에 대한
+      Undeploy Timeout을 줄 수 있으며, 명령을 통해서 강제로 undeploy할 수도 있다.</p>
+
+      <p>새로운 웹 컨텍스트가 성공적으로 서비스를 시작하면 새로운 요청은 더 이상 기존 웹 컨텍스트로 전달되지 않는다. 기존 웹
+      컨텍스트의 서비스 이용자는 Graceful Redeploy가 성공적으로 끝나기 이전에 접속한 클라이언트들이다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>기존 웹 컨텍스트의 서비스 이용자들 중 HTTP Session을 사용하는 경우에는 그 세션이 만료되기 전까지 새로운
+        웹 컨텍스트를 이용하지 못한다. 이를 방지하고 싶은 경우에는 일반적인 redeploy를 수행하거나, Graceful
+        Redeploy를 수행할 때 기존 웹 컨텍스트에 대한 Undeploy Timeout 등을 설정해서 기존 웹 컨텍스트를 강제로
+        내리도록 해야 한다. 사용 방법은 <a href="chapter_graceful_undeploy_and_redeploy.html#sect_graceful_redeployment_usages" title="2.2.3. Graceful Redeploy 사용 방법">“2.2.3. Graceful Redeploy 사용 방법”</a>을 참고한다.</p>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="sect_web_module_graceful_redeployment_distonly"></a>새로운 웹 애플리케이션에 대한
+      동작 여부를 미리 확인하는 방법</h4>
+
+      <p>JEUS에서는 새로운 웹 애플리케이션을 distribute만 해놓고 제대로 동작하는지 확인할 수 있는 방법을 제공한다.
+      새로운 웹 애플리케이션을 distribute만 하는 방법은 <a href="chapter_graceful_undeploy_and_redeploy.html#sect_graceful_redeployment_distonly" title="2.2.3. 새로운 애플리케이션을 distribute만 하는 방법">절 2.2.3. “새로운
+      애플리케이션을 distribute만 하는 방법”</a>을 참고한다.</p>
+
+      <p>예제와 같이 myservice.war의 context path가 '/myservice'일 경우 웹 브라우저를 통해서
+      새로운 웹 애플리케이션을 distribute한 서버의 기본 포트로 HTTP 요청을 보내면 된다. 새로운 myservice.war를
+      distribute만 수행한 서버의 호스트 이름이 'host1'이고 기본 포트가 '9736'인 경우로 가정한다.</p>
+
+      <pre class="screen">http://host1:9736/myservice/</pre>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1259"></a>2.2.5. EJB 애플리케이션의 Graceful Redeploy</h3></div></div></div>
+      
+
+      <p>EJB 애플리케이션의 Graceful Redeploy는 기존의 EJB 요청에 대한 처리를 보장하면서 새로운 EJB를
+      redeploy하는 기능이다. Graceful Undeploy와 마찬가지로 Session Bean에 대해서만 기능이 제공된다.
+      따라서 JAR 형식의 애플리케이션을 Graceful Redeploy하려면 해당 JAR는 Session Bean들로만 구성되어
+      있어야 한다.</p>
+
+      <p>Graceful Redeploy 시점을 기준으로 새로운 클라이언트는 새로운 EJB를 Lookup해서 사용하고, 기존
+      EJB를 사용하던 클라이언트는 사용자가 설정한 Timeout 동안은 요청 처리를 보장받는다. 또한 기존 EJB에 대한 요청 처리가
+      없다고 판단되면 Timeout 이전이라도 기존 EJB에 대한 undeploy가 이루어진다.</p>
+
+      <p>요청 처리에 대한 판단 기준은 EJB의 종류에 따라 달라진다. Stateless Session Bean의 경우는 현재
+      진행 중인 요청을 기준으로 하고, Stateful Session Bean의 경우는 세션의 존재 여부로 판단한다. 즉,
+      Stateful Session Bean의 경우에는 모든 세션이 destroy됐을 때 더 이상의 추가 요청이 없을 것이라고 판단하고
+      undeploy가 진행된다.</p>
+
+      <p>현재 JEUS에서는 성능 향상을 위해 내부적으로 클라이언트에 Home Stub과 EJB Object Stub을 캐시해서
+      사용하고 있다. 따라서 기존 EJB에 대한 정보를 캐시하고 있는 클라이언트의 경우 Graceful Redeploy 완료 시점
+      이후에는 기존의 캐시를 삭제하고 새로운 EJB에 대한 정보를 다시 받아와야 한다. EJB 3.x의 경우에는 별도의 설정 없이도
+      자동으로 변경되지만 EJB 2.x의 경우에는 &lt;use-dynamic-proxy-for-ejb2&gt;가 true로 설정되어
+      있여야 정상 동작한다(&lt;use-dynamic-proxy-for-ejb2&gt;의 기본값은 true이다).</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e1267"></a>2.2.6. EAR 애플리케이션의 Graceful Redeploy</h3></div></div></div>
+      
+
+      <p>EAR 애플리케이션의 경우 EAR 안에 속한 WEB, EJB 모듈의 Graceful Redeploy를 보장한다.
+      Standalone 모듈의 Graceful Redeploy와 마찬가지로 기본적으로 웹 모듈의 경우에는 컨텍스트의 세션이 만료될
+      때까지 이전 서비스를 보장해주고, 이전 Stateless Session Bean의 요청 처리와 Stateful Session
+      Bean의 세션 만료시간까지의 이전 요청 처리를 보장해준다.</p>
+
+      <p>단, EAR 애플리케이션은 하나의 애플리케이션이기 때문에 EAR에 속한 하나의 EJB 모듈이 기존 요청 처리를 완료해도
+      다른 모듈의 이전 요청 처리가 진행 중이면 EJB 모듈을 내릴 수 없다. Graceful Undeploy와 마찬가지로 요청 처리가
+      끝나지 않은 이전 모듈 안에서 EJB 모듈로 요청할 수 있기 때문에 EAR 애플리케이션의 모든 요청이 정상적으로 처리되는 것을
+      보장해주려면 하나의 EJB 모듈이나 WEB 모듈만 내리는 것은 불가능하다. EAR 애플리케이션에 속한 모든 웹 모듈이나 EJB
+      모듈의 요청 처리가 완료되어야 이전 EAR 애플리케이션이 undeploy될 수 있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>이전 애플리케이션의 application name과 새로운 애플리케이션의 application name은 동일해야
+        한다. 애플리케이션뿐만 아니라 애플리케이션 안에 속한 각 모듈의 module name 또한 동일해야 한다.
+        application name 설정 방법에 대한 자세한 내용은 Java EE 7 Platform Specification을
+        참고한다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_application_management.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_overview_of_javaee_application.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제1장 도메인 환경에서 애플리케이션 관리 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제3장 애플리케이션</td></tr></table></div><div xmlns="" align="center"/></body></html>

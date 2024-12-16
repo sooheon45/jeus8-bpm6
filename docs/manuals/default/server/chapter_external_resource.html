@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제5장 External Resource</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Server 안내서"/><link rel="up" href="index.html" title="JEUS Server 안내서"/><link rel="prev" href="chapter_jndi.html" title="제4장 JNDI Naming Server"/><link rel="next" href="chapter_datasource.html" title="제6장 DB Connection Pool과 JDBC"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제5장 External Resource</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jndi.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_datasource.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_external_resource"></a>제5장 External Resource</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_external_resource.html#sect_Resource_Overview">5.1. 리소스 종류</a></span></dt><dt><span class="section"><a href="chapter_external_resource.html#sect_Resource_Config">5.2. 리소스 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_external_resource.html#sect_Data_Source_Config">5.2.1. 데이터소스 설정</a></span></dt><dt><span class="section"><a href="chapter_external_resource.html#sect_Mail_Source_Config">5.2.2. 메일 소스 설정</a></span></dt><dt><span class="section"><a href="chapter_external_resource.html#sect_URL_Source_Config">5.2.3. URL 소스 설정</a></span></dt><dt><span class="section"><a href="chapter_external_resource.html#sect_Custom_Resource_Config">5.2.4. Custom Resource 설정</a></span></dt><dt><span class="section"><a href="chapter_external_resource.html#sect_External_other_Source_Config">5.2.5. External Resource 설정</a></span></dt><dt><span class="section"><a href="chapter_external_resource.html#d4e3444">5.2.6. External Resource 설정</a></span></dt></dl></dd></dl></div>
+  
+
+  
+
+  <p>본 장에서는 JEUS와 연동하여 하나의 시스템을 구축할 수 있는 다양한 외부 리소스(External Resource)에 대한
+  소개와 설정 방법에 대해 설명한다. 외부 리소스에 대한 설정이나 사용법에 관한 자세한 내용들은 각 외부 리소스의 안내서를
+  참고한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Resource_Overview"></a>5.1. 리소스 종류</h2></div></div></div>
+    
+
+    <p>External Resource는 애플리케이션이 JEUS를 통해서 접근할 수 있는 JEUS 외부에 존재하는 리소스로 DB가
+    대표적인 예이다. 이러한 리소스들은 JEUS에 관련 설정을 추가함으로써 연결이 가능하다.<a id="d4e3129" class="indexterm"></a></p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>만약 External Resource에서 JCA 표준 호환의 리소스 어댑터를 제공하는 경우에는 리소스 어댑터를
+      deploy해서 사용하길 권장한다.</p>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 JEUS에 설정할 수 있는 리소스이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p><span><strong class="guibutton">데이터소스<a id="d4e3140" class="indexterm"></a></strong></span></p>
+
+        <p>데이터소스는 JDBC 호환 DB를 의미한다.</p>
+
+        <p>데이터소스는 클라이언트에서 직접적으로 접근할 수 있는데 이런 경우에는 특별히 JEUS에 설정하지 않아도 된다.
+        그러나 데이터소스를 설정하면 JNDI를 이용해서 JDBC Connection Pool을 사용할 수 있으므로 애플리케이션이 더욱
+        편리하게 DB에 접근할 수 있다. 데이터소스의 설정은 <a href="chapter_datasource.html" title="제6장 DB Connection Pool과 JDBC">“제6장 DB Connection Pool과 JDBC”</a>를
+        참고한다.</p>
+      </li><li>
+        <p><span><strong class="guibutton">메일 리소스<a id="d4e3148" class="indexterm"></a></strong></span></p>
+
+        <p>메일 리소스는 SMTP와 같은 메일 프로토콜을 이용하여 클라이언트 애플리케이션으로부터 이메일(e-mail)을 전송할
+        때 사용한다. JEUS에서는 JNDI Export name에 이메일 호스트의 정보를 bind하고, 클라이언트에서 간접적으로
+        접근하여 호스트를 사용하도록 한다. JNDI를 Lookup하면 javax.mail.Session 타입의 메일 소스를
+        가져온다.</p>
+      </li><li>
+        <p><span><strong class="guibutton">URL 리소스<a id="d4e3154" class="indexterm"></a></strong></span></p>
+
+        <p>URL 리소스는 애플리케이션에서 외부 URL 객체를 JNDI를 통해 접근할 수 있도록 한다. URL이 변경되는 경우
+        해당 URL 설정을 수정함으로써 애플리케이션의 소스 수정 없이 그대로 사용할 수 있도록 한다. JNDI를 Lookup하면
+        java.net.URL 타입의 URL 객체를 가져온다.</p>
+      </li><li>
+        <p><span><strong class="guibutton">Message Bridge<a id="d4e3160" class="indexterm"></a></strong></span></p>
+
+        <p>Message Bridge는 여러 JMS 벤더의 Destination 사이에 연결을 위해 사용된다. JMS 1.1
+        스펙을 충족하는 MQ라면 무엇이든 설정 가능하며 자세한 내용은 <a xmlns="" href="../mq/chapter_jeus-mq-special-func.html#sect_bridging" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS MQ 안내서</span>”의 “6.1. JEUS MQ Message Bridge”</a>를 참고한다.</p>
+      </li><li>
+        <p><span><strong class="guibutton">Custom 리소스<a id="d4e3167" class="indexterm"></a></strong></span></p>
+
+        <p>Custom Resource는 Java Bean 형태의 리소스를 JNDI repository에 bind 시킬 수
+        있다. lookup할 때 JNDI ObjectFactory를 통해 등록한 서비스를 사용할 수 있도록 하는 일반적인
+        리소스이다.</p>
+      </li><li>
+        <p><span><strong class="guibutton">External Source - IBM MQ, Sonic MQ 등<a id="d4e3173" class="indexterm"></a><a id="d4e3175" class="indexterm"></a></strong></span></p>
+
+        <p>JEUS와 연결 할 수 있는 비정규화된 소스들을 말한다. 일반적으로 JEUS에 설정할 수 있는 것으로는 IBM
+        MQ, Sonic MQ 등의 JMS(Java Message Service) 제품들과 Tmax TP Monitor 등이 있다.
+        이 리소스들은 JEUS에 설정하지 않아도 Java API를 통해서 직접적으로 액세스할 수도 있다. 그러나 트랜잭션 매니저에서
+        이 소스들을 관리하려면 설정을 해야 한다(<a href="chapter_tx_manager.html" title="제7장 트랜잭션 매니저">“제7장 트랜잭션 매니저”</a>
+        참조).</p>
+      </li><li>
+        <p><span><strong class="guibutton">External Resource<a id="d4e3182" class="indexterm"></a></strong></span></p>
+
+        <p>JEUS위에서 동작하는 리소스들을 말한다. 주로 JEUS와 연동되는 WebT나 jTmax, 또는
+        InifiniteCache에서 사용한다. JEUS에서 이런 External Resource를 사용하려면
+        jeus.external.ResourceBootstrapper 를 구현한 class를 등록해야 한다.</p>
+      </li><li>
+        <p><span><strong class="guibutton">Concurrency Utilities Resource<a id="d4e3188" class="indexterm"></a></strong></span></p>
+
+        <p>Concurrency Utilities for Java EE 와 관련한 리소스를 정의한다. 이를 통해 애플리케이션
+        서버 상에서 관리 가능한 작업들을 정의하고, 작업이 실행될 때 컨텍스트를 유지하며 동작할 수 있다. 자세한 설명은 <a xmlns="" href="../concurrency-utilities/index.html" class="olink">"JEUS Concurrency Utilities for Java
+        EE 안내서"</a>를 참고한다.</p>
+      </li></ul></div>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Resource_Config"></a>5.2. 리소스 설정</h2></div></div></div>
+    
+
+    <p>본 절에서는 각각의 리소스를 WebAdmin을 통해 설정하는 방법을 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>리소스는 도메인 범위에 설정하고, 서버가 부팅할 때 이 정보를 읽어 자신의 서버에 리소스를 등록한다.</p>
+
+    <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Resources]</strong></span>를 선택하면 각 리소스를
+    조회하고 서버에 등록, 변경 또는 삭제할 수 있다.</p>
+
+    <div class="figure"><a id="d4e3202"></a><p class="title"><b>[그림 5.1] WebAdmin에서 리소스 설정</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="635"><tr><td align="left"><img src="resources/figure_webadmin_resources.png" align="top" width="635" alt="WebAdmin에서 리소스 설정"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Data_Source_Config"></a>5.2.1. 데이터소스 설정</h3></div></div></div>
+      
+
+      <p>데이터소스는 DB 관련 설정을 다루게 된다. 이 내용은 <a href="chapter_datasource.html" title="제6장 DB Connection Pool과 JDBC">“제6장 DB Connection Pool과 JDBC”</a>에 기술되어 있으므로 해당 절을 참고한다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Mail_Source_Config"></a>5.2.2. 메일 소스 설정</h3></div></div></div>
+      
+
+      <p>JEUS에 클라이언트 애플리케이션에서 메일을 보낼 때 사용될 SMTP 호스트를 설정할 수 있다. WebAdmin을
+      통해서 각각의 SMTP 서버마다 각각의 이메일 호스트에 대한 정보를 설정한다. 이메일 호스트에 대한 정보는 JavaMail 스펙을
+      참고한다.</p>
+
+      <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Resources] &gt;</strong></span>
+      <span><strong class="guibutton">[Mail Source]</strong></span>를 선택하면 도메인에 등록된 메일 소스를 조회할 수
+      있다.</p>
+
+      <div class="figure"><a id="d4e3220"></a><p class="title"><b>[그림 5.2] WebAdmin에서 메일 소스 설정 (1)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_webadmin_resources_mail.png" align="top" width="711" alt="WebAdmin에서 메일 소스 설정 (1)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <p><span><strong class="guibutton">[ADD]</strong></span> 버튼을 클릭하면 도메인에 메일 소스를 등록할 수 있다.</p>
+
+      <div class="figure"><a id="d4e3229"></a><p class="title"><b>[그림 5.3] WebAdmin에서 메일 소스 설정 (2)</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_webadmin_resources_mail_input.png" align="top" width="711" alt="WebAdmin에서 메일 소스 설정 (2)"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p><span><strong class="guibutton">'Main Property'</strong></span>에 설정하는 속성명은 JavaMail 스펙을
+          따르므로 스펙을 참고해서 지정한다.</p>
+        </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_URL_Source_Config"></a>5.2.3. URL 소스 설정</h3></div></div></div>
+      
+
+      <p>다음은 JNDI 이름은 PRIMARY_URL과 SECONDARY_URL이고 각각에 bind되는 URL은 다음과
+      같다.</p>
+
+      <pre class="programlisting">http://www.foo.com</pre><pre class="programlisting">http://www.bar.com</pre>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Resources] &gt;
+      </strong></span><span><strong class="guibutton">[URL Source]</strong></span>를 선택하면 URL 소스를 조회하고 등록,
+      변경, 삭제할 수 있는 화면으로 이동한다.</p>
+
+      <div class="figure"><a id="d4e3249"></a><p class="title"><b>[그림 5.4] WebAdmin에서 URL 소스 설정 (1)</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_webadmin_resources_url.png" align="top" width="711" alt="WebAdmin에서 URL 소스 설정 (1)"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p><span><strong class="guibutton">[ADD]</strong></span> 버튼을 클릭하면 도메인에 URL 소스를 등록할 수
+      있다.</p>
+
+      <div class="figure"><a id="d4e3256"></a><p class="title"><b>[그림 5.5] WebAdmin에서 URL 소스 설정 (2)</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_webadmin_resources_url_input.png" align="top" width="711" alt="WebAdmin에서 URL 소스 설정 (2)"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Custom_Resource_Config"></a>5.2.4. Custom Resource 설정</h3></div></div></div>
+      
+
+      <p>Custom Resource는 Java Bean 형태의 리소스를 JNDI ObjectFactory를 통해
+      Lookup하여 사용할 수 있도록 하는 일반적인 리소스이다. 본 절에서는 Custom Resource 구현 방법과 등록 방법에
+      대해서 설명한다</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 JavaBean 형태의 리소스 클래스와 리소스 인스턴스를 생성할 ObjectFactory 클래스에 대한
+      예제이다. 이 클래스는 SERVER_HOME/lib/application 또는 DOMAIN_HOME/lib/application에
+      있어야 한다.</p>
+
+      <div class="example"><a id="d4e3267"></a><p class="title"><b>[예 5.1] Custom Resource를 생성할 팩토리 클래스의 예제</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">package dog;
+
+import java.util.Hashtable;
+import javax.naming.Context;
+import javax.naming.Name;
+import javax.naming.spi.ObjectFactory;
+
+public class DogFactory implements ObjectFactory {    
+    public DogFactory() {}
+
+    public Object getObjectInstance(Object obj, Name name, Context nameCtx, Hashtable&lt;?, ?&gt; environment) 
+        throws Exception {
+        Dog dog = Dog.getInstance();
+        System.out.println("Creating a dog whose name is " + dog.getName() + ", 
+and age is " + dog.getAge());
+        return dog;
+    }
+}</pre>
+      </div></div><br class="example-break"/>
+
+      <p/>
+
+      <div class="example"><a id="d4e3271"></a><p class="title"><b>[예 5.2] Custom Resource 예제 클래스</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">package dog;
+
+public class Dog implements java.io.Serializable {
+    public static final String DOG_NAME = "wangwang";
+    public static final int DOG_AGE = 1;
+    
+    private static Dog instance = new Dog();
+    
+    private int age = DOG_AGE;
+    private String name = DOG_NAME;
+    
+    public Dog() {}
+    
+    public static Dog getInstance() {
+        return instance;
+    }
+    
+    public int getAge() {
+        return age;
+    }
+    
+    public void setAge(int age) {
+        this.age = age;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean equals(Object anObject) {
+        if (this == anObject) {
+           return true;
+        }
+        if (anObject instanceof Dog) {
+           Dog anotherDog = (Dog) anObject;
+           return (this.age == anotherDog.age &amp;&amp; this.name.equals(anotherDog.name));
+        }
+        return false;
+    }
+    
+}</pre>
+      </div></div><br class="example-break"/>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>Custom Resource를 동적으로 추가하기 위해서는 이미 해당 클래스들이 서버의 클래스 로더에 클래스
+          패스로 잡혀있어야 가능하다. 만약 서버의 클래스 로더에서 이 클래스를 로딩할 수 없으면 동적 추가 명령은 pending
+          처리된다. 이럴 경우 Custom Resource 클래스를 SERVER_HOME/lib/application 또는
+          DOMAIN_HOME/lib/application에 추가하고 서버를 재기동해야 한다.</p>
+
+          <p>Custom Resource를 삭제하는 동작은 Graceful하게 수행되지 않는다. 즉, 진행 중인 요청이
+          있더라도 이를 완료하지 않기 때문에 사용자 애플리케이션에서는 에러가 발생할 수 있음을 유의한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e3282"></a>WebAdmin 사용 </h4>
+
+      <p>다음은 WebAdmin에서 동적으로 Custom Resource를 등록하는 방법에 대해 알아본다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Resources] &gt;
+          </strong></span><span><strong class="guibutton">[Custom Resource]</strong></span>를 선택한다.</p>
+
+          <div class="figure"><a id="d4e3290"></a><p class="title"><b>[그림 5.6] WebAdmin에서 Custom Resource 설정 (1)</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_webadmin_resources_custom.png" align="top" width="701" alt="WebAdmin에서 Custom Resource 설정 (1)"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li><li>
+          <p><span><strong class="guibutton">[ADD]</strong></span> 버튼을 클릭하여 도메인에 등록하려고 하는 Custom
+          Resource의 설정 정보를 입력하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="d4e3300"></a><p class="title"><b>[그림 5.7] WebAdmin에서 Custom Resource 설정 (2)</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_webadmin_resources_custom_input.png" align="top" width="701" alt="WebAdmin에서 Custom Resource 설정 (2)"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+
+          
+        </li><li>
+          <p><span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭해서 임시저장을 하면 화면 상단에 임시저장 결과에
+          대한 메시지가 나타난다. 또한 Custom Resource 테이블에 추가할 리소스 정보가 나타난다.</p>
+
+          <p/>
+
+          <div class="figure"><a id="d4e3310"></a><p class="title"><b>[그림 5.8] WebAdmin에서 Custom Resource 설정 (3)</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_webadmin_resources_custom_save.png" align="top" width="701" alt="WebAdmin에서 Custom Resource 설정 (3)"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li><li>
+          <p>추가한 Custom Resource를 서버에서 사용할 수 있도록 서버 설정에 Custom Resource를
+          추가한다.</p>
+
+          <p>WebAdmin 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers] &gt; [Server1] &gt;
+          [Basic Info] &gt; Custom Resource Refs</strong></span> 목록에서 도메인에 추가한
+          Custom Resource를 선택하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+          <div class="figure"><a id="d4e3321"></a><p class="title"><b>[그림 5.9] WebAdmin에서 Custom Resource 설정 (4)</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_webadmin_resources_custom_server_ref.png" align="top" width="701" alt="WebAdmin에서 Custom Resource 설정 (4)"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li><li>
+          <p><span><strong class="guibutton">[Activate Changes]</strong></span> 버튼을 클릭하여 Custom
+          Resource를 도메인에 반영한다. 다음과 같이 화면 상단에서 Custom Resource가 도메인에 반영되었다는
+          메시지를 확인할 수 있다. <span><strong class="guibutton">해당 Custom Resource는 추가한 서버에서 바로
+          사용가능하다.</strong></span></p>
+
+          <p/>
+        </li></ol></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p/>
+
+      <h4><a id="d4e3335"></a>콘솔 툴 사용 </h4>
+
+      <p>Custom Resource는 콘솔 툴을 통해서 서버에 등록된 리소스에 대한 조회 명령이 가능하다. 또한 새로운
+      Custom Resource를 동적으로 추가, 삭제하는 것이 가능하다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>add-custom-resource custom/dog -resource dog.Dog -factory dog.DogFactory</strong></span>
+Successfully performed the ADD operation for A custom resource.
+Check the results using "list-custom-resources or add-custom-resource"
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>list-custom-resources</strong></span>
+List of Custom Resources
+================================================================================
++-------------+--------------------+--------------------------+----------------+
+| Export Name |   Resource Class   |       Factory Class      |   Properties   |
++-------------+--------------------+--------------------------+----------------+
+| custom/dog  | dog.Dog            | dog.DogFactory           | [test=1,       |
+|             |                    |                          |test1=2]        |
++-------------+--------------------+--------------------------+----------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>add-custom-resource-to-servers custom/dog -servers server1</strong></span>
+Successfully performed the ADD operation for A custom resource.
+Check the results using "list-custom-resources"
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>remove-custom-resource custom/dog</strong></span>
+Successfully performed the REMOVE operation for A custom resource.
+Check the results using "list-custom-resources or remove-custom-resource"
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>list-custom-resources</strong></span>
+List of Custom Resources
+================================================================================
++-------------+--------------------+--------------------------+----------------+
+| Export Name |   Resource Class   |       Factory Class      |   Properties   |
++-------------+--------------------+--------------------------+----------------+
+(No data available)
+================================================================================</pre>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_External_other_Source_Config"></a>5.2.5. External Resource 설정</h3></div></div></div>
+      
+
+      
+
+      <p>외부 소스는 크게 JMS 소스와 Connector로 나뉜다. WebAdmin의 왼쪽 메뉴에서
+      <span><strong class="guibutton">[Resources] &gt; </strong></span><span><strong class="guibutton">[External
+      Source]</strong></span>를 선택하면 나타나는 External Resource 목록 화면에서 설정한다.</p>
+
+      <div class="figure"><a id="d4e3351"></a><p class="title"><b>[그림 5.10] WebAdmin에서 External Resource 설정</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_webadmin_resources_ex.png" align="top" width="711" alt="WebAdmin에서 External Resource 설정"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e3359"></a>JMS Source</h4>
+
+      <p>WebAdmin에서는 도메인에 설정된 JMS 소스를 조회하고, JMS 소스를 추가, 변경, 삭제할 수 있다. JMS
+      리소스를 추가하기 위해서 External Resource 목록 화면에서 <span><strong class="guibutton">Jms Source
+      화면</strong></span> 상단에 <span><strong class="guibutton">[ADD]</strong></span> 버튼을 클릭한다.</p>
+
+      <p>다음은 JMS 소스 설정에 대한 설명이다.</p>
+
+      <div class="figure"><a id="d4e3364"></a><p class="title"><b>[그림 5.11] WebAdmin에서 JMS Source 추가</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_webadmin_resources_ex_jms.png" align="top" width="663" alt="WebAdmin에서 JMS Source 추가"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p>다음은 설정 항목에 대한 설명이다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="140" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Vendor</td><td><p>JMS 벤더를 설정한다. 다음의 값 중 하나를 설정한다.
+                </p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                      <p>ibmmq : IBM사의 제품을 지칭한다.</p>
+                    </li><li style="list-style-type: circle">
+                      <p>sonicmq : Sonic MQ를 지한다.</p>
+                    </li><li style="list-style-type: circle">
+                      <p>others : 그 외의 제품들을 지칭한다.</p>
+                    </li></ul></div></td></tr><tr><td align="left">Factory Class Name</td><td>해당 JMS 리소스의 Factory Class의 이름을 지정한다.</td></tr><tr><td align="left">Resource Type</td><td><p>해당하는 JMS의 타입을 결정한다. </p><p>다음의 8가지 값 중에 하나를
+                설정한다. </p><div class="itemizedlist"><ul type="circle" compact="compact"><li style="list-style-type: circle">
+                      <p>QCF</p>
+                    </li><li style="list-style-type: circle">
+                      <p>TCF</p>
+                    </li><li style="list-style-type: circle">
+                      <p>Q</p>
+                    </li><li style="list-style-type: circle">
+                      <p>T</p>
+                    </li><li style="list-style-type: circle">
+                      <p>XAQCF</p>
+                    </li><li style="list-style-type: circle">
+                      <p>XATCF</p>
+                    </li><li style="list-style-type: circle">
+                      <p>LOCALXAQCF</p>
+                    </li><li style="list-style-type: circle">
+                      <p>LOCALXATCF</p>
+                    </li></ul></div></td></tr><tr><td align="left">Export Name</td><td>JNDI에 바인딩될 이름을 지정한다. 사용자는 이 이름을 이용하여 JMS의
+                ConnectionFactory, Destination 등을 이용할 수 있다.</td></tr><tr><td align="left">Queue</td><td><span><strong class="guibutton">'Rresource Type'</strong></span>이 'Q'일 때만
+                사용한다.</td></tr><tr><td align="left">Queue Manager</td><td><span><strong class="guibutton">'Rresource Type'</strong></span>이 'Q'일 때만
+                사용한다.</td></tr><tr><td align="left">Topic</td><td><span><strong class="guibutton">'Rresource Type'</strong></span>이 'T'일 때만
+                사용한다.</td></tr><tr><td align="left">Property</td><td>JMS 리소스에 필요한 속성들을 기록한다. 이 설정은 name, type, value로
+                구성된다.</td></tr></tbody></table>
+
+          
+        </div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>각 태그에 대한 자세한 내용은 자세한 것은 IBM MQ나 Sonic MQ의 매뉴얼을 참조한다.</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="sect_External_Connector_Source_Config"></a>Connector 추가
+      </h4><p> WebAdmin에서는 도메인에 설정된 Connector를 조회하고, 추가, 변경, 삭제할 수 있다.
+      Connector에 대한 자세한 설명은 <a xmlns="" href="../jca/index.html" class="olink">"JEUS JCA 안내서"</a>를
+      참고한다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e3444"></a>5.2.6. External Resource 설정</h3></div></div></div>
+      
+
+      <p>JEUS에서는 Tmax나 Infinite Cache와 같이 타 제품을 JEUS에서 연동하기 위해서 External
+      Resource를 설정할 수 있다. Tmax와의 연동을 위해서는 JEUS에서 Tmax로 연결해서 Tmax의 트랜잭션 서비스를
+      사용하는 아웃바운드(Outbound)인 WebT와 Tmax에서 JEUS로 온 서비스 요청을 받아주는 인바운드(Inbound)인
+      JTmax를 설정할 수 있다. 자세한 내용은 관련된 Tmax 매뉴얼의 "JTmax Server Guide"를
+      참고한다.</p>
+
+      <p>본 절에서는 External Resource 구현 방법과 등록 방법에 대해서 설명한다</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 jeus.external.ResourceBootstrapper 인터페이스이다. 이 인터페이스를 구현한 클래스는
+      SERVER_HOME/lib/application 또는 DOMAIN_HOME/lib/application에 있어야
+      한다.</p>
+
+      <p/>
+
+      <div class="example"><a id="d4e3452"></a><p class="title"><b>[예 5.3] jeus.external.ResourceBootstrapper</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package jeus.external;
+
+import javax.naming.Context;
+import java.util.Map;
+
+/**
+ * 외부 resource를 JEUS에서 사용할 수 있도록 하는 bootstrapper이다.
+ */
+public interface ResourceBootstrapper {
+    /**
+     *
+     * @param propertyMap resource의 설정을 가진 Map
+     */
+    void setProperties(Map propertyMap) throws InvalidPropertyException;
+
+    /**
+     * resource를 bind한다.
+     * @param context
+     */
+    void initResources(Context context);
+
+    /**
+     * 사용할 수 있는 property의 정보를 return한다.
+     * @return
+     */
+    ResourcePropertyInfo[] getPropertyInfo();
+
+    /**
+     *
+     * @param propertyMap 변경되는 property가 있는 Map
+     */
+    void modifyProperties(Map propertyMap) throws InvalidPropertyException;
+
+    /**
+     * resource를 다시 bind할때 호출된다.
+     * @param context
+     */
+    void reconfigResources(Context context);
+
+    /**
+     * resource를 제거할때 사용한다.
+     * @param context
+     */
+    void destroyResources(Context context);
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>External Resource를 동적으로 추가하기 위해서는 이미 해당 클래스들이 서버의 클래스 로더에 클래스
+          패스로 잡혀있어야 가능하다. 만약 서버의 클래스 로더에서 이 클래스를 로딩할 수 없으면 동적 추가 명령은 pending
+          처리된다. 이럴 경우 External Resource 클래스를 SERVER_HOME/lib/application 또는
+          DOMAIN_HOME/lib/application에 추가하고 서버를 재기동해야 한다.</p>
+
+          <p>External Resource를 삭제하는 동작은 Graceful하게 수행되지 않는다. 즉, 진행 중인 요청이
+          있더라도 이를 완료하지 않기 때문에 사용자 애플리케이션에서는 에러가 발생할 수 있음을 유의한다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e3462"></a>WebAdmin 사용</h4>
+
+      <p>다음은 WebAdmin에서 동적으로 External Resource를 등록하는 방법에 대해 알아본다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 왼쪽 메뉴에서 <span><strong class="guibutton">[Resources] &lt; [External
+          Resource]</strong></span> 를 선택한다. <span><strong class="guibutton">[ADD]</strong></span> 버튼을 클릭하여
+          JTmax와 WebT, Inifinite Cache를 위한 ResourceBootstrpper를 도메인에
+          등록한다.</p>
+
+          <div class="figure"><a id="d4e3470"></a><p class="title"><b>[그림 5.12] WebAdmin에서 External Resource 설정 (1)</b></p><div class="figure-contents">
+              
+
+              <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_webadmin_resources_external.png" align="top" width="701" alt="WebAdmin에서 External Resource 설정 (1)"/></td></tr></table></div>
+            </div></div><p><br class="figure-break"/></p>
+        </li><li>
+          <p>등록하려는 External Resource의 설정 정보를 입력하고
+          <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+          <p/>
+
+          <div class="figure"><a id="d4e3479"></a><p class="title"><b>[그림 5.13] WebAdmin에서 서버의 External Resource 설정 (2)</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_webadmin_resources_external_input.png" align="top" width="701" alt="WebAdmin에서 서버의 External Resource 설정 (2)"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭해서 임시저장을 하면 화면 상단에 임시저장 결과에
+          대한 메시지가 나타난다. 또한 External Resource 테이블에 추가하려고 하는 리소스 정보가
+          나타난다.</p>
+
+          <p/>
+
+          <p/>
+
+          <div class="figure"><a id="d4e3489"></a><p class="title"><b>[그림 5.14] WebAdmin에서 서버의 External Resource 설정 (3)</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_webadmin_resources_external_save.png" align="top" width="701" alt="WebAdmin에서 서버의 External Resource 설정 (3)"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p>추가한 External Resource를 서버에서 사용할 수 있도록 서버 설정에 External
+          Resource를 추가한다.</p>
+
+          <p>WebAdmin 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers] &gt; [Server1] &gt;
+          [Basic Info] &gt; 'External Resource Refs'</strong></span> 목록에서 도메인에 추가한
+          External Resource를 선택하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+
+          <p/>
+
+          <div class="figure"><a id="d4e3500"></a><p class="title"><b>[그림 5.15] WebAdmin에서 서버의 External Resource 설정 (4)</b></p><div class="figure-contents">
+            
+
+            <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/figure_webadmin_resources_external_server_ref.png" align="top" width="701" alt="WebAdmin에서 서버의 External Resource 설정 (4)"/></td></tr></table></div>
+          </div></div><br class="figure-break"/>
+        </li><li>
+          <p><span><strong class="guibutton">[Activate Changes]</strong></span> 버튼을 클릭하여 External
+          Resource를 도메인에 반영한다. 화면 상단에서 External Resource가 도메인에 반영되었다는 메시지를 확인할
+          수 있다.<span><strong class="guibutton"> 해당 External Resource는 추가한 서버에서 바로
+          사용가능하다.</strong></span></p>
+
+          <p/>
+        </li></ol></div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e3515"></a>콘솔 툴 사용 </h4>
+
+      <p>External Resource는 콘솔 툴을 통해서 서버에 등록된 리소스에 대한 조회 명령이 가능하다. 또한 새로운
+      External Resource를 동적으로 추가, 삭제하는 것이 가능하다.</p>
+
+      <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>add-external-resource test/ext -resource test.ext.TestResourceBootstrapper</strong></span>  
+Successfully performed the ADD operation for A external resource.
+Check the results using "list-external-resources or add-external-resource"
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>list-external-resources</strong></span>
+List of External Resources
+================================================================================
++-------------+---------------------------------------------------+------------+
+| Export Name |                   Resource Class                  | Properties |
++-------------+---------------------------------------------------+------------+
+| test/ext    | test.ext.TestResourceBootstrapper                 | []         |
++-------------+---------------------------------------------------+------------+
+================================================================================
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>add-external-resource-to-servers test/ext -servers server1</strong></span>
+Successfully performed the ADD operation for A external resource.
+Check the results using "list-external-resources"
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>remove-external-resource test/ext</strong></span> 
+Successfully performed the REMOVE operation for A external resource.
+Check the results using "list-external-resources or remove-external-resource"
+
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>list-external-resources</strong></span>
+List of External Resources
+================================================================================
++-------------+---------------------------------------------------+------------+
+| Export Name |                   Resource Class                  | Properties |
++-------------+---------------------------------------------------+------------+
+(No data available)
+================================================================================</pre>
+
+      <p/>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jndi.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_datasource.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제4장 JNDI Naming Server </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제6장 DB Connection Pool과 JDBC</td></tr></table></div><div xmlns="" align="center"/></body></html>

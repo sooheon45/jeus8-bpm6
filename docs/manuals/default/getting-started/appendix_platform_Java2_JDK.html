@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Appendix A. 플랫폼별 JDK 설치</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS 설치 및 시작하기"/><link rel="up" href="index.html" title="JEUS 설치 및 시작하기"/><link rel="prev" href="chapter_webservices.html" title="제11장 웹 서비스 사용하기"/><link rel="next" href="appendix_ipv6_conf.html" title="Appendix B. IPv6 설정"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">Appendix A. 플랫폼별 JDK 설치</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_webservices.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="appendix_ipv6_conf.html">다음</a></td></tr></table><hr/></div><div class="appendix" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="appendix_platform_Java2_JDK"></a>Appendix A. 플랫폼별 JDK 설치</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="appendix_platform_Java2_JDK.html#sect_Sun_Solaris">A.1. Sun Solaris</a></span></dt><dt><span class="section"><a href="appendix_platform_Java2_JDK.html#sect_IBM_AIX">A.2. IBM AIX</a></span></dt><dt><span class="section"><a href="appendix_platform_Java2_JDK.html#sect_HP-UX">A.3. HP-UX</a></span></dt><dt><span class="section"><a href="appendix_platform_Java2_JDK.html#sect_Linux">A.4. Linux</a></span></dt></dl></div>
+  
+
+  <p>본 부록에서는 플랫폼별 JDK(Java SE Development Kit)의 설치 방법과 사용 방법에 대해서
+  설명한다.</p>
+
+  <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>본 부록은 인터넷에서 이용할 수 있는 JDK의 Installation Guide의 요약 정리이다. (2016년
+      기준)</p>
+    </div>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Sun_Solaris"></a>A.1. Sun Solaris</h2></div></div></div>
+    
+
+    <p/>
+
+    <p>Solaris SPARC 및 x86을 위한 위한 패치 파일은 아래 경로의 “Solaris OS Patch”에서 다운받을 수
+    있다.</p>
+
+    <pre class="programlisting"><a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html" target="_top">http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html</a></pre>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JDK를 사용하기 전에 Solaris 버전에 대한 필수 패치가 설치되어 있는지 확인한다. JDK를 실행하기 위한 가장 쉬운
+    방법은 사용자의 셸에 있는 PATH 환경변수를 업데이트하여 /usr/bin 앞에 Java 실행 가능 파일에 대한 경로를
+    넣는다.</p>
+
+    <p>예를 들어, JDK가 /usr/j2se에 설치되어 있을 경우 다음과 같이 설정한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>csh </p>
+
+        <pre class="programlisting">setenv PATH ”/usr/j2se/bin:$PATH”</pre>
+      </li><li>
+        <p>sh or ksh</p>
+
+        <pre class="programlisting">PATH=”/usr/j2se/bin:$PATH”</pre>
+      </li></ul></div>
+
+    <p/>
+
+    <p/>
+
+    <p>다른 대안으로 실행 가능 파일은 전체 경로 이름(예: /usr/j2se/bin/javac,
+    /usr/j2se/bin/java) 등을 지정하여 실행할 수 있다.</p>
+
+    <p>JDK를 실행할 때 다른 환경변수(예: JDK_HOME, JAVA_HOME 또는 CLASSPATH)는 필요하지 않다.
+    그러나 이들 변수가 기존 설정으로 인해 제대로 작동하지 않을 경우 충돌 유무를 확인한다.</p>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_IBM_AIX"></a>A.2. IBM AIX</h2></div></div></div>
+    
+
+    <p/>
+
+    <p>다음 경로에서 JDK를 다운로드한다.</p>
+
+    <pre class="programlisting"><a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www-128.ibm.com/developerworks/java/jdk/aix/" target="_top">http://www.ibm.com/developerworks/java/jdk/aix/service.html</a></pre>
+
+    <p/>
+
+    <p/>
+
+    <p>JDK를 설치하기 위해서는 시스템 패치가 필요하다. 설치 도중 시스템 요구 사항을 요구할 경우 다음의 경로에서 필요한
+    패키지를 다운로드해서 설치한다.</p>
+
+    <pre class="programlisting"><a xmlns:xlink="http://www.w3.org/1999/xlink" href="ftp://service.software.ibm.com" target="_top">ftp://service.software.ibm.com</a></pre>
+
+    <p/>
+
+    <p>위 사이트에 연결 후 anonymous/e-mail 주소로 로그인이 가능하다. 목록을 확인하기 위해서는 반드시 ls –1을
+    사용한다.</p>
+
+    <p>다음의 디렉터리 경로에서 필요한 파일을 얻을 수 있다:</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>AIX update path</p>
+
+          <pre class="programlisting">/aix/fixes/&lt;해당 OS 버전&gt;</pre>
+        </li><li>
+          <p>Other update file</p>
+
+          <pre class="programlisting">/aix/fixes/v4/other</pre>
+        </li></ul></div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_HP-UX"></a>A.3. HP-UX</h2></div></div></div>
+    
+
+    <p>사이트에서 HP-UX JDK for the Java™ 2 Platform Standard Edition (J2SE)을
+    /tmp 디렉터리에 다운로드한다.</p>
+
+    <pre class="programlisting"><a xmlns:xlink="http://www.w3.org/1999/xlink" href="https://h20392.www2.hp.com/portal/swdepot/displayProductInfo.do?productNumber=HPUXJAVAHOME" target="_top">https://h20392.www2.hp.com/portal/swdepot/displayProductInfo.do?productNumber=HPUXJAVAHOME</a></pre>
+
+    <p>이 소프트웨어를 설치하기 위해서는 시스템 패치가 필요하다. 이에 대한 정보는 모두 위 사이트에 언급되어 있다. 설치 방법
+    및 명령어에 대한 정보는 다음 경로의 문서를 참고한다.</p>
+
+    <pre class="programlisting"><a xmlns:xlink="http://www.w3.org/1999/xlink" href="https://h20392.www2.hp.com/portal/swdepot/displayProductInfo.do?productNumber=HPUXJAVAINFOLIB" target="_top">https://h20392.www2.hp.com/portal/swdepot/displayProductInfo.do?productNumber=HPUXJAVAINFOLIB</a></pre>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_Linux"></a>A.4. Linux</h2></div></div></div>
+    
+
+    <p>다음의 사이트에서 JDK 7 버전을 다운받을 수 있다.</p>
+
+    <pre class="programlisting"><a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://java.sun.com/javase/downloads/index.jsp" target="_top">http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html</a></pre>
+
+    <p/>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_webservices.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="appendix_ipv6_conf.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제11장 웹 서비스 사용하기 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> Appendix B. IPv6 설정</td></tr></table></div><div xmlns="" align="center"/></body></html>

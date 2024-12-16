@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제5장 SNMP 사용 예제</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS SNMP 안내서"/><link rel="up" href="index.html" title="JEUS SNMP 안내서"/><link rel="prev" href="chapter_JEUS_SNMP_Programming.html" title="제4장 SNMP Manager 애플리케이션"/><link rel="next" href="appendix_JEUS_SNMP_MIB_Reference.html" title="Appendix A. JEUS SNMP MIB 정보"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제5장 SNMP 사용 예제</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_JEUS_SNMP_Programming.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="appendix_JEUS_SNMP_MIB_Reference.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_Getting_Started"></a>제5장 SNMP 사용 예제</h2></div></div></div>
+  
+
+  <p><a id="d4e761" class="indexterm"></a>본 장에서는 JEUS SNMP Agent를 기동하는 방법과 SNMP 클라이언트 애플리케이션이 JEUS로부터
+  모니터링 정보를 가져오는 방법에 대해서 예제를 이용하여 설명한다.</p>
+
+  <div class="orderedlist"><ol type="1"><li>
+      <p><a href="chapter_JEUS_SNMP_Programming.html#sect_Simple_SNMP_Client_Programming" title="4.2. 간단한 SNMP 클라이언트 프로그램">“4.2. 간단한 SNMP 클라이언트 프로그램”</a>에 있는 SNMP
+      클라이언트 예제 프로그램을 작성한 후 컴파일한다. 예제 프로그램을 컴파일하기 위해서는 SNMP4J가 필요하다. SNMP4J
+      API는 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.snmp4j.org" target="_top">www.snmp4j.org</a>에서 구할
+      수 있다.</p>
+    </li><li>
+      <p><a href="chapter_JEUS_SNMP_Agent_Overview.html" title="제2장 SNMP Agent 설정">“제2장 SNMP Agent 설정”</a>의 <a href="chapter_JEUS_SNMP_Agent_Overview.html#conf_tag" title="2.2. SNMP Adaptor 설정">설정 항목</a>을 참고하여 SNMP Adaptor를 설정한다. 예제 프로그램은 기본적으로
+      9999 포트를 사용하게 설정되어 있으므로, SNMP Adaptor Port 항목을 '9999'로 설정한다.</p>
+    </li><li>
+      <p>서버를 재시작한다. SNMP Adaptor가 사용 중이라면 서버가 시작되는 도중 아래와 같은 로그를 확인할 수 있다.
+      </p><pre class="screen">. . .
+
+[2016.08.03 16:32:12][0] [adminServer-1] [SNMP-0004] The SNMP agent is ready using the port 9999. 
+
+. . .</pre>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>본 안내서에서는 JEUS 서버 이름을 ‘adminServer’로 가정한다.</p>
+        </div>
+    </li><li>
+      <p>1번 항목에서 작성한 예제 프로그램을 실행한다. 예제 프로그램을 정상적으로 실행하기 위해서는 클래스 패스에서
+      SNMP4J를 찾을 수 있게 설정해 놓아야 한다. 아래 실행 예제는 '/home/user1/lib 아래에 SNMP4J.jar'라는
+      이름으로 SNMP4J가 존재한다고 가정하였다.</p>
+
+      <pre class="screen">$ <span class="bold"><strong>java -classpath /home/user1/lib/SNMP4J.jar SnmpclientSample</strong></span>
+PORT : 9999
+IP : 127.0.0.1
+OID : 1.3.6.1.4.1.14586.100.2.1
+1.3.6.1.4.1.14586.100.2.1.0 = [JEUS:JMXManager=adminServer,j2eeType=J2EEDomain,name=domain1]</pre><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>예제 프로그램은 기본적으로 127.0.0.1:9999으로 접속하게 설정되어 있다. 예제 프로그램을 실행할 때
+          'PORT', 'IP' 순으로 인자를 주고 실행하면 다른 주소와 포트 번호로 접속할 수 있다.</p>
+        </div>
+    </li></ol></div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_JEUS_SNMP_Programming.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="appendix_JEUS_SNMP_MIB_Reference.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제4장 SNMP Manager 애플리케이션 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> Appendix A. JEUS SNMP MIB 정보</td></tr></table></div><div xmlns="" align="center"/></body></html>

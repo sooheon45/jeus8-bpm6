@@ -1,0 +1,385 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>TCPDispatcherConfig</title>
+      <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="TCPDispatcherConfig (JEUS Servlet API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Servlet API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.servlet.tcp</font><br>Class TCPDispatcherConfig
+      </h2><pre>java.lang.Object<br>  <img src="../../../resource/inherit.gif" alt="extended by"><b>jeus.servlet.tcp.TCPDispatcherConfig</b></pre><hr>
+      <dl><pre>public class <b>TCPDispatcherConfig</b><dt>extends java.lang.Object</dt></pre></dl>이 클래스는 Jeus WebContainer의 TCPListener를 통해 수신된 요청
+      메시지로부터 requestURI 정보를 얻어내기 위한 클래스이다.
+      TCPServlet은 HttpServlet을 기반으로 하였기 때문에 TCPServlet을
+      호출하기 위해서는 HttpServlet을 호출할 때 필요한 requestURI가
+      필요하다. <p>
+      HttpServlet을 호출하는 web browser는 URL 입력 박스를 통해 사용자가
+      직접 requestURI을 입력한다. TCPServlet의 경우는 이 클래스를 통해
+      requestURI를 구성하게된다. <p>
+      requestURI는 contextPath + servletPath + pathInfo로 구성된다. <p>
+      사용자가 구현한 TCPDispatcherConfig는 Jeus WebContainer가 부팅시
+      찾을 수 있는 곳 (예 : $JEUS_HOME/lib/application)에 jar형태로
+      보관되어 있어야 하며 domain.xml의 TCP 리스너 또는 Tmax 커넥터의
+      <dispatcher-config-class> 에 FQCN 으로 설정되어야 한다. (예: com.tmax.tcpconfig.TCPDispatcherConfigImpl)<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="TCPDispatcherConfig.html#TCPDispatcherConfig()">TCPDispatcherConfig</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract int</code></font></td>
+               <td><code><b><a href="TCPDispatcherConfig.html#getBodyLength(byte[])">getBodyLength</a></b>(byte[] header)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Returns the length of request body of incoming request packet.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract long</code></font></td>
+               <td><code><b><a href="TCPDispatcherConfig.html#getBodyLengthLong(byte[])">getBodyLengthLong</a></b>(byte[] header)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Returns the length of request body of incoming request packet.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract java.lang.String</code></font></td>
+               <td><code><b><a href="TCPDispatcherConfig.html#getContextPath(byte[])">getContextPath</a></b>(byte[] header)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Extracts the context path from request header.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract int</code></font></td>
+               <td><code><b><a href="TCPDispatcherConfig.html#getHeaderLength()">getHeaderLength</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Returns the length of the header of incoming packet.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract java.lang.String</code></font></td>
+               <td><code><b><a href="TCPDispatcherConfig.html#getPathInfo(byte[])">getPathInfo</a></b>(byte[] header)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Extracts pathInfo from request header.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract java.lang.String</code></font></td>
+               <td><code><b><a href="TCPDispatcherConfig.html#getServletPath(byte[])">getServletPath</a></b>(byte[] header)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Extracts ServletPath from request header.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract java.lang.String</code></font></td>
+               <td><code><b><a href="TCPDispatcherConfig.html#getSessionId(byte[])">getSessionId</a></b>(byte[] header)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Extracts sessionId from request header.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract void</code></font></td>
+               <td><code><b><a href="TCPDispatcherConfig.html#init()">init</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   user definable init routine.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="TCPDispatcherConfig.html#isPersistentConnection()">isPersistentConnection</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Determines whether TCP listner keeps client connection alive
+                  after finishing current request processing.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="TCPDispatcherConfig()"></a><h3>TCPDispatcherConfig</h3><pre>public <b>TCPDispatcherConfig</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="init()"></a><h3>init</h3><pre>public abstract void <b>init</b>()<br></pre><dl>
+            <dd>user definable init routine. called only once at booting time</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="getHeaderLength()"></a><h3>getHeaderLength</h3><pre>public abstract int <b>getHeaderLength</b>()<br></pre><dl>
+            <dd>Returns the length of the header of incoming packet. <p>
+               Jeus WebContainerType uses this method for constructing the header
+               and supplying the header to
+                <a href="TCPDispatcherConfig.html#getBodyLength(byte[])"><code>TCPDispatcherConfig.getBodyLength(byte[])</code></a>,
+                <a href="TCPDispatcherConfig.html#getContextPath(byte[])"><code>TCPDispatcherConfig.getContextPath(byte[])</code></a>,
+                <a href="TCPDispatcherConfig.html#getServletPath(byte[])"><code>TCPDispatcherConfig.getServletPath(byte[])</code></a>,
+                <a href="TCPDispatcherConfig.html#getPathInfo(byte[])"><code>TCPDispatcherConfig.getPathInfo(byte[])</code></a>,
+                <a href="TCPDispatcherConfig.html#getSessionId(byte[])"><code>TCPDispatcherConfig.getSessionId(byte[])</code></a>, as an arguement.<p>
+                <a href="TCPServletRequest.html#getHeader"><code>TCPServletRequest.getHeader</code></a> returns the header
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>header length of incoming packet</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="isPersistentConnection()"></a><h3>isPersistentConnection</h3><pre>public boolean <b>isPersistentConnection</b>()<br></pre><dl>
+            <dd>Determines whether TCP listner keeps client connection alive
+               after finishing current request processing. <p>
+               If return value is true, servlet engine will not disconnect the
+               client connection after current request processing is finished.
+               It might be useful for some proxy client. <p>
+               This method only called once at booting time. <p>
+               Even if this method returns true, client connection can be
+               controlled through  <a href="../../../jeus/servlet/tcp/TCPServletResponse.html#closeOnExit"><code>TCPServletResponse.closeOnExit</code></a>.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>true if client connection need to keep alive</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getBodyLength(byte[])"></a><h3>getBodyLength</h3><pre>public abstract int <b>getBodyLength</b>(<code>byte[]</code> header)<br></pre><dl>
+            <dd>Returns the length of request body of incoming request packet. <p>
+               Jeus Web Container uses this method to construct request body
+               returned by  <a href="TCPServletRequest.html#getBody"><code>TCPServletRequest.getBody</code></a>.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>header</code> - request header
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>length of request body</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getBodyLengthLong(byte[])"></a><h3>getBodyLengthLong</h3><pre>public abstract long <b>getBodyLengthLong</b>(<code>byte[]</code> header)<br></pre><dl>
+            <dd>Returns the length of request body of incoming request packet. <p>
+               If you don't need to support long, you may map to  <a href="TCPDispatcherConfig.html#getBodyLength(byte[])"><code>getBodyLength(byte[])</code></a>.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>header</code> - request header
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>length of request body</dd>
+                  </dt>
+                  <dt><b>Since:</b><dd>JEUS 7 Fix#1</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getContextPath(byte[])"></a><h3>getContextPath</h3><pre>public abstract java.lang.String <b>getContextPath</b>(<code>byte[]</code> header)<br></pre><dl>
+            <dd>Extracts the context path from request header. <p>
+               It must be started with "/".
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>header</code> - request header
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>contextPath</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getServletPath(byte[])"></a><h3>getServletPath</h3><pre>public abstract java.lang.String <b>getServletPath</b>(<code>byte[]</code> header)<br></pre><dl>
+            <dd>Extracts ServletPath from request header. must be started with "/". <p>
+               Returned servlet path must be mapped to one of TCPServlet's in web.xml of destined context.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>header</code> - request header
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>servletPath</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getPathInfo(byte[])"></a><h3>getPathInfo</h3><pre>public abstract java.lang.String <b>getPathInfo</b>(<code>byte[]</code> header)<br></pre><dl>
+            <dd>Extracts pathInfo from request header. <p>
+               It can be null.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>header</code> - request header
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>pathInfo</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getSessionId(byte[])"></a><h3>getSessionId</h3><pre>public abstract java.lang.String <b>getSessionId</b>(<code>byte[]</code> header)<br></pre><dl>
+            <dd>Extracts sessionId from request header. <p>
+               Currently, session tracking of TCP request is not implemented.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>header</code> - request header
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>session id</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Servlet API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

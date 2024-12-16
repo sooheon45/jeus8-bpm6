@@ -1,0 +1,535 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>Selector</title>
+      <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="Selector (JEUS Network Library)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.io</font><br>Class Selector
+      </h2><pre>java.lang.Object<br>  <img src="../../resource/inherit.gif" alt="extended by"><b>jeus.io.Selector</b></pre><hr>
+      <dl><pre>public class <b>Selector</b><dt>extends java.lang.Object</dt></pre></dl><p></p>
+      <p>Selector는 IOComponentCreator를 통해 생성되며, 그 IOComponentCreator가 생성될때 지정된 타입에
+      맞는 Selector가 생성된다. SelectorType의 종류는 다음과 같다.</p>
+      <ul>
+      <li> <a href="../../jeus/io/helper/IOComponentCreator.html#BLOCKING_SOCKET"><code>IOComponentCreator.BLOCKING_SOCKET</code></a></li>
+      <li> <a href="../../jeus/io/helper/IOComponentCreator.html#NON_BLOCKING"><code>IOComponentCreator.NON_BLOCKING</code></a></li>
+      <li> <a href="../../jeus/io/helper/IOComponentCreator.html#LOCAL"><code>IOComponentCreator.LOCAL</code></a></li>
+      </ul>
+      <p>LOCAL은 local에 있는 대상과 통신할때 최적화를 위한 설정이며, 나머지는 blocking방식을 사용할지,
+      non-blocking방식을 사용할지, 또는, socket을 사용할지 channel을 사용할지를 선택하는 것이다.
+      IOComponentCreator를 생성할 때 에는 어플리케이션이 실행되는 환경에 따라 알맞는 SelectorType을
+      선택해야 한다.</p>
+      <p> 예를 들어 JDK1.3 환경에서는 BLOCKING_SOCKET만 선택 가능하다. JDK1.4이상 환경에서는 2가지
+      SelectorType이 모두 사용가능 하나 가능하면 CHANNEL을 사용하는 SelectorType을 사용하는 것이
+      성능에 더 좋다.</p>
+      <p>Selector는 본래 non-blocking IO를 지원하기 위한 multiplexor를 지칭하는 용어이나, JEUS NETWORK
+      LIBRARY는 blocking io와 non-blocking io를 모두 지원하는 통합 라이브러리이므로 여기서 말하는 Selector
+      의 의미는 본래 의미보다 약간 확장되었다. non-blocking io의 경우는 본래 multiplexor의 의미대로 사용되지만
+      blocking io의 경우에는 좀 다르게 사용된다.</p>
+      <p>blocking io에서는 상대방의 소켓으로 부터 언제 데이터가 보내지는지를 감지할 수 없으므로 입력 스트
+      림이나 채널의 read 메소드를 호출하여 데이터가 올 때 까지 블록킹이 되어야만 한다. 때문에 보통 별도
+      의 읽기 전용 쓰레드를 만들어서 사용하고 blocking io에서의 Selector는 이런 읽기 쓰레드들을 생성하고
+      실행시키는 일을 주로 하게된다. blocking selector에서는 읽기 쓰레드들을 생성하기 위한 쓰레드풀 설정
+      이 별도로 필요하다. 이는  <a href="../../jeus/io/helper/IOComponentCreator.html"><code>IOComponentCreator</code></a>를 생성할때 설정할 수 있으며,
+      별다른 설정이 없을시에는 System thread pool이 사용된다.</p><br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract void</code></font></td>
+               <td><code><b><a href="Selector.html#closeHandler(jeus.io.handler.StreamHandler)">closeHandler</a></b>(<a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a> selectItem)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Selector.html#decreaseRegisteredSocketNum()">decreaseRegisteredSocketNum</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   등록된 socket의 수를 감소시킨다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="Selector.html#decreaseSelectorUsageAndCheck()">decreaseSelectorUsageAndCheck</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   selector의 사용량을 감소시킨다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract void</code></font></td>
+               <td><code><b><a href="Selector.html#deregisterHandler(jeus.io.handler.StreamHandler)">deregisterHandler</a></b>(<a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a> selectItem)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   event를 더이상 받지 않고 싶을때 사용한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract void</code></font></td>
+               <td><code><b><a href="Selector.html#destroySelector()">destroySelector</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   selector를 제거한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Selector.html#forciblyDecreaseSocketNum()">forciblyDecreaseSocketNum</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   강제로 등록된 socket의 수를 증가시킨다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Selector.html#forciblyIncreaseSocketNum()">forciblyIncreaseSocketNum</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   강제로 등록된 socket의 수를 증가시킨다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract int</code></font></td>
+               <td><code><b><a href="Selector.html#getRegisteredSocketNum()">getRegisteredSocketNum</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   등록된 socket의 수를 얻어온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract int</code></font></td>
+               <td><code><b><a href="Selector.html#getSelectorType()">getSelectorType</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SelectorType을 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Selector.html#increaseRegisteredSocketNum()">increaseRegisteredSocketNum</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   등록된 socket의 수를 증가시킨다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Selector.html#increaseSelectorUsage()">increaseSelectorUsage</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   selector의 사용량을 증가시킨다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract boolean</code></font></td>
+               <td><code><b><a href="Selector.html#isAlive()">isAlive</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   selector가 동작 중인지를 확인한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="Selector.html#isRunningOnSelectorThread()">isRunningOnSelectorThread</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract void</code></font></td>
+               <td><code><b><a href="Selector.html#notifySelectorAboutPendingRead(jeus.io.handler.StreamHandler)">notifySelectorAboutPendingRead</a></b>(<a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a> handler)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract void</code></font></td>
+               <td><code><b><a href="Selector.html#registerHandler(jeus.io.handler.StreamHandler)">registerHandler</a></b>(<a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a> streamHandler)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   이 selector에 해당 socket의 event 처리를 추가한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract void</code></font></td>
+               <td><code><b><a href="Selector.html#removeStreamHandlerFromTimeoutCheckList(jeus.io.handler.StreamHandler)">removeStreamHandlerFromTimeoutCheckList</a></b>(<a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a> handler)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Selector.html#setEventFilter(int)">setEventFilter</a></b>(int readOp)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   selector에서 처리할 <code>java.nio.channels.SelectionKey</code>를 지정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Selector.html#setIntercepterSelector(jeus.io.Selector)">setIntercepterSelector</a></b>(<a href="../../jeus/io/Selector.html">Selector</a> interceptor)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract void</code></font></td>
+               <td><code><b><a href="Selector.html#start()">start</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Selector.html#unsetDecreaseFlag()">unsetDecreaseFlag</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="Selector.html#increaseRegisteredSocketNum()"><code>Selector.increaseRegisteredSocketNum()</code></a>로 등록된 socket의 수가 감되지 않도록 수정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="Selector.html#unsetIncreaseFlag()">unsetIncreaseFlag</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="Selector.html#increaseRegisteredSocketNum()"><code>Selector.increaseRegisteredSocketNum()</code></a>로 등록된 socket의 수가 증가되지 않도록 수정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract void</code></font></td>
+               <td><code><b><a href="Selector.html#updateHandler(jeus.io.handler.StreamHandler)">updateHandler</a></b>(<a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a> attacher)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   등록되어 있는 select item에 대해 select할 event를 변경할 때에 사용한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract void</code></font></td>
+               <td><code><b><a href="Selector.html#updateTimeoutOfStreamHandler(jeus.io.handler.StreamHandler, long)">updateTimeoutOfStreamHandler</a></b>(<a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a> handler, long newTimeout)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="isRunningOnSelectorThread()"></a><h3>isRunningOnSelectorThread</h3><pre>public boolean <b>isRunningOnSelectorThread</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="start()"></a><h3>start</h3><pre>public abstract void <b>start</b>()<br>                         throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="increaseSelectorUsage()"></a><h3>increaseSelectorUsage</h3><pre>public void <b>increaseSelectorUsage</b>()<br></pre><dl>
+            <dd>selector의 사용량을 증가시킨다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="decreaseSelectorUsageAndCheck()"></a><h3>decreaseSelectorUsageAndCheck</h3><pre>public boolean <b>decreaseSelectorUsageAndCheck</b>()<br></pre><dl>
+            <dd>selector의 사용량을 감소시킨다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>selector사용량이 0보다 크거나 같은지 여부</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="destroySelector()"></a><h3>destroySelector</h3><pre>public abstract void <b>destroySelector</b>()<br></pre><dl>
+            <dd>selector를 제거한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="isAlive()"></a><h3>isAlive</h3><pre>public abstract boolean <b>isAlive</b>()<br></pre><dl>
+            <dd>selector가 동작 중인지를 확인한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>selector가 동작 중인지 여부부</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getSelectorType()"></a><h3>getSelectorType</h3><pre>public abstract int <b>getSelectorType</b>()<br></pre><dl>
+            <dd>SelectorType을 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>Selector Type</dd>
+                  </dt>
+                  <dt><b>See Also:</b><dd><a href="../../jeus/io/helper/IOComponentCreator.html#BLOCKING_SOCKET"><code>IOComponentCreator.BLOCKING_SOCKET</code></a>,<a href="../../jeus/io/helper/IOComponentCreator.html#NON_BLOCKING"><code>IOComponentCreator.NON_BLOCKING</code></a>,<a href="../../jeus/io/helper/IOComponentCreator.html#LOCAL"><code>IOComponentCreator.LOCAL</code></a></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getRegisteredSocketNum()"></a><h3>getRegisteredSocketNum</h3><pre>public abstract int <b>getRegisteredSocketNum</b>()<br></pre><dl>
+            <dd>등록된 socket의 수를 얻어온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>등록된 socket의 수</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="increaseRegisteredSocketNum()"></a><h3>increaseRegisteredSocketNum</h3><pre>public void <b>increaseRegisteredSocketNum</b>()<br></pre><dl>
+            <dd>등록된 socket의 수를 증가시킨다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="decreaseRegisteredSocketNum()"></a><h3>decreaseRegisteredSocketNum</h3><pre>public void <b>decreaseRegisteredSocketNum</b>()<br></pre><dl>
+            <dd>등록된 socket의 수를 감소시킨다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="unsetIncreaseFlag()"></a><h3>unsetIncreaseFlag</h3><pre>public void <b>unsetIncreaseFlag</b>()<br></pre><dl>
+            <dd> <a href="Selector.html#increaseRegisteredSocketNum()"><code>Selector.increaseRegisteredSocketNum()</code></a>로 등록된 socket의 수가 증가되지 않도록 수정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="unsetDecreaseFlag()"></a><h3>unsetDecreaseFlag</h3><pre>public void <b>unsetDecreaseFlag</b>()<br></pre><dl>
+            <dd> <a href="Selector.html#increaseRegisteredSocketNum()"><code>Selector.increaseRegisteredSocketNum()</code></a>로 등록된 socket의 수가 감되지 않도록 수정한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="forciblyIncreaseSocketNum()"></a><h3>forciblyIncreaseSocketNum</h3><pre>public void <b>forciblyIncreaseSocketNum</b>()<br></pre><dl>
+            <dd>강제로 등록된 socket의 수를 증가시킨다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="forciblyDecreaseSocketNum()"></a><h3>forciblyDecreaseSocketNum</h3><pre>public void <b>forciblyDecreaseSocketNum</b>()<br></pre><dl>
+            <dd>강제로 등록된 socket의 수를 증가시킨다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setEventFilter(int)"></a><h3>setEventFilter</h3><pre>public void <b>setEventFilter</b>(<code>int</code> readOp)<br></pre><dl>
+            <dd>selector에서 처리할 <code>java.nio.channels.SelectionKey</code>를 지정한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>readOp</code> - selector에서 처리할 SelectionKey
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="registerHandler(jeus.io.handler.StreamHandler)"></a><h3>registerHandler</h3><pre>public abstract void <b>registerHandler</b>(<code><a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a></code> streamHandler)<br>                                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>이 selector에 해당 socket의 event 처리를 추가한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>streamHandler</code> - event를 처리할 endpoint
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="updateHandler(jeus.io.handler.StreamHandler)"></a><h3>updateHandler</h3><pre>public abstract void <b>updateHandler</b>(<code><a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a></code> attacher)<br></pre><dl>
+            <dd>등록되어 있는 select item에 대해 select할 event를 변경할 때에 사용한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="deregisterHandler(jeus.io.handler.StreamHandler)"></a><h3>deregisterHandler</h3><pre>public abstract void <b>deregisterHandler</b>(<code><a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a></code> selectItem)<br></pre><dl>
+            <dd>event를 더이상 받지 않고 싶을때 사용한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="closeHandler(jeus.io.handler.StreamHandler)"></a><h3>closeHandler</h3><pre>public abstract void <b>closeHandler</b>(<code><a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a></code> selectItem)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="notifySelectorAboutPendingRead(jeus.io.handler.StreamHandler)"></a><h3>notifySelectorAboutPendingRead</h3><pre>public abstract void <b>notifySelectorAboutPendingRead</b>(<code><a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a></code> handler)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="removeStreamHandlerFromTimeoutCheckList(jeus.io.handler.StreamHandler)"></a><h3>removeStreamHandlerFromTimeoutCheckList</h3><pre>public abstract void <b>removeStreamHandlerFromTimeoutCheckList</b>(<code><a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a></code> handler)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="updateTimeoutOfStreamHandler(jeus.io.handler.StreamHandler, long)"></a><h3>updateTimeoutOfStreamHandler</h3><pre>public abstract void <b>updateTimeoutOfStreamHandler</b>(<code><a href="../../jeus/io/handler/StreamHandler.html">StreamHandler</a></code> handler,<br>                                                  <code>long</code> newTimeout)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setIntercepterSelector(jeus.io.Selector)"></a><h3>setIntercepterSelector</h3><pre>public void <b>setIntercepterSelector</b>(<code><a href="../../jeus/io/Selector.html">Selector</a></code> interceptor)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제10장 MIME Attachment 메시지 전송</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Service 안내서"/><link rel="up" href="pt01.html" title="Part I. JEUS 8 웹 서비스"/><link rel="prev" href="chapter_jaxws_async_operation.html" title="제9장 비동기 웹 서비스"/><link rel="next" href="chapter_jaxws_fast_infoset.html" title="제11장 Fast Infoset 이용한 웹 서비스"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제10장 MIME Attachment 메시지 전송</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jaxws_async_operation.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part I. JEUS 8 웹 서비스</td><td width="20%" align="right"> <a accesskey="n" href="chapter_jaxws_fast_infoset.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jaxws_mtomxopswaref"></a>제10장 MIME Attachment 메시지 전송</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jaxws_mtomxopswaref.html#d4e2478">10.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jaxws_mtomxopswaref.html#d4e2490">10.2. MTOM/XOP</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_mtomxopswaref.html#d4e2526">10.2.1. 기본 동작</a></span></dt><dt><span class="section"><a href="chapter_jaxws_mtomxopswaref.html#d4e2561">10.2.2. Attachment 바이너리 데이터 크기 설정</a></span></dt><dt><span class="section"><a href="chapter_jaxws_mtomxopswaref.html#d4e2589">10.2.3. MTOM/XOP 예제</a></span></dt><dt><span class="section"><a href="chapter_jaxws_mtomxopswaref.html#d4e2602">10.2.4. MTOM/XOP 예제 실행</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxws_mtomxopswaref.html#d4e2616">10.3. swaRef</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_mtomxopswaref.html#d4e2624">10.3.1. swaRef 사용법</a></span></dt><dt><span class="section"><a href="chapter_jaxws_mtomxopswaref.html#d4e2635">10.3.2. swaRef 예제</a></span></dt><dt><span class="section"><a href="chapter_jaxws_mtomxopswaref.html#d4e2647">10.3.3. swaRef 예제 실행</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxws_mtomxopswaref.html#jaxws-streaming-process">10.4. 스트리밍 방식으로 첨부 파일을 처리하는 방법</a></span></dt></dl></div>
+  
+
+  <p><a id="d4e2475" class="indexterm"></a>본 장에서는 MIME Attachment를 사용한 메시지 전송 방식에 대해서 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2478"></a>10.1. 개요</h2></div></div></div>
+    
+
+    <p>웹 서비스를 구현하는 데 있어서 클라이언트 또는 서버로부터 웹 서비스의 파라미터 또는 리턴값은 SOAP 메시지의 Body
+    부분에 페이로드의 형태로 포함되어 있고 이 메시지가 네트워크를 통해 전송된다. 이때 그러한 파라미터, 리턴값이 사진 또는 음악 파일과
+    같은 크기가 큰 바이너리 데이터일 경우 그 데이터의 크기가 크면 클수록 효율은 떨어진다.</p>
+
+    <p><a id="d4e2482" class="indexterm"></a><a id="d4e2484" class="indexterm"></a>JAX-WS 웹 서비스는 MTOM(Message Transmission and Optimization
+    Mechanism)과 XOP(XML Binary Optimized Packaging)를 통해 xs:base64Binary 또는
+    xs:hexBinary와 같은 element로 정의된 바이너리 데이터가 최적화되어 전송되도록 한다. 또한 swaRef라는 스키마를
+    지원하여 이 스키마로 정의된 XML element의 콘텐츠는 모두 MIME Attachment의 형태로 전송하도록 하는 기능을
+    제공한다.</p>
+
+    <p/>
+
+    <p>JEUS 8 JAX-WS 웹 서비스는 MessageContext 프로퍼티를 사용하여 첨부 파일을 스트리밍 방식으로 송수신할
+    수 있다. 이 기능은 특히 대용량 첨부 파일을 수신할 때 유용하다.</p>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2490"></a>10.2. MTOM/XOP</h2></div></div></div>
+    
+
+    <p><a id="d4e2493" class="indexterm"></a>MTOM은 XOP와 함께 XML binary data such as xs:base64Binary 또는
+    xs:hexBinary와 같은 XML 바이너리 데이터가 네트워크에 어떻게 최적화되어 전송될 수 있는지에 대해 정의하고
+    있다.</p>
+
+    <p>xs:base64Binary와 같은 XML 타입은 SOAP Envelope에 포함되어 전송되기 마련인데 이러한 타입의
+    데이터, 이미지나 음악과 같이 데이터의 크기가 커지면 커질수록 효율성은 크게 떨어진다. 이러한 문제를 해결하기 위해 MTOM은 이러한
+    바이너리 데이터의 크기가 어떤 정해진 값보다 클 경우 MIME Attachment의 형태로 XOP 패키징하여 메시지를 전송한다.
+    이렇게 xs:base64Binary 또는 xs:hexBinary 타입의 element 값이 MIME Attachment의 형태로
+    XOP 패키징될 때 그 MIME Attachment의 Content-Type은 xmime:expectedContentType 속성에
+    지정해줄 수 있고 이는 JAXB에서 지원하는 타입 매핑의 적용을 받는다.</p>
+
+    <p>xs:base64Binary 또는 xs:hexBinary 타입의 스키마 element는
+    xmime:expectedContentType 속성과 함께 사용했을 때 JAXB에서 지원하는 타입 매핑을 적용받아 이 element
+    값의 크기가 어떤 상한선을 넘게 되었을 때 다음과 같은 MIME 타입으로 MIME Attachment에 포함된다.
+    xmime:expectedType 속성을 사용하지 않으면 보통의 byte[ ]로 매핑되고 이 element 값의 크기가 어떤 상한선을
+    넘게 되면 Content-Type에 일반적인 application/octet-stream와 같은 값으로 MIME Attachment에
+    포함된다.</p>
+
+    <p>이러한 xmime:expectedContentType의 Java 타입으로의 JAXB 타입 매핑은 다음과 같다.<a id="d4e2498" class="indexterm"></a></p>
+
+    <div class="informaltable">
+       
+
+      <table border="1"><colgroup><col width="1*"/><col width="1.8*"/></colgroup><thead><tr><th>MIME 타입</th><th>Java 타입</th></tr></thead><tbody><tr><td>image/gif</td><td>java.awt.Image</td></tr><tr><td>image/jpeg</td><td>java.awt.Image</td></tr><tr><td>text/plain</td><td>java.lang.String</td></tr><tr><td>text/xml or application/xml</td><td>javax.xml.transform.Source</td></tr><tr><td>*/*</td><td>javax.activation.DataHandler</td></tr></tbody></table>
+    </div>
+
+    <p>따라서 &lt;element name="image" type="base64Binary"/&gt;와 같은 element는
+    순수하게 byte[ ] 타입으로 매핑되지만, &lt;element name="image" type="base64Binary"
+    xmime:expectedContentTypes="image/jpeg"
+    xmlns:xmime="http://www.w3.org/2005/05/xmlmime"/&gt;와 같은 element는
+    java.awt.Image 타입으로 매핑된다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2526"></a>10.2.1. 기본 동작</h3></div></div></div>
+      
+
+      <p>MTOM/XOP 환경을 이용할 수 있도록 WSDL 문서의 wsdl:type에 xs:base64Binary 또는
+      xs:hexBinary와 같은 타입으로 정의된 element가 xmime:expectedContentType 속성으로 정의된다.
+      정의된 속성은 <span><strong class="guibutton">wsimport</strong></span> 툴을 통해 JAXB의 특정 타입 매핑으로 서비스 인터페이스
+      및 Portable Artifact들이 생성되었을 때 클라이언트 및 서버에서는 MTOM/XOP 환경을 동작시킬 수
+      있다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2533"></a>서버에서의 MTOM 동작</h4>
+
+      <p>서버에서 MTOM을 동작시키기 위해서는 서비스 Endpoint 구현 클래스에 @javax.xml.ws.soap.MTOM
+      Annotation을 추가한다. <a id="d4e2535" class="indexterm"></a></p>
+
+      <pre class="programlisting">@javax.xml.ws.soap.MTOM
+@WebService (endpointInterface = "com.tmax.mtom.Server")
+public class ServerImpl implements Server {
+    ...
+}</pre>
+
+      <p/>
+
+      <p>다음과 같이 서비스 Endpoint 구현 클래스에 @BindingType Annotation을 추가시켜 MTOM을
+      동작시키는 방법도 있다.<a id="d4e2541" class="indexterm"></a></p>
+
+      <pre class="programlisting">@BindingType(value=javax.xml.ws.SOAPBinding.SOAP11HTTP_MTOM_BINDING)
+@BindingType(value=javax.xml.ws.SOAPBinding.SOAP12HTTP_MTOM_BINDING)</pre>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2550"></a>클라이언트에서의 MTOM 동작</h4>
+
+      <p>클라이언트에서 MTOM을 동작시키기 위해서는 서비스로부터 프록시(proxy) 또는 디스패치(dispatch) 객체를
+      javax.xml.ws.soap.MTOMFeature라는 파라미터를 통해 얻는 방법이다.</p>
+
+      <pre class="programlisting">Server port = new ServerService().getServerPort(new MTOMFeature());
+javax.xml.ws.Service.createDispatch(..., new javax.xml.ws.soap.MTOMFeature())</pre>
+
+      <p/>
+
+      <p>다음은 프록시 또는 디스패치가 MTOM이 설정되어있는지 확인하는 메소드이다.</p>
+
+      <pre class="programlisting">Server port = new ServerService.getServerPort();
+SOAPBinding binding = (SOAPBinding)((BindingProvider)port).getBinding();
+boolean mtomEnabled = binding.isMTOMEnabled();
+binding.setMTOMEnabled(true);</pre>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2561"></a>10.2.2. Attachment 바이너리 데이터 크기 설정</h3></div></div></div>
+      
+
+      <p>JAX-WS 웹 서비스는 xs:base64Binary 그리고 xs:hexBInary 타입의 element에 대한
+      Java 오브젝트에 대해서 그 크기가 1Kbyte가 넘으면 클라이언트 또는 서버로부터 전송할 때 MIME Attachment의
+      형태로 XOP 인코딩되어 메시지에 패키징된다. 그렇지 않으면 SOAP 메시지 안에 포함한다.</p>
+
+      <p>XOP 인코딩되어 메시지에 패키징될 때 원래의 element에는 &lt;xop:Include href=...&gt;와
+      같은 값이 설정되는데 이 element의 href 속성에 들어가는 값은 Attachment의 Content-Id 값이다. 또한
+      스키마의 xs:base64Binary, xs:hexBinary로 정의된 타입의 xmime:expectedContentTypes
+      속성의 값이 Attachment의 Content-Type 값으로 설정된다.</p>
+
+      <p>Attachment 형태로 취급될 바이너리 데이터의 크기를 설정하는 방법은 다음과 같다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>서버는 @MTOM Annotation로 설정한다.</p>
+
+          <pre class="programlisting"><span class="bold"><strong>@javax.xml.ws.soap.MTOM(threshold=3000)</strong></span>
+@WebService (endpointInterface = "com.tmax.mtom.Server")
+public class ServerImpl implements Server {
+    ...
+}</pre>
+        </li><li>
+          <p>클라이언트에서는 MTOMFeature 클래스를 통해 설정한다.</p>
+
+          <pre class="programlisting">Server port = new ServerService().getServerPort(<span class="bold"><strong>new MTOMFeature(3000)</strong></span>);
+javax.xml.ws.Service.createDispatch(..., new javax.xml.ws.soap.MTOMFeature())</pre>
+        </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 실제 WSDL의 wsdl:type의 스키마 예제이다.</p>
+
+      <pre class="programlisting">&lt;element name="Detail" type="types:DetailType"/&gt;
+&lt;complexType name="DetailType"&gt;
+    &lt;sequence&gt;
+        &lt;element name="Photo" type="base64Binary"/&gt;
+        &lt;element name="image" type="base64Binary"
+            xmime:expectedContentTypes="image/jpeg"/&gt;
+    &lt;/sequence&gt;
+&lt;/complexType&gt;</pre>
+
+      <p/>
+
+      <p>실제 WSDL의 wsdl:type 스키마가 위와 같은 모습일 경우에 네트워크에 전송되는 메시지는 다음과
+      같다.</p>
+
+      <pre class="programlisting">Content-Type: Multipart/Related;
+start-info="text/xml";
+type="application/xop+xml"; 
+boundary="----=_Part_0_1744155.1118953559416"
+Content-Length: 3453
+SOAPAction: ""
+
+------=_Part_1_4558657.1118953559446
+
+Content-Type: application/xop+xml;
+type="text/xml"; charset=utf-8
+&lt;soapenv:Envelope
+    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+    &lt;soapenv:Body&gt;
+        &lt;Detail xmlns="http://example.org/mtom/data"&gt;
+            &lt;Photo&gt;RHVrZQ==&lt;/Photo&gt;
+            &lt;image&gt;
+                &lt;xop:Include
+                    xmlns:xop="http://www.w3.org/2004/08/xop/include"
+                    href="cid:5aeaa450-17f0-4484-b845-a8480c363444@example.org"&gt;
+                &lt;/xop:Include&gt;
+            &lt;/image&gt;
+        &lt;/Detail&gt;
+    &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+
+------=_Part_1_4558657.1118953559446
+
+Content-Type: image/jpeg
+Content-ID: &lt;5aeaa450-17f0-4484-b845-a8480c363444@example.org&gt;
+╪ α ►JFIF ☺☻ ☺ ☺ █ ♠♠♀¶♀♂♂♀↓↕‼☼¶↔→▼▲↔→∟∟ $.' ",#∟∟(7),
+01444▼'9=82&lt;.342 █ C☺ ♀♂♀↑↑2!∟!222222222222222222222222222222222
+22222222222 222222 └ ) ¬♥☺" ☻◄☺♥◄☺ ─ ▼ ☺♣☺☺☺☺☺☺ ☺☻♥♦ ♂ 
+─ ╡► ☻☺♥♥☻♦♥♣♣♦♦ ☺}☺☻♥ ♦◄♣↕!1A♠‼Qa"q¶2?#B▒┴§R╤≡$3bré ▬
+↨↑↓→%&amp;'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyzâäàåçêëèÆôöòûùÿÖÜ
+óúñÑªº¿⌐¬▓│┤╡╢╖╕╣║┬├─┼╞╟╚╔╩╥╙╘╒╓╫╪┘┌ßΓπΣσµτΦΘΩ±
+≥≤⌠⌡÷≈°∙· ─ </pre>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2589"></a>10.2.3. MTOM/XOP 예제</h3></div></div></div>
+      
+
+      <p>MTOM/XOP가 적용된 WSDL 파일의 예제는 다음과 같다.</p>
+
+      <div class="example"><a id="d4e2593"></a><p class="title"><b>[예 10.1] &lt;&lt; hello.wsdl &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;wsdl:definitions xmlns:types="http://tmaxsoft.com/mtom/data"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://tmaxsoft.com/mtom"
+    targetNamespace="http://tmaxsoft.com/mtom" name="mtom"&gt;
+    &lt;wsdl:types&gt;
+        &lt;schema xmlns="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://tmaxsoft.com/mtom/data"
+            xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+            elementFormDefault="qualified"&gt;
+            &lt;complexType name="DetailType"&gt;
+                &lt;sequence&gt;
+<span class="bold"><strong>                     &lt;element name="image" type="base64Binary"
+                        xmime:expectedContentTypes="image/jpeg" /&gt;</strong></span>
+                &lt;/sequence&gt;
+            &lt;/complexType&gt;
+            &lt;element name="Detail" type="types:DetailType" /&gt;
+            &lt;element name="DetailResponse" type="types:DetailType" /&gt;
+        &lt;/schema&gt;
+    &lt;/wsdl:types&gt;
+    &lt;wsdl:message name="HelloIn"&gt;
+        &lt;wsdl:part name="data" element="types:Detail" /&gt;
+    &lt;/wsdl:message&gt;
+    &lt;wsdl:message name="HelloOut"&gt;
+        &lt;wsdl:part name="data" element="types:DetailResponse" /&gt;
+    &lt;/wsdl:message&gt;
+    &lt;wsdl:portType name="Hello"&gt;
+        &lt;wsdl:operation name="Detail"&gt;
+            &lt;wsdl:input message="tns:HelloIn" /&gt;
+            &lt;wsdl:output message="tns:HelloOut" /&gt;
+        &lt;/wsdl:operation&gt;
+    &lt;/wsdl:portType&gt;
+    &lt;wsdl:binding name="HelloBinding" type="tns:Hello"&gt;
+        &lt;soap:binding style="document"
+            transport="http://schemas.xmlsoap.org/soap/http" /&gt;
+        &lt;wsdl:operation name="Detail"&gt;
+            &lt;soap:operation /&gt;
+            &lt;wsdl:input&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/wsdl:input&gt;
+            &lt;wsdl:output&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/wsdl:output&gt;
+        &lt;/wsdl:operation&gt;
+    &lt;/wsdl:binding&gt;
+    &lt;wsdl:service name="HelloService"&gt;
+        &lt;wsdl:port name="HelloPort" binding="tns:HelloBinding"&gt;
+            &lt;soap:address location="REPLACE_WITH_ACTUAL_URL" /&gt;
+        &lt;/wsdl:port&gt;
+    &lt;/wsdl:service&gt;
+&lt;/wsdl:definitions&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>위와 같이 DetailType element의 스키마를 보면 순서대로 base64Binary 타입의 element인
+      image가 정의되어 있고 이는 MTOM에서 관리할 수 있다. 또한 image 타입은
+      xmime:expectedContentTypes="image/jpeg"으로 속성이 선언되어 있어 MTOM에서 Attachment로
+      다루는 경우 그 Content-Type이 image/jpeg가 된다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2602"></a>10.2.4. MTOM/XOP 예제 실행</h3></div></div></div>
+      
+
+      <p>본 절에서는 지금까지 구현한 클래스들 및 기타 설정 파일들을 사용해서 핸들러 프레임워크를 실행하는 방법에 대해서
+      설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음과 같이 MTOM를 설정한 서비스를 생성하여 JEUS에 deploy한다.</p>
+
+      <pre class="screen">$ ant deploy</pre>
+
+      <p>위의 과정이 모두 실행되어 서비스가 정상적으로 deploy되면, 클라이언트를 빌드한다. 클라이언트에서 wsimport의
+      과정을 거치므로 서비스의 deploy가 모두 완료되었을 때 클라이언트의 구성이 가능하다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음과 같이 MTOM를 설정한 클라이언트를 생성하고 서비스를 호출한다. 콘솔에 명령어를 입력하면 클라이언트와 서비스가
+      정상적으로 메시지를 주고받는 것을 확인할 수 있다.</p>
+
+      <pre class="screen">$ ant run
+
+...
+
+Host: localhost:8088
+Content-length: 4848
+Content-type: multipart/related;type="application/xop+xml";boundary="uuid:23ba19
+3c-bd1a-4323-abdd-339bf5c05cd1";start-info="text/xml"
+Accept: text/xml, multipart/related, text/html, image/gif, image/jpeg, *; q=.2,
+*/*; q=.2
+Connection: keep-alive
+Soapaction:
+User-agent: JAX-WS RI 2.2 - JEUS 8
+--uuid:23ba193c-bd1a-4323-abdd-339bf5c05cd1
+Content-Type: application/xop+xml;charset=utf-8;type="text/xml"
+Content-Transfer-Encoding: binary
+
+&lt;?xml version="1.0" ?&gt;&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envel
+ope/"&gt;&lt;S:Body&gt;&lt;Detail xmlns="http://tmaxsoft.com/mtom/data"&gt;&lt;image&gt;&lt;Include xmln
+s="http://www.w3.org/2004/08/xop/include" href="cid:dc0fa852-3d46-4bac-9ad4-889d
+59c6198a@example.jaxws.sun.com"/&gt;&lt;/image&gt;&lt;/Detail&gt;&lt;/S:Body&gt;&lt;/S:Envelope&gt;
+--uuid:23ba193c-bd1a-4323-abdd-339bf5c05cd1
+Content-Type: image/jpeg
+Content-Id: &lt;dc0fa852-3d46-4bac-9ad4-889d59c6198a@example.jaxws.sun.com&gt;
+Content-Transfer-Encoding: binary
+
+??JFIF
+
+...</pre>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2616"></a>10.3. swaRef</h2></div></div></div>
+    
+
+    <p><a id="d4e2619" class="indexterm"></a>JAX-WS 웹 서비스는 WSDL의 wsdl:type 안에 element를 wsi:swaRef라는 스키마
+    타입으로 정의하고 웹 서비스를 구성하면 전송되는 메시지는 element 값을 MIME Attachment의 형태로
+    포함시킨다.</p>
+
+    <p>실제 그 SOAP Body 메시지의 element 안에는 그 Attachment로의 레퍼런스를 취하는 형태를 지원한다.
+    이러한 wsi:swaRef 스키마의 element는 javax.activation.DataHandler의 형태의 Java 클래스로
+    매핑된다.</p>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2624"></a>10.3.1. swaRef 사용법</h3></div></div></div>
+      
+
+      <p>wsi:swaRef 타입의 XML element는 DataHandler Java 클래스로 매핑되며 실제 네트워크에서는
+      Attachment의 형태로 전송된다.</p>
+
+      <p>예를 들어 다음과 같은 XML 스키마가 WSDL에 정의되어 있다고 가정한다.</p>
+
+      <pre class="programlisting">&lt;element name="claimForm" type="wsi:swaRef"
+    xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd"/&gt;</pre>
+
+      <p>XML 스키마가 정의된 WSDL 문서를 통해 wsimport 툴으로 웹 서비스를 구성하여 네트워크로 메시지를 전송할 때
+      메시지는 다음과 같다.</p>
+
+      <pre class="programlisting">Content-Type: Multipart/Related;
+start-info="text/xml";
+type="application/xop+xml";
+boundary="----=_Part_4_32542424.1118953563492"
+Content-Length: 1193
+SOAPAction: ""
+
+------=_Part_5_32550604.1118953563502
+
+Content-Type: application/xop+xml;
+type="text/xml"; charset=utf-8
+&lt;soapenv:Envelope
+    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+&lt;soapenv:Body&gt;
+&lt;claimForm xmlns="http://example.org/mtom/data"&gt;
+cid:b0a597fd-5ef7-4f0c-9d85-6666239f1d25@example.jaxws.sun.com
+&lt;/claimForm&gt;
+ &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+
+------=_Part_5_32550604.1118953563502
+
+Content-Type: application/xml
+Content-ID:
+    &lt;b0a597fd-5ef7-4f0c-9d85-6666239f1d25@example.jaxws.sun.com&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;application xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocaption= "http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/application_1_4.xsd"
+         version="1.4"&gt;
+    &lt;display-name&gt;Simple example of application&lt;/display-name&gt;
+    &lt;description&gt;Simple example&lt;/description&gt;
+    &lt;module&gt;
+        &lt;ejb&gt;ejb1.jar&lt;/ejb&gt;
+    &lt;/module&gt;
+    &lt;module&gt;
+        &lt;ejb&gt;ejb2.jar&lt;/ejb&gt;
+    &lt;/module&gt;
+    &lt;module&gt;
+        &lt;web&gt;
+            &lt;web-uri&gt;web.war&lt;/web-uri&gt;
+            &lt;context-root&gt;web&lt;/context-root&gt;
+        &lt;/web&gt;
+    &lt;/module&gt;
+&lt;/application&gt;</pre>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2635"></a>10.3.2. swaRef 예제</h3></div></div></div>
+      
+
+      <p>swaRef가 적용된 WSDL 파일의 예제는 다음과 같다.</p>
+
+      <div class="example"><a id="d4e2639"></a><p class="title"><b>[예 10.2] &lt;&lt; hello.wsdl &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;wsdl:definitions xmlns:types="http://tmaxsoft.com/swaref/data"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://tmaxsoft.com/swaref"
+    targetNamespace="http://tmaxsoft.com/swaref" name="swaref"&gt;
+    &lt;wsdl:types&gt;
+        &lt;schema xmlns="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://tmaxsoft.com/swaref/data"
+            xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+            elementFormDefault="qualified"
+            xmlns:ref="http://ws-i.org/profiles/basic/1.1/xsd"&gt;
+            &lt;import namespace="http://ws-i.org/profiles/basic/1.1/xsd"
+                schemaLocation="wsi-swa.xsd" /&gt;
+<span class="bold"><strong>            &lt;element name="claimForm" type="ref:swaRef" /&gt;
+            &lt;element name="claimFormResponse" type="ref:swaRef" /&gt;</strong></span>
+        &lt;/schema&gt;
+    &lt;/wsdl:types&gt;
+    &lt;wsdl:message name="claimFormIn"&gt;
+        &lt;wsdl:part name="data" element="types:claimForm" /&gt;
+    &lt;/wsdl:message&gt;
+    &lt;wsdl:message name="claimFormOut"&gt;
+        &lt;wsdl:part name="data" element="types:claimFormResponse" /&gt;
+    &lt;/wsdl:message&gt;
+    &lt;wsdl:portType name="Hello"&gt;
+        &lt;wsdl:operation name="claimForm"&gt;
+            &lt;wsdl:input message="tns:claimFormIn" /&gt;
+            &lt;wsdl:output message="tns:claimFormOut" /&gt;
+        &lt;/wsdl:operation&gt;
+    &lt;/wsdl:portType&gt;
+    &lt;wsdl:binding name="HelloBinding" type="tns:Hello"&gt;
+        &lt;soap:binding style="document"
+            transport="http://schemas.xmlsoap.org/soap/http" /&gt;
+        &lt;wsdl:operation name="claimForm"&gt;
+            &lt;soap:operation /&gt;
+            &lt;wsdl:input&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/wsdl:input&gt;
+            &lt;wsdl:output&gt;
+                &lt;soap:body use="literal" /&gt;
+            &lt;/wsdl:output&gt;
+        &lt;/wsdl:operation&gt;
+    &lt;/wsdl:binding&gt;
+    &lt;wsdl:service name="HelloService"&gt;
+        &lt;wsdl:port name="HelloPort" binding="tns:HelloBinding"&gt;
+            &lt;soap:address location="REPLACE_WITH_ACTUAL_URL" /&gt;
+        &lt;/wsdl:port&gt;
+    &lt;/wsdl:service&gt;
+&lt;/wsdl:definitions&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>위와 같이 claimForm와 claimFormResponse element는 ref:swaRef로 외부 스키마인
+      wsi-swa.xsd를 이용하여 swaRef의 데이터 타입으로 정의되어 있으므로 이후 네트워크로 메시지가 전송될 때
+      Attachment의 형태로 전송된다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2647"></a>10.3.3. swaRef 예제 실행</h3></div></div></div>
+      
+
+      <p>본 절에서는 지금까지 구현한 클래스들 및 기타 설정 파일들을 가지고 핸들러 프레임워크를 실행하는 방법에 대해서
+      설명한다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음과 같이 swaRef를 설정한 서비스를 생성하여 JEUS에 deploy한다.</p>
+
+      <pre class="screen">$ ant build deploy</pre>
+
+      <p>위의 과정이 모두 실행되어 서비스가 정상적으로 deploy되면, 클라이언트를 빌드한다. 클라이언트에서 wsimport의
+      과정을 거치므로 서비스의 Deploy가 모두 완료되었을 때 클라이언트의 구성이 가능하다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음과 같이 swaRef를 설정한 클라이언트를 생성하고 서비스를 호출한다. 콘솔에서 명령어를 입력하면 클라이언트와
+      서비스가 정상적으로 메시지를 주고받는 것을 확인할 수 있다.</p>
+
+      <pre class="screen">$ ant run
+...
+
+Host: localhost:8088
+Content-length: 2672
+Content-type: multipart/related; type="text/xml"; boundary="uuid:26973efe-2e29-4
+36a-8fce-3fa58b6fd91f"
+Accept: text/xml, multipart/related, text/html, image/gif, image/jpeg, *; q=.2,
+*/*; q=.2
+Connection: keep-alive
+Soapaction:
+User-agent: JAX-WS RI 2.2 - JEUS 8
+--uuid:26973efe-2e29-436a-8fce-3fa58b6fd91f
+Content-Type: text/xml
+
+&lt;?xml version="1.0" ?&gt;&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envel
+ope/"&gt;&lt;S:Body&gt;&lt;claimForm xmlns="http://tmaxsoft.com/swaref/data"&gt;cid:40b15647-3c
+0b-4449-90ad-29b1667e940b@example.jaxws.sun.com&lt;/claimForm&gt;&lt;/S:Body&gt;&lt;/S:Envelope
+&gt;
+--uuid:26973efe-2e29-436a-8fce-3fa58b6fd91f
+Content-Id:&lt;40b15647-3c0b-4449-90ad-29b1667e940b@example.jaxws.sun.com&gt;
+Content-Type: text/xml
+Content-Transfer-Encoding: binary
+
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;wsdl:definitions xmlns:types="http://tmaxsoft.com/swaref/data"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://tmaxsoft.com/swaref"
+    targetNamespace="http://tmaxsoft.com/swaref" name="swaref"&gt;
+...</pre>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jaxws-streaming-process"></a>10.4. 스트리밍 방식으로 첨부 파일을 처리하는 방법</h2></div></div></div>
+    
+
+    <p>JEUS 8 JAX-WS 웹 서비스는 첨부 파일을 포함하는 SOAP 메시지를 송수신할 때 첨부 파일을 메모리로 읽어
+    처리하기 보다는 스트리밍(Streaming) 방식으로 송수신할 수 있다. 이 기능은 첨부 파일이 대용량일 때 웹 서비스
+    Endpoint 호출 성능을 향상시킨다. 특히, 첨부 파일이 JVM Heap 크기를 넘는 경우 OutOfMemory Error 없이
+    첨부 파일 송수신을 가능하게 한다.</p>
+
+    <p>본 절에서는 웹 서비스 클라이언트가 Outbound SOAP 메시지에 포함된 첨부 파일을 스트리밍 방식으로 전송하는 방법에
+    대해서 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>웹 서비스 클라이언트가 Chunked transfer-encoding을 사용하여 Outbound 요청 메시지를 전송하도록
+    설정한다. 서비스 포트(port)에 대하여 웹 서비스 오퍼레이션(operation)을 호출하기 전에(즉, Outbound 요청
+    메시지를 전송하기 전에) 서비스 포트로부터 얻은 요청 MessageContext에 다음의 프로퍼티를 설정한다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>Property Key :
+        "com.sun.xml.ws.transport.http.client.streaming.chunk.size"</p>
+      </li><li>
+        <p>Property Value : chunked data size</p>
+      </li></ul></div>
+
+    <p>이 프로퍼티는 JAX-WS HTTP Transport가 HTTP 요청을 Chunked Streaming 방식으로 전송한다.
+    JEUS 8 서버는 Chunked Streaming 방식을 지원한다.</p>
+
+    <div class="example"><a id="d4e2673"></a><p class="title"><b>[예 10.3] &lt;&lt; AttachmentApp.java &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">Hello port = new HelloService().getHelloPort(
+    new jeus.webservices.jaxws.api.transport.http.AttachmentFeature());
+
+Map&lt;String, Object&gt; reqCnt = ((BindingProvider)port).getRequestContext();
+<span class="bold"><strong>reqCnt.put("com.sun.xml.ws.transport.http.client.streaming.chunk.size",
+            new Integer(4*1024));</strong></span></pre>
+      </div></div><p><br class="example-break"/></p><div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+        <p>모든 HTTP 서버가 이 방식을 지원하지는 않는다는 것에 유의한다.</p>
+      </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jaxws_async_operation.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="pt01.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="chapter_jaxws_fast_infoset.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제9장 비동기 웹 서비스 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제11장 Fast Infoset 이용한 웹 서비스</td></tr></table></div><div xmlns="" align="center"/></body></html>

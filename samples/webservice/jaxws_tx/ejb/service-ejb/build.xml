@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="SampleService" default="all" basedir=".">
+    <property name="is.ejb-jar.module" value="true" />
+
+    <import file="../../../../common/common-build.xml" />
+
+	<target name="-post-compile">
+        <antcall target="wsgen">
+            <param name="sib.file" value="service.StoreNumber" />
+        </antcall>
+    </target>
+
+	<target name="all" depends="build, deploy" />
+</project>
+

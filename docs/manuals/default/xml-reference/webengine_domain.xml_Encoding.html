@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제6장 domain.xml의 웹 엔진내의 인코딩 설정</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS XML Reference"/><link rel="up" href="index.html" title="JEUS XML Reference"/><link rel="prev" href="webengine_domain.xml_xml_configuration_reference.html" title="제5장 domain.xml의 웹/서블릿 엔진 설정"/><link rel="next" href="webengine_domain.xml_JSPEngine.html" title="제7장 domain.xml의 웹 엔진 내부 JSP 엔진 설정"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제6장 domain.xml의 웹 엔진내의 인코딩 설정</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="webengine_domain.xml_xml_configuration_reference.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="webengine_domain.xml_JSPEngine.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="webengine_domain.xml_Encoding"></a>제6장 domain.xml의 웹 엔진내의 인코딩 설정</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="webengine_domain.xml_Encoding.html#d4e126849">6.1. 소개</a></span></dt><dt><span class="section"><a href="webengine_domain.xml_Encoding.html#d4e126903">6.2. XML Schema/XML 트리</a></span></dt><dt><span class="section"><a href="webengine_domain.xml_Encoding.html#d4e126967">6.3. Element Reference</a></span></dt><dt><span class="section"><a href="webengine_domain.xml_Encoding.html#d4e127581">6.4. 웹 엔진 내의 인코딩 관련 domain.xml 파일 예제</a></span></dt></dl></div>
+    
+
+    <p>JEUS의 설정 파일인 domain.xml 내의 웹 엔진의 인코딩과 관련된 태그에 대한 설명을 찾을 수 있다.</p>
+
+    <p/>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+            <p>XML Schema 파일:
+            <code class="filename">JEUS_HOME/lib/schemas/jeus/web-engine.xsd</code></p>
+        </li></ul></div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e126849"></a>6.1. 소개</h2></div></div></div>
+        
+
+        <p>레퍼런스는 다음 형식으로 구성되어 있다. </p><div class="orderedlist"><ol type="1"><li>
+      <p><span class="bold"><strong>XML Schema/XML 트리</strong></span>: XML 설정 파일의 모든
+      태그 리스트를 정리했다. 각 노드의 형식은 다음과 같다.</p><div class="orderedlist"><ol type="a"><li>
+            <p>태그 레퍼런스로 빨리 찾아보기 위해서 각 태그마다 인덱스 번호( 예: (11) )를 붙여 놓았다. 태그
+            레퍼런스에서는 이 번호 순서로 설명한다.</p>
+          </li><li>
+            <p>XML Schema에서 정의한 XML 태그명을 &lt;<span class="bold"><strong>tag
+            name</strong></span>&gt; 형식으로 표시한다.</p>
+          </li><li>
+            <p>XML Schema에서 정의한 Cardinality를 표시한다. “?” = 0개나 1개의 element,
+            “+” = 1개 이상의 element, “*” = 0개 이상의 element, (기호가 없음) = 정확히 1개의
+            element</p>
+          </li><li>
+            <p>몇몇 태그에는 “P” 문자를 붙여 놓았는데, 해당 태그는 성능에 관계되는 태그라는 것을 뜻한다. 이 태그는
+            설정을 튜닝할 때 사용된다.</p>
+          </li></ol></div>
+    </li><li>
+      <p><span class="bold"><strong>Element Reference</strong></span>: 트리에 있는 각 XML
+      태그를 설명한다.</p><div class="orderedlist"><ol type="a"><li>
+            <p><span class="bold"><strong>Dynamic</strong></span>: 동적 설정 반영 가능</p>
+          </li><li>
+            <p><span class="bold"><strong>Non-Dynamic</strong></span>: 동적 설정 반영 불가능, Dynamic이 설정되지 않은
+            항목들이 보통 이에 해당 하나 특별히 설명이 있는 경우 이 항목이 표시된다.</p>
+          </li><li>
+            <p><span class="bold"><strong>Description</strong></span>: 태그에 대한 간단한
+            설명.</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Description</strong></span>: 입력하는 값과
+            타입.</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Type</strong></span>: 값의 데이터 타입. (예:
+            String)</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Type Description</strong></span>: 값의 데이터 타입에 대한 설명 </p>
+          </li><li>
+            <p><span class="bold"><strong>Default Value</strong></span>: 해당 XML을 사용하지
+            않았을 때 기본적으로 사용되는 값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Defined Value</strong></span>: 이미 정해져 있는
+            값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Example</strong></span>: 해당 XML 태그에 대한
+            예.</p>
+          </li><li>
+            <p><span class="bold"><strong>Performance Recommendation</strong></span>:
+            성능 향상을 위해서 추천하는 값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Child Elements</strong></span>: 자신의 태그 안에
+            사용하는 태그.</p>
+          </li></ol></div>
+    </li></ol></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e126903"></a>6.2. XML Schema/XML 트리</h2></div></div></div>
+        
+
+        <div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding"></a>
+                (478)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">&lt;encoding&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-encoding"></a>
+                (479)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding">&lt;request-encoding&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-encoding.default"></a>
+                (480)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding.default">&lt;default&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-encoding.client-override"></a>
+                (481)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding.client-override">&lt;client-override&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-encoding.forced"></a>
+                (482)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding.forced">&lt;forced&gt;</a></p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.response-encoding"></a>
+                (483)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.response-encoding">&lt;response-encoding&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.response-encoding.default"></a>
+                (484)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.response-encoding.default">&lt;default&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.response-encoding.forced"></a>
+                (485)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.response-encoding.forced">&lt;forced&gt;</a></p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-url-encoding"></a>
+                (486)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding">&lt;request-url-encoding&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-url-encoding.default"></a>
+                (487)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.default">&lt;default&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced"></a>
+                (488)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced">&lt;forced&gt;</a></p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding"></a>
+                (489)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding">&lt;request-encoding&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding.default"></a>
+                (490)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding.default">&lt;default&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding.client-override"></a>
+                (491)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding.client-override">&lt;client-override&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding.forced"></a>
+                (492)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding.forced">&lt;forced&gt;</a></p></li></ul></div><p>
+</p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding"></a>
+                (493)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding">&lt;response-encoding&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding.default"></a>
+                (494)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding.default">&lt;default&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding.forced"></a>
+                (495)
+
+                <a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding.forced">&lt;forced&gt;</a></p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e126967"></a>6.3. Element Reference</h2></div></div></div>
+        
+
+        <p><a id="schema-table-reference.domain.servers.server.web-engine.encoding"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (478)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; <span class="bold"><strong>&lt;encoding&gt;</strong></span>
+</code>
+<a id="d4e126983" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>웹 애플리케이션의 요청이나 응답을 처리할 때 사용되는 Encoding을 설정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">encodingType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (479)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding">request-encoding</a>?</code>
+</p>
+<p>
+            (483)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.response-encoding">response-encoding</a>?</code>
+</p>
+<p>
+            (486)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding">request-url-encoding</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (479)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; <span class="bold"><strong>&lt;request-encoding&gt;</strong></span>
+</code>
+<a id="d4e127022" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>HTTP 요청을 읽을 때 적용할 Encoding을 지정한다.
+                                       Socket에서 읽은 byte array(query strings, application/x-www-form-urlencoded 형식의 body 등)를 파싱해서 String 객체로 만들 때 적용한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">requestEncodingType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (480)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding.default">default</a>
+</code>
+</p>
+<p>
+            (481)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding.client-override">client-override</a>
+</code>
+</p>
+<p>
+            (482)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding.forced">forced</a>
+</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding.default"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (480)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding">request-encoding</a>&gt; <span class="bold"><strong>&lt;default&gt;</strong></span>
+</code>
+<a id="d4e127062" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>지정된 Encoding이 없을 경우 기본적으로 적용하는 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>표준 캐릭터 Encoding 값(e.g. UTF-8)</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding.client-override"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (481)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding">request-encoding</a>&gt; <span class="bold"><strong>&lt;client-override&gt;</strong></span>
+</code>
+<a id="d4e127093" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>지정된 Encoding이 없고, HTTP 클라이언트에서 보내는 Content-Type 헤더의 charset 속성을 치환하는 값이다.
+                            JEUS 6 이전 및 JEUS 7 Fix#1까지의 &lt;forced&gt; 설정을 대신한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding.forced"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (482)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-encoding">request-encoding</a>&gt; <span class="bold"><strong>&lt;forced&gt;</strong></span>
+</code>
+<a id="d4e127120" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>지정된 Encoding이 있지만, 강제적으로 적용하는 값이다.
+                            이 값은 애플리케이션의 모든 동작보다 우선 순위가 높다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>표준 캐릭터 Encoding 값(e.g. UTF-8)</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.response-encoding"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (483)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; <span class="bold"><strong>&lt;response-encoding&gt;</strong></span>
+</code>
+<a id="d4e127150" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>HTTP Response header에 "Content-type: text/html; charset=XXX"의 "XXX" 부분을 설정할 때 사용한다.
+                                       JSP Page Encoding에도 적용한다.
+                                       컨테이너 내부적으로는 Servlet이 만든 String 객체를 버퍼에 저장하기 위해 byte array로 변환할 때 사용한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">encodingSubType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (484)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.response-encoding.default">default</a>
+</code>
+</p>
+<p>
+            (485)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.response-encoding.forced">forced</a>
+</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.response-encoding.default"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (484)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.response-encoding">response-encoding</a>&gt; <span class="bold"><strong>&lt;default&gt;</strong></span>
+</code>
+<a id="d4e127187" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>지정된 Encoding이 없을 경우 기본적으로 적용하는 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>표준 캐릭터 Encoding 값(e.g. UTF-8)</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.response-encoding.forced"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (485)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.response-encoding">response-encoding</a>&gt; <span class="bold"><strong>&lt;forced&gt;</strong></span>
+</code>
+<a id="d4e127218" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>지정된 Encoding이 있지만, 강제적으로 적용하는 값이다.
+                        이 값은 애플리케이션의 모든 동작보다 우선 순위가 높다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>표준 캐릭터 Encoding 값(e.g. UTF-8)</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (486)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; <span class="bold"><strong>&lt;request-url-encoding&gt;</strong></span>
+</code>
+<a id="d4e127248" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>HTTP 요청의 첫 번째 라인에 적용할 Encoding을 지정한다.
+                                Request Line에 포함된 Query string을 Decode할 때 Request Encoding에 설정된 값보다 먼저 이 설정이 적용된다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">encodingSubType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (487)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.default">default</a>
+</code>
+</p>
+<p>
+            (488)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced">forced</a>
+</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.default"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (487)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding">request-url-encoding</a>&gt; <span class="bold"><strong>&lt;default&gt;</strong></span>
+</code>
+<a id="d4e127285" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>지정된 Encoding이 없을 경우 기본적으로 적용하는 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>표준 캐릭터 Encoding 값(e.g. UTF-8)</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (488)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding">request-url-encoding</a>&gt; <span class="bold"><strong>&lt;forced&gt;</strong></span>
+</code>
+<a id="d4e127316" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>지정된 Encoding이 있지만, 강제적으로 적용하는 값이다.
+                        이 값은 애플리케이션의 모든 동작보다 우선 순위가 높다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>표준 캐릭터 Encoding 값(e.g. UTF-8)</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">encodingType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (489)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding">request-encoding</a>?</code>
+</p>
+<p>
+            (493)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding">response-encoding</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (489)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding">request-url-encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced">forced</a>&gt; <span class="bold"><strong>&lt;request-encoding&gt;</strong></span>
+</code>
+<a id="d4e127358" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>HTTP 요청을 읽을 때 적용할 Encoding을 지정한다.
+                                       Socket에서 읽은 byte array(query strings, application/x-www-form-urlencoded 형식의 body 등)를 파싱해서 String 객체로 만들 때 적용한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">requestEncodingType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (490)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding.default">default</a>
+</code>
+</p>
+<p>
+            (491)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding.client-override">client-override</a>
+</code>
+</p>
+<p>
+            (492)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding.forced">forced</a>
+</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding.default"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (490)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding">request-url-encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced">forced</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding">request-encoding</a>&gt; <span class="bold"><strong>&lt;default&gt;</strong></span>
+</code>
+<a id="d4e127400" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>지정된 Encoding이 없을 경우 기본적으로 적용하는 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>표준 캐릭터 Encoding 값(e.g. UTF-8)</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding.client-override"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (491)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding">request-url-encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced">forced</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding">request-encoding</a>&gt; <span class="bold"><strong>&lt;client-override&gt;</strong></span>
+</code>
+<a id="d4e127433" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>지정된 Encoding이 없고, HTTP 클라이언트에서 보내는 Content-Type 헤더의 charset 속성을 치환하는 값이다.
+                            JEUS 6 이전 및 JEUS 7 Fix#1까지의 &lt;forced&gt; 설정을 대신한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding.forced"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (492)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding">request-url-encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced">forced</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.request-encoding">request-encoding</a>&gt; <span class="bold"><strong>&lt;forced&gt;</strong></span>
+</code>
+<a id="d4e127462" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>지정된 Encoding이 있지만, 강제적으로 적용하는 값이다.
+                            이 값은 애플리케이션의 모든 동작보다 우선 순위가 높다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>표준 캐릭터 Encoding 값(e.g. UTF-8)</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (493)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding">request-url-encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced">forced</a>&gt; <span class="bold"><strong>&lt;response-encoding&gt;</strong></span>
+</code>
+<a id="d4e127494" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>HTTP Response header에 "Content-type: text/html; charset=XXX"의 "XXX" 부분을 설정할 때 사용한다.
+                                       JSP Page Encoding에도 적용한다.
+                                       컨테이너 내부적으로는 Servlet이 만든 String 객체를 버퍼에 저장하기 위해 byte array로 변환할 때 사용한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">encodingSubType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (494)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding.default">default</a>
+</code>
+</p>
+<p>
+            (495)
+            <code class="code">
+<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding.forced">forced</a>
+</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding.default"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (494)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding">request-url-encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced">forced</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding">response-encoding</a>&gt; <span class="bold"><strong>&lt;default&gt;</strong></span>
+</code>
+<a id="d4e127533" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>지정된 Encoding이 없을 경우 기본적으로 적용하는 값이다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>표준 캐릭터 Encoding 값(e.g. UTF-8)</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding.forced"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (495)
+                                <code class="code">&lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain">domain</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers">servers</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server">server</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine">web-engine</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding">encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding">request-url-encoding</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced">forced</a>&gt; &lt;<a href="reference_domain_xml_XML_Configuration.html#schema-table-reference.domain.servers.server.web-engine.encoding.request-url-encoding.forced.response-encoding">response-encoding</a>&gt; <span class="bold"><strong>&lt;forced&gt;</strong></span>
+</code>
+<a id="d4e127566" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>지정된 Encoding이 있지만, 강제적으로 적용하는 값이다.
+                        이 값은 애플리케이션의 모든 동작보다 우선 순위가 높다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Description</em></span>
+</td><td>표준 캐릭터 Encoding 값(e.g. UTF-8)</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">valuableToken</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p>
+</p><p>
+</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e127581"></a>6.4. 웹 엔진 내의 인코딩 관련 domain.xml 파일 예제</h2></div></div></div>
+        
+
+        <div class="example"><a id="d4e127583"></a><p class="title"><b>[예 6.1] 웹 엔진 내의 인코딩 domain.xml 파일 예제</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;domain xmlns="http://www.tmaxsoft.com/xml/ns/jeus"
+        xmlns:ns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;servers&gt;
+        &lt;server&gt;
+            &lt;web-engine&gt;
+                &lt;!-- encoding for context group --&gt;
+
+                &lt;encoding&gt;
+                    &lt;!-- set the encoding that used in http request line --&gt;
+
+                    &lt;request-url-encoding&gt;
+                        &lt;forced&gt;UTF-8&lt;/forced&gt;
+                    &lt;/request-url-encoding&gt;
+
+                    &lt;!-- set the encoding that used in http request(query strings, cookies, post data) --&gt;
+
+                    &lt;request-encoding&gt;
+                        &lt;default&gt;UTF-8&lt;/default&gt;
+                    &lt;/request-encoding&gt;
+
+                    &lt;!-- set the encoding that used in http response --&gt;
+
+                    &lt;response-encoding&gt;
+                        &lt;forced&gt;UTF-8&lt;/forced&gt;
+                    &lt;/response-encoding&gt;
+                &lt;/encoding&gt;
+            &lt;/web-engine&gt;
+        &lt;/server&gt;
+    &lt;/servers&gt;
+&lt;/domain&gt;
+</pre>
+        </div></div><br class="example-break"/>
+    </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="webengine_domain.xml_xml_configuration_reference.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="webengine_domain.xml_JSPEngine.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제5장 domain.xml의 웹/서블릿 엔진 설정 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제7장 domain.xml의 웹 엔진 내부 JSP 엔진 설정</td></tr></table></div><div xmlns="" align="center"/></body></html>

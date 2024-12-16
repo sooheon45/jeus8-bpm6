@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제7장 JAAS 사용</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Security 안내서"/><link rel="up" href="index.html" title="JEUS Security 안내서"/><link rel="prev" href="chapter_jacc_provider_application.html" title="제6장 JACC Provider 사용"/><link rel="next" href="appendix_security_event_service_reference.html" title="Appendix A. 보안 이벤트 서비스"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제7장 JAAS 사용</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jacc_provider_application.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="appendix_security_event_service_reference.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jaas_application"></a>제7장 JAAS 사용</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jaas_application.html#d4e4792">7.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jaas_application.html#d4e4829">7.2. JEUS-LDAP 연동 위한 LoginModule 구현</a></span></dt><dt><span class="section"><a href="chapter_jaas_application.html#d4e4842">7.3. LDAP JAAS LoginModule 서비스 설정</a></span></dt><dt><span class="section"><a href="chapter_jaas_application.html#d4e4889">7.4. 데이터베이스 연동 위한 LoginModule 구현</a></span></dt><dt><span class="section"><a href="chapter_jaas_application.html#d4e4900">7.5. 데이터베이스 LoginModule 서비스 설정</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 JAAS 개념에 대해서 살펴보고, JEUS 보안 시스템에서 SunOne Directory Server와 연동하는
+  방법을 간단히 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4792"></a>7.1. 개요</h2></div></div></div>
+    
+
+    <p>JavaTM 인증 및 승인 서비스 JAAS(Java Authentication and Authorization
+    Service)는 Java 버전의 표준 PAM(Pluggable Authentication Module)을 구현하고 사용자 기반
+    인증을 지원하여 액세스 제어 인증 및 수행을 위한 표준 기반의 서비스 패키지이다.</p>
+
+    <p>JAAS는 Java<sup>TM</sup> 2 SDK, Standard
+    Edition(J2SDK) 3의 옵션 패키지(확장 기능)였다. JAAS는 J2SDK 4 이후에 통합되어 있다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JAAS 배경에는 다음의 2가지 기본 목적이 있다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>사용자를 <span><strong class="guibutton">인증</strong></span>한다.</p>
+
+          <p>코드가 애플리케이션, 애플릿, Bean 또는 서블릿인지에 관계없이 Java 코드를 실행 중인 사용자를 신뢰하도록
+          안전한 방법으로 확인한다.</p>
+        </li><li>
+          <p>사용자를 <span><strong class="guibutton">승인</strong></span>한다.</p>
+
+          <p>동작의 실행에 필요한 액세스 제어권(액세스권)을 사용자가 보관 유지하고 있는 것을 확인한다.</p>
+        </li></ul></div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>지금까지 Java 2는 코드 소스 베이스의 액세스 제어(코드의 출처(소) 및 서명자에 근거하는 액세스 제어)를 제공해
+    왔다. 그러나 코드의 실행자에 근거하는 액세스 제어를 추가 실행하는 기능은 부족하여 JAAS가 Java 2 보안 아키텍처를 확장하여
+    지원하도록 한다.</p>
+
+    <p>JAAS 인증은 <span><strong class="guibutton">플러그인 가능</strong></span> 방식에서 실행된다. 이 때문에 애플리케이션은 기반이
+    되는 인증 기술로부터 독립적으로 기능한다. 애플리케이션 내에서는 신규 또는 갱신된 인증 기술을 플러그인으로서 사용할 수 있고,
+    애플리케이션을 변경할 필요는 없다.</p>
+
+    <p>애플리케이션은 LoginContext Object를 인스턴스화하는 것으로 인증 프로세스를 유효하게 한다.
+    LoginContext Object는 Configuration을 참조하여 사용하는 인증 테크놀로지 또는 LoginModule을
+    결정한다. 일반적인 LoginModule은 사용자명 및 패스워드의 입력을 요청해 입력된 것을 검증하고 음성이나 지문의 독해 및
+    Object로 검증을 실행할 수 있는 것도 있다.</p>
+
+    <p>코드를 실행하는 사용자가 인증되면 JAAS 승인 컴퍼넌트는 코어 Java 액세스 제어 모델과 연동해 자원의 액세스를
+    보호한다. 액세스 제어의 결정이 코드 위치 및 코드 서명자(CodeSource)에만 기초를 두는 J2SDK 3과는 달리, J2SDK
+    4부터는 액세스 제어의 결정은 실행 코드의 소스 및 코드를 실행하는 Subject Object로 나타낼 수 있는 사용자 또는 서비스에
+    근거하고 있다. 인증에 성공했을 경우 로그인 모듈은 관련하는 Principal 및 자격을 사용해 Subject를
+    갱신한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JAAS 스펙에 대한 자세한 정보는 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://download.oracle.com/javase/6/docs/technotes/guides/security/jaas/tutorials/index.html" target="_top">http://download.oracle.com/javase/6/docs/technotes/guides/security/jaas/tutorials/index.html</a>에서
+        참고한다.</p>
+      </div>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>기본적으로 JAAS 인증 매커니즘이 적용된 LDAP와 데이터베이스, JEUS 보안 시스템 간의 연동을 위해서
+    LoginModule을 확장 구현하고, JEUS 보안 시스템에서는 로그인과 승인에 관련한 서비스를 확장 제공한다.</p>
+
+    <p>본 장에서는 JEUS 보안 시스템에 JAAS 관련 코어 클래스 및 인터페이스를 적용해서 LDAP와 데이터베이스 연동 예제에
+    대해 설명한다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>LDAP LoginModule 연동 예</p>
+        </li><li>
+          <p>DBRealm LoginModule 연동 예</p>
+        </li></ul></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4829"></a>7.2. JEUS-LDAP 연동 위한 LoginModule 구현</h2></div></div></div>
+    
+
+    <p>javax.security.auth.login.LoginContext 인터페이스 클래스는 피인증자의 인증에 사용되는
+    기본적인 메소드를 제공하는 클래스이다. 이 클래스를 사용하면 애플리케이션에 로그인하는 것으로 기반이 되는 인증 테크놀로지에 의존하지
+    않고 특정 타입의 인증 타입을 제공하는 애플리케이션을 개발할 수 있다.</p>
+
+    <p>LDAP와 연동을 위해서 LoginModule을 확장하여 JAAS 인증 매커니즘을 지원하도록 한다. LoginModule
+    인터페이스를 상속한 LdapLoginModule을 통해서 인증 메커니즘을 수행하고 있다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>LdapLoginModule을 JEUS와의 보안 시스템과의 연동을 고려하여 다음과 같이 확장 구현한다.</p>
+
+    <div class="example"><a id="d4e4835"></a><p class="title"><b>[예 7.1] &lt;&lt;jeus.security.impl.login.LdapLoginModule&gt;&gt;</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting">package jeus.security.impl.login;
+
+import jeus.security.base.Domain;
+import jeus.security.resource.Password;
+import jeus.security.resource.PrincipalImpl;
+import jeus.security.resource.RolePrincipalImpl;
+import jeus.util.logging.JeusLogger;
+
+import javax.security.auth.Subject;
+import javax.security.auth.callback.*;
+import javax.security.auth.login.LoginException;
+import javax.security.auth.spi.LoginModule;
+import java.security.Principal;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+
+public class LdapLoginModule implements LoginModule {
+    protected static final JeusLogger logger = (JeusLogger) JeusLogger.getLogger("jeus.security.loginmodule");
+
+    // initial state
+    private Subject subject;
+    private CallbackHandler callbackHandler;
+
+    private boolean succeeded = false;
+    private boolean commitSucceeded = false;
+
+    private String username;
+    private String password;
+    private String domain;
+
+    private Principal userPrincipal;
+    private Password userCredential;
+
+    private SunOneLdapAuthenticator authenticator;
+
+    private static final String INITIAL_CONTEXT_FACTORY = "initialContextFactory";  // optional
+    private static final String PROVIDER_URL = "providerURL";
+    private static final String CONNECTION_USERNAME = "connectionUsername";
+    private static final String CONNECTION_PASSWORD = "connectionPassword";
+    private static final String USER_BASE = "userBase";
+    private static final String USER_SEARCH_MAPPING = "userSearchMapping";
+    private static final String USER_PASSWORD_ATTR = "userPasswordAttr";
+    private static final String USER_ROLE_ATTR = "userRoleAttr";
+    private static final String ROLE_BASE = "roleBase";
+    private static final String ROLE_NAME_ATTR = "roleNameAttr";
+    private static final String ROLE_SEARCH_MAPPING = "roleSearchMapping";
+
+    private final String SUN_JDK_LDAP_CONTEXT_FACTORY = "com.sun.jndi.ldap.LdapCtxFactory";
+
+    public void initialize(Subject subject, CallbackHandler callbackHandler, Map sharedState, Map options) {
+
+        this.subject = subject;
+        this.callbackHandler = callbackHandler;
+        this.domain = Domain.SYSTEM_DOMAIN_NAME;
+
+        authenticator = new SunOneLdapAuthenticator();
+        initAuthenticator(authenticator, options);
+    }
+
+    private void initAuthenticator(SunOneLdapAuthenticator authenticator, Map options) {
+        // INIITIAL_CONTEXT_FACTORY
+        String value = (String) options.get(INITIAL_CONTEXT_FACTORY);
+        if (value == null) {
+            authenticator.setContextFactory(SUN_JDK_LDAP_CONTEXT_FACTORY);
+        } else {
+            authenticator.setContextFactory(value);
+        }
+
+        authenticator.setProviderUrl((String) options.get(PROVIDER_URL));
+        authenticator.setConnectionUsername(
+                (String) options.get(CONNECTION_USERNAME));
+        authenticator.setConnectionPassword(
+                (String) options.get(CONNECTION_PASSWORD));
+
+        value = (String) options.get(USER_BASE);
+        if (value != null) {
+            authenticator.setUserBase(value);
+        } else {
+            String msg = "LoginMoulde initialization failed. " + "userBase option missing.";
+            logger.warning(msg);
+            throw new IllegalArgumentException(msg);
+        }
+
+        authenticator.setUserPasswordAttr((String) options.get(USER_PASSWORD_ATTR));
+
+        value = (String) options.get(USER_SEARCH_MAPPING);
+        if (value != null) {
+            authenticator.setUserSearchMapping(new MessageFormat(value));
+        } else {
+            String msg = "LoginMoulde initialization failed. " + "userSearchMapping option missing.";
+            logger.warning(msg);
+            throw new IllegalArgumentException(msg);
+        }
+
+        authenticator.setUserRoleAttr((String) options.get(USER_ROLE_ATTR));
+
+        value = (String) options.get(ROLE_BASE);
+        if (value != null) {
+            authenticator.setRoleBase(value);
+        } else {
+            String msg = "LoginMoulde initialization failed. " + "roleBase option missing.";
+            logger.warning(msg);
+            throw new IllegalArgumentException(msg);
+        }
+
+        value = (String) options.get(ROLE_NAME_ATTR);
+        if (value != null) {
+            authenticator.setRoleNameAttr(value);
+        } else {
+            String msg = "LoginMoulde initialization failed. " + "roleNameAttr option missing.";
+            logger.warning(msg);
+            throw new IllegalArgumentException(msg);
+        }
+
+        value = (String) options.get(ROLE_SEARCH_MAPPING);
+        if (value != null) {
+            authenticator.setRoleSearchMapping(new MessageFormat(value));
+        } else {
+            String msg = "LoginMoulde initialization failed. " + "roleSearchMapping option missing.";
+            logger.warning(msg);
+            throw new IllegalArgumentException(msg);
+        }
+    }
+
+    public boolean commit() throws LoginException {
+        if (succeeded == false) {
+            return false;
+        } else {
+            userPrincipal = new PrincipalImpl(username);
+            if (!subject.getPrincipals().contains(userPrincipal))
+                subject.getPrincipals().add(userPrincipal);
+
+            ArrayList roles = authenticator.getRoles();
+            for (Iterator i = roles.iterator(); i.hasNext(); ) {
+                String roleName = (String) i.next();
+                logger.fine("Adding role to subject : username = " + username + ", roleName = " + roleName);
+                subject.getPrincipals().add(new RolePrincipalImpl(roleName));
+            }
+
+            userCredential = new Password(password);
+            subject.getPrivateCredentials().add(userCredential);
+
+            username = null;
+            password = null;
+            domain = null;
+            commitSucceeded = true;
+            return true;
+        }
+    }
+
+    public boolean abort() throws LoginException {
+        if (succeeded == false) {
+            return false;
+        } else if (succeeded == true &amp;&amp; commitSucceeded == false) {
+            succeeded = false;
+            username = null;
+            password = null;
+            domain = null;
+            userPrincipal = null;
+            userCredential = null;
+        } else {
+            logout();
+        }
+        return true;
+    }
+
+    public boolean logout() throws LoginException {
+        subject.getPrincipals().remove(userPrincipal);
+        subject.getPrivateCredentials().remove(userCredential);
+        succeeded = false;
+        succeeded = commitSucceeded;
+        username = null;
+        password = null;
+        domain = null;
+        userPrincipal = null;
+        userCredential = null;
+        return true;
+    }
+
+    public boolean login() throws LoginException {
+        Callback[] callbacks = null;
+
+        // prompt for a user name and password
+        if (callbackHandler == null)
+            throw new LoginException("Error: no CallbackHandler available " + 
+                                    "to garner authentication information from the user");
+
+        callbacks = new Callback[3];
+        callbacks[0] = new NameCallback("user name: ");
+        callbacks[1] = new PasswordCallback("password: ", false);
+        callbacks[2] = new TextInputCallback("domain: ");
+        try {
+            callbackHandler.handle(callbacks);
+            username = ((NameCallback) callbacks[0]).getName();
+            char[] tmpPassword = ((PasswordCallback) callbacks[1]).getPassword();
+            if (tmpPassword == null) {
+                tmpPassword = new char[0];
+            }
+            password = new String(tmpPassword);
+            ((PasswordCallback) callbacks[1]).clearPassword();
+            domain = ((TextInputCallback) callbacks[2]).getText();
+
+            if (!authenticator.authenticate(username, password)) {
+                throw new LoginException("LDAP authentication failed.");
+            }
+            succeeded = true;
+        } catch (UnsupportedCallbackException uce) {
+            uce.printStackTrace();
+            LoginException le = new LoginException(
+                    "Error: " + uce.getCallback().toString() +
+                    " not available to garner authentication information " +
+                    "from the user");
+            le.initCause(uce);
+            throw le;
+        } catch (Exception e) {
+            e.printStackTrace();    // todo. logging
+            if (e instanceof LoginException) {
+                throw (LoginException) e;
+            } else {
+                LoginException le = new LoginException(e.toString());
+                le.initCause(e);
+                throw le;
+            }
+        }
+        return succeeded;
+    }
+}</pre>
+    </div></div><br class="example-break"/>
+
+    <p/>
+
+    <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+      <p>런타임에 추가되는 사용자와 역할 정보가 JEUS 보안 시스템에 적용이 되어야 하므로 RolePrincipalImpl
+      정보가 JEUS의 RolePrincipalImpl 타입으로 변환되어야 한다.</p>
+    </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4842"></a>7.3. LDAP JAAS LoginModule 서비스 설정</h2></div></div></div>
+    
+
+    <p>JEUS 보안 시스템에서 특정 도메인에 JAAS LoginModule을 적용하여 로그인 서비스를 제공하고자 한다면 도메인
+    보안 서비스를 설정할 때 &lt;jaas-login-config&gt;를 설정한다. 자세한 사항은 <a href="chapter_security_system_setup.html#sect_security_system_service_setup" title="2.3. 보안 도메인 구성요소 설정">“2.3. 보안 도메인 구성요소 설정”</a>의 <span class="bold"><strong>'authentication'</strong></span> 항목을 참고한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>DEFAULT_APPLICATION_DOMAIN에 LDAP LoginModule 보안 서비스를 제공하기 위해서 로그인
+    서비스와 승인 서비스에 대해서 다음과 같이 설정한다.</p><div class="example"><a id="d4e4850"></a><p class="title"><b>[예 7.2] 도메인 서비스 설정 : &lt;&lt;domain.xml&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;domain xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+. . .
+    &lt;security-domain&gt;
+        &lt;name&gt;<span class="bold"><strong>DEFAULT_APPLICATION_DOMAIN</strong></span>&lt;/name&gt;
+        &lt;authentication&gt;
+            &lt;jaas-login-config&gt;
+                &lt;login-module&gt;
+                    &lt;login-module-classname&gt;
+                         <em class="citetitle"><span class="bold"><strong>jeus.security.impl.login.LdapLoginModule</strong></span></em>
+                    &lt;/login-module-classname&gt;
+                    &lt;control-flag&gt;required&lt;/control-flag&gt;
+                    &lt;option&gt;
+                        &lt;name&gt;<span class="bold"><strong>initialContextFactory</strong></span>&lt;/name&gt;
+                        &lt;value&gt;<span class="bold"><strong>com.sun.jndi.ldap.LdapCtxFactory</strong></span>&lt;/value&gt;
+                    &lt;/option&gt;
+                    &lt;option&gt;
+                        &lt;name&gt;<span class="bold"><strong>providerURL</strong></span>&lt;/name&gt;
+                        &lt;value&gt;ldap://192.168.1.63:389&lt;/value&gt;
+                    &lt;/option&gt;
+                    &lt;option&gt;
+                        &lt;name&gt;<span class="bold"><strong>connectionUsername</strong></span>&lt;/name&gt;
+                        &lt;value&gt;cn=Directory Manager&lt;/value&gt;
+                    &lt;/option&gt;
+                    &lt;option&gt;
+                        &lt;name&gt;<span class="bold"><strong>connectionPassword</strong></span>&lt;/name&gt;
+                        &lt;value&gt;adminadmin&lt;/value&gt;
+                    &lt;/option&gt;
+                    &lt;option&gt;
+                        &lt;name&gt;<span class="bold"><strong>userBase</strong></span>&lt;/name&gt;
+                        &lt;value&gt;ou=People,dc=sample,dc=com&lt;/value&gt;
+                    &lt;/option&gt;
+                    &lt;option&gt;
+                        &lt;name&gt;<span class="bold"><strong>userSearchMapping</strong></span>&lt;/name&gt;
+                        &lt;value&gt;(uid={0})&lt;/value&gt;
+                    &lt;/option&gt;
+                    &lt;option&gt;
+                        &lt;name&gt;<span class="bold"><strong>roleBase</strong></span>&lt;/name&gt;
+                        &lt;value&gt;ou=Groups,dc=sample,dc=com&lt;/value&gt;
+                    &lt;/option&gt;
+                    &lt;option&gt;
+                        &lt;name&gt;<span class="bold"><strong>roleNameAttr</strong></span>&lt;/name&gt;
+                        &lt;value&gt;cn&lt;/value&gt;
+                    &lt;/option&gt;
+                    &lt;option&gt;
+                        &lt;name&gt;<span class="bold"><strong>roleSearchMapping</strong></span>&lt;/name&gt;
+                        &lt;value&gt;(uniqueMember={0})&lt;/value&gt;
+                    &lt;/option&gt;
+                &lt;/login-module&gt;
+            &lt;/jaas-login-config&gt;
+        &lt;/authentication&gt;
+        &lt;authorization&gt;
+            &lt;repository-service&gt;
+                &lt;custom-repository&gt;
+                    &lt;classname&gt; <span class="bold"><strong>
+    jeus.security.impl.aznrep.CustomPolicyFileRealmAuthorizationRepositoryService</strong></span>
+                    &lt;/classname&gt;
+                    &lt;property&gt;
+                        &lt;name&gt;<span class="bold"><strong>PolicyClassName</strong></span>&lt;/name&gt;
+                        &lt;value&gt;<span class="bold"><strong>jeus.security.base.CustomJeusPolicy</strong></span>&lt;/value&gt;
+                    &lt;/property&gt;
+                    &lt;property&gt;
+                        &lt;name&gt;<span class="bold"><strong>UserPrincipalClassName</strong></span>&lt;/name&gt;
+                        &lt;value&gt;<span class="bold"><strong>jeus.security.resource.PrincipalImpl</strong></span>&lt;/value&gt;
+                    &lt;/property&gt;
+                    &lt;property&gt;
+                        &lt;name&gt;<span class="bold"><strong>RolePrincipalClassName</strong></span>&lt;/name&gt;
+                        &lt;value&gt;<span class="bold"><strong>jeus.security.resource.RolePrincipalImpl</strong></span>&lt;/value&gt;
+                    &lt;/property&gt;
+                 &lt;/custom-repository&gt;
+            &lt;/repository-service&gt;
+        &lt;/authorization&gt;
+    &lt;security-domain&gt;
+. . .
+&lt;/domain&gt; </pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p>각 클래스에 대한 설명은 다음과 같다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.impl.callback.JAASUsernamePasswordCallbackHandler</p>
+
+        <p>JEUS 보안 시스템에서 LoginModule에 인증 정보(username, password, etc..)를
+        취득하는 기본 매커니즘을 제공하는 CallbackHandler 클래스이다.</p>
+      </li><li>
+        <p>jeus.security.impl.login.LdapLoginModule</p>
+
+        <p>JEUS 보안 시스템에서 옵션값으로 정의된 LDAP Attribute 값을 토대로 LoginModule을 지원하는
+        LoginModule 구현체 클래스이다.</p>
+      </li><li>
+        <p>jeus.security.impl.aznrep.CustomPolicyFileRealmAuthorizationRepositoryService</p>
+
+        <p>JEUS 보안 시스템에서 사용자가 정의한
+        UserPrincipalClassName/RolePrincipalClassName 타입을 적용하여 Authorization
+        서비스를 제공하는 클래스이다.</p>
+      </li><li>
+        <p>jeus.security.base.CustomJeusPolicy</p>
+
+        <p>JEUS 보안 시스템에서 런타임에 jeus-web-dd.xml이 존재하지 않고 LoginModule에서
+        Principal에 대한 RolePrincipalImpl이 정의하는 경우 Principal-to-Role 매핑이 되도록
+        지원하는 jeus.security.base.Policy를 확장 구현한 클래스이다.</p>
+      </li></ul></div>
+
+    <p>설정이 완료되면 JEUS를 기동하고 DEFAULT_APPLICATION_DOMAIN에 deploy된 애플리케이션에 대한
+    로그인 서비스를 시작한다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4889"></a>7.4. 데이터베이스 연동 위한 LoginModule 구현</h2></div></div></div>
+    
+
+    <p>다음과 같이 데이터베이스 연동을 위해서 LoginModule을 확장하여 JAAS 인증 매커니즘을 지원하도록
+    한다.</p>
+
+    <p>LoginModule 인터페이스를 상속한 DBRealmLoginModule을 통해서 인증 메커니즘을 수행하고 있다.
+    DBRealmLoginModule을 JEUS와의 보안 시스템과의 연동을 고려하여 다음과 같이 확장 구현한다.</p>
+
+    <p/>
+
+    <div class="example"><a id="d4e4894"></a><p class="title"><b>[예 7.3] &lt;&lt;jeus.security.impl.login.DBRealmLoginModule&gt;&gt;</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting">package jeus.security.impl.login;
+
+import jeus.security.base.Domain;
+import jeus.security.base.ServiceException;
+import jeus.security.resource.Password;
+import jeus.security.resource.PrincipalImpl;
+import jeus.security.resource.RolePrincipalImpl;
+import jeus.util.logging.JeusLogger;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.security.auth.Subject;
+import javax.security.auth.callback.*;
+import javax.security.auth.login.FailedLoginException;
+import javax.security.auth.login.LoginException;
+import javax.security.auth.spi.LoginModule;
+import javax.sql.DataSource;
+import java.security.Principal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+/**
+ * User: choco
+ * Date: 2016. 09. 13
+ * Time: 오후 4:35:57
+ */
+public class DBRealmLoginModule implements LoginModule {
+    protected static final JeusLogger logger = (JeusLogger) JeusLogger.getLogger("jeus.security.login");
+    protected String dsExportName;
+    protected String principalsQuery = "select password from jeus_users where username=?";
+    protected String rolesQuery = "select role from jeus_roles where username=?";
+
+    private String username;
+    private String password;
+    private String domain;
+
+    private Subject subject;
+    private CallbackHandler callbackHandler;
+    private boolean succeeded = false;
+    private boolean commitSucceeded = false;
+
+    protected Map options;
+    private Principal userPrincipal;
+    private Password userCredential;
+
+    public void initialize(Subject subject, CallbackHandler callbackHandler, Map sharedState, Map options) {
+        this.subject = subject;
+        this.callbackHandler = callbackHandler;
+        this.options = options;
+
+        try {
+            domain = Domain.getCurrentDomain().getName();
+        } catch (ServiceException e) {
+            domain = Domain.SYSTEM_DOMAIN_NAME;
+        }
+
+        dsExportName = (String) options.get("exportName");
+        if (dsExportName == null) {
+            String msg = "LoginMoulde initialization failed. " + "exportName option missing.";
+            logger.warning(msg);
+            throw new IllegalArgumentException(msg);
+        }
+
+        Object tmp = options.get("principalsQuery");
+        if (tmp != null)
+            principalsQuery = tmp.toString();
+        tmp = options.get("rolesQuery");
+        if (tmp != null)
+            rolesQuery = tmp.toString();
+        logger.debug("DBRealmLoginModule, export name : " + dsExportName);
+        logger.debug("principalsQuery=" + principalsQuery);
+        logger.debug("rolesQuery=" + rolesQuery);
+        logger.debug("initialize successfully");
+    }
+
+    public boolean login() throws LoginException {
+        Callback[] callbacks = null;
+
+        // prompt for a user name and password
+        if (callbackHandler == null)
+            throw new LoginException("Error: no CallbackHandler available " + "to garner authentication information from the user");
+
+        callbacks = new Callback[3];
+        callbacks[0] = new NameCallback("user name: ");
+        callbacks[1] = new PasswordCallback("password: ", false);
+        callbacks[2] = new TextInputCallback("domain: ");
+        try {
+            callbackHandler.handle(callbacks);
+            username = ((NameCallback) callbacks[0]).getName();
+            char[] tmpPassword = ((PasswordCallback) callbacks[1]).getPassword();
+            if (tmpPassword == null) {
+                tmpPassword = new char[0];
+            }
+            password = new String(tmpPassword);
+            ((PasswordCallback) callbacks[1]).clearPassword();
+            domain = ((TextInputCallback) callbacks[2]).getText();
+
+            String expectedPassword = getUsersPassword();
+            if (validatePassword(password, expectedPassword) == false) {
+                throw new LoginException("DBRealm authentication failed.");
+            }
+            succeeded = true;
+        } catch (UnsupportedCallbackException uce) {
+            uce.printStackTrace();
+            LoginException le = new LoginException(
+                    "Error: " + uce.getCallback().toString() +
+                    " not available to garner authentication information " +
+                    "from the user");
+            le.initCause(uce);
+            throw le;
+        } catch (Exception e) {
+            e.printStackTrace();    // todo. logging
+            if (e instanceof LoginException) {
+                throw (LoginException) e;
+            } else {
+                LoginException le = new LoginException(e.toString());
+                le.initCause(e);
+                throw le;
+            }
+        }
+        return succeeded;
+    }
+
+    private String getUsersPassword() throws LoginException {
+        String password = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            InitialContext ctx = new InitialContext();
+            DataSource ds = (DataSource) ctx.lookup(dsExportName);
+            conn = ds.getConnection();
+            ps = conn.prepareStatement(principalsQuery);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+            if (rs.next() == false)
+                throw new FailedLoginException("No matching username found");
+
+            password = rs.getString(1);
+        }
+        catch (NamingException ex) {
+            throw new LoginException(ex.toString(true));
+        }
+        catch (SQLException ex) {
+            logger.debug("Query failed", ex);
+            throw new LoginException(ex.toString());
+        }
+        finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                }
+                catch (SQLException e) {
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                }
+                catch (SQLException e) {
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                }
+                catch (SQLException ex) {
+                }
+            }
+        }
+        return password;
+    }
+
+    public boolean logout() throws LoginException {
+        subject.getPrincipals().remove(userPrincipal);
+        subject.getPrivateCredentials().remove(userCredential);
+        succeeded = false;
+        succeeded = commitSucceeded;
+        username = null;
+        password = null;
+        domain = null;
+        // trusted = false;
+        userPrincipal = null;
+        userCredential = null;
+        return true;
+    }
+
+    public boolean commit() throws LoginException {
+        if (succeeded == false) {
+            return false;
+        } else {
+            userPrincipal = new PrincipalImpl(username);
+            if (!subject.getPrincipals().contains(userPrincipal))
+                subject.getPrincipals().add(userPrincipal);
+
+            ArrayList roles = getRoleSets();
+            for (Iterator i = roles.iterator(); i.hasNext();) {
+                String roleName = (String) i.next();
+                logger.debug("Adding role to subject : username = " + username + ", roleName = " + roleName);
+                subject.getPrincipals().add(new RolePrincipalImpl(roleName));
+            }
+
+            userCredential = new Password(password);
+            subject.getPrivateCredentials().add(userCredential);
+
+            username = null;
+            password = null;
+            domain = null;
+            commitSucceeded = true;
+            return true;
+        }
+    }
+
+    public boolean abort() throws LoginException {
+        if (succeeded == false) {
+            return false;
+        } else if (succeeded == true &amp;&amp; commitSucceeded == false) {
+            succeeded = false;
+            username = null;
+            password = null;
+            domain = null;
+            userPrincipal = null;
+            userCredential = null;
+        } else {
+            logout();
+        }
+        return true;
+    }
+
+    protected ArrayList getRoleSets() throws LoginException {
+        Connection conn = null;
+        HashMap setsMap = new HashMap();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList roles = new ArrayList();
+        try {
+            InitialContext ctx = new InitialContext();
+            DataSource ds = (DataSource) ctx.lookup(dsExportName);
+            conn = ds.getConnection();
+            ps = conn.prepareStatement(rolesQuery);
+            try {
+                ps.setString(1, username);
+            }
+            catch (ArrayIndexOutOfBoundsException ignore) {
+            }
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String rolename = rs.getString(1);
+                roles.add(rolename);
+            }
+        }
+        catch (NamingException ex) {
+            throw new LoginException(ex.toString(true));
+        }
+        catch (SQLException ex) {
+            logger.debug("SQL failure", ex);
+            throw new LoginException(ex.toString());
+        }
+        finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                }
+                catch (SQLException e) {
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                }
+                catch (SQLException e) {
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                }
+                catch (Exception ex) {
+                }
+            }
+        }
+
+        return roles;
+    }
+
+    protected boolean validatePassword(String inputPassword, String expectedPassword) {
+        if (inputPassword == null || expectedPassword == null)
+            return false;
+        return inputPassword.equals(expectedPassword);
+    }
+}</pre>
+    </div></div><br class="example-break"/>
+
+    <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+      <p>런타임에 추가되는 사용자와 역할 정보가 JEUS 보안 시스템에 적용이 되어야 하므로 RolePrincipalImpl
+      정보가 JEUS의 RolePrincipalImpl 타입으로 변환되어야 한다.</p>
+    </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4900"></a>7.5. 데이터베이스 LoginModule 서비스 설정</h2></div></div></div>
+    
+
+    <p>JEUS 보안 시스템에서 특정 도메인에 JAAS LoginModule을 적용하여 로그인 서비스를 제공하려면 도메인 보안
+    서비스를 &lt;jaas-login-config&gt;에 설정한다. 자세한 사항은 <a href="chapter_security_system_setup.html#sect_security_system_service_setup" title="2.3. 보안 도메인 구성요소 설정">“2.3. 보안 도메인 구성요소 설정”</a>의 <span class="bold"><strong>'authentication'</strong></span> 항목을 참고한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>DEFAULT_APPLICATION_DOMAIN에 데이터베이스 LoginModule 보안 서비스를 제공하기 위해서 로그인
+    서비스와 승인 서비스에 대해서 다음과 같이 설정한다.</p>
+
+    <div class="example"><a id="d4e4908"></a><p class="title"><b>[예 7.4] 도메인 서비스 설정 : &lt;&lt;domain.xml&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;domain xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+. . .
+    &lt;security-domain&gt;
+        &lt;name&gt;<span class="bold"><strong>DEFAULT_APPLICATION_DOMAIN</strong></span>&lt;/name&gt;
+        &lt;authentication&gt;
+            &lt;jaas-login-config&gt;
+                &lt;login-module&gt;
+                    &lt;login-module-classname&gt;
+                        <span class="bold"><strong>jeus.security.impl.login.DBRealmLoginModule</strong></span>
+                    &lt;/login-module-classname&gt;
+                    &lt;control-flag&gt;required&lt;/control-flag&gt;
+                    &lt;option&gt;
+                        &lt;name&gt;<span class="bold"><strong>exportName</strong></span>&lt;/name&gt;
+                        &lt;value&gt;dbrealmtest&lt;/value&gt;
+                    &lt;/option&gt;
+                    &lt;option&gt;
+                        &lt;name&gt;<span class="bold"><strong>principalsQuery</strong></span>&lt;/name&gt;
+                        &lt;value&gt;
+                            select password from DEFAULT_APPLICATION_DOMAIN_Principals 
+                            where username=?
+                        &lt;/value&gt;
+                    &lt;/option&gt;
+                    &lt;option&gt;
+                        &lt;name&gt;<span class="bold"><strong>rolesQuery</strong></span>&lt;/name&gt;
+                        &lt;value&gt;
+                            select role from DEFAULT_APPLICATION_DOMAIN_roles 
+                            where username=?
+                        &lt;/value&gt;
+                    &lt;/option&gt;
+                &lt;/login-module&gt;
+            &lt;/jaas-login-config&gt;
+        &lt;/authentication&gt;
+        &lt;authorization&gt;
+            &lt;repository-service&gt;
+                &lt;custom-repository&gt;
+                    &lt;classname&gt; 
+<span class="bold"><strong>                     jeus.security.impl.aznrep.
+                     CustomPolicyFileRealmAuthorizationRepositoryService</strong></span>
+                    &lt;/classname&gt;
+                    &lt;property&gt;
+                        &lt;name&gt;<span class="bold"><strong>PolicyClassName</strong></span>&lt;/name&gt;
+                        &lt;value&gt;<span class="bold"><strong>jeus.security.base.CustomJeusPolicy</strong></span>&lt;/value&gt;
+                    &lt;/property&gt;
+                    &lt;property&gt;
+                        &lt;name&gt;<span class="bold"><strong>UserPrincipalClassName</strong></span>&lt;/name&gt;
+                        &lt;value&gt;<span class="bold"><strong>jeus.security.resource.PrincipalImpl</strong></span>&lt;/value&gt;
+                    &lt;/property&gt;
+                    &lt;property&gt;
+                        &lt;name&gt;<span class="bold"><strong>RolePrincipalClassName</strong></span>&lt;/name&gt;
+                        &lt;value&gt;<span class="bold"><strong>jeus.security.resource.RolePrincipalImpl</strong></span>&lt;/value&gt;
+                    &lt;/property&gt;
+                &lt;/custom-repository&gt;
+            &lt;/repository-service&gt;
+        &lt;/authorization&gt;
+    &lt;security-domain&gt;
+. . .
+&lt;/domain&gt; </pre>
+      </div></div><p><br class="example-break"/>다음은 각 클래스에 대한 설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.impl.login.DBRealmLoginModule</p>
+
+        <p>JEUS 보안 시스템에서 옵션값으로 데이터베이스의 exportname과 principal과 role에 대한
+        Query 값을 토대로 LoginModule을 지원하는 LoginModule 구현체 클래스이다.</p>
+
+        <p>다음은 옵션 항목에 대한 설명이다.</p>
+
+        <div class="informaltable">
+          <table border="1"><colgroup><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">exportName</td><td>domain.xml에 정의된 데이터베이스의 export-name을 설정한다.</td></tr><tr><td align="left">principalsQuery</td><td>Primary Key가 하나이고 principal에 대한 패스워드값을 얻어올 수 있는 Query를
+                정의한다.</td></tr><tr><td align="left">rolesQuery</td><td>Primary Key가 하나이고 principal에 대한 role값을 얻어올 수 있는 Query를
+                정의한다.</td></tr></tbody></table>
+        </div>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.impl.aznrep.CustomPolicyFileRealmAuthorizationRepositoryService</p>
+
+        <p>JEUS 보안 시스템에서 사용자가 정의한
+        UserPrincipalClassName/RolePrincipalClassName 타입을 적용하여 Authorization
+        서비스를 제공하는 클래스이다.</p>
+      </li></ul></div>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>jeus.security.base.CustomJeusPolicy</p>
+
+        <p>JEUS 보안 시스템에서 런타임에 jeus-web-dd.xml descriptor가 존재하지 않고,
+        LoginModule에서 principal에 대한 RolePrincipalImpl을 정의해야 하는 경우
+        Principal-to-Role 매핑이 되도록 지원하는 jeus.security.base.Policy를 확장 구현한
+        클래스이다.</p>
+      </li></ul></div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>설정이 완료되면 JEUS를 기동하고 DEFAULT_APPLICATION_DOMAIN에 deploy된 애플리케이션의
+        로그인 서비스를 시작한다.</p>
+      </div>
+
+    <p/>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jacc_provider_application.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="appendix_security_event_service_reference.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제6장 JACC Provider 사용 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> Appendix A. 보안 이벤트 서비스</td></tr></table></div><div xmlns="" align="center"/></body></html>

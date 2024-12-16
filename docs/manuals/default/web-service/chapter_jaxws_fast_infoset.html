@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제11장 Fast Infoset 이용한 웹 서비스</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Service 안내서"/><link rel="up" href="pt01.html" title="Part I. JEUS 8 웹 서비스"/><link rel="prev" href="chapter_jaxws_mtomxopswaref.html" title="제10장 MIME Attachment 메시지 전송"/><link rel="next" href="chapter_jaxws_jms.html" title="제12장 JAX-WS JMS 기반 전송"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제11장 Fast Infoset 이용한 웹 서비스</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jaxws_mtomxopswaref.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part I. JEUS 8 웹 서비스</td><td width="20%" align="right"> <a accesskey="n" href="chapter_jaxws_jms.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jaxws_fast_infoset"></a>제11장 Fast Infoset 이용한 웹 서비스</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jaxws_fast_infoset.html#d4e2684">11.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jaxws_fast_infoset.html#d4e2757">11.2. Fast Infoset 사용</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxws_fast_infoset.html#d4e2761">11.2.1. Content Negotiation</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxws_fast_infoset.html#d4e2788">11.3. Fast Infoset 예제</a></span></dt><dt><span class="section"><a href="chapter_jaxws_fast_infoset.html#d4e2803">11.4. Fast Infoset 웹 서비스 실행</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 JEUS 웹 서비스가 새롭게 지원하는 Fast Infoset 웹 서비스와 이를 구현하고 사용하는 방법에 대해
+  설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2684"></a>11.1. 개요</h2></div></div></div>
+    
+
+    <p>Fast Infoset 표준은 XML 대신 사용할 수 있는 효과적인 XML Infoset들의 바이너리 형태를 명시하고
+    있다.<a id="d4e2687" class="indexterm"></a></p>
+
+    <p>Fast Infoset(ITU-T Rec. X.891 | ISO/IEC 24824-1 Fast Infoset) 스펙은
+    다음에 의해 표준화되고 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p>ITU-T(통신장비 및 시스템의 조합 표준을 육성하기 위한 조직체)</p>
+
+          <pre class="programlisting"><a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.itu.int/ITU-T/studygroups/com17/index.asp" target="_top">http://www.itu.int/ITU-T/studygroups/com17/index.asp</a></pre>
+        </li><li>
+          <p>ISO(International Standards Organization)</p>
+
+          <pre class="programlisting"><a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.iso.org/iso/home/standards_development/list_of_iso_technical_committees.htm" target="_top">http://www.iso.org/iso/home/standards_development/list_of_iso_technical_committees.htm</a></pre>
+        </li></ul></div>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>XML 문서와 마찬가지로 이러한 XML Infoset들의 바이너리 형태 인스턴스를 가리켜 <span><strong class="guibutton">Fast
+    Infoset 문서</strong></span>라고 한다. XML 문서와 Fast Infoset 문서는 실질적인 형태를 가지며 내부적으로
+    XML Infoset을 지니고 있다. 이러한 Fast Infoset 문서는 직렬화 또는 파싱(Parsing)하는 속도가 더 빠르며
+    크기면에서도 XML 문서보다 작다. 따라서 Fast Infoset 문서는 XML 문서의 프로세싱 속도와 크기가 이슈가 되는 경우
+    사용한다.</p>
+
+    <p/>
+
+    <h3><a id="d4e2706"></a>Fast Infoset의 설계</h3>
+
+    <p>Fast Infoset 문서는 XML 문서와 마찬가지로 직렬화되거나 파싱(Parsing)될 수 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+        <p>직렬화 과정</p>
+
+        <p>XML 문서로부터 얻은 DOM 문서나 SAX 이벤트에 해당하는 XML Infoset으로부터 Fast Infoset을
+        얻고 다시 이 Fast Infoset으로부터 Fast Infoset 문서를 얻는 과정이다.</p>
+      </li><li>
+        <p>파싱 과정</p>
+
+        <p>Fast Infoset 문서로부터 Fast Infoset을 얻고 다시 이 Fast Infoset으로부터 XML
+        Infoset을 얻는 과정이다. Fast Infoset 스펙은 이러한 문서들의 효과적인 직렬화 혹은 파싱 과정 그리고 문서
+        크기의 축소에 대한 최적화를 보장한다.</p>
+      </li></ul></div>
+
+    <p/>
+
+    
+
+    <p>다음은 이러한 직렬화 또는 파싱 과정을 나타낸 것이다.</p>
+
+    <div class="figure"><a id="figure_fast_infoset_serialize_parse"></a><p class="title"><b>[그림 11.1] Fast Infoset의 직렬화/파싱</b></p><div class="figure-contents">
+      
+
+      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="379"><tr><td align="left"><img src="resources/figure_image060.png" align="top" width="379" alt="Fast Infoset의 직렬화/파싱"/></td></tr></table></div>
+    </div></div><br class="figure-break"/>
+
+    <p/>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p/>
+
+    <h3><a id="d4e2726"></a>Fast Infoset의 장점</h3>
+
+    <p>Fast Infoset 문서는 XML 문서에 비해 파싱하는 속도와 직렬화하는 속도가 빠르며 문서의 크기가 더 작아진다는
+    장점이 있다.</p>
+
+    <p>이 외에도 다음과 같은 여러 가지 장점을 갖는다.</p>
+
+    <div class="itemizedlist"><ul type="circle"><li style="list-style-type: circle">
+        <p>XML 문서에서 사용되는 것과 같은 end 태그가 존재하지 않는다.</p>
+      </li><li style="list-style-type: circle">
+        <p>escaping 문자 데이터가 존재하지 않는다.</p>
+      </li><li style="list-style-type: circle">
+        <p>Fast Infoset 문서를 Fast Infoset으로 변환하는 디코더(decoder)는 길이를 미리 알고 있다는
+        장점이 있다.</p>
+      </li><li style="list-style-type: circle">
+        <p>반복되는 문자열을 인덱싱한다.</p>
+      </li><li style="list-style-type: circle">
+        <p>문자 공간(Namespace)과 같은 정보 또한 인덱싱한다.</p>
+      </li><li style="list-style-type: circle">
+        <p>바이너리 콘텐츠를 내포할 수 있다.</p>
+      </li><li style="list-style-type: circle">
+        <p>비슷한 어휘(Vocabulary)를 가진 문서들의 상태를 보존한다.</p>
+      </li></ul></div>
+
+    <div class="literallayout"><p/></div>
+
+    <p>또한 바이너리 형태의 Fast Infoset 문서는 다음과 같은 장점을 갖는다.</p>
+
+    <div class="itemizedlist"><ul type="circle"><li style="list-style-type: circle">
+        <p>Element 아이템 또는 문자 정보들이 더 작은 비트들로 인코딩된다.</p>
+      </li><li style="list-style-type: circle">
+        <p>Fast Infoset 인코더와 디코더는 잘 정의된 경계선(Boundary)에 힘입어 구현이 쉽고 효율이
+        뛰어나다.</p>
+      </li><li style="list-style-type: circle">
+        <p>인덱싱 정보를 통해 직렬화 또는 파싱하는 데 있어서 대상물의 크기가 작아지기 때문에 속도가 빠르다.</p>
+      </li><li style="list-style-type: circle">
+        <p>스트리밍 기능을 활용하기 적합하다.</p>
+      </li></ul></div>
+
+    <p/>
+
+    
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2757"></a>11.2. Fast Infoset 사용</h2></div></div></div>
+    
+
+    <p>본 절에서는 Fast Infoset 기능을 사용하기 위한 방법인 Content Negotiation 기법에 대해
+    설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e2761"></a>11.2.1. Content Negotiation</h3></div></div></div>
+      
+
+      <p>JAX-WS 웹 서비스에서 Fast Infoset 기능을 사용하기 위해서는 표준 HTTP Header인 Accept
+      또는 Content-Type에 Fast Infoset 기능의 사용 여부를 등록시키는 방법을 사용한다. 이러한 Fast
+      Infoset의 사용 여부가 항상 웹 서비스를 호출하는 클라이언트에 의해 결정된다는 점에서 그리고 HTTP Header를 통해
+      이러한 결정이 이루어진다는 점에서 <span><strong class="guibutton">Content Negotiation 기법</strong></span>이라고 한다.
+      <a id="d4e2765" class="indexterm"></a></p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>클라이언트가 HTTP Header에 정보를 삽입하는가에 따라 결정되는 웹 서비스의 Fast Infoset에서
+      클라이언트는 첫 번째 메시지를 전달할 때에는 XML로 인코딩된 SOAP 메시지를 전달한다. 이때 클라이언트가 HTTP Accept
+      Header에 MIME 타입 application/fastinfoset의 정보를 포함시키면 그 다음부터 이루어지는 메시지
+      전달은(서버가 Fast Infoset을 지원한다면) 모두 Fast Infoset으로 인코딩된 SOAP 메시지를 전송한다. 즉,
+      클라이언트가 XML로 인코딩된 SOAP 메시지를 HTTP Accept Header에 MIME 타입
+      application/fastinfoset로 전달하면 Fast Infoset이 가능한 서버는 Fast Infoset으로 인코딩된
+      메시지를 응답 메시지로써 전달한다. 만약 이후에 클라이언트가 같은 Stub Object를 통해 메시지를 전송한다면 클라이언트와
+      서버는 계속 이러한 Fast Infoset으로 인코딩된 메시지를 주고받게 된다. 이러한 방법을
+      <span><strong class="guibutton">Negotiation Pessimistic 방식</strong></span>이라고 한다. <a id="d4e2771" class="indexterm"></a></p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>JAX-WS 웹 서비스에서 Fast Infoset 기능을 사용하기 위해서는 다음의 방법으로 설정한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>클라이언트의 속성을 설정한다.</p>
+
+          <pre class="programlisting">((BindingProvider) stubOrDispatch).getRequestContext().put(
+com.sun.xml.ws.client.ContentNegotiation.PROPERTY, "pessimistic");</pre>
+
+          <p/>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p>클라이언트가 동작하는 VM의 시스템 변수를 설정한다.</p>
+
+          <pre class="programlisting">java -Dcom.sun.xml.ws.client.ContentNegotiation=pessimistic</pre>
+        </li></ul></div>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2788"></a>11.3. Fast Infoset 예제</h2></div></div></div>
+    
+
+    <p>JAX-WS 웹 서비스에서 Fast Infoset 기능을 사용하기 위해서는 클라이언트 애플리케이션에서 클라이언 트의 속성을
+    설정하는 방법과 클라이언트가 동작하는 VM의 시스템 변수를 설정하는 방법이 있다.</p>
+
+    <p>본 절에서는 클라이언트 애플리케이션을 통해 클라이언트의 속성을 설정하는 방법에 대해 설명한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>서버에서는 다른 옵션을 통한 기능은 제공하지 않는다. Fast Infoset 속성은 모두 클라이언트에 의해서
+        결정된다.</p>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음은 Fast Infoset 속성을 위한 클라이언트 애플리케이션의 예제이다.</p><div class="example"><a id="d4e2799"></a><p class="title"><b>[예 11.1] &lt;&lt; AddNumbersClient.java &gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">public class AddNumbersClient {
+    public static void main(String[] args) { 
+      AddNumbersImpl port = new AddNumbersImplService().getAddNumbersImplPort();
+      ((BindingProvider) port).getRequestContext().put(
+              ContentNegotiation.PROPERTY, "pessimistic");
+
+      int number1 = 10;
+      int number2 = 20;
+
+      System.out.println("#################################################");
+      System.out.println("### JAX-WS Webservices examples - fastinfoset ###");
+      System.out.println("#################################################");
+      System.out.println("Testing Fast Infoset webservices...");
+      int result = port.addNumbers(number1, number2);
+      if (result == 30) {
+          System.out.println("Success!");
+      }
+   }
+}</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p>위와 같이 Fast Infoset 기능을 사용하기 위해서는 서비스 인터페이스로부터 얻은 프록시(Stub) 객체를 통해
+    pessimistic 속성을 Request 컨텍스트의 ContentNegotiation으로 설정한다.</p>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e2803"></a>11.4. Fast Infoset 웹 서비스 실행</h2></div></div></div>
+    
+
+    <p>본 절에서는 이전 절에서 구현한 클래스들 및 기타 설정 파일들을 이용하여 Fast Infoset 웹 서비스를 실행하는
+    방법을 설명한다. 기타 SEI의 구현 클래스 및 기타 설정 파일들은 앞 장에서 설명한 예제의 내용과 동일하다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>다음과 같이 Fast Infoset 웹 서비스를 설정한 서비스를 생성하여 JEUS에 deploy한다.</p>
+
+    <pre class="screen">$ ant build deploy</pre>
+
+    <p>위의 과정이 모두 실행되어 서비스가 정상적으로 deploy되면, 클라이언트를 빌드하고 호출한다. 클라이언트에서
+    wsimport의 과정을 거치므로 서비스의 deploy가 모두 완료되었을 때 클라이언트의 구성이 가능하다.</p>
+
+    <p>다음과 같이 Fast Infoset 웹 서비스를 설정한 클라이언트를 생성하고 서비스에 호출한다.</p>
+
+    <pre class="screen">$ ant run
+
+...
+
+run:
+     [java] #################################################
+     [java] ### JAX-WS Webservices examples - fastinfoset ###
+     [java] #################################################
+     [java] Testing Fast Infoset webservices...
+     [java] Success!
+
+...
+
+BUILD SUCCESSFUL</pre>
+
+    <pre class="screen">$ ant run
+
+
+---[HTTP request]---
+Host: localhost:8088
+Content-length: 218
+Content-type: text/xml; charset=utf-8
+Accept: application/fastinfoset, text/xml, multipart/related, text/html, image/g
+if, image/jpeg, *; q=.2, */*; q=.2
+Connection: keep-alive
+Soapaction: ""
+User-agent: JAX-WS RI 2.2 - JEUS 8
+&lt;?xml version="1.0" ?&gt;&lt;S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envel
+ope/"&gt;&lt;S:Body&gt;&lt;ns2:addNumbers xmlns:ns2="http://server.fastinfoset/"&gt;&lt;arg0&gt;10&lt;/a
+rg0&gt;&lt;arg1&gt;20&lt;/arg1&gt;&lt;/ns2:addNumbers&gt;&lt;/S:Body&gt;&lt;/S:Envelope&gt;
+--------------------
+---[HTTP response 200]---
+?</pre>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jaxws_mtomxopswaref.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="pt01.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="chapter_jaxws_jms.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제10장 MIME Attachment 메시지 전송 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제12장 JAX-WS JMS 기반 전송</td></tr></table></div><div xmlns="" align="center"/></body></html>

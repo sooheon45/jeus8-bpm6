@@ -1,0 +1,928 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>SecurityConfiguration</title>
+      <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="SecurityConfiguration (JEUS WS-Security API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS WS-Security API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.webservices.wssecurity</font><br>Class SecurityConfiguration
+      </h2><pre>java.lang.Object<br>  <img src="../../../resource/inherit.gif" alt="extended by"><b>jeus.webservices.wssecurity.SecurityConfiguration</b></pre><hr>
+      <dl><pre>public class <b>SecurityConfiguration</b><dt>extends java.lang.Object</dt></pre></dl>웹 서비스 보안 설정을 모두 가지고 있는 클래스. 웹 서비스 보안 API를 적용하기 위해서는
+      필수적으로 이 클래스의 객체를 생성하여야 한다.<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/webservices/wssecurity/SecurityConfiguration.html#DIRECT_REFERENCE">DIRECT_REFERENCE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   키 참조 방식 중 하나이며 서명에 사용할 키를 BinarySecurityToken 형태로 변환한 후, 메시지의 보안 헤더 부분에 삽입하여 다른 곳에서 참조하는 방식.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/webservices/wssecurity/SecurityConfiguration.html#ENC_ALG_AES128">ENC_ALG_AES128</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   데이터를 암호화 하기 위한 128 비트 키를 가진 AES 대칭 알고리즘.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/webservices/wssecurity/SecurityConfiguration.html#ENC_ALG_AES192">ENC_ALG_AES192</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   데이터를 암호화 하기 위한 192 비트 키를 가진 AES 대칭 알고리즘.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/webservices/wssecurity/SecurityConfiguration.html#ENC_ALG_AES256">ENC_ALG_AES256</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   데이터를 암호화 하기 위한 256 비트 키를 가진 AES 대칭 알고리즘.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/webservices/wssecurity/SecurityConfiguration.html#ENC_ALG_SEED">ENC_ALG_SEED</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   데이터를 암호화 하기 위한 SEED 대칭 알고리즘.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/webservices/wssecurity/SecurityConfiguration.html#ENC_ALG_TRIPLE_DES">ENC_ALG_TRIPLE_DES</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   데이터를 암호화 하기 위한 triple DES 대칭 알고리즘.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/webservices/wssecurity/SecurityConfiguration.html#ISSUER_SERIAL">ISSUER_SERIAL</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   키 참조 방식 중 하나이며 DIRECT_REFERENCE 방식과는 대조적으로 발급자의 이름과 시리얼 번호만을 메시지에 담아서 넘겨주는 방식.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/webservices/wssecurity/SecurityConfiguration.html#KEYTYPE_JKS">KEYTYPE_JKS</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   JKS 키 타입
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/webservices/wssecurity/SecurityConfiguration.html#KEYTYPE_PKCS12">KEYTYPE_PKCS12</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   PKCS12 키 타입
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/webservices/wssecurity/SecurityConfiguration.html#SKI_KEYIDENTIFIER">SKI_KEYIDENTIFIER</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   키 참조 방식 중 하나아며 서명과 암호화에 사용.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/webservices/wssecurity/SecurityConfiguration.html#X509_KEYIDENTIFIER">X509_KEYIDENTIFIER</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   키 참조 방식 중 하나이며, 암호화에 사용되는 개인 키를 암호화 하는 인증서를 실어 보내는 방식.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="SecurityConfiguration.html#SecurityConfiguration(javax.xml.rpc.Service, javax.xml.namespace.QName)">SecurityConfiguration</a></b>(javax.xml.rpc.Service genericService, javax.xml.namespace.QName portName)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   웹 서비스 보안 설정을 가지고 있는 클래스의 생성자.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addDecryptResponse()">addDecryptResponse</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   받을 SOAP 메시지가 암호화 되어 있을 경우, 암호를 푼다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addDecryptResponse(jeus.webservices.wssecurity.Keystore)">addDecryptResponse</a></b>(<a href="../../../jeus/webservices/wssecurity/Keystore.html">Keystore</a> keystore)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   받을 SOAP 메시지가 암호화 되어 있을 경우, 암호를 푼다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addEncryptRequest(java.lang.String, java.lang.String, java.lang.String)">addEncryptRequest</a></b>(java.lang.String keyIdentififer, java.lang.String encryptUser, java.lang.String algorithm)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 메시지를 암호화한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addEncryptRequest(javax.xml.namespace.QName, java.lang.String, java.lang.String, java.lang.String)">addEncryptRequest</a></b>(javax.xml.namespace.QName encPart, java.lang.String keyIdentifier, java.lang.String encryptUser, java.lang.String algorithm)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 메시지를 암호화 한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addEncryptRequest(javax.xml.namespace.QName, java.lang.String, java.lang.String, java.lang.String, boolean)">addEncryptRequest</a></b>(javax.xml.namespace.QName encPart, java.lang.String keyIdentifier, java.lang.String encryptUser, java.lang.String algorithm, boolean contentOnly)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 메시지를 암호화한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addEncryptRequest(javax.xml.namespace.QName, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">addEncryptRequest</a></b>(javax.xml.namespace.QName encPart, java.lang.String embeddedKeyCallbackClass, java.lang.String keyName, java.lang.String encryptUser, java.lang.String algorithm)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 메시지를 암호화 한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addEncryptRequest(javax.xml.namespace.QName, java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean)">addEncryptRequest</a></b>(javax.xml.namespace.QName encPart, java.lang.String embeddedKeyCallbackClass, java.lang.String keyName, java.lang.String encryptUser, java.lang.String algorithm, boolean contentOnly)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 메시지를 암호화한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addEncryptRequest(javax.xml.namespace.QName, java.lang.String, jeus.webservices.wssecurity.Keystore, java.lang.String, java.lang.String)">addEncryptRequest</a></b>(javax.xml.namespace.QName encPart, java.lang.String keyIdentifier, <a href="../../../jeus/webservices/wssecurity/Keystore.html">Keystore</a> keystore, java.lang.String encryptUser, java.lang.String algorithm)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 메시지를 암호화 한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addEncryptRequest(javax.xml.namespace.QName, java.lang.String, jeus.webservices.wssecurity.Keystore, java.lang.String, java.lang.String, boolean)">addEncryptRequest</a></b>(javax.xml.namespace.QName encPart, java.lang.String keyIdentifier, <a href="../../../jeus/webservices/wssecurity/Keystore.html">Keystore</a> keystore, java.lang.String encryptUser, java.lang.String algorithm, boolean contentOnly)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 메시지를 암호화한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addSignRequest(java.lang.String)">addSignRequest</a></b>(java.lang.String keyIdentifier)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 메시지에 서명 한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addSignRequest(javax.xml.namespace.QName, java.lang.String)">addSignRequest</a></b>(javax.xml.namespace.QName signPart, java.lang.String keyIdentifier)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addSignRequest(javax.xml.namespace.QName, java.lang.String, jeus.webservices.wssecurity.Keystore)">addSignRequest</a></b>(javax.xml.namespace.QName signPart, java.lang.String keyIdentifier, <a href="../../../jeus/webservices/wssecurity/Keystore.html">Keystore</a> keystore)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 메시지에 서명 한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addSignResponse()">addSignResponse</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   받을 메시지에 서명이 되어 있을 경우, 서명을 검증한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addSignResponse(jeus.webservices.wssecurity.Keystore)">addSignResponse</a></b>(<a href="../../../jeus/webservices/wssecurity/Keystore.html">Keystore</a> keystore)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   받을 메시지에 서명이 되어 있을 경우, 서명을 검증한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addTimeStampRequest()">addTimeStampRequest</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 요청 메시지에 TimeStamp를 첨부한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addTimeStampRequest(int)">addTimeStampRequest</a></b>(int timeToLive)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 요청 메시지에 TimeStamp를 첨부한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addTimeStampRequest(int, int, boolean)">addTimeStampRequest</a></b>(int timeToLive, int aberration, boolean doSigning)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 요청 메시지에 TimeStamp를 첨부한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addTimeStampResponse()">addTimeStampResponse</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   받을 SOAP 메시지에 TimeStamp가 있을 경우, TimeStamp를 검증한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addTimeStampResponse(int)">addTimeStampResponse</a></b>(int timeToLive)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   받을 SOAP 메시지에 TimeStamp가 있을 경우, TimeStamp를 검증한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addTimeStampResponse(int, boolean)">addTimeStampResponse</a></b>(int aberration, boolean requireSignature)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   받을 SOAP 메시지에 TimeStamp가 있을 경우, TimeStamp를 검증한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addUTRequest(boolean, boolean)">addUTRequest</a></b>(boolean addNonceCreated, boolean passwordDigest)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 메시지에 UsernameToken을 첨부한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#addUTResponse()">addUTResponse</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   받을 SOAP 메시지의 UsernameToken 엘리먼트를 처리한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#getObserveActionOrderAtReceiving()">getObserveActionOrderAtReceiving</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#setClockPrecision(int)">setClockPrecision</a></b>(int seconds)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#setObserveActionOrderAtReceiving(boolean)">setObserveActionOrderAtReceiving</a></b>(boolean observe)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#setRequestPasswordCallbackClass(java.lang.String)">setRequestPasswordCallbackClass</a></b>(java.lang.String classname)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 요청 메시지의 패스워드 콜백 클래스를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#setResponsePasswordCallbackClass(java.lang.String)">setResponsePasswordCallbackClass</a></b>(java.lang.String classname)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   보안이 적용된 SOAP 메시지를 받아서 처리하기 위해 필요한 패스워드 콜백 클래스를 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#setUsername(java.lang.String)">setUsername</a></b>(java.lang.String username)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   SOAP 요청 메시지의 UsernameToken에 사용될 사용자 이름을 설정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="SecurityConfiguration.html#setWSSProperties(jeus.webservices.wssecurity.WSSProperties)">setWSSProperties</a></b>(<a href="../../../jeus/webservices/wssecurity/WSSProperties.html">WSSProperties</a> props)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="DIRECT_REFERENCE"></a><h3>DIRECT_REFERENCE</h3><pre>public static final java.lang.String <b>DIRECT_REFERENCE</b></pre><dl>
+            <dd>키 참조 방식 중 하나이며 서명에 사용할 키를 BinarySecurityToken 형태로 변환한 후, 메시지의 보안 헤더 부분에 삽입하여 다른 곳에서 참조하는 방식. 서명에 사용.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="ISSUER_SERIAL"></a><h3>ISSUER_SERIAL</h3><pre>public static final java.lang.String <b>ISSUER_SERIAL</b></pre><dl>
+            <dd>키 참조 방식 중 하나이며 DIRECT_REFERENCE 방식과는 대조적으로 발급자의 이름과 시리얼 번호만을 메시지에 담아서 넘겨주는 방식. 서명과 암호화에 사용.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="X509_KEYIDENTIFIER"></a><h3>X509_KEYIDENTIFIER</h3><pre>public static final java.lang.String <b>X509_KEYIDENTIFIER</b></pre><dl>
+            <dd>키 참조 방식 중 하나이며, 암호화에 사용되는 개인 키를 암호화 하는 인증서를 실어 보내는 방식. 이 인증서는 통째로 KeyIdentifier 토큰 에 포함되어 전송된다. 암호화에 사용.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="SKI_KEYIDENTIFIER"></a><h3>SKI_KEYIDENTIFIER</h3><pre>public static final java.lang.String <b>SKI_KEYIDENTIFIER</b></pre><dl>
+            <dd>키 참조 방식 중 하나아며 서명과 암호화에 사용.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="ENC_ALG_AES128"></a><h3>ENC_ALG_AES128</h3><pre>public static final java.lang.String <b>ENC_ALG_AES128</b></pre><dl>
+            <dd>데이터를 암호화 하기 위한 128 비트 키를 가진 AES 대칭 알고리즘.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="ENC_ALG_AES192"></a><h3>ENC_ALG_AES192</h3><pre>public static final java.lang.String <b>ENC_ALG_AES192</b></pre><dl>
+            <dd>데이터를 암호화 하기 위한 192 비트 키를 가진 AES 대칭 알고리즘.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="ENC_ALG_AES256"></a><h3>ENC_ALG_AES256</h3><pre>public static final java.lang.String <b>ENC_ALG_AES256</b></pre><dl>
+            <dd>데이터를 암호화 하기 위한 256 비트 키를 가진 AES 대칭 알고리즘.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="ENC_ALG_TRIPLE_DES"></a><h3>ENC_ALG_TRIPLE_DES</h3><pre>public static final java.lang.String <b>ENC_ALG_TRIPLE_DES</b></pre><dl>
+            <dd>데이터를 암호화 하기 위한 triple DES 대칭 알고리즘.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="ENC_ALG_SEED"></a><h3>ENC_ALG_SEED</h3><pre>public static final java.lang.String <b>ENC_ALG_SEED</b></pre><dl>
+            <dd>데이터를 암호화 하기 위한 SEED 대칭 알고리즘.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="KEYTYPE_JKS"></a><h3>KEYTYPE_JKS</h3><pre>public static final java.lang.String <b>KEYTYPE_JKS</b></pre><dl>
+            <dd>JKS 키 타입</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="KEYTYPE_PKCS12"></a><h3>KEYTYPE_PKCS12</h3><pre>public static final java.lang.String <b>KEYTYPE_PKCS12</b></pre><dl>
+            <dd>PKCS12 키 타입</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="SecurityConfiguration(javax.xml.rpc.Service, javax.xml.namespace.QName)"></a><h3>SecurityConfiguration</h3><pre>public <b>SecurityConfiguration</b>(<code>javax.xml.rpc.Service</code> genericService,<br>                             <code>javax.xml.namespace.QName</code> portName)<br>                            throws <code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></pre><dl>
+            <dd>웹 서비스 보안 설정을 가지고 있는 클래스의 생성자.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>genericService</code> - J2EE 클라이언트에서 작성할 경우에는 JNDI를 통해 얻어오는 Service 객체이며, J2SE 클라이언트에서 작성할 경우에는 Service_Impl() 객체를 통해 생성한 객체이다.<br><code>portName</code> - WSDL에 공개된 포트의 큐네임(QName)
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code> - genericService 파라미터가 알 수 없는 객체이면 Exception을 던진다.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getObserveActionOrderAtReceiving()"></a><h3>getObserveActionOrderAtReceiving</h3><pre>public boolean <b>getObserveActionOrderAtReceiving</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addTimeStampRequest()"></a><h3>addTimeStampRequest</h3><pre>public void <b>addTimeStampRequest</b>()<br></pre><dl>
+            <dd>SOAP 요청 메시지에 TimeStamp를 첨부한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addTimeStampResponse()"></a><h3>addTimeStampResponse</h3><pre>public void <b>addTimeStampResponse</b>()<br></pre><dl>
+            <dd>받을 SOAP 메시지에 TimeStamp가 있을 경우, TimeStamp를 검증한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addSignResponse()"></a><h3>addSignResponse</h3><pre>public void <b>addSignResponse</b>()<br></pre><dl>
+            <dd>받을 메시지에 서명이 되어 있을 경우, 서명을 검증한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addDecryptResponse()"></a><h3>addDecryptResponse</h3><pre>public void <b>addDecryptResponse</b>()<br></pre><dl>
+            <dd>받을 SOAP 메시지가 암호화 되어 있을 경우, 암호를 푼다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addUTResponse()"></a><h3>addUTResponse</h3><pre>public void <b>addUTResponse</b>()<br></pre><dl>
+            <dd>받을 SOAP 메시지의 UsernameToken 엘리먼트를 처리한다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setObserveActionOrderAtReceiving(boolean)"></a><h3>setObserveActionOrderAtReceiving</h3><pre>public void <b>setObserveActionOrderAtReceiving</b>(<code>boolean</code> observe)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addUTRequest(boolean, boolean)"></a><h3>addUTRequest</h3><pre>public void <b>addUTRequest</b>(<code>boolean</code> addNonceCreated,<br>                         <code>boolean</code> passwordDigest)<br></pre><dl>
+            <dd>SOAP 메시지에 UsernameToken을 첨부한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>addNonceCreated</code> - UsernameToken 엘리먼트의 하위 엘리먼트인 Nonce와 Created 엘리먼트의 첨부 여부.<br><code>passwordDigest</code> - UsernameToken의 암호를 텍스트가 아닌 다이제스트 형태로 할 것인지의 여부.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setClockPrecision(int)"></a><h3>setClockPrecision</h3><pre>public void <b>setClockPrecision</b>(<code>int</code> seconds)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addTimeStampRequest(int)"></a><h3>addTimeStampRequest</h3><pre>public void <b>addTimeStampRequest</b>(<code>int</code> timeToLive)<br></pre><dl>
+            <dd>SOAP 요청 메시지에 TimeStamp를 첨부한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>timeToLive</code> - TimeStamp의 유효기간.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addTimeStampResponse(int)"></a><h3>addTimeStampResponse</h3><pre>public void <b>addTimeStampResponse</b>(<code>int</code> timeToLive)<br></pre><dl>
+            <dd>받을 SOAP 메시지에 TimeStamp가 있을 경우, TimeStamp를 검증한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>timeToLive</code> - TimeStamp의 유효기간. 유효 기간이 지난 TimeStamp가 첨부된 SOAP 메시지는 더 이상 처리하지 않는다.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addTimeStampResponse(int, boolean)"></a><h3>addTimeStampResponse</h3><pre>public void <b>addTimeStampResponse</b>(<code>int</code> aberration,<br>                                 <code>boolean</code> requireSignature)<br></pre><dl>
+            <dd>받을 SOAP 메시지에 TimeStamp가 있을 경우, TimeStamp를 검증한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>aberration</code> - 표준시와의 차이(초단위).<br><code>requireSignature</code> - TimeStamp 수신된 메시지에 엘리먼트에 전자서명이 있어야 하는지 여부(기본값은 true).
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addTimeStampRequest(int, int, boolean)"></a><h3>addTimeStampRequest</h3><pre>public void <b>addTimeStampRequest</b>(<code>int</code> timeToLive,<br>                                <code>int</code> aberration,<br>                                <code>boolean</code> doSigning)<br>                              throws <code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></pre><dl>
+            <dd>SOAP 요청 메시지에 TimeStamp를 첨부한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>timeToLive</code> - TimeStamp의 유효기간.<br><code>aberration</code> - &nbsp;<br><code>doSigning</code> - &nbsp;
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setUsername(java.lang.String)"></a><h3>setUsername</h3><pre>public void <b>setUsername</b>(<code>java.lang.String</code> username)<br></pre><dl>
+            <dd>SOAP 요청 메시지의 UsernameToken에 사용될 사용자 이름을 설정한다.
+               서명을 할 경우에는 서명할 개인키의 alias 이름으로 사용한다.
+               암호화 할 경우에는, 별도의 encryptionUser 설정이 없으면 username으로 암호화 하기 위한 공개키의 alias 이름으로 사용한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="addSignRequest(java.lang.String)"></a><h3>addSignRequest</h3><pre>public void <b>addSignRequest</b>(<code>java.lang.String</code> keyIdentifier)<br>                         throws <code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></pre><dl>
+            <dd>SOAP 메시지에 서명 한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>keyIdentifier</code> - ISSUER_SERIAL, DIRECT_REFERENCE, SKI_KEYIDENTIFIER 중의 하나.
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code> - 설정치가 잘못 입력될 경우 던져지는 Exception.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setRequestPasswordCallbackClass(java.lang.String)"></a><h3>setRequestPasswordCallbackClass</h3><pre>public void <b>setRequestPasswordCallbackClass</b>(<code>java.lang.String</code> classname)<br></pre><dl>
+            <dd>SOAP 요청 메시지의 패스워드 콜백 클래스를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>classname</code> - 패스 워드 콜백 클래스의 이름.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setResponsePasswordCallbackClass(java.lang.String)"></a><h3>setResponsePasswordCallbackClass</h3><pre>public void <b>setResponsePasswordCallbackClass</b>(<code>java.lang.String</code> classname)<br></pre><dl>
+            <dd>보안이 적용된 SOAP 메시지를 받아서 처리하기 위해 필요한 패스워드 콜백 클래스를 설정한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>classname</code> - 패스 워드 콜백 클래스의 이름.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addEncryptRequest(java.lang.String, java.lang.String, java.lang.String)"></a><h3>addEncryptRequest</h3><pre>public void <b>addEncryptRequest</b>(<code>java.lang.String</code> keyIdentififer,<br>                              <code>java.lang.String</code> encryptUser,<br>                              <code>java.lang.String</code> algorithm)<br>                            throws <code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></pre><dl>
+            <dd>SOAP 메시지를 암호화한다. 설정한 encPart의 엘리먼트 전체 혹은 엘리먼트의 내용만 선택적으로 암호화할 수 있다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>keyIdentififer</code> - &nbsp;<br><code>encryptUser</code> - 콜백 클래스 내에서 찾을 키의 이름.<br><code>algorithm</code> - 암호화 알고리즘. 암호화 알고리즘. ENC_ALG_AES128, ENC_ALG_AES_192, ENC_ALG_AES_256, ENC_ALG_TRIPLE_DES 중의 하나.
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code> - 설정치가 잘못 입력될 경우 던져지는 Exception.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addSignRequest(javax.xml.namespace.QName, java.lang.String)"></a><h3>addSignRequest</h3><pre>public void <b>addSignRequest</b>(<code>javax.xml.namespace.QName</code> signPart,<br>                           <code>java.lang.String</code> keyIdentifier)<br>                         throws <code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addEncryptRequest(javax.xml.namespace.QName, java.lang.String, java.lang.String, java.lang.String)"></a><h3>addEncryptRequest</h3><pre>public void <b>addEncryptRequest</b>(<code>javax.xml.namespace.QName</code> encPart,<br>                              <code>java.lang.String</code> keyIdentifier,<br>                              <code>java.lang.String</code> encryptUser,<br>                              <code>java.lang.String</code> algorithm)<br>                            throws <code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></pre><dl>
+            <dd>SOAP 메시지를 암호화 한다. 설정한 encPart의 엘리먼트 전체가 아닌 엘리먼트의 내용만 암호화한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>encPart</code> - 암호화 할 SOAP 메시지의 특정한 부분. 설정하지 않으면 SOAP 바디 전체를 암호화.<br><code>keyIdentifier</code> - ISSUER_SERIAL, SKI_KEYIDENTIFIER, X509_KEYIDENTIFIER 중의 하나.<br><code>encryptUser</code> - 키 스토어에서 찾을 키의 이름.<br><code>algorithm</code> - 암호화 알고리즘. ENC_ALG_AES128, ENC_ALG_AES_192, ENC_ALG_AES_256, ENC_ALG_TRIPLE_DES 중의 하나.
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code> - 설정치가 잘못 입력될 경우 던져지는 Exception.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addEncryptRequest(javax.xml.namespace.QName, java.lang.String, java.lang.String, java.lang.String, boolean)"></a><h3>addEncryptRequest</h3><pre>public void <b>addEncryptRequest</b>(<code>javax.xml.namespace.QName</code> encPart,<br>                              <code>java.lang.String</code> keyIdentifier,<br>                              <code>java.lang.String</code> encryptUser,<br>                              <code>java.lang.String</code> algorithm,<br>                              <code>boolean</code> contentOnly)<br>                            throws <code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></pre><dl>
+            <dd>SOAP 메시지를 암호화한다. 설정한 encPart의 엘리먼트 전체 혹은 엘리먼트의 내용만 선택적으로 암호화할 수 있다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>encPart</code> - 암호화 할 SOAP 메시지의 특정한 부분. 설정하지 않으면 SOAP 바디 전체를 암호화.<br><code>keyIdentifier</code> - ISSUER_SERIAL, SKI_KEYIDENTIFIER, X509_KEYIDENTIFIER 중의 하나.<br><code>encryptUser</code> - 키 스토어에서 찾을 키의 이름.<br><code>algorithm</code> - 암호화 알고리즘. 암호화 알고리즘. ENC_ALG_AES128, ENC_ALG_AES_192, ENC_ALG_AES_256, ENC_ALG_TRIPLE_DES 중의 하나.<br><code>contentOnly</code> - 설정한 encPart의 엘리먼트의 전체가 아닌 내용만 선택적으로 암호화.
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code> - 설정치가 잘못 입력될 경우 던져지는 Exception.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addEncryptRequest(javax.xml.namespace.QName, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"></a><h3>addEncryptRequest</h3><pre>public void <b>addEncryptRequest</b>(<code>javax.xml.namespace.QName</code> encPart,<br>                              <code>java.lang.String</code> embeddedKeyCallbackClass,<br>                              <code>java.lang.String</code> keyName,<br>                              <code>java.lang.String</code> encryptUser,<br>                              <code>java.lang.String</code> algorithm)<br>                            throws <code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></pre><dl>
+            <dd>SOAP 메시지를 암호화 한다. 설정한 encPart의 엘리먼트 전체가 아닌 엘리먼트의 내용만 암호화한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>encPart</code> - 암호화 할 SOAP 메시지의 특정한 부분. 설정하지 않으면 SOAP 바디 전체를 암호화.<br><code>embeddedKeyCallbackClass</code> - 키 값을 저장하고 있는 콜백 클래스의 이름.<br><code>keyName</code> - 메시지에 표기되는 키의 실제 이름. 별도로 설정하지 않으면 encryptUser 기본값으로 적용된다.<br><code>encryptUser</code> - 콜백 클래스 내에서 찾을 키의 이름.<br><code>algorithm</code> - 암호화 알고리즘. 암호화 알고리즘. ENC_ALG_AES128, ENC_ALG_AES_192, ENC_ALG_AES_256, ENC_ALG_TRIPLE_DES 중의 하나.
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code> - 설정치가 잘못 입력될 경우 던져지는 Exception.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addEncryptRequest(javax.xml.namespace.QName, java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean)"></a><h3>addEncryptRequest</h3><pre>public void <b>addEncryptRequest</b>(<code>javax.xml.namespace.QName</code> encPart,<br>                              <code>java.lang.String</code> embeddedKeyCallbackClass,<br>                              <code>java.lang.String</code> keyName,<br>                              <code>java.lang.String</code> encryptUser,<br>                              <code>java.lang.String</code> algorithm,<br>                              <code>boolean</code> contentOnly)<br>                            throws <code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></pre><dl>
+            <dd>SOAP 메시지를 암호화한다. 설정한 encPart의 엘리먼트 전체 혹은 엘리먼트의 내용만 선택적으로 암호화할 수 있다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>encPart</code> - 암호화 할 SOAP 메시지의 특정한 부분. 설정하지 않으면 SOAP 바디 전체를 암호화.<br><code>embeddedKeyCallbackClass</code> - 키 값을 저장하고 있는 콜백 클래스의 이름.<br><code>keyName</code> - 메시지에 표기되는 키의 실제 이름. 별도로 설정하지 않으면 encryptUser 기본값으로 적용된다.<br><code>encryptUser</code> - 콜백 클래스 내에서 찾을 키의 이름.<br><code>algorithm</code> - 암호화 알고리즘. 암호화 알고리즘. ENC_ALG_AES128, ENC_ALG_AES_192, ENC_ALG_AES_256, ENC_ALG_TRIPLE_DES 중의 하나.<br><code>contentOnly</code> - 설정한 encPart의 엘리먼트의 전체가 아닌 내용만 선택적으로 암호화.
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code> - 설정치가 잘못 입력될 경우 던져지는 Exception.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addSignRequest(javax.xml.namespace.QName, java.lang.String, jeus.webservices.wssecurity.Keystore)"></a><h3>addSignRequest</h3><pre>public void <b>addSignRequest</b>(<code>javax.xml.namespace.QName</code> signPart,<br>                           <code>java.lang.String</code> keyIdentifier,<br>                           <code><a href="../../../jeus/webservices/wssecurity/Keystore.html">Keystore</a></code> keystore)<br>                         throws <code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></pre><dl>
+            <dd>SOAP 메시지에 서명 한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>signPart</code> - 서명할 SOAP 메시지의 특정한 부분. 설정하지 않으면 SOAP 바디 전체를 서명.<br><code>keyIdentifier</code> - ISSUER_SERIAL, DIRECT_REFERENCE, SKI_KEYIDENTIFIER 중의 하나.<br><code>keystore</code> - 메시지를 서명하기 위한 키를 저장하고 있는 키 스토어의 객체
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code> - 설정치가 잘못 입력될 경우 던져지는 Exception.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addEncryptRequest(javax.xml.namespace.QName, java.lang.String, jeus.webservices.wssecurity.Keystore, java.lang.String, java.lang.String)"></a><h3>addEncryptRequest</h3><pre>public void <b>addEncryptRequest</b>(<code>javax.xml.namespace.QName</code> encPart,<br>                              <code>java.lang.String</code> keyIdentifier,<br>                              <code><a href="../../../jeus/webservices/wssecurity/Keystore.html">Keystore</a></code> keystore,<br>                              <code>java.lang.String</code> encryptUser,<br>                              <code>java.lang.String</code> algorithm)<br>                            throws <code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></pre><dl>
+            <dd>SOAP 메시지를 암호화 한다. 설정한 encPart의 엘리먼트 전체가 아닌 엘리먼트의 내용만 암호화한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>encPart</code> - 암호화 할 SOAP 메시지의 특정한 부분. 설정하지 않으면 SOAP 바디 전체를 암호화.<br><code>keyIdentifier</code> - ISSUER_SERIAL, SKI_KEYIDENTIFIER, X509_KEYIDENTIFIER 중의 하나.<br><code>keystore</code> - 메시지를 암호화 하기 위한 키를 저장하고 있는 키 스토어의 객체.<br><code>encryptUser</code> - 키 스토어에서 찾을 키의 이름.<br><code>algorithm</code> - 암호화 알고리즘. ENC_ALG_AES128, ENC_ALG_AES_192, ENC_ALG_AES_256, ENC_ALG_TRIPLE_DES 중의 하나.
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code> - 설정치가 잘못 입력될 경우 던져지는 Exception.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addEncryptRequest(javax.xml.namespace.QName, java.lang.String, jeus.webservices.wssecurity.Keystore, java.lang.String, java.lang.String, boolean)"></a><h3>addEncryptRequest</h3><pre>public void <b>addEncryptRequest</b>(<code>javax.xml.namespace.QName</code> encPart,<br>                              <code>java.lang.String</code> keyIdentifier,<br>                              <code><a href="../../../jeus/webservices/wssecurity/Keystore.html">Keystore</a></code> keystore,<br>                              <code>java.lang.String</code> encryptUser,<br>                              <code>java.lang.String</code> algorithm,<br>                              <code>boolean</code> contentOnly)<br>                            throws <code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code></pre><dl>
+            <dd>SOAP 메시지를 암호화한다. 설정한 encPart의 엘리먼트 전체 혹은 엘리먼트의 내용만 선택적으로 암호화할 수 있다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>encPart</code> - 암호화 할 SOAP 메시지의 특정한 부분. 설정하지 않으면 SOAP 바디 전체를 암호화.<br><code>keyIdentifier</code> - ISSUER_SERIAL, SKI_KEYIDENTIFIER, X509_KEYIDENTIFIER 중의 하나.<br><code>keystore</code> - 메시지를 암호화 하기 위한 키를 저장하고 있는 키 스토어의 객체<br><code>encryptUser</code> - 키 스토어에서 찾을 키의 이름.<br><code>algorithm</code> - 암호화 알고리즘. 암호화 알고리즘. ENC_ALG_AES128, ENC_ALG_AES_192, ENC_ALG_AES_256, ENC_ALG_TRIPLE_DES 중의 하나.<br><code>contentOnly</code> - 설정한 encPart의 엘리먼트의 전체가 아닌 내용만 선택적으로 암호화.
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code><a href="../../../jeus/webservices/wssecurity/SecurityConfigurationException.html">SecurityConfigurationException</a></code> - 설정치가 잘못 입력될 경우 던져지는 Exception.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addSignResponse(jeus.webservices.wssecurity.Keystore)"></a><h3>addSignResponse</h3><pre>public void <b>addSignResponse</b>(<code><a href="../../../jeus/webservices/wssecurity/Keystore.html">Keystore</a></code> keystore)<br></pre><dl>
+            <dd>받을 메시지에 서명이 되어 있을 경우, 서명을 검증한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>keystore</code> - 메시지의 서명을 검증하기 위한 키를 저장하고 있는 키 스토어의 객체
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="addDecryptResponse(jeus.webservices.wssecurity.Keystore)"></a><h3>addDecryptResponse</h3><pre>public void <b>addDecryptResponse</b>(<code><a href="../../../jeus/webservices/wssecurity/Keystore.html">Keystore</a></code> keystore)<br></pre><dl>
+            <dd>받을 SOAP 메시지가 암호화 되어 있을 경우, 암호를 푼다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>keystore</code> - 암호화된 메시지를 풀기 위한 키를 저장한 키 스토어 설정을 가지고 있는 Keystore 객체
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setWSSProperties(jeus.webservices.wssecurity.WSSProperties)"></a><h3>setWSSProperties</h3><pre>public void <b>setWSSProperties</b>(<code><a href="../../../jeus/webservices/wssecurity/WSSProperties.html">WSSProperties</a></code> props)<br></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i><br><br>&nbsp;
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>props</code> - WSSProperties
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS WS-Security API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제29장 JEUS Deployment plan 설정</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS XML Reference"/><link rel="up" href="index.html" title="JEUS XML Reference"/><link rel="prev" href="reference_configurationplan_xml_XML_Configuration.html" title="제28장 JEUS Configuration plan 설정"/><link rel="next" href="idx.html" title="색인"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제29장 JEUS Deployment plan 설정</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="reference_configurationplan_xml_XML_Configuration.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="idx.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="reference_deploymentplan_xml_XML_Configuration"></a>제29장 JEUS Deployment plan 설정</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="reference_deploymentplan_xml_XML_Configuration.html#d4e222370">29.1. 소개</a></span></dt><dt><span class="section"><a href="reference_deploymentplan_xml_XML_Configuration.html#d4e222424">29.2. XML Schema/XML 트리</a></span></dt><dt><span class="section"><a href="reference_deploymentplan_xml_XML_Configuration.html#d4e222459">29.3. Element Reference</a></span></dt><dt><span class="section"><a href="reference_deploymentplan_xml_XML_Configuration.html#d4e222735">29.4. JEUS Deployment plan 파일 예제</a></span></dt></dl></div>
+    
+
+    <p>여기에서 JEUS Deployment plan의 태그에 대한 설명을 찾을 수 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+            <p>XML Schema 파일:
+                <code class="filename">JEUS_HOME/lib/schemas/jeus/jeus-deployment-plan.xsd</code></p>
+        </li></ul></div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e222370"></a>29.1. 소개</h2></div></div></div>
+        
+
+        <p>레퍼런스는 다음 형식으로 구성되어 있다. </p><div class="orderedlist"><ol type="1"><li>
+      <p><span class="bold"><strong>XML Schema/XML 트리</strong></span>: XML 설정 파일의 모든
+      태그 리스트를 정리했다. 각 노드의 형식은 다음과 같다.</p><div class="orderedlist"><ol type="a"><li>
+            <p>태그 레퍼런스로 빨리 찾아보기 위해서 각 태그마다 인덱스 번호( 예: (11) )를 붙여 놓았다. 태그
+            레퍼런스에서는 이 번호 순서로 설명한다.</p>
+          </li><li>
+            <p>XML Schema에서 정의한 XML 태그명을 &lt;<span class="bold"><strong>tag
+            name</strong></span>&gt; 형식으로 표시한다.</p>
+          </li><li>
+            <p>XML Schema에서 정의한 Cardinality를 표시한다. “?” = 0개나 1개의 element,
+            “+” = 1개 이상의 element, “*” = 0개 이상의 element, (기호가 없음) = 정확히 1개의
+            element</p>
+          </li><li>
+            <p>몇몇 태그에는 “P” 문자를 붙여 놓았는데, 해당 태그는 성능에 관계되는 태그라는 것을 뜻한다. 이 태그는
+            설정을 튜닝할 때 사용된다.</p>
+          </li></ol></div>
+    </li><li>
+      <p><span class="bold"><strong>Element Reference</strong></span>: 트리에 있는 각 XML
+      태그를 설명한다.</p><div class="orderedlist"><ol type="a"><li>
+            <p><span class="bold"><strong>Dynamic</strong></span>: 동적 설정 반영 가능</p>
+          </li><li>
+            <p><span class="bold"><strong>Non-Dynamic</strong></span>: 동적 설정 반영 불가능, Dynamic이 설정되지 않은
+            항목들이 보통 이에 해당 하나 특별히 설명이 있는 경우 이 항목이 표시된다.</p>
+          </li><li>
+            <p><span class="bold"><strong>Description</strong></span>: 태그에 대한 간단한
+            설명.</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Description</strong></span>: 입력하는 값과
+            타입.</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Type</strong></span>: 값의 데이터 타입. (예:
+            String)</p>
+          </li><li>
+            <p><span class="bold"><strong>Value Type Description</strong></span>: 값의 데이터 타입에 대한 설명 </p>
+          </li><li>
+            <p><span class="bold"><strong>Default Value</strong></span>: 해당 XML을 사용하지
+            않았을 때 기본적으로 사용되는 값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Defined Value</strong></span>: 이미 정해져 있는
+            값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Example</strong></span>: 해당 XML 태그에 대한
+            예.</p>
+          </li><li>
+            <p><span class="bold"><strong>Performance Recommendation</strong></span>:
+            성능 향상을 위해서 추천하는 값.</p>
+          </li><li>
+            <p><span class="bold"><strong>Child Elements</strong></span>: 자신의 태그 안에
+            사용하는 태그.</p>
+          </li></ol></div>
+    </li></ol></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e222424"></a>29.2. XML Schema/XML 트리</h2></div></div></div>
+        
+
+        <div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-deployment-plan"></a>
+                (1)
+
+                <a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan">&lt;jeus-deployment-plan&gt;</a></p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-deployment-plan.descriptors"></a>
+                (2)
+
+                <a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors">&lt;descriptors&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-deployment-plan.descriptors.descriptor"></a>
+                (3)
+
+                <a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor">&lt;descriptor&gt;</a>+</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-deployment-plan.descriptors.descriptor.uri"></a>
+                (4)
+
+                <a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.uri">&lt;uri&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-deployment-plan.descriptors.descriptor.configurations"></a>
+                (5)
+
+                <a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations">&lt;configurations&gt;</a>?</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration"></a>
+                (6)
+
+                <a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration">&lt;configuration&gt;</a>+</p><div class="itemizedlist"><ul type="none" compact="compact"><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration.action"></a>
+                (7)
+
+                <a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration.action">&lt;action&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration.xpath"></a>
+                (8)
+
+                <a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration.xpath">&lt;xpath&gt;</a></p></li><li style="list-style-type: none"><p><a id="schema-tree-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration.value"></a>
+                (9)
+
+                <a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration.value">&lt;value&gt;</a>?</p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li></ul></div><p>
+</p></li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e222459"></a>29.3. Element Reference</h2></div></div></div>
+        
+
+        <p>
+
+
+
+
+
+</p><p><a id="schema-table-reference.jeus-deployment-plan"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (1)
+                                <code class="code">
+<span class="bold"><strong>&lt;jeus-deployment-plan&gt;</strong></span>
+</code>
+<a id="d4e222472" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>JEUS deployment plan 설정을 정의한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">jeus-deployment-planType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (2)
+            <code class="code">
+<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors">descriptors</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-deployment-plan.descriptors"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (2)
+                                <code class="code">&lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan">jeus-deployment-plan</a>&gt; <span class="bold"><strong>&lt;descriptors&gt;</strong></span>
+</code>
+<a id="d4e222501" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>복수의 descriptor 설정을 정의한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">descriptorsType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (3)
+            <code class="code">
+<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor">descriptor</a>+</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-deployment-plan.descriptors.descriptor"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (3)
+                                <code class="code">&lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan">jeus-deployment-plan</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors">descriptors</a>&gt; <span class="bold"><strong>&lt;descriptor&gt;</strong></span>
+</code>
+<a id="d4e222531" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>JEUS deployment plan을 적용할 deployment descriptor를 지정하고 그와 관계된 세부 설정을 정의한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">descriptorType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (4)
+            <code class="code">
+<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.uri">uri</a>
+</code>
+</p>
+<p>
+            (5)
+            <code class="code">
+<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations">configurations</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-deployment-plan.descriptors.descriptor.uri"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (4)
+                                <code class="code">&lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan">jeus-deployment-plan</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors">descriptors</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor">descriptor</a>&gt; <span class="bold"><strong>&lt;uri&gt;</strong></span>
+</code>
+<a id="d4e222565" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>JEUS deployment plan을 적용할 deployment descriptor의 URI를 명시한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (5)
+                                <code class="code">&lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan">jeus-deployment-plan</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors">descriptors</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor">descriptor</a>&gt; <span class="bold"><strong>&lt;configurations&gt;</strong></span>
+</code>
+<a id="d4e222589" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>복수의 configuration 설정을 정의한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">configurationsType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (6)
+            <code class="code">
+<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration">configuration</a>+</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (6)
+                                <code class="code">&lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan">jeus-deployment-plan</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors">descriptors</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor">descriptor</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations">configurations</a>&gt; <span class="bold"><strong>&lt;configuration&gt;</strong></span>
+</code>
+<a id="d4e222621" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>JEUS plan을 통하여 적용할 하나의 설정 단위를 정의한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">configurationType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Child Elements</em></span>
+</td><td>
+<p>
+            (7)
+            <code class="code">
+<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration.action">action</a>
+</code>
+</p>
+<p>
+            (8)
+            <code class="code">
+<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration.xpath">xpath</a>
+</code>
+</p>
+<p>
+            (9)
+            <code class="code">
+<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration.value">value</a>?</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p><a id="schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration.action"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (7)
+                                <code class="code">&lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan">jeus-deployment-plan</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors">descriptors</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor">descriptor</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations">configurations</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration">configuration</a>&gt; <span class="bold"><strong>&lt;action&gt;</strong></span>
+</code>
+<a id="d4e222660" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>적용할 설정의 action type을 지정한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">actionType</code>
+</td></tr><tr><td>
+<span class="emphasis"><em>Defined Value</em></span>
+</td><td>
+<p>
+<code class="constant">DELETE</code>
+</p>
+<p>
+<code class="constant">REPLACE</code>
+</p>
+<p>
+<code class="constant">APPEND_CHILD</code>
+</p>
+<p>
+<code class="constant">INSERT_BEFORE</code>
+</p>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration.xpath"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (8)
+                                <code class="code">&lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan">jeus-deployment-plan</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors">descriptors</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor">descriptor</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations">configurations</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration">configuration</a>&gt; <span class="bold"><strong>&lt;xpath&gt;</strong></span>
+</code>
+<a id="d4e222698" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>설정을 적용할 XML 문서 상의 target element의 xpath를 명시한다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p><a id="schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration.value"></a>
+</p><div class="informaltable"><table border="0"><colgroup><col width="3*"/><col width="7*"/></colgroup><tbody><tr bgcolor="#EEEEEE"><td colspan="2">
+                                (9)
+                                <code class="code">&lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan">jeus-deployment-plan</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors">descriptors</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor">descriptor</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations">configurations</a>&gt; &lt;<a href="reference_deploymentplan_xml_XML_Configuration.html#schema-table-reference.jeus-deployment-plan.descriptors.descriptor.configurations.configuration">configuration</a>&gt; <span class="bold"><strong>&lt;value&gt;</strong></span>
+</code>
+<a id="d4e222724" class="indexterm"></a>
+</td></tr><tr><td>
+<span class="emphasis"><em>Description</em></span>
+</td><td>REPLACE, APPEND_CHILD, INSERT_BEFORE action 수행시 필요한 입력값을 정의한다. CDATA section으로 입력할 XML fragment를 적는다.</td></tr><tr><td>
+<span class="emphasis"><em>Value Type</em></span>
+</td><td>
+<code class="type">token</code>
+</td></tr></tbody></table></div><p>
+</p><p>
+</p><p>
+</p><p>
+</p><p>
+</p><p>
+</p><p>
+</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e222735"></a>29.4. JEUS Deployment plan 파일 예제</h2></div></div></div>
+        
+
+        <div class="example"><a id="d4e222737"></a><p class="title"><b>[예 29.1] JEUS Deployment plan 파일 예제</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;jeus-deployment-plan xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;descriptors&gt;
+        &lt;!-- For standalone EJB --&gt;
+        &lt;descriptor&gt;
+            &lt;uri&gt;META-INF/ejb-jar.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;/ejb-jar/enterprise-beans/session/ejb-name[.='ByeBean']&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;ejb-name&gt;HiBean&lt;/ejb-name&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;DELETE&lt;/action&gt;
+                    &lt;xpath&gt;/ejb-jar/enterprise-beans/session/local-home[.='HelloHomeLocal']&lt;/xpath&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;APPEND_CHILD&lt;/action&gt;
+                    &lt;xpath&gt;/ejb-jar/enterprise-beans/session/ejb-name[.='HiBean']/..&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;transaction-type&gt;Bean&lt;/transaction-type&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;INSERT_BEFORE&lt;/action&gt;
+                    &lt;xpath&gt;/ejb-jar/enterprise-beans/session/ejb-name[.='HelloBean']/../transaction-type&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;session-type&gt;Stateless&lt;/session-type&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+        &lt;descriptor&gt;
+            &lt;uri&gt;META-INF/jeus-ejb-dd.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;/jeus-ejb-dd/beanlist/jeus-bean/export-name[.='ByeBean']&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;export-name&gt;HiBean&lt;/export-name&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;DELETE&lt;/action&gt;
+                    &lt;xpath&gt;/jeus-ejb-dd/beanlist/jeus-bean/local-export-name[.='HelloBeanLocal']&lt;/xpath&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;APPEND_CHILD&lt;/action&gt;
+                    &lt;xpath&gt;/jeus-ejb-dd/beanlist/jeus-bean&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;jeus-rmi&gt;false&lt;/jeus-rmi&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;INSERT_BEFORE&lt;/action&gt;
+                    &lt;xpath&gt;/jeus-ejb-dd/beanlist/jeus-bean/ejb-name[.='HiBean']/../jeus-rmi&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;thread-max&gt;100&lt;/thread-max&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+
+        &lt;!-- For standalone web application --&gt;
+        &lt;descriptor&gt;
+            &lt;uri&gt;WEB-INF/web.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;/web-app/servlet-mapping/servlet-name[.='HiServlet']&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;DELETE&lt;/action&gt;
+                    &lt;xpath&gt;/web-app/servlet/load-on-startup&lt;/xpath&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;APPEND_CHILD&lt;/action&gt;
+                    &lt;xpath&gt;/web-app/login-config&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;auth-method&gt;BASIC&lt;/auth-method&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;INSERT_BEFORE&lt;/action&gt;
+                    &lt;xpath&gt;/web-app/env-entry/env-entry-value[.='java.lang.Boolean']&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+        &lt;descriptor&gt;
+            &lt;uri&gt;WEB-INF/jeus-web-dd.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;/jeus-web-dd/enable-jsp&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;enable-jsp&gt;true&lt;/enable-jsp&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;DELETE&lt;/action&gt;
+                    &lt;xpath&gt;/jeus-web-dd/max-instance-pool-size&lt;/xpath&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;INSERT_BEFORE&lt;/action&gt;
+                    &lt;xpath&gt;/jeus-web-dd/enable-jsp&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;context-path&gt;/hello&lt;/context-path&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;APPEND_CHILD&lt;/action&gt;
+                    &lt;xpath&gt;/jeus-web-dd&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;webinf-first&gt;&lt;enabled&gt;false&lt;/enabled&gt;&lt;/webinf-first&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+
+        &lt;!-- For EAR --&gt;
+        &lt;descriptor&gt;
+            &lt;uri&gt;META-INF/application.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;/application/library-directory&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;library-directory&gt;mylib&lt;/library-directory&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+        &lt;descriptor&gt;
+            &lt;uri&gt;ejb.jar!/META-INF/ejb-jar.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;/ejb-jar/enterprise-beans/session/ejb-class&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;ejb-class&gt;HelloBean&lt;/ejb-class&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+        &lt;descriptor&gt;
+            &lt;uri&gt;web.war!/WEB-INF/web.xml&lt;/uri&gt;
+            &lt;configurations&gt;
+                &lt;configuration&gt;
+                    &lt;action&gt;REPLACE&lt;/action&gt;
+                    &lt;xpath&gt;/web-app/servlet-mapping/servlet-name&lt;/xpath&gt;
+                    &lt;value&gt;
+                        &lt;![CDATA[&lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;]]&gt;
+                    &lt;/value&gt;
+                &lt;/configuration&gt;
+            &lt;/configurations&gt;
+        &lt;/descriptor&gt;
+    &lt;/descriptors&gt;
+&lt;/jeus-deployment-plan&gt;
+</pre>
+        </div></div><br class="example-break"/>
+    </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="reference_configurationplan_xml_XML_Configuration.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="idx.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제28장 JEUS Configuration plan 설정 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 색인</td></tr></table></div><div xmlns="" align="center"/></body></html>

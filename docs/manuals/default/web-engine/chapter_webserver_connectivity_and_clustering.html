@@ -1,0 +1,2647 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제2장 웹 커넥션 관리</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Engine 안내서"/><link rel="up" href="index.html" title="JEUS Web Engine 안내서"/><link rel="prev" href="chapter_jeus_web_engine.html" title="제1장 웹 엔진"/><link rel="next" href="chapter_context_web_application.html" title="제3장 웹 컨텍스트"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제2장 웹 커넥션 관리</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jeus_web_engine.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_context_web_application.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_webserver_connectivity_and_clustering"></a>제2장 웹 커넥션 관리</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_introduction_of_chapter_webserver_connectivity_and_clustering">2.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_overview_of_webserver_connectivity">2.2. 구성 요소</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_sect_listener">2.2.1. 리스너</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_sect_connector">2.2.2. 커넥터</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_sect_worker_threadpool">2.2.3. Worker Thread Pool</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_webconnections">2.3. 웹 커넥션 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_common_web_connection_properties">2.3.1. 리스너 공통 설정</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_ajp13_listener">2.3.2. AJP 리스너 설정</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_http_listener">2.3.3. HTTP 리스너 설정</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_tcp_listener">2.3.4. TCP 리스너 설정</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_webtob_connector">2.3.5. WebtoB 커넥터 설정</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_tmax_connector">2.3.6. Tmax 커넥터 설정</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_thread_state_notify">2.3.7. 자동 Thread Pool 관리 설정(Thread 상태 통보)</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_webservers_for_listener_interoperability_and_clustering">2.4. 부하 분산을 위한 웹 서버 설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_clustering_mutiple_web_containers_and_webservers">2.4.1. 부하 분산 구조</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_apache_webserver_conf">2.4.2. Apache 웹 서버</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_webserver_IIS_IPlanet">2.4.3. IIS 웹 서버 및 Iplanet 웹 서버 설정</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_and_clustering_webtob_webserver">2.4.4. WebtoB와의 부하 분산 설정</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_using_tcp_listener">2.5. TCP 리스너 사용</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_defining_custom_communication_protocol">2.5.1. 맞춤 통신 프로토콜 정의</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#d4e4090">2.5.2. Dispatcher Config Class 구현</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#d4e4100">2.5.3. TCP 서블릿 구현</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#d4e4115">2.5.4. 맞춤 프로토콜 코드를 위한 TCP 리스너 설정</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#d4e4132">2.5.5. TCP 클라이언트 구현</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#d4e4148">2.5.6. TCP 클라이언트 컴파일과 실행</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_using_http2_listener">2.6. HTTP/2 사용</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_using_http2_listener_protocol">2.6.1. HTTP/2 사용 설정</a></span></dt><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_using_http2_listener_serverpush">2.6.2. Server Push</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_webserver_connectivity_and_clustering.html#sect_tuning_web_listeners">2.7. 리스너 튜닝</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 웹 엔진에서 제공하는 리스너 또는 커넥터의 관리 및 설정 방법 등에 대해 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_introduction_of_chapter_webserver_connectivity_and_clustering"></a>2.1. 개요</h2></div></div></div>
+    
+
+    <p>JEUS에서는 웹 리스너와 웹 커넥터를 통칭해서 웹 커넥션이라고 한다.</p>
+
+    <p>웹 엔진에서는 WebtoB 및 다른 웹 서버와의 커넥션, HTTP/TCP 클라이언트와의 직접적인 커넥션, 또는 Tmax와의
+    커넥션을 제공한다. 웹 서버는 클라이언트의 HTTP 요청을 받아 조건에 맞는 경우 웹 엔진으로 요청을 전달한다.</p>
+
+    <p>대표적인 웹 서버로 WebtoB와 Apache를 사용하고 연결을 위해 다음과 같은 각각의 커넥터를 제공한다.</p>
+
+    <div class="itemizedlist"><ul type="disc" compact="compact"><li>
+          <p><span><strong class="guibutton">WebtoB 커넥터</strong></span><a id="d4e2182" class="indexterm"></a></p>
+
+          <p>WebtoB는 연결을 생성할 때 JEUS가 클라이언트 역할을 하기 때문에 WebtoB 커넥터를
+          제공한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">AJP 리스너</strong></span><a id="d4e2188" class="indexterm"></a></p>
+
+          <p>Apache는 JEUS가 서버 역할을 하기 때문에 AJP Listener를 제공한다. AJP의 경우 IIS,
+          SunOne(Iplanet) 웹 서버와 같은 타사 상용 웹 서버에서도 지원하므로 AJP Listener를 통해서 해당 웹
+          서버와 연결할 수 있다.</p>
+        </li></ul></div>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>웹 엔진은 클라이언트와 직접 커넥션을 맺고, 관리를 위해 각각의 클라이언트별로 다음과 같은 리스너 및 커넥터를
+    제공한다.</p>
+
+    <div class="itemizedlist"><ul type="disc" compact="compact"><li>
+          <p><span><strong class="guibutton">HTTP 리스너</strong></span><a id="d4e2200" class="indexterm"></a></p>
+
+          <p>HTTP 클라이언트와의 직접적인 커넥션 관리를 위해 제공한다. <span><strong class="guibutton">Async Servlet 및
+          Sevlet 3.1 NIO, Websocket의 기능을 사용하기 위해서는 HTTP 리스너를 사용해야
+          한다.</strong></span></p>
+        </li><li>
+          <p><span><strong class="guibutton">TCP 리스너</strong></span><a id="d4e2207" class="indexterm"></a></p>
+
+          <p>TCP 클라이언트와의 커넥션 관리를 위해 제공한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Tmax 커넥터</strong></span><a id="d4e2213" class="indexterm"></a></p>
+
+          <p>Tmax와의 연동을 위한 커넥터로 WebtoB 커넥터와 마찬가지로 연결을 생성할 때에는 JEUS가 클라이언트
+          역할을 한다.</p>
+        </li></ul></div>
+
+    <p/>
+
+    <p/>
+
+    <p>리스너는 JEUS 서버의 설정을 기반으로 동작한다. 따라서 보안(SSL) 리스너를 사용하려면 JEUS 서버에 해당 설정을
+    하고 이를 각각의 웹 관련 리스너들이 사용하도록 설정한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS 서버와 관련된 세부 설정 사항에 대한 자세한 내용은 <a xmlns="" href="../server/chapter_server_conf.html#sect_server_listener" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “2.3.2. Listener 설정”</a>을 참고한다.</p>
+      </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_overview_of_webserver_connectivity"></a>2.2. 구성 요소</h2></div></div></div>
+    
+
+    <p>본 절에서는 웹 엔진에서 제공하는 리스너 및 커넥터와 사용되는 Thread Pool에 대해 설명한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_sect_listener"></a>2.2.1. 리스너</h3></div></div></div>
+      
+
+      <p><a id="d4e2230" class="indexterm"></a>리스너는 AJP 프로토콜을 따르는 웹 서버, HTTP/TCP 클라이언트가 접근할 수 있는 웹 엔진의
+      채널이다.</p>
+
+      <p>웹 엔진의 리스너와 각 클라이언트, 프로토콜의 연결을 나타내면 다음과 같다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="figure_web_listeners"></a><p class="title"><b>[그림 2.1] 웹 엔진의 리스너</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="616"><tr><td align="left"><img src="resources/figure_webserver_and_client_listeners_in_web_container.png" align="top" width="616" alt="웹 엔진의 리스너"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p>다음은 각 리스너에 대한 설명이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>AJP 리스너<a id="d4e2244" class="indexterm"></a></p>
+
+            <p>WebtoB 이외의 다른 웹 서버(Apache, IIS, SunOne(Iplanet) 등)를 사용할 경우에도
+            JEUS 웹 애플리케이션과의 상호적인 연동이 가능하도록 하는 프로토콜이다. mod_jk module을 통해 지원하며
+            AJP 1.3 프로토콜을 사용한다. AJP 리스너는 SSL을 지원한다.</p>
+
+            <p>AJP 리스너에 대한 자세한 내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_ajp13_listener" title="2.3.2. AJP 리스너 설정">“2.3.2. AJP 리스너 설정”</a>과 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_webservers_for_listener_interoperability_and_clustering" title="2.4. 부하 분산을 위한 웹 서버 설정">“2.4. 부하 분산을 위한 웹 서버 설정”</a>을
+            참고하고, AJP 리스너에서 사용할 SSL 서버 리스너의 설정은 <a xmlns="" href="../server/index.html" class="olink">"JEUS Server 안내서"</a>를 참고한다.</p>
+          </li><li>
+            <p>HTTP 리스너<a id="d4e2253" class="indexterm"></a></p>
+
+            <p>HTTP 요청을 웹 엔진이 직접 받을 때 사용한다. HTTP 리스너는 SSL을 지원한다. HTTP 리스너
+            설정의 자세한 내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_http_listener" title="2.3.3. HTTP 리스너 설정">“2.3.3. HTTP 리스너 설정”</a>을
+            참고한다.</p>
+
+            <p>HTTP 리스너에서 사용할 SSL 서버 리스너의 설정은 <a xmlns="" href="../server/index.html" class="olink">"JEUS Server 안내서"</a>를 참고한다.</p>
+          </li><li>
+            <p>TCP 리스너<a id="d4e2261" class="indexterm"></a></p>
+
+            <p>HTTP 프로토콜이 아닌 커스텀 프로토콜로 동작하는 클라이언트에 대한 리스너이다.</p>
+
+            <p>TCP 리스너에 대한 자세한 내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_tcp_listener" title="2.3.4. TCP 리스너 설정">“2.3.4. TCP 리스너 설정”</a>과 <a href="chapter_webserver_connectivity_and_clustering.html#sect_using_tcp_listener" title="2.5. TCP 리스너 사용">“2.5. TCP 리스너 사용”</a>을 참고한다.</p>
+          </li></ul></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_sect_connector"></a>2.2.2. 커넥터</h3></div></div></div>
+      
+
+      <p>커넥터는 웹 엔진에서 WebtoB 및 Tmax에 연결하기 위한 채널이다.</p>
+
+      <p>웹 엔진의 커넥터와 각 클라이언트, 프로토콜의 연결을 나타내면 다음과 같다.</p>
+
+      <div class="figure"><a id="figure_web_connectors"></a><p class="title"><b>[그림 2.2] 웹 엔진의 커넥터</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="597"><tr><td align="left"><img src="resources/figure_web_connectors.png" align="top" width="597" alt="웹 엔진의 커넥터"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p>다음은 각 커넥터에 대한 설명이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>WJP(WebtoB) 커넥터<a id="d4e2283" class="indexterm"></a></p>
+
+            <p>WJP는 WebtoB-JEUS Protocol을 의미한다. WebtoB는 TmaxSoft에서 제공하는 웹
+            서버이다. JEUS에 내장된 것을 사용하거나 별도의 제품으로 구매해서 JEUS와 함께 사용할 수도 있다.</p>
+
+            <p>WebtoB 커넥터는 커넥션 생성 시점에 JEUS가 클라이언트 입장이기 때문에 직접 WebtoB로 접속하는
+            특징을 가진다. 이런 특징에 따라 방화벽 밖에 WebtoB 서버가 있을 경우에는 특별한 방화벽 설정 없이 연결을 맺을
+            수 있다. 이것은 방화벽이 주로 외부로부터의 연결 시도를 억제하고 내부로부터의 연결은 가능하게 하는 속성을 이용한
+            것이다. WebtoB 커넥터에 대한 자세한 내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_webservers_for_listener_interoperability_and_clustering" title="2.4. 부하 분산을 위한 웹 서버 설정">“2.4. 부하 분산을 위한 웹 서버 설정”</a>을
+            참고한다.</p>
+          </li><li>
+            <p>Tmax 커넥터<a id="d4e2290" class="indexterm"></a></p>
+
+            <p>Tmax는 분산 환경에서 XA 트랜잭션을 관리하는 시스템 소프트웨어이다. Tmax 커넥터 역시 WebtoB
+            커넥터와 마찬가지로 JEUS가 클라이언트 역할을 한다. Tmax 커넥터는 JEUS와 Tmax 사이의 정보를 주고받거나,
+            HTTP 요청을 Tmax의 게이트웨이를 통해 받음으로써 통신 채널을 일원화하는 용도로 사용할 수 있다. Tmax
+            커넥터에 대한 자세한 내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_tmax_connector" title="2.3.6. Tmax 커넥터 설정">“2.3.6. Tmax 커넥터 설정”</a>을 참고한다.</p>
+          </li></ul></div>
+
+      <p/>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS가 클라이언트 역할을 하는 것은 연결해서 커넥션을 맺을 때 뿐이다. 실제로 외부 클라이언트의 요청은
+        WebtoB, Tmax로부터 전달받는 것이며, JEUS 내부적으로 WebtoB나 Tmax에 요청을 보내는 경우는 없다. 즉,
+        실제 서비스 중에는 JEUS가 서버 역할을 한다.</p>
+      </div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_sect_worker_threadpool"></a>2.2.3. Worker Thread Pool</h3></div></div></div>
+      
+
+      <p><a id="d4e2300" class="indexterm"></a>리스너 또는 커넥터에는 클라이언트로의 요청을 처리하기 위한 Worker Thread Pool이
+      존재하는데, 이는 Worker Thread들을 관리하는 개체이다.</p>
+
+      <p>리스너의 경우 요청이 오면 그 요청을 처리하기 위한 Worker Thread가 할당된다. 커넥터의 경우 WebtoB
+      또는 Tmax와 1:1로 커넥션을 맺고 거기에 Worker Thread가 할당된다. Worker Thread Pool의 최솟값,
+      최댓값 등은 서비스 처리 성능에 큰 영향을 미치기 때문에 리스너 또는 커넥터를 설정할 때는 Worker Thread Pool을
+      주의해서 설정해야 한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS는 각 Thread Pool이 자신의 상태를 직접 관리하며, 모니터링 Thread는 주기적으로 그 결과만
+        Logging해주는 방식을 사용한다. 따라서 로그에 남겨진 Thread 수 증감 변화와 실제 Thread Pool의 상태
+        변화가 서로 일치하지 않을 수 있으니 주의한다.</p>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2309"></a>Active-Management와 상태 통보</h4>
+
+      <p>Worker Thread Pool에는 Active-Management에 관한 설정이 포함되어 있다.
+      Active-Management는 관리자가 지정한 특정 상태에 이르면 웹 엔진이 경고 메시지를 이메일(e-mail)로 통지하거나
+      웹 엔진이 속한 서버의 재시작을 권고하는 설정이다. 설정 가능한 값은 Worker Thread가 블록되었다고 판단하는
+      기준시간이다. 이에 따라 블록된 Worker Thread가 증가할 경우 몇 개 이상이면 경고 이메일 또는 엔진 재시작 권고 메시지
+      출력과 같은 특정 작업의 수행을 설정한다.</p>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>재시작 권고가 출력되면 서버의 요청 처리가 순조롭지 못할 가능성이 크기 때문에 관리자는 메시지를 확인하여 서버의
+          재시작 여부를 판단해야 한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_configuring_webconnections"></a>2.3. 웹 커넥션 설정</h2></div></div></div>
+    
+
+    <p>AJP 리스너, WebtoB 커넥터, Tmax 커넥터를 사용하는 경우 각 연동 제품별로 설정이 필요하다. 모든 웹 커넥션은
+    웹 엔진에서 관리하므로 본 절에서는 웹 엔진의 설정에 대해서만 설명한다. WebtoB와 다른 웹 서버의 해당 설정에 대한 자세한
+    내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_webservers_for_listener_interoperability_and_clustering" title="2.4. 부하 분산을 위한 웹 서버 설정">“2.4. 부하 분산을 위한 웹 서버 설정”</a>에서
+    설명한다.</p>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>1. JEUS 6의 컨텍스트 그룹이 없어졌다. 컨텍스트 그룹이 관리하던 대부분의 사항들은 웹 엔진이
+        관리한다.</p>
+
+        <p>2. 웹 리스너의 경우 서버에서 제공하는 통합된 서비스 리스너를 사용한다. 따라서 AJP, HTTP, TCP
+        리스너의 경우 서버에 리스너를 설정을 하고, 그 서버 리스너를 참조하는 방식으로 설정한다. 이에 따라 <span class="bold"><strong><span class="bold"><strong>'Server Listener
+        Ref'</strong></span></strong></span>라는 설정이 추가되었다. 하지만 WebtoB, Tmax에 대한 커넥터는
+        JEUS가 클라이언트로서 직접 연결하므로 기존 설정 방식을 유지한다.</p>
+      </div>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    
+
+    <p>커넥터의 추가, 수정, 삭제는 WebAdmin과 콘솔 툴을 사용할 수 있다. 커넥터를 설정할 때에는 WebAdmin을
+    사용할 것을 권장한다. WebAdmin을 사용한 설정 방법은 본 절에서 설명한다. 콘솔 툴을 사용하여 설정하는 방법은 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-servlet-engine-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.8. 웹 엔진 관련 명령어”</a>를 참고한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_common_web_connection_properties"></a>2.3.1. 리스너 공통 설정</h3></div></div></div>
+      
+
+      <p>본 절에서는 각 리스너에서 공통적으로 사용하는 주요 설정이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">Name<a id="d4e2339" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                <p>웹 커넥션을 식별하는 유일한 이름이다. 웹 엔진 내에서 유일해야 하고, 반드시 설정해야
+                한다.</p>
+              </li></ul></div>
+          </li><li>
+            <p><span><strong class="guibutton">Server Listener Ref<a id="d4e2347" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                  <p>해당 리스너가 참조하는 서버 리스너를 나타낸다.</p>
+                </li><li>
+                  <p>HTTP, AJP 리스너의 경우 서로 같은 서버 리스너를 공유할 수 있다. 단, HTTP 리스너를
+                  관리 목적으로 사용하겠다고 설정한 경우에는 함께 사용할 수 없다. 설정하지 않은 경우에는 서버의 기본
+                  리스너를 사용한다.</p>
+                </li><li>
+                  <p>TCP 리스너는 함께 사용할 수 없다.</p>
+                </li><li>
+                  <p>2개 이상의 같은 프로토콜 리스너를 함께 사용할 수 없다. 예를 들어 AJP 리스너를 2개
+                  설정했는데 둘 다 이 설정이 없으면 서버 기본 리스너를 공유하게 되므로 설정 에러가 발생한다. 둘 중 하나는
+                  반드시 별도의 서버 리스너를 참조해야 한다.</p>
+                </li><li>
+                  <p>서버 리스너의 &lt;keep-alive-timeout&gt; 설정으로 아무런 요청이 없는
+                  클라이언트 커넥션들을 끊어줄 수 있다. (단위: ms)</p>
+                </li></ul></div>
+
+            <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+                <p>HTTP 리스너, TCP 리스너에서 postdata-read-timeout이 적용되려면 반드시 서버
+                리스너의 &lt;keep-alive-timeout&gt;을 설정해야 한다.</p>
+              </div>
+          </li><li>
+            <p><span><strong class="guibutton">Connection Type<a id="d4e2367" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                  <p>각 리스너 또는 커넥터를 통해 나가는 응답의 커넥션 헤더를 강제로 설정한다.</p>
+                </li><li>
+                  <p>다음 중 하나를 설정할 수 있다.</p>
+
+                  <div class="informaltable">
+                      <table border="1"><colgroup><col width="130" align="left"/><col/></colgroup><thead><tr><th align="left">설정값</th><th>설명</th></tr></thead><tbody><tr><td align="left">keep-alive</td><td>응답을 보낸 후에도 연결을 계속 유지할 경우 설정한다.</td></tr><tr><td align="left">close</td><td>응답을 보낸 후 연결을 끊을 경우 설정한다.</td></tr><tr><td align="left">none</td><td>요청 헤더에 정의된 속성에 따라 응답의 커넥션 헤더를 따를 경우 설정한다. 웹
+                            엔진은 아무 설정도 하지 않을 경우 'none'으로 설정된 것과 같이 동작한다.</td></tr></tbody></table>
+                    </div>
+                </li></ul></div>
+
+            <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+                <p>AJP 리스너의 경우 <span><strong class="guibutton">'Connection Type'</strong></span> 항목을
+                설정할 수 없다. AJP 리스너는 Apache와 같은 웹 서버의 설정을 따를 것을 권장한다.</p>
+              </div>
+          </li><li>
+            <p><span><strong class="guibutton">Thread Pool<a id="d4e2400" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                <p>Worker Thread Pool에 대한 설정이다. 단, WebtoB 커넥터의 경우 이 공통 설정을
+                사용하지 않고, WebtoB 커넥터만의 Thread Pool 설정을 한다.</p>
+              </li><li>
+                <p>다음은 세부 사항을 설정하는 하위 항목에 대한 설명이다.</p>
+
+                <div class="informaltable">
+                    <table border="1"><colgroup><col width="130" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Min<a id="d4e2418" class="indexterm"></a></td><td>Pool에서 관리할 최소 Worker Thread의 개수이다.</td></tr><tr><td align="left">Max<a id="d4e2424" class="indexterm"></a></td><td>Pool에서 관리할 최대 Worker Thread의 개수이다.</td></tr><tr><td align="left">Step<a id="d4e2430" class="indexterm"></a></td><td>더 이상 사용하지 않는 설정이다.</td></tr><tr><td align="left">Maximum Idle Time<a id="d4e2436" class="indexterm"></a></td><td><p>Pool 내에 존재하던 Thread가 제거되기 전까지의 사용되고 있지
+                          않은 시간을 지정한다. 그 결과 시스템 리소스는 증가한다.</p><p>각
+                          Worker Thread Pool은 Request Wait Queue를 가지고 있다. 이
+                          Queue는 실제 가용한 Worker Thread보다 많은 요청이 들어올 때 사용된다. 이
+                          Queue는 소켓 리스너에 의해 유지되는 낮은 레벨의 Backlog Queue보다 상위 레벨의
+                          Queue이다. 다음의 두 항목은 이 Queue와 관련된 것들이다.</p></td></tr><tr><td align="left">Max Wait Queue<a id="d4e2444" class="indexterm"></a></td><td>더 많은 Worker Thread가 Pool에 생성되기 전에 얼마나 많은 요청들이
+                          Request Wait Queue에 존재할 수 있는지에 대해 결정한다.</td></tr><tr><td align="left">Max Queue<a id="d4e2450" class="indexterm"></a></td><td><p>Queue에 대기할 수 있는 요청의 최대 개수를 설정한다.
+                          </p><p>Queue가 가득찬 후에 더 많은 요청이 도착하면 busy 페이지가
+                          클라이언트에게 반환된다.</p><p>값이 -1일 경우 Queue 크기에 제한을 두지
+                          않는 것을 의미한다(Blocking 방식의 리스너의 경우). 만약 Listener가
+                          NIO(Non-blocking I/O) 방식을 사용한다면 엔진 내부적으로 Bounded
+                          Queue를 사용하므로 항상 0보다 커야한다. NIO 방식에서 0보다 같거나 작은 값을 설정한
+                          경우는 기본값인 4096을 사용한다.</p><p>Tmax 커넥터의 경우 이 설정은
+                          의미가 없다.</p></td></tr><tr><td align="left">Thread State Notify<a id="d4e2460" class="indexterm"></a></td><td><p>블록되는 Worker Thread가 발생될 경우 이를
+                          알려준다.</p><p>각 Thread Pool은 장애가 발생했을 때 취하는 액션을
+                          정의하는 <span><strong class="guibutton">'Thread State Notify'</strong></span>
+                          항목을 가지고 있다. 이것에 대해서는 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_thread_state_notify" title="2.3.7. 자동 Thread Pool 관리 설정(Thread 상태 통보)">“2.3.7. 자동 Thread Pool 관리 설정(Thread 상태 통보)”</a>을
+                          참고한다. </p></td></tr></tbody></table>
+                  </div>
+              </li></ul></div>
+
+            <p/>
+          </li><li>
+            <p><span><strong class="guibutton">Output Buffer Size<a id="d4e2472" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                <p>애플리케이션이 사용하는 응답 버퍼 크기값이다. 버퍼가 가득차면 해당 버퍼의 내용을 웹 엔진이
+                자동적으로 플러시한다. (단위: Byte)</p>
+              </li><li>
+                <p>AJP 리스너의 경우 이 값을 mod_jk 의 workers.properties 파일의
+                max_packet_size와 일치시키는 것이 바람직하다. mod_jk의 설정에 대해서는 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_webservers_for_listener_interoperability_and_clustering" title="2.4. 부하 분산을 위한 웹 서버 설정">“2.4. 부하 분산을 위한 웹 서버 설정”</a>을
+                참고한다.</p>
+              </li></ul></div>
+          </li><li>
+            <p><span><strong class="guibutton">Postdata Read Timeout<a id="d4e2483" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                  <p>요청 바디를 읽어 들일 때 기다릴 수 있는 최대시간을 설정한다.
+                  ServletInputStream.read() 메소드에서 적용한다. (단위: ms)</p>
+                </li><li>
+                  <p><span><strong class="guibutton">HTTP 리스너, TCP 리스너에서는 timeout 적용 시점이
+                  변경되었다.</strong></span></p>
+
+                  <p>각 리스너마다 존재하는 I/O 컨트롤 스레드에서 요청 바디를 모두 읽기 때문에 실제 서블릿에게
+                  넘기기 전에 이미 타임아웃 여부가 결정된다. 요청 바디를 읽는 도중에 타임아웃이 발생하면 500 에러를
+                  내보낸다. 단, HTTP 요청이 Chunked 타입인 경우에는 기존과 마찬가지로 서블릿이
+                  ServletInputStream.read()를 호출할 때 적용된다.</p>
+                </li></ul></div>
+          </li><li>
+            <p><span><strong class="guibutton">Max Post Size<a id="d4e2496" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                  <p>너무 큰 크기의 POST 요청의 데이터가 들어와 이 데이터를 읽고 분석하고 처리하는 데 많은
+                  부하가 걸려 다른 요청들의 처리에 장애가 생길 경우를 위한 설정이다. 이 설정을 통해 특정 크기 이상의
+                  요청에 대한 처리 부담을 줄일 수 있다. (기본값: -1)</p>
+                </li><li>
+                  <p>POST 요청의 경우 요청의 Content-type에 따라 데이터의 최대 크기를 Byte 단위로
+                  제한한다.</p>
+
+                  <div class="itemizedlist"><ul type="square"><li>
+                        <p>Content-Type이 x-www-form-urlencoded일 경우</p>
+
+                        <p>요청에 따라오는 데이터의 Byte 크기가 설정된 값을 초과할 경우 chunked일 경우
+                        들어온 데이터의 크기의 합이 설정된 값보다 클 경우에 JEUS는 해당 요청은 처리하지 않고
+                        "413 Request entity too large" 응답을 보내고 해당 요청 처리를
+                        완료한다.</p>
+                      </li><li>
+                        <p>Content-Type이 multipart/form-data일 경우</p>
+
+                        <p>이 설정으로 업로드 파일의 크기와 POST 요청의 전체 크기를 제한할 수 있다. 만약
+                        업로드 파일을 포함한 크기를 제한하려면 Servlet 3.0의 multipart 관련 설정을
+                        이용할 것을 권장한다.</p>
+                      </li></ul></div>
+                </li><li>
+                  <p>설정의 적용 여부는 Servlet 3.0 웹 애플리케이션 DD의 설정에 영향을 받는다. 즉, 설정에
+                  따라 다음과 같이 동작하게 된다.</p>
+
+                  <div class="itemizedlist"><ul type="square"><li>
+                        <p>web.xml에 &lt;multipart-config&gt;의 설정 여부에 따른
+                        동작</p>
+
+                        <p>web.xml에 &lt;multipart-config&gt; 설정이 존재할 경우 이
+                        설정의 &lt;max-file-size&gt;와 &lt;max-request-size&gt;가
+                        적용된다. &lt;multipart-config&gt; 설정이 없을 경우에는 이에 대한 제한을 웹
+                        엔진에서는 제공하지 않는다. 따라서 각 애플리케이션에서 설정해서 사용하길 권장한다.</p>
+                      </li><li>
+                        <p>&lt;content-length&gt;의 설정 여부에 따른 동작</p>
+
+                        <p>&lt;content-length&gt;가 설정되어 있다면 이 값이 설정값을 초과할
+                        경우 요청 처리가 제한이 된다. &lt;content-length&gt;가 설정되어 있지 않은
+                        요청의 경우에는 이름/값 쌍의 파라미터의 Byte 합이 설정값을 초과할 때 요청 처리가 제한이
+                        된다.</p>
+                      </li></ul></div>
+                </li><li>
+                  <p>음수 설정한 경우에는 기본값으로 설정한 것과 같이 동작하며 데이터 크기의 제한이
+                  없다.</p>
+                </li><li>
+                  <p>해당 설정은 HTTP 요청을 받는 리스너 및 커넥터의 경우만 의미가 있다(TCP 리스너와 Tmax
+                  커넥터의 경우 의미가 없다).</p>
+                </li></ul></div>
+          </li><li>
+            <p><span><strong class="guibutton">Max Parameter Count<a id="d4e2529" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                <p>하나의 요청에 너무 많은 이름/값 쌍(파라미터)이 포함되어, 이 파라미터들을 분석 및 관리하는 부담이
+                증가하는 것을 방지하고자 할 경우 설정한다. (기본값: -1)</p>
+              </li><li>
+                <p>GET과 POST 요청에 포함된 '이름/값' 쌍 즉, 파라미터의 총 개수를 설정값으로
+                제한한다.</p>
+              </li><li>
+                <p>GET 요청의 Query String, POST 요청의 데이터나 multipart/form에 이름/값
+                쌍으로 들어온 모든 파라미터의 개수가 설정값 이상이 넘을 경우 "413 requesy entity too
+                large" 응답을 보내고, 해당 요청의 처리를 중단한다.</p>
+              </li><li>
+                <p>음수로 설정한 경우에는 기본값으로 설정한 것과 같이 동작하며 파라미터 개수의 제한이
+                없다.</p>
+              </li><li>
+                <p>이 설정은 HTTP 요청을 받는 리스너 및 커넥터의 경우만 의미가 있다(TCP 리스너와 Tmax
+                커넥터의 경우 의미가 없다).</p>
+              </li></ul></div>
+          </li><li>
+            <p><span><strong class="guibutton">Max Header Count<a id="d4e2545" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                <p>하나의 요청에 포함된 헤더가 무수히 많을 경우 이 요청을 읽는 부하가 많이 걸린다. 따라서 이럴 경우
+                해당 요청을 거부하여 서버의 부하를 줄일 수 있다. (기본값: -1)</p>
+              </li><li>
+                <p>설정된 값 이상의 헤더 개수가 포함된 요청은 처리하지 않고, "400 Bad request" 응답을
+                보낸 후 해당 연결을 끊는다. 즉, 헤더 이후의 데이터는 읽지 않고 버림으로써 서버의 부담을 줄이게
+                된다.</p>
+              </li><li>
+                <p>음수로 설정한 경우에는 기본값으로 설정한 것과 같이 동작하며, 헤더 개수의 제한이 없다.</p>
+              </li><li>
+                <p>이 설정은 HTTP 요청을 받는 리스너 및 커넥터의 경우만 의미가 있다(TCP 리스너와 Tmax
+                커넥터의 경우 의미가 없다).</p>
+              </li></ul></div>
+          </li><li>
+            <p><span><strong class="guibutton">Max Header Size<a id="d4e2559" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                <p>하나의 요청에 포함된 헤더가 제한 없이 클 경우 이 헤더를 읽고 처리하는 데 많은 부하가 걸린다.
+                따라서 이럴 경우 해당 요청을 거부하여 서버의 부하를 줄일 수 있다. (기본값: -1)</p>
+              </li><li>
+                <p>설정값보다 Byte 크기(이때 헤더의 Byte는 요청의 헤더 하나를 타나내는 헤더 이름, 구분자,
+                헤더 값을 모두 포함한 크기)가 큰 헤더가 포함된 요청은 처리하지 않고 "400 Bad request" 응답을
+                보낸 후 해당 연결을 끊는다. 즉, 헤더 이후의 데이터는 읽지 않고 버림으로써 서버의 부담을 줄이게
+                된다.</p>
+              </li><li>
+                <p>음수로 설정한 경우에는 기본값으로 설정한 것과 같이 동작하며, 헤더 Byte의 제한이
+                없다.</p>
+              </li><li>
+                <p>해당 설정은 HTTP 요청을 받는 리스너 및 커넥터의 경우만 의미가 있다(TCP 리스너와 Tmax
+                커넥터의 경우 의미가 없다).</p>
+              </li></ul></div>
+          </li><li>
+            <p><span><strong class="guibutton">Max Query String Size<a id="d4e2573" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                  <p>GET 요청의 Query String이 길 경우 이를 분석 및 관리하는 부하가 발생할 수 있다.
+                  이런 경우 Query String의 크기를 제한하여 부하를 줄일 수 있다. (기본값: 8192, 단위:
+                  Byte)</p>
+                </li><li>
+                  <p>설정된 Byte 이상으로 큰 Query String을 포함한 요청이 들어올 경우 해당 요청에 대해
+                  "400 Bad Rqeust" 응답을 보낸 후 해당 요청의 나머지 데이터들은 읽지 않고 버림으로써 서버의
+                  부하를 줄인다.</p>
+                </li><li>
+                  <p>음수로 설정한 경우는 Query String의 크기에 제한을 두지 않는다. 그러나 JEUS는
+                  내부적으로 request line(요청의 첫 줄)의 크기를 64KB로 제한하므로 그 이상은 의미가
+                  없다.</p>
+                </li><li>
+                  <p>해당 설정은 HTTP 요청을 받는 리스너 및 커넥터의 경우만 의미가 있다(TCP 리스너와 Tmax
+                  커넥터의 경우 의미가 없다).</p>
+                </li></ul></div>
+          </li><li>
+            <p><span><strong class="guibutton">Compression<a id="d4e2588" class="indexterm"></a></strong></span></p>
+
+            <div class="itemizedlist"><ul type="circle" compact="compact"><li>
+                <p>Http listener 또는 WebtoB 커넥터를 통해 나가는 응답을 압축하는 기능을
+                설정한다.</p>
+              </li><li>
+                <p>요청의 Accept-encoding에 gzip이 있는 경우 응답의 mime-type이 해당 항목에서
+                설정된 것과 동일한 경우 압축기능이 동작한다.</p>
+              </li><li>
+                <p>HTTP 1.1 연결에만 적용되며 압축이 된 경우 응답 헤더의 content-encoding :
+                gzip이 추가된다.</p>
+              </li><li>
+                <p>다음은 설정 화면에 대한 설명이다.</p>
+
+                <div class="figure"><a id="webadmin_config_basic_advanced_blocked_compression"></a><p class="title"><b>[그림 2.3] Compression 기능 설정 화면 - 고급설정</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_basic_advanced_blocked_compression.png" align="top" width="701" alt="Compression 기능 설정 화면 - 고급설정"/></td></tr></table></div>
+                  </div></div><p><br class="figure-break"/></p>
+
+                <div class="informaltable">
+                  <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Max Nonchunked Compression Size</td><td><p>압축해야 할 응답의 크기가 큰 경우 메모리를 너무 많이 차지하게 될 수
+                        있다. 만약 서블릿이 지정한 content-length 값이 여기에 설정한 크기를 초과하는
+                        경우에는 chunked 응답으로 나간다. </p><p>(단위: KB, 기본값:
+                        128KB)</p></td></tr><tr><td align="left">Mime Type</td><td>압축 기능을 사용할 mime-type을 지정한다. 반드시 하나 이상의
+                        mime-type을 지정해야 한다.</td></tr></tbody></table>
+                </div>
+              </li></ul></div>
+          </li></ul></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_configuring_ajp13_listener"></a>2.3.2. AJP 리스너 설정</h3></div></div></div>
+      
+
+      <p>WebAdmin과 콘솔 툴을 사용하여 AJP 리스너를 추가하거나 수정 및 삭제할 수 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p/>
+
+      <h4><a id="d4e2629"></a>WebAdmin 사용</h4>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">추가 및 수정</strong></span></p>
+
+            <p>다음은 WebAdmin을 사용하여 AJP 리스너를 추가 및 수정하는 방법이다.</p>
+
+            <div class="orderedlist"><ol type="1"><li>
+                <p>WebAdmin 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면
+                서버 목록 조회 화면으로 이동한다.</p>
+
+                <p>서버 목록에서 실행할 서버를 선택하면 서버 설정 화면으로 이동한다. 설정 화면에서
+                <span><strong class="guibutton">[Engine] &gt; [Web Engine] &gt; [Web Connections]
+                </strong></span>메뉴를 선택하면 웹 커넥션 목록 조회 화면으로 이동한다.</p>
+
+                <div class="figure"><a id="figure_webmanager_config_web-connection_add"></a><p class="title"><b>[그림 2.4] AJP 리스너 추가 및 수정 - 추가</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_add.png" align="top" width="701" alt="AJP 리스너 추가 및 수정 - 추가"/></td></tr></table></div>
+                  </div></div><p><br class="figure-break"/></p>
+              </li><li>
+                <p>설정 및 설정 변경을 위해 화면 왼쪽의 <span><strong class="guibutton">[LOCK &amp;
+                EDIT]</strong></span> 버튼을 클릭해서 설정변경 모드로 전환한다.</p>
+              </li><li>
+                <p>AJP 리스너를 추가하려면 <span><strong class="guibutton">[AJP13]</strong></span> 버튼을 클릭하고,
+                수정하려면 웹 커넥션 목록에서 'ajp13' 타입의 리스너를 클릭한다. <span><strong class="guibutton">AJP13
+                Listener 화면</strong></span>으로 이동하면 기본 정보를 설정한다.</p>
+
+                <div class="figure"><a id="figure_webmanager_config_ajplistener_general"></a><p class="title"><b>[그림 2.5] AJP 리스너 추가 및 수정 - 일반 설정</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_ajp13_general.png" align="top" width="701" alt="AJP 리스너 추가 및 수정 - 일반 설정"/></td></tr></table></div>
+                  </div></div><p><br class="figure-break"/></p>
+
+                <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+                    <p>AJP 리스너는 AJP 버전 1.3을 준수한다.</p>
+                  </div>
+              </li><li>
+                <p><span><strong class="guibutton">Thread Pool</strong></span> 영역에서 리스너에 할당될 Thread
+                Pool에 대해 설정한다.</p>
+
+                <div class="figure"><a id="figure_webmanager_config_webconnections_threadpool"></a><p class="title"><b>[그림 2.6] AJP 리스너 추가 및 수정 - Thread Pool 설정</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_threadpool.png" align="top" width="701" alt="AJP 리스너 추가 및 수정 - Thread Pool 설정"/></td></tr></table></div>
+                  </div></div><p><br class="figure-break"/></p>
+
+                <p><span><strong class="guibutton">Thread State Notify</strong></span>에서 리스너에 할당된
+                Thread들의 자동 상태 통보에 대한 설정을 한다. 이 설정에 대한 자세한 설명은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_thread_state_notify" title="2.3.7. 자동 Thread Pool 관리 설정(Thread 상태 통보)">“2.3.7. 자동 Thread Pool 관리 설정(Thread 상태 통보)”</a>을
+                참고한다.</p>
+
+                <div class="figure"><a id="figure_webmanager_config_webconnections_threadnotify"></a><p class="title"><b>[그림 2.7] AJP 리스너 추가 및 수정 - Thread State Notify설정</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_threadnotify.png" align="top" width="701" alt="AJP 리스너 추가 및 수정 - Thread State Notify설정"/></td></tr></table></div>
+                  </div></div><p><br class="figure-break"/></p>
+              </li><li>
+                <p><span><strong class="guibutton">고급 선택사항</strong></span>의 항목들을 설정한다. 웹 공격 대응을 비롯한
+                몇 가지 설정이 포함되어 있다.</p>
+
+                <div class="figure"><a id="figure_webmanager_config_webconnections_ajp13_advanced"></a><p class="title"><b>[그림 2.8] AJP 리스너 추가 및 수정 - 고급 선택사항 설정</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_ajp13_advanced.png" align="top" width="701" alt="AJP 리스너 추가 및 수정 - 고급 선택사항 설정"/></td></tr></table></div>
+                  </div></div><p><br class="figure-break"/></p>
+
+                <p>다음은 주요 설정 항목에 대한 설명이다. 그 외의 설정 항목에 대한 설명은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_common_web_connection_properties" title="2.3.1. 리스너 공통 설정">“2.3.1. 리스너 공통 설정”</a>을
+                참고한다.</p>
+
+                <div class="informaltable">
+                    <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Server Access Control<a id="d4e2705" class="indexterm"></a></td><td>접근 제한 기능 사용 여부를 설정한다.</td></tr><tr><td align="left">Allowed Server<a id="d4e2710" class="indexterm"></a></td><td>허용하려는 웹 서버의 IP 주소를 설정한다. 입력할 주소가 하나 이상일 경우에는
+                          행으로 구분한다. <span><strong class="guibutton">'Server Access
+                          Control'</strong></span> 항목이 체크(true)된 경우에 적용된다.</td></tr></tbody></table>
+                  </div>
+
+                <p/>
+              </li><li>
+                <p>설정을 완료한 후 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 다음과 같이
+                'ajp13' 타입의 리스너가 추가된 것을 확인할 수 있다.</p>
+
+                <div class="figure"><a id="figure_webmanager_config_ajplistener_added"></a><p class="title"><b>[그림 2.9] AJP 리스너 추가 및 수정 - 설정 확인</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_ajp13_add_save.png" align="top" width="692" alt="AJP 리스너 추가 및 수정 - 설정 확인"/></td></tr></table></div>
+                  </div></div><p><br class="figure-break"/></p>
+              </li><li>
+                <p>설정을 완료한 뒤 설정 내용의 반영을 위해 <span><strong class="guibutton">[Activate
+                Changes]</strong></span> 버튼을 클릭하면 다음과 같은 결과 메시지를 확인할 수 있다.</p>
+
+                <div class="figure"><a id="figure_webmanager_config_web_connections_set_activate"></a><p class="title"><b>[그림 2.10] AJP 리스너 추가 및 수정 - 설정 적용 결과</b></p><div class="figure-contents">
+                  
+
+                  <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="692"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_set_activate.png" align="top" width="692" alt="AJP 리스너 추가 및 수정 - 설정 적용 결과"/></td></tr></table></div>
+                </div></div><br class="figure-break"/>
+              </li></ol></div>
+          </li><li>
+            <p><span><strong class="guibutton">삭제</strong></span></p>
+
+            <p>다음은 WebAdmin을 사용해서 AJP 리스너를 삭제하는 방법이다.</p>
+
+            <div class="orderedlist"><ol type="1"><li>
+                  <p>WebAdmin 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를
+                  선택하면 서버 목록 조회 화면으로 이동한다. 서버 목록에서 실행할 서버를 선택하면 서버 설정 화면으로
+                  이동한다. 설정 화면에서 <span><strong class="guibutton">[Engine] &gt; [Web Engine] &gt;
+                  [Web Connections] </strong></span>메뉴를 선택하면 웹 커넥션 목록 조회 화면으로
+                  이동한다.</p>
+                </li><li>
+                  <p>설정 및 설정 변경을 위해 화면 왼쪽의 <span><strong class="guibutton">[LOCK &amp;
+                  EDIT]</strong></span> 버튼을 클릭해서 설정변경 모드로 전환한다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_webconnection_list_delete"></a><p class="title"><b>[그림 2.11] AJP 리스너 삭제 - 메뉴 이동</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_list_delete_select.png" align="top" width="701" alt="AJP 리스너 삭제 - 메뉴 이동"/></td></tr></table></div>
+                  </div></div><br class="figure-break"/>
+                </li><li>
+                  <p>삭제할 리스너의 <span><strong class="guibutton">[DEL]</strong></span> 버튼을 클릭한다.</p>
+                </li><li>
+                  <p>선택한 리스너가 삭제되면 다음과 같이 메시지가 출력된다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_ajplistener_deleted"></a><p class="title"><b>[그림 2.12] AJP 리스너 삭제 - 삭제 확인</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_ajp13_deleted.png" align="top" width="701" alt="AJP 리스너 삭제 - 삭제 확인"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+                </li><li>
+                  <p>설정 내용의 반영을 위해 <span><strong class="guibutton">[Activate
+                  Changes]</strong></span> 버튼을 클릭하면 설정 적용 결과 메시지를 확인할 수 있다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_web_connections_set_activate" title="[그림 2.10] AJP 리스너 추가 및 수정 - 설정 적용 결과">[그림 2.10]</a>
+                  참고)</p>
+                </li></ol></div>
+          </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="depth4_use_console_listener_add_modifiy_del"></a>콘솔 툴
+      사용</h4>
+
+      <p>다음은 콘솔 툴을 사용해서 AJP 리스너를 추가, 수정, 삭제하는 방법이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">추가</strong></span></p>
+
+            <p>콘솔 툴을 사용하여 AJP 리스너를 추가하려면
+            <span><strong class="guibutton">add-web-listener</strong></span> 명령을 실행한다. 명령에 대한 자세한 내용은
+            <a xmlns="" href="../reference-book/ch04.html#webengine_add_web_listener" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.8.8. add-web-listener”</a>를 참고한다.</p><pre class="screen"><span><strong class="guibutton">add-web-listener</strong></span> [-cluster <span class="emphasis"><em>&lt;cluster-name&gt;</em></span> | -server <span class="emphasis"><em>&lt;server-name&gt;</em></span>]
+                 [-f, --forceLock]
+                 -name <span class="emphasis"><em>&lt;web-connection-name&gt;</em></span>
+                 -tmin <span class="emphasis"><em>&lt;minimum-thread-num&gt;</em></span>
+                 [-tmax <span class="emphasis"><em>&lt;maximum-thread-num&gt;</em></span>]
+                 [-ajp | -http | -tcp]
+                 -slref <span class="emphasis"><em>&lt;server-listener-ref-name&gt;</em></span>
+                 [-dcc <span class="emphasis"><em>&lt;dispatcher-config-class&gt;</em></span>]
+                 [-http2]
+                 [-tauto]
+                 [-tlimit <span class="emphasis"><em>&lt;thread-num-limit&gt;</em></span>]</pre>
+
+            <p/>
+          </li><li>
+            <p><span><strong class="guibutton">수정</strong></span></p>
+
+            <p>콘솔 툴을 사용하여 AJP 리스너를 수정하려면
+            <span><strong class="guibutton">modify-web-listener</strong></span> 명령을 실행한다. 명령에 대한 자세한
+            내용은 <a xmlns="" href="../reference-book/ch04.html#webengine_modify_web_listener" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.8.19. modify-web-listener”</a>를 참고한다.</p>
+
+            <pre class="screen"><span><strong class="guibutton">modify-web-listener</strong></span> [-cluster <span class="emphasis"><em>&lt;cluster-name&gt;</em></span> | -server <span class="emphasis"><em>&lt;server-name&gt;</em></span>]
+                    [-f, --forceLock]
+                    -name <span class="emphasis"><em>&lt;web-connection-name&gt;</em></span>
+                    [-tmin <span class="emphasis"><em>&lt;minimum-thread-num&gt;</em></span>]
+                    [-tmax <span class="emphasis"><em>&lt;maximum-thread-num&gt;</em></span>]
+                    [-tidle <span class="emphasis"><em>&lt;max-idle-time&gt;</em></span>]
+                    [-tauto <span class="emphasis"><em>&lt;enable-auto-tuning&gt;</em></span>]
+                    [-tlimit <span class="emphasis"><em>&lt;thread-num-limit&gt;</em></span>]
+                    [-obuf <span class="emphasis"><em>&lt;output-buffer-size&gt;</em></span>]
+                    [-http2 <span class="emphasis"><em>&lt;enable-http2&gt;</em></span>]</pre>
+
+            <p/>
+          </li><li>
+            <p><span><strong class="guibutton">삭제</strong></span></p>
+
+            <p>콘솔 툴을 사용하여 AJP 리스너를 삭제하려면
+            <span><strong class="guibutton">remove-web-listener</strong></span> 명령을 실행한다. 명령에 대한 자세한
+            내용은 <a xmlns="" href="../reference-book/ch04.html#webengine_remove_web_listener" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.8.29. remove-web-listener”</a>를 참고한다.</p>
+
+            <pre class="screen"><span><strong class="guibutton">remove-web-listener</strong></span> [-cluster <span class="emphasis"><em>&lt;cluster-name&gt;</em></span> | -server <span class="emphasis"><em>&lt;server-name&gt;</em></span> | 
+                     -f, --forceLock] <span class="emphasis"><em>&lt;web-connection-name&gt;</em></span></pre>
+
+            <p/>
+          </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_configuring_http_listener"></a>2.3.3. HTTP 리스너 설정</h3></div></div></div>
+      
+
+      <p>WebAdmin과 콘솔 툴을 사용하여 HTTP 리스너를 추가하거나 수정 및 삭제할 수 있다. HTTP 리스너는 내부
+      관리 용도로만 사용할 것을 권장한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS 8은 HTTP/2를 지원한다. HTTP/2 사용 방법에 대해서는 <a href="chapter_webserver_connectivity_and_clustering.html#sect_using_http2_listener" title="2.6. HTTP/2 사용">“2.6. HTTP/2 사용”</a>을 참조한다.</p>
+      </div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e2830"></a>WebAdmin 사용</h4>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">추가 및 수정</strong></span></p>
+
+            <p>다음은 WebAdmin을 사용해서 HTTP 리스너를 추가 및 수정하는 방법이다.</p>
+
+            <div class="orderedlist"><ol type="1"><li>
+                  <p>WebAdmin 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를
+                  선택하면 서버 목록 조회 화면으로 이동한다. 서버 목록에서 실행할 서버를 선택하면 서버 설정 화면으로
+                  이동한다. 설정 화면에서 <span><strong class="guibutton">[Engine] &gt; [Web Engine] &gt;
+                  [Web Connections] </strong></span>메뉴를 선택하면 웹 커넥션 목록 조회 화면으로
+                  이동한다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_web-connection_add" title="[그림 2.4] AJP 리스너 추가 및 수정 - 추가">[그림 2.4]</a>
+                  참고)</p>
+                </li><li>
+                  <p>설정 및 설정 변경을 위해 화면 왼쪽의 <span><strong class="guibutton">[LOCK &amp;
+                  EDIT]</strong></span> 버튼을 클릭해서 설정변경 모드로 전환한다.</p>
+                </li><li>
+                  <p>HTTP 리스너를 추가하려면 <span><strong class="guibutton">[HTTP]</strong></span> 버튼을
+                  클릭하고, 수정하려면 웹 커넥션 목록에서 'http' 타입의 리스너를 클릭한다. <span><strong class="guibutton">Http
+                  Listener 화면</strong></span>으로 이동하면 기본 정보들을 설정한다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_config_http_listener_general"></a><p class="title"><b>[그림 2.13] HTTP 리스너 추가 및 수정 - 일반 설정</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_http_general.png" align="top" width="701" alt="HTTP 리스너 추가 및 수정 - 일반 설정"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+
+                  <p/>
+                </li><li>
+                  <p><span><strong class="guibutton">Thread Pool</strong></span> 영역에서 리스너에 할당될
+                  Thread Pool에 대해 설정한다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_config_webconnections_http_threadpool"></a><p class="title"><b>[그림 2.14] HTTP 리스너 추가 및 수정 - Thread Pool 설정</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_http_threadpool.png" align="top" width="701" alt="HTTP 리스너 추가 및 수정 - Thread Pool 설정"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+
+                  <p><span><strong class="guibutton">Thread State Notify</strong></span>에 대한 설정은 AJP
+                  리스너와 동일하므로 설정 화면은 <a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_webconnections_threadnotify" title="[그림 2.7] AJP 리스너 추가 및 수정 - Thread State Notify설정">[그림 2.7]</a>을
+                  참고한다.</p>
+
+                  <p>다음은 Auto Tuning 항목에 대한 설명이다.</p>
+
+                  <div class="informaltable">
+                      <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Auto Tuning<a id="d4e2882" class="indexterm"></a></td><td><p>auto-tuning의 적용 여부이다. 이 옵션을 켜면 min,
+                            max는 설정을 해도 적용되지 않는다. HTTP 커넥션에 대해서만
+                            적용된다.</p><p>auto-tuning은 아래와 같이 Thread 수를
+                            조절한다.</p><div class="itemizedlist"><ul type="circle"><li>
+                                   최초: CPU core의 3배로 설정한다. 
+                                </li><li>
+                                   증가: 요청 부하가 몰려올 경우 이를 감지하여 Thread를 CPU core 수만큼 늘린다. 
+                                </li><li>
+                                   감소: Thread pool의 keep alive time과 감소 방식이 같다. 
+                                </li></ul></div><p><span><strong class="guibutton">[경고]</strong></span></p><p>현재
+                            Auto Tuning은 CPU 100%를 사용하는 것을 목표로 하는 알고리즘이 사용되고 있다.
+                            또한, 메모리 사용량에 대한 고려가 없다. 따라서 실제 운영기에 적용할 때는 반드시 이에 대한
+                            고려를 해야 한다. 테스트용 또는 최대 성능 pool max 값 측정용으로 사용하길
+                            권장한다.</p></td></tr><tr><td align="left">Limit<a id="d4e2898" class="indexterm"></a></td><td>Auto Tuning을 적용할 때 Thread 수의 한계점이다.</td></tr></tbody></table>
+                    </div>
+
+                  <p/>
+
+                  <p/>
+                </li><li>
+                  <p><span><strong class="guibutton">고급 선택사항</strong></span>의 항목을 설정한다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_config_http_listener_advanced"></a><p class="title"><b>[그림 2.15] HTTP 리스너 추가 및 수정 - 고급 선택사항 설정</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_http_advanced.png" align="top" width="701" alt="HTTP 리스너 추가 및 수정 - 고급 선택사항 설정"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+
+                  <p>다음은 주요 설정 항목에 대한 설명이다. 그 외의 설정 항목에 대한 설명은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_common_web_connection_properties" title="2.3.1. 리스너 공통 설정">“2.3.1. 리스너 공통 설정”</a>을
+                  참고한다.</p>
+
+                  <div class="informaltable">
+                      <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Max Keep Alive Request<a id="d4e2925" class="indexterm"></a></td><td>클라이언트가 Keep Alive 커넥션을 사용할 경우 그 커넥션에서 허용하는 최대
+                            요청 수를 설정한다.</td></tr><tr><td align="left">Server Access Control<a id="d4e2930" class="indexterm"></a></td><td>접근 제한 기능 사용 여부를 설정한다.</td></tr><tr><td align="left">Allowed Server<a id="d4e2935" class="indexterm"></a></td><td>허용하려는 HTTP 클라이언트의 IP 주소를 설정한다. 입력할 주소가 하나 이상일
+                            경우에는 행으로 구분한다. <span><strong class="guibutton">'Server Access
+                            Control'</strong></span> 항목이 체크(true)된 경우에 적용된다.</td></tr><tr><td align="left">Enable Server Push <a id="d4e2941" class="indexterm"></a></td><td>Server Push 사용 여부를 설정한다.</td></tr><tr><td align="left">Max Concurrent Streams <a id="d4e2946" class="indexterm"></a></td><td>동시에 몇 개의 요청을 받을지 설정한다.</td></tr><tr><td align="left">Max Frame Size <a id="d4e2951" class="indexterm"></a></td><td>데이터 프레임 하나의 최대 크기를 설정한다.</td></tr><tr><td align="left">SETTINGS Frame Ack Timeout <a id="d4e2956" class="indexterm"></a></td><td>세팅 프레임을 보낸 후 Ack가 오기까지의 타임아웃을 설정한다. 타임아웃을
+                            초과하면 해당 클라이언트와 연결을 끊는다.</td></tr></tbody></table>
+                    </div>
+
+                  <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+                    <p>HTTP/2 관련 설정에 대한 자세한 내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_using_http2_listener" title="2.6. HTTP/2 사용">“2.6. HTTP/2 사용”</a>을 참고한다.</p>
+                  </div>
+                </li><li>
+                  <p>설정을 완료한 후 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 다음과 같이
+                  'http' 타입의 리스너가 추가된 것을 확인할 수 있다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_config_http_connection_save"></a><p class="title"><b>[그림 2.16] HTTP 리스너 추가 및 수정 - 추가 확인</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_http_add_save.png" align="top" width="701" alt="HTTP 리스너 추가 및 수정 - 추가 확인"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+                </li><li>
+                  <p>설정 내용의 반영을 위해 <span><strong class="guibutton">[Activate
+                  Changes]</strong></span> 버튼을 클릭하면 설정 적용 결과 메시지를 확인할 수 있다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_web_connections_set_activate" title="[그림 2.10] AJP 리스너 추가 및 수정 - 설정 적용 결과">[그림 2.10]</a>
+                  참고)</p>
+
+                  <p/>
+                </li></ol></div>
+          </li><li>
+            <p><span><strong class="guibutton">삭제</strong></span></p>
+
+            <p>다음은 WebAdmin을 사용해서 HTTP 리스너를 삭제하는 방법이다.</p>
+
+            <div class="orderedlist"><ol type="1"><li>
+                  <p>WebAdmin 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를
+                  선택하면 서버 목록 조회 화면으로 이동한다. 서버 목록에서 실행할 서버를 선택하면 서버 설정 화면으로
+                  이동한다. 설정 화면에서 <span><strong class="guibutton">[Engine] &gt; [Web Engine] &gt;
+                  [Web Connections] </strong></span>메뉴를 선택하면 웹 커넥션 목록 조회 화면으로
+                  이동한다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_webconnection_list_delete" title="[그림 2.11] AJP 리스너 삭제 - 메뉴 이동">[그림 2.11]</a>
+                  참고)</p>
+                </li><li>
+                  <p>설정 및 설정 변경을 위해 화면 왼쪽의 <span><strong class="guibutton">[LOCK &amp;
+                  EDIT]</strong></span> 버튼을 클릭해서 설정변경 모드로 전환한다.</p>
+                </li><li>
+                  <p>삭제할 리스너의 <span><strong class="guibutton">[DEL]</strong></span> 버튼을 클릭한다.</p>
+                </li><li>
+                  <p>선택한 리스너가 삭제되면 다음과 같이 메시지가 출력된다.</p><div class="figure"><a id="figure_webmanager_httplistener_deleted"></a><p class="title"><b>[그림 2.17] HTTP 리스너 삭제 - 삭제 확인</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_http_deleted.png" align="top" width="701" alt="HTTP 리스너 삭제 - 삭제 확인"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+                </li><li>
+                  <p>설정 내용의 반영을 위해 <span><strong class="guibutton">[Activate
+                  Changes]</strong></span> 버튼을 클릭하면 설정 적용 결과 메시지를 확인할 수 있다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_web_connections_set_activate" title="[그림 2.10] AJP 리스너 추가 및 수정 - 설정 적용 결과">[그림 2.10]</a>
+                  참고)</p>
+                </li></ol></div>
+          </li></ul></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e3008"></a>콘솔 툴 사용</h4>
+
+      <p>콘솔 툴을 사용하여 HTTP 리스너를 추가, 수정, 삭제하는 방법은 AJP 리스너의 방법과 동일하나 HTTP 리스너를
+      추가, 수정할 경우에 대해서만 HTTP/2를 사용할지 결정할 수 있는 옵션을 제공한다. 자세한 내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_ajp13_listener" title="2.3.2. AJP 리스너 설정">“2.3.2. AJP 리스너 설정”</a>의 <a href="chapter_webserver_connectivity_and_clustering.html#depth4_use_console_listener_add_modifiy_del" title="2.3.2. 콘솔 툴 사용">"콘솔 툴 사용"</a>을
+      참고한다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_configuring_tcp_listener"></a>2.3.4. TCP 리스너 설정</h3></div></div></div>
+      
+
+      <p>TCP 리스너는 커스텀 프로토콜로 상호 간에 통신할 수 있도록 제공하는 특수한 리스너이다. TCP 리스너는 기본적으로
+      서버 리스너를 다른 웹 리스너들과 공유할 수 없기 때문에 사용을 위해서는 서버에 TCP 리스너를 위한 전용 리스너를 추가해야
+      한다. WebAdmin과 콘솔 툴을 사용하여 TCP 리스너를 추가하거나 수정 및 삭제할 수 있다.</p>
+
+      <p/>
+
+      <h4><a id="d4e3020"></a>WebAdmin 사용</h4>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">추가 및 수정</strong></span></p>
+
+            <p>다음은 WebAdmin을 사용해서 TCP 리스너를 추가 및 수정하는 방법이다.</p>
+
+            <div class="orderedlist"><ol type="1"><li>
+                  <p>WebAdmin 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를
+                  선택하면 서버 목록 조회 화면으로 이동한다. 서버 목록에서 실행할 서버를 선택하면 서버 설정 화면으로
+                  이동한다. 설정 화면에서 <span><strong class="guibutton">[Engine] &gt; [Web Engine] &gt;
+                  [Web Connections] </strong></span>메뉴를 선택하면 웹 커넥션 목록 조회 화면으로
+                  이동한다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_web-connection_add" title="[그림 2.4] AJP 리스너 추가 및 수정 - 추가">[그림 2.4]</a>
+                  참고)</p>
+                </li><li>
+                  <p>설정 및 설정 변경을 위해 화면 왼쪽의 <span><strong class="guibutton">[LOCK &amp;
+                  EDIT]</strong></span> 버튼을 클릭해서 설정변경 모드로 전환한다.</p>
+                </li><li>
+                  <p>TCP 리스너를 추가하려면 <span><strong class="guibutton">[TCP]</strong></span> 버튼을 클릭하고,
+                  수정하려면 웹 커넥션 목록에서 'tcp' 타입의 리스너를 클릭한다. <span><strong class="guibutton">Tcp
+                  Listener 화면</strong></span>으로 이동하면 기본 정보들을 설정한다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_config_tcplistener_general"></a><p class="title"><b>[그림 2.18] TCP 리스너 추가 및 수정 - 일반 설정</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="673"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_tcp_add_general.png" align="top" width="673" alt="TCP 리스너 추가 및 수정 - 일반 설정"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+
+                  <p>다음은 주요 설정 항목에 대한 설명이다. 그 외의 설정 항목에 대한 설명은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_common_web_connection_properties" title="2.3.1. 리스너 공통 설정">“2.3.1. 리스너 공통 설정”</a>을
+                  참고한다.</p>
+
+                  <div class="informaltable">
+                      <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Dispatcher Config Class<a id="d4e3060" class="indexterm"></a></td><td><p>Dispatcher Config Class의 이름을 설정한다.
+                            Dispatcher Config Class는 TCP 리스너와 해당 클라이언트 사이에서 정의된
+                            프로토콜을 정의한 클래스이다.
+                            jeus.servlet.tcp.TCPDispatcherConfig 인터페이스를 구현한 정식
+                            클래스 이름을 정의한다. </p><p>Dispatcher Config Class가
+                            없을 경우에는 TCP 리스너가 동작하지 않고, 구현된 클래스는 반드시
+                            JEUS_HOME/lib/application 아래에 위치해야 한다.
+                            </p><p>웹 엔진에 deploy할 웹 컨텍스트에는
+                            jeus.servlet.tcp.TCPServlet을 구현한 클래스를 포함해야 하며
+                            web.xml에 매핑해야 한다. 자세한 내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_using_tcp_listener" title="2.5. TCP 리스너 사용">“2.5. TCP 리스너 사용”</a>을
+                            참고한다.</p></td></tr></tbody></table>
+                    </div>
+
+                  <p/>
+                </li><li>
+                  <p><span><strong class="guibutton">Thread Pool</strong></span> 영역의 설정은 AJP 리스너와
+                  동일하므로 설정 화면은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_ajp13_listener" title="2.3.2. AJP 리스너 설정">“2.3.2. AJP 리스너 설정”</a>을 참고한다.</p>
+                </li><li>
+                  <p><span><strong class="guibutton">고급 선택사항</strong></span>의 항목을 설정한다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_config_tcp_listener_advanced"></a><p class="title"><b>[그림 2.19] TCP 리스너 추가 및 수정 - 고급 선택사항 설정</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_tcp_add_advanced.png" align="top" width="701" alt="TCP 리스너 추가 및 수정 - 고급 선택사항 설정"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+
+                  <p>다음은 주요 설정 항목에 대한 설명이다. 그 외의 설정 항목에 대한 설명은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_common_web_connection_properties" title="2.3.1. 리스너 공통 설정">“2.3.1. 리스너 공통 설정”</a>을
+                  참고한다.</p>
+
+                  <div class="informaltable">
+                      <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Servers Adccess Control<a id="d4e3094" class="indexterm"></a></td><td>접근 제한 기능 사용 여부를 설정한다.</td></tr><tr><td align="left">Allowed Server<a id="d4e3099" class="indexterm"></a></td><td>허용하려는 웹 서버의 IP 주소를 설정한다. 입력할 주소가 하나 이상일 경우에는
+                            행으로 구분한다. <span><strong class="guibutton">'Server Access
+                            Control'</strong></span> 항목이 체크(true)된 경우에 적용된다.</td></tr></tbody></table>
+                    </div>
+
+                  <p/>
+
+                  <p/>
+                </li><li>
+                  <p>설정을 완료한 후 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 다음과 같이
+                  'tcp' 타입의 리스너가 추가된 것을 확인할 수 있다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_config_tcplistener_added"></a><p class="title"><b>[그림 2.20] TCP 리스너 추가 및 수정 - 추가 확인</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_tcp_add_save.png" align="top" width="701" alt="TCP 리스너 추가 및 수정 - 추가 확인"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+                </li><li>
+                  <p>설정 내용의 반영을 위해 <span><strong class="guibutton">[Activate
+                  Changes]</strong></span> 버튼을 클릭하면 설정 적용 결과 메시지를 확인할 수 있다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_web_connections_set_activate" title="[그림 2.10] AJP 리스너 추가 및 수정 - 설정 적용 결과">[그림 2.10]</a>
+                  참고)</p>
+                </li></ol></div>
+          </li><li>
+            <p><span><strong class="guibutton">삭제</strong></span></p>
+
+            <p>다음은 WebAdmin을 사용해서 TCP 리스너를 삭제하는 방법이다.</p>
+
+            <div class="orderedlist"><ol type="1"><li>
+                  <p>WebAdmin 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를
+                  선택하면 서버 목록 조회 화면으로 이동한다. 서버 목록에서 실행할 서버를 선택하면 서버 설정 화면으로
+                  이동한다. 설정 화면에서 <span><strong class="guibutton">[Engine] &gt; [Web Engine] &gt;
+                  [Web Connections] </strong></span>메뉴를 선택하면 웹 커넥션 목록 조회 화면으로
+                  이동한다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_webconnection_list_delete" title="[그림 2.11] AJP 리스너 삭제 - 메뉴 이동">[그림 2.11]</a>
+                  참고)</p>
+                </li><li>
+                  <p>설정 및 설정 변경을 위해 화면 왼쪽의 <span><strong class="guibutton">[LOCK &amp;
+                  EDIT]</strong></span> 버튼을 클릭해서 설정변경 모드로 전환한다.</p>
+                </li><li>
+                  <p>삭제할 리스너의 <span><strong class="guibutton">[DEL]</strong></span> 버튼을 클릭한다.</p>
+                </li><li>
+                  <p>선택한 리스너가 삭제되면 다음과 같이 메시지가 출력된다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_tcplistener_deleted"></a><p class="title"><b>[그림 2.21] TCP 리스너 삭제 - 삭제 확인</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_tcp_deleted.png" align="top" width="701" alt="TCP 리스너 삭제 - 삭제 확인"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+                </li><li>
+                  <p>설정 내용의 반영을 위해 <span><strong class="guibutton">[Activate
+                  Changes]</strong></span> 버튼을 클릭하면 설정 적용 결과 메시지를 확인할 수 있다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_web_connections_set_activate" title="[그림 2.10] AJP 리스너 추가 및 수정 - 설정 적용 결과">[그림 2.10]</a>
+                  참고)</p>
+                </li></ol></div>
+
+            <p/>
+          </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+
+      <h4><a id="d4e3152"></a>콘솔 툴 사용</h4>
+
+      <p>콘솔 툴을 사용하여 TCP 리스너를 추가, 수정, 삭제하는 방법은 AJP 리스너의 방법과 동일하다. 자세한 내용은
+      <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_ajp13_listener" title="2.3.2. AJP 리스너 설정">“2.3.2. AJP 리스너 설정”</a>의 <a href="chapter_webserver_connectivity_and_clustering.html#depth4_use_console_listener_add_modifiy_del" title="2.3.2. 콘솔 툴 사용">"콘솔 툴 사용"</a>을
+      참고한다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_configuring_webtob_connector"></a>2.3.5. WebtoB 커넥터 설정</h3></div></div></div>
+      
+
+      <p>WebtoB 커넥터는 커넥션을 생성할 때 JEUS가 클라이언트 역할을 하게 된다. 따라서 WebtoB 주소와 연결
+      포트가 필요하다. WebAdmin과 콘솔 툴을 사용하여 WebtoB 커넥터를 추가하거나 수정 및 삭제할 수 있다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>WebtoB와 JEUS 사이의 통신 프로토콜인 WJP 버전이 1에서 2(이하 WJPv1 및 WJPv2)로
+        업그레이드되었다. WJPv2의 경우 WJPv1에 비교해서 좀더 적은 사이즈의 패킷을 사용하며, 여러 가지 부가 기능들을
+        제공한다. JEUS에서 연결할 WebtoB가 WJPv2를 지원하지 않는 버전일 경우에는 WJPv1을 사용하면 된다. WJP
+        버전 정보의 경우 WebtoB에서 자동으로 파악할 수 없기 때문에 JEUS에 &lt;wjp-version&gt;으로 설정해야
+        한다. WJP는 WebtoB-JEUS Protocol을 의미한다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e3168"></a>WebAdmin 사용</h4>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">추가 및 수정</strong></span></p>
+
+            <p>다음은 WebAdmin을 사용해서 WebtoB 커넥터를 추가 및 수정하는 방법이다.</p>
+
+            <div class="orderedlist"><ol type="1"><li>
+                  <p>WebAdmin 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를
+                  선택하면 서버 목록 조회 화면으로 이동한다. 서버 목록에서 실행할 서버를 선택하면 서버 설정 화면으로
+                  이동한다. 설정 화면에서 <span><strong class="guibutton">[Engine] &gt; [Web Engine] &gt;
+                  [Web Connections] </strong></span>메뉴를 선택하면 웹 커넥션 목록 조회 화면으로
+                  이동한다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_web-connection_add" title="[그림 2.4] AJP 리스너 추가 및 수정 - 추가">[그림 2.4]</a>
+                  참고)</p>
+                </li><li>
+                  <p>설정 및 설정 변경을 위해 화면 왼쪽의 <span><strong class="guibutton">[LOCK &amp;
+                  EDIT]</strong></span> 버튼을 클릭해서 설정변경 모드로 전환한다.</p>
+                </li><li>
+                  <p>WebtoB 커넥터를 추가하려면 <span><strong class="guibutton">[WEBTOB]</strong></span> 버튼을
+                  클릭하고, 수정하려면 웹 커넥션 목록에서 'webtob' 타입의 커넥터를 클릭한다.
+                  <span><strong class="guibutton">WebtoB Connector 화면</strong></span>으로 이동하면 기본 정보들을
+                  설정한다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_config_webtobconnector_general"></a><p class="title"><b>[그림 2.22] WebtoB 커넥터 추가 및 수정 - 기본 설정</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_webtob_add_general.png" align="top" width="701" alt="WebtoB 커넥터 추가 및 수정 - 기본 설정"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+
+                  <p>다음은 주요 설정 항목에 대한 설명이다. 그 외의 항목에 대한 설명은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_common_web_connection_properties" title="2.3.1. 리스너 공통 설정">“2.3.1. 리스너 공통 설정”</a>을
+                  참고한다.</p>
+
+                  <div class="informaltable">
+                      <table border="1"><colgroup><col width="120" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">WJP Version<a id="d4e3209" class="indexterm"></a></td><td>WebtoB와 통신할 때 사용하는 WJP 버전을 결정하는 설정이다. WJPv1,
+                            v2를 지원한다.</td></tr><tr><td align="left">Registration Id<a id="d4e3214" class="indexterm"></a></td><td>WebtoB 설정 파일의 SERVER 절의 값과 일치해야 한다. WJPv1을
+                            사용하는 경우 반드시 15자 이내로 설정한다. (필수 입력항목)</td></tr><tr><td align="left">Hth Count<a id="d4e3219" class="indexterm"></a></td><td>WebtoB 설정 파일의 NODE 절에 지정된 HTH 프로세스 개수와 일치해야
+                            한다. <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_webservers_for_listener_interoperability_and_clustering" title="2.4. 부하 분산을 위한 웹 서버 설정">“2.4. 부하 분산을 위한 웹 서버 설정”</a>을
+                            참고한다.</td></tr><tr><td align="left">Read Timeout<a id="d4e3225" class="indexterm"></a></td><td><p>WebtoB는 지속적으로 웹 엔진에게 WebtoB의 설정 파일에 정의된
+                            svrchktime 변수값의 간격으로 ping 메시지를 보낸다. </p><p>웹
+                            엔진은 여기에서 설정된 시간 간격으로 WebtoB의 상태 보고 결과를 체크한다. WebtoB의
+                            ping이 여기에서 설정된 시간 간격 내에서 발견되지 않으면 통신 연결은 끊어진 것으로
+                            간주되어 다시 설정된다. 그러므로 설정값은 svrchktime 변수값보다 커야
+                            한다.</p></td></tr></tbody></table>
+                    </div>
+                </li><li>
+                  <p><span><strong class="guibutton">Network Address</strong></span>와
+                  <span><strong class="guibutton">Domain Socket Address</strong></span> 영역의 항목을 서로
+                  배타적으로 설정한다. 한 항목을 설정하면 다른 항목은 설정할 수 없다.</p>
+
+                  <p><span><strong class="guibutton">Network Address</strong></span>에 WebtoB 서버와 연결할
+                  포트와 IP 주소를 설정한다. 만약, <span><strong class="guibutton">Network Address</strong></span>의
+                  설정을 사용하지 않으려면 <span><strong class="guibutton">Domain Socket Address</strong></span>를
+                  설정해야 한다. 이것은 UNIX 도메인 소켓 또는 Windows에서 HTH 프로세스와 IPC 통신을 사용할
+                  때 설정한다. 즉, WebtoB가 같은 머신에 있을 때만 의미가 있다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_config_webtob_connector_address"></a><p class="title"><b>[그림 2.23] WebtoB 커넥터 추가 및 수정 - 연결 설정</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_webtob_add_address.png" align="top" width="701" alt="WebtoB 커넥터 추가 및 수정 - 연결 설정"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+
+                  <p/>
+                </li><li>
+                  <p><span><strong class="guibutton">Thread Pool</strong></span> 영역에서 WebtoB로부터 온
+                  HTTP 요청을 처리할 Worker Thread에 대해 설정한다.</p>
+
+                  <p><span><strong class="guibutton">Thread State Notify</strong></span>에서 리스너에 할당된
+                  Thread들의 자동 상태 통보에 대한 설정을 한다. 해당 설정은 AJP 리스너와 동일하므로 설정 화면은
+                  <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_ajp13_listener" title="2.3.2. AJP 리스너 설정">“2.3.2. AJP 리스너 설정”</a>을 참고하고, 이
+                  설정에 대한 자세한 설명은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_thread_state_notify" title="2.3.7. 자동 Thread Pool 관리 설정(Thread 상태 통보)">“2.3.7. 자동 Thread Pool 관리 설정(Thread 상태 통보)”</a>을
+                  참고한다.</p>
+
+                  <p>다음은 Thread Pool 설정 항목에 대한 설명이다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_config_webtob_connector_webtobthreadpool"></a><p class="title"><b>[그림 2.24] WebtoB 커넥터 추가 및 수정 - Thread Pool 설정</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_webtob_threadpool.png" align="top" width="701" alt="WebtoB 커넥터 추가 및 수정 - Thread Pool 설정"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+
+                  <p/>
+
+                  <div class="informaltable">
+                      <table border="1"><colgroup><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Number<a id="d4e3271" class="indexterm"></a></td><td><p>기본적으로 WebtoB와의 연결 수를 의미한다. 반드시 WebtoB
+                            설정의 <span><strong class="guibutton">'MinProc'</strong></span>과
+                            <span><strong class="guibutton">'MaxProc'</strong></span> 값을 바탕으로 설정해야 한다.
+                            <span><strong class="guibutton">'MinProc'</strong></span>과
+                            <span><strong class="guibutton">'MaxProc'</strong></span>에 대한 자세한 내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_and_clustering_webtob_webserver" title="2.4.4. WebtoB와의 부하 분산 설정">“2.4.4. WebtoB와의 부하 분산 설정”</a>을
+                            참고한다.</p><p><span><strong class="guibutton">[참고]</strong></span></p><p>JEUS
+                            6까지는 Worker Thread의 최솟값과 최댓값을 설정하였으나, 이 설정값들이 실제 동작에
+                            의미가 없어 Worker Thread의 수를 설정하는
+                            <span><strong class="guibutton">'Number'</strong></span>로
+                            통일하였다.</p><p/></td></tr></tbody></table>
+                    </div>
+
+                  <p/>
+
+                  <p/>
+                </li><li>
+                  <p><span><strong class="guibutton">고급 선택사항</strong></span>의 항목을 설정한다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_config_webtob_connector_advanced"></a><p class="title"><b>[그림 2.25] WebtoB 커넥터 추가 및 수정 - 고급 선택사항 설정</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_webtob_add_advanced.png" align="top" width="701" alt="WebtoB 커넥터 추가 및 수정 - 고급 선택사항 설정"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+
+                  <p>다음은 주요 설정 항목에 대한 설명이다. 그 외의 항목에 대한 설명은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_common_web_connection_properties" title="2.3.1. 리스너 공통 설정">“2.3.1. 리스너 공통 설정”</a>을
+                  참고한다.</p>
+
+                  <div class="informaltable">
+                      <table border="1"><colgroup><col width="130" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Request Prefetch<a id="d4e3309" class="indexterm"></a></td><td><p>웹 엔진 측에서 요청을 처리하는 동안 다음 요청을 WebtoB로부터
+                            미리 받아올 것인지 설정한다.</p><p>기능이 활성화되면 웹 엔진은 각
+                            WebtoB Worker Thread마다 하나의 Queue를 할당하고, Queue는
+                            Worker Thread가 현재 요청을 처리하는 동안 WebtoB로부터 오는 요청을
+                            버퍼링한다. 따라서 웹 엔진은 WebtoB로부터 다음 요청을 받는 시간을 단축할 수 있다. 이
+                            기능의 단점은 요청을 처리하는 도중 웹 엔진에 심각한 문제가 발생하면 Queue에 축적된
+                            요청들을 잃어버릴 수 있다는 것이다.</p></td></tr><tr><td align="left">Reconnect Interval<a id="d4e3316" class="indexterm"></a></td><td><p>WebtoB와의 연결들이 끊어지면 재연결을 시도하는데, 각 재연결
+                            사이의 시간 간격을 설정한다. 1초보다 작게 설정하는 것은 의미가 없다. (기본값: 5000)
+                            </p><p>연결이 성공할 때까지 설정한 시간 간격으로 무한히
+                            시도한다.</p></td></tr><tr><td align="left">Reconnect Count For Backup<a id="d4e3323" class="indexterm"></a></td><td><p>기존에 연결된 WebtoB와 연결이 끊어졌을 때 재연결 시도 횟수를
+                            의미한다. </p><p>횟수를 초과해서 연결이 안 될 경우에는 다른 WebtoB로
+                            연결 시도한다. Primary WebtoB에서 연결이 끊어지면 Backup으로 시도하는
+                            것이고, Backup에서 연결이 끊어지면 Primary로 연결한다.</p></td></tr><tr><td align="left">WebtoB Backup<a id="d4e3330" class="indexterm"></a></td><td><p>Primary WebtoB가 장애 상태가 되었다고 판단했을 때,
+                            백업으로 설정된 WebtoB로 연결을 시도한다. 일단 백업으로 넘어가면 백업 WebtoB로
+                            연결될 때까지 계속 시도한다. 백업 WebtoB로부터 HTTP 요청를 받는 와중에
+                            Primary WebtoB가 살아나게 되면 자동으로 Failback을
+                            수행한다.</p><p>여기에는 WebtoB 커넥터 설정 중 WebtoB가 설치된
+                            호스트에 따라 다를 수 밖에 없는 부분에 대한 설정을
+                            제공한다.</p><p>Thread Pool 설정이 없다면 Primary WebtoB
+                            설정에서 상속 받는다.</p></td></tr></tbody></table>
+                    </div>
+                </li><li>
+                  <p>설정을 완료한 후 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 다음과 같이
+                  'webtob' 타입의 커넥터가 추가된 것을 확인할 수 있다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_config_webtobconnector_added"></a><p class="title"><b>[그림 2.26] WebtoB 커넥터 추가 및 수정 - 추가 확인</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_webtob_add_save.png" align="top" width="701" alt="WebtoB 커넥터 추가 및 수정 - 추가 확인"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+                </li><li>
+                  <p>설정 내용의 반영을 위해 <span><strong class="guibutton">[Activate
+                  Changes]</strong></span> 버튼을 클릭하면 설정 적용 결과 메시지를 확인할 수 있다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_web_connections_set_activate" title="[그림 2.10] AJP 리스너 추가 및 수정 - 설정 적용 결과">[그림 2.10]</a>
+                  참고)</p>
+                </li></ol></div>
+          </li><li>
+            <p><span><strong class="guibutton">삭제</strong></span></p>
+
+            <p>다음은 WebAdmin을 사용해서 WebtoB 커넥터를 삭제하는 방법이다.</p>
+
+            <div class="orderedlist"><ol type="1"><li>
+                  <p>WebAdmin 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를
+                  선택하면 서버 목록 조회 화면으로 이동한다. 서버 목록에서 실행할 서버를 선택하면 서버 설정 화면으로
+                  이동한다. 설정 화면에서 <span><strong class="guibutton">[Engine] &gt; [Web Engine] &gt;
+                  [Web Connections] </strong></span>메뉴를 선택하면 웹 커넥션 목록 조회 화면으로
+                  이동한다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_webconnection_list_delete" title="[그림 2.11] AJP 리스너 삭제 - 메뉴 이동">[그림 2.11]</a>
+                  참고)</p>
+                </li><li>
+                  <p>설정 및 설정 변경을 위해 화면 왼쪽의 <span><strong class="guibutton">[LOCK &amp;
+                  EDIT]</strong></span> 버튼을 클릭해서 설정변경 모드로 전환한다.</p>
+                </li><li>
+                  <p>삭제할 커넥터의 <span><strong class="guibutton">[DEL]</strong></span> 버튼을 클릭한다.</p>
+                </li><li>
+                  <p>선택한 커넥터가 삭제되면 다음과 같이 메시지가 출력된다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_webtobconnector_deleted"></a><p class="title"><b>[그림 2.27] WebtoB 커넥터 삭제 - 삭제 확인</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_webtob_deleted.png" align="top" width="701" alt="WebtoB 커넥터 삭제 - 삭제 확인"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+                </li><li>
+                  <p>설정 내용의 반영을 위해 <span><strong class="guibutton">[Activate
+                  Changes]</strong></span> 버튼을 클릭하면 설정 적용 결과 메시지를 확인할 수 있다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_web_connections_set_activate" title="[그림 2.10] AJP 리스너 추가 및 수정 - 설정 적용 결과">[그림 2.10]</a>
+                  참고)</p>
+                </li></ol></div>
+          </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e3381"></a>콘솔 툴 사용</h4>
+
+      <p>다음은 콘솔 툴을 사용해서 WebtoB 커넥터를 추가, 수정, 삭제하는 방법이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">추가</strong></span></p>
+
+          <p>콘솔 툴을 사용하여 WebtoB 커넥터를 추가하려면
+          <span><strong class="guibutton">add-webtob-connector</strong></span> 명령을 실행한다. 명령에 대한 자세한 내용은
+          <a xmlns="" href="../reference-book/ch04.html#webengine_add_webtob_connector" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.8.9. add-webtob-connector”</a>를 참고한다.</p>
+
+          <pre class="screen"><span><strong class="guibutton">add-webtob-connector</strong></span> [-cluster <span class="emphasis"><em>&lt;cluster-name&gt;</em></span> | -server <span class="emphasis"><em>&lt;server-name&gt;</em></span>]
+                     [-f,--forceLock]
+                     -name <span class="emphasis"><em>&lt;web-connection-name&gt;</em></span>
+                     -num <span class="emphasis"><em>&lt;thread-number&gt;</em></span>
+                     -regid <span class="emphasis"><em>&lt;registration-id&gt;</em></span>
+                     [-ver <span class="emphasis"><em>&lt;wjp-version&gt;</em></span>]
+                     [-addr <span class="emphasis"><em>&lt;server-address&gt;</em></span>]
+                     [-port <span class="emphasis"><em>&lt;server-port&gt;</em></span> | -dsocket]
+                     [-wbhome <span class="emphasis"><em>&lt;webtob-home&gt;</em></span>| -ipcport <span class="emphasis"><em>&lt;ipc-base-port&gt;</em></span>]
+                     [-sndbuf <span class="emphasis"><em>&lt;send-buffer-size&gt;</em></span>]
+                     [-rcvbuf <span class="emphasis"><em>&lt;receive-buffer-size&gt;</em></span> ]</pre>
+        </li><li>
+          <p><span><strong class="guibutton">수정</strong></span></p>
+
+          <p>콘솔 툴을 사용하여 WebtoB 커넥터를 수정하려면
+          <span><strong class="guibutton">modify-webtob-connector</strong></span> 명령을 실행한다. 명령에 대한 자세한
+          내용은 <a xmlns="" href="../reference-book/ch04.html#webengine_modify_webtob_connector" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.8.20. modify-webtob-connector”</a>를 참고한다.</p>
+
+          <p/>
+
+          <pre class="screen"><span><strong class="guibutton">modify-webtob-connector</strong></span> [-cluster <span class="emphasis"><em>&lt;cluster-name&gt;</em></span> | -server <span class="emphasis"><em>&lt;server-name&gt;</em></span>]
+                        [-f,--forceLock]
+                        -name <span class="emphasis"><em>&lt;web-connection-name&gt;</em></span>
+                        [-num <span class="emphasis"><em>&lt;thread-number&gt;</em></span>] [-obuf <span class="emphasis"><em>&lt;output-buffer-size&gt;</em></span>]
+                        [-ver <span class="emphasis"><em>&lt;wjp-version&gt;</em></span>]
+                        [-addr <span class="emphasis"><em>&lt;server-address&gt;</em></span>]
+                        [-port <span class="emphasis"><em>&lt;server-port&gt;</em></span> | -dsocket]
+                        [-wbhome <span class="emphasis"><em>&lt;webtob-home&gt;</em></span>|-ipcport <span class="emphasis"><em>&lt;ipc-base-port&gt;</em></span>]
+                        [-regid <span class="emphasis"><em>&lt;registration-id&gt;</em></span>]
+                        [-sndbuf <span class="emphasis"><em>&lt;send-buffer-size&gt;</em></span> ]
+                        [-rcvbuf <span class="emphasis"><em>&lt;receive-buffer-size&gt;</em></span> ] </pre>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">삭제</strong></span></p>
+
+            <p>콘솔 툴을 사용하여 WebtoB 커넥터를 삭제하려면
+            <span><strong class="guibutton">remove-webtob-connector</strong></span> 명령을 실행한다. 명령에 대한
+            자세한 내용은 <a xmlns="" href="../reference-book/ch04.html#webengine_remove_webtob_connector" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.8.30. remove-webtob-connector”</a>를 참고한다.</p>
+
+            <pre class="screen"><span><strong class="guibutton">remove-webtob-connector</strong></span> [-cluster <span class="emphasis"><em>&lt;cluster-name&gt;</em></span> | -server <span class="emphasis"><em>&lt;server-name&gt;</em></span>]
+                        <span class="emphasis"><em>&lt;web-connection-name&gt;</em></span></pre>
+
+            <p/>
+          </li></ul></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_configuring_tmax_connector"></a>2.3.6. Tmax 커넥터 설정</h3></div></div></div>
+      
+
+      <p>Tmax 커넥터 역시 WebtoB 커넥터와 마찬가지로 커넥션을 생성할 때 JEUS가 클라이언트 역할을 하게 된다.
+      따라서 Tmax 주소와 연결 포트가 필요하다. WebAdmin과 콘솔 툴을 사용하여 Tmax 커넥터를 추가하거나 설정 및 삭제할
+      수 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e3449"></a>WebAdmin 사용</h4>
+
+      <p/>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">추가 및 수정</strong></span></p>
+
+            <p>다음은 WebAdmin을 사용해서 Tmax 커넥터의 추가 및 설정하는 방법이다.</p>
+
+            <div class="orderedlist"><ol type="1"><li>
+                  <p>WebAdmin 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를
+                  선택하면 서버 목록 조회 화면으로 이동한다. 서버 목록에서 실행할 서버를 선택하면 서버 설정 화면으로
+                  이동한다. 설정 화면에서 <span><strong class="guibutton">[Engine] &gt; [Web Engine] &gt;
+                  [Web Connections] </strong></span>메뉴를 선택하면 웹 커넥션 목록 조회 화면으로
+                  이동한다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_web-connection_add" title="[그림 2.4] AJP 리스너 추가 및 수정 - 추가">[그림 2.4]</a>
+                  참고)</p>
+                </li><li>
+                  <p>설정 및 설정 변경을 위해 화면 왼쪽의 <span><strong class="guibutton">[LOCK &amp;
+                  EDIT]</strong></span> 버튼을 클릭해서 설정변경 모드로 전환한다.</p>
+                </li><li>
+                  <p>Tmax 커넥터를 추가하려면 <span><strong class="guibutton">[TMAX]</strong></span> 버튼을
+                  클릭하고, 수정하려면 웹 커넥션 목록에서 'tmax' 타입의 커넥터를 클릭한다. <span><strong class="guibutton">Tmax
+                  Connector 화면</strong></span>으로 이동하면 기본 정보들을 설정한다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_tmaxconnector_general"></a><p class="title"><b>[그림 2.28] Tmax 커넥터 추가 및 수정 - 기본 설정</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_tmax_add_general.png" align="top" width="701" alt="Tmax 커넥터 추가 및 수정 - 기본 설정"/></td></tr></table></div>
+                  </div></div><br class="figure-break"/>
+
+                  <p>다음은 주요 설정 항목에 대한 설명이다. 그 외의 설정 항목에 대한 설명은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_common_web_connection_properties" title="2.3.1. 리스너 공통 설정">“2.3.1. 리스너 공통 설정”</a>을
+                  참고한다.</p>
+
+                  <div class="informaltable">
+                    <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Port<a id="d4e3488" class="indexterm"></a></td><td>Tmax와 연결할 포트로 Tmax 설정 파일에서의 JEUS 연결 포트값과 일치해야
+                          한다.</td></tr><tr><td align="left">Server Group Name<a id="d4e3493" class="indexterm"></a></td><td>Tmax와 연결할 때 Tmax의 어떤 서버와 연결할 것인지를 설정해야 한다. 이
+                          설정은 연결할 서버가 속해 있는 그룹을 나타낸다.</td></tr><tr><td align="left">Server Name<a id="d4e3498" class="indexterm"></a></td><td>연결하려는 Tmax 서버 이름을 설정한다.</td></tr><tr><td align="left">Dispatcher Config Class<a id="d4e3503" class="indexterm"></a></td><td>Dispatcher Config Class를 지정한다. 이때 클래스는 반드시
+                          클래스 패스로 설정된 곳에 있어야 하며, 클래스의 이름은 fully qualified
+                          class name이어야 한다.</td></tr><tr><td align="left">Tmax Address<a id="d4e3508" class="indexterm"></a></td><td>Tmax 서버의 IP 주소를 설정한다.</td></tr><tr><td align="left">Tmax Version<a id="d4e3513" class="indexterm"></a></td><td>연결하려는 Tmax 서버의 버전을 설정한다.</td></tr></tbody></table>
+                  </div>
+                </li><li>
+                  <p><span><strong class="guibutton">Thread Pool</strong></span> 영역의 설정은 AJP 리스너와
+                  동일하므로 설정 화면은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_ajp13_listener" title="2.3.2. AJP 리스너 설정">“2.3.2. AJP 리스너 설정”</a>을 참고하고, Thread
+                  Pool 설정에 대한 자세한 내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_thread_state_notify" title="2.3.7. 자동 Thread Pool 관리 설정(Thread 상태 통보)">“2.3.7. 자동 Thread Pool 관리 설정(Thread 상태 통보)”</a>을
+                  참고한다.</p>
+                </li><li>
+                  <p><span><strong class="guibutton">고급 선택사항</strong></span>의 항목을 설정한다.</p>
+
+                  <div class="figure"><a id="figure_webmanager_config_tmax_connector_advanced"></a><p class="title"><b>[그림 2.29] Tmax 커넥터 추가 및 수정 - 고급 선택사항 설정</b></p><div class="figure-contents">
+                      
+
+                      <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_tmax_add_advanced.png" align="top" width="663" alt="Tmax 커넥터 추가 및 수정 - 고급 선택사항 설정"/></td></tr></table></div>
+                    </div></div><p><br class="figure-break"/></p>
+
+                  <p>다음은 주요 설정 항목에 대한 설명이다. 그 외의 설정 항목에 대한 설명은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_common_web_connection_properties" title="2.3.1. 리스너 공통 설정">“2.3.1. 리스너 공통 설정”</a>을
+                  참고한다.</p>
+
+                  <div class="informaltable">
+                      <table border="1"><colgroup><col width="130" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Reconnect Count For Backup<a id="d4e3543" class="indexterm"></a></td><td>Tmax와의 연결들이 끊어지면 재연결을 시도하는데 총 시도 횟수를 의미한다. 항상
+                            1 이상이며, 백업 설정이 있을 때만 사용한다. (기본값: 12)</td></tr><tr><td align="left">Reconnect Interval<a id="d4e3548" class="indexterm"></a></td><td><p>Tmax와의 연결들이 끊어지면 재연결을 시도하는데, 각 재연결 사이의
+                            시간 간격을 설정한다. 1초보다 작게 설정하는 것은 의미가 없다. (기본값: 5000)
+                            </p><p>연결이 성공할 때까지 설정한 시간 간격으로 무한히 시도한다. 단, 백업
+                            설정이 있으면 <span><strong class="guibutton">'Reconnect Count For
+                            Backup'</strong></span> 설정값만큼 시도한 뒤 Failover를
+                            수행한다.</p></td></tr><tr><td align="left">Server Type<a id="d4e3556" class="indexterm"></a></td><td>연결하려는 Tmax 서버의 종류를 설정한다.</td></tr><tr><td align="left">XA Resource Class<a id="d4e3561" class="indexterm"></a></td><td>XAResource 클래스 이름을 설정한다.</td></tr><tr><td align="left">Tmax Backup Address<a id="d4e3566" class="indexterm"></a></td><td>Tmax에 장애가 발생했을 때 백업으로 동작하는 서버의 주소이다. 주소와 포트만
+                            설정하고 나머지는 Primary 서버의 설정을 그대로 가져간다.</td></tr><tr><td align="left">Tmax Backup Port<a id="d4e3571" class="indexterm"></a></td><td>Tmax에 장애가 발생했을 때 백업 서버에 연결할 포트 번호를 설정한다.
+                            <span><strong class="guibutton">'Tmax Backup Address'</strong></span>가 설정되어
+                            있다면 함께 설정해야 한다.</td></tr></tbody></table>
+                    </div>
+                </li><li>
+                  <p>설정을 완료한 후 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면 다음과 같이
+                  'tmax' 타입의 커넥터가 추가된 것을 확인할 수 있다.</p>
+
+                  
+
+                  <div class="figure"><a id="figure_webmanager_config_tmaxconnector_added"></a><p class="title"><b>[그림 2.30] Tmax 커넥터 추가 및 수정 - 추가 확인</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_tmax_add_save.png" align="top" width="701" alt="Tmax 커넥터 추가 및 수정 - 추가 확인"/></td></tr></table></div>
+                  </div></div><br class="figure-break"/>
+
+                  <p/>
+                </li><li>
+                  <p>설정 내용의 반영을 위해 <span><strong class="guibutton">[Activate
+                  Changes]</strong></span> 버튼을 클릭하면 설정 적용 결과 메시지를 확인할 수 있다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_web_connections_set_activate" title="[그림 2.10] AJP 리스너 추가 및 수정 - 설정 적용 결과">[그림 2.10]</a>
+                  참고)</p>
+
+                  <p/>
+                </li></ol></div>
+          </li><li>
+            <p><span><strong class="guibutton">삭제</strong></span></p>
+
+            <p>다음은 WebAdmin을 사용해서 Tmax 커넥터를 삭제하는 방법이다.</p>
+
+            <div class="orderedlist"><ol type="1"><li>
+                <p>WebAdmin 왼쪽 메뉴에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면
+                서버 목록 조회 화면으로 이동한다. 서버 목록에서 실행할 서버를 선택하면 서버 설정 화면으로 이동한다. 설정
+                화면에서 <span><strong class="guibutton">[Engine] &gt; [Web Engine] &gt; [Web
+                Connections] </strong></span>메뉴를 선택하면 웹 커넥션 목록 조회 화면으로 이동한다.
+                (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_webconnection_list_delete" title="[그림 2.11] AJP 리스너 삭제 - 메뉴 이동">[그림 2.11]</a>
+                참고)</p>
+              </li><li>
+                <p>설정 및 설정 변경을 위해 화면 왼쪽의 <span><strong class="guibutton">[LOCK &amp;
+                EDIT]</strong></span> 버튼을 클릭해서 설정변경 모드로 전환한다.</p>
+              </li><li>
+                <p>삭제할 커넥터의 <span><strong class="guibutton">[DEL]</strong></span> 버튼을 클릭한다.</p>
+              </li><li>
+                <p>선택한 커넥터가 삭제되면 다음과 같이 메시지가 출력된다.</p>
+
+                <div class="figure"><a id="figure_webmanager_tmaxconnector_deleted"></a><p class="title"><b>[그림 2.31] Tmax 커넥터 삭제 - 삭제 확인</b></p><div class="figure-contents">
+                    
+
+                    <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_tmax_deleted.png" align="top" width="701" alt="Tmax 커넥터 삭제 - 삭제 확인"/></td></tr></table></div>
+                  </div></div><p><br class="figure-break"/></p>
+              </li><li>
+                <p>설정 내용의 반영을 위해 <span><strong class="guibutton">[Activate Changes]</strong></span>
+                버튼을 클릭하면 설정 적용 결과 메시지를 확인할 수 있다. (<a href="chapter_webserver_connectivity_and_clustering.html#figure_webmanager_config_web_connections_set_activate" title="[그림 2.10] AJP 리스너 추가 및 수정 - 설정 적용 결과">[그림 2.10]</a>
+                참고)</p>
+              </li></ol></div>
+          </li></ul></div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e3620"></a>콘솔 툴 사용</h4>
+
+      <p/>
+
+      <p>다음은 콘솔 툴을 사용해서 Tmax 커넥터를 추가, 수정, 삭제하는 방법이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">추가</strong></span></p>
+
+            <p>콘솔 툴을 사용하여 Tmax 커넥터를 추가하려면
+            <span><strong class="guibutton">add-tmax-connector</strong></span> 명령을 실행한다. 명령에 대한 자세한 내용은
+            <a xmlns="" href="../reference-book/ch04.html#webengine_add_tmax_connector" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.8.6. add-tmax-connector”</a>를 참고한다.</p>
+
+            <p/>
+
+            <pre class="screen"><span><strong class="guibutton">add-tmax-connector</strong></span> [-cluster <span class="emphasis"><em>&lt;cluster-name&gt;</em></span> | -server <span class="emphasis"><em>&lt;server-name&gt;</em></span>]
+                   [-f,--forceLock]
+                   -name <span class="emphasis"><em>&lt;web-connection-name&gt;</em></span>
+                   -tmin <span class="emphasis"><em>&lt;minimum-thread-num&gt;</em></span>
+                   [-tmax <span class="emphasis"><em>&lt;maximum-thread-num&gt;</em></span>]
+                   -addr <span class="emphasis"><em>&lt;server-address&gt;</em></span>
+                   -port <span class="emphasis"><em>&lt;server-port&gt;</em></span>
+                   -svrg <span class="emphasis"><em>&lt;server-group-name&gt;</em></span>
+                   -svr <span class="emphasis"><em>&lt;server-name&gt;</em></span>
+                   -dcc <span class="emphasis"><em>&lt;dispatcher-config-class&gt;</em></span></pre>
+
+            <p/>
+          </li><li>
+            <p><span><strong class="guibutton">수정</strong></span></p>
+
+            <p>콘솔 툴을 사용하여 Tmax 커넥터를 수정하려면
+            <span><strong class="guibutton">modify-tmax-connector</strong></span> 명령을 실행한다. 명령에 대한 자세한
+            내용은 <a xmlns="" href="../reference-book/ch04.html#webengine_modify_tmax_connector" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.8.16. modify-tmax-connector”</a>를 참고한다.</p>
+
+            <pre class="screen"><span><strong class="guibutton">modify-tmax-connector</strong></span> [-cluster <span class="emphasis"><em>&lt;cluster-name&gt;</em></span> | -server <span class="emphasis"><em>&lt;server-name&gt;</em></span>]
+                      [-f,--forceLock]
+                      -name <span class="emphasis"><em>&lt;web-connection-name&gt;</em></span>
+                      [-tmin <span class="emphasis"><em>&lt;minimum-thread-num&gt;</em></span>]
+                      [-tmax <span class="emphasis"><em>&lt;maximum-thread-num&gt;</em></span>]
+                      [-tidle <span class="emphasis"><em>&lt;max-idle-time&gt;</em></span>]
+                      [-obuf <span class="emphasis"><em>&lt;output-buffer-size&gt;</em></span>]
+                      [-addr <span class="emphasis"><em>&lt;server-address&gt;</em></span>]
+                      [-port <span class="emphasis"><em>&lt;server-port&gt;</em></span>]
+                      [-svrg <span class="emphasis"><em>&lt;server-group-name&gt;</em></span>]
+                      [-svr <span class="emphasis"><em>&lt;server-name&gt;</em></span>]</pre>
+
+            <p/>
+          </li><li>
+            <p><span><strong class="guibutton">삭제</strong></span></p>
+
+            <p>콘솔 툴을 사용하여 Tmax 커넥터를 삭제하려면
+            <span><strong class="guibutton">remove-tmax-connector</strong></span> 명령을 실행한다. 명령에 대한 자세한
+            내용은 <a xmlns="" href="../reference-book/ch04.html#webengine_remove_tmax_connector" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.8.27. remove-tmax-connector”</a>를 참고한다.</p>
+
+            <pre class="screen"><span><strong class="guibutton">remove-tmax-connector</strong></span> [-cluster <span class="emphasis"><em>&lt;cluster-name&gt;</em></span> | -server <span class="emphasis"><em>&lt;server-name&gt;</em></span> |
+                        -f,--foreceLock]
+                        <span class="emphasis"><em>&lt;web-connection-name&gt;</em></span></pre>
+
+            <p/>
+          </li></ul></div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_configuring_thread_state_notify"></a>2.3.7. 자동 Thread Pool 관리 설정(Thread 상태 통보)</h3></div></div></div>
+      
+
+      <p>Thread 상태 통보는 이메일 통지나 서버 재시작 권고를 위해 필요한 최소의 Worker Thread 수와 관련된
+      오류 조건을 정의한다. 리스너 및 커넥터 설정 화면의 <span class="bold"><strong>Thread State
+      Notify</strong></span> 영역에서 설정한다.</p>
+
+      <p>자동 Thread Pool 관리 설정이 되면 <span><strong class="guibutton">'Max Thread Active
+      Time'</strong></span> 설정값을 기준으로 Worker Thread가 관리된다. 요청을 받아 처리를 시작한 시점부터 Max
+      Thread Active 설정 시간을 초과한 Thread들은 Blocked Thread로 관리가 된다. 그리고 Blocked
+      Thread가 아닌 일반 Thread들의 숫자가 Thread Pool에서 설정한 최솟값보다 작을 경우는 새로운 Worker
+      Thread를 생성하여 최솟값을 유지할 수 있게 한다. 단, WebtoB 커넥터의 경우에는 최솟값이 없고 전체 연결 숫자만
+      존재하므로 다른 리스너 또는 커넥터와는 다르게 동작한다. WebtoB 커넥터는 Blocked Thread와 일반 Thread의
+      숫자의 합이 설정한 연결 숫자와 같아야 한다. 그리고 Blocked Thread의 요청 처리가 끝나는 순간 Blocked
+      Thread는 삭제되고 새로운 Worker Thread에 WebtoB 연결 요청을 한다.</p>
+
+      <p>Thread Pool의 Thread 상태 변경에 대한 통보 설정을 통해 원하는 통보를 받을 수 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 AJP 리스너에서 이메일 알림자를 포함하고 있는 설정 예이다. 이메일 알림자를 통해 받을 이메일의 설정은
+      <a xmlns="" href="../server/chapter_jeus_logging.html#sect_configure_Jeus_Logging" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “8.3. Logging 설정”</a>에서 "SMTP 핸들러 설정"을
+      참고한다.</p>
+
+      <div class="figure"><a id="figure_webmanager_config_threadpoolnotification"></a><p class="title"><b>[그림 2.32] 자동 Thread Pool 관리 설정 - Thread State Notify 설정</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="701"><tr><td align="left"><img src="resources/webmanager_config/figure_webmanager_config_web_connections_thread_state_notify_set.png" align="top" width="701" alt="자동 Thread Pool 관리 설정 - Thread State Notify 설정"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>다음과 각 항목에 대한 설명이다.</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">Max Thread Active Time<a id="d4e3710" class="indexterm"></a></td><td><p>블록되기 전까지 Worker Thread가 사용될 수 있는 최대시간을 설정한다.
+              </p><p>이 시간은 Worker Thread가 클라이언트 요청을 서비스할 때부터 측정된다(서블릿이
+              수행될 때). 설정한 시간이 초과되었거나 또는 Thread가 자유롭게 되어 Thread Pool로 되돌아 갈 때
+              만료된다(Thread가 bock되지 않는 상황). </p><p>설정값이 0이거나 음수이면
+              무시된다.</p></td></tr><tr><td align="left">Notify Threshold Ratio<a id="d4e3718" class="indexterm"></a></td><td><p>존재할 수 있는 Blocked Thread의 최대 비율을 설정한다. 전체 Thread 개수
+              대비 Blocked Thread의 비율이 초과되면, 오류 조건으로 결정되어 이메일 알림자를 통하여 이메일 통보가
+              전송된다.</p><p>1보다 작은 소숫점으로 설정하며, 0이거나 음수이면
+              무시된다.</p></td></tr><tr><td align="left">Restart Threshold Ratio<a id="d4e3725" class="indexterm"></a></td><td><p>존재할 수 있는 Blocked Thread의 최대 비율을 설정한다. 전체 Thread 개수
+              대비 Blocked Thread의 비율이 초과되면, 오류 조건으로 결정되어 이메일 알림자를 통하여 이메일 통보가
+              전송된다. 그 후에 서버 로그에 서버 재시작 권고 메시지가 기록된다.</p><p>1보다 작은 소숫점으로
+              설정하며, 0이거나 음수이면 이 설정이 무시된다.</p></td></tr><tr><td align="left">Notify Subject<a id="d4e3732" class="indexterm"></a></td><td>경고 이메일을 전송할 때 사용된다.</td></tr><tr><td align="left">Restart Subject<a id="d4e3737" class="indexterm"></a></td><td>엔진 로그 및 통보할 때 사용하는 이메일에 사용된다.</td></tr><tr><td align="left">Interrupt Thread<a id="d4e3742" class="indexterm"></a></td><td><p>Active Timeout이 발생할 때, 즉 Worker Thread가
+              <span><strong class="guibutton">'Max Thread Active Time'</strong></span> 설정값 이상으로 요청을 처리
+              중일 때 해당 Thread의 interrupt 발생 유무를 결정한다. (기본값:
+              false)</p><p>true인 경우 interrupt를 발생시킨다. </p></td></tr><tr><td align="left">Active Timeout Notification<a id="d4e3750" class="indexterm"></a></td><td><p>Active Timeout 발생이 이메일 전송 여부를 결정한다. (기본값:
+              false)</p><p>true인 경우 이메일이 전송된다.</p></td></tr></tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_configuring_webservers_for_listener_interoperability_and_clustering"></a>2.4. 부하 분산을 위한 웹 서버 설정</h2></div></div></div>
+    
+
+    <p>본 절에서는 JEUS와의 연동 사례가 많은 웹 서버들의 설정 방법과 웹 엔진을 웹 커넥션과 연동할 수 있는 방법에 대해서
+    설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>웹 엔진은 시스템의 HTTP 처리의 성능 향상을 위해 웹 서버와 웹 엔진(서블릿 엔진)으로 구성하여 서비스할 수 있다. 각
+    웹 엔진으로의 HTTP 요청을 웹 엔진 앞의 웹 서버에서 1차로 부하를 분산시킨다. 이후 같은 연결이나 세션의 요청에 대해 HTTP
+    세션 클러스터링 서비스를 이용하여 처음 요청을 처리한 웹 엔진으로 할당하여 서비스 처리 효율을 높인다.</p>
+
+    <p>처음 요청을 처리한 웹 엔진에 장애가 발생한 경우, 장애 발생 이후에 들어온 요청은 웹 엔진 앞의 웹 서버에서 장애가
+    발생하지 않은 웹 엔진으로 전달하여 끊김 없는 서비스를 가능하게 한다. 이 서비스는 HTTP 세션 클러스터링을 사용한다는 전제 조건이
+    필요하다. HTTP 세션 클러스터링에 대한 자세한 내용은 <a xmlns="" href="../session/chapter_session_server.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS 세션 관리 안내서</span>”의 “제2장 분산 세션 서버”</a>를 참고한다.</p>
+
+    <p>만약 웹 서버를 사용하지 않고 웹 엔진만을 사용할 경우에 요청을 처리한 웹 엔진으로 이후의 요청을 전달할 수 있는 장비나
+    소프트웨어를 사용하면 웹 서버를 사용할 때와 같이 효율적인 서비스가 가능할 것이다. 그러나 JEUS에서는 이에 필요한 소프트웨어를
+    제공하지 않고, 이런 사용을 권장하지 않는다.</p>
+
+    <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+      <p>각 웹 서버들의 설정과 mod_jk 설정은 웹 서버 버전에 따라서 차이가 있을 수 있다. 본 절의 설정 방법은 JEUS
+      사용자들의 이해를 돕기 위해서 제공하는 것이므로 <span class="bold"><strong>실제로 설정할 때에는 반드시 각 웹
+      서버들의 문서, 국내외 커뮤니티에서 제공하는 설정 사례들을 참고해야 한다.</strong></span></p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_clustering_mutiple_web_containers_and_webservers"></a>2.4.1. 부하 분산 구조</h3></div></div></div>
+      
+
+      <p>서비스 요청이 많은 웹 사이트는 한 대의 웹 서버와 웹 엔진으로는 서비스를 제공하기 어렵기 때문에 부하 분산을 위해서
+      여러 개의 웹 서버와 웹 엔진이 필요하다.</p>
+
+      <p>다음은 2대의 웹 서버와 4대의 웹 엔진이 연결되어 있는 부하 분산 구조를 나타낸다.</p><div class="figure"><a id="figure_small_cluster_with_two_webservers_connected_to_two_web_containers_each"></a><p class="title"><b>[그림 2.33] 소규모 웹 사이트에서의 부하 분산 구조</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="521"><tr><td align="left"><img src="resources/figure_small_cluster_with_two_webservers_connected_to_two_web_containers_each.png" align="top" width="521" alt="소규모 웹 사이트에서의 부하 분산 구조"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>각 웹 엔진에는 동일한 웹 컨텍스트들이 deploy되어 있어야 한다. 이러한 환경에서 중요한 것은 세션의 공유
+      여부이다. 애플리케이션을 좀 더 편리하게 관리하고 싶거나 분산 세션 서비스가 필요하다면 웹 엔진들을 하나의 클러스터로 묶어야
+      한다. 세션 클러스터에 대한 자세한 내용은 <a xmlns="" href="../session/chapter_session_tracking.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS 세션 관리 안내서</span>”의 “제1장 세션 트래킹”</a>을 참고한다.</p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_apache_webserver_conf"></a>2.4.2. Apache 웹 서버</h3></div></div></div>
+      
+
+      <p>Apache를 웹 엔진과 연동하려면 다음과 같은 과정을 수행해야 한다.</p><div class="orderedlist"><ol type="1"><li>
+            <p>Apache에 mod_jk 라이브러리를 설치한다.</p>
+          </li><li>
+            <p>JEUS 웹 엔진에 AJP13 리스너를 설정한다.</p>
+          </li><li>
+            <p>workers.properties 파일을 생성하고 편집한다.</p>
+          </li><li>
+            <p>Apache 웹 서버의 httpd.conf 파일에 연동 구절을 삽입한다.</p>
+          </li><li>
+            <p>Apache 웹 서버를 재시작한다.</p>
+          </li></ol></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>Apache의 경우 2.2.4, mod_jk의 경우 1.2.20을 기준으로 설명한다.</p>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e3797"></a><p><a id="install_mod_jk_library"></a>mod_jk 라이브러리
+      설치</p></h4>
+
+      <p>Apache 웹 서버를 웹 엔진의 앞 단에서 사용하려면 "mod_jk"라는 모듈을 Apache 설치 모듈에 추가해야
+      한다. "mod_jk" 모듈은 서버와 엔진 간의 통신 프로토콜을 구현한 것으로, 이 프로토콜은 Apache JServ
+      Protocol 1.3(AJP 1.3)이다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>2014년 4월 현재 Windows 바이너리를 제공하고 있는 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://tomcat.apache.org/download-connectors.cgi" target="_top">http://tomcat.apache.org/download-connectors.cgi</a>에서
+        소스를 다운로드받아서 해당 머신에서 컴파일한다.</p>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e3806"></a><p><a id="webmain_configuration_for_ajp13"></a>AJP13 리스너
+      설정</p></h4>
+
+      <p>mod_jk 라이브러리 설치가 완료되면 JEUS 웹 엔진에 AJP13 리스너를 설정한다. AJP13 리스너 설정 방법의
+      자세한 내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_ajp13_listener" title="2.3.2. AJP 리스너 설정">“2.3.2. AJP 리스너 설정”</a>을 참고한다.</p>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e3813"></a><p><a id="workers_properties_configuration"></a>workers.properties
+      설정</p></h4>
+
+      <p>workers.properties 파일은 mod_jk를 위한 설정 파일이다. 예를 들어 JEUS는 server1, server2라는 2대의 서버가 있다. 호스트 이름이 각각 server1,
+      server2라고 가정한다. 각 웹 엔진에 설정된 AJP 리스너들은 9901, 9902로 설정했다고 가정하자.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 가정한 JEUS 환경에서의 workers.properties 예제이다.</p>
+
+      <div class="example"><a id="d4e3819"></a><p class="title"><b>[예 2.1] mod_jk 설정 파일 예제 : &lt;&lt;workers.properties&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">worker.list=jeus_load_balancer_workers
+worker.jeus_load_balancer_workers.type=lb
+worker.jeus_load_balancer_workers.sticky_session=true
+
+###########################################
+# listener specific configuration
+###########################################
+worker.jeus_load_balancer_workers.balance_workers=server1
+worker.server1.reference=worker.template
+worker.server1.host=192.168.0.101
+worker.server1.port=9901
+worker.server1.route=ZG9tYWluMS9zZXJ2MQ==
+
+worker.jeus_load_balancer_workers.balance_workers=server2
+worker.server1.reference=worker.template
+worker.server1.host=192.168.0.102
+worker.server1.port=9902
+worker.server1.route=ZG9tYWluMS9zZXJ2Mg==
+
+
+###########################################
+# common config
+###########################################
+worker.template.type=ajp13
+worker.template.socket_connect_timeout=5000
+worker.template.socket_keepalive=true
+worker.template.ping_mode=A
+worker.template.ping_timeout=10000
+worker.template.connection_pool_minsize=0
+worker.template.connection_pool_timeout=600
+worker.template.reply_timeout=300000
+worker.template.recovery_options=3
+</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p>workers.properties 파일은 몇몇 정의를 제외하고 일반적으로
+      "worker.&lt;<span class="emphasis"><em>worker_name</em></span>&gt;.&lt;<span class="emphasis"><em>directive</em></span>&gt;=&lt;<span class="emphasis"><em>value</em></span>&gt;"의
+      형식으로 정의한다.</p>
+
+      <p>다음은 중요한 설정에 대한 설명이다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><span><strong class="guibutton">worker.list<a id="d4e3832" class="indexterm"></a></strong></span></p>
+
+            <p>해당 worker를 정의하는 항목이다. worker의 이름들은 콤마(,)로 구분되며 여러 worker들을
+            나열할 수 있다.</p>
+
+            <p>다음은 "jeus_load_balancer_workers"라는 이름의 worker를 하나 정의한
+            예제이다.</p>
+
+            <pre class="programlisting">worker.list=jeus_load_balancer_workers </pre>
+          </li><li>
+            <p><span><strong class="guibutton">worker.&lt;</strong></span><span class="emphasis"><em><span><strong class="guibutton">worker_name</strong></span></em></span><span><strong class="guibutton">&gt;.type</strong></span><a id="d4e3845" class="indexterm"></a></p>
+
+            <p>worker의 타입을 정의한다. 'ajp13', 'ajp14', 'jni', 'lb', 'status' 등을
+            선택할 수 있다. AJP13을 지원하기 위해 JEUS에서는 'ajp13', 'lb'만의 설정으로도
+            충분하다.</p>
+
+            <p>다음은 "jeus_load_balancer_workers"를 Load Balancer type으로 정의한
+            예제이다.</p>
+
+            <pre class="programlisting">worker.jeus_load_balancer_workers.type=lb</pre>
+          </li><li>
+            <p><span><strong class="guibutton">worker.&lt;</strong></span><span class="emphasis"><em><span><strong class="guibutton">worker_name</strong></span></em></span><span><strong class="guibutton">&gt;.balance_workers</strong></span><a id="d4e3858" class="indexterm"></a></p>
+
+            <p>콤마(,)로 구분하여 Load Balance를 원하는 worker들을 나열할 수 있다. 위의
+            woker.list에 적은 worker들이 나타나서는 안 된다.</p>
+
+            <p>JEUS의 AJP13 리스너와 연동하는 경우 올바른 Load Balancer 및 sticky session
+            역할을 하려면 worker의 이름을 JEUS의 서블릿 엔진 이름으로 해야 한다. JEUS의 경우 Session ID의
+            라우팅 정보로 서블릿 엔진 이름을 이용하며 mod_jk에서는 worker의 이름을 이용하기 때문이다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">worker.&lt;</strong></span><span class="emphasis"><em><span><strong class="guibutton">worker_name</strong></span></em></span><span><strong class="guibutton">&gt;.sticky_session</strong></span><a id="d4e3869" class="indexterm"></a></p>
+
+            <p>Session ID를 기반으로 라우팅을 지원할지 여부를 설정한다. true(or 1) 또는 false(or
+            0)로 설정할 수 있다. JEUS에서는 Sticky Session을 기본으로 지원하므로 항상 true로 설정한다.
+            (기본값: true)</p>
+
+            <p>다음은 "jeus_load_balancer_workers"는 Sticky Session을 지원한다는
+            예제이다.</p>
+
+            <pre class="programlisting">worker.jeus_load_balancer_workers.sticky_session=true</pre>
+          </li><li>
+            <p><span><strong class="guibutton">worker.&lt;</strong></span><span class="emphasis"><em><span><strong class="guibutton">worker_name</strong></span></em></span><span><strong class="guibutton">&gt;.host</strong></span><a id="d4e3882" class="indexterm"></a></p>
+
+            <p>JEUS의 AJP13 리스너가 존재하는 호스트 이름 또는 IP 주소를 입력한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">worker.&lt;</strong></span><span class="emphasis"><em><span><strong class="guibutton">worker_name</strong></span></em></span><span><strong class="guibutton">&gt;.port</strong></span><a id="d4e3892" class="indexterm"></a></p>
+
+            <p>JEUS의 AJP13 리스너의 포트 번호를 설정한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">worker.&lt;</strong></span><span class="emphasis"><em><span><strong class="guibutton">worker_name</strong></span></em></span><span><strong class="guibutton">&gt;.reference</strong></span><a id="d4e3902" class="indexterm"></a></p>
+
+            <p>많은 Load Balancer worker들을 설정할 때 유용하며 지정된 값에 해당하는 worker의
+            설정값을 reference할 수 있는 설정이다. 예를 들어
+            "worker.castor.reference=worker.template"라고 설정했다면 명시적으로 castor
+            worker에서 설정한 값을 제외하고 모든 worker.template의 설정들을 상속받는다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">worker.&lt;</strong></span><span class="emphasis"><em><span><strong class="guibutton">worker_name</strong></span></em></span><span><strong class="guibutton">&gt;.route</strong></span><a id="d4e3912" class="indexterm"></a></p>
+
+            <p>설정값에 해당하는 값이 sticky로 요청이 왔을 경우에 해당 worker가 처리하는 설정이다. JEUS의
+            세션 매니저에서 생성하는 세션에 붙이는 세션 라우팅 기술로 해당하는 worker를 매치시킴으로서 로컬 세션의 활용도를
+            높일 수 있다. 세션 라우팅에 대한 자세한 내용은 <a xmlns="" href="../session/chapter_session_tracking.html#sect_overview_of_session_tracking" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS 세션 관리 안내서</span>”의 “1.2. 세션 트래킹 구조”</a>를
+            참고한다.</p>
+
+            <p>해당 값은 domain_name/server_name의 Base64 알고리즘으로 인코딩한 값이다. 해당
+            인코딩 값은 JEUS_HOME/bin의 encryption 명령을 통해 얻을 수 있다.</p>
+
+            <p>다음은 사용 예제이다.</p>
+
+            <pre class="programlisting">${JEUS_HOME}/bin/encryption -algorithm base64 -text domain1/server1</pre>
+
+            <p>설정할 때 "domain1/server1", "domain1/server2"와 같이 "도매인 이름/서버
+            이름"을 사용하는 것에 유의한다.</p>
+          </li></ul></div>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>이 설정들은 mod_jk 버전에 따라 deprecated될 수도 있으므로 본 절에서 제시한 내용은 참고 용도로만
+          사용한다. 반드시 Tomcat 홈 페이지의 mod_jk 관련 설명에 따라 설정한다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e3926"></a>httpd.conf 설정</h4>
+
+      <p>httpd.conf 파일에는 mod_jk 모듈을 사용하기 위해 다음 사항을 추가해야 한다.</p>
+
+      <p/>
+
+      <div class="example"><a id="d4e3930"></a><p class="title"><b>[예 2.2] Apache에 mod_jk 설정 예제 : &lt;&lt;httpd.conf&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">. . .
+LoadModule    jk_module  "/usr/local/apache/modules/mod_jk.so"
+JkWorkersFile "/usr/local/apache/conf/workers.properties"
+JkLogFile     "/usr/local/apache/logs/mod_jk.log"
+JkLogLevel    info
+JkMount /examples/* jeus_load_balancer_workers
+. . .</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+        <p>Apache 버전에 따라 deprecated될 수도 있으므로 여기에서 제시한 것은 참고 용도로만 사용한다. 반드시
+        Apache 매뉴얼에 따라 설정한다.</p>
+      </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_configuring_webserver_IIS_IPlanet"></a>2.4.3. IIS 웹 서버 및 Iplanet 웹 서버 설정</h3></div></div></div>
+      
+
+      <p>IIS 웹 서버와 Iplanet 웹 서버도 AJP13 프로토콜을 지원한다. 따라서 workers.properties와
+      JEUS 설정 방식은 모두 동일하다. 단, 각 제품에 따라 mod_jk 모듈을 설치하는 방법과 mod_jk 사용 설정을 하는
+      방법이 다르다. 이러한 설정 방법은 각 웹 서버에서 제공하는 매뉴얼을 참고한다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_configuring_and_clustering_webtob_webserver"></a>2.4.4. WebtoB와의 부하 분산 설정</h3></div></div></div>
+      
+
+      <p>본 절에서는 예제를 통하여 WebtoB와 JEUS의 부하 분산 처리 환경을
+      구성한다.</p><div class="literallayout"><p/></div>
+
+      <p/>
+
+      <p>다음은 예제의 서버 구조를 나타낸다. 각 엔진이 각각의 WebtoB 서버를 갖는 구조에 대한 설정으로 예제는 2대의
+      WebtoB가 각각 2대의 웹 엔진에 연결된다.</p>
+
+      <div class="figure"><a id="figure_two_webtob_webservers_connected_in_parallel_with_two_web_containers_each"></a><p class="title"><b>[그림 2.34] 부하 분산 서버 구조 - 2대의 WebtoB가 각각 2대의 웹 엔진에 연결된 경우</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="644"><tr><td align="left"><img src="resources/figure_two_webtob_webservers_connected_in_parallel_with_two_web_containers_each.png" align="top" width="644" alt="부하 분산 서버 구조 - 2대의 WebtoB가 각각 2대의 웹 엔진에 연결된 경우"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p>Server A부터 D에는 동일한 웹 컨텍스트를 deploy해야 한다. 위와 같은 구성에서는 일반적으로 Server
+      A부터 D가 하나의 클러스터를 이루게 되며, 그에 따라 분산식 세션 서버를 사용하게 된다. 만약 사용자 세션이 필요없는 경우에는
+      클러스터를 구성하지 않아도 무방하다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <p>다음은 WebtoB A와 Server A, Server B가 연결된 모습을 좀 더 자세히 표현한 것으로 각각의
+      WebtoB 커넥터 설정 상태를 보여준다.</p>
+
+      <div class="figure"><a id="figure_two_webtob_connectors_connected_to_one_webtob_server"></a><p class="title"><b>[그림 2.35] WebtoB 커넥터 설정 상태</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_two_webtob_connectors_connected_to_one_webtob_server.png" align="top" width="663" alt="WebtoB 커넥터 설정 상태"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p>설정할 때에는 WebtoB의 HTH 프로세스 수를 고려해야 한다.</p>
+
+      <p/>
+
+      <p>WebtoB HTH 프로세스는 몇 개의 하위 프로세스를 가지고 있는 엔진처럼 행동한다. 이는 WebtoB 커넥터의
+      Worker Thread와 1대 1로 연결된다. 따라서 WebtoB 커넥터의 <span><strong class="guibutton">'Worker Thread
+      Pool Max'</strong></span> 설정값과 WebtoB 설정의 <span><strong class="guibutton">'MaxProc'</strong></span>
+      값을 주의해서 설정해야 한다.</p>
+
+      <p>HTH 프로세스의 개수는 WebtoB 설정에 존재하는 HTH 프로세스 개수를 그대로 WebtoB 커넥터의
+      <span><strong class="guibutton">'Hth Count'</strong></span> 설정에 반영한다. WebtoB의
+      <span><strong class="guibutton">'MaxProc'</strong></span> 값과 WebtoB 커넥터의 <span><strong class="guibutton">'Worker
+      Thread Pool Max'</strong></span> 값은 다음과 같은 공식으로 표현될 수 있다.</p>
+
+      <pre class="programlisting">MinProc = Listener A number threads + Listener B number threads + … + Listener X number threads setting.
+MaxProc = Listener A number threads + Listener B number threads + … + Listener X number threads setting.</pre>
+
+      <p>WebtoB 커넥터의 <span><strong class="guibutton">'Hth Count'</strong></span> 값은 WebtoB 설정 파일의
+      NODE 절의 요소 중 HTH 프로세스 개수와 반드시 동일해야 한다. WebtoB 커넥터 설정은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_webtob_connector" title="2.3.5. WebtoB 커넥터 설정">“2.3.5. WebtoB 커넥터 설정”</a>을 참고한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 WebtoB A가 위의 예제와 같이 설정되기 위한 http.m 파일의 설정 예이다.</p>
+
+      <div class="example"><a id="d4e3979"></a><p class="title"><b>[예 2.3] WebtoB 설정 예 : &lt;&lt;http.m&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">*NODE
+foo     …
+   <span class="bold"><strong>HTH = 2</strong></span>,
+   JSVPORT = 9900,
+   …
+*SVRGROUP
+jsvg    NODENAME = foo, SVRTYPE = JSV
+
+*SERVER
+<span class="bold"><strong>default</strong></span>    SVGNAME = jsvg, MinProc = 6, MaxProc = 25
+
+*URI
+uri1  Uri = "/examples/", Svrtype = JSV
+uri2  Uri = "/test/", Svrtype = JSV
+
+*EXT
+jsp  MimeType = "application/jsp", SvrType = JSV</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <p/>
+
+      <p>min과 max 값의 설정에 주의한다. min과 max 값은 다음과 같이 설정되었다.</p>
+
+      <pre class="programlisting">HTH MinProc = 6 = 2 thread + 4 thread, HTH MaxProc = 25 = 10 thread + 15 thread</pre>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_using_tcp_listener"></a>2.5. TCP 리스너 사용</h2></div></div></div>
+    
+
+    <p>TCP 리스너는 통신 프로토콜을 직접 정의해서 TCP 클라이언트와 TCPServlet 간에 통신할 수 있다. 단, TCP
+    리스너는 HTTP 또는 HTTPS 프로토콜로 만족할 수 없는 사항이 있을 경우에만 사용하기를 권장한다.</p>
+
+    <p>TCP 리스너를 사용하기 위해서는 다음과 같은 과정을 수행해야 한다.</p><div class="orderedlist"><ol type="1"><li>
+          <p>맞춤 통신 프로토콜을 정의한다.</p>
+        </li><li>
+          <p>Dispatcher Config Class를 구현한다(프로토콜 설정 정보).</p>
+        </li><li>
+          <p>TCP 핸들러 서블릿을 구현한다(프로토콜 구현).</p>
+        </li><li>
+          <p>맞춤 프로토콜 구현을 위한 TCP 리스너를 설정한다.</p>
+        </li><li>
+          <p>TCP 클라이언트를 구현한다.</p>
+        </li><li>
+          <p>TCP 클라이언트를 컴파일하고 구동한다.</p>
+        </li></ol></div>
+
+    <p/>
+
+    <div class="literallayout"><p/></div>
+
+    <p>본 절에서 사용할 용어는 다음과 같다.</p>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">용어</th><th>설명</th></tr></thead><tbody><tr><td align="left">프로토콜(통신 프로토콜)<a id="d4e4021" class="indexterm"></a></td><td>TCP 클라이언트와 TCP 핸들러 사이에서(TCP 리스너가 중간역할) 교환되는 메시지의 구조와 내용을
+              정의한다.</td></tr><tr><td align="left">메시지<a id="d4e4026" class="indexterm"></a></td><td>TCP 클라이언트와 TCP 핸들러 사이에서 교환되는 데이터이다. 프로토콜에서 정의한 구조에 맞아야
+              한다.</td></tr><tr><td align="left">TCP 클라이언트<a id="d4e4031" class="indexterm"></a></td><td>TCP 리스너와 교신하며 메시지를 주고받는 외부의 애플리케이션(TCP 핸들러에 의해 처리된다)이다.
+              메시지를 주고받는 것은 표준 소켓을 사용한다.</td></tr><tr><td align="left">TCP 핸들러<a id="d4e4036" class="indexterm"></a></td><td><p>TCP 리스너를 통해 메시지를 받고 구현된 방법대로 메시지를 처리한다.
+              </p><p>TCP 핸들러는 jeus.servlet.tcp.TCPServlet의 하위 클래스의 형태로
+              구현되고 웹 엔진에 보통 서블릿처럼 등록된다. TCP 핸들러는 TCP 프로토콜 위에 존재하는 맞춤 프로토콜의
+              "제공자" 또는 "구현체"처럼 동작한다고 할 수 있다.</p></td></tr><tr><td align="left">TCP Dispatcher Configuration Class<a id="d4e4043" class="indexterm"></a></td><td><p>TCP Dispatcher Configuration Class는
+              jeus.servlet.tcp.TCPDispatcherConfig를 확장한 클래스이다. 이 클래스는 맞춤 프로토콜에
+              대한 정보를 TCP 리스너로 전달하여 이 non-HTTP 메시지를 해석하여 처리한다. </p><p>이
+              클래스는 DOMAIN_HOME/lib/application 디렉터리 아래에 위치시키고, 웹 엔진 설정 하위의 TCP
+              리스너 설정 항목 중 <span><strong class="guibutton">'Dispatcher Config Class'</strong></span> 항목에
+              설정한다(<a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_tcp_listener" title="2.3.4. TCP 리스너 설정">“2.3.4. TCP 리스너 설정”</a>
+              참조).</p></td></tr><tr><td align="left">TCP 리스너<a id="d4e4052" class="indexterm"></a></td><td><p>맞춤 메시지에 대한 해석과 라우팅 인프라를 제공한다. TCP 클라이언트와 TCP 핸들러
+              사이에서 non-HTTP 중간 매개체로 역할을 한다. </p><p>이것은 다른 HTTP 리스너와
+              마찬가지로 웹 엔진 내에 존재한다.</p></td></tr></tbody></table>
+      </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_defining_custom_communication_protocol"></a>2.5.1. 맞춤 통신 프로토콜 정의</h3></div></div></div>
+      
+
+      <p>TCP 리스너는 TCP 클라이언트와 TCP 핸들러 간에 통신되는 모든 메시지들을 두 부분으로 나누는데, 헤더와 바디가
+      그것이다. 일반적으로 헤더는 기본적이면서도 표준 정보를 전달하고 크기도 정해져 있다. 바디는 전송될 임의의 사용자 데이터가
+      포함된다. (예: HTTP 응답의 HTML 코드)</p>
+
+      <p>TCP 리스너의 사용을 설명하기 위해 간단한 프로토콜(메시지 구조)을 정의한다(이것은 나중에 사용할
+      것이다).</p>
+
+      <p>맞춤 통신 프로토콜(맞춤 메시지 구조)은 다음과 같은 내용을 가진다.</p>
+
+      <div class="itemizedlist"><ul type="disc" compact="compact"><li>
+          <p>헤더<a id="d4e4065" class="indexterm"></a></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+                <p>헤더는 4Bytes의 <span class="bold"><strong>magic</strong></span> 수로
+                시작한다. 이는 사용되는 프로토콜을 식별한다. '7777'로 설정한다.</p>
+              </li><li>
+                <p>1Byte의 <span class="bold"><strong>type</strong></span> 필드가 magic 수
+                다음에 쓰인다. '0'은 요청을 '1'은 응답을 의미한다.</p>
+              </li><li>
+                <p>세 번째 항목은 4Bytes의 <span class="bold"><strong>body
+                length</strong></span>이다. 이 항목은 메시지의 바디 부분의 Byte 수를 기록한다. 예제에서는 크기가
+                128Bytes로 고정되어 있다.</p>
+              </li><li>
+                <p>마지막 항목은 32Bytes의 string으로 <span class="bold"><strong>service
+                name</strong></span>을 기록한다. 예제에서는 그 값으로 요청을 처리하는 TCPServlet의 이름을
+                입력한다.</p>
+              </li></ul></div>
+        </li><li>
+          <p>바디<a id="d4e4083" class="indexterm"></a></p>
+
+          <div class="itemizedlist"><ul type="circle"><li>
+              <p>메시지의 바디 부분은 128Bytes 길이를 가진 문자 데이터를 넣는다. 예제에서는 이 128Byte
+              블록을 2개의 임의의 64Bytes 텍스트 string으로 넣는다.</p>
+            </li></ul></div>
+        </li></ul></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4090"></a>2.5.2. Dispatcher Config Class 구현</h3></div></div></div>
+      
+
+      <p>Dispatcher Config Class는 jeus.servlet.tcp.TCPDispatcherConfig
+      Class의 하위 클래스이다. 이 클래스의 abstract 메소드는 TCP 리스너가 알맞은 TCP 핸들러에게 메시지를 전달하기
+      위해 필요한 여러 가지 정보들이 구현되어야 한다. 이 메소드들은
+      JEUS_HOME/docs/api/jeusapi/index.html에 설명되어 있다.</p>
+
+      <p>JEUS 7 Fix#1부터 getBodyLengthLong 메소드가 추가되었다. TCP 바디의 크기가 2GB
+      이상이라면 해당 메소드를 사용해서 바디 길이를 8Byte로 나타내면 된다.</p>
+
+      <p>다음은 정의된 프로토콜에 기반하여 Dispatcher Config Class를 어떻게 구현했는지를 보여준다. 특정
+      메소드들이 어떻게 사용되었는지는 주석을 참고한다.</p>
+
+      <p/>
+
+      <div class="example"><a id="d4e4097"></a><p class="title"><b>[예 2.4] TCPDispatcherConfig 구현 예 :
+          &lt;&lt;SampleConfig.java&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package sample.config;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import jeus.servlet.tcp.*;
+
+/*
+  This class extends the abstract class jeus.servlet.tcp.
+  TCPDispatcherConfig class. This implementation provides
+  routing and handling information to the TCP listener
+  according to our defined communications protocol.
+*/
+public class SampleConfig extends TCPDispatcherConfig {
+    /*
+      Any init code goes into this method. This method will be
+      Called once after starting the TCP listener.
+      We leave this method empty for our simple example.
+    */
+    public void init() {}
+
+    /*
+      This method returns the fixed-length of the header so
+      that the TCP listener knows when to stop
+      reading the header. The header length for
+      our example is 41 (bytes): 4 (magic) + 1
+      (type) + 4 (body length) + 32 (service name).
+    */
+    public int getHeaderLength() {
+        return 41;
+    }
+
+    /*
+      This method must return the length of the body.
+      For our example, this length is represented as an
+      “int” in the header, starting at position “5”
+      (see the protocol definition above).
+    */
+    public int getBodyLength(byte[] header) {
+        return getInt(header, 5);
+    }
+
+    /**)
+     * Returns the long-size length of request body of
+     * incoming request packet.
+     * If you don't need to support long, you may map to
+     * {@link #getBodyLength(byte[])}.
+     */
+    public long getBodyLengthLong(byte[] header) {
+        return getBodyLength(header);
+    }
+
+    /*
+      This method must return the context path so that the
+      request can be routed by the TCP listener to the context
+      that contains the TCP handler (TCPServlet implementation).
+      For our example, we always use the context path “/tcptest”.
+    */
+    public String getContextPath(byte[] header) {
+        return "/tcptest";
+    }
+
+    /*
+      This method must return the name (path) of the TCP
+      handler(TCPServlet) relative to the context path.
+      For our example, we fetch this name from the 9th position
+      in the header.
+    */
+    public String getServletPath(byte[] header) {
+        return "/" + getString(header, 9, 32);
+    }
+
+    /*
+      This method returns some path info from the header.
+      It is not used in our example and thus returns “null”.
+    */
+    public String getPathInfo(byte[] header) {
+        return null;
+    }
+
+    /*
+      This method returns any session ID embedded in the header.
+      It is not used in our example and thus returns “null”.
+    */
+    public String getSessionId(byte[] header) {
+        return null;
+    }
+
+    /*
+      This method determines whether the TCP listener
+      should keep the socket connection open after the TCP handler
+      has delivered its response. If it returns “false”, the
+      connection will be dropped like in HTTP communications.
+      If it returns “true” the connection will be kept open
+      like in the Telnet or FTP protocols. For our example,
+      we choose to make it persistent (connection not closed
+      by the TCP listener).
+    */
+    public boolean isPersistentConnection() {
+        return true;
+    }
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4100"></a>2.5.3. TCP 서블릿 구현</h3></div></div></div>
+      
+
+      <p>TCP 서블릿은 항상 jeus.servlet.tcp.TCPServlet의 하위 클래스이다. 여기에는 항상
+      overridden되는 abstract void service(TCPServletRequest req,
+      TCPServletResponse res) 메소드가 존재한다.</p>
+
+      <p>service 메소드는 맞춤 프로토콜에 준하는 메시지를 처리하도록 구현해야 한다. 웹 컨테이너는 헤더를 읽어서
+      TCPServletRequest 객체에 전달하며, TCP 서블릿에서는 TCPServletResponse 객체의 output
+      stream으로 응답을 쓴다.</p>
+
+      <p>다음 예제는 맞춤 프로토콜에 준하는 메시지를 처리하는 TCP 서블릿의 구현 코드이다.</p>
+
+      <p/>
+
+      <div class="example"><a id="d4e4107"></a><p class="title"><b>[예 2.5] TCP 서블릿 구현 예 : &lt;&lt;SampleTCPServlet.java&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package sample.servlet;
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import jeus.servlet.tcp.*;
+
+/**
+ * Sample TCPServlet implementation
+ *
+ * Protocol scheme:
+ *
+ * common header (for request and response) : total 41 byte
+ *
+ *   magic field: length = 4 byte, value = 7777
+ *   type field : length = 1 byte, 0 : request, 1:response
+ *   body length field : length = 4, value = 128
+ *   service name field : length = 32
+ *
+ * request and response body
+ *
+ *   message1 field : length = 64
+ *   message2 field : length = 64
+ *
+ */
+
+public class SampleTCPServlet extends TCPServlet {
+
+    public void init(ServletConfig config) throws ServletException {
+    }
+
+    public void service(TCPServletRequest req, TCPServletResponse res)
+        throws ServletException, IOException {
+        ServletContext context = req.getServletContext();
+        byte[] header = req.getHeader();
+        byte[] body = new byte[req.getContentLength()];
+        int read = req.getInputStream().read(body);
+        if (read &lt; body.length) {
+            throw new IOException("The client sent the wrong content.");
+        }
+
+        String encoding = res.getCharacterEncoding();
+        if (encoding == null)
+            encoding = "euc-kr";
+
+        DataInputStream in = new DataInputStream(new ByteArrayInputStream(header));
+        int magic = in.readInt();
+        context.log("[SampleTCPServlet] received magic = " + magic);
+
+        byte type = (byte)in.read();
+        context.log("[SampleTCPServlet] received type = " + type);
+
+        int len = in.readInt();
+        context.log("[SampleTCPServlet] received body length = " + len);
+
+        byte[] svcname = new byte[32];
+        in.readFully(svcname);
+        context.log("[SampleTCPServlet] received service name = "
+                     + (new String(svcname)).trim());
+
+        String rcvmsg = null;
+        rcvmsg = (new String(body, 0, 64)).trim();
+        context.log("[SampleTCPServlet] received msg1 = " + rcvmsg);
+
+        try {
+            rcvmsg = (new String(body, 64, 64, encoding)).trim();
+        } catch (Exception e) {}
+        context.log("[SampleTCPServlet] received msg2 = " + rcvmsg);
+
+        String msg1 = "test response";
+        String msg2 = "test response2";
+
+        byte[] result1 = null;
+        byte[] result2 = null;
+        if (encoding != null) {
+            try {
+                result1 = msg1.getBytes(encoding);
+                result2 = msg2.getBytes(encoding);
+            } catch (UnsupportedEncodingException uee) {
+                result1 = msg1.getBytes();
+                result2 = msg2.getBytes();
+            }
+        } else {
+            result1 = msg1.getBytes();
+            result2 = msg2.getBytes();
+        }
+
+        header[4] = (byte)1; // mark as response
+
+        ServletOutputStream out = res.getOutputStream();
+        out.write(header);
+
+        byte[] buf1 = new byte[64];
+        System.arraycopy(result1, 0, buf1, 0, result1.length);
+        out.write(buf1);
+
+        byte[] buf2 = new byte[64];
+        System.arraycopy(result2, 0, buf2, 0, result2.length);
+        out.write(buf2);
+
+        out.flush();
+    }
+
+    public void destroy() {
+    }
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JEUS 7 Fix#2부터는 TCPServletRequest.getBody() 메소드 사용을 권장하지 않는다.
+        이 메소드는 요청 바디가 매우 큰 경우 메모리 문제를 일으킬 수 있다. 따라서 서블릿 표준에 정의된
+        ServletInputStream을 사용하는 것을 권장한다. 이는
+        TCPServletRequest.getInputStream()으로 얻을 수 있다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4115"></a>2.5.4. 맞춤 프로토콜 코드를 위한 TCP 리스너 설정</h3></div></div></div>
+      
+
+      <p>구현한 코드(SampleConfig.java와 SampleTCPServlet.java)를 기반으로 TCP 리스너를
+      설정한다. 설정 과정은 다음과 같다.</p><div class="orderedlist"><ol type="1"><li>
+            <p>웹 엔진에 TCP 리스너 정보를 설정한다. TCP 리스너 정보 설정에 대한 자세한 내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_tcp_listener" title="2.3.4. TCP 리스너 설정">“2.3.4. TCP 리스너 설정”</a>을 참고한다. 단, TCP 리스너에서
+            참조하는 서버 리스너의 포트는 '5555', <span><strong class="guibutton">'Dispatcher Config
+            Class'</strong></span>는 'sample.config.SampleConfig'를 입력해야 한다.</p>
+          </li><li>
+            <p>JEUS 서버를 시작하고 위에서 작성한 TCP 서블릿을 포함시킨 웹 애플리케이션을 deploy한다. 이때 웹
+            애플리케이션의 DD의 예는 다음과 같다.</p>
+
+            <p/>
+
+            <div class="example"><a id="d4e4126"></a><p class="title"><b>[예 2.6] TCP 핸들러 DD : &lt;&lt;web.xml&gt;&gt;</b></p><div class="example-contents">
+              
+
+              
+
+              <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"&gt;
+    &lt;display-name&gt;test&lt;/display-name&gt;
+    &lt;distributable/&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;SampleServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;sample.servlet.SampleServlet&lt;/servlet-class&gt;
+        &lt;load-on-startup&gt;0&lt;/load-on-startup&gt;
+        &lt;async-supported&gt;true&lt;/async-supported&gt;
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;SampleServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/<span class="bold"><strong>sample</strong></span>&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+    &lt;login-config&gt;
+        &lt;auth-method&gt;BASIC&lt;/auth-method&gt;
+    &lt;/login-config&gt;
+&lt;/web-app&gt;</pre>
+            </div></div><br class="example-break"/>
+
+            <p/>
+          </li></ol></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4132"></a>2.5.5. TCP 클라이언트 구현</h3></div></div></div>
+      
+
+      <p>TCP 클라이언트는 TCP 리스너와 소켓 연결을 맺고 이 연결을 통하여 메시지를 전송한다. 이 메시지는 <a href="chapter_webserver_connectivity_and_clustering.html#sect_defining_custom_communication_protocol" title="2.5.1. 맞춤 통신 프로토콜 정의">“2.5.1. 맞춤 통신 프로토콜 정의”</a>에서 정의한 맞춤 통신
+      프로토콜에 준하는 Byte 스트림이다.</p>
+
+      <p>설정된 TCP 리스너는 메시지를 받아서 SampleConfig 클래스에 정의된 dispatch 정보를 바탕으로
+      SampleTCPServlet의 service() 메소드를 호출한다. SampleTCPServlet은 클라이언트로부터 전달된
+      데이터를 바탕으로 응답을 생성하여 전송한다. 이 응답은 클라이언트가 받아 System.out으로 출력한다.</p>
+
+      <p>다음은 그에 대한 예이다.</p>
+
+      <p/>
+
+      <div class="example"><a id="d4e4140"></a><p class="title"><b>[예 2.7] TCP 클라이언트 구현 예 : &lt;&lt;Client.java&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package sample.client;
+
+import java.io.*;
+import java.net.*;
+
+public class Client {
+    private String address;
+    private int port;
+
+    <span class="bold"><strong>private int magic = 7777;
+    private byte type = 0;
+    private int bodyLength = 128;
+    private byte[] serviceName="sample".getBytes();</strong></span>
+
+    public Client(String host, int port) {
+        this.address = host;
+        this.port = port;
+    }
+
+    public void test()
+        throws IOException, UnsupportedEncodingException {
+        Socket socket = new Socket(address, port);
+        DataOutputStream out = new DataOutputStream(
+            new BufferedOutputStream(socket.getOutputStream()));
+        DataInputStream in = new DataInputStream(
+            new BufferedInputStream(socket.getInputStream()));
+
+        out.writeInt(7777);
+        out.write(type);
+        out.writeInt(bodyLength);
+        byte[] buf = new byte[32];
+        System.arraycopy(serviceName, 0, buf, 0, serviceName.length);
+        out.write(buf);
+        byte[] msg1 = "test request".getBytes();
+        byte[] msg2 = "test request2".getBytes();
+        buf = new byte[64];
+        System.arraycopy(msg1, 0, buf, 0, msg1.length);
+        out.write(buf);
+        buf = new byte[64];
+        System.arraycopy(msg2, 0, buf, 0, msg2.length);
+        out.write(buf);
+
+        out.flush();
+
+        // rx msg
+        int magic = in.readInt();
+        System.out.println("[Client] received magic = " + magic);
+
+        byte type = (byte)in.read();
+        System.out.println("[Client] received type = " + type);
+
+        int len = in.readInt();
+        System.out.println("[Client] received body length = " + len);
+
+        byte[] svcname = new byte[32];
+        in.readFully(svcname);
+        System.out.println("[Client] received service name = " +
+                           (new String(svcname)).trim());
+
+        byte[] body = new byte[128];
+        in.readFully(body);
+        String rcvmsg = null;
+        rcvmsg = (new String(body, 0, 64)).trim();
+        System.out.println("[Client] received msg1 = " + rcvmsg);
+        rcvmsg = (new String(body, 64, 64, "euc-kr")).trim();
+        System.out.println("[Client] received msg2 = " + rcvmsg);
+
+        out.close();
+        in.close();
+        socket.close();
+    }
+
+    public static void main(String[] argv) throws Exception {
+        <span class="bold"><strong>Client client = new Client("localhost", 5555);</strong></span>
+        client.test();
+    }
+}</pre>
+        </div></div><p><br class="example-break"/>위의 클라이언트 코드에서 프로토콜에 필요한 다양한 헤더의 필드들의 설정을 주의 깊게 확인한다.</p>
+
+      <p>'magic' 수는 '7777'로, 'type'은 '0'(요청), 'body length'는 '128Bytes'(고정
+      길이), 'service name'은 'sample'로 설정되어 있다(<span><strong class="guibutton">SampleServlet의 이름은
+      web.xml에 설정되어 있다</strong></span>). 그리고 2개의 메시지들을 생성하여 헤더 정보를 전송한 후에 TCP
+      리스너에게 그들을 전송한다. 마지막으로 'hostname'을 'localhost'로 포트 번호는 '5555'로
+      설정하였다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4148"></a>2.5.6. TCP 클라이언트 컴파일과 실행</h3></div></div></div>
+      
+
+      <p>TCP 리스너가 설정되어 'localhost'에 '5555' 포트를 이용하여 운영되고 있다고 가정한다. 이런 환경에서
+      TCP 클라이언트를 컴파일하고 실행하는 과정은 다음과 같다.</p><div class="orderedlist"><ol type="1"><li>
+            <p>Client.java를 컴파일한다.</p>
+
+            <pre class="screen">javac -classpath ${JEUS_HOME}/lib/system/jeus.jar -d . Client.java</pre>
+          </li><li>
+            <p>Client.class를 다음과 같이 실행한다.</p>
+
+            <p/>
+
+            <pre class="screen">java -classpath ${JEUS_HOME}/lib/system/jeus.jar:.sample.client.Client</pre>
+          </li><li>
+            <p>JEUS 관리자의 콘솔 윈도우는 다음과 같이 TCP 핸들러의 결과값을 보여줘야 한다(SampleServlet
+            클래스).</p>
+
+            <p/>
+
+            <pre class="screen">[SampleServlet] received magic = 7777
+[SampleServlet] received type = 0
+[SampleServlet] received body length = 128
+[SampleServlet] received service name = sample
+[SampleServlet] received msg1 = test request
+[SampleServlet] received msg2 = test request2</pre>
+          </li><li>
+            <p>다음의 내용이 클라이언트의 실행 화면에 표시된다.</p>
+
+            <pre class="screen">[Client] received magic = 7777
+[Client] received type = 1
+[Client] received body length = 128
+[Client] received service name = sample
+[Client] received msg1 = test response
+[Client] received msg2 = test response2</pre>
+          </li></ol></div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_using_http2_listener"></a>2.6. HTTP/2 사용</h2></div></div></div>
+    
+
+    <p>HTTP/2는 HTTP/1.1에서 성능 향상을 위하여 새로 나온 HTTP 표준의 차기 버전이다.</p>
+
+    <p>다음은 HTTP/2의 특징에 대한 설명이다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">Header Compression</strong></span></p>
+
+          <p>HTTP/2에서는 기본적으로 헤더를 허프만 코딩으로 압축을 하여 보낸다. 또한, 반복되는 헤더가 여러 번
+          전송되지 않도록 서버, 클라이언트가 각자 헤더 테이블에 인덱싱을 해둔다. 얼마나 많은 양의 헤더를 인덱싱을 해둘지는
+          Settings Header Table Size로 설정할 수 있다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Request/Response Multiplexing</strong></span></p>
+
+          <p>HTTP/2에서는 일련의 요청/응답 쌍을 하나의 스트림이라 부르며 하나의 스트림은 여러 개의 프레임(헤더
+          프레임, 데이터 프레임, ...)으로 이루어져 있다. 실제로 연결을 통해 전송되는 단위는 프레임이다. HTTP/1.1까지는
+          하나의 요청/응답이 완료된 후에 다시 요청을 보낼 수 있었지만 HTTP/2에서는 여러 개의 스트림을 생성하여 동시에 여러
+          요청을 보낼 수 있다.</p>
+
+          <p>몇 개의 스트림을 동시에 사용할지는 Settings Max Concurrent Streams 설정을 통해 할 수
+          있다. 실제 데이터(body)가 전송되는 프레임인 데이터 프레임의 크기는 Settings Max Frame Size로
+          설정할 수 있다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Server Push</strong></span></p>
+
+          <p>Server Push에 관한 내용은 <a href="chapter_webserver_connectivity_and_clustering.html#sect_using_http2_listener_serverpush" title="2.6.2. Server Push">“2.6.2. Server Push”</a>를 참고한다.</p>
+        </li></ul></div>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>본 안내서는 JEUS에서 HTTP/2 사용에 관한 내용만을 주로 다루고 있으며 HTTP/2에 관한 더 자세한 내용은
+        <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://httpwg.org/specs/rfc7540.html" target="_top">"RFC
+        문서"</a>를 참고한다.</p>
+      </div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_using_http2_listener_protocol"></a>2.6.1. HTTP/2 사용 설정</h3></div></div></div>
+      
+
+      <p>HTTP/2는 <span><strong class="guibutton">h2c</strong></span>와 <span><strong class="guibutton">h2</strong></span> 두 가지
+      식별자를 정의하고 있다. 각각의 의미는 아래와 같다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">h2c</td><td>HTTP/2를 가리킨다. 'http'로 서비스된다.</td></tr><tr><td align="left">h2</td><td>TLS(Transport Layer Security)를 사용해 동작하는 HTTP/2를 가리킨다.
+                'https'로 서비스된다.</td></tr></tbody></table>
+        </div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>대부분의 브라우저는 <span><strong class="guibutton">h2c</strong></span>를 지원하지 않고
+        <span><strong class="guibutton">h2</strong></span>만 지원한다.</p>
+      </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>HTTP/2를 <span><strong class="guibutton">h2c</strong></span>로 사용하기 위해서는 <a href="chapter_webserver_connectivity_and_clustering.html#sect_configuring_http_listener" title="2.3.3. HTTP 리스너 설정">“2.3.3. HTTP 리스너 설정”</a>을 참고하여 HTTP/2 사용 항목을
+      체크한다.</p>
+
+      <p>HTTP/2를 h2로 사용하기 위해서 TLS(Transport Layer Security)를 사용해 동작하는데 TLS
+      handshake 과정중에 ALPN(Application Layer Protocol Negotiation) 기능을 이용해야 한다.
+      ALPN 기능은 JDK 9에 포함될 예정이므로 JDK 7을 기반으로 개발된 JEUS 8에서는 기본적으로는 ALPN 기능을 사용할
+      수가 없다. h2는 TLS를 사용해 동작하므로 당연히 보안 리스너로 설정한 포트를 사용해야 한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 ALPN을 사용하기 위해 필요한 작업이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>다음 주소에서 사용할 JDK 버전에 맞는 alpn-boot 라이브러리를 확인한 후 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://mvnrepository.com/artifact/org.mortbay.jetty.alpn/alpn-boot" target="_top">"MVN
+            Repository"</a>에서 다운받는다.</p>
+
+            <pre class="programlisting"><a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html#alpn-versions" target="_top">http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html#alpn-versions</a></pre>
+          </li><li>
+            <p>다운받은 alpn-boot 라이브러리를 bootclasspath에 추가하는
+            &lt;jvm-option&gt;을 domain.xml에 추가한다.</p>
+
+            <pre class="programlisting">&lt;jvm-config&gt;
+    &lt;jvm-option&gt;-Xbootclasspath/p:&lt;path_to_alpn_boot_jar&gt; ...&lt;/jvm-option&gt;
+&lt;/jvm-config&gt; </pre>
+          </li></ol></div>
+
+      <p/>
+
+      <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+        <p>1. 위에서 사용한 alpn-boot 라이브러리는 OpenJDK, OracleJDK만 지원한다. 따라서 현재 IBM
+        JDK에서는 HTTP/2를 사용할 수 없다.</p>
+
+        <p>2. HTTP/2 스펙에서는 TLS 통신에 필요한 Cipher Suites 중 권장하지 않는 Cipher
+        Suites를 명시하고 있다. <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://httpwg.org/specs/rfc7540.html#BadCipherSuites" target="_top">(http://httpwg.org/specs/rfc7540.html#BadCipherSuites)</a>
+        스펙에 따르면 권장하지 않는 Cipher Suites를 사용할 경우 연결이 끊어질 수 있으며 대부분의 브라우저는 이에 따라
+        연결을 끊고 있다.</p>
+
+        <p>JDK 7에서 제공하는 Cipher Suites는 모두 권장하지 않고 있기 때문에 더 강력한 암호화 Suites를
+        사용하는 JDK 8 버전 사용이 필수이다.</p>
+
+        <p>HTTP/2 스펙에서 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256는 필수로 지원하도록
+        명시하고 있기 때문에 이 암호화 Suite를 Listener SSL 설정에서 설정하길 권장한다.</p>
+
+        <p>3. JEUS 서버와 관련된 세부 설정 사항에 대한 자세한 내용은 <a xmlns="" href="../server/chapter_server_conf.html#sect_server_listener" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “2.3.2. Listener 설정”</a>을 참고한다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_using_http2_listener_serverpush"></a>2.6.2. Server Push</h3></div></div></div>
+      
+
+      <p>Server Push는 지정된 리소스에 대하여 클라이언트가 요청을 하지 않아도 서버에서 응답을 주는 기능으로 요청
+      전송에 필요한 시간을 줄여 더 빠른 응답을 받을 수 있다. Server Push 기능을 사용하기 위해서는 웹 애플리케이션을 개발할
+      때에 Server Push할 리소스를 지정해야 한다. 본 절에서는 해당 기능의 사용법에 대해서 설명한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>Server Push를 위한 Servlet API는 Servlet 4.0에 포함될 예정이다. JEUS는 개발시점까지
+        확정된 Servlet 4.0 API를 기반으로 Server Push를 구현하였다.</p>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>Server Push 사용의 기본적인 흐름은 PushBuilder 객체를 얻은 후 리소스의 경로를 지정하고 push()
+      메소드를 호출한다.</p>
+
+      <p>다음은 Server Push의 기본 흐름에 대한 예제 소스이다. 이외에도 Push될 리소스에 전달된 Query
+      String, Cookie, Header 등을 바꿀 수 있다.</p>
+
+      <p/>
+
+      <div class="example"><a id="d4e4267"></a><p class="title"><b>[예 2.8] Server Push 사용 예 :
+          &lt;&lt;ServerPushServlet.java&gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">package sample.serverpush
+
+...
+import jeus.servlet.engine.HttpServletRequestImpl;
+import jeus.servlet.engine.PushBuilder;
+
+@WebServlet("/ServerPush")
+public class ServerPushServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        <span class="bold"><strong>
+        // JEUS 내부 구현체인 HttpServletRequestImpl로 캐스팅한 후
+        // PushBuilder 객체를 얻는다.
+        HttpServletRequestImpl reqImpl = (HttpServletRequestImpl)req;
+        PushBuilder builder = reqImpl.getPushBuilder();</strong></span>
+        String pushResourcePath = "resources/a.txt";
+        <span class="bold"><strong>
+        // Push할 리소스의 패스를 넣어준 후 push()함수를 호출한다.
+        builder.path(pushResourcePath);
+        builder.push();</strong></span>
+
+        resp.getWriter().write("main page\n");
+    }
+}</pre>
+        </div></div><p><br class="example-break"/></p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>Server Push를 사용하지 않겠다고 설정한 경우, 위 예제는 아무 영향을 미치지 않는다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_tuning_web_listeners"></a>2.7. 리스너 튜닝</h2></div></div></div>
+    
+
+    <p><a id="d4e4277" class="indexterm"></a>최적의 성능을 위하여 리스너를 설정할 때 다음의 몇 가지 사항을 고려해야 한다.</p><div class="itemizedlist"><ul type="disc"><li>
+          <p>시스템 리소스를 많이 사용하거나 대기시간을 길게하여 출력 버퍼의 크기를 증가시킨다.</p>
+        </li><li>
+          <p>일반적으로 Worker Thread Pool의 min, max 값을 크게 부여하면 웹 엔진에 많은 클라이언트가
+          접근할 때 Pool이 좋은 성능을 가지게 된다. 시스템 메모리를 적게 사용하기 위해서는 이들의 값을 낮게
+          설정한다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">'Server Access Control'</strong></span> 옵션을 비활성화하면 성능
+          개선을 기대할 수 있다.</p>
+        </li><li>
+          <p>WebtoB 커넥터에서는 앞에서 언급했던 공식에 따라 웹 엔진의 WebtoB 커넥터의 Worker Thread
+          개수와 http.m의 값들을 동일하게 설정한다. 이렇게 해야 가장 좋은 성능을 기대할 수 있다.</p>
+        </li></ul></div>
+
+    <p/>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jeus_web_engine.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_context_web_application.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제1장 웹 엔진 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제3장 웹 컨텍스트</td></tr></table></div><div xmlns="" align="center"/></body></html>

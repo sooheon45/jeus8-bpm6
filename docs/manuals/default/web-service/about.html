@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>안내서에 대하여</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Service 안내서"/><link rel="up" href="index.html" title="JEUS Web Service 안내서"/><link rel="prev" href="index.html" title="JEUS Web Service 안내서"/><link rel="next" href="chapter_introduction.html" title="제1장 웹 서비스"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">안내서에 대하여</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="index.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_introduction.html">다음</a></td></tr></table><hr/></div><div class="preface" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="about"></a>안내서에 대하여</h2></div></div></div>
+  
+
+  <h2><a id="d4e60"></a>안내서의 대상</h2>
+
+  <p>본 안내서는 기본적인 웹 서비스의 개념과 Java EE 플랫폼에서 프로그래밍이 가능한 개발자라면 웹 서비스를 모르는 상태에서도
+  웹 서비스 생성이 가능하게 하기 위한 안내서이다. JEUS<sup>®</sup>(이하 JEUS) 웹 컨테이너
+  및 JEUS EJB 컨테이너에서 웹 서비스 애플리케이션을 개발, 배치 그리고 유지 보수하는 개발자들을 대상으로 하며 반드시 읽어볼 것을
+  권장한다.</p>
+
+  <p/>
+
+  <h2><a id="d4e65"></a>안내서의 전제 조건</h2>
+
+  <p>본 안내서를 원활하게 이해하기 위해서는 다음과 같은 사항을 미리 알고 있어야 한다.</p>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+        <p>서블릿 개발과 패키징에 대한 기본적인 이해(<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.oracle.com/technetwork/java/index.html" target="_top">http://www.oracle.com/technetwork/java/index.html</a>)</p>
+      </li><li>
+        <p>EJB 개념에 관한 기본적인 이해</p>
+      </li><li>
+        <p>XML, SOAP 프로토콜 그리고 WSDL의 개념에 관한 이해</p>
+      </li></ul></div>
+
+  <p/>
+
+  <div class="literallayout"><p/></div>
+
+  <p> JEUS의 기본적인 사용법과 제품을 이해하기 위해서는 다음의 안내서를 미리 숙지할 것을 권장한다. </p>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+        <p><a xmlns="" href="../introduction/index.html" class="olink">JEUS
+        소개</a></p>
+      </li><li>
+        <p><a xmlns="" href="../getting-started/index.html" class="olink">JEUS 설치 및
+        시작하기</a></p>
+      </li></ul></div>
+
+  <p/>
+
+  <div class="literallayout"><p/></div>
+
+  <p>본 안내서의 모든 예제와 환경 구성은 UNIX의 스타일에 준하여 작성되어 Microsoft Windows™(이하
+  Windows)와 같이 다른 환경에서 작업하는 경우 몇 가지 사항을 고려해야 한다.</p>
+
+  <p>예를 들어 경로 구분자의 경우 UNIX 스타일인 “/”를 Windows 스타일인 “\”로 바꿔서 사용한다. 또한 환경변수도
+  Windows 스타일(%%)로 변경해서 사용한다. 본 안내서에 명시된 JEUS_HOME은 JEUS가 설치된 디렉터리이다.</p>
+
+  <p/>
+
+  <p/>
+
+  <p/>
+
+  <h2><a id="d4e95"></a>안내서의 제한 조건</h2>
+
+  <p>본 안내서에서는 서블릿 또는 EJB 기술처럼 기본적인 Java EE에 대한 자세한 설명과 Java EE EJB 스펙에 대한
+  내용은 설명하지 않는다. 그와 관련된 내용은 관련 안내서를 참조한다.</p>
+
+  <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+    <p>소스 코드와 관련된 XML 파일들은 JEUS를 설치한 후에 samples 디렉터리에 위치한다.</p>
+  </div>
+
+  <p/>
+
+  <p/>
+
+  <p/>
+
+  
+
+  <h2><a id="d4e102"></a>안내서 구성</h2>
+
+  <p>본 안내서는 총 27개의 장으로 구성되어 있다.</p>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+        <p><a href="chapter_introduction.html" title="제1장 웹 서비스">“제1장 웹 서비스”</a></p>
+
+        <p>웹 서비스의 기본 개념에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_overview.html" title="제2장 JEUS 웹 서비스">“제2장 JEUS 웹 서비스”</a></p>
+
+        <p>JEUS에서 지원하는 웹 서비스의 개념과 지원 방식 및 설계 지침에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_implementation.html" title="제3장 JEUS 웹 서비스 구현">“제3장 JEUS 웹 서비스 구현”</a></p>
+
+        <p>웹 서비스를 구현하는 여러 가지 방식에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_package.html" title="제4장 웹 서비스 생성과 배치">“제4장 웹 서비스 생성과 배치”</a></p>
+
+        <p>Java 클래스와 EJB를 Endpoint로 가지는 웹 서비스의 생성과 배치 방법에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_client.html" title="제5장 웹 서비스 호출">“제5장 웹 서비스 호출”</a></p>
+
+        <p>웹 서비스를 호출하기 위한 여러 가지 클라이언트 작성과 호출 방법에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_bindingcustomization.html" title="제6장 표준 바인딩 선언 및 사용자화">“제6장 표준 바인딩 선언 및 사용자화”</a></p>
+
+        <p>WSDL 바인딩의 사용자화 선언에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_handler.html" title="제7장 핸들러 프레임워크">“제7장 핸들러 프레임워크”</a></p>
+
+        <p>웹 서비스의 핸들러 프레임워크를 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_provider_dispatch.html" title="제8장 프로바이더와 디스패치 인터페이스">“제8장 프로바이더와 디스패치 인터페이스”</a></p>
+
+        <p>메시지를 XML 메시지 수준으로 다루는 것에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_async_operation.html" title="제9장 비동기 웹 서비스">“제9장 비동기 웹 서비스”</a></p>
+
+        <p>비동기 웹 서비스에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_mtomxopswaref.html" title="제10장 MIME Attachment 메시지 전송">“제10장 MIME Attachment 메시지 전송”</a></p>
+
+        <p>MIME 메시지를 이용하여 웹 서비스의 바이너리 데이터를 효과적으로 다루기 위한 방법을 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_fast_infoset.html" title="제11장 Fast Infoset 이용한 웹 서비스">“제11장 Fast Infoset 이용한 웹 서비스”</a></p>
+
+        <p>Fast Infoset을 사용하는 웹 서비스에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_jms.html" title="제12장 JAX-WS JMS 기반 전송">“제12장 JAX-WS JMS 기반 전송”</a></p>
+
+        <p>JMS 기반 전송을 사용하는 웹 서비스에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_policy.html" title="제13장 웹 서비스 정책">“제13장 웹 서비스 정책”</a></p>
+
+        <p>웹 서비스에서 정책 기능을 설정하고 운용하는 방법에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_addressing.html" title="제14장 웹 서비스 Addressing">“제14장 웹 서비스 Addressing”</a></p>
+
+        <p>웹 서비스에서 Addressing 기능을 설정하고 운용하는 방법에 대해 설명한다.</p>
+
+        
+      </li><li>
+        <p><a href="chapter_jaxws_rm.html" title="제15장 신뢰성 메시징 기술">“제15장 신뢰성 메시징 기술”</a></p>
+
+        <p>신뢰성(reliable) 있는 웹 서비스에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_tx.html" title="제16장 웹 서비스 트랜잭션">“제16장 웹 서비스 트랜잭션”</a></p>
+
+        <p>웹 트랜잭션에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxws_security.html" title="제17장 웹 서비스 보안">“제17장 웹 서비스 보안”</a></p>
+
+        <p>JAX-WS 웹 서비스의 보안 설정에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxrs_server_sent_events.html" title="제18장 Server-Sent Event">“제18장 Server-Sent Event”</a></p>
+
+        <p>JAX-RS 기반 Server-Sent Events에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_uddi.html" title="제19장 UDDI 이용">“제19장 UDDI 이용”</a></p>
+
+        <p>UDDI 개요와 운영 및 사용 방법에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_xml.html" title="제20장 JEUS 웹 서비스 XML">“제20장 JEUS 웹 서비스 XML”</a></p>
+
+        <p>JEUS 웹 서비스가 지원하고 있는 XML을 다루기 위한 여러 가지 방식에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxrpc_implementation.html" title="제21장 JAX-RPC 웹 서비스 구현">“제21장 JAX-RPC 웹 서비스 구현”</a></p>
+
+        <p>JAX-RPC 웹 서비스를 구현하는 여러 방식에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxrpc_package.html" title="제22장 JAX-RPC 웹 서비스 생성과 배치">“제22장 JAX-RPC 웹 서비스 생성과 배치”</a></p>
+
+        <p>Java 클래스와 EJB를 Endpoint로 가지는 JAX-RPC 웹 서비스의 생성과 배치 방법에 대해
+        설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxrpc_client.html" title="제23장 JAX-RPC 웹 서비스 호출">“제23장 JAX-RPC 웹 서비스 호출”</a></p>
+
+        <p>JAX-RPC 웹 서비스를 호출하기 위한 여러 가지 클라이언트의 작성과 호출 방법에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxrpc_handler.html" title="제24장 JAX-RPC 웹 서비스 SOAP 메시지 핸들러 생성">“제24장 JAX-RPC 웹 서비스 SOAP 메시지 핸들러 생성”</a></p>
+
+        <p>JAX-RPC 웹 서비스의 메시지 핸들러와 SAAJ를 이용한 SOAP 메시지 처리에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxrpc_conf.html" title="제25장 JAX-RPC 웹 서비스 설정 파일 작성">“제25장 JAX-RPC 웹 서비스 설정 파일 작성”</a></p>
+
+        <p>JAX-RPC 웹 서비스의 표준 웹 서비스 Deployment Descriptor와 JAX-RPC 매핑 파일의 작성
+        방법에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxrpc_datatype.html" title="제26장 JAX-RPC 웹 서비스 데이터 타입">“제26장 JAX-RPC 웹 서비스 데이터 타입”</a></p>
+
+        <p>JAX-RPC 스펙에 근거하여 데이터 타입에 관련된 향상된 웹 서비스 프로그래밍에 대해 설명한다.</p>
+      </li><li>
+        <p><a href="chapter_jaxrpc_security.html" title="제27장 JAX-RPC 웹 서비스의 보안">“제27장 JAX-RPC 웹 서비스의 보안”</a></p>
+
+        <p>JAX-RPC 웹 서비스의 보안 설정 방법에 대해 설명한다.</p>
+      </li></ul></div>
+
+  <p/>
+
+  
+
+  
+
+  <h2><a id="d4e216"></a>안내서 규약</h2><p>
+    </p><div class="informaltable">
+      <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">표기</th><th>의미</th></tr></thead><tbody><tr><td align="left">&lt;&lt;AaBbCc123&gt;&gt;</td><td>프로그램 소스 코드의 파일명</td></tr><tr><td align="left">&lt;Ctrl&gt;+C</td><td>Ctrl과 C를 동시에 누름</td></tr><tr><td align="left">
+              <span><strong class="guimenuitem">[Button]</strong></span>
+            </td><td>GUI의 버튼 또는 메뉴 이름</td></tr><tr><td align="left">
+              <span><strong class="guimenuitem">진하게</strong></span>
+            </td><td>강조</td></tr><tr><td align="left">" "(따옴표)</td><td>다른 관련 안내서 또는 안내서 내의 다른 장 및 절 언급</td></tr><tr><td align="left">
+              <span><strong class="guimenuitem">'입력항목'</strong></span>
+            </td><td>화면 UI에서 입력 항목에 대한 설명</td></tr><tr><td align="left">
+              <code class="email"><a href="mailto:하이퍼링크">하이퍼링크</a></code>
+            </td><td>메일 계정, 웹 사이트</td></tr><tr><td align="left">&gt;</td><td>메뉴의 진행 순서</td></tr><tr><td align="left">+----</td><td>하위 디렉터리 또는 파일 있음</td></tr><tr><td align="left">|----</td><td>하위 디렉터리 또는 파일 없음</td></tr><tr><td align="left">
+              <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+                <p/>
+              </div>
+            </td><td>참고 또는 주의사항</td></tr><tr><td align="left">
+              <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+                <p/>
+              </div>
+            </td><td>주의할 사항</td></tr><tr><td align="left">
+              <span><strong class="guimenuitem">[그림 1.1]</strong></span>
+            </td><td>그림 이름</td></tr><tr><td align="left">
+              <span><strong class="guimenuitem">[표 1.1]</strong></span>
+            </td><td>표 이름</td></tr><tr><td align="left">
+              <pre class="programlisting">AaBbCc123</pre>
+            </td><td>Java 코드, XML 문서</td></tr><tr><td align="left">
+              <em class="parameter"><code>[ command argument ]</code></em>
+            </td><td>옵션 파라미터</td></tr><tr><td align="left">&lt; xyz &gt;</td><td>‘&lt;’와 ‘&gt;’ 사이의 내용이 실제 값으로 변경됨</td></tr><tr><td align="left">|</td><td>선택 사항. 예) A|B: A나 B 중 하나</td></tr><tr><td align="left">…</td><td>파라미터 등이 반복되어서 나옴</td></tr><tr><td align="left">${ }</td><td>환경변수</td></tr></tbody></table>
+    </div><p>
+  </p><p/>
+
+  <p/>
+
+  
+
+  
+
+  <h2><a id="d4e301"></a>시스템 사용환경</h2><p>
+ </p><div class="informaltable">
+    <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left"> </th><th align="left">요구 사항</th></tr></thead><tbody><tr><td rowspan="4" align="left">Platform</td><td>Solaris 9, 10, 11</td></tr><tr><td>HP-UX 11.x, 11i, 11iV2</td></tr><tr><td>IBM AIX 5L, 6L, AIX 7L</td></tr><tr><td>MS Windows 2008, 2012, Vista, 7, 8</td></tr><tr><td rowspan="2" align="left">Hardware</td><td>최소 2GB 이상 20GB 하드디스크 여유 공간 권장</td></tr><tr><td>1GB 이상 메모리 공간 권장</td></tr><tr><td align="left">JDK</td><td>JDK 7, JDK 8</td></tr></tbody></table>
+  </div><p/>
+
+  
+
+  <h2><a id="d4e328"></a>관련 안내서</h2>
+
+  <p/>
+
+  <div class="informaltable">
+    <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">안내서</th><th>설명</th></tr></thead><tbody><tr><td align="left"><a xmlns="" href="../introduction/index.html" class="olink">JEUS
+          소개</a></td><td>JEUS 서버에 대한 전반적인 소개와 JEUS의 아키텍처를 포함하여 각 구성 요소들에 대해 설명한
+          안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../getting-started/index.html" class="olink">JEUS 설치 및
+          시작하기</a></td><td>JEUS에 대한 소개와 설치 및 시작 방법에 대해 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../server/index.html" class="olink">JEUS Server
+          안내서</a></td><td>JEUS 시스템과 서버의 개요와 시스템 관리를 위한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../web-engine/index.html" class="olink">JEUS Web Engine
+          안내서</a></td><td>JEUS 웹 엔진의 관리에 대해 내용과 Java EE WAR Archive, 서블릿/JSP의 관리 및
+          deploy하는 방법에 대해 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../ejb/index.html" class="olink">JEUS EJB
+          안내서</a></td><td>JEUS EJB 엔진과 EJB 모듈의 Deploy에 대해 기술한 안내서이다.</td></tr><tr><td align="left"><a xmlns="" href="../web-manager/index.html" class="olink">JEUS WebAdmin
+          안내서</a></td><td>JEUS 웹 관리 툴인 WebAdmin을 사용한 JEUS의 설정 및 제어, 모니터링, 클러스터링, 리소스 설정
+          및 관리에 대해 기술한 안내서이다.</td></tr></tbody></table>
+  </div>
+
+  <p/>
+
+  <p/>
+
+  <h2><a id="d4e364"></a>참고 자료</h2>
+
+  <div class="itemizedlist"><ul type="disc"><li>
+      <p>SOAP 1.1 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.w3.org/TR/soap11" target="_top">http://www.w3.org/TR/soap11</a>)</p>
+    </li><li>
+      <p>SOAP 1.2 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.w3.org/TR/soap12" target="_top">http://www.w3.org/TR/soap12</a>)</p>
+    </li><li>
+      <p>WSDL 1.1 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.w3.org/TR/wsdl" target="_top">http://www.w3.org/TR/wsdl</a>)</p>
+    </li><li>
+      <p>UDDI 2.0 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://uddi.org/pubs/ProgrammersAPI_v2.htm" target="_top">http://uddi.org/pubs/ProgrammersAPI_v2.htm</a>, <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.oasis-open.org/committees/uddi-spec/doc/tcspecs.htm#uddiv2" target="_top">http://www.oasis-open.org/committees/uddi-spec/doc/tcspecs.htm#uddiv2</a>)</p>
+    </li><li>
+      <p>UDDI 3.0 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://uddi.org/pubs/uddi_v3.htm" target="_top">http://uddi.org/pubs/uddi_v3.htm</a>)</p>
+    </li><li>
+      <p>JAX-WS 2.2 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://jcp.org/en/jsr/detail?id=224" target="_top">http://jcp.org/en/jsr/detail?id=224</a>)</p>
+    </li><li>
+      <p>JAX-RPC 1.1 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://jcp.org/en/jsr/detail?id=101" target="_top">http://jcp.org/en/jsr/detail?id=101</a>)</p>
+    </li><li>
+      <p>SAAJ 1.2 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://jcp.org/en/jsr/detail?id=67" target="_top">http://jcp.org/en/jsr/detail?id=67</a>)</p>
+    </li><li>
+      <p>SAAJ 1.3 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://jcp.org/en/jsr/detail?id=67" target="_top">http://jcp.org/en/jsr/detail?id=67</a>)</p>
+    </li><li>
+      <p>JAXR 1.0 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://jcp.org/en/jsr/detail?id=93" target="_top">http://jcp.org/en/jsr/detail?id=93</a>)</p>
+    </li><li>
+      <p>WS-I Basic Profile 1.0 (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.ws-i.org/Profiles/BasicProfile-1.0.html" target="_top">http://www.ws-i.org/Profiles/BasicProfile-1.0.html</a>)</p>
+    </li><li>
+      <p>Servlet 2.4 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://jcp.org/en/jsr/detail?id=154" target="_top">http://jcp.org/en/jsr/detail?id=154</a>)</p>
+    </li><li>
+      <p>Servlet 2.5 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://jcp.org/en/jsr/detail?id=154" target="_top">http://jcp.org/en/jsr/detail?id=154</a>)</p>
+    </li><li>
+      <p>EJB 2.1 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://jcp.org/en/jsr/detail?id=153" target="_top">http://jcp.org/en/jsr/detail?id=153</a>)</p>
+    </li><li>
+      <p>EJB 3.0 Specification (<a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://jcp.org/en/jsr/detail?id=220" target="_top">http://jcp.org/en/jsr/detail?id=220</a>)</p>
+    </li><li>
+      <p>JEUS Web Service Annotations and Feauture</p>
+
+      <p>웹 서비스 Endpoint에서 사용할 수 있는 JEUS Web Service Annotations는 다음과
+      같다.</p>
+
+      <div class="itemizedlist"><ul type="circle"><li>
+          <p>Service Scope</p>
+
+          <div class="itemizedlist"><ul type="square"><li>
+              <p>@jeus.webservices.jaxws.api.ApplicationScope</p>
+
+              <p>배치(deployment)된 웹 서비스 Endpoint는 하나의 인스턴스를 갖는다. 이 값은
+              기본값이다.</p>
+            </li></ul></div>
+
+          <div class="itemizedlist"><ul type="square"><li>
+              <p>@jeus.webservices.jaxws.api.SessionScope</p>
+
+              <p>각각의 HTTPSession은 하나의 웹 서비스 Endpoint 인스턴스를 생성한다. 각각 다른
+              인스턴스를 갖는다. HTTP 전송을 사용할 경우에만 사용할 수 있다.</p>
+            </li></ul></div>
+
+          <div class="itemizedlist"><ul type="square"><li>
+              <p>@jeus.webservices.jaxws.api.RequestScope</p>
+
+              <p>요청(request) 메시지가 들어올 때마다 새로운 웹 서비스 Endpoint 인스턴스를
+              생성한다.</p>
+            </li></ul></div>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="circle"><li>
+          <p>Transport</p>
+
+          <div class="itemizedlist"><ul type="square"><li>
+              <p>@jeus.webservices.jaxws.api.JMSWebService</p>
+
+              <p>JMS 기반 전송이 가능한 웹 서비스 Endpoint가 된다.</p>
+            </li></ul></div>
+        </li></ul></div>
+
+      <p>웹 서비스 클라이언트에서 사용할 수 있는 JEUS 웹 서비스 특징은 다음과 같다.</p>
+
+      <div class="itemizedlist"><ul type="circle"><li>
+            <p>jeus.webservices.jaxws.api.LocalTransportFeature</p>
+
+            <p>클라이언트의 웹 서비스 Port가 Local 전송을 사용하여 웹 서비스 Endpoint와 통신한다. 웹
+            서비스 클라이언트와 Endpoint가 동일한 JVM에 존재할 때만 유효하다.</p>
+          </li></ul></div>
+    </li><li>
+      <p>그 밖의 설정 및 API에 관련된 자세한 내용은 다음의 문서를 참고한다.</p>
+
+      <div class="itemizedlist"><ul type="circle"><li>
+          <p>콘솔 툴
+          xjc(JEUS_HOME/docs/reference-book/reference_xjc.html)</p>
+        </li><li>
+          <p>콘솔 툴
+          schemagen(JEUS_HOME/docs/reference-book/reference_schemagen.html)</p>
+        </li><li>
+          <p>콘솔 툴
+          tcpmon(JEUS_HOME/docs/reference-book/reference_tcpmon.html)</p>
+        </li><li>
+          <p>ANT
+          Task(JEUS_HOME/docs/reference-book/webservice_appendix_ant_task.html)</p>
+        </li><li>
+          <p>XML
+          Reference(JEUS_HOME/docs/reference/schema/index.html,</p>
+
+          <p>JEUS_HOME/docs/reference/schema/jeus-webservices-config.xml,</p>
+
+          <p>JEUS_HOME/docs/reference/schema/jeus-webservices-dd.xml,</p>
+
+          <p>JEUS_HOME/docs/reference/schema/jeus-webservices-dd-client.xml,</p>
+
+          <p>JEUS_HOME/docs/reference-book/reference_wsdl2uddi.html)</p>
+        </li></ul></div>
+    </li></ul></div>
+
+  <p/>
+
+  
+
+  
+
+  <p>
+    </p><h2><a id="d4e463"></a>연락처</h2><p>
+
+    </p><p>
+      </p><h2><a id="d4e465"></a>Korea</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Co., Ltd.</span><br/>
+9th Floor, BS Tower Building, 29, <br/>
+Hwangsaeul-ro 258 beon-gil, Bundang-gu, <br/>
+Seongnam-si, Gyeonggi-do, 13595<br/>
+<span class="country">South Korea</span><br/>
+Tel: <span class="phone">+82-31-8018-1000</span><br/>
+Fax: <span class="fax">+82-31-8018-1115</span><br/>
+기술서비스센터 : +82-1544-8629<br/>
+Email: <code class="email"><a href="mailto:info@tmax.com">info@tmax.com</a></code><br/>
+Web (Korean): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com" target="_top">http://www.tmaxsoft.com</a> <br/>
+TechNet: <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://technet.tmaxsoft.com" target="_top">http://technet.tmaxsoft.com</a></p></div><p>
+    </p><p>
+
+    </p><p>
+      </p><h2><a id="d4e475"></a>USA</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Inc.</span><br/>
+230 West Monroe Street Suite 1950<br/>
+Chicago, IL 60606<br/>
+<span class="country">U.S.A</span><br/>
+Tel: +1-312-525-8330<br/>
+Fax: <span class="fax">+1-312-525-8340</span><br/>
+Email: <code class="email"><a href="mailto:info@tmaxsoft.com">info@tmaxsoft.com</a></code><br/>
+Web (English): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/us_en/home" target="_top">http://www.tmaxsoft.com/us_en/home</a></p></div><p>
+    </p><p>
+
+    </p><p>
+      </p><h2><a id="d4e483"></a>Japan</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Japan Co., Ltd.</span><br/>
+<span class="otheraddr">5F Sanko Bldg, 3-12-16 Mita, Minato-Ku, Tokyo, 108-0073</span><br/>
+<span class="country">Japan</span><br/>
+Tel: <span class="phone">+81-3-5765-2550</span><br/>
+Fax: <span class="fax">+81-3-5765-2567</span><br/>
+Email: <code class="email"><a href="mailto:info@tmaxsoft.co.jp">info@tmaxsoft.co.jp</a></code><br/>
+Web (Japanese): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.co.jp" target="_top">http://www.tmaxsoft.co.jp</a> </p></div><p>
+    </p><p>
+
+    
+
+    </p><p>
+      </p><h2><a id="d4e493"></a>China</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">Beijing TmaxSoft System Software Co., Ltd.</span><span class="otheraddr"><br/>
+Room103, No.2 Huizhong Building, Seven Street Shangdi,</span><br/>
+<span class="otheraddr">Haidian District, Beijing, 100085</span><br/>
+<span class="country">P.R.China</span><br/>
+Tel: <span class="phone">+86-10-6298-8827</span><br/>
+Email: <code class="email"><a href="mailto:info@tmaxsoft.com.cn">info@tmaxsoft.com.cn</a></code><br/>
+Web (Chinese): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/cn_en/home_cn_en" target="_top">http://www.tmaxsoft.com/cn_en/home_cn_en</a>  </p></div><p>
+    </p><p>
+
+    </p><p/><p>
+
+    </p><p/><p>
+
+    </p><p>
+      </p><h2><a id="d4e505"></a>Brazil</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">Tmax Brasil Sistemas E Serviços Ltda.</span><span class="otheraddr"><br/>
+Av. Copacabana, 177, sala 32~35 Empresarial 18 do Forte</span><br/>
+<span class="otheraddr">Alphaville Barueri, Sao Paulo, 06472-001</span> <br/>
+<span class="country">Brazil</span><br/>
+Tel: <span class="phone">+55-11-4191-3100</span><br/>
+Fax: <span class="fax">+55(11) 4191-3705 (extension#112)</span><br/>
+Email: <code class="email"><a href="mailto:info.bra@tmaxsoft.com">info.bra@tmaxsoft.com</a></code><br/>
+Web (Portuguese): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/br_en/home_br_en" target="_top">http://www.tmaxsoft.com/br_en/home_br_en</a><br/>
+</p></div><p>
+    </p><p>
+
+    </p><p>
+      </p><h2><a id="d4e516"></a>Russia</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">Tmax Rus L.L.C.<br/>
+</span><span class="otheraddr">Leninsky prospekt, 113/1 (Park Place Moscow),</span><br/>
+<span class="otheraddr">Office 318e, Moscow, 117198</span><br/>
+<span class="country">Russia</span><br/>
+Tel: <span class="phone">+7(495)970-0135</span><br/>
+Email: <code class="email"><a href="mailto:info.rus@tmaxsoft.com">info.rus@tmaxsoft.com</a></code><br/>
+Web (Russian): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/ru_ru/home_ru_ru" target="_top">http://www.tmaxsoft.com/ru_ru/home_ru_ru</a> </p></div><p>
+    </p><p>
+
+    </p><p/><p>
+
+    
+
+    </p><p/><p>
+
+    </p><p/><p>
+
+    </p><p>
+      </p><h2><a id="d4e529"></a>Singapore</h2><p>
+
+      </p><div class="address"><p>Tmax Singapore Pte. Ltd.<br/>
+430 Lorong 6, Toa Payoh #10-02, <br/>
+OrangeTee Building, 319402<br/>
+Singapore<br/>
+Tel: <span class="phone">+65-6259-7223</span><br/>
+Fax: <span class="fax">+65-6258-7112</span><br/>
+Email: <code class="email"><a href="mailto:info.sg@tmaxsoft.com">info.sg@tmaxsoft.com</a></code> <br/>
+Web (English): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/sg_en/home_sg_en" target="_top">http://www.tmaxsoft.com/sg_en/home_sg_en</a></p></div><p>
+    </p><p>
+
+    </p><p/><p>
+
+    </p><p/><p>
+
+    </p><p/><p>
+
+    </p><p>
+      </p><h2><a id="d4e539"></a>United Kingdom</h2><p>
+
+      </p><div class="address"><p>TmaxSoft UK Ltd.<br/>
+215 Knyvett House, Watermans Business Park,<br/>
+The Causeway, Staines TW18 3BA<br/>
+United Kingdom<br/>
+Tel: +44-1784-895005<br/>
+Email: <code class="email"><a href="mailto:info.uk@tmaxsoft.com ">info.uk@tmaxsoft.com </a></code> <br/>
+Web (English): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/gb_en/home_gb_en" target="_top">http://www.tmaxsoft.com/gb_en/home_gb_en</a></p></div><p>
+    </p><p>
+
+    </p><p>
+      </p><h2><a id="d4e544"></a>Canada</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Canada, Inc.<br/>
+</span><span class="otheraddr">2425 Matheson Blvd East, 8th floor, </span><br/>
+<span class="otheraddr">Unit 824 Mississauga, ON, L4W 5K4 </span><br/>
+<span class="country">Canada</span><br/>
+Tel: <span class="phone">+1-905-361-2888</span><br/>
+Email: <code class="email"><a href="mailto:info.canada@tmaxsoft.com">info.canada@tmaxsoft.com</a></code><br/>
+Web (English): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/ca_en/home_ca_en" target="_top">http://www.tmaxsoft.com/ca_en/home_ca_en</a> </p></div><p>
+    </p><p>
+
+    
+
+    </p><p>
+      </p><h2><a id="d4e554"></a>Australia</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Proprietary Limited<br/>
+</span><span class="otheraddr">L32, 101 Miller Street, North Sydney 2060 </span><br/>
+<span class="country">Australia</span><br/>
+Tel: <span class="phone">+61-2-8019-7054</span><br/>
+Email: <code class="email"><a href="mailto:info.aus@tmaxsoft.com">info.aus@tmaxsoft.com</a></code><br/>
+Web (English): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/au_en/home_au_en" target="_top">http://www.tmaxsoft.com/au_en/home_au_en</a> </p></div><p>
+    </p><p>
+
+    </p><p>
+      </p><h2><a id="d4e563"></a>India</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Technologies Private Limited<br/>
+</span><span class="otheraddr">Sobha Alexander Plaza, 3rd Floor, </span><br/>
+<span class="otheraddr">16/2 Commissariat Road, Bangalore-560025</span><br/>
+<span class="country">India</span><br/>
+Tel: <span class="phone">+91-7619-482-582</span><br/>
+Email: <code class="email"><a href="mailto:info.india@tmaxsoft.com">info.india@tmaxsoft.com</a></code><br/>
+Web (English): http://www.tmaxsoft.com/in_en/home_in_en </p></div><p>
+    </p><p>
+
+    </p><p>
+      </p><h2><a id="d4e573"></a>Turkey</h2><p>
+
+      </p><div class="address"><p><span class="otheraddr">TmaxSoft Co., Ltd. Turkey Liaison Office<br/>
+</span><span class="otheraddr">Windowist Tower. Eski Buyukdere Cad. No:26, </span><br/>
+<span class="otheraddr">Maslak 34467 Istanbul</span><br/>
+<span class="country">Turkey</span><br/>
+Tel: <span class="phone">+90-212-214-7345</span><br/>
+Email:<code class="email"><a href="mailto:info.tr@tmaxsoft.com">info.tr@tmaxsoft.com</a></code><br/>
+Web (English): <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.tmaxsoft.com/tr_en/home_tr_en" target="_top">http://www.tmaxsoft.com/tr_en/home_tr_en</a> </p></div><p>
+    </p><p>
+  </p>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="index.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_introduction.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">JEUS Web Service 안내서 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제1장 웹 서비스</td></tr></table></div><div xmlns="" align="center"/></body></html>

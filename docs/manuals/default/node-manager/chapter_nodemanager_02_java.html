@@ -1,0 +1,851 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제2장 Java 타입 노드 매니저</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Node Manager 안내서"/><link rel="up" href="index.html" title="JEUS Node Manager 안내서"/><link rel="prev" href="chapter_nodemanager_01_overview.html" title="제1장 소개"/><link rel="next" href="chapter_nodemanager_03_ssh.html" title="제3장 SSH 타입 노드 매니저"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제2장 Java 타입 노드 매니저</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_nodemanager_01_overview.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_nodemanager_03_ssh.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_nodemanager_02_java"></a>제2장 Java 타입 노드 매니저</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_nodemanager_02_java.html#sect_nodemanager_java">2.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_nodemanager_02_java.html#d4e569">2.2. 기능별 동작 방식</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_nodemanager_02_java.html#d4e573">2.2.1. 원격 머신에 있는 ManagedServer 기동</a></span></dt><dt><span class="section"><a href="chapter_nodemanager_02_java.html#d4e599">2.2.2. 서버 모니터링</a></span></dt><dt><span class="section"><a href="chapter_nodemanager_02_java.html#d4e650">2.2.3. 비정상 상태의 서버 재기동</a></span></dt><dt><span class="section"><a href="chapter_nodemanager_02_java.html#d4e661">2.2.4. Rolling Patch</a></span></dt><dt><span class="section"><a href="chapter_nodemanager_02_java.html#d4e737">2.2.5. DAS와 연결</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_nodemanager_02_java.html#d4e745">2.3. 환경설정</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_nodemanager_02_java.html#sect_java_nm_configfile">2.3.1. 설정 파일</a></span></dt><dt><span class="section"><a href="chapter_nodemanager_02_java.html#d4e969">2.3.2. 필수 파일</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_nodemanager_02_java.html#ch2_4_add_delete_java_node">2.4. 노드 설정 및 삭제</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_nodemanager_02_java.html#ch2_4_1_conf_java_node">2.4.1. Java 타입 노드 설정</a></span></dt><dt><span class="section"><a href="chapter_nodemanager_02_java.html#ch2_delete_java_node">2.4.2. Java 타입 노드 삭제</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_nodemanager_02_java.html#d4e1160">2.5. 노드 매니저 시작 및 종료</a></span></dt><dt><span class="section"><a href="chapter_nodemanager_02_java.html#d4e1218">2.6. Java 타입 노드 매니저를 통한 서버 제어</a></span></dt><dt><span class="section"><a href="chapter_nodemanager_02_java.html#d4e1347">2.7. 로그 파일</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 Java 타입 노드 매니저를 사용하기 위한 설정 방법과 동작 방식에 대해서 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_nodemanager_java"></a>2.1. 개요</h2></div></div></div>
+    
+
+    <p><a id="d4e563" class="indexterm"></a></p>
+
+    <p>Java 타입 노드 매니저는 SSH 타입 노드 매니저에 비해 빠르게 서버의 비정상 종료를 감지하여 재기동해 줄 수 있다는
+    장점이 있다. 또한 OS가 Windows인 경우에 SSH 타입 노드 매니저는 사용할 수 없지만, Java 타입 노드 매니저는 OS에
+    상관없이 사용할 수 있다. 그러나 다른 머신에 JEUS를 설치할 수 없다는 단점이 있다.</p>
+
+    <p>본 절에서는 Java 타입의 노드 매니저를 사용하기 위한 방법과 기본 지식에 대해서 살펴본다.</p>
+
+    <p/>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e569"></a>2.2. 기능별 동작 방식</h2></div></div></div>
+    
+
+    <p>본 절에서는 Java 타입 노드 매니저의 각 기능에 대한 동작 방식을 설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e573"></a>2.2.1. 원격 머신에 있는 ManagedServer 기동</h3></div></div></div>
+      
+
+      <p>노드 매니저를 통해 도메인 내의 원격 머신에 있는 서버를 기동시킬 수 있다. 노드 매니저를 통해 서버를 기동하는 과정은
+      다음와 같다.</p>
+
+      <div class="figure"><a id="d4e577"></a><p class="title"><b>[그림 2.1] 노드 매니저에서 원격 머신의 서버 기동</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="663"><tr><td align="left"><img src="resources/figure_start_domain.png" align="top" width="663" alt="노드 매니저에서 원격 머신의 서버 기동"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>노드 매니저에서 서버의 lock 파일을 생성하여 FILE LOCK을 얻는다.</p>
+          </li><li>
+            <p>서버 기동을 성공한 뒤 pid 파일, state 파일을 생성하고 PID(프로세스 ID)와 서버의 상태를
+            기록한다.</p>
+          </li><li>
+            <p><span class="emphasis"><em>&lt;serverName&gt;</em></span>.properties에
+            username, password, dasurl 등의 정보를 업데이트한다.</p>
+          </li><li>
+            <p>서버에서는 NodeManagerService를 시작하면서 address 파일을 생성하고 자신의 호스트 정보를
+            기록한다.</p>
+          </li></ol></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>서버를 재기동할 경우에도 동일한 과정으로 진행된다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e599"></a>2.2.2. 서버 모니터링</h3></div></div></div>
+      
+
+      <p>Java 타입 노드 매니저는 서버 프로세스의 상태를 주기적으로 모니터링해서 state 파일에 업데이트하고, 비정상
+      상황이 발생할 경우 서버 프로세스를 재기동한다.</p>
+
+      <p>노드 매니저는 노드에 존재하는 모든 서버에 대해서 모니터링하는 것이 아니고, 노드 매니저를 통해 기동한 서버의
+      프로세스만 모니터링한다. 따라서 서버의 비정상 종료를 감지해서 바로 재기동하고 싶다면 노드 매니저를 사용해서 기동해야 한다. 노드
+      매니저가 재기동된 경우에도 자신이 기동한 서버에 대한 모니터링은 계속 유지된다.</p>
+
+      <p>다음은 Java 타입 노드 매니저가 서버를 모니터링하는 과정을 간략하게 나타낸 그림이다.</p>
+
+      <div class="figure"><a id="d4e604"></a><p class="title"><b>[그림 2.2] Java 타입 노드 매니저에서 서버 모니터링</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="284"><tr><td align="left"><img src="resources/figure_monitor_server.png" align="top" width="284" alt="Java 타입 노드 매니저에서 서버 모니터링"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <p/>
+
+      <p>다음은 노드 매니저가 재기동된 경우에 자신이 기동한 서버를 찾아서 모니터링을 계속하는 과정에 대한 단계별
+      설명이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>노드 매니저가 재기동될 때 다음 경로에서 해당 노드 매니저에서 관리되고 있는 도메인 이름을
+            조회한다.</p>
+
+            <pre class="programlisting">JEUS_HOME/domains</pre>
+          </li><li>
+            <p>각 도메인의 다음 경로의 서버 디렉터리를 통해 해당 노드 매니저에서 관리되고 있는 서버 이름을
+            조회한다.</p>
+
+            <pre class="programlisting">JEUS_HOME/domains/<span class="emphasis"><em>&lt;domain-name&gt;</em></span>/servers</pre>
+          </li><li>
+            <p>서버 디렉터리에서 <span class="emphasis"><em>&lt;serverName&gt;</em></span>.address,
+            <span class="emphasis"><em>&lt;serverName&gt;</em></span>.lck,
+            <span class="emphasis"><em>&lt;serverName&gt;</em></span>.state,
+            <span class="emphasis"><em>&lt;serverName&gt;</em></span>.pid 파일의 존재 여부를 확인한다. 나열한
+            모든 파일이 존재하는 경우 서버는 운용 중인 상태이다.</p>
+          </li><li>
+            <p>lock 파일을 통해 FILE LOCK을 얻는다.</p>
+          </li><li>
+            <p>state 파일에 기록된 서버의 상태를 확인하고 서비스 가능한 상태인지를 판단한다.</p>
+
+            <div class="itemizedlist"><ul type="circle"><li style="list-style-type: circle">
+                  <p>서비스 가능 상태 : RUNNING, STANDBY, SUSPENDED, RESUMING,
+                  SUSPENDING, STARTING</p>
+                </li><li style="list-style-type: circle">
+                  <p>서비스 불가능 상태 : SHUTDOWN, SUNTTING_DOWN</p>
+                </li></ul></div>
+          </li><li>
+            <p>pid 파일에 기록된 서버 프로세스 ID로 프로세스가 운용 중인지 여부를 확인한다. 만약 서버가 다운된 것을
+            확인하면 노드 매니저는 해당 서버를 재기동한다.</p>
+          </li><li>
+            <p>address 파일에 기록된 서버의 호스트 정보를 바탕으로 소켓 연결을 맺어보고 서버 프로세스가 정상적으로
+            운영되고 있는지를 확인한다. 만약 서버가 다운된 것을 확인하면 노드 매니저는 해당 서버를 재기동한다.</p>
+          </li><li>
+            <p>서버가 서비스 가능한 상태라고 판단되면 주기적으로 서버의 상태를 확인하면서 서버를 모니터링한다.</p>
+          </li></ol></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>state 파일에 기록되는 서버의 상태 중 SHUTDOWN_NEED_TO_RESTART 상태는 노드 매니저가
+          재기동될 때 이전에 노드에서 서비스 중이던 서버를 재기동해 주기 위해 사용되는 state이다. 주로 Windows 서비스와
+          같이 노드 매니저를 OS의 서비스로 등록한 경우 서버 shutdown 후 재기동될 때 기존에 서비스 중이던 서버를 다시
+          재기동하여 서비스할 수 있도록 하기 위해 사용된다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e650"></a>2.2.3. 비정상 상태의 서버 재기동</h3></div></div></div>
+      
+
+      <p>Java 타입 노드 매니저는 서버 프로세스가 비정상 종료된 상황에서 재기동해주는 역할도 하지만 서버가 정의한 비정상
+      상태에 도달한 경우에도 서버를 재기동한다.</p>
+
+      <p>서버에서는 Memory Ratio를 설정해서 지정한 비율 이상으로 Heap Memory를 사용하면 자체적으로 프로세스를
+      종료한다. 노드 매니저는 서버가 비정상 상황에 의해 자체적으로 종료되는 상황도 감지해서 서버를 재기동한다.</p>
+
+      <div class="figure"><a id="d4e655"></a><p class="title"><b>[그림 2.3] Java 타입 노드 매니저의 서버 재기동</b></p><div class="figure-contents">
+          
+
+          <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="616"><tr><td align="left"><img src="resources/figure_restart_server.png" align="top" width="616" alt="Java 타입 노드 매니저의 서버 재기동"/></td></tr></table></div>
+        </div></div><p><br class="figure-break"/></p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e661"></a>2.2.4. Rolling Patch</h3></div></div></div>
+      
+
+      <p><a id="d4e664" class="indexterm"></a></p>
+
+      <p>Java 타입 노드 매니저를 통해 도메인에 Patch를 적용할 수 있다. 콘솔 툴을 사용해서 원격 머신에 있는 서버에
+      Patch 파일을 전송 또는 삭제뿐만 아니라 Patch 적용을 위해 서버의 재기동까지 진행한다.</p>
+
+      <p>DAS에서 도메인에 속한 서버가 존재하는 원격 머신의 노드 매니저에 접속해서 Patch 파일을 전달, 삭제, 적용할 수
+      있다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p>Patch 파일 전달<a id="d4e672" class="indexterm"></a></p>
+
+            <pre class="screen">domain1.adminServer&gt;<span class="bold"><strong>apply-patch</strong></span></pre>
+          </li><li>
+            <p>Patch 파일 삭제<a id="d4e679" class="indexterm"></a></p>
+
+            <pre class="screen">domain1.adminServer&gt;<span class="bold"><strong>remove-patch</strong></span></pre>
+          </li><li>
+            <p>Patch 파일 적용</p>
+
+            <p>-rolling 옵션을 통해 각 서버에 Patch를 적용시킬 수 있다. 이때 하나의 노드별로 순차적으로
+            수행하여 서비스가 이중화되어 있다면 장애 없이 서비스할 수 있도록 한다. 단, 같은 노드 안에 여러 대의 서버를
+            운영하고 있는 상황이라면 노드 전체의 서버를 하나씩 순차적으로 종료하고 Patch 파일을 전송 또는 삭제한 후 다시
+            서버를 하나씩 순차적으로 기동해야 한다.<a id="d4e687" class="indexterm"></a><a id="d4e689" class="indexterm"></a></p>
+
+            <pre class="screen">domain1.adminServer&gt;<span class="bold"><strong>apply-patch -rolling</strong></span>
+
+domain1.adminServer&gt;<span class="bold"><strong>remove-patch -rolling</strong></span></pre>
+
+            <p/>
+          </li><li>
+            <p>Patch 적용에 실패한 경우 되돌리는 기능</p>
+
+            <p>-action 옵션을 통해서 Patch 적용에 실패한 경우의 동작에 대해서 정의할 수 있다.</p>
+
+            <pre class="screen">domain1.adminServer&gt;<span class="bold"><strong>apply-patch -rolling -action CONTINUE|STOP|ROLLBACK</strong></span></pre>
+
+            <p>다음의 CONTINUE, STOP, ROLLBACK 옵션 중 하나를 설정할 수 있다.</p>
+
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="100" align="left"/><col/></colgroup><thead><tr><th align="left">옵션</th><th>설명</th></tr></thead><tbody><tr><td align="left">CONTINUE<a id="d4e713" class="indexterm"></a><a id="d4e715" class="indexterm"></a></td><td>Patch 적용에 실패한 노드가 있더라도 무시하고 계속 진행한다.</td></tr><tr><td align="left">STOP<a id="d4e721" class="indexterm"></a><a id="d4e723" class="indexterm"></a></td><td>Patch 적용에 실패한 노드가 있으면 Patch 적용을 멈추고 리턴한다.</td></tr><tr><td align="left">ROLLBACK<a id="d4e729" class="indexterm"></a><a id="d4e731" class="indexterm"></a></td><td>Patch 적용에 실패한 노드가 있으면 Patch 적용을 멈추고 이전에 성공한 노드에도 모두
+                    적용된 Patch를 rollback한다. 이때 Patch를 삭제하는 상황에서는 Patch 파일이 이미
+                    삭제된 노드가 존재할 수 있기 때문에 이 옵션을 설정하더라도 STOP 옵션을 설정한 것과 동일하게 더
+                    이상 Patch 삭제를 진행하지 않고 동작을 멈춘다.</td></tr></tbody></table>
+            </div>
+          </li></ul></div>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e737"></a>2.2.5. DAS와 연결</h3></div></div></div>
+      
+
+      <p>노드 매니저를 통하지 않고 기동된 서버는 노드 매니저의 관리를 받을 수 없기 때문에 모니터링 기능이나 Patch 기능을
+      제공하지 않는다. 그러나 DAS는 예외적으로 노드 매니저를 통하지 않고 기동되어도 프로세스 모니터링 기능과 Patch 전달이
+      가능하다. DAS는 기동이 완료되면 노드 매니저에 연결해서 자신의 정보를 전송하므로 노드 매니저에서는 이 정보를 바탕으로 DAS를
+      모니터링할 수 있다.</p>
+
+      <p>Rolling Patch 기능은 DAS와 노드 매니저가 연결되어 있는 상태에서만 사용이 가능하다. DAS가 노드
+      매니저를 통해 기동되지 않았더라도 DAS와 노드 매니저가 연결된 상태이므로 자신의 노드뿐만 아니라 다른 노드에도 Patch 전달
+      및 적용이 가능하다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>노드 매니저를 통하지 않고 기동된 서버는 모니터링하지 않는다. Java 타입 노드 매니저를 사용하면 노드
+          매니저를 통해 기동된 서버인 경우에 서버가 FAILED 상태가 되기 전에 노드 매니저가 서버의 비정상 종료를 감지하여
+          재기동할 수있다.</p>
+        </div>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e745"></a>2.3. 환경설정</h2></div></div></div>
+    
+
+    <p>Java 타입 노드 매니저를 사용하기 위해 필요한 환경을 설정해야 한다.</p>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_java_nm_configfile"></a>2.3.1. 설정 파일</h3></div></div></div>
+      
+
+      <p>Java 타입 노드 매니저를 사용하려면 다음의 설정 파일에 필요한 사항을 설정해야 한다. Java 타입 노드 매니저는
+      nodes.xml에 노드가 정의되는 것 이외에도 별도의 설정이 필요하다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+            <p><a href="chapter_nodemanager_02_java.html#sect_nodes_xml" title="2.3.1. nodes.xml???TITLE???">nodes.xml</a><a id="d4e756" class="indexterm"></a></p>
+          </li><li>
+            <p><a href="chapter_nodemanager_02_java.html#sect_jeusnm_xml" title="2.3.1. jeusnm.xml???TITLE???">jeusnm.xml</a><a id="d4e761" class="indexterm"></a></p>
+          </li><li>
+            <p><span class="emphasis"><em><a href="chapter_nodemanager_02_java.html#sect_servername_properties" title="2.3.1. &lt;serverName&gt;.properties???TITLE???"><span class="emphasis"><em>&lt;serverName&gt;</em></span>.properties</a></em></span><a id="d4e768" class="indexterm"></a></p>
+          </li></ul></div>
+
+      <p/>
+
+      <h4><a id="sect_nodes_xml"></a>nodes.xml<a id="d4e773" class="indexterm"></a></h4>
+
+      <p>nodes.xml 파일에 어떤 타입의 노드 매니저를 사용할 것인지 설정한다.</p>
+
+      <p>파일은 다음 경로에 위치한다.</p>
+
+      <pre class="programlisting">JEUS_HOME/domains</pre>
+
+      <p>nodes.xml은 DAS에서 참조하는 노드의 설정으로 노드의 물리적인 주소를 정의하고 도메인 설정에서는 각 MS가
+      운영될 노드 정보를 설정해야 한다. 이 파일은 하나의 도메인에 국한된 파일이 아니라 머신에 설치된 JEUS에 존재하는 여러
+      도메인에서 모두 공유된다. 각 도메인의 DAS에서는 node.xml에 설정된 노드 정보에 따라 각 노드의 노드 매니저에 접속해서
+      필요한 명령을 수행한다.</p>
+
+      <p>WebAdmin이나 콘솔 툴을 통해서 노드를 추가, 삭제할 수 있다. 노드 추가, 삭제에 대한 자세한 방법은 <a href="chapter_nodemanager_02_java.html#ch2_4_add_delete_java_node" title="2.4. 노드 설정 및 삭제">“2.4. 노드 설정 및 삭제”</a>를 참고한다.</p><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>Java 타입 노드 매니저는 nodes.xml에 설정된 머신 정보와 jeusnm.xml에 설정된
+          <span><strong class="guibutton">'host'</strong></span>, <span><strong class="guibutton">'port'</strong></span> 정보가
+          일치하도록 주의해서 설정해야 한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="sect_jeusnm_xml"></a>jeusnm.xml<a id="d4e792" class="indexterm"></a></h4>
+
+      <p>jeusnm.xml는 머신에서의 노드 매니저의 동작 방식을 설정하는 설정 파일로 다음 경로에 위치한다.</p>
+
+      <pre class="programlisting">JEUS_HOME/nodemanager</pre>
+
+      <p>jeusnm.xml에서 설정할 수 있는 항목들은 다음과 같다. jeusnm.xml 파일은 직접 수정해야
+      한다.</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">useNodeManager<a id="d4e808" class="indexterm"></a></td><td>Java 타입 노드 매니저를 사용할지 여부를 설정한다. (기본값: true)</td></tr><tr><td align="left">host<a id="d4e814" class="indexterm"></a></td><td>노드 매니저의 listen address를 설정한다. (기본값: localhost)</td></tr><tr><td align="left">port<a id="d4e820" class="indexterm"></a></td><td>노드 매니저의 listen port를 설정한다. (기본값: 7730)</td></tr><tr><td align="left">serverMonitoringPeriod<a id="d4e826" class="indexterm"></a></td><td>노드 매니저에서 서버 프로세스의 상태를 모니터링하는 주기를 설정한다. (기본값: 500, 단위:
+              ms)</td></tr><tr><td align="left">serverAutoRestart<a id="d4e832" class="indexterm"></a></td><td>서버 프로세스가 비정상 종료된 경우 자동으로 해당 서버를 재기동해줄지 여부를 설정한다. (기본값:
+              true)</td></tr><tr><td align="left">serverRestartTryCount<a id="d4e838" class="indexterm"></a></td><td><p>서버 재기동을 시도할 횟수를 설정한다. (기본값:
+              5)</p><p><span><strong class="guibutton">'serverRestartDurationTime'</strong></span>에
+              설정한 주기 안에 이 값에 설정한 횟수 이상의 서버 재기동이 시도되면 서버 프로세스에 문제가 있는 것으로 판단하고
+              서버 재기동을 진행하지 않는다. </p></td></tr><tr><td align="left">serverRestartDurationTime<a id="d4e847" class="indexterm"></a></td><td><p>서버 재기동을 시도할 주기를 설정한다. (기본값: 120000, 단위:
+              ms)</p><p>설정한 주기 안에
+              <span><strong class="guibutton">'serverRestartTryCount'</strong></span>에 설정한 횟수 이상의 서버
+              재기동이 시도되면 서버 프로세스에 문제가 있는 것으로 판단하고 서버 재기동을 진행하지 않는다.
+              </p></td></tr><tr><td align="left">serverRetryRestart<a id="d4e856" class="indexterm"></a></td><td>서버 재기동이 실패하는 경우 재시도해줄지 여부를 설정한다. 이 값을 true로 설정하면 서버 재기동에
+              성공할 때까지 재시도한다. (기본값: false)</td></tr><tr><td align="left">useSSLListener<a id="d4e862" class="indexterm"></a></td><td>노드 매니저가 SSL을 사용할지 여부를 설정한다. (기본값: false)</td></tr><tr><td align="left">keystoreFile<a id="d4e868" class="indexterm"></a></td><td><p>SSL을 사용할 때 인증에 사용될 Keystore 파일 경로를 설정한다.
+              </p><p>(기본값: NODEMANAGER_HOME/keystore)</p></td></tr><tr><td align="left">keystorePass<a id="d4e876" class="indexterm"></a></td><td><p>SSL을 사용할 때 인증에 사용될 Keystore 파일의 패스워드를 설정한다.
+              </p><p>(기본값: jeuskeypass)</p></td></tr><tr><td align="left">truststoreFile<a id="d4e884" class="indexterm"></a></td><td><p>SSL을 사용할 때 인증에 사용될 Truststore 파일 경로를 설정한다.
+              </p><p>(기본값: NODEMANAGER_HOME/truststore)</p></td></tr><tr><td align="left">truststorePass<a id="d4e892" class="indexterm"></a></td><td><p>SSL을 사용할 때 인증에 사용될 Truststore 파일의 패스워드를 설정한다.
+              </p><p>(기본값: jeustruststorepass)</p></td></tr><tr><td align="left">logFileName<a id="d4e900" class="indexterm"></a></td><td><p>노드 매니저의 로그 파일 위치를 설정한다. 파일의 절대 경로를 준 경우 해당 경로에 로그
+              파일을 만들고, 상대 경로를 준 경우 기본 로그 디렉터리에 설정한 이름으로 로그 파일을 만든다.
+              </p><p>(기본값:
+              JEUS_HOME/nodemanager/logs/JeusNodeManager.log)</p></td></tr><tr><td align="left">standbyPort<a id="d4e908" class="indexterm"></a></td><td>노드 매니저의 standby 프로세스를 돌려서 노드 매니저가 이상 종료될 때에 standby 프로세스가
+              자동으로 대체하게 할 수 있다. 사용할 포트를 설정함으로써 기능을 켤 수 있다. 자세한 내용은 <a href="chapter_nodemanager_05_standby.html#sect-nodemanager-use" title="5.3. 이중화된 노드 매니저 사용 방법">“5.3. 이중화된 노드 매니저 사용 방법”</a>의 <a href="chapter_nodemanager_05_standby.html#sect_nodemanager_standby" title="5.3. Standby 노드 매니저">"Standby 노드 매니저"</a>를
+              참고한다.</td></tr><tr><td align="left">processList<a id="d4e916" class="indexterm"></a></td><td>RQS 프로세스들의 정보를 리스트의 형태로 설정한다. 자세한 설정 방법은 <a href="chapter_nodemanager_04_RQS.html#sect_RQS_Configuration" title="4.3.1. 설정 파일">“4.3.1. 설정 파일”</a>을 참고한다.</td></tr></tbody></table>
+      </div>
+
+      <p/>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="sect_servername_properties"></a>&lt;serverName&gt;.properties<a id="d4e927" class="indexterm"></a></h4>
+
+      <p><span class="emphasis"><em>&lt;serverName&gt;</em></span>.properties 파일은 노드 매니저에서
+      서버를 기동할 때 필요한 정보들에 대한 캐시 파일이다. 노드 매니저에서 서버를 기동한 뒤 다음 경로에 해당 파일을
+      생성한다.</p>
+
+      <pre class="programlisting">SERVER_HOME/nodemanager</pre>
+
+      <p/>
+
+      <p>노드 매니저는 서버를 기동할 때 필요한 옵션들을 기록해서 다음 번에 옵션을 설정하지 않더라도 이 파일에 캐싱된 정보를
+      바탕으로 서버를 기동시킬 수 있다. 이 정보들은 콘솔 툴을 통해 노드 매니저에 직접 접속해서 서버를 기동시킬 때만 사용되고
+      DAS로 MS를 기동시킬 때는 해당 정보를 사용하지 않는다.</p>
+
+      <p>캐시되는 정보들은 다음과 같다.</p>
+
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">항목</th><th>설명</th></tr></thead><tbody><tr><td align="left">dasurl<a id="d4e946" class="indexterm"></a></td><td>DAS의 호스트 정보를 나타낸다. MS의 경우에만 dasurl을 캐시한다.</td></tr><tr><td align="left">username<a id="d4e952" class="indexterm"></a></td><td>서버를 기동할 때 필요한 서버의 계정을 나타낸다.</td></tr><tr><td align="left">password<a id="d4e958" class="indexterm"></a></td><td>서버를 기동할 때 필요한 서버의 패스워드를 나타낸다.</td></tr><tr><td align="left">sslArguments<a id="d4e964" class="indexterm"></a></td><td>SSL을 사용하도록 설정된 서버의 경우 노드 매니저에서 서버에 접속할 때 SSL 인증에 필요한 SSL
+              properties 정보를 설정한다.</td></tr></tbody></table>
+      </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e969"></a>2.3.2. 필수 파일</h3></div></div></div>
+      
+
+      <p>다음은 설정 파일 외에 노드 매니저가 서버를 기동하고 모니터링하는 데 필요한 파일의 설명으로 각 파일은 다음 경로에
+      위치한다.</p>
+
+      <pre class="programlisting">JEUS_HOME/domains/<span class="emphasis"><em>&lt;domain_name&gt;</em></span>/servers/<span class="emphasis"><em>&lt;server_name&gt;</em></span>/nodemanager</pre><div class="informaltable">
+          <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">파일</th><th>설명</th></tr></thead><tbody><tr><td align="left"><span class="emphasis"><em>&lt;serverName&gt;</em></span>.lck<a id="d4e987" class="indexterm"></a></td><td><p>서버 프로세스를 기동할 때 서버가 여러 번 기동되는 것을 방지하기 위해 노드 매니저에서
+                생성하는 파일이다. 이 파일은 노드 매니저에서 서버 프로세스를 시작시키기 전에 생성되고 서버 프로세스가 정상
+                종료되면 삭제된다. </p><p>노드 매니저가 재기동되었을 때 해당 파일의 유무에 따라 서버를 계속
+                모니터링할지 여부를 결정한다.</p></td></tr><tr><td align="left"><span class="emphasis"><em>&lt;serverName&gt;</em></span>.pid<a id="d4e995" class="indexterm"></a></td><td><p>서버 프로세스가 성공적으로 기동된 후에 노드 매니저에서 생성하는 서버의 프로세스 ID를
+                기록한 파일이다. 이 파일은 노드 매니저에서 서버 프로세스를 정상적으로 기동시킨 뒤에 생성되고 서버 프로세스가
+                정상 종료되면 삭제된다. </p><p>노드 매니저가 재기동되었을 때 해당 파일의 유무에 따라 서버를
+                계속 모니터링할지 결정한다. 또한 파일에 기록된 PID에 해당하는 프로세스의 존재 여부에 따라 서버의 비정상
+                종료를 판단해서 노드 매니저가 재기동된 후에도 서버를 재기동하여 계속 모니터링할 수
+                있다.</p></td></tr><tr><td align="left"><span class="emphasis"><em>&lt;serverName&gt;</em></span>.state<a id="d4e1003" class="indexterm"></a></td><td><p>서버 프로세스의 기동이 성공적으로 완료된 후 노드 매니저에서 생성하는 서버의 상태를
+                기록한 파일이다. 이 파일은 노드 매니저에서 서버 프로세스를 정상적으로 기동시킨 뒤에 생성되고 서버 프로세스가
+                정상 종료되면 삭제된다. 노드 매니저에서는 주기적으로 서버의 상태를 체크하면서 해당 파일에 서버의 상태를
+                업데이트한다. </p><p>노드 매니저가 재기동되었을 때 해당 파일의 유무에 따라 서버를 계속
+                모니터링할지 결정하고, 파일에 기록된 서버의 상태를 확인하고 서버의 비정상 종료를 판단해서 노드 매니저가
+                재기동된 후에도 서버를 재기동하여 계속 모니터링할 수 있다.</p><p/></td></tr><tr><td align="left"><span class="emphasis"><em>&lt;serverName&gt;</em></span>.address<a id="d4e1012" class="indexterm"></a></td><td><p>서버가 기동하면서 생성하는 파일로 서버의 Listen Address와 Listen
+                Port가 기록된다. 이 파일은 서버가 기동될 때 생성되고 정상 종료되면 삭제된다. 노드 매니저가 재기동되었을
+                때 해당 파일의 유무에 따라 서버를 계속 모니터링할지 결정하고, 파일에 기록된 호스트 정보로 서버를 계속
+                모니터링할 수 있다. </p><p>노드 매니저가 재기동되었을 때는 서버로의 MBean 요청을 통해
+                서버 상태를 주기적으로 모니터링하여 서버의 비정상 종료 여부를 확인한다.</p></td></tr></tbody></table>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ch2_4_add_delete_java_node"></a>2.4. 노드 설정 및 삭제</h2></div></div></div>
+    
+
+    <p>Java 타입의 노드는 WebAdmin과 콘솔 툴을 사용해서 설정하고 삭제할 수 있다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="ch2_4_1_conf_java_node"></a>2.4.1. Java 타입 노드 설정</h3></div></div></div>
+      
+
+      <p>본 절에서는 WebAdmin과 콘솔 툴을 사용해서 Java 타입 노드를 설정하는 방법에 대해 설명한다.</p>
+
+      <p/>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>WebAdmin이나 콘솔 툴을 사용해서 서버를 기동하려면 서버에 노드의 이름(Node Name)이 설정되어
+          있어야 한다.</p>
+        </div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="sect_das_function"></a>WebAdmin
+      사용</h4>
+
+      <p>다음은 WebAdmin을 사용해서 Java 타입 노드를 설정하는 방법이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>노드와 관련된 모든 사항은 <span><strong class="guibutton">[Node 설정]</strong></span> 메뉴를 통해 편집 및
+            동작이 가능하다. WebAdmin의 메인 화면에서 <span><strong class="guibutton">[Node 설정]</strong></span>을
+            선택한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">Nodes 화면</strong></span>에서는 노드 목록을 조회할 수 있다. 사용자가 노드를
+            추가하지 않았더라도 JEUS를 설치할 때 기본적으로 생성되는 노드가 노드 목록에 조회된다. 노드 추가를 위해
+            <span><strong class="guibutton">[ADD]</strong></span> 버튼을 클릭한다.</p>
+
+            <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+                <p>노드 설정은 <span><strong class="guibutton">[LOCK &amp; EDIT]</strong></span> 버튼을 클릭하여
+                설정변경 모드로 전환하거나 <span><strong class="guibutton">[Activate Changes]</strong></span> 버튼을
+                클릭하여 변경 반영과 같은 동작을 필요로 하지 않는다.</p>
+              </div>
+          </li><li>
+            <p><span><strong class="guibutton">Node 화면</strong></span>에서 설정할 노드의 이름, 호스트 정보를 입력한다.
+            노드의 타입으로 <span><strong class="guibutton">'Java'</strong></span>를 선택하고 관련 항목을 입력한 뒤
+            <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭한다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">Nodes 화면</strong></span> 상단에 노드가 성공적으로 추가되었다는 메시지와 함께
+            노드 목록에 추가한 노드 정보가 조회된 것을 확인할 수 있다.</p>
+          </li></ol></div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      
+
+      <h4><a id="d4e1062"></a>콘솔 툴 사용</h4>
+
+      <p>다음은 콘솔 툴을 사용해서 노드를 설정하는 방법이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p><span><strong class="guibutton">add-java-node</strong></span> 명령을 사용해서 'node1'이라는 노드를
+            추가한다. <a id="d4e1069" class="indexterm"></a></p>
+
+            <p/>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>add-java-node node1 -host 192.168.34.65 -port 7730</strong></span>
+The node [node1] was successfully added.</pre>
+          </li><li>
+            <p><span><strong class="guibutton">show-node</strong></span> 명령을 사용해서 추가된 노드의 설정을 조회한다.
+            Java 타입의 'node1'이 조회되는 것을 확인할 수 있다.<a id="d4e1078" class="indexterm"></a></p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>show-node node1</strong></span>
+============================================================
++------------------------------------------+---------------+
+|                 Property                 |     Value     |
++------------------------------------------+---------------+
+| Node Name                                | node          |
+| Host                                     | 192.168.34.65 |
+| Mapped Servers                           |               |
+| Node Type                                | JAVA          |
+| NodeManager Port                         |          7730 |
+| Use SSL                                  | false         |
++------------------------------------------+---------------+
+============================================================</pre>
+
+            <p>또한, <span><strong class="guibutton">list-nodes</strong></span> 명령을 사용해서 도메인의 노드들을 조회할
+            수 있다.<a id="d4e1085" class="indexterm"></a></p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>list-nodes</strong></span>
+=========================================================================
++-----------+------+-------------------------------------+--------------+
+| Node name | Type |            Under control            | JEUS version |
++-----------+------+-------------------------------------+--------------+
+| node1     | JAVA | N                                   | -            |
++-----------+------+-------------------------------------+--------------+
+=========================================================================</pre>
+          </li><li>
+            <p><span><strong class="guibutton">modify-java-node</strong></span> 명령이나
+            <span><strong class="guibutton">modify-node</strong></span> 명령을 사용해서 노드를 변경할 수
+            있다.<a id="d4e1094" class="indexterm"></a></p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-java-node node1 -port 7731</strong></span>
+The node [node1] was modified successfully. Check the results using "show-node"
+[DAS]domain1.adminServer&gt;<span class="bold"><strong>modify-node node1 -port 7732</strong></span>
+The node [node1] was modified successfully. Check the results using "show-node"
+</pre>
+          </li><li>
+            <p>변경된 노드 정보를 확인하려면 <span><strong class="guibutton">show-node</strong></span> 명령을 사용해서
+            해당 노드의 설정을 조회한다.<a id="d4e1103" class="indexterm"></a></p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>show-node node1</strong></span>
+============================================================
++------------------------------------------+---------------+
+|                 Property                 |     Value     |
++------------------------------------------+---------------+
+| Node Name                                | node          |
+| Host                                     | 192.168.34.65 |
+| Mapped Servers                           |               |
+| Node Type                                | JAVA          |
+| NodeManager Port                         |          7732 |
+| Use SSL                                  | false         |
++------------------------------------------+---------------+
+============================================================</pre>
+          </li></ol></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>add-java-node 명령과 list-nodes 명령에 대한 자세한 사용 방법은 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-node-management-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.15. 노드 관리 관련 명령어”</a>를
+          참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="ch2_delete_java_node"></a>2.4.2. Java 타입 노드 삭제</h3></div></div></div>
+      
+
+      <p>본 절에서는 WebAdmin과 콘솔 툴을 사용해서 Java 타입 노드를 삭제하는 방법에 대해 설명한다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1121"></a>WebAdmin 사용</h4>
+
+      <p>다음은 WebAdmin을 사용해서 노드를 삭제하는 방법이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>WebAdmin의 메인 화면에서 <span><strong class="guibutton">[Node 설정]</strong></span>을 선택한다.
+            <span><strong class="guibutton">Nodes 화면</strong></span>에 조회된 노드 목록에서 삭제할 노드의
+            <span><strong class="guibutton">[delete]</strong></span> 버튼을 클릭한다.</p>
+          </li><li>
+            <p>노드 삭제에 대한 확인 메시지가 나타나고, <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭하면
+            해당 노드는 삭제된다.</p>
+          </li><li>
+            <p><span><strong class="guibutton">Nodes 화면</strong></span> 상단에 노드가 성공적으로 삭제되었다는 메시지와 함께
+            노드 목록에서 해당 노드 정보가 조회되지 않는 것을 확인할 수 있다.</p>
+          </li></ol></div>
+
+      <div class="literallayout"><p/></div>
+
+      <h4><a id="d4e1138"></a>콘솔 툴 사용</h4>
+
+      <p>다음은 콘솔 툴을 사용해서 노드를 삭제하는 방법이다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>remove-node 명령을 사용해서 'node1'이라는 노드를 삭제한다. <a id="d4e1144" class="indexterm"></a></p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>remove-node node1</strong></span>
+The node [node1] was successfully removed.</pre>
+          </li><li>
+            <p>추가된 노드를 확인하려면 list-nodes 명령을 사용해서 노드 목록을 조회한다. 노드 목록에 Java
+            타입의 'node1'이 조회되지 않는 것을 확인할 수 있다.<a id="d4e1151" class="indexterm"></a></p>
+
+            <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>list-nodes</strong></span>
+=========================================================================
++-----------+------+-------------------------------------+--------------+
+| Node name | Type |            Under control            | JEUS version |
++-----------+------+-------------------------------------+--------------+
+(No data available)
+=========================================================================</pre>
+          </li></ol></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>remove-node 명령과 list-node 명령에 대한 자세한 사용 방법은 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-node-management-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.15. 노드 관리 관련 명령어”</a>를
+          참고한다.</p>
+        </div>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e1160"></a>2.5. 노드 매니저 시작 및 종료</h2></div></div></div>
+    
+
+    <p>Java 타입의 노드 매니저는 SSH 타입의 노드 매니저와 달리 별도의 시작 및 종료 프로세스가 필요하다.</p>
+
+    <p/>
+
+    <h3><a id="d4e1165"></a>Java 타입 노드 매니저 시작</h3>
+
+    <p>Java 타입의 노드 매니저는 스크립트를 통해서 실행시킨다. JEUS_HOME/bin 하위에 존재하는
+    <span><strong class="guibutton">startNodeManager</strong></span>를 실행시키면 다음과 같이 노드 매니저가 DAS나 콘솔 툴로부터
+    명령을 받아 서버를 제어할 준비를 한다.<a id="d4e1168" class="indexterm"></a></p>
+
+    <pre class="screen">JEUS_HOME/bin$ <span class="bold"><strong>startNodeManager</strong></span>
+**************************************************************
+  - JEUS Home         : /home/jeus/jeus8
+  - Added Java Option :
+  - Java Vendor       : Sun
+**************************************************************
+...
+[2016.07.28 13:55:32][2] [nodemanager-1] [NodeManager-0101] The node manager is starting.
+[2016.07.28 13:55:32][2] [nodemanager-1] [NodeManager-0102] Initializing the node manager configuration.
+[2016.07.28 13:55:32][2] [nodemanager-1] [NodeManager-0108] Beginning to listen: localhost/127.0.0.1:7730.
+[2016.07.28 13:55:32][2] [nodemanager-10] [NodeManager-0109] Processing the request......</pre>
+
+    <div class="literallayout"><p/></div>
+
+    <p>노드 매니저가 서버를 모니터링하는 중에 종료되어 다시 기동되었다면 이전에 모니터링하던 서버를 계속 모니터링하기 위한 작업을
+    한다. 이때는 다음과 같은 로그가 발생한다.</p>
+
+    <pre class="screen">JEUS_HOME/bin$ <span class="bold"><strong>startNodeManager</strong></span>
+**************************************************************
+  - JEUS Home         : /home/jeus/jeus8
+  - Added Java Option :
+  - Java Vendor       : Sun
+**************************************************************
+...
+[2016.07.28 13:59:16][2] [nodemanager-1] [NodeManager-0101] The node manager is starting.
+[2016.07.28 13:59:16][2] [nodemanager-1] [NodeManager-0102] Initializing the node manager configuration.
+[2016.07.28 13:59:16][2] [nodemanager-1] [NodeManager-0108] Beginning to listen:localhost/127.0.0.1:7730.
+[2016.07.28 13:59:16][2] [nodemanager-1] [NodeManager-0115] Domain=[domain1], Server=[adminServer]
+[2016.07.28 13:59:16][2] [nodemanager-10] [NodeManager-0109] Processing the request......
+[2016.07.28 13:59:16][2] [nodemanager-1] [NodeManager-0115] Domain=[domain1], Server=[server1]
+[2016.07.28 13:59:16][2] [nodemanager-11] [NodeManager-0137] Beginning to monitor the server[adminServer] in the domain[domain1].
+[2016.07.28 13:59:16][2] [nodemanager-12] [NodeManager-0137] Beginning to monitor the server[server1] in the domain[domain1].
+[2016.07.28 13:59:16][2] [nodemanager-11] [NodeManager-0145] The process is alive(Server=adminServer, Process ID=4856).
+[2016.07.28 13:59:17][2] [nodemanager-12] [NodeManager-0145] The process is alive(Server=server1, Process ID=5376).</pre>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>노드 매니저를 기동할 때 DAS를 같이 기동할 수도 있다. 도메인을 구성하고 처음으로 노드 매니저를 띄우려고 할 때
+      DAS 기동 옵션을 준 경우 해당 노드에 DAS를 기동시켜준다.</p>
+
+      <p>startNodeManager -h로 사용할 수 있는 옵션을 확인할 수 있다.</p>
+    </div>
+
+    <div class="literallayout"><p/></div>
+
+    <h3><a id="d4e1185"></a>Java 타입 노드 매니저 종료</h3>
+
+    <p>Java 타입의 노드 매니저를 종료하는 방법은 스크립트를 사용하거나 콘솔 툴을 사용할 수 있다.</p>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">스크립트 사용</strong></span></p>
+
+          <p>기동할 때와 마찬가지로 스크립트를 통해 노드 매니저를 종료할 수 있다.
+          <span><strong class="guibutton">stopNodeManager</strong></span>를 실행하면 Java 타입 노드 매니저가
+          종료된다.<a id="d4e1194" class="indexterm"></a></p>
+
+          <pre class="screen">JEUS_HOME/bin$ <span class="bold"><strong>stopNodeManager -host localhost -port 7730</strong></span>
+******************************************************************
+  - Usage : stopNodeManager -host host -port port
+******************************************************************
+Succeed to stop the node manager.</pre>
+
+          <p>노드 매니저를 종료할 때 -properties 옵션을 통해 jeusnm.xml 파일의 경로를 줄 수도 있다.
+          노드 매니저 설정 파일로부터 host와 port 정보를 읽어 노드 매니저를 종료시켜준다.<a id="d4e1200" class="indexterm"></a></p>
+
+          <pre class="screen">JEUS_HOME/bin$ <span class="bold"><strong>stopNodeManager -properties JEUS_HOME/nodemanager/jeusnm.xml</strong></span>
+******************************************************************
+  - Usage : stopNodeManager -host host -port port
+******************************************************************
+Succeed to stop the node manager.</pre>
+        </li><li>
+          <p><span><strong class="guibutton">콘솔 툴 사용</strong></span></p>
+
+          <p>콘솔 툴을 통해 <span><strong class="guibutton">nm-stop</strong></span> 명령을 실행하면 노드 매니저가 종료된다.
+          nm-stop 명령에 대한 자세한 사용법은 <a xmlns="" href="../reference-book/ch04.html#cmd_nm-stop-nodemanager" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.16.6. stop-nodemanager”</a>를 참고한다.<a id="d4e1211" class="indexterm"></a></p>
+
+          <p/>
+
+          <pre class="screen">JEUS_HOME/bin$ jeusadmin
+JEUS8 Administration Tool
+To view help, use the 'help' command.
+offline&gt;<span class="bold"><strong>nm-stop -host localhost -port 7730</strong></span>
+Succeed to stop the node manager.</pre>
+        </li></ul></div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e1218"></a>2.6. Java 타입 노드 매니저를 통한 서버 제어</h2></div></div></div>
+    
+
+    <p>Java 타입 노드 매니저를 통해 서버를 제어할 수 있다. 본 절에서는 WebAdmin과 콘솔 툴을 사용한 서버 제어
+    방법에 대해 설명한다.</p>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="d4e1225"></a>WebAdmin 사용</h3>
+
+    <p>WebAdmin을 통해 서버를 기동하면 DAS가 서버를 기동하려는 머신의 노드 매니저에 접속해서 서버 기동 명령을
+    보내주고, 노드 매니저는 서버를 해당 머신에 기동시킨다.</p>
+
+    <div class="orderedlist"><ol type="1"><li>
+          <p>WebAdmin의 메인 화면에서 <span><strong class="guibutton">[Servers]</strong></span>를 선택하면 서버
+          목록이 조회된다.</p>
+
+          <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+              <p>서버를 기동하는 방법은 <span><strong class="guibutton">[Servers]</strong></span> 메뉴 외의
+              <span><strong class="guibutton">[Monitoring] &gt; [Servers]</strong></span> 메뉴를 이용할 수도
+              있다. 해당 메뉴를 사용하는 방법은 <a href="chapter_nodemanager_03_ssh.html" title="제3장 SSH 타입 노드 매니저">“제3장 SSH 타입 노드 매니저”</a>를 참고한다.</p>
+            </div>
+        </li><li>
+          <p>기동할 서버의 <span><strong class="guibutton">[start]</strong></span> 버튼을 클릭하면
+          <span><strong class="guibutton">Start Server 화면</strong></span>에서 서버 기동에 대한 옵션을 설정할 수 있다. 필요한
+          사항을 설정하고 <span><strong class="guibutton">[확인]</strong></span> 버튼을 클릭해서 서버를 기동시킨다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">Servers 화면</strong></span> 상단에 서버가 성공적으로 기동되었다는 메시지와 함께
+          서버 목록에서 서버의 상태가 RUNNING으로 변경된 것을 확인할 수 있다.</p>
+        </li></ol></div>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="d4e1250"></a>콘솔 툴 사용</h3>
+
+    <p>노드 매니저가 서버를 기동/종료시키고 서버의 상태를 확인하는 등의 제어는 콘솔 툴을 사용할 수도 있다.</p>
+
+    <p>콘솔 툴을 통해 서버를 제어하려면 먼저 콘솔 툴과 노드 매니저가 연결된 상태여야 하고 필요한 작업이 완료되면 접속을
+    종료한다.</p>
+
+    <p/>
+
+    <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">노드 매니저에 접속</strong></span><a id="d4e1259" class="indexterm"></a></p>
+
+          <p><span><strong class="guibutton">nm-connect</strong></span> 명령을 사용해서 노드 매니저에
+          접속한다.</p>
+
+          <pre class="screen">JEUS_HOME/bin$ jeusadmin
+JEUS8 Administration Tool
+To view help, use the 'help' command.
+offline&gt;<span class="bold"><strong>nm-connect -host localhost -port 7730 -domain domain1</strong></span>
+The connection to the node manager domain1 has been established.
+<span class="bold"><strong>[NodeManager]domain1&gt;</strong></span></pre>
+
+          <p/>
+        </li><li>
+          <p><span><strong class="guibutton">노드 매니저를 통한 서버 기동</strong></span><a id="d4e1271" class="indexterm"></a></p>
+
+          <p><span><strong class="guibutton">nm-start-server</strong></span> 명령을 사용해서 서버를
+          기동한다.</p>
+
+          <pre class="screen">[NodeManager]domain1&gt;<span class="bold"><strong>nm-start-server -server adminServer -u jeus -p jeus</strong></span>
+succeed to start server[adminServer].
+  RUNNING
+[NodeManager]domain1&gt;<span class="bold"><strong>nm-start-server -server server1 -u jeus -p jeus 
+-dasurl 192.168.0.4:9736</strong></span>
+succeed to start server[server1].
+  RUNNING</pre>
+
+          <p/>
+
+          <p>다음과 같이 <span><strong class="guibutton">nm-start-server</strong></span> 명령으로 노드 매니저에
+          접속하는 것까지 한 번에 수행할 수도 있다. </p><pre class="screen">JEUS_HOME/bin$ jeusadmin
+offline&gt;<span class="bold"><strong>nm-start-server -host localhost -port 7730 -domain domain1 -server adminServer -u jeus -p jeus</strong></span>
+succeed to start server[adminServer].
+  RUNNING</pre>
+        </li><li>
+          <p><span><strong class="guibutton">스크립트로 노드 매니저의 제어를 받는 DAS 기동</strong></span><a id="d4e1287" class="indexterm"></a></p>
+
+          <p>DAS에 한해서는 노드 매니저를 통해 서버를 기동하지 않아도 노드 매니저와 연결하고 노드 매니저의 제어를 받게
+          할 수 있다. <span><strong class="guibutton">startDomainAdminServerNM</strong></span> 스크립트를 사용하면
+          노드 매니저로 연결하고 DAS 기동 명령을 내려 노드 매니저가 DAS를 기동시키게 된다. 콘솔 툴에서 노드 매니저로
+          접속하고 서버를 기동하는 두 번의 명령을 하나의 스크립트로 제공하는 것이다.</p>
+
+          <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+             startDomainAdminServer 스크립트를 통해 DAS를 기동한 경우에도 노드 매니저의 관리를 받을 수 있다. DAS는 기동된 후 노드 매니저에 연결을 시도해서 자신의 정보를 등록한다. 노드 매니저에 DAS의 정보가 등록되면 노드 매니저에서 DAS의 비정상 상태를 파악하고 재기동하는 등의 제어가 가능해진다. 
+          </div>
+
+          <pre class="screen">JEUS_HOME/bin$ <span class="bold"><strong>startDomainAdminServerNM -host 192.168.0.26 -port 7730 -domain domain1 -server adminServer -u jeus -p jeus</strong></span>
+********************************************************************************
+  - Usage : startDomainAdminServerNM -host host -port port -domain domain -server 
+server1 -u username -p password
+********************************************************************************
+
+succeed to start server[adminServer].
+  RUNNING</pre>
+
+          <p/>
+        </li><li>
+          <p><span><strong class="guibutton">노드 매니저를 통한 서버 상태 확인</strong></span><a id="d4e1299" class="indexterm"></a></p>
+
+          <p><span><strong class="guibutton">nm-state-server</strong></span> 명령을 사용해서 서버 상태를 확인할 수
+          있다.</p>
+
+          <pre class="screen">[NodeManager]domain1&gt;<span class="bold"><strong>nm-state-server -server adminServer -u jeus -p jeus</strong></span>
+server[adminServer] :  RUNNING
+[NodeManager]domain1&gt;<span class="bold"><strong>nm-state-server -server server1 -u jeus -p jeus</strong></span>
+server[server1] :  RUNNING</pre>
+
+          <p/>
+        </li><li>
+          <p><span><strong class="guibutton">노드 매니저를 통한 서버 종료</strong></span><a id="d4e1311" class="indexterm"></a></p>
+
+          <p><span><strong class="guibutton">nm-stop-server</strong></span> 명령을 사용해서 서버를 종료할 수
+          있다.</p>
+
+          <pre class="screen">[NodeManager]domain1&gt;<span class="bold"><strong>nm-stop-server -server server1 -u jeus -p jeus</strong></span>
+succeed to stop server[server1].
+[NodeManager]domain1&gt;<span class="bold"><strong>nm-stop-server -server adminServer -u jeus -p jeus</strong></span>
+succeed to stop server[adminServer].</pre>
+
+          <p/>
+        </li><li>
+          <p><span><strong class="guibutton">노드 매니저와 접속 종료</strong></span><a id="d4e1323" class="indexterm"></a></p>
+
+          <p><span><strong class="guibutton">nm-disconnect</strong></span> 명령을 사용해서 노드 매니저와 접속을
+          종료한다.</p>
+
+          <pre class="screen">[NodeManager]domain1&gt;<span class="bold"><strong>nm-disconnect</strong></span>
+disconnect to node manager.
+<span class="bold"><strong>offline&gt;</strong></span></pre>
+
+          <p/>
+        </li><li>
+          <p><span><strong class="guibutton">DAS 접속 모드에서 서버 기동</strong></span><a id="d4e1335" class="indexterm"></a></p>
+
+          <p><span><strong class="guibutton">start-server</strong></span> 명령을 통해 MS를 기동할 때 노드 매니저를
+          통해서 서버를 기동한다.</p>
+
+          <pre class="screen">[DAS]domain1.adminServer&gt;<span class="bold"><strong>start-server server1</strong></span>
+The server [server1] was successfully started.</pre>
+        </li></ul></div>
+
+    <p/>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+      <p>콘솔 툴에서 Java 타입 노드 매니저에 접속/종료 명령과 Java 타입 노드 매니저를 통한 서버 제어 명령에 대한
+      자세한 사용 방법은 <a xmlns="" href="../reference-book/ch04.html#jeusadmin-node-management-commands" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Reference Book</span>”의 “4.2.15. 노드 관리 관련 명령어”</a>를 참고한다.</p>
+    </div>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e1347"></a>2.7. 로그 파일</h2></div></div></div>
+    
+
+    <p>노드 매니저의 로그는 JEUS_HOME/nodemanager/logs 하위에 JeusNodeManager.log라는 파일에
+    남겨진다. 노드 매니저에서 서버를 기동하거나 모니터링하면서 발생하는 로그 메시지들을 기록한다. 또한 서버가 기동되면서 서버에서
+    발생하는 부팅 로그 메시지도 기록된다.</p>
+
+    <p>노드 매니저의 로그 레벨을 설정하려면 노드 매니저를 기동하는 스크립트에 다음과 같이 설정할 수 있다.</p>
+
+    <pre class="programlisting">-Djeus.nodemanager.log.level=FINEST</pre>
+
+    <p>로그와 로그 레벨에 대한 자세한 내용은 <a xmlns="" href="../server/chapter_jeus_logging.html" class="olink">“<span xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="olinkdocname">JEUS Server 안내서</span>”의 “제8장 Logging”</a>을 참고한다.</p>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_nodemanager_01_overview.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_nodemanager_03_ssh.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제1장 소개 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제3장 SSH 타입 노드 매니저</td></tr></table></div><div xmlns="" align="center"/></body></html>

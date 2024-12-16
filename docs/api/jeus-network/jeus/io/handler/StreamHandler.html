@@ -1,0 +1,848 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>StreamHandler</title>
+      <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="StreamHandler (JEUS Network Library)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.io.handler</font><br>Class StreamHandler
+      </h2><pre>java.lang.Object<br>  <img src="../../../resource/inherit.gif" alt="extended by">jeus.io.impl.nio.IdleTimeoutHolder<br>     <img src="../../../resource/inherit.gif" alt="extended by"><b>jeus.io.handler.StreamHandler</b></pre><dl>
+         <dt><b>All Implemented Interfaces:</b><dd>java.lang.Comparable&lt;jeus.io.impl.nio.IdleTimeoutHolder&gt;</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public class <b>StreamHandler</b><dt>extends jeus.io.impl.nio.IdleTimeoutHolder</dt></pre></dl>하나의 socket의 stream을 관리하는 객체를 나타낸다. 기본적으로 selector로부터 오는 event를
+      처리한다. application은 endpoint에 대해 socket 관리와 stream 처리 과정에서 생기는 여러가지
+      다음과 같은 작업들을 진행한다.
+      <p/>
+      <ul>
+      <li>자료 전송
+      <li>socket close
+      <li>exception reporting
+      </ul>
+      <p/>
+      <p/>
+      크게 selector와 관련된 method, application interface에 해당하는 method로 구분된다.
+      <p/>
+      StreamHandler는 Selector로 부터 읽기나 쓰기이벤트가 발생하면 이를 처리 해주는 역할을 하는 객체이다.
+      보통 이 객체는 어플리케이션 개발자가 직접 생성하거나 사용하는 경우는 없다. 다만 읽기를 담당하는
+      StreamContentReader나 쓰기를 담당하는 StreamContentWriter의 확장이 필요한 경우에는
+      StreamContentHandlerCreator 인터페이스를 구현하여 Endpoint생성시 설정을 하면 읽기나 쓰기의 기능을
+      확장할 수 있다.<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="StreamHandler.html#StreamHandler(java.net.Socket, jeus.io.handler.StreamContentReceiver, jeus.io.handler.StreamContentHandlerCreator)">StreamHandler</a></b>(java.net.Socket socket, jeus.io.handler.StreamContentReceiver listener, jeus.io.handler.StreamContentHandlerCreator creator)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#attach(java.lang.Object)">attach</a></b>(java.lang.Object obj)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.Object</code></font></td>
+               <td><code><b><a href="StreamHandler.html#attachment()">attachment</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#close(java.lang.Exception)">close</a></b>(java.lang.Exception ex)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>jeus.io.buffer.Buffer</code></font></td>
+               <td><code><b><a href="StreamHandler.html#createBuffer(int)">createBuffer</a></b>(int size)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.nio.ByteBuffer</code></font></td>
+               <td><code><b><a href="StreamHandler.html#createByteBuffer(int)">createByteBuffer</a></b>(int size)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.io.IOException</code></font></td>
+               <td><code><b><a href="StreamHandler.html#getCloseCause()">getCloseCause</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code><a href="../../../jeus/io/Selector.html">Selector</a></code></font></td>
+               <td><code><b><a href="StreamHandler.html#getSelector()">getSelector</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamHandler가 등록된  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>를 가져온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.net.Socket</code></font></td>
+               <td><code><b><a href="StreamHandler.html#getSocket()">getSocket</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamHandler에서 사용하는 <code>java.net.Socket</code>을 가져온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.Object</code></font></td>
+               <td><code><b><a href="StreamHandler.html#getWriteLock()">getWriteLock</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamHandler를 이용해 데이터를 쓸때 사용하난 Lock을 가져온다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#isClosed()">isClosed</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#isRegistered()">isRegistered</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamHandler가 특정 selector에 등록되었는지를 확인한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#isRunningOnSelectorThread()">isRunningOnSelectorThread</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#register()">register</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamHandler를  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>에 등록한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#registerTo(jeus.io.Selector)">registerTo</a></b>(<a href="../../../jeus/io/Selector.html">Selector</a> selector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamHandler를  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>에 등록한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#removeAllEventOps()">removeAllEventOps</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#setContinuousMessageRead(boolean)">setContinuousMessageRead</a></b>(boolean continuousMessageRead)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#setKeepAlive(boolean)">setKeepAlive</a></b>(boolean option)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#setLastReadTime()">setLastReadTime</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#setLastWriteTime()">setLastWriteTime</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#setRegistered(boolean)">setRegistered</a></b>(boolean registered)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#setReuseAddress(boolean)">setReuseAddress</a></b>(boolean option)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#setSelector(jeus.io.Selector)">setSelector</a></b>(<a href="../../../jeus/io/Selector.html">Selector</a> selector)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamHandler에서 사용할  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>를 지정한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#setSoLinger(int)">setSoLinger</a></b>(int option)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#setSoTimeout(int)">setSoTimeout</a></b>(int option)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#setTcpNoDelay(boolean)">setTcpNoDelay</a></b>(boolean option)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="StreamHandler.html#toString()">toString</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamHandler에대한 정보를 나타낸다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="StreamHandler.html#unregister()">unregister</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   StreamHandler를 selector에서 제외시킨다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#write(byte[])">write</a></b>(byte[] bytes)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#write(byte[], byte[])">write</a></b>(byte[] bytes, byte[] header)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#write(byte[], int, int)">write</a></b>(byte[] bytes, int offset, int length)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#write(byte[], int, int, byte[])">write</a></b>(byte[] bytes, int offset, int length, byte[] header)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#write(java.lang.Object)">write</a></b>(java.lang.Object toBeWritten)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#write(java.lang.Object, byte[])">write</a></b>(java.lang.Object toBeWritten, byte[] header)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#write(java.lang.Object, byte[], boolean)">write</a></b>(java.lang.Object toBeWritten, byte[] header, boolean flowControl)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#write(java.nio.ByteBuffer)">write</a></b>(java.nio.ByteBuffer toBeWritten)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#write(java.nio.ByteBuffer, byte[])">write</a></b>(java.nio.ByteBuffer toBeWritten, byte[] header)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#write(jeus.io.buffer.Buffer)">write</a></b>(jeus.io.buffer.Buffer toBeWritten)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#write(jeus.io.buffer.Buffer, byte[])">write</a></b>(jeus.io.buffer.Buffer toBeWritten, byte[] header)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>abstract boolean</code></font></td>
+               <td><code><b><a href="StreamHandler.html#writeInternal(java.lang.Object[])">writeInternal</a></b>(java.lang.Object[] buffer)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_jeus.io.impl.nio.IdleTimeoutHolder"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class jeus.io.impl.nio.IdleTimeoutHolder</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>access, callback, compareTo, getIdleTimeout, getLastAccessTime, getLastCheckedTime, getUniqueSequence, isIdleTime, setIdleTimeout, setLastCheckedTime</code></td>
+            </tr>
+         </table>&nbsp;<a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></td>
+            </tr>
+         </table>&nbsp;
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="StreamHandler(java.net.Socket, jeus.io.handler.StreamContentReceiver, jeus.io.handler.StreamContentHandlerCreator)"></a><h3>StreamHandler</h3><pre>public <b>StreamHandler</b>(<code>java.net.Socket</code> socket,<br>                     <code>jeus.io.handler.StreamContentReceiver</code> listener,<br>                     <code>jeus.io.handler.StreamContentHandlerCreator</code> creator)<br>                    throws <code>IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getCloseCause()"></a><h3>getCloseCause</h3><pre>public java.io.IOException <b>getCloseCause</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="isRunningOnSelectorThread()"></a><h3>isRunningOnSelectorThread</h3><pre>public boolean <b>isRunningOnSelectorThread</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="getSocket()"></a><h3>getSocket</h3><pre>public java.net.Socket <b>getSocket</b>()<br></pre><dl>
+            <dd>StreamHandler에서 사용하는 <code>java.net.Socket</code>을 가져온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>StreamHandler에서 사용하는 <code>java.net.Socket</code>&nbsp;</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="isClosed()"></a><h3>isClosed</h3><pre>public boolean <b>isClosed</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="unregister()"></a><h3>unregister</h3><pre>public void <b>unregister</b>()<br></pre><dl>
+            <dd>StreamHandler를 selector에서 제외시킨다.</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="removeAllEventOps()"></a><h3>removeAllEventOps</h3><pre>public void <b>removeAllEventOps</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="register()"></a><h3>register</h3><pre>public void <b>register</b>()<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>StreamHandler를  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>에 등록한다.
+               등록할 Selector는  <a href="../../../jeus/io/handler/StreamHandler.html#setSelector(jeus.io.Selector)"><code>StreamHandler.setSelector(jeus.io.Selector)</code></a>
+               에서 등록해놓은 것이다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="toString()"></a><h3>toString</h3><pre>public java.lang.String <b>toString</b>()<br></pre><dl>
+            <dd>StreamHandler에대한 정보를 나타낸다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Overrides:</b><dd><code>toString</code> in class <code>Object</code></dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>StreamHandler에대한 정보.</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="isRegistered()"></a><h3>isRegistered</h3><pre>public boolean <b>isRegistered</b>()<br></pre><dl>
+            <dd>StreamHandler가 특정 selector에 등록되었는지를 확인한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>StreamHandler가 특정 selector에 등록되었는지 여부</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setLastReadTime()"></a><h3>setLastReadTime</h3><pre>public void <b>setLastReadTime</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setLastWriteTime()"></a><h3>setLastWriteTime</h3><pre>public void <b>setLastWriteTime</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="getSelector()"></a><h3>getSelector</h3><pre>public <a href="../../../jeus/io/Selector.html">Selector</a> <b>getSelector</b>()<br></pre><dl>
+            <dd>StreamHandler가 등록된  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>를 가져온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>StreamHandler가 등록된  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>&nbsp;</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getWriteLock()"></a><h3>getWriteLock</h3><pre>public java.lang.Object <b>getWriteLock</b>()<br></pre><dl>
+            <dd>StreamHandler를 이용해 데이터를 쓸때 사용하난 Lock을 가져온다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>StreamHandler의 WriteLock</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="attachment()"></a><h3>attachment</h3><pre>public final java.lang.Object <b>attachment</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setTcpNoDelay(boolean)"></a><h3>setTcpNoDelay</h3><pre>public void <b>setTcpNoDelay</b>(<code>boolean</code> option)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setReuseAddress(boolean)"></a><h3>setReuseAddress</h3><pre>public void <b>setReuseAddress</b>(<code>boolean</code> option)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setKeepAlive(boolean)"></a><h3>setKeepAlive</h3><pre>public void <b>setKeepAlive</b>(<code>boolean</code> option)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setRegistered(boolean)"></a><h3>setRegistered</h3><pre>public void <b>setRegistered</b>(<code>boolean</code> registered)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setContinuousMessageRead(boolean)"></a><h3>setContinuousMessageRead</h3><pre>public void <b>setContinuousMessageRead</b>(<code>boolean</code> continuousMessageRead)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="write(byte[])"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>byte[]</code> bytes)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(byte[], byte[])"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>byte[]</code> bytes,<br>                     <code>byte[]</code> header)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(byte[], int, int)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>byte[]</code> bytes,<br>                     <code>int</code> offset,<br>                     <code>int</code> length)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(byte[], int, int, byte[])"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>byte[]</code> bytes,<br>                     <code>int</code> offset,<br>                     <code>int</code> length,<br>                     <code>byte[]</code> header)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setSoTimeout(int)"></a><h3>setSoTimeout</h3><pre>public void <b>setSoTimeout</b>(<code>int</code> option)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="setSoLinger(int)"></a><h3>setSoLinger</h3><pre>public void <b>setSoLinger</b>(<code>int</code> option)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="createByteBuffer(int)"></a><h3>createByteBuffer</h3><pre>public java.nio.ByteBuffer <b>createByteBuffer</b>(<code>int</code> size)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="createBuffer(int)"></a><h3>createBuffer</h3><pre>public jeus.io.buffer.Buffer <b>createBuffer</b>(<code>int</code> size)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="close(java.lang.Exception)"></a><h3>close</h3><pre>public abstract void <b>close</b>(<code>java.lang.Exception</code> ex)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="write(java.lang.Object)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>java.lang.Object</code> toBeWritten)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="attach(java.lang.Object)"></a><h3>attach</h3><pre>public void <b>attach</b>(<code>java.lang.Object</code> obj)<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+         <hr><a name="write(java.lang.Object, byte[])"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>java.lang.Object</code> toBeWritten,<br>                     <code>byte[]</code> header)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(java.lang.Object, byte[], boolean)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>java.lang.Object</code> toBeWritten,<br>                     <code>byte[]</code> header,<br>                     <code>boolean</code> flowControl)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="writeInternal(java.lang.Object[])"></a><h3>writeInternal</h3><pre>public abstract boolean <b>writeInternal</b>(<code>java.lang.Object[]</code> buffer)<br>                                    throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(java.nio.ByteBuffer)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>java.nio.ByteBuffer</code> toBeWritten)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(java.nio.ByteBuffer, byte[])"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>java.nio.ByteBuffer</code> toBeWritten,<br>                     <code>byte[]</code> header)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(jeus.io.buffer.Buffer)"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>jeus.io.buffer.Buffer</code> toBeWritten)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="write(jeus.io.buffer.Buffer, byte[])"></a><h3>write</h3><pre>public boolean <b>write</b>(<code>jeus.io.buffer.Buffer</code> toBeWritten,<br>                     <code>byte[]</code> header)<br>                   throws <code>java.io.IOException</code></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="setSelector(jeus.io.Selector)"></a><h3>setSelector</h3><pre>public void <b>setSelector</b>(<code><a href="../../../jeus/io/Selector.html">Selector</a></code> selector)<br></pre><dl>
+            <dd>StreamHandler에서 사용할  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>를 지정한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>selector</code> - StreamHandler에서 사용할  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>&nbsp;
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="registerTo(jeus.io.Selector)"></a><h3>registerTo</h3><pre>public void <b>registerTo</b>(<code><a href="../../../jeus/io/Selector.html">Selector</a></code> selector)<br>                     throws <code>java.io.IOException</code></pre><dl>
+            <dd>StreamHandler를  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>에 등록한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>selector</code> - 등록할  <a href="../../../jeus/io/Selector.html"><code>Selector</code></a>&nbsp;
+                     </dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

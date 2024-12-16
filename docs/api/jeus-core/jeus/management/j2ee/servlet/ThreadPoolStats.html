@@ -1,0 +1,454 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>ThreadPoolStats</title>
+      <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="ThreadPoolStats (JEUS API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.management.j2ee.servlet</font><br>Interface ThreadPoolStats
+      </h2><pre></pre><dl>
+         <dt><b>All Superinterfaces:</b><dd>javax.management.j2ee.statistics.Stats</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public interface <b>ThreadPoolStats</b><dt>extends javax.management.j2ee.statistics.Stats</dt></pre></dl>웹 컨테이너에서 이용하는 쓰레드 풀의 통계 정보를 나타내며,
+       <a href="../../../../jeus/management/j2ee/servlet/ThreadPoolMoMBean.html"><code>ThreadPoolMoMBean</code></a>에서 이용한다.
+      
+      <p>쓰레드 풀에 현재 활성화된(active) 쓰레드의 개수, 블럭된(blocked) 쓰레드의 개수,
+      처리를 기다리는 요청의 개수 등 다양한 정보를 제공한다.</p><br><p>
+         <dl>
+            <dt></dt>
+            <dt><b>See Also:</b><dd><a href="../../../../jeus/management/j2ee/servlet/ThreadPoolMoMBean.html"><code>ThreadPoolMoMBean</code></a></dd>
+            </dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getActiveThreadCount()">getActiveThreadCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀에 활성화된 쓰레드 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getAllThreadCount()">getAllThreadCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀 내, 작업 쓰레드의 총 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getBlockThreadCount()">getBlockThreadCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀에 Block된 쓰레드 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getCurrentQueueCount()">getCurrentQueueCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀에 관련된 queue의 현재 사용중인 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getDifferenceQueue15MCount()">getDifferenceQueue15MCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀에 관련된 queue의 15분간의 사용 변화량 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getDifferenceQueue1MCount()">getDifferenceQueue1MCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀에 관련된 queue의 1분간의 사용 변화량 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getDifferenceQueue5MCount()">getDifferenceQueue5MCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀에 관련된 queue의 5분간의 사용 변화량 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getMaxQueueCount()">getMaxQueueCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀에 관련된 queue의 max size를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getMaxThreadCount()">getMaxThreadCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀 내, 최대 쓰레드 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getMinThreadCount()">getMinThreadCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀 내, 최소 쓰레드 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getOverflowCount()">getOverflowCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀에 관련된 queue의 overflow 사용 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getPeakQueueCount()">getPeakQueueCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀에 관련된 queue의 최고치일때의 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getQueueWaitTimeAverage()">getQueueWaitTimeAverage</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀에 관련된 queue의 wait time의 평균를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getRemainQueueCount()">getRemainQueueCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀에 관련된 queue의 여분의 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getTotalConnectionCount()">getTotalConnectionCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀에 관련된 총 connection의 누적 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getTotalQueueCount()">getTotalQueueCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 쓰레드 풀에 관련된 queue의 사용하고자 했던 총 누적 개수를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.management.j2ee.statistics.CountStatistic</code></font></td>
+               <td><code><b><a href="ThreadPoolStats.html#getWaitQueueCount()">getWaitQueueCount</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   작업 쓰레드가 생성되기 전의 요청정보를 담는 queue의 최대 크기(size)를 관리하는 CountStatistic 객체를 반환한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_javax.management.j2ee.statistics.Stats"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class javax.management.j2ee.statistics.Stats</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>getStatistic, getStatisticNames, getStatistics</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getActiveThreadCount()"></a><h3>getActiveThreadCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getActiveThreadCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀에 활성화된 쓰레드 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 활성화된 상태의 쓰레드 개수를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getBlockThreadCount()"></a><h3>getBlockThreadCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getBlockThreadCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀에 Block된 쓰레드 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 Block된 쓰레드 개수를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMinThreadCount()"></a><h3>getMinThreadCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getMinThreadCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀 내, 최소 쓰레드 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 최소 쓰레드 개수를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMaxThreadCount()"></a><h3>getMaxThreadCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getMaxThreadCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀 내, 최대 쓰레드 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 최대 쓰레드 개수를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getWaitQueueCount()"></a><h3>getWaitQueueCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getWaitQueueCount</b>()<br></pre><dl>
+            <dd>작업 쓰레드가 생성되기 전의 요청정보를 담는 queue의 최대 크기(size)를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>요청정보를 담는 queue의 최대 크기(size)를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getAllThreadCount()"></a><h3>getAllThreadCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getAllThreadCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀 내, 작업 쓰레드의 총 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀 내, 총 쓰레드 개수를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getTotalConnectionCount()"></a><h3>getTotalConnectionCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getTotalConnectionCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀에 관련된 총 connection의 누적 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 관련된 총 connection의 누적 개수 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getMaxQueueCount()"></a><h3>getMaxQueueCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getMaxQueueCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀에 관련된 queue의 max size를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 관련된 queue의 max size를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getCurrentQueueCount()"></a><h3>getCurrentQueueCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getCurrentQueueCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀에 관련된 queue의 현재 사용중인 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 관련된 queue의 현재 사용중인 개수를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getRemainQueueCount()"></a><h3>getRemainQueueCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getRemainQueueCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀에 관련된 queue의 여분의 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 관련된 queue의 여분의 개수를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getPeakQueueCount()"></a><h3>getPeakQueueCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getPeakQueueCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀에 관련된 queue의 최고치일때의 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 관련된 queue의 최고치일때의 개수를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getTotalQueueCount()"></a><h3>getTotalQueueCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getTotalQueueCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀에 관련된 queue의 사용하고자 했던 총 누적 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 관련된 queue의 사용하고자 했던 총 누적 개수를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getDifferenceQueue1MCount()"></a><h3>getDifferenceQueue1MCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getDifferenceQueue1MCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀에 관련된 queue의 1분간의 사용 변화량 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 관련된 queue의 1분간의 사용 변화량 개수를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getDifferenceQueue5MCount()"></a><h3>getDifferenceQueue5MCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getDifferenceQueue5MCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀에 관련된 queue의 5분간의 사용 변화량 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 관련된 queue의 5분간의 사용 변화량 개수를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getDifferenceQueue15MCount()"></a><h3>getDifferenceQueue15MCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getDifferenceQueue15MCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀에 관련된 queue의 15분간의 사용 변화량 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 관련된 queue의 15분간의 사용 변화량 개수를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getOverflowCount()"></a><h3>getOverflowCount</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getOverflowCount</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀에 관련된 queue의 overflow 사용 개수를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 관련된 queue의 overflow 사용 개수를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getQueueWaitTimeAverage()"></a><h3>getQueueWaitTimeAverage</h3><pre>public javax.management.j2ee.statistics.CountStatistic <b>getQueueWaitTimeAverage</b>()<br></pre><dl>
+            <dd>해당 쓰레드 풀에 관련된 queue의 wait time의 평균를 관리하는 CountStatistic 객체를 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>해당 쓰레드 풀에 관련된 queue의 wait time의 평균를 관리하는 CountStatistic 객체</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

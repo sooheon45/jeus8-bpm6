@@ -1,0 +1,232 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>Connector</title>
+      <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="Connector (JEUS Network Library)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.io</font><br>Class Connector
+      </h2><pre>java.lang.Object<br>  <img src="../../resource/inherit.gif" alt="extended by"><b>jeus.io.Connector</b></pre><hr>
+      <dl><pre>public class <b>Connector</b><dt>extends java.lang.Object</dt></pre></dl>&nbsp;<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="constructor_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Constructor Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code><b><a href="Connector.html#Connector()">Connector</a></b>()</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.net.Socket</code></font></td>
+               <td><code><b><a href="Connector.html#connect(java.lang.String, int, java.lang.String, int, int)">connect</a></b>(java.lang.String hostName, int port, java.lang.String virtualId, int connectTimeout, int readTimeout)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   주어진 상대방으로 연결하고, 연결이 되면 연결된 Socket을 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.net.Socket</code></font></td>
+               <td><code><b><a href="Connector.html#connect(java.lang.String, int, java.lang.String, int, java.lang.String, int, int)">connect</a></b>(java.lang.String hostName, int port, java.lang.String localHost, int localPort, java.lang.String virtualId, int connectTimeout, int readTimeout)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   주어진 상대방으로 연결하고, 연결이 되면 연결된 Socket을 반환한다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.net.Socket</code></font></td>
+               <td><code><b><a href="Connector.html#connect(java.lang.String, int, java.lang.String, int, java.lang.String, int, int, boolean)">connect</a></b>(java.lang.String hostName, int port, java.lang.String localHost, int localPort, java.lang.String virtualId, int connectTimeout, int readTimeout, boolean enableInternalRetry)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   주어진 상대방으로 연결하고, 연결이 되면 연결된 Socket을 반환한다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="constructor_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Constructor Detail</b></font></th>
+            </tr>
+         </table><a name="Connector()"></a><h3>Connector</h3><pre>public <b>Connector</b>()<br></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl></dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="connect(java.lang.String, int, java.lang.String, int, int)"></a><h3>connect</h3><pre>public java.net.Socket <b>connect</b>(<code>java.lang.String</code> hostName,<br>                               <code>int</code> port,<br>                               <code>java.lang.String</code> virtualId,<br>                               <code>int</code> connectTimeout,<br>                               <code>int</code> readTimeout)<br>                             throws <code>java.io.IOException</code></pre><dl>
+            <dd>주어진 상대방으로 연결하고, 연결이 되면 연결된 Socket을 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>hostName</code> - 연결하고자 하는 상대방의 host name<br><code>port</code> - 연결하고자 하는 상대방의 port<br><code>virtualId</code> - 연결하고자 하는 상대방의 virtual id<br><code>connectTimeout</code> - 연결시의 timeout<br><code>readTimeout</code> - 연결 후 메시지를 받을 때의 read timeout
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>연결된 socket</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="connect(java.lang.String, int, java.lang.String, int, java.lang.String, int, int)"></a><h3>connect</h3><pre>public java.net.Socket <b>connect</b>(<code>java.lang.String</code> hostName,<br>                               <code>int</code> port,<br>                               <code>java.lang.String</code> localHost,<br>                               <code>int</code> localPort,<br>                               <code>java.lang.String</code> virtualId,<br>                               <code>int</code> connectTimeout,<br>                               <code>int</code> readTimeout)<br>                             throws <code>java.io.IOException</code></pre><dl>
+            <dd>주어진 상대방으로 연결하고, 연결이 되면 연결된 Socket을 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>hostName</code> - 연결하고자 하는 상대방의 host name<br><code>port</code> - 연결하고자 하는 상대방의 port<br><code>localHost</code> - 자신의 host name<br><code>localPort</code> - 자신의 port<br><code>virtualId</code> - 연결하고자 하는 상대방의 virtual id<br><code>connectTimeout</code> - 연결시의 timeout<br><code>readTimeout</code> - 연결 후 메시지를 받을 때의 read timeout
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>연결된 socket</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="connect(java.lang.String, int, java.lang.String, int, java.lang.String, int, int, boolean)"></a><h3>connect</h3><pre>public java.net.Socket <b>connect</b>(<code>java.lang.String</code> hostName,<br>                               <code>int</code> port,<br>                               <code>java.lang.String</code> localHost,<br>                               <code>int</code> localPort,<br>                               <code>java.lang.String</code> virtualId,<br>                               <code>int</code> connectTimeout,<br>                               <code>int</code> readTimeout,<br>                               <code>boolean</code> enableInternalRetry)<br>                             throws <code>java.io.IOException</code></pre><dl>
+            <dd>주어진 상대방으로 연결하고, 연결이 되면 연결된 Socket을 반환한다.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>hostName</code> - 연결하고자 하는 상대방의 host name<br><code>port</code> - 연결하고자 하는 상대방의 port<br><code>localHost</code> - 자신의 host name<br><code>localPort</code> - 자신의 port<br><code>virtualId</code> - 연결하고자 하는 상대방의 virtual id<br><code>connectTimeout</code> - 연결시의 timeout<br><code>readTimeout</code> - 연결 후 메시지를 받을 때의 read timeout<br><code>enableInternalRetry</code> - connect시 내부에서 재시도 할지 여부
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>연결된 socket</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code></dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Network Library</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  FIELD
+                  &nbsp;|&nbsp;
+                  <a href="#constructor_summary">CONSTR</a>
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

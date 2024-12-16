@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제6장 JACC Provider 사용</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Security 안내서"/><link rel="up" href="index.html" title="JEUS Security 안내서"/><link rel="prev" href="chapter_custom_security_service_develop.html" title="제5장 Custom 보안 서비스 개발"/><link rel="next" href="chapter_jaas_application.html" title="제7장 JAAS 사용"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제6장 JACC Provider 사용</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_custom_security_service_develop.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> <a accesskey="n" href="chapter_jaas_application.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jacc_provider_application"></a>제6장 JACC Provider 사용</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jacc_provider_application.html#d4e4521">6.1. 개요</a></span></dt><dt><span class="section"><a href="chapter_jacc_provider_application.html#d4e4533">6.2. JACC 규약</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jacc_provider_application.html#d4e4549">6.2.1. Provider 설정 규약</a></span></dt><dt><span class="section"><a href="chapter_jacc_provider_application.html#d4e4565">6.2.2. Policy 설정 규약</a></span></dt><dt><span class="section"><a href="chapter_jacc_provider_application.html#sect_Policy_decision_and_enforcement_rules">6.2.3. Policy 결정 및 집행 규약</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jacc_provider_application.html#d4e4620">6.3. JACC Provider 개발</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jacc_provider_application.html#d4e4624">6.3.1. JACC Provider 구현</a></span></dt><dt><span class="section"><a href="chapter_jacc_provider_application.html#d4e4671">6.3.2. JACC Provider 패키징</a></span></dt><dt><span class="section"><a href="chapter_jacc_provider_application.html#d4e4678">6.3.3. Default JACC Provider</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jacc_provider_application.html#jeus_security_jacc_provider_comb">6.4. JEUS 보안 시스템과 JACC Provider 통합</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 JACC의 목적을 설명하고 Custom JACC Provider를 구현하여 JEUS 보안 시스템에서 사용하는
+  방법에 대해 간단히 설명한다.</p>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4521"></a>6.1. 개요</h2></div></div></div>
+    
+
+    <p>JACC(Java Authorization Contract for Containers)는 J2EE 버전 1.4에서 처음으로
+    소개되었고, 현재 버전은 1.5이다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p>JACC 배경에는 다음의 2가지 기본 목적이 있다. </p><div class="itemizedlist"><ul type="disc"><li>
+          <p>EJB와 서블릿의 권한을 체크하는 경우 표준 SPI를 제공한다.</p>
+        </li><li>
+          <p>기존 J2SE 보안 모델과 J2EE 보안 모델 간의 조화를 추구한다.</p>
+        </li></ul></div>
+
+    <p>JACC는 EJB와 서블릿의 접근 권한을 정의하고 처리하는 표준적인 방법을 제시하고 있다. 따라서, JACC
+    Provider를 작성하면 JACC 호환 J2EE 서버에서 사용할 수 있다.</p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4533"></a>6.2. JACC 규약</h2></div></div></div>
+    
+
+    <p>전체 JACC 스펙은 다음과 같이 3개의 세부 규약으로 구성되어 있다. </p><div class="itemizedlist"><ul type="disc"><li>
+          <p>Provider 설정 규약</p>
+        </li><li>
+          <p>Policy 설정 규약</p>
+        </li><li>
+          <p>Policy 결정 및 집행 규약</p>
+        </li></ul></div>
+
+    <p/>
+
+    <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+        <p>JACC 스펙(JSR-115)에 대한 자세한 정보는 <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://java.sun.com/j2ee" target="_top">http://java.sun.com/j2ee</a>의
+        JACC 1.5 스펙 문서를 참고한다.</p>
+      </div>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4549"></a>6.2.1. Provider 설정 규약</h3></div></div></div>
+      
+
+      <p>JACC Provider 설정 규약은 애플리케이션 서버의 런타임 환경에 JACC Provider를 통합하는 방법을
+      기술하고 있다. 즉, 이 스펙은 JACC Provider를 J2EE 서버에 등록하는 방법을 정의하고 있다. 일반적으로 이 과정은
+      매우 단순하다.</p><div class="orderedlist"><ol type="1"><li>
+            <p>javax.security.jacc.policy.provider 시스템 속성에 Custom
+            java.security.Policy 클래스 이름을 설정한다. JACC Provider는 Custom
+            java.security.Policy를 포함하고 있다.</p>
+          </li><li>
+            <p>J2EE 서버는 이 클래스명을 읽어서 인스턴스를 만든 다음 java.security.Policy 타입으로
+            캐스팅한다.</p>
+          </li><li>
+            <p>위의 과정이 성공적으로 완료되었다면, java.security.Policy.setPolicy() 메소드를
+            호출하여 디폴트 J2SE Policy 클래스를 새로 생성한 JACC Policy 클래스로 교체한다.</p>
+          </li><li>
+            <p>모든 권한 체크는 새로 등록된 JACC Policy를 통해서 이루어지고
+            java.security.Policy.getPolicy() 메소드를 통해 현재 JACC Policy를 얻어올 수
+            있다.</p>
+          </li></ol></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>JACC Provider 설정 규약에 대한 자세한 설명은 JACC 스펙을 참고한다.</p>
+        </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4565"></a>6.2.2. Policy 설정 규약</h3></div></div></div>
+      
+
+      <p>Policy 설정 규약은 J2EE DD 파일(ejb-jar.xml, web.xml)에 설정된 보안 제약(security
+      constraints)을 javax.security.jacc 패키지에 정의된 java.security.Permission
+      set으로 매핑하는 방법과 이러한 Permission을 JACC Provider(Custom
+      java.security.Policy)에 추가하는 방법을 기술하고 있다.</p>
+
+      <p>이는 결국 EJB와 서블릿에서 JACC Provider가 권한 부여와 관련된 결정을 내릴 수 있게 만든다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>Policy 설정 규약은 Principal-to-Role 매핑에 대한 언급이 없다. 오로지 J2EE DD 파일에
+          근거하여 Role-to-Resource 매핑을 어떻게 할지만 정의하고 있다. 따라서 Princiapl-to-Role 매핑은
+          JACC Provider를 공급하는 업체에 따라 각각 다른 방법으로 정의되어 있다.</p>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>Policy 설정 과정을 간단하게 설명하면 다음과 같이 구성되어 있다.</p><div class="orderedlist"><ol type="1"><li>
+            <p>시스템 속성(-D 속성으로 설정)
+            javax.security.jacc.PolicyConfigurationFactory.provider에 Custom
+            javax.security.jacc.PolicyConfigurationFactory 클래스명을 설정한다.</p>
+
+            <p>JACC Provider는 Custom
+            javax.security.jacc.PolicyConfigurationFactory를 포함하고 있다.</p>
+          </li><li>
+            <p>J2EE 서버는 이 속성값을 읽어서 해당 클래스의 인스턴스(PCF)를 생성한다.</p>
+          </li><li>
+            <p>서블릿과 EJB 모듈을 deploy한다.</p>
+          </li><li>
+            <p>Deployment 코드는 web.xml과 ejb-jar.xml DD 파일을 읽어들여 설정된 security
+            constraints 항목을 JACC Permission 인스턴스들로 전환한다. 이 Permission 클래스는
+            javax.security.jacc 패키지에 포함되어 있다. 이때 각 Permission 인스턴스는 서블릿과 EJB에
+            설정되어 있는 Role-to-Resource 매핑을 나타낸다.</p>
+          </li><li>
+            <p>Deployment 코드는 PCF.getPolicyConfiguration() 메소드를 호출하여
+            javax.security.jacc.PolicyConfiguration 타입의 인스턴스(PC)를
+            리턴받는다.</p>
+          </li><li>
+            <p>Deployment 코드는 4번 과정에서 생성된 Role-to-Resource Permission들을 PC의
+            다양한 메소드를 사용하여 PC에 추가한다.</p>
+          </li><li>
+            <p>모든 Permission을 PC에 추가하고 나면, PC의 commit() 메소드를 호출한다.</p>
+          </li></ol></div>
+
+      <p/>
+
+      <p>서블릿과 EJB 모듈이 undeploy될 때 PC.delete() 메소드가 호출된다. 이는 해당 서블릿 모듈과 EJB
+      모듈에 대한 Permission을 제거한다.</p>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>Policy 설정 과정에 대한 자세한 설명은 JACC 스펙을 참고한다.</p>
+        </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_Policy_decision_and_enforcement_rules"></a>6.2.3. Policy 결정 및 집행 규약</h3></div></div></div>
+      
+
+      <p>Policy 결정 및 집행 규약은 이름에서도 알수 있듯이 EJB와 서블릿에서 접근 권한과 관련된 결정을 어떻게 내리고
+      집행할 것인지 기술하고 있다. 이는 앞서 설명한 2가지 세부 규약이 모두 충족된 이후에 적용된다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>Policy 결정 및 집행은 다음과 같은 과정으로 진행된다. 본 절에서는 서블릿을 예로 들어 설명하지만, EJB의
+      경우에도 아래의 설명과 동일하다. </p><div class="orderedlist"><ol type="1"><li>
+            <p>해당 서블릿 페이지에 대한 요청이 들어온다.</p>
+          </li><li>
+            <p>서블릿 컨테이너는 javax.security.jacc.PolicyContext 클래스를 사용하여 JACC
+            Context 정보를 설정한다.</p>
+          </li><li>
+            <p>서블릿 컨테이너는 2가지 JACC Web Permission(javax.security.jacc 패키지에
+            정의되어 있다)을 생성한다. 이 Permission 인스턴스는 현재 요청한 서블릿에 설정된 Permission을
+            나타낸다.</p>
+          </li><li>
+            <p>서블릿 컨테이너는 서블릿 요청자가 위의 2가지 Permission을 가졌는지 알아보기 위해 JACC
+            Provider에 Query를 던진다. Query를 해석하는 데는 여러 가지 방법이 있다.</p>
+
+            <p>예를 들어 Policy.implies() 메소드로 확인할 수 있다. 이때 파라미터로 요청자의
+            Principal로 초기화된 java.security.ProtectionDomain에서 체크하는 모든
+            Permission(들)이 사용된다.</p>
+          </li><li>
+            <p>JACC Provider는 2번 과정에 설정된 context 정보, 3번에서 생성한 Permission
+            인스턴스, 요청자의 Principal(s), Principal-to-Role 매핑, Role-to-Resource 매핑
+            등을 모두 사용하여, 현재 요청자가 서블릿 페이지에 접근 권한을 가졌는지를 판단한다.</p>
+          </li><li>
+            <p>권한 체크 결과가 양수값이라면 서블릿 컨테이너는 요청자가 서블릿 페이지에 접근하도록 허락한다. 그렇지
+            않다면, 권한 체크에 실패했다는 에러 페이지가 나타난다.</p>
+          </li></ol></div><div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>Policy 결정 및 집행 규약에 대한 자세한 설명은 JACC 스펙을 참고한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d4e4620"></a>6.3. JACC Provider 개발</h2></div></div></div>
+    
+
+    <p>본 절에서는 Custom JACC Provider를 개발하는 방법과 JACC Provider 개발과 관련된 몇 가지 지침을
+    설명한다.</p>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4624"></a>6.3.1. JACC Provider 구현</h3></div></div></div>
+      
+
+      <p>다음은 Custom JACC Provider를 구현하기 위해 필요한 클래스들과 그들 간의 관계를 단순하게 표현한 클래스
+      다이어그램이다. 이 다이어그램에서는 클래스 이름을 "MYJACC"로 시작했지만, 어떤 이름이 와도 상관없다.</p>
+
+      <div class="figure"><a id="figure_JACC_provider_classes"></a><p class="title"><b>[그림 6.1] JACC Provider 클래스</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_jacc_provider_classes.png" align="top" width="711" alt="JACC Provider 클래스"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+
+      <p>JACC Provider를 구현할 때 필요한 클래스는 다음과 같다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">java.security.Policy<a id="d4e4638" class="indexterm"></a></strong></span></p>
+
+          <p>JACC Provider의 핵심은 java.security.Policy의 서브 클래스를 작성하는 것이다. 이
+          클래스는 JACC에서 실제 권한을 체크할 때 사용된다.</p>
+
+          <p>java.security.Policy의 서브 클래스를 작성하기 위해 java.security.Policy를
+          상속하는 새로운 클래스를 정의한다(이를 MyJACCPolicy라고 하자). 그리고 나서 <a href="chapter_jacc_provider_application.html#sect_Policy_decision_and_enforcement_rules" title="6.2.3. Policy 결정 및 집행 규약">“6.2.3. Policy 결정 및 집행 규약”</a>에서 설명한 Policy
+          결정 및 집행 규약을 구현하기 위해 implies() 메소드를 재정의한다. 구현할 때 권한 체크 질의를 해석하기 위해
+          PolicyConfiguration 인터페이스를 통해 추가된 Permission과 Principal-to-Role 매핑을
+          고려해야 한다.</p>
+
+          <p>MyJACCPolicy는 파라미터가 없는 public 생성자를 제공해서 J2EE 서버가 인스턴스를 쉽게 생성할
+          수 있게 해야 한다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">javax.security.jacc.PolicyConfigurationFactory<a id="d4e4649" class="indexterm"></a></strong></span></p>
+
+          <p>Policy 설정 규약을 구현하기 위해 애플리케이션 서버는 Permission 인스턴스를 JACC
+          java.security.Policy에 추가할 수 있어야 한다. 이 작업은
+          javax.security.jacc.PolicyConfiguration 인터페이스를 통해 이루어진다.
+          PolicyConfiguration 인스턴스를 생성하기 위해 추상 클래스인
+          javax.security.jacc.PolicyConfigurationFactory가 필요하다.</p>
+
+          <p>PolicyConfigurationFactory의 서브 클래스를 작성하기 위해
+          javax.security.jacc.PolicyConfigurationFactory를 상속하는 새로운 클래스를
+          정의한다(이를 MyJACCPolicyConfigurationFactory라 하자). 이 클래스는
+          getPolicyConfiguration()를 반드시 재정의해야 한다.</p>
+
+          <p>MyJACCPolicyConfigurationFactory 클래스는 파라미터가 없는 public 생성자를
+          제공해서 J2EE 서버가 해당 클래스의 인스턴스를 쉽게 생성할 수 있도록 해야 한다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">javax.security.jacc.PolicyConfiguration<a id="d4e4659" class="indexterm"></a></strong></span></p>
+
+          <p>Policy 설정 규약을 구현하기 위해 애플리케이션 서버는 Permission 인스턴스를 JACC
+          java.security.Policy에 추가할 수 있어야 한다. 이 작업은
+          javax.security.jacc.PolicyConfiguration 인터페이스를 통해 이루어진다. 이 인터페이스의
+          인스턴스는 위에서 설명한 대로 javax.security.jacc.PolicyConfigurationFactory를 통해
+          생성된다.</p>
+
+          <p>JACC Provider는 javax.security.jacc.PolicyConfiguration을 구현한
+          클래스를 반드시 포함하고 있어야 한다(이 구현 클래스를 MyJACCPolicyConfiguration라고
+          하자).</p>
+
+          <p>Custom javax.security.jacc.PolicyConfigurationFactory 클래스인
+          MyJACCPolicyConfigurationFactory는 항상 MyJACCPolicyConfiguration 인스턴스를
+          리턴해야 한다.</p>
+        </li></ul></div>
+
+      <div class="note" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">참고</h3>
+          <p>본 절에서는 각 클래스 구현 방법에 대해 대략적으로 설명했다. 구현하는 방법에 대한 자세한 설명은 JACC
+          스펙의 Policy 결정 및 집행 규약과 각 클래스에 대한 J2EE Javadoc을 확인한다.</p>
+        </div>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4671"></a>6.3.2. JACC Provider 패키징</h3></div></div></div>
+      
+
+      <p>일반적으로 JACC Provider와 Provider가 참조하는 클래스를 JAR로 묶어, 해당 애플리케이션 서버에
+      위치시킨다(이를 "MYJACCProvider.jar"라고 하자).</p>
+
+      <p>애플리케이션 서버의 Path에 JACC Provider JAR 파일의 Path를 포함시키고 필요한 경우에는 특정 시스템
+      속성값을 설정한다. 이 과정은 애플리케이션 서버마다 조금씩 달라진다. JEUS에서의 설정 방법은 <a href="chapter_jacc_provider_application.html#jeus_security_jacc_provider_comb" title="6.4. JEUS 보안 시스템과 JACC Provider 통합">“6.4. JEUS 보안 시스템과 JACC Provider 통합”</a>에서 설명한다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e4678"></a>6.3.3. Default JACC Provider</h3></div></div></div>
+      
+
+      <p>JEUS 보안 시스템은 매우 간단한 디폴트 JACC Provider를 제공하고 있다. 일반적으로 이 디폴트
+      Provider를 JACC 스펙을 테스트 이외의 용도로 사용하는 것을 권장하지 않는다. 대신 이전 장에서 설명한 Default
+      Authorization Provider를 사용할 것을 권장한다.</p>
+
+      <p>그러나 디폴트 이외의 JACC Provider를 사용하려면 상용 제품은 제공되고 있지 않으므로 자신만의 JACC JAR
+      Archive를 직접 만들고 Archive 내에 JACC Provider 파일을 포함시키도록 한다.</p>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="jeus_security_jacc_provider_comb"></a>6.4. JEUS 보안 시스템과 JACC Provider 통합</h2></div></div></div>
+    
+
+    <p>본 절에서는 JEUS 보안 시스템과 디폴트 JACC Provider를 통합하는 방법에 대해 설명한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p/>
+
+    <p>JEUS 보안 시스템과 JACC Provider를 통합하기 위한 과정은 다음과 같다.</p>
+
+    <div class="orderedlist"><ol type="1"><li>
+        <p><span><strong class="guibutton">Principal-to-Role 매퍼를 구현한다.</strong></span></p>
+
+        <p>JACC 인터페이스는 Principal-to-Role 매핑에 대해 어떤 것도 언급하고 있지 않고 단지
+        Role-to-Resource 매핑만 정의하고 있다. Principal-to-Role 매핑을 위해 JEUS 만의 별도의
+        인터페이스가 필요하다. 이를 위해 JEUS는
+        jeus.security.impl.aznrep.JACCPrincipalRoleMapper라는 인터페이스를 제공한다. 이
+        인터페이스는 구현해야 할 단 하나의 메소드인 addPrincipalRoleMapping(PermissionMap map,
+        String policyId)을 포함하고 있다. 이 메소드는 Principal-to-Role 매핑을 policyId로 대표되는
+        PolicyConfiguration에 추가한다.</p>
+
+        <div class="caution" style="margin-left: 0in; margin-right: 0in;"><h3 class="title">주의</h3>
+          <p>Principal-to-Role 매핑은 J2EE에서 애플리케이션 범위를 가진다는 점에 주의한다. 동일 J2EE
+          애플리케이션에 속한 모든 Principal-to-Role 매핑은 하나의 Map에 병합되기 때문이다.
+          PermissionMap 클래스와 PermissionMap 인스턴스를 서로 병합하는데 사용되는 add() 메소드에 대한
+          자세한 정보는 PermissionMap 클래스에 대한 API 문서를 참고한다.</p>
+        </div>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+
+        <p>JACCPrincipalRoleMapper 인터페이스를 구현한 클래스는 파라미터가 없는 public 생성자를
+        제공해야 한다. 그리고 반드시 JACC Provider JAR 내에 추가되어야 한다.
+        JACCPrincipalRoleMapper 인터페이스에 대한 자세한 정보는 <a href="about.html#appendix_reference" title=". 참고 자료">참고 자료</a>와 Javadoc을 확인한다.</p>
+
+        <p>JACCPrincipalRoleMapper가 Pricinpal-to-Role 매핑을 생성하는 과정은 다음과
+        같다.</p>
+
+        <div class="orderedlist"><ol type="a"><li>
+              <p>jeus.security.jacc.principalRoleMapper 시스템 속성으로
+              jeus.security.jacc.principalRoleMapper를 구현한 클래스명을 설정한다.</p>
+            </li><li>
+              <p>설정이 완료되면
+              jeus.security.impl.aznrep.JACCAuthorizationRepositoryService를
+              구현한 클래스가 이 속성값을 읽어 Class.forName(mapperClassname).newInstance()
+              메소드로 해당 인스턴스를 생성한다.</p>
+            </li><li>
+              <p>생성된 인스턴스의 addPrincipalRoleMapping() 메소드를 호출하여 JEUS DD 파일에
+              명시된 Principal-to-Role 매핑을 생성해서 추가한다.</p>
+            </li></ol></div>
+
+        <p/>
+      </li><li>
+        <p><span><strong class="guibutton">보안 설정 파일을 설정한다. </strong></span></p>
+
+        <p>JEUS 보안 시스템은 2개의 어댑터 클래스를 사용하여 JEUS native authorization API와
+        JACC authorization API를 연결한다.</p>
+
+        <p>2개의 어댑터 클래스와 각각의 역할은 다음과 같다.</p><div class="itemizedlist"><ul type="disc"><li>
+              <p>jeus.security.impl.azn.JACCAuthorizationService</p>
+
+              <p>컨테이너에서 Policy 결정 및 집행 규약을 구현하는 부분으로 권한을 체크하기 위해
+              java.security.Policy.getPolicy().implies() 메소드를 호출한다.</p>
+            </li><li>
+              <p>jeus.security.impl.aznrep.JACCAuthorizationRepositoryService</p>
+
+              <p>Policy 설정 규약을 구현한 부분으로 컨테이너가 생성한 jeus.security.base.Policy
+              인스턴스를 JACC Provider의 구성 요소인 PolicyConfiguration 인스턴스에 추가하는 역할을
+              한다.</p>
+            </li></ul></div>
+
+        <div class="literallayout"><p/></div>
+
+        <p>JACC를 작동시키기 위해서는 이 2가지 보안 서비스가 domain.xml의 도메인 서비스 정의에 설정되어 있어야
+        한다.</p>
+
+        <div class="example"><a id="d4e4729"></a><p class="title"><b>[예 6.1] JACC 보안 설정 파일 설정 : &lt;&lt;domain.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0"?&gt;
+   ...
+&lt;security-domains&gt;
+   &lt;default-application-domain&gt;JACC_DOMAIN&lt;/default-application-domain&gt;
+   ...
+   &lt;security-domain&gt;
+      &lt;name&gt;JACC_DOMAIN&lt;/name&gt;
+      &lt;authorization&gt;
+         &lt;jacc-service/&gt;
+      &lt;/authorization&gt;
+   &lt;/security-domain&gt;
+    . . .
+&lt;/security-domains&gt;
+</pre>
+          </div></div><p><br class="example-break"/></p>
+      </li><li>
+        <p><span><strong class="guibutton">시스템 Path에 JACC Provider JAR Path를
+        추가한다.</strong></span></p>
+
+        <p>시스템 Path에 JACC Provider JAR 파일을 추가하기 위해 다음의 디렉터리에 JAR 파일을
+        위치시킨다.</p>
+
+        <pre class="programlisting">JEUS_HOME/lib/system</pre>
+
+        <p/>
+      </li><li>
+        <p><span><strong class="guibutton">Java 시스템 속성을 설정한다.</strong></span></p>
+
+        <p>JACC 규약과 JEUS는 애플리케이션 서버가 JACC Provider를 인식하도록 다음 3가지 Java 시스템
+        속성을 규정하고 있다.</p><div class="itemizedlist"><ul type="disc"><li>
+              <p>javax.security.jacc.policy.provider</p>
+
+              <p>JACC Provider를 나타내며, java.security.Policy를 구현한
+              클래스명이다.</p>
+            </li><li>
+              <p>javax.security.jacc.PolicyConfigurationFactory.provider</p>
+
+              <p>PolicyConfiguration 인스턴스를 생성하고 로딩하는
+              PolicyConfigurationFactory를 구현한 클래스명이다.</p>
+            </li><li>
+              <p>jeus.security.jacc.principalRoleMapper</p>
+
+              <p>jeus.security.impl.aznrep.JACCPrincipalRoleMapper 인터페이스를
+              구현한 클래스명으로 JEUS DD 파일로부터 Principal-to-Role 매핑을 생성한다.</p>
+            </li></ul></div>
+
+        <p/>
+
+        <p>위의 3가지 시스템 속성은 모든 서버에 대해서 domain.xml에 &lt;jvm-option&gt;으로 설정되어야
+        한다.</p>
+
+        <div class="example"><a id="d4e4756"></a><p class="title"><b>[예 6.2] JACC에 대한 Java 시스템 속성 설정&lt;&lt;domain.xml&gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0"?&gt;
+&lt;domain xmlns=“http://www.tmaxsoft.com/xml/ns/jeus”&gt;
+    &lt;servers&gt;
+        &lt;server&gt;
+            &lt;name&gt;server1&lt;/name&gt;
+            &lt;!-- server JVM option --&gt;
+<span class="bold"><strong>
+            &lt;jvm-config&gt;
+                . . .
+                &lt;jvm-option&gt;
+                    -Djavax.security.jacc.policy.provider=
+                    myprovider.MyJACCPolicy 
+                &lt;/jvm-option&gt;
+                &lt;jvm-option&gt;
+                    -Djavax.security.jacc.PolicyConfigurationFactory.provider=
+                    myprovider.MyJACCPolicyConfigurationFactory
+                &lt;/jvm-option&gt;
+                &lt;jvm-option&gt;
+                    -Djeus.security.jacc.principalRoleMapper=
+                    myprovider.MyJACCPrincipalToRoleMapper
+                &lt;/jvm-option&gt;
+            &lt;/jvm-config&gt;</strong></span>
+           . . .</pre>
+          </div></div><p><br class="example-break"/></p>
+      </li></ol></div>
+
+    <div class="literallayout"><p/></div><h3><a id="sect_default_JACC_Provider_classname"></a>디폴트 JACC Provider
+    클래스명</h3>
+
+    <p><a id="d4e4764" class="indexterm"></a>이전에 언급한 대로 디폴트 JACC provider 클래스명은 다음과 같다.</p>
+
+    <div class="informaltable">
+        <table border="1"><colgroup><col width="180" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>클래스명</th></tr></thead><tbody><tr><td align="left">Policy</td><td>jeus.security.impl.jacc.JACCPolicyWrapper</td></tr><tr><td align="left">PolicyConfigurationFactory</td><td>jeus.security.impl.jacc.JACCPolicyConfigurationFactoryImpl</td></tr><tr><td align="left">JACCPrincipalRoleMapper</td><td>jeus.security.impl.jacc.JACCDefaultPrincipalRoleMapper</td></tr></tbody></table>
+      </div>
+
+    <p>이 클래스들은 모두 다음의 위치에 패키징되어 있다.</p>
+
+    <pre class="programlisting">JEUS_HOME/lib/system/jeus.jar</pre>
+
+    <p/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_custom_security_service_develop.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="chapter_jaas_application.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제5장 Custom 보안 서비스 개발 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제7장 JAAS 사용</td></tr></table></div><div xmlns="" align="center"/></body></html>

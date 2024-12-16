@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제24장 JAX-RPC 웹 서비스 SOAP 메시지 핸들러 생성</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Web Service 안내서"/><link rel="up" href="pt02.html" title="Part II. JAX-RPC 웹 서비스의 지원"/><link rel="prev" href="chapter_jaxrpc_client.html" title="제23장 JAX-RPC 웹 서비스 호출"/><link rel="next" href="chapter_jaxrpc_conf.html" title="제25장 JAX-RPC 웹 서비스 설정 파일 작성"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제24장 JAX-RPC 웹 서비스 SOAP 메시지 핸들러 생성</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_jaxrpc_client.html">이전</a> </td><td class="navbar-title" width="60%" align="center">Part II. JAX-RPC 웹 서비스의 지원</td><td width="20%" align="right"> <a accesskey="n" href="chapter_jaxrpc_conf.html">다음</a></td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_jaxrpc_handler"></a>제24장 JAX-RPC 웹 서비스 SOAP 메시지 핸들러 생성</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_jaxrpc_handler.html#sect_using_saaj">24.1. SAAJ 사용</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxrpc_handler.html#sect_generate_soap_message">24.1.1. SOAP 메시지의 생성</a></span></dt><dt><span class="section"><a href="chapter_jaxrpc_handler.html#sect_using_saaj_document">24.1.2. SAAJ 문서 다루기</a></span></dt><dt><span class="section"><a href="chapter_jaxrpc_handler.html#sect_transfer_soap_message_using_saaj">24.1.3. SAAJ를 이용한 SOAP 메시지 전송</a></span></dt></dl></dd><dt><span class="section"><a href="chapter_jaxrpc_handler.html#sect_gen_soap_message_handler">24.2. SOAP 메시지 핸들러의 생성</a></span></dt><dd><dl><dt><span class="section"><a href="chapter_jaxrpc_handler.html#sect_overview_generate_message_handler">24.2.1. 메시지 핸들러의 생성</a></span></dt><dt><span class="section"><a href="chapter_jaxrpc_handler.html#sect_architecture_message_handler_and_handler_chain">24.2.2. 메시지 핸들러와 핸들러 체인의 설계</a></span></dt><dt><span class="section"><a href="chapter_jaxrpc_handler.html#sect_implement_handler_interface">24.2.3. 핸들러 인터페이스의 구현</a></span></dt><dt><span class="section"><a href="chapter_jaxrpc_handler.html#sect_writing_javaee_webservice_deploy_descriptor">24.2.4. Java EE 웹 서비스 DD 파일 작성</a></span></dt><dt><span class="section"><a href="chapter_jaxrpc_handler.html#sect_using_soap_message_handler_in_client">24.2.5. 클라이언트에서 SOAP 메시지 핸들러의 사용</a></span></dt><dt><span class="section"><a href="chapter_jaxrpc_handler.html#d4e6672">24.2.6. 파일 송수신하는 웹 서비스와 클라이언트 예제</a></span></dt></dl></dd></dl></div>
+  
+
+  <p>본 장에서는 SAAJ 프로그래밍 모델과 JAX-RPC와 연동하여 사용하는 메시지 핸들러에 대해서 설명한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_using_saaj"></a>24.1. SAAJ 사용</h2></div></div></div>
+    
+
+    <p><a id="d4e6400" class="indexterm"></a>SAAJ(SOAP with Attachments API for Java)를 사용하면 SOAP 메시지를 직접
+    생성하고 읽고 다루는 작업을 할 수 있다. 여기에서는 SAAJ의 프로그래밍 모델에 대해서 간략히 언급하고 API 등에 관련된 자세한
+    내용은 여기에서 다루지 않는다. 보다 자세한 내용을 필요로 할 경우에는 SAAJ 스펙을 참고한다.</p>
+
+    <div class="literallayout"><p/></div>
+
+    <p><a id="d4e6404" class="indexterm"></a>SAAJ는 Attachment가 없는 간단한 XML과도 같은 단순한 SOAP 메시지에서부터 MIME
+    Attachment를 가지는 더 복잡한 SOAP 메시지를 다루는 작업까지 가능하다. SAAJ는 Abstract Factory 패턴을
+    기본으로 하며 MessageFactory에서 메시지(SOAPMessage)를 생성한다. SOAPMessage는 SOAP 문서를
+    나타내는 SOAPPart와 MIME Attachment를 나타내는 0개 이상의 AttachmentPart 객체를
+    포함한다.</p>
+
+    <div class="figure"><a id="figure_structure_of_soap_with_attachment"></a><p class="title"><b>[그림 24.1] Structure of SOAP with Attachment</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="445"><tr><td align="left"><img src="resources/figure_image012.png" align="top" width="445" alt="Structure of SOAP with Attachment"/></td></tr></table></div>
+
+        <p>(출처: <a xmlns:xlink="http://www.w3.org/1999/xlink" href="http://www.oracle.com/technetwork/java/index.html" target="_top">http://www.oracle.com/technetwork/java/index.html</a>
+        )</p>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_generate_soap_message"></a>24.1.1. SOAP 메시지의 생성</h3></div></div></div>
+      
+
+      <p>비어있는 SOAP 메시지를 생성하기 위해서는 MessageFactory 객체로부터 SOAPMessage 객체를 새로
+      생성해야 한다.</p>
+
+      <p>다음은 SOAPMessage 객체를 생성하는 소스의 예이다. </p><pre class="programlisting">MessageFactory msgFactory = MessageFactory.newInstance();
+SOAPMessage message = msgFactory.createMessage();</pre>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_using_saaj_document"></a>24.1.2. SAAJ 문서 다루기</h3></div></div></div>
+      
+
+      <p>SAAJ는 SOAP 문서를 생성하고 다루기 위해 사용할 수 있는 많은 인터페이스를 제공한다.</p>
+
+      <p>SOAP 문서는 element와 속성으로 구성된 XML 인스턴스이다. 편의를 위해 SOAP 문서의 주요한 부분들은
+      SAAJ와 대응하는 타입을 갖는다. envelope는 SOAPEnvelope, Header는 SOAPHeader, Body는
+      SOAPBody와 대응한다. SOAPElement 타입은 SOAP namespace에 속하지 않는 응용 프로그램에
+      종속적인(application-specific) element와 대응한다.</p>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">SOAPPart SOAPEnvelope 타입<a id="d4e6432" class="indexterm"></a><a id="d4e6434" class="indexterm"></a></strong></span></p>
+
+          <p>SwA(SOAP with Attachment) 메시지를 가지고 작업을 하다보면 SOAPPart와
+          SOAPEnvelope 타입을 자주 사용하게 된다. SOAPPart는 SwA 메시지의 MIME 부분의 가장 상위이며,
+          SOAPMessage.getSOAPPart() 메소드를 호출하여 접근 가능하다.</p>
+
+          <p>SOAPEnvelope에 대한 접근은 SOAPPart의 getEnvelope() 메소드를 호출하여 가능하다.
+          SOAPEnvelope는 XML SOAP 문서의 최상위이며, SOAPHeader와 SOAPBody에 대한 접근과 생성을
+          위한 메소드를 포함한다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">SOAPElement 타입<a id="d4e6442" class="indexterm"></a></strong></span></p>
+
+          <p>SOAPElement 타입은 SOAP 1.1 또는 1.2 XML의 Namespace로 표현되지 않는 응용
+          프로그램에 종속적인(application-specific) element를 직접적으로 표현하고자 할 때 사용한다. 이
+          타입은 XML element를 나타낼 수 있다.</p>
+
+          <p>XML element가 다른 XML element를 포함할 수 있듯이 SOAPElement는 다른
+          SOAPElement 객체를 포함할 수 있다. 이 타입은 다른 SOAP 타입(SOAPEnvelope, SOAPBody,
+          SOAPBodyElement, SOAPHeader, SOAPHeaderElement, fault element)들의 상위
+          타입(super-type)이다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">SOAPHeader 타입<a id="d4e6450" class="indexterm"></a></strong></span></p>
+
+          <p>SOAP 메시지의 Header element는 0 또는 그 이상의 Header 블록을 가질 수
+          있다.</p>
+
+          <p>SOAPHeader 타입은 Header element를 나타내며, SOAPHeaderElement 타입은
+          SOAP 메시지에 있어서 각각의 Header 블록을 나타낸다. SOAPHeader 타입은 SOAPHeaderElement
+          객체를 추가, 삭제, 검사하는 메소드를 제공한다.</p>
+        </li></ul></div>
+
+      <div class="itemizedlist"><ul type="disc"><li>
+          <p><span><strong class="guibutton">SOAPHeaderElement 타입<a id="d4e6458" class="indexterm"></a></strong></span></p>
+
+          <p>SOAPHeaderElement는 특정한 Header 블록의 속성과 자식 element를 변경하거나 검사할 수
+          있도록 Header 블록을 추상화한 모델이다.</p>
+
+          <p>SOAPHeaderElement 타입은 actor와 mustUnderstand같은 속성뿐 아니라 하나 또는 그
+          이상의 SOAPElement 객체를 포함할 수도 있다.</p>
+        </li><li>
+          <p><span><strong class="guibutton">SOAPBody 타입과 SOAPBodyElement 타입<a id="d4e6465" class="indexterm"></a><a id="d4e6467" class="indexterm"></a></strong></span></p>
+
+          <p>SOAPBody 타입은 SOAP 메시지의 Body element를 나타낸다. SOAPBodyElement는
+          SOAPElement를 확장하며, 상속하는 메소드 이외의 추가적인 메소드는 없다.</p>
+
+          <p>다음은 SOAPBody 타입과 SOAPBodyElement 타입의 활용 예이다.</p><pre class="programlisting">Name echo_Name = soapFactory.createName(“echo”, “tmax”, 
+              “http://www.tmax.com/saaj/test”);
+SOAPBody body = message.getSOAPBody();
+SOAPBodyElement echo_Element = body.addBodyElement(echo_Name);</pre>
+        </li></ul></div>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_transfer_soap_message_using_saaj"></a>24.1.3. SAAJ를 이용한 SOAP 메시지 전송</h3></div></div></div>
+      
+
+      <p>SAAJ를 이용한 SOAP 메시지 생성 작업을 마쳤다면 전송 작업을 수행할 수 있다.</p>
+
+      <p>SAAJ는 간단하게 구성된 독자적인 메시지 전송 시스템을 가지고 있으며, 기본 API의 한 부분으로 구성된다.
+      SAAJ를 사용함으로써 요청 또는 응답 스타일의 SOAP 메시지를 웹 서비스와 교환할 수 있다.</p>
+
+      <p>다음은 SOAPConnection을 생성해서 메시지를 전송하도록 구현한 예이다. </p><pre class="programlisting">//Build a SOAPMessage from a file
+MessageFactory msgFactory = MessageFactory.newInstance();
+MimeHeaders mimeHeaders = new MimeHeaders();
+MimeHeaders.addHeader(“Content-Type”, “text/xml; charset=UTF-8”);
+FileInputStream file = new FileInputStream(“soap.xml”);
+SOAPMessage requestMsg = msgFactory.createMessage(mimeHeaders,file);
+file.close();
+
+String address = “…”;
+
+//Send the SOAP message to the BookQuote Web Service
+<span class="bold"><strong>SOAPConnectionFactory conFactory = SOAPConnectionFactory.newInstance();
+URL url = new URL(address);
+SOAPMessage replyMsg = connection.call(requestMsg, url);</strong></span></pre>
+
+      <p/>
+
+      <p/>
+
+      <p/>
+    </div>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_gen_soap_message_handler"></a>24.2. SOAP 메시지 핸들러의 생성</h2></div></div></div>
+    
+
+    <p><a id="d4e6485" class="indexterm"></a>메시지 핸들러는 JAX-RPC 클라이언트와 웹 서비스 Endpoint에 의해 송수신되는 SOAP 메시지를
+    직접 다룰수 있게 하며, 정적으로 생성된 Stub, 동적으로 생성된 프록시, DII, Java 클래스 Endpoint, EJB
+    Endpoint와 함께 사용될 수 있다.</p>
+
+    <p>메시지 핸들러의 가장 중요한 목적은 JAX-RPC 클라이언트와 웹 서비스 Endpoint가 송수신하는 SOAP 메시지의
+    Header 블록을 더하고, 읽고, 다루는 메커니즘을 제공하는 것이다.</p>
+
+    <p>메시지 핸들러는 Java EE 컨테이너에 의해서 다루어진다. JAX-RPC 클라이언트 API를 사용하여 SOAP 메시지를
+    전송하려 할 때는 JAX-RPC 런타임이 웹 서비스로 연결된 네트워크에 내보내기 전에 메시지 핸들러 체인을 통해 SOAP 메시지를
+    가공하게 된다. 마찬가지로 SOAP 응답 메시지가 JAX-RPC 클라이언트에 의해 수신될 때에는 클라이언트 응용 프로그램으로 결과가
+    리턴되기 전에 이전에 거쳐 나갔던 동일한 메시지 핸들러 연결고리를 거쳐서 가공된다.</p>
+
+    <p>이러한 핸들러는 여러 가지로 사용할 수 있다. 그 중에서 보안에 관련된 경우를 살펴보면 클라이언트에서 암호화된 SOAP
+    메시지를 송신하는 경우 암호화 작업을 위한 핸들러를 사용해서 메시지를 가공하여 송신할 수 있고, 웹 서비스는 그 요청 메시지를 암호
+    해독을 위한 핸들러를 이용하여 해독한 다음 그 데이터를 웹 서비스를 구현한 Back-end로 보내게 된다. 이에 대한 SOAP 메시지
+    응답은 이 과정을 역으로 수행하게 된다.</p>
+
+    <p>또 다른 예는 SOAP 메시지의 Header 부분에 저장된 정보에 접근하는 경우이다. SOAP Header에 웹 서비스의
+    특정한 정보를 저장할 수 있고, 핸들러로 하여금 그 정보를 다룰 수 있게 할 수 있다.</p>
+
+    <p/>
+
+    <p/>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_overview_generate_message_handler"></a>24.2.1. 메시지 핸들러의 생성</h3></div></div></div>
+      
+
+      <p>SOAP 메시지 핸들러는 웹 서비스의 요청과 응답에서 모두 SOAP 메시지를 가로채서 가공할 수 있다. 또 웹 서비스
+      Endpoint와 웹 서비스를 호출하는 클라이언트에서 모두 핸들러를 생성할 수 있다.</p>
+
+      <p>다음은 <span class="package">javax.xml.rpc.handler</span> API의 주요 클래스와 인터페이스에
+      대한 설명이다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="250" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">javax.xml.rpc.handler. Handler<a id="d4e6509" class="indexterm"></a></td><td>SOAP 요청 메시지와 응답 메시지, fault 메시지를 다루는 메소드를 포함하는 주요
+                인터페이스이다.</td></tr><tr><td align="left">javax.xml.rpc.handler. HandlerChain<a id="d4e6515" class="indexterm"></a></td><td>핸들러의 리스트를 나타내는 인터페이스로 리스트가 가지는 element는
+                java.xml.rpc.handler.Handler 타입이다.</td></tr><tr><td align="left">javax.xml.rpc.handler. HandlerRegistry<a id="d4e6521" class="indexterm"></a></td><td>프로그래밍 레벨에서 핸들러의 설정을 조정할 수 있도록 지원하는 인터페이스이다.</td></tr><tr><td align="left">javax.xml.rpc.handler. HandlerInfo<a id="d4e6527" class="indexterm"></a></td><td>webservices.xml에 정의되는 핸들러의 초기 파라미터와 같은 핸들러의 정보들을 포함하는
+                클래스이다.</td></tr><tr><td align="left">javax.xml.rpc.handler. MessageContext<a id="d4e6533" class="indexterm"></a></td><td>핸들러에 의해서 처리되는 메시지의 내용을 추상화한 인터페이스로, 핸들러 체인 내에서 핸들러는 메시지
+                처리에 관계되는 상태 정보를 공유할 수 있다.</td></tr><tr><td align="left">javax.xml.rpc.handler.soap.
+                SOAPMessageContext<a id="d4e6539" class="indexterm"></a></td><td>SOAP 요청과 응답 메시지에 접근할 수 있는 메소드를 제공하는 MessageContext의 하위
+                인터페이스이다.</td></tr><tr><td align="left">javax.xml.rpc.handler. GenericHandler<a id="d4e6545" class="indexterm"></a></td><td>핸들러 인터페이스를 구현한 추상클래스로서 SOAP 메시지 핸들러 개발자는 이 클래스를 상속받아서
+                구현하면 된다.</td></tr><tr><td align="left">javax.xml.soap.SOAPMessage<a id="d4e6551" class="indexterm"></a></td><td>SOAP 메시지의 요청과 응답을 포함하는 클래스이다.</td></tr></tbody></table>
+        </div>
+
+      <p/>
+
+      <div class="literallayout"><p/></div>
+
+      <p>다음은 메시지 핸들러와 핸들러 체인을 추가함으로써 웹 서비스를 갱신하는 절차이다.</p><div class="orderedlist"><ol type="1"><li>
+            <p>메시지 핸들러와 핸들러 체인의 설계</p>
+          </li><li>
+            <p>javax.xml.rpc.handler.Handler 인터페이스를 구현하는 Java 클래스의 생성 및 핸들러
+            체인의 구현</p>
+          </li><li>
+            <p>Java 코드의 컴파일</p>
+          </li><li>
+            <p>웹 서비스 DD(webservices.xml)의 작성</p>
+          </li><li>
+            <p>웹 서비스 패키징과 배치</p>
+          </li></ol></div>
+
+      <div class="literallayout"><p/></div>
+
+      <p>웹 서비스 클라이언트에서도 SOAP 메시지 핸들러를 사용할 수 있으며 이는 본 장의 뒷부분에 언급된다.</p>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_architecture_message_handler_and_handler_chain"></a>24.2.2. 메시지 핸들러와 핸들러 체인의 설계</h3></div></div></div>
+      
+
+      <p>SOAP 메시지 핸들러를 설계하려면 다음을 명확하게 해야 한다. </p><div class="itemizedlist"><ul type="disc"><li>
+            <p>추가할 메시지 핸들러의 개수</p>
+          </li><li>
+            <p>추가할 핸들러의 실행 순서</p>
+          </li><li>
+            <p>메시지 핸들러로만 웹 서비스를 구성할 것인가?(Back-end 구성요소들을 호출하지 않을
+            것인가?)</p>
+          </li></ul></div>
+
+      <p>핸들러들은 webservices.xml 안에서 설정해야 하며, 실행 순서가 정해진 핸들러의 묶음을 핸들러
+      체인(chain)이라고 한다. 핸들러 체인으로 구성된 각각의 핸들러는 요청 SOAP 메시지를 다루기 위한 메소드와 응답 SOAP
+      메시지를 다루기 위한 또 다른 메소드가 있다.</p>
+
+      <div class="literallayout"><p/></div>
+
+      <p>웹 서비스를 호출하면 JEUS 웹 서비스는 핸들러를 다음과 같은 메커니즘으로 실행한다.</p><div class="orderedlist"><ol type="1"><li>
+            <p>webservices.xml에 정해진 순서대로 핸들러 체인 안의 각각의 핸들러의 handleRequest()
+            메소드가 실행된다.</p>
+          </li><li>
+            <p>핸들러 체인의 마지막 핸들러의 handleRequest()가 실행되면 JEUS 웹 서비스는 웹 서비스
+            Back-end를 호출한다(Back-end가 존재하는 경우).</p>
+          </li><li>
+            <p>Back-end가 실행이 종료되면 핸들러 체인에 속한 핸들러가 webservices.xml에 정의된 반대의
+            순서대로 불려지고, 각각의 핸들러의 handleResponse() 메소드가 호출이 된다.</p>
+          </li><li>
+            <p>webservices.xml에 정의된 첫 번째 핸들러의 handleResponse()가 실행되면 웹 서비스를
+            호출한 클라이언트 쪽으로 SOAP 메시지 응답을 보낸다.</p>
+          </li></ol></div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_implement_handler_interface"></a>24.2.3. 핸들러 인터페이스의 구현</h3></div></div></div>
+      
+
+      <p>SOAP 메시지 핸들러 클래스는 javax.xml.rpc.handler.Handler 인터페이스를 직접 구현하거나 이를
+      구현한 javax.xml.rpc.handler.GenericHandler를 상속받아서 구현한다.</p>
+
+      <p>메시지 핸들러 클래스는 핸들러 인터페이스의 다음과 같은 함수들을 구현해야 한다.</p>
+
+      <div class="informaltable">
+          <table border="1"><colgroup><col width="150" align="left"/><col/></colgroup><thead><tr><th align="left">구분</th><th>설명</th></tr></thead><tbody><tr><td align="left">init()<a id="d4e6613" class="indexterm"></a></td><td><p>HandlerInfo 객체는 webservices.xml에 정의된 초기화 정보 같은
+                SOAP 메시지 핸들러에 대한 정보를 포함하고 있다. HandlerInfo.getHandlerConfig()
+                메소드를 실행시키면 name-value 형태의 맵(Map)을 리턴한다.</p><p>핸들러의 초기화
+                작업을 진행하려면 init() 메소드를 구현해야 한다.</p></td></tr><tr><td align="left">destroy()<a id="d4e6621" class="indexterm"></a></td><td>Handler.destroy() 메소드는 핸들러 객체의 인스턴스를 제거하는 경우 불리며, 핸들러의
+                생성 주기 동안 획득된 자원을 다시 놓아 주게 하려면 이 함수를 구현해야 한다.</td></tr><tr><td align="left">getHeaders()<a id="d4e6627" class="indexterm"></a></td><td>핸들러 인스턴스에 의해 처리되는 header 블록을 가져오는 경우 사용한다.</td></tr><tr><td align="left">handleRequest()<a id="d4e6633" class="indexterm"></a></td><td><p>Handler.handleRequest() 메소드는 Back-end에 SOAP 메시지를
+                전달하기 전에 가로챌 경우에 사용한다. MessageContext 객체는 SOAP 메시지 핸들러에 의해 처리되는
+                메시지의 내용을 가지고 있으며, MessageContext의 서브 인터페이스인
+                SOAPMessageContext를 사용하면 SOAP 요청 메시지의 내용을 얻거나 변경할 수
+                있다.</p><p>메시지를 처리하기 위해서는 앞에서 언급되었던 SAAJ를 사용한다.
+                SOAPMessageContext.getMessage()를 수행하면, SAAJ API에 속하는
+                SOAPMessage를 얻을 수 있고, SOAPMessage는 SOAPPart 객체와 Attachment로
+                구성된다. SOAP 메시지를 다루는 작업은 SAAJ 프로그래밍 기법과 동일하다.</p></td></tr><tr><td align="left">handleResponse()<a id="d4e6641" class="indexterm"></a></td><td><p>Handler.handleResponse() 메소드는 SOAP 메시지가
+                Back-end에서 처리된 후 웹 서비스를 호출한 클라이언트에게 회신하기 전에 SOAP 메시지를 가로채려 할 때
+                사용한다. MessageContext 객체는 SOAP 메시지 핸들러에 의해 처리되는 메시지의 내용을 가지고
+                있으며, MessageContext의 서브 인터페이스인 SOAPMessageContext를 사용하면 SOAP
+                응답 메시지의 내용을 얻거나 변경할 수 있다.</p><p>메시지를 처리하기 위해서는 앞에서 언급되었던
+                SAAJ를 사용한다. SOAPMessageContext.getMessage()를 수행하면 SAAJ API에
+                속하는 SOAPMessage를 얻을 수 있고, SOAPMessage는 SOAPPart 객체와
+                Attachment로 구성된다. </p><p>SOAP 메시지를 다루는 작업은 SAAJ 프로그래밍
+                기법과 동일하다.</p></td></tr><tr><td align="left">handleFault()<a id="d4e6650" class="indexterm"></a></td><td><p>Handler.handleFault() 메소드는 SOAP 메시지 처리 모델을 기반으로
+                SOAP Fault를 처리하는 메소드이다. handleRequest() 메소드와 handleResponse()
+                메소드에 의해 발생된 SOAP Fault뿐만 아니라 Back-end에서 발생된 오류를 처리하기 위하여 이
+                메소드는 구현한다.</p><p>MessageContext 객체는 SOAP 메시지 핸들러에 의해
+                처리되는 메시지의 내용을 가지고 있으며, MessageContext의 서브 인터페이스인
+                SOAPMessageContext를 사용하면 SOAP 응답 메시지의 내용을 얻거나 변경할 수 있다.
+                </p><p>메시지를 처리하기 위해서는 앞에서 언급되었던 SAAJ를 사용한다.
+                </p></td></tr></tbody></table>
+        </div>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_writing_javaee_webservice_deploy_descriptor"></a>24.2.4. Java EE 웹 서비스 DD 파일 작성</h3></div></div></div>
+      
+
+      <p>Java EE 웹 서비스 DD 파일은 webservices.xml로, webservices.xml 파일에는 SOAP
+      메시지 핸들러에 대한 정보, 그리고 핸들러의 처리 순서를 정의할 수 있다.</p>
+
+      <p>다음은 메시지 핸들러 정보를 설정하는 예이다.</p><div class="example"><a id="d4e6662"></a><p class="title"><b>[예 24.1] 메시지 핸들러를 정의하는 &lt;port-component&gt;의 예</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;port-component&gt;
+    &lt;port-component-name&gt;FileAttPort&lt;/port-component-name&gt;
+    . . .
+    &lt;handler&gt;
+        &lt;handler-name&gt;ServerAttachmentHandler&lt;/handler-name&gt;
+        &lt;handler-class&gt;
+            filetransfer.ServerAttachmentHandler
+        &lt;/handler-class&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;directory&lt;/param-name&gt;
+            &lt;param-value&gt;/temp&lt;/param-value&gt;
+        &lt;/init-param&gt;
+    &lt;/handler&gt;
+&lt;/port-component&gt;</pre>
+        </div></div><p><br class="example-break"/></p>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="sect_using_soap_message_handler_in_client"></a>24.2.5. 클라이언트에서 SOAP 메시지 핸들러의 사용</h3></div></div></div>
+      
+
+      <p>이제까지는 JEUS 서버에서 동작하여 웹 서비스로 실행되는 핸들러를 생성하는 것에 대해 설명했지만, 클라이언트 응용
+      프로그램에서도 핸들러를 생성하는 것이 가능하다.</p>
+
+      <p>클라이언트의 핸들러를 생성하는 방법은 서버의 핸들러를 생성하는 방법과 같다.
+      javax.xml.rpc.handler.Handler 인터페이스를 구현하는 Java 클래스를 작성한다.</p>
+
+      <p>클라이언트의 핸들러를 작성한 뒤의 작업은 서버의 핸들러를 작성하는 것과 차이가 있는데, 핸들러를 DD에 기술하는 것이
+      아니라 javax.xml.rpc.handler.HandlerInfo와
+      javax.xml.rpc.handler.HandlerRegistry 클래스를 이용하여 프로그램에서 직접 핸들러를 등록해야 한다.
+      다음 장에 이어지는 예제를 참고한다.</p>
+
+      <p/>
+
+      <p/>
+    </div>
+
+    <div class="section" lang="ko"><div class="titlepage"><div><div><h3 class="title"><a id="d4e6672"></a>24.2.6. 파일 송수신하는 웹 서비스와 클라이언트 예제</h3></div></div></div>
+      
+
+      <p>본 절에서는 클라이언트에서 File_Send.txt라는 파일을 서버로 전송하고 서버에서는 이 파일을 지정된 폴더에
+      저장하고 파일을 받았다는 응답을 전달하는 웹 서비스 파일 송수신 예제이다.</p>
+
+      <p>클라이언트는 다음의 과정으로 생성한다.</p>
+
+      <div class="orderedlist"><ol type="1"><li>
+            <p>파일 수신하는 메시지 핸들러 구현</p>
+          </li><li>
+            <p>파일 수신 후 파일을 받았다는 메시지를 전달하는 서비스 Back-end 구현</p>
+          </li><li>
+            <p>웹 서비스 배치서술자의 작성 및 웹 서비스 생성과 배치</p>
+          </li><li>
+            <p>웹 서비스 클라이언트 핸들러 작성</p>
+          </li><li>
+            <p>웹 서비스 클라이언트 작성</p>
+          </li><li>
+            <p>실행</p>
+          </li></ol></div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e6690"></a>24.2.6.1. 파일 수신 메시지 핸들러의 구현</h4></div></div></div>
+        
+
+        <p>다음은 웹 서비스의 메시지 핸들러 구현으로서 handleRequest()가 Back-end로 SOAP 요청을 하기
+        전에 먼저 실행된다. handleRequest() 함수 안에서는 SOAP 메시지에 Attachment로 붙어있는 파일을
+        SAAJ API를 이용하여 다루게 된다.</p><div class="example"><a id="d4e6693"></a><p class="title"><b>[예 24.2] &lt;&lt; ServerAttachmentHandler.java &gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">package filetransfer;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.xml.namespace.QName;
+import javax.xml.rpc.JAXRPCException;
+import javax.xml.rpc.handler.HandlerInfo;
+import javax.xml.rpc.handler.MessageContext;
+import javax.xml.rpc.handler.soap.SOAPMessageContext;
+import javax.xml.soap.AttachmentPart;
+import javax.xml.soap.SOAPBody;
+import javax.xml.soap.SOAPElement;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPMessage;
+
+import javax.xml.rpc.handler.GenericHandler;
+
+public final class ServerAttachmentHandler 
+    extends GenericHandler
+{
+    private File dir;
+
+    private final String DIR_PROP="directory";
+
+    public void init(HandlerInfo info) {
+        super.init(info);    
+        Map m = info.getHandlerConfig();    
+
+        String dirName = (String) m.get(DIR_PROP);
+
+        if (dirName == null) {
+            throw new JAXRPCException("Property named: "
+                + DIR_PROP + " was not found");
+        }
+        dir = new File(dirName);
+
+        if (! dir.exists()) {
+            if (! dir.mkdirs()) {
+                throw new JAXRPCException("Unable to create directory: " + dirName);
+            }
+        }
+        if (! dir.canWrite()) {
+            throw new JAXRPCException(
+                "Don't have write permission for " + dirName);
+        }
+    }
+
+    private String getFileName(SOAPMessage request) 
+        throws SOAPException
+    {
+        SOAPBody body =
+            request.getSOAPPart().getEnvelope().getBody();
+        Object obj = body.getChildElements().next();
+        SOAPElement opElem = (SOAPElement) obj;
+        SOAPElement paramElem = (SOAPElement)opElem.getChildElements().next();
+        return paramElem.getValue();
+    }
+
+    private void copyFile(InputStream is, OutputStream os) 
+        throws IOException
+    {
+        byte [] b = new byte[8192];
+        int nr;
+        while ((nr = is.read(b)) != -1) {
+            os.write(b, 0, nr);
+        }
+    }
+<span class="bold"><strong>    public boolean handleRequest(MessageContext mc) {
+        SOAPMessageContext ctx = (SOAPMessageContext) mc;
+        SOAPMessage request = ctx.getMessage();
+        if (request.countAttachments() == 0) {
+            throw new JAXRPCException("** Expected attachments");
+        }
+        try {
+            Iterator it = request.getAttachments();
+
+            while(it.hasNext()) {
+                AttachmentPart part = (AttachmentPart) it.next();
+                String fileName = getFileName(request);
+                System.out.println("Received file named: " + fileName);
+
+                File outFile = new File(dir, fileName);
+                OutputStream os = null;
+                InputStream  is = null;
+
+                try {
+                    os = new FileOutputStream(outFile);
+                    is = part.getDataHandler().getInputStream();
+
+                    copyFile(is, os);
+
+                } catch (IOException ioe) {
+                   ioe.printStackTrace();
+                   throw new JAXRPCException("Exception writing file " + fileName, 
+                   ioe);
+                } finally {
+                    try { 
+                        if (is != null) is.close(); 
+                    } catch (IOException ignore) {}
+
+                    try {
+                        if (os != null) os.close();
+                    } catch (IOException ignore) {}
+                }
+            }
+        } catch (SOAPException e) {
+            e.printStackTrace();
+            throw new JAXRPCException(e);
+        }
+        return true;
+    }</strong></span>
+    public QName[] getHeaders() {
+        // TODO Auto-generated method stub
+       return null;
+    }
+}</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e6699"></a>24.2.6.2. 웹 서비스 Back-end 구현</h4></div></div></div>
+        
+
+        <p>다음은 웹 서비스 Back-end 구현으로서 메시지 핸들러에서 파일을 받는 작업이 수행되고 난 다음 실행이 되며,
+        클라이언트로 파일을 받았다는 응답을 전달하는 클래스이다.</p><div class="example"><a id="d4e6702"></a><p class="title"><b>[예 24.3] &lt;&lt; FileTransfer.java &gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">package filetransfer;
+
+public class FileTransfer implements FileTransferIF{
+
+    public String receiveFile(String s) {
+        return "Received file named: " + s;
+    }
+}</pre>
+          </div></div><p><br class="example-break"/>다음은 SEI를 구현한 예이다. </p><div class="example"><a id="d4e6705"></a><p class="title"><b>[예 24.4] &lt;&lt; FileTransferIF.java &gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">package filetransfer;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface FileTransferIF extends Remote {    
+    public String receiveFile(String s) throws RemoteException;
+}</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e6711"></a>24.2.6.3. 웹 서비스 DD 파일 작성 및 웹 서비스 생성과 배치</h4></div></div></div>
+        
+
+        <p>다음은 웹 서비스 DD 파일(webservices.xml)이다.</p><div class="example"><a id="d4e6714"></a><p class="title"><b>[예 24.5] &lt;&lt; webservices.xml &gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0"?&gt;
+&lt;webservices version="1.1" xmlns="http://java.sun.com/xml/ns/j2ee"&gt;
+    &lt;webservice-description&gt;
+        &lt;webservice-description-name&gt;
+            FileAttachmentService
+        &lt;/webservice-description-name&gt;
+        &lt;wsdl-file&gt;
+            WEB-INF/wsdl/FileAttachmentService.wsdl
+        &lt;/wsdl-file&gt;
+        &lt;jaxrpc-mapping-file&gt;
+            WEB-INF/FileAttachmentService-mapping.xml
+        &lt;/jaxrpc-mapping-file&gt;
+        &lt;port-component&gt;
+            &lt;port-component-name&gt;FileAttPort&lt;/port-component-name&gt;
+            &lt;wsdl-port xmlns:ns2="urn:FileAttachmentService"&gt;
+                ns2:FileTransferIFPort
+            &lt;/wsdl-port&gt;
+            &lt;service-endpoint-interface&gt;
+                filetransfer.FileTransferIF
+            &lt;/service-endpoint-interface&gt;
+            &lt;service-impl-bean&gt;
+                &lt;servlet-link&gt;FileAttachmentServlet&lt;/servlet-link&gt;
+            &lt;/service-impl-bean&gt;
+<span class="bold"><strong>            &lt;handler&gt;
+                &lt;handler-name&gt;ServerAttachmentHandler&lt;/handler-name&gt;
+                &lt;handler-class&gt;
+                    filetransfer.ServerAttachmentHandler
+                &lt;/handler-class&gt;
+                &lt;init-param&gt;
+                    &lt;param-name&gt;directory&lt;/param-name&gt;
+                    &lt;param-value&gt;/temp&lt;/param-value&gt;
+                &lt;/init-param&gt;
+            &lt;/handler&gt;</strong></span>
+        &lt;/port-component&gt;
+    &lt;/webservice-description&gt;
+&lt;/webservices&gt;</pre>
+          </div></div><p><br class="example-break"/>위와 같은 작업이 완료되면 web.xml과 jeus-webservices-dd.xml을 다음과 같이
+        작성한다.</p><div class="example"><a id="d4e6718"></a><p class="title"><b>[예 24.6] &lt;&lt; web.xml &gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">&lt;?xml version="1.0"?&gt;
+&lt;web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;FileAttachmentServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;filetransfer.FileTransfer&lt;/servlet-class&gt;
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;FileAttachmentServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/FileAttachmentService&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+&lt;/web-app&gt;</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <div class="literallayout"><p/></div>
+
+        <div class="example"><a id="d4e6723"></a><p class="title"><b>[예 24.7] &lt;&lt; jeus-webservices-dd.xml &gt;&gt;</b></p><div class="example-contents">
+          
+
+          
+
+          <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;jeus-webservices-dd xmlns="http://www.tmaxsoft.com/xml/ns/jeus"&gt;
+    &lt;service&gt;
+        &lt;webservice-description-name&gt;
+            FileAttachmentService
+        &lt;/webservice-description-name&gt;
+        &lt;port&gt;
+            &lt;port-component-name&gt;FileAttPort&lt;/port-component-name&gt;
+        &lt;/port&gt;
+    &lt;/service&gt;
+&lt;/jeus-webservices-dd&gt;</pre>
+        </div></div><br class="example-break"/>
+
+        <p>위와 같이 DD 파일의 작성이 완료되면 EAR로 패키징하여 JEUS에 배치 작업을 한다.</p>
+
+        <p>이 서비스에 접근할 수 있는 주소는 다음과 같다.</p>
+
+        <pre class="programlisting">http://localhost:8088/FileAttachmentService/FileAttachmentService</pre>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e6734"></a>24.2.6.4. 웹 서비스 클라이언트 핸들러 작성</h4></div></div></div>
+        
+
+        <p>클라이언트 핸들러에서는 handleRequest()에서 메시지 컨텍스트를 직접 다루며, SAAJ를 통하여 SOAP
+        메시지에 Attachment 형태로 파일을 첨부하게 된다.</p><div class="example"><a id="d4e6737"></a><p class="title"><b>[예 24.8] &lt;&lt; ClientAttachmentHandler.java &gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">package filetransfer;
+
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.xml.namespace.QName;
+import javax.xml.rpc.JAXRPCException;
+import javax.xml.rpc.handler.MessageContext;
+import javax.xml.rpc.handler.soap.SOAPMessageContext;
+import javax.xml.soap.AttachmentPart;
+import javax.xml.soap.SOAPBody;
+import javax.xml.soap.SOAPElement;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPMessage;
+
+import javax.xml.rpc.handler.GenericHandler;
+
+public final class ClientAttachmentHandler 
+  extends GenericHandler
+{
+    private String getFileName(SOAPMessage request) 
+        throws SOAPException
+    {
+        SOAPBody body = request.getSOAPPart().getEnvelope().getBody();
+
+        SOAPElement opElem = (SOAPElement)body.getChildElements().next();
+
+        SOAPElement paramElem = (SOAPElement)opElem.getChildElements().next();
+        return paramElem.getValue();
+    }
+
+<span class="bold"><strong>    public boolean handleRequest(MessageContext mc) {
+
+        SOAPMessageContext ctx = (SOAPMessageContext) mc;
+        SOAPMessage request = ctx.getMessage();
+
+        try {
+            String fileName = getFileName(request); 
+            AttachmentPart part = request.createAttachmentPart();
+            part.setContentType("application/x-zip-compressed");
+            FileDataSource fds = new FileDataSource(fileName);
+            part.setDataHandler(new DataHandler(fds));
+            request.addAttachmentPart(part);
+        } catch(SOAPException e) {
+            e.printStackTrace();
+            throw new JAXRPCException(e);
+        }
+        return true;
+    }</strong></span>
+
+    public QName[] getHeaders() {
+        // TODO Auto-generated method stub
+        return null;
+    }    
+}</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <p/>
+
+        <p/>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="d4e6745"></a>24.2.6.5. 웹 서비스 클라이언트 작성</h4></div></div></div>
+        
+
+        <p>웹 서비스 클라이언트의 작성에서 주목할 것은 웹 서비스 클라이언트 핸들러를 핸들러 레지스트리에 등록하는 것이다.
+        파일 송신에 관한 구현은 클라이언트 핸들러에서 이루어진다. </p><div class="example"><a id="d4e6748"></a><p class="title"><b>[예 24.9] &lt;&lt; Client.java &gt;&gt;</b></p><div class="example-contents">
+            
+
+            
+
+            <pre class="programlisting">package filetransfer;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.namespace.QName;
+import javax.xml.rpc.Service;
+import javax.xml.rpc.Stub;
+import javax.xml.rpc.handler.HandlerInfo;
+import javax.xml.rpc.handler.HandlerRegistry;
+
+import FileAttachmentService_pkg.*;
+
+public final class Client {
+
+    public static void main(String[] args) throws Exception {
+
+       <span class="bold"><strong>Service svc = new FileAttachmentService_Impl();</strong></span>
+       <span class="bold"><strong>HandlerRegistry registry = svc.getHandlerRegistry();</strong></span>
+       List list = new ArrayList();
+       <span class="bold"><strong>list.add(new HandlerInfo(ClientAttachmentHandler.class, null, null));</strong></span>
+    
+       QName portName = new QName("urn:FileAttachmentService","FileTransferIFPort");
+       <span class="bold"><strong>registry.setHandlerChain(portName, list);</strong></span>
+
+       FileTransferIF port = 
+                     ((FileAttachmentService_Impl)svc).getFileTransferIFPort();
+       String result = port.receiveFile("File_send.txt");
+       System.out.println("** File transfer result: "+result);
+    }
+}</pre>
+          </div></div><p><br class="example-break"/></p>
+
+        <p/>
+
+        <p/>
+
+        <div class="literallayout"><p/></div>
+      </div>
+
+      <div class="section" lang="ko"><div class="titlepage"><div><div><h4 class="title"><a id="sect_excution"></a>24.2.6.6. 실행</h4></div></div></div>
+        
+
+        <p>위와 같이 구현한 웹 서비스를 클라이언트에서 실행하기 위해서는 클라이언트의 Stub 생성이 필요하다.</p><pre class="screen">JEUS_HOME/samples/webservice/jaxrpc_saaj_msg_handler/fileAttachment/fileAttachment-c
+lient$ <span class="bold"><strong>ant build</strong></span></pre>
+
+        <p>Stub이 생성되었다면 다음과 같이 실행한다.</p><pre class="screen">JEUS_HOME/samples/webservice/jaxrpc_saaj_msg_handler/fileAttachment/fileAttachment-c
+lient$ <span class="bold"><strong>ant run</strong></span></pre>
+
+        <p>다음과 같은 결과가 출력된다.</p><pre class="screen">** File transfer result: Received file named: File_send.txt</pre><p>위와
+        같은 결과가 출력되었다면 클라이언트에서 File_send.txt라는 파일이 서버로 전달되었고, webservices.xml에
+        설정한 대로 '/temp' 폴더에 File_send.txt 파일이 저장되어 있음을 확인할 수 있다.</p>
+      </div>
+    </div>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_jaxrpc_client.html">이전</a> </td><td width="20%" align="center"><a accesskey="u" href="pt02.html">위로</a></td><td width="40%" align="right"> <a accesskey="n" href="chapter_jaxrpc_conf.html">다음</a></td></tr><tr><td width="40%" align="left" valign="top">제23장 JAX-RPC 웹 서비스 호출 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> 제25장 JAX-RPC 웹 서비스 설정 파일 작성</td></tr></table></div><div xmlns="" align="center"/></body></html>

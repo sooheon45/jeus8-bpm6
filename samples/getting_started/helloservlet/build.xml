@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<project name="hello-servlet" default="build">
+    <property name="is.war.module" value="true"/>
+    <property name="javac.encoding" value="EUC-KR"/>
+
+    <import file="../../common/common-build.xml"/>
+
+</project>

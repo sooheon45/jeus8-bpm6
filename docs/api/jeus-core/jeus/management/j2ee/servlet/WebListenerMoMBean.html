@@ -1,0 +1,555 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>WebListenerMoMBean</title>
+      <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="WebListenerMoMBean (JEUS API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.management.j2ee.servlet</font><br>MBean WebListenerMoMBean
+      </h2>
+      <dl>
+         <dt><b>ObjectName Pattern:</b><dd><code>JEUS:name=<i>{listener-id}</i>,j2eeType=JeusService,jeusType=WebListener,*</code></dd>
+         </dt>
+         <dt></dt>
+         <dt></dt>
+         <dt></dt>
+      </dl>
+      <hr>
+      <dl>
+         <dt><b>All Superinterfaces:</b><dd>jeus.management.j2ee.J2EEManagedObjectMBean, jeus.management.j2ee.StateManageable</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>MBean <b>WebListenerMoMBean</b></pre></dl>웹서버로부터 요청을 받는 리스너(Listener)를 나타낸다. 
+      
+      <p>리스너의 관련 쓰레드 풀 정보, 웹서버와의 커넥션 정보와 제어 기능을 제공한다.</p><br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/j2ee/servlet/WebListenerMoMBean.html#J2EE_TYPE">J2EE_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/j2ee/servlet/WebListenerMoMBean.html#JEUS_TYPE">JEUS_TYPE</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String[]</code></font></td>
+               <td><code><b><a href="../../../../jeus/management/j2ee/servlet/WebListenerMoMBean.html#parentKeyMap">parentKeyMap</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>SYSTEM_DOMAIN</code></td>
+            </tr>
+         </table>&nbsp;
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.management.j2ee.StateManageable"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.management.j2ee.StateManageable</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>eventDescription, eventType, FAILED, FAILED_EVENT, RUNNING, RUNNING_EVENT, START_EVENT, STARTING, STOPPED, STOPPED_EVENT, STOPPING, STOPPING_EVENT</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attribute_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="3"><font size="+2"><b>Attribute Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/servlet/WebListenerMoMBean.html#Port">Port</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 리스너가 요청을 받아들이는 포트.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RW</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/servlet/WebListenerMoMBean.html#postdataReadTimeout">postdataReadTimeout</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   웹 서버 혹은 웹 클라이언트로부터 <tt>post-data</tt>를 읽어올 때의 타임아웃.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RW</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/servlet/WebListenerMoMBean.html#readTimeout">readTimeout</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   중앙 세션 서버와 웹 컨테이너 서블릿 엔진 사이의 통신에의 응답 타임아웃.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>long</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RW</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/servlet/WebListenerMoMBean.html#reconnectTimeout">reconnectTimeout</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String[]</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/servlet/WebListenerMoMBean.html#ThreadPools">ThreadPools</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 리스너에 속한 쓰레드 풀.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/servlet/WebListenerMoMBean.html#Type">Type</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 리스너의 종류.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.Collection&lt;jeus.management.j2ee.servlet.WJPConnectionInfo&gt;</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/servlet/WebListenerMoMBean.html#WJPConnectionInformations">WJPConnectionInformations</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>JEUS 8부터 더이상 사용하지 않는다.</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td align="center" valign="top" width="1%"><code>RO</code></td>
+               <td><code><a href="../../../../jeus/management/j2ee/servlet/WebListenerMoMBean.html#Secure">Secure</a></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   해당 리스너의 SSL을 지원 여부.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="attributes_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>J2EEType, JeusType, objectName, ObjectName, ParentObjectName, PermissionName, eventProvider, stateManageable, statisticsProvider</code></td>
+            </tr>
+         </table>&nbsp;<a name="attributes_inherited_from_class_jeus.management.j2ee.StateManageable"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left" colspan="2"><b>Attributes inherited from class jeus.management.j2ee.StateManageable</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="left" valign="top" width="1%"><b>Readable</b></td>
+               <td><code>startTime, state</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operation_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Operation Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code> javax.management.ObjectName</code></font></td>
+               <td><code><b><a href="WebListenerMoMBean.html#getPoolByName(java.lang.String)">getPoolByName</a></b>(java.lang.String poolId)</code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   리스너에서 쓰레드 풀의 아이디에 해당하는 쓰레드 풀.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="operations_inherited_from_class_jeus.management.j2ee.J2EEManagedObjectMBean"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Operations inherited from class jeus.management.j2ee.J2EEManagedObjectMBean</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>addChild, refreshMonitoring, removeChild</code></td>
+            </tr>
+         </table>&nbsp;<a name="operations_inherited_from_class_jeus.management.j2ee.StateManageable"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Operations inherited from class jeus.management.j2ee.StateManageable</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>start, startRecursive, stop</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="J2EE_TYPE"></a><h3>J2EE_TYPE</h3><pre>public static final java.lang.String <b>J2EE_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="JEUS_TYPE"></a><h3>JEUS_TYPE</h3><pre>public static final java.lang.String <b>JEUS_TYPE</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="parentKeyMap"></a><h3>parentKeyMap</h3><pre>public static final java.lang.String[] <b>parentKeyMap</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="attribute_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Attribute Detail</b></font></th>
+            </tr>
+         </table><a name="Port"></a><a name="getPort(java.lang.String, java.lang.String)"></a><h3>Port</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getPort</b>()</pre><dl>
+               <dd>해당 리스너가 요청을 받아들이는 포트.
+                  
+                  해당 리스너가 요청을 받아들이는 포트를 얻는다.
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>이 리스너가 요청을 받아들이는 포트 번호</dd>
+                     </dt>
+                     <dt><b>Throws:</b><dd><code>java.lang.Exception</code></dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>webListenerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="postdataReadTimeout"></a><a name="getpostdataReadTimeout(java.lang.String, java.lang.String)setpostdataReadTimeout(java.lang.String, java.lang.String)"></a><h3>postdataReadTimeout</h3>
+         <ul><code><font size="+1">Read-Write Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getpostdataReadTimeout</b>()</pre><dl>
+               <dd>웹 서버 혹은 웹 클라이언트로부터 <tt>post-data</tt>를 읽어올 때의 타임아웃.
+                  
+                  웹 서버 혹은 웹 클라이언트로부터 <tt>post-data</tt>를 읽어올 때의 타임아웃 시간을 얻는다.
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>타임아웃 시간</dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>webListenerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+            <h3>Setter : </h3><pre>public void <b>setpostdataReadTimeout</b>(int value)</pre><dl>
+               <dd>웹 서버 혹은 웹 클라이언트로부터 <tt>post-data</tt>를 읽어올 때의 타임아웃.
+                  
+                  웹 서버 혹은 웹 클라이언트로부터 <tt>post-data</tt>를 읽어올 때의 타임아웃 시간을 설정한다.
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Parameters:</b><dd><code>value</code> - 타임아웃 시간
+                        </dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>webListenerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="readTimeout"></a><a name="getreadTimeout(java.lang.String, java.lang.String)setreadTimeout(java.lang.String, java.lang.String)"></a><h3>readTimeout</h3>
+         <ul><code><font size="+1">Read-Write Attribute</font></code><br><h3>Getter : </h3><pre> int <b>getreadTimeout</b>()</pre><dl>
+               <dd>중앙 세션 서버와 웹 컨테이너 서블릿 엔진 사이의 통신에의 응답 타임아웃.
+                  
+                  중앙 세션 서버와 웹 컨테이너 서블릿 엔진 사이의 통신에의 응답 타임아웃 시간을 얻는다.
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>타임아웃시간</dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>webListenerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+            <h3>Setter : </h3><pre>public void <b>setreadTimeout</b>(int value)</pre><dl>
+               <dd>중앙 세션 서버와 웹 컨테이너 서블릿 엔진 사이의 통신에의 응답 타임아웃.
+                  
+                  중앙 세션 서버와 웹 컨테이너 서블릿 엔진 사이의 통신에의 응답 타임아웃 시간을 설정한다.
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Parameters:</b><dd><code>value</code> - 타임아웃시간
+                        </dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>webListenerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="reconnectTimeout"></a><a name="getreconnectTimeout(java.lang.String, java.lang.String)setreconnectTimeout(java.lang.String, java.lang.String)"></a><h3>reconnectTimeout</h3>
+         <ul><code><font size="+1">Read-Write Attribute</font></code><br><h3>Getter : </h3><pre> long <b>getreconnectTimeout</b>()</pre><b>Deprecated.</b>&nbsp;
+            
+            <dl>
+               <dd><i>&nbsp;</i></dd>
+               <p></p>WebtoB 서버와 WebtoB 리스너 사이의 재연결 타임아웃.
+               
+               WebtoB 서버와 WebtoB 리스너 사이의 재연결 타임아웃 시간을 얻는다.
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>타임아웃 시간</dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>webListenerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+            <h3>Setter : </h3><pre>public void <b>setreconnectTimeout</b>(long value)</pre><b>Deprecated.</b>&nbsp;
+            
+            <dl>
+               <dd><i>&nbsp;</i></dd>
+               <p></p>WebtoB 서버와 WebtoB 리스너 사이의 재연결 타임아웃.
+               
+               WebtoB 서버와 WebtoB 리스너 사이의 재연결 타임아웃 시간을 설정한다.
+               <dd>
+                  <dl>
+                     <dt><b>Parameters:</b><dd><code>value</code> - 타임아웃 시간
+                        </dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>webListenerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="ThreadPools"></a><a name="getThreadPools(java.lang.String, java.lang.String)"></a><h3>ThreadPools</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.lang.String[] <b>getThreadPools</b>()</pre><dl>
+               <dd>해당 리스너에 속한 쓰레드 풀.
+                  
+                  해당 리스너에 속한 쓰레드 풀을 얻는다.
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>리스너에 속한 쓰레드 풀 MBean들의 ObjectName</dd>
+                     </dt>
+                     <dt><b>Throws:</b><dd><code>java.lang.Exception</code></dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>webListenerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="Type"></a><a name="getType(java.lang.String, java.lang.String)"></a><h3>Type</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.lang.String <b>getType</b>()</pre><dl>
+               <dd>해당 리스너의 종류.
+                  
+                  해당 리스너의 종류를 얻는다.
+                  <p>리스너의 종류는 "HttpListener", "Ajp13Listener", "WebtobConnector", "TCPListener", ""TmaxConnector" 중 하나이다.</p>
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>이 리스너의 종류</dd>
+                     </dt>
+                     <dt><b>Throws:</b><dd><code>java.lang.Exception</code></dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>webListenerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="WJPConnectionInformations"></a><a name="getWJPConnectionInformations(java.lang.String, java.lang.String)"></a><h3>WJPConnectionInformations</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> java.util.Collection&lt;jeus.management.j2ee.servlet.WJPConnectionInfo&gt; <b>getWJPConnectionInformations</b>()</pre><b>Deprecated.</b>&nbsp;
+            
+            <dl>
+               <dd><i>JEUS 8부터 더이상 사용하지 않는다.</i></dd>
+               <p></p>WebtoB 커넥터인 경우 WebtoB에 연결된 WJP 커넥션에 대한 정보 리스트.
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>WJPConnectionInfo 리스트</dd>
+                     </dt>
+                     <dt><b>Throws:</b><dd><code>jeus.management.JeusManagementException</code> - WebtoB 커넥터가 아니거나 webtob-connector/use-nio가 false일 때
+                        </dd>
+                     </dt>
+                     <dt><b>Permission Action:</b><dd><code>webListenerInfo</code></dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+         <hr><a name="Secure"></a><a name="getSecure(java.lang.String, java.lang.String)"></a><h3>Secure</h3>
+         <ul><code><font size="+1">Read-Only Attribute</font></code><br><h3>Getter : </h3><pre> boolean <b>isSecure</b>()</pre><dl>
+               <dd>해당 리스너의 SSL을 지원 여부.
+                  
+                  해당 리스너의 SSL 지원여부를 알려준다.
+               </dd>
+               <p></p>
+               <dd>
+                  <dl>
+                     <dt><b>Returns:</b><dd>SSL 지원여부</dd>
+                     </dt>
+                  </dl>
+               </dd>
+            </dl>
+         </ul>
+      </p>
+      <p><a name="operation_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Operation Detail</b></font></th>
+            </tr>
+         </table><a name="getPoolByName(java.lang.String)"></a><h3>getPoolByName</h3><pre> javax.management.ObjectName <b>getPoolByName</b>(java.lang.String poolId)</pre><dl>
+            <dd>리스너에서 쓰레드 풀의 아이디에 해당하는 쓰레드 풀.
+               
+               쓰레드 풀의 아이디에 해당하는 쓰레드 풀의 ObjectName을 얻는다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Parameters:</b><dd><code>poolId</code> - 쓰레드 풀 아이디
+                     </dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>쓰레드 풀 아이디에 해당하는 쓰레드 풀이 존재하면 해당 쓰레드 풀의 <code>ObjectName</code>,
+                        그렇지 않으면 <code>null</code>
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

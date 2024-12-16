@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="wstxTest" default="all" basedir=".">
+    <property name="is.war.module" value="true" />
+
+    <import file="../../../common/common-build.xml" />
+
+	<target name="-post-compile">
+        <antcall target="wsgen">
+            <param name="sib.file" value="wstx.service.WSTxTest" />
+        </antcall>
+    </target>
+
+	<target name="all" depends="build, deploy" />
+</project>

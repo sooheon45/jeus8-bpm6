@@ -1,0 +1,527 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      <title>TCPServletRequest</title>
+      <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style"><script type="text/javascript">
+                    <!--
+                    function windowTitle()
+                    {
+                        parent.document.title="TCPServletRequest (JEUS Servlet API)";
+                    }
+                    -->
+                </script><noscript></noscript>
+   </head>
+   <body bgcolor="white" onload="windowTitle();"><a name="navbar_top"></a><a href="#skip-navbar_top" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_top_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Servlet API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_top"></a><hr>
+      <h2><font size="-1">jeus.servlet.tcp</font><br>Class TCPServletRequest
+      </h2><pre>java.lang.Object<br>  <img src="../../../resource/inherit.gif" alt="extended by">jeus.servlet.engine.HttpServletRequestImpl<br>     <img src="../../../resource/inherit.gif" alt="extended by"><b>jeus.servlet.tcp.TCPServletRequest</b></pre><dl>
+         <dt><b>All Implemented Interfaces:</b><dd>java.io.Serializable, javax.servlet.http.HttpServletRequest, javax.servlet.ServletRequest</dd>
+         </dt>
+      </dl>
+      <hr>
+      <dl><pre>public class <b>TCPServletRequest</b><dt>extends jeus.servlet.engine.HttpServletRequestImpl</dt></pre></dl> <a href="TCPServlet.html#service(TCPServletRequest,"><code>TCPServletResponse)</code></a>의 인자로 사용되는 클래스이다.
+      javax.servlet.http.HttpServletRequest를 implements한 클래스로서
+      javax.servlet.ServletRequest, javax.servlet.http.HttpServletRequest의 모든 method를 호출할 수 있다.
+      그러나 TCPServlet의 특성상 method의 동작이 다를 수 있다.<br><p>
+         <dl>
+            <dt></dt>
+            <dt></dt>
+         </dl>
+      </p>
+      <hr>
+      <p><a name="field_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Field Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/servlet/tcp/TCPServletRequest.html#TCP_SERVLET_METHOD">TCP_SERVLET_METHOD</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>static java.lang.String</code></font></td>
+               <td><code><b><a href="../../../jeus/servlet/tcp/TCPServletRequest.html#TCP_SERVLET_PROTOCOL">TCP_SERVLET_PROTOCOL</a></b></code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;
+               </td>
+            </tr>
+         </table>
+         &nbsp;
+         <a name="fields_inherited_from_class_jeus.servlet.engine.HttpServletRequestImpl"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class jeus.servlet.engine.HttpServletRequestImpl</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>CONTENT_TYPE_FORM_URLENCODED, DEFAULT_HTTP_CHARSET, PROTOCOL_ARRAY</code></td>
+            </tr>
+         </table>&nbsp;
+         &nbsp;
+         <a name="fields_inherited_from_class_javax.servlet.http.HttpServletRequest"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Fields inherited from class javax.servlet.http.HttpServletRequest</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>BASIC_AUTH, CLIENT_CERT_AUTH, DIGEST_AUTH, FORM_AUTH</code></td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="method_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="2"><font size="+2"><b>Method Summary</b></font></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>void</code></font></td>
+               <td><code><b><a href="TCPServletRequest.html#clearBody()">clearBody</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Clears the body.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="TCPServletRequest.html#getAuthType()">getAuthType</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   javax.servlet.http.HttpServletRequest.getAuthType()을
+                  override한 함수이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>byte[]</code></font></td>
+               <td><code><b><a href="TCPServletRequest.html#getBody()">getBody</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <b>Deprecated.</b>&nbsp;
+                  <i>&nbsp;</i></td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="TCPServletRequest.html#getCharacterEncoding()">getCharacterEncoding</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   javax.servlet.ServletRequest.getCharacterEncoding()을
+                  override한 함수이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>int</code></font></td>
+               <td><code><b><a href="TCPServletRequest.html#getContentLength()">getContentLength</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   javax.servlet.ServletRequest.getContentLength()을
+                  override한 함수이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="TCPServletRequest.html#getContentType()">getContentType</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   javax.servlet.ServletRequest.getContentType()을
+                  override한 함수이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>javax.servlet.http.Cookie[]</code></font></td>
+               <td><code><b><a href="TCPServletRequest.html#getCookies()">getCookies</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   javax.servlet.http.HttpServletRequest.getCookies()을
+                  override한 함수이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>byte[]</code></font></td>
+               <td><code><b><a href="TCPServletRequest.html#getHeader()">getHeader</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   Returns the header of incoming request packet.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String</code></font></td>
+               <td><code><b><a href="TCPServletRequest.html#getParameter(java.lang.String)">getParameter</a></b>(java.lang.String name)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   javax.servlet.ServletRequest.getParameter(String)을
+                  override한 함수이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.util.Map&lt;java.lang.String, java.lang.String[]&gt;</code></font></td>
+               <td><code><b><a href="TCPServletRequest.html#getParameterMap()">getParameterMap</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   javax.servlet.ServletRequest.getParameterMap()을
+                  override한 함수이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>java.lang.String[]</code></font></td>
+               <td><code><b><a href="TCPServletRequest.html#getParameterValues(java.lang.String)">getParameterValues</a></b>(java.lang.String name)
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   javax.servlet.ServletRequest.getParameterValues(String)을
+                  override한 함수이다.
+               </td>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td align="right" valign="top" width="1%"><font size="-1"><code>boolean</code></font></td>
+               <td><code><b><a href="TCPServletRequest.html#isSecure()">isSecure</a></b>()
+                     </code><br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   javax.servlet.ServletRequest.isSecure()을
+                  override한 함수이다.
+               </td>
+            </tr>
+         </table>
+      </p>
+      <p><a name="methods_inherited_from_class_jeus.servlet.engine.HttpServletRequestImpl"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class jeus.servlet.engine.HttpServletRequestImpl</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>addConnectionHeader, asyncCompleted, authenticate, awaitAsyncCompletion, changeSessionId, checkAsyncContext, clearing, copySocket, executeDelayedNIOEventProcessors, finish, forceURLRewriting, getAccessLogger, getAsyncContext, getAsyncContextImpl, getAttribute, getAttributeNames, getCharsetResolvedFromContentType, getConnectionHeaders, getContentLengthLong, getContext, getContextPath, getCreatedSessionId, getDateHeader, getDecodedRequestURI, getDispatcherType, getExecutionWrapper, getExtraParameter, getHeader, getHeaderNames, getHeaders, getHttpUpgradeHandler, getInputStream, getInputStreamInternal, getIntHeader, getLocalAddr, getLocale, getLocales, getLocalName, getLocalPort, getLongHeader, getLookupPath, getMaxParameterCount, getMaxPostSize, getMethod, getParameterNames, getPart, getParts, getPathInfo, getPathTranslated, getProtocol, getProtocolVersion, getPushBuilder, getQueryString, getReader, getRealPath, getRemoteAddr, getRemoteHost, getRemotePort, getRemoteUser, getRequestBodyEncoding, getRequestDispatcher, getRequestedSessionId, getRequestHeader, getRequestInfo, getRequestQueryEncoding, getRequestURI, getRequestURL, getResponse, getScheme, getServerName, getServerPort, getServletContext, getServletPath, getSession, getSession, getSocket, getSslSupport, getStartTime, getStreamId, getThreadPoolManager, getUsedSession, getUserPrincipal, getWebContainerManager, handleConnection, hasRetiringStateCheckerAccess, hasServletContextReadLock, isAsyncStarted, isAsyncSupported, isBlockingMode, isClientJustClosed, isHttp2, isRequestedFromAdminPurposeHttpListener, isRequestedSessionIdFromCookie, isRequestedSessionIdFromUrl, isRequestedSessionIdFromURL, isRequestedSessionIdValid, isUpgraded, isUpgradeRequested, isUpgrading, isUserInRole, isUsingReader, login, logout, performUpgrade, postProcess, postProcessSession, prepareEmulatedBlockingRead, processCommonRequest, readRequest, removeAttribute, scheduleNIOEventProcessor, setAttribute, setAuthType, setCharacterEncoding, setContentLengthLong, setContext, setContextPath, setExecutionWrapper, setHasRetiringStateCheckerAccess, setHasServletContextReadLock, setMethod, setPathInfo, setProtocol, setProtocolVersion, setResponse, setServletPath, setSocket, setSocketInfo, setSslSupport, setStartTime, setUserPrincipal, startAsync, startAsync, supportMessageStyleBody, supportNonblockingIO, upgrade</code></td>
+            </tr>
+         </table>&nbsp;<a name="methods_inherited_from_class_java.lang.Object"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#EEEEFF" class="TableSubHeadingColor">
+               <th align="left"><b>Methods inherited from class java.lang.Object</b></th>
+            </tr>
+            <tr bgcolor="white" class="TableRowColor">
+               <td><code>equals, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></td>
+            </tr>
+         </table>&nbsp;
+      </p>
+      <p><a name="field_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Field Detail</b></font></th>
+            </tr>
+         </table><a name="TCP_SERVLET_METHOD"></a><h3>TCP_SERVLET_METHOD</h3><pre>public static final java.lang.String <b>TCP_SERVLET_METHOD</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="TCP_SERVLET_PROTOCOL"></a><h3>TCP_SERVLET_PROTOCOL</h3><pre>public static final java.lang.String <b>TCP_SERVLET_PROTOCOL</b></pre><dl>
+            <dd>&nbsp;</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt></dt>
+                  <dt></dt>
+                  <dt></dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <p><a name="method_detail"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" summary="">
+            <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+               <th align="left" colspan="1"><font size="+2"><b>Method Detail</b></font></th>
+            </tr>
+         </table><a name="getHeader()"></a><h3>getHeader</h3><pre>public byte[] <b>getHeader</b>()<br></pre><dl>
+            <dd>Returns the header of incoming request packet. <p>
+               The length of the header is the result of  <a href="TCPDispatcherConfig.html#getHeaderLength"><code>TCPDispatcherConfig.getHeaderLength</code></a>.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>the request header</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getBody()"></a><h3>getBody</h3><pre>public byte[] <b>getBody</b>()<br>                    throws <code>java.io.IOException</code></pre><dl>
+            <dd><b>Deprecated.</b>&nbsp;
+               <i>&nbsp;</i><br><br>Returns the body of incoming request packet. <p>
+               The length of the body is the result of  <a href="TCPDispatcherConfig.html#getBodyLength"><code>TCPDispatcherConfig.getBodyLength</code></a>.
+               If it is equal to or less than zero, this method returns null.
+               If it is a long, which means that it's bigger than <code>Integer.MAX_VALUE</code>, you cannot use this method.
+               <p/>
+               If content length is too big, this method can cause OutOfMemoryError.
+               Therefore, it is recommended to use  <a href="TCPServletRequest.html#getInputStream()"><code>getInputStream()</code></a> and its read methods instead.
+               But  <a href="TCPServletRequest.html#getReader()"><code>getReader()</code></a> is not recommended because it is affected by request-encoding configuration.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Returns:</b><dd>the request body</dd>
+                  </dt>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - if an I/O error occurs.<br><code>java.lang.UnsupportedOperationException</code> - if the length of body is a long<br><code>java.lang.IllegalStateException</code> - if ServletInputStream is already used
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="clearBody()"></a><h3>clearBody</h3><pre>public void <b>clearBody</b>()<br>                    throws <code>java.io.IOException</code></pre><dl>
+            <dd>Clears the body.</dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Throws:</b><dd><code>java.io.IOException</code> - if an I/O error occurs.
+                     </dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getCharacterEncoding()"></a><h3>getCharacterEncoding</h3><pre>public java.lang.String <b>getCharacterEncoding</b>()<br></pre><dl>
+            <dd>javax.servlet.ServletRequest.getCharacterEncoding()을
+               override한 함수이다. 다음과 같은 우선 순위롤 선택된 값을
+               리턴한다.
+               <ol>
+               <li> domain.xml <request-encoding><forced></li>
+               <li> javax.servlet.ServletRequest.setCharacterEncoding(String)으로 설정된 값
+               <li> domain.xml <request-encoding><forced>를 제외한 값</forced></li>
+               <li> ISO-8859-1
+               </ol>
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>getCharacterEncoding</code> in class <code>ServletRequest</code></dd>
+                  </dt>
+                  <dt><b>Overrides:</b><dd><code>getCharacterEncoding</code> in class <code>HttpServletRequestImpl</code></dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>a <code>String</code> containing the name of the character encoding.</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getContentLength()"></a><h3>getContentLength</h3><pre>public int <b>getContentLength</b>()<br></pre><dl>
+            <dd>javax.servlet.ServletRequest.getContentLength()을
+               override한 함수이다. <p>
+                <a href="TCPDispatcherConfig.html#getBodyLength(byte[])"><code>TCPDispatcherConfig.getBodyLength(byte[])</code></a>와 같은 값을 리턴한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>getContentLength</code> in class <code>ServletRequest</code></dd>
+                  </dt>
+                  <dt><b>Overrides:</b><dd><code>getContentLength</code> in class <code>HttpServletRequestImpl</code></dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>length of body.</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getContentType()"></a><h3>getContentType</h3><pre>public java.lang.String <b>getContentType</b>()<br></pre><dl>
+            <dd>javax.servlet.ServletRequest.getContentType()을
+               override한 함수이다. <p>
+               "text/plain"을 리턴한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>getContentType</code> in class <code>ServletRequest</code></dd>
+                  </dt>
+                  <dt><b>Overrides:</b><dd><code>getContentType</code> in class <code>HttpServletRequestImpl</code></dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>contentType</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getParameterMap()"></a><h3>getParameterMap</h3><pre>public java.util.Map&lt;java.lang.String, java.lang.String[]&gt; <b>getParameterMap</b>()<br></pre><dl>
+            <dd>javax.servlet.ServletRequest.getParameterMap()을
+               override한 함수이다. <p>
+               현재 구현되어 있지 않으며 empty map을 리턴한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>getParameterMap</code> in class <code>ServletRequest</code></dd>
+                  </dt>
+                  <dt><b>Overrides:</b><dd><code>getParameterMap</code> in class <code>HttpServletRequestImpl</code></dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>empty map</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="isSecure()"></a><h3>isSecure</h3><pre>public boolean <b>isSecure</b>()<br></pre><dl>
+            <dd>javax.servlet.ServletRequest.isSecure()을
+               override한 함수이다. <p>
+               false를 리턴한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>isSecure</code> in class <code>ServletRequest</code></dd>
+                  </dt>
+                  <dt><b>Overrides:</b><dd><code>isSecure</code> in class <code>HttpServletRequestImpl</code></dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>false</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getAuthType()"></a><h3>getAuthType</h3><pre>public java.lang.String <b>getAuthType</b>()<br></pre><dl>
+            <dd>javax.servlet.http.HttpServletRequest.getAuthType()을
+               override한 함수이다. <p>
+               null을 리턴한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>getAuthType</code> in class <code>HttpServletRequest</code></dd>
+                  </dt>
+                  <dt><b>Overrides:</b><dd><code>getAuthType</code> in class <code>HttpServletRequestImpl</code></dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>null</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getCookies()"></a><h3>getCookies</h3><pre>public javax.servlet.http.Cookie[] <b>getCookies</b>()<br></pre><dl>
+            <dd>javax.servlet.http.HttpServletRequest.getCookies()을
+               override한 함수이다. <p>
+               Cookie[0]을 리턴한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>getCookies</code> in class <code>HttpServletRequest</code></dd>
+                  </dt>
+                  <dt><b>Overrides:</b><dd><code>getCookies</code> in class <code>HttpServletRequestImpl</code></dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>Cookie[0]</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getParameter(java.lang.String)"></a><h3>getParameter</h3><pre>public java.lang.String <b>getParameter</b>(<code>java.lang.String</code> name)<br></pre><dl>
+            <dd>javax.servlet.ServletRequest.getParameter(String)을
+               override한 함수이다. <p>
+               현재 구현되어 있지 않으며 null을 리턴한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>getParameter</code> in class <code>ServletRequest</code></dd>
+                  </dt>
+                  <dt><b>Overrides:</b><dd><code>getParameter</code> in class <code>HttpServletRequestImpl</code></dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>null</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+         <hr><a name="getParameterValues(java.lang.String)"></a><h3>getParameterValues</h3><pre>public java.lang.String[] <b>getParameterValues</b>(<code>java.lang.String</code> name)<br></pre><dl>
+            <dd>javax.servlet.ServletRequest.getParameterValues(String)을
+               override한 함수이다. <p>
+               현재 구현되어 있지 않으며 String[0]을 리턴한다.
+            </dd>
+            <p></p>
+            <dd>
+               <dl>
+                  <dt><b>Specified by:</b><dd><code>getParameterValues</code> in class <code>ServletRequest</code></dd>
+                  </dt>
+                  <dt><b>Overrides:</b><dd><code>getParameterValues</code> in class <code>HttpServletRequestImpl</code></dd>
+                  </dt>
+                  <dt><b>Returns:</b><dd>String[0]</dd>
+                  </dt>
+               </dl>
+            </dd>
+         </dl>
+      </p>
+      <hr><a name="navbar_bottom"></a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><table border="0" width="100%" cellpadding="1" cellspacing="0" summary="">
+         <tr>
+            <td colspan="2" bgcolor="#EEEEFF" class="NavBarCell1"><a name="navbar_bottom_firstrow"></a><table border="0" cellpadding="0" cellspacing="3" summary="">
+                  <tr align="center" valign="top">
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../overview-summary.html"><font class="NavBarFont1"><b>Overview</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="package-summary.html"><font class="NavBarFont1"><b>Package</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#FFFFFF" class="NavBarCell1Rev"> &nbsp;
+                        <font class="NavBarFont1Rev"><b>Class</b></font>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../deprecated-list.html"><font class="NavBarFont1"><b>Deprecated</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                     <td bgcolor="#EEEEFF" class="NavBarCell1"><a href="../../../help-doc.html"><font class="NavBarFont1"><b>Help</b></font></a>
+                        &nbsp;
+                        
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td align="right" valign="top" rowspan="3"><em><b>JEUS Servlet API</b></em></td>
+         </tr>
+         <tr>
+            <td valign="top" class="NavBarCell3"><font size="-2">SUMMARY:&nbsp;
+                  NESTED
+                  &nbsp;|&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+            <td valign="top" class="NavBarCell3"><font size="-2">DETAIL:&nbsp;
+                  <a href="#field_summary">FIELD</a>
+                  &nbsp;|&nbsp;
+                  CONSTR
+                  &nbsp;|&nbsp;
+                  <a href="#method_summary">METHOD</a></font></td>
+         </tr>
+      </table><a name="skip-navbar_bottom"></a><hr><i>Copyright &#169;2006-2014 TmaxSoft. All Rights Reserved.</i>
+   </body>
+</html>

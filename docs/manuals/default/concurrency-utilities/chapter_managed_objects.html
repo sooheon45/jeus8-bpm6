@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta xmlns="" http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>제2장 Managed Objects</title><link rel="stylesheet" href="../stylesheet.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.72.0"/><link rel="start" href="index.html" title="JEUS Concurrency Utilities 안내서"/><link rel="up" href="index.html" title="JEUS Concurrency Utilities 안내서"/><link rel="prev" href="chapter_intro.html" title="제1장 Concurrency Utilities for Java EE 표준"/></head><body><div xmlns="" class="navheader"><table width="100%" summary="Navigation header"><tr><td class="navbar-title" colspan="3" align="center">제2장 Managed Objects</td></tr><tr><td width="20%" align="left"><a accesskey="p" href="chapter_intro.html">이전</a> </td><td class="navbar-title" width="60%" align="center"> </td><td width="20%" align="right"> </td></tr></table><hr/></div><div class="chapter" lang="ko"><div class="titlepage"><div><div><h2 class="title"><a id="chapter_managed_objects"></a>제2장 Managed Objects</h2></div></div></div><div class="toc"><p><b>내용 목차</b></p><dl><dt><span class="section"><a href="chapter_managed_objects.html#sect_managedObjects_mes">2.1. ManagedExecutorService</a></span></dt><dt><span class="section"><a href="chapter_managed_objects.html#sect_managedObjects_mses">2.2. ManagedScheduledExecutorService</a></span></dt><dt><span class="section"><a href="chapter_managed_objects.html#sect_managedObjects_cs">2.3. ContextService</a></span></dt><dt><span class="section"><a href="chapter_managed_objects.html#sect_managedObjects_mtf">2.4. ManagedThreadFactory</a></span></dt></dl></div>
+  
+
+  <p>본 장에서는 Concurrency Utilities for Java EE에서 제공하는 Managed Objects에 대해서
+  간략하게 설명하고 사용 예제를 기술한다.</p>
+
+  <p/>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_managedObjects_mes"></a>2.1. ManagedExecutorService</h2></div></div></div>
+    
+
+    <p>javax.enterprise.concurrent.ManagedExecutorService 인터페이스는 Java SE의
+    java.util.concurrent.ExecutorService 인터페이스를 상속한다. ExecutorService와 동일하게
+    비동기 작업을 수행하기 위해 이용되고, 애플리케이션 서버는 비동기로 실행되는 작업의 컨텍스트 정보를 유지시켜준다.</p>
+
+    <p/>
+
+    <h3><a id="d4e453"></a>리소스 정의 예제</h3>
+
+    <p>다음은 ManagedExecutorService를 리소스로 정의한 예제이다.</p>
+
+    <div class="example"><a id="example_mes_domain_xml"></a><p class="title"><b>[예 2.1] ManagedExecutorService를 리소스로 정의한 예제 :
+        &lt;&lt;domain.xml&gt;&gt;</b></p><div class="example-contents">
+        
+
+        
+
+        <pre class="programlisting">&lt;domain&gt;
+    ...
+    &lt;server&gt;
+       &lt;data-sources&gt;
+           &lt;data-source&gt;testdb&lt;/data-source&gt;
+       &lt;/data-sources&gt;
+       &lt;managed-executor-service&gt;mes1&lt;/managed-executor-service&gt;
+    &lt;/server&gt;
+
+    &lt;resources&gt;
+        &lt;managed-executor-service&gt;
+            &lt;export-name&gt;mes1&lt;/export-name&gt;
+            &lt;long-running-task&gt;true&lt;/long-running-task&gt;
+            &lt;thread-pool&gt;
+                &lt;min&gt;10&lt;/min&gt;
+                &lt;max&gt;20&lt;/max&gt;
+                &lt;keep-alive-time&gt;60000&lt;/keep-alive-time&gt;
+                &lt;queue-size&gt;4096&lt;/queue-size&gt;
+            &lt;/thread-pool&gt;
+        &lt;/managed-executor-service&gt;
+    &lt;/resources&gt;
+    ...
+&lt;/domain&gt;</pre>
+      </div></div><p><br class="example-break"/></p>
+
+    <p/>
+
+    <p/>
+
+    
+
+    <h3><a id="d4e461"></a>애플리케이션 예제</h3>
+
+    <p>다음은 ManagedExecutorService를 활용한 애플리케이션 예제이다.</p>
+
+    <p/>
+
+    <div class="example"><a id="example_mes_java"></a><p class="title"><b>[예 2.2] ManagedExecutorService를 활용한 애플리케이션 예제</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting">public class AppServlet extends HTTPServlet implements Servlet {
+    // Retrieve our executor instance.
+    @Resource(name=mes1”)
+    ManagedExecutorService mes;
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse
+            resp) throws ServletException, IOException {
+        ArrayList&lt;Callable&gt; builderTasks = new ArrayList&lt;Callable&gt;();
+        builderTasks.add(new AccountTask(reqID, accountID));
+        builderTasks.add(new InsuranceTask(reqID, accountID));
+
+        // Submit the tasks and wait.
+        List&lt;Future&lt;Object&gt;&gt; results = mes.invokeAll(builderTasks);
+
+        AccountInfo accountInfo = (AccountInfo) results.get(0).get();
+        InsuranceInfo insInfo = (InsuranceInfo) results.get(1).get();
+        // Process the results
+    }
+}</pre>
+    </div></div><br class="example-break"/>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="d4e469"></a>WebAdmin 예제</h3>
+
+    <p>WebAdmin에서는 왼쪽 메뉴에서 <span><strong class="guibutton">[Resources] &gt; [Concurrency
+    Utilities Resource]</strong></span>를 선택해서 ManagedExecutorService 설정을 할 수
+    있다.</p>
+
+    <div class="figure"><a id="figure_mes_webadmin"></a><p class="title"><b>[그림 2.1] WebAdmin에서 ManagedExecutorService 설정</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_mes.png" align="top" width="711" alt="WebAdmin에서 ManagedExecutorService 설정"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_managedObjects_mses"></a>2.2. ManagedScheduledExecutorService</h2></div></div></div>
+    
+
+    <p>javax.enterprise.concurrent.ManagedExecutorService 인터페이스는
+    ManagedExecutorService의 모든 기능을 상속받는 동시에 Java SE의
+    java.util.concurrent.ScheduledExecutorService의 기능을 상속받아 작업의 지연 실행이나 주기적
+    실행이 가능하도록 기능을 제공한다. 추가적으로 Trigger와 ManagedTaskListener 인터페이스를 통해 작업의 실행을
+    제어할 수 있도록 한다.</p>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="d4e484"></a>리소스 정의 예제</h3>
+
+    <p>다음은 ManagedScheduledExecutorService를 리소스로 정의한 예제이다.</p>
+
+    <div class="example"><a id="example_mses_domain_xml"></a><p class="title"><b>[예 2.3] ManagedScheduledExecutorService를 리소스로 정의한 예제 :
+      &lt;&lt;domain.xml&gt;&gt;</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting">&lt;domain&gt;
+    ...
+    &lt;server&gt;
+       &lt;data-sources&gt;
+          &lt;data-source&gt;testdb&lt;/data-source&gt;
+       &lt;/data-sources&gt;
+       &lt;managed-scheduled-executor-service&gt;mses1&lt;/managed-scheduled-executor-service&gt;
+    &lt;/server&gt;
+    &lt;resources&gt;
+        &lt;managed-scheduled-executor-service&gt;
+            &lt;export-name&gt;mses1&lt;/export-name&gt;
+            &lt;long-running-task&gt;true&lt;/long-running-task&gt;
+            &lt;thread-pool&gt;
+                &lt;min&gt;10&lt;/min&gt;
+                &lt;max&gt;20&lt;/max&gt;
+                &lt;keep-alive-time&gt;60000&lt;/keep-alive-time&gt;
+                &lt;queue-size&gt;4096&lt;/queue-size&gt;
+            &lt;/thread-pool&gt;
+        &lt;/managed-scheduled-executor-service&gt;
+    &lt;/resources&gt;
+    ...
+&lt;/domain&gt;</pre>
+    </div></div><br class="example-break"/>
+
+    <p/>
+
+    <h3><a id="d4e491"></a>애플리케이션 예제</h3>
+
+    <p>다음은 ManagedScheduledExecutorService를 활용한 애플리케이션 예제이다.</p>
+
+    <p/>
+
+    <div class="example"><a id="example_mses_java"></a><p class="title"><b>[예 2.4] ManagedScheduledExecutorService를 활용한 애플리케이션 예제</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting">public class AppServlet extends HTTPServlet implements Servlet {
+    @Resource(name=mses1”)
+    ManagedScheduledExecutorService mses;
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse
+            resp) throws ServletException, IOException {
+        Runnable printTask = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(System.currentTimeMillis());
+            }
+        };
+        // printTask가 5초마다 주기적으로 실행됨
+        mses.schedule(printTask, 5, TimeUnit.SECONDS);
+    }
+}</pre>
+    </div></div><br class="example-break"/>
+
+    <p/>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="d4e500"></a>WebAdmin 예제</h3>
+
+    <p>WebAdmin 왼쪽 메뉴의 <span><strong class="guibutton">[Resources] &gt; [Concurrency Utilities
+    Resource]</strong></span>에서 ManagedScheduledExecutorService 설정을 할 수 있다.</p>
+
+    <div class="figure"><a id="figure_mses_webadmin"></a><p class="title"><b>[그림 2.2] WebAdmin에서 ManagedScheduledExecutorService 설정</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_mses.png" align="top" width="711" alt="WebAdmin에서 ManagedScheduledExecutorService 설정"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p/>
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_managedObjects_cs"></a>2.3. ContextService</h2></div></div></div>
+    
+
+    <p>ExecutorService를 이용하지 않고 ContextService를 통해 Managed Task를 생성하는 방식을
+    제공한다. 본 기능을 이용하여 사용자는 태스크를 만들 때 컨텍스트에 대해서 신경쓰지 않아도 애플리케이션 서버 내부적으로 작업이 실행될
+    때 컨텍스트를 유지시켜준다. 좀더 상세하게는 Dynamic Proxy를 이용해서 현재 작업을 실행하기 전에 해당 스레드에 컨텍스트를
+    설정하고 작업을 수행한다. 모든 작업이 완료되면 컨텍스트를 복귀하는 작업을 대신 수행한다.</p>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="d4e515"></a>리소스 정의 예제</h3>
+
+    <p>다음은 ContextService를 리소스로 정의한 예제이다.</p>
+
+    <div class="example"><a id="example_cs_domain_xml"></a><p class="title"><b>[예 2.5] ContextService를 리소스로 정의한 예제 : &lt;&lt;domain.xml&gt;&gt;</b></p><div class="example-contents">
+      
+
+      
+
+      <pre class="programlisting">&lt;domain&gt;
+    ...
+    &lt;server&gt;
+        &lt;data-sources&gt;
+            &lt;data-source&gt;testdb&lt;/data-source&gt;
+        &lt;/data-sources&gt;
+        &lt;context-service&gt;cs1&lt;/context-service&gt;
+    &lt;/server&gt;
+
+    &lt;resources&gt;
+        &lt;context-service&gt;
+            &lt;export-name&gt;cs1&lt;/export-name&gt;
+        &lt;/context-service&gt;
+    &lt;/resources&gt;
+    ...
+&lt;/domain&gt;</pre>
+    </div></div><br class="example-break"/>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="d4e522"></a>애플리케이션 예제</h3>
+
+    <p>다음은 ContextService를 활용한 애플리케이션 예제이다.</p>
+
+    <p/>
+
+    <div class="example"><a id="example_cs_java"></a><p class="title"><b>[예 2.6] ContextService를 활용한 애플리케이션 예제</b></p><div class="example-contents">
+      
+
+      
+
+      <p/>
+
+      <pre class="programlisting">public class AppServlet extends HTTPServlet implements Servlet {
+    @Resource(name=cs1”)
+    ContextService cs;
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse
+            resp) throws ServletException, IOException {
+        // 일반적인 Runnable task
+        Runnable simpleTask = new Runnable() {
+            @Override
+            public void run() {
+                int sum = 0;
+                for (int i = 0; i &lt; 10; i++) { sum += i; }
+                System.out.println(sum);
+            }
+        };
+
+        // 일반 task를 ContextService를 통해서 Contextual task로 만듦
+        cs.createContextualProxy(simpleTask, Runnable.class);
+
+        // SE에서 제공하는 Executor에 Contextual task를 넘김
+        ExecutorService es = Executors.newFixedThreadPool(1);
+        es.submit(simpleTask);
+    }
+}</pre>
+    </div></div><br class="example-break"/>
+
+    <p/>
+
+    <h3><a id="d4e531"></a>WebAdmin 예제</h3>
+
+    <p>WebAdmin 왼쪽 메뉴의 <span><strong class="guibutton">[Resources] &gt; [Concurrency Utilities
+    Resource]</strong></span>에서 ContextService 설정을 할 수 있다.</p>
+
+    <div class="figure"><a id="figure_cs_webadmin"></a><p class="title"><b>[그림 2.3] WebAdmin에서 ContextService 설정</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_cs.png" align="top" width="711" alt="WebAdmin에서 ContextService 설정"/></td></tr></table></div>
+      </div></div><p><br class="figure-break"/></p>
+
+    <p/>
+
+    
+  </div>
+
+  <div class="section" lang="ko"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sect_managedObjects_mtf"></a>2.4. ManagedThreadFactory</h2></div></div></div>
+    
+
+    <p>javax.enterprise.concurrent.ManagedThreadFactory 인터페이스는 Java SE의
+    java.util.concurrent.ThreadFactory 기능을 상속받아 스레드를 생성하는 기능을 제공한다. 일반적으로
+    ThreadFactory는 ThreadPoolExecutor를 생성할 때 생성자의 파라미터로 넘기는 곳에 사용한다. 따라서, Java
+    SE의 Concurrency API 상에서도 worker 스레드가 작업을 실행할 때 Task에 대한 컨텍스트를 유지해줄 수
+    있다.</p>
+
+    <p/>
+
+    <p/>
+
+    <h3><a id="d4e547"></a>리소스 정의 예제</h3>
+
+    <p>다음은 ManagedThreadFactory를 리소스로 정의한 예제이다.</p>
+
+    <p/>
+
+    <div class="example"><a id="example_mtf_domain_xml"></a><p class="title"><b>[예 2.7] ManagedThreadFactory를 리소스로 정의 예제 :
+      &lt;&lt;domain.xml&gt;&gt;</b></p><div class="example-contents">
+      
+
+      
+
+      <p/>
+
+      <pre class="programlisting">&lt;domain&gt;
+    ...
+    &lt;server&gt;
+        &lt;data-sources&gt;
+            &lt;data-source&gt;testdb&lt;/data-source&gt;
+        &lt;/data-sources&gt;
+        &lt;managed-thread-factory&gt;mtf1&lt;/managed-thread-factory&gt;
+    &lt;/server&gt;
+
+    &lt;resources&gt;
+        &lt;managed-thread-factory&gt;
+            &lt;export-name&gt;mtf1&lt;/export-name&gt;
+            &lt;thread-priority&gt;5&lt;/thread-priority&gt;
+        &lt;/managed-thread-factory&gt;
+    &lt;/resources&gt;
+    ...
+&lt;/domain&gt;</pre>
+    </div></div><br class="example-break"/>
+
+    <p/>
+
+    <h3><a id="d4e556"></a>애플리케이션 예제</h3>
+
+    <p>다음은 ManagedThreadFactory를 활용한 애플리케이션 예제이다.</p>
+
+    <p/>
+
+    <div class="example"><a id="example_mtf_java"></a><p class="title"><b>[예 2.8] ManagedThreadFactory를 활용한 애플리케이션 예제</b></p><div class="example-contents">
+      
+
+      
+
+      <p/>
+
+      <pre class="programlisting">public class AppServlet extends HTTPServlet implements Servlet {
+    // Retrieve our executor instance.
+    @Resource(name=mtf1”)
+    ManagedThreadFactory mtf;
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse
+            resp) throws ServletException, IOException {
+        // 일반적인 Runnable task
+        Runnable simpleTask = new Runnable() {
+            @Override
+            public void run() {
+                int sum = 0;
+                for (int i = 0; i &lt; 10; i++) { sum += i; }
+                System.out.println(sum);
+            }
+        };
+
+        // simpleTask를 ManagedThreadFactory에서 제공되는 thread에서 실행
+        mtf.newThread(simpleTask).start();
+
+        // 혹은 ThreadPoolExecutor의 매개변수로 ThreadFactory를 전달
+        Executor e = new ThreadPoolExecutor(5, 10, 6L, TimeUnit.MINUTES, new ArrayBlockingQueue&lt;Runnable&gt;(4096), mtf);
+        e.execute(new SimpleTask());
+    }
+}</pre>
+
+      <p/>
+
+      <h3><a id="d4e565"></a>WebAdmin 예제</h3>
+
+      <p/>
+
+      <p>WebAdmin에서는 왼쪽 메뉴의 <span><strong class="guibutton">[Resources] &gt; [Concurrency
+      Utilities Resource]</strong></span>에서 ManagedThreadFactory 설정을 할 수
+      있다.</p>
+
+      <p/>
+
+      <div class="figure"><a id="figure_mtf_webadmin"></a><p class="title"><b>[그림 2.4] WebAdmin에서 ManagedThreadFactory 설정</b></p><div class="figure-contents">
+        
+
+        <div xmlns="" class="mediaobject" align="left"><table border="0" summary="manufactured viewport for HTML img" cellspacing="0" cellpadding="0" width="711"><tr><td align="left"><img src="resources/figure_mtf.png" align="top" width="711" alt="WebAdmin에서 ManagedThreadFactory 설정"/></td></tr></table></div>
+      </div></div><br class="figure-break"/>
+
+      <p/>
+    </div></div><br class="example-break"/>
+  </div>
+</div><div class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="chapter_intro.html">이전</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">제1장 Concurrency Utilities for Java EE 표준 </td><td width="20%" align="center"><a accesskey="h" href="index.html">처음으로</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div><div xmlns="" align="center"/></body></html>
