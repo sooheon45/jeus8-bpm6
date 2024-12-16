@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hotspot_log version='160 1' process='14262' time_ms='1734328949879'>
+<vm_version>
+<name>
+OpenJDK 64-Bit Server VM
+</name>
+<release>
+25.302-b08
+</release>
+<info>
+OpenJDK 64-Bit Server VM (25.302-b08) for linux-amd64 JRE (1.8.0_302-b08), built on Jul 16 2021 05:13:40 by &quot;openjdk&quot; with gcc 4.4.7 20120313 (Red Hat 4.4.7-23)
+</info>
+</vm_version>
+<vm_arguments>
+<args>
+-XX:+UseContainerSupport -XX:ActiveProcessorCount=1 -Dserver1 -Xmx1024m -XX:MaxMetaspaceSize=256m -Xbootclasspath/p:/workspace/jeus8-bpm6/lib/system/extension.jar -Djava.security.policy=/workspace/jeus8-bpm6/domains/jeus_domain/config/security/policy -Djava.library.path=/workspace/jeus8-bpm6/lib/system -Djava.endorsed.dirs=/workspace/jeus8-bpm6/lib/endorsed -Djeus.properties.replicate=jeus,sun.rmi,java.util,java.net -Djeus.jvm.version=hotspot -Djava.util.logging.config.file=/workspace/jeus8-bpm6/bin/logging.properties -Dsun.rmi.dgc.server.gcInterval=3600000 -Djava.util.logging.manager=jeus.util.logging.JeusLogManager -Djeus.home=/workspace/jeus8-bpm6 -Djava.net.preferIPv4Stack=true -Djeus.tm.checkReg=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Djeus.domain.name=jeus_domain -Djava.naming.factory.initial=jeus.jndi.JNSContextFactory -Djava.naming.factory.url.pkgs=jeus.jndi.jns.url -Djeus.server.protectmode=false -XX:+UnlockDiagnosticVMOptions -XX:+LogVMOutput -XX:LogFile=/workspace/jeus8-bpm6/domains/jeus_domain/servers/server1/logs/jvm.log 
+</args>
+<command>
+jeus.server.ServerBootstrapper -domain jeus_domain -server server1 -u admin -independent
+</command>
+<launcher>
+SUN_STANDARD
+</launcher>
+<properties>
+java.vm.specification.name=Java Virtual Machine Specification
+java.vm.version=25.302-b08
+java.vm.name=OpenJDK 64-Bit Server VM
+java.vm.info=mixed mode, sharing
+java.ext.dirs=/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/ext:/usr/java/packages/lib/ext
+java.endorsed.dirs=/workspace/jeus8-bpm6/lib/endorsed
+sun.boot.library.path=/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/amd64
+java.library.path=/workspace/jeus8-bpm6/lib/system
+java.home=/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre
+java.class.path=/workspace/jeus8-bpm6/lib/system/bootstrap.jar
+sun.boot.class.path=/workspace/jeus8-bpm6/lib/system/extension.jar:/workspace/jeus8-bpm6/lib/endorsed/activation-1.1.1.jar:/workspace/jeus8-bpm6/lib/endorsed/javaee-annotation.jar:/workspace/jeus8-bpm6/lib/endorsed/jaxp-ri.jar:/workspace/jeus8-bpm6/lib/endorsed/jsr105-impl-1.0.2.jar:/workspace/jeus8-bpm6/lib/endorsed/serializer.jar:/workspace/jeus8-bpm6/lib/endorsed/xalan.jar:/workspace/jeus8-bpm6/lib/endorsed/xercesImpl.jar:/workspace/jeus8-bpm6/lib/endorsed/xml-apis.jar:/workspace/jeus8-bpm6/lib/endorsed/xsltc.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/resources.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/rt.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/sunrsasign.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/jsse.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/jce.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/charsets.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/jfr.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/classes
+java.vm.specification.vendor=Oracle Corporation
+java.vm.specification.version=1.8
+java.vm.vendor=Oracle Corporation
+server1=
+java.security.policy=/workspace/jeus8-bpm6/domains/jeus_domain/config/security/policy
+jeus.properties.replicate=jeus,sun.rmi,java.util,java.net
+jeus.jvm.version=hotspot
+java.util.logging.config.file=/workspace/jeus8-bpm6/bin/logging.properties
+sun.rmi.dgc.server.gcInterval=3600000
+java.util.logging.manager=jeus.util.logging.JeusLogManager
+jeus.home=/workspace/jeus8-bpm6
+java.net.preferIPv4Stack=true
+jeus.tm.checkReg=true
+sun.rmi.dgc.client.gcInterval=3600000
+jeus.domain.name=jeus_domain
+java.naming.factory.initial=jeus.jndi.JNSContextFactory
+java.naming.factory.url.pkgs=jeus.jndi.jns.url
+jeus.server.protectmode=false
+sun.java.command=jeus.server.ServerBootstrapper -domain jeus_domain -server server1 -u admin -independent
+sun.java.launcher=SUN_STANDARD
+</properties>
+</vm_arguments>
+<tty>
+<blob name='MethodHandlesAdapterBlob' size='32000'>
+<sect index='1' size='32000' free='31632'/>
+</blob>
+<writer thread='139701121971776'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/lang/ThreadLocal' x='java/lang/ThreadLocal getMap (Ljava/lang/Thread;)Ljava/lang/ThreadLocal$ThreadLocalMap;' witness='java/lang/InheritableThreadLocal' stamp='0.392'/>
+<dependency_failed type='unique_concrete_method' ctxk='sun/nio/cs/ArrayDecoder' x='sun/nio/cs/UTF_8$Decoder decode ([BII[C)I' witness='sun/nio/cs/ArrayDecoder' stamp='0.491'/>
+<dependency_failed type='unique_concrete_method' ctxk='sun/nio/cs/ArrayEncoder' x='sun/nio/cs/UTF_8$Encoder encode ([CII[B)I' witness='sun/nio/cs/ArrayEncoder' stamp='0.594'/>
+<dependency_failed type='unique_concrete_method' ctxk='sun/nio/cs/ArrayEncoder' x='sun/nio/cs/UTF_8$Encoder encode ([CII[B)I' witness='sun/nio/cs/ArrayEncoder' stamp='0.595'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.842'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.842'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.842'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.842'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.842'/>
+<writer thread='139701087716928'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.912'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/jar/JarFile' x='java/util/jar/JarFile getEntry (Ljava/lang/String;)Ljava/util/zip/ZipEntry;' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.912'/>
+<writer thread='139701121971776'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/io/DataInput' x='java/io/DataInputStream readUnsignedShort ()I' witness='java/io/DataInput' stamp='0.929'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/util/NamespaceSupport' witness='org/apache/xerces/impl/xs/SchemaNamespaceSupport' stamp='1.040'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/util/NamespaceSupport' witness='org/apache/xerces/impl/xs/SchemaNamespaceSupport' stamp='1.040'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='1.097'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='1.097'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='1.097'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='1.097'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='1.097'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='1.097'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='1.097'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='1.235'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='1.235'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='1.235'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='1.235'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='1.235'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='1.235'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='1.235'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='1.235'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='1.235'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='1.235'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='1.235'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/util/TreeMap$PrivateEntryIterator' x='java/util/TreeMap$KeyIterator' witness='java/util/TreeMap$ValueIterator' stamp='2.817'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getValue ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='2.873'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getName ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='2.874'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getValue ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='2.874'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getName ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='2.874'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/NamedNodeMap' x='org/apache/xerces/impl/xs/opti/NamedNodeMapImpl getLength ()I' witness='org/w3c/dom/NamedNodeMap' stamp='2.876'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/impl/validation/ValidationState' witness='org/apache/xerces/impl/validation/ConfigurableValidationState' stamp='3.173'/>
+<writer thread='139700731901504'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/nio/HeapByteBuffer' x='java/nio/HeapByteBuffer _get (I)B' witness='java/nio/HeapByteBufferR' stamp='4.207'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/nio/HeapByteBuffer' x='java/nio/HeapByteBuffer _get (I)B' witness='java/nio/HeapByteBufferR' stamp='4.207'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/nio/HeapByteBuffer' x='java/nio/HeapByteBuffer _get (I)B' witness='java/nio/HeapByteBufferR' stamp='4.207'/>
+<dependency_failed type='leaf_type' ctxk='java/nio/HeapByteBuffer' witness='java/nio/HeapByteBufferR' stamp='4.207'/>
+<dependency_failed type='leaf_type' ctxk='java/nio/HeapByteBuffer' witness='java/nio/HeapByteBufferR' stamp='4.207'/>
+<dependency_failed type='leaf_type' ctxk='java/nio/HeapByteBuffer' witness='java/nio/HeapByteBufferR' stamp='4.207'/>
+<dependency_failed type='leaf_type' ctxk='java/nio/HeapByteBuffer' witness='java/nio/HeapByteBufferR' stamp='4.207'/>
+<writer thread='139701121971776'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/zip/InflaterInputStream' x='java/util/zip/InflaterInputStream read ([BII)I' witness='java/util/zip/ZipInputStream' stamp='4.757'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/zip/InflaterInputStream' x='java/util/zip/InflaterInputStream read ([BII)I' witness='java/util/zip/ZipInputStream' stamp='4.757'/>
+<dependency_failed type='unique_concrete_method' ctxk='javax/xml/bind/annotation/XmlRootElement' x='com/sun/xml/bind/v2/model/annotation/XmlRootElementQuick name ()Ljava/lang/String;' witness='javax/xml/bind/annotation/XmlRootElement' stamp='5.341'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList$Itr' witness='java/util/ArrayList$ListItr' stamp='5.671'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList$Itr' witness='java/util/ArrayList$ListItr' stamp='5.671'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.032'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.032'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.032'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.032'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.032'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.032'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.032'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.032'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.032'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.032'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.032'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.032'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.032'/>
+<writer thread='139701087716928'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='6.352'/>
+<writer thread='139701121971776'/>
+<dependency_failed type='unique_concrete_method' ctxk='javax/xml/stream/events/Attribute' x='org/codehaus/stax2/ri/evt/AttributeEventImpl getName ()Ljavax/xml/namespace/QName;' witness='javax/xml/stream/events/Attribute' stamp='6.734'/>
+<dependency_failed type='unique_concrete_method' ctxk='javax/xml/stream/events/Namespace' x='org/codehaus/stax2/ri/evt/NamespaceEventImpl getNamespaceURI ()Ljava/lang/String;' witness='javax/xml/stream/events/Namespace' stamp='6.735'/>
+<dependency_failed type='leaf_type' ctxk='java/io/BufferedInputStream' witness='jeus/servlet/engine/io/ExtendedBufferedInputStream' stamp='6.818'/>
+<dependency_failed type='leaf_type' ctxk='java/io/BufferedInputStream' witness='jeus/servlet/engine/io/ExtendedBufferedInputStream' stamp='6.818'/>
+<dependency_failed type='leaf_type' ctxk='java/io/BufferedInputStream' witness='jeus/servlet/engine/io/ExtendedBufferedInputStream' stamp='6.818'/>
+<dependency_failed type='leaf_type' ctxk='java/io/BufferedInputStream' witness='jeus/servlet/engine/io/ExtendedBufferedInputStream' stamp='6.818'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/impl/xs/identity/XPathMatcher' x='org/apache/xerces/impl/xs/identity/XPathMatcher handleContent (Lorg/apache/xerces/xs/XSTypeDefinition;ZLjava/lang/Object;SLorg/apache/xerces/xs/ShortList;)V' witness='org/apache/xerces/impl/xs/identity/Field$Matcher' stamp='6.984'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/impl/xs/identity/XPathMatcher' x='org/apache/xerces/impl/xs/identity/XPathMatcher matched (Ljava/lang/Object;SLorg/apache/xerces/xs/ShortList;Z)V' witness='org/apache/xerces/impl/xs/identity/Field$Matcher' stamp='6.984'/>
+<writer thread='139699803911744'/>
+<dependency_failed type='leaf_type' ctxk='jeus/service/archive/ArchiveArrayClassLoader' witness='jeus/servlet/loader/ContextLoader' stamp='7.317'/>
+<dependency_failed type='unique_concrete_method' ctxk='jeus/thirdparty/asm504/ClassVisitor' x='jeus/thirdparty/asm504/ClassVisitor visitTypeAnnotation (ILjeus/thirdparty/asm504/TypePath;Ljava/lang/String;Z)Ljeus/thirdparty/asm504/AnnotationVisitor;' witness='jeus/thirdparty/asm504/ClassWriter' stamp='8.349'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/ejb/client/ObjectReplacetInputStream' stamp='8.933'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/DocumentImpl' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='9.384'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/DocumentImpl' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='9.384'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/DocumentImpl' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='9.384'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/DocumentImpl' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='9.384'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/CoreDocumentImpl' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='9.384'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/CoreDocumentImpl' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='9.384'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ParentNode' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='9.384'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ParentNode' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='9.384'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ParentNode' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='9.384'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ParentNode' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='9.384'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ParentNode' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='9.384'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/ElementNSImpl' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='9.420'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/ElementNSImpl' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='9.420'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/ElementNSImpl' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='9.420'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/ElementNSImpl' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='9.420'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/ElementNSImpl' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='9.420'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ElementImpl' x='org/apache/xerces/dom/ElementImpl synchronizeData ()V' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='9.420'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ElementImpl' x='org/apache/xerces/dom/ElementImpl synchronizeData ()V' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='9.420'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/TextImpl' witness='org/apache/xerces/dom/DeferredTextImpl' stamp='9.442'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/TextImpl' witness='org/apache/xerces/dom/DeferredTextImpl' stamp='9.442'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/TextImpl' witness='org/apache/xerces/dom/DeferredTextImpl' stamp='9.442'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/CharacterDataImpl' x='org/apache/xerces/dom/NodeImpl synchronizeData ()V' witness='org/apache/xerces/dom/DeferredTextImpl' stamp='9.442'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='10.700'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='10.700'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='10.700'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='10.700'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='10.700'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='10.700'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/concurrent/ConcurrentHashMap' x='java/util/concurrent/ConcurrentHashMap get (Ljava/lang/Object;)Ljava/lang/Object;' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='10.700'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='10.700'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='10.700'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/Concurrent

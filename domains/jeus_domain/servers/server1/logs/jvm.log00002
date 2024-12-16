@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hotspot_log version='160 1' process='17286' time_ms='1734330434381'>
+<vm_version>
+<name>
+OpenJDK 64-Bit Server VM
+</name>
+<release>
+25.302-b08
+</release>
+<info>
+OpenJDK 64-Bit Server VM (25.302-b08) for linux-amd64 JRE (1.8.0_302-b08), built on Jul 16 2021 05:13:40 by &quot;openjdk&quot; with gcc 4.4.7 20120313 (Red Hat 4.4.7-23)
+</info>
+</vm_version>
+<vm_arguments>
+<args>
+-XX:+UseContainerSupport -XX:ActiveProcessorCount=1 -Dserver1 -Xmx1024m -XX:MaxMetaspaceSize=256m -Xbootclasspath/p:/workspace/jeus8-bpm6/lib/system/extension.jar -Djava.security.policy=/workspace/jeus8-bpm6/domains/jeus_domain/config/security/policy -Djava.library.path=/workspace/jeus8-bpm6/lib/system -Djava.endorsed.dirs=/workspace/jeus8-bpm6/lib/endorsed -Djeus.properties.replicate=jeus,sun.rmi,java.util,java.net -Djeus.jvm.version=hotspot -Djava.util.logging.config.file=/workspace/jeus8-bpm6/bin/logging.properties -Dsun.rmi.dgc.server.gcInterval=3600000 -Djava.util.logging.manager=jeus.util.logging.JeusLogManager -Djeus.home=/workspace/jeus8-bpm6 -Djava.net.preferIPv4Stack=true -Djeus.tm.checkReg=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Djeus.domain.name=jeus_domain -Djava.naming.factory.initial=jeus.jndi.JNSContextFactory -Djava.naming.factory.url.pkgs=jeus.jndi.jns.url -Djeus.server.protectmode=false -XX:+UnlockDiagnosticVMOptions -XX:+LogVMOutput -XX:LogFile=/workspace/jeus8-bpm6/domains/jeus_domain/servers/server1/logs/jvm.log 
+</args>
+<command>
+jeus.server.ServerBootstrapper -domain jeus_domain -server server1 -u admin -independent
+</command>
+<launcher>
+SUN_STANDARD
+</launcher>
+<properties>
+java.vm.specification.name=Java Virtual Machine Specification
+java.vm.version=25.302-b08
+java.vm.name=OpenJDK 64-Bit Server VM
+java.vm.info=mixed mode, sharing
+java.ext.dirs=/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/ext:/usr/java/packages/lib/ext
+java.endorsed.dirs=/workspace/jeus8-bpm6/lib/endorsed
+sun.boot.library.path=/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/amd64
+java.library.path=/workspace/jeus8-bpm6/lib/system
+java.home=/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre
+java.class.path=/workspace/jeus8-bpm6/lib/system/bootstrap.jar
+sun.boot.class.path=/workspace/jeus8-bpm6/lib/system/extension.jar:/workspace/jeus8-bpm6/lib/endorsed/activation-1.1.1.jar:/workspace/jeus8-bpm6/lib/endorsed/javaee-annotation.jar:/workspace/jeus8-bpm6/lib/endorsed/jaxp-ri.jar:/workspace/jeus8-bpm6/lib/endorsed/jsr105-impl-1.0.2.jar:/workspace/jeus8-bpm6/lib/endorsed/serializer.jar:/workspace/jeus8-bpm6/lib/endorsed/xalan.jar:/workspace/jeus8-bpm6/lib/endorsed/xercesImpl.jar:/workspace/jeus8-bpm6/lib/endorsed/xml-apis.jar:/workspace/jeus8-bpm6/lib/endorsed/xsltc.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/resources.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/rt.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/sunrsasign.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/jsse.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/jce.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/charsets.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/jfr.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/classes
+java.vm.specification.vendor=Oracle Corporation
+java.vm.specification.version=1.8
+java.vm.vendor=Oracle Corporation
+server1=
+java.security.policy=/workspace/jeus8-bpm6/domains/jeus_domain/config/security/policy
+jeus.properties.replicate=jeus,sun.rmi,java.util,java.net
+jeus.jvm.version=hotspot
+java.util.logging.config.file=/workspace/jeus8-bpm6/bin/logging.properties
+sun.rmi.dgc.server.gcInterval=3600000
+java.util.logging.manager=jeus.util.logging.JeusLogManager
+jeus.home=/workspace/jeus8-bpm6
+java.net.preferIPv4Stack=true
+jeus.tm.checkReg=true
+sun.rmi.dgc.client.gcInterval=3600000
+jeus.domain.name=jeus_domain
+java.naming.factory.initial=jeus.jndi.JNSContextFactory
+java.naming.factory.url.pkgs=jeus.jndi.jns.url
+jeus.server.protectmode=false
+sun.java.command=jeus.server.ServerBootstrapper -domain jeus_domain -server server1 -u admin -independent
+sun.java.launcher=SUN_STANDARD
+</properties>
+</vm_arguments>
+<tty>
+<blob name='MethodHandlesAdapterBlob' size='32000'>
+<sect index='1' size='32000' free='31632'/>
+</blob>
+<writer thread='139624676587072'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/lang/ThreadLocal' x='java/lang/ThreadLocal getMap (Ljava/lang/Thread;)Ljava/lang/ThreadLocal$ThreadLocalMap;' witness='java/lang/InheritableThreadLocal' stamp='0.278'/>
+<dependency_failed type='unique_concrete_method' ctxk='sun/nio/cs/ArrayDecoder' x='sun/nio/cs/UTF_8$Decoder decode ([BII[C)I' witness='sun/nio/cs/ArrayDecoder' stamp='0.299'/>
+<dependency_failed type='unique_concrete_method' ctxk='sun/nio/cs/ArrayEncoder' x='sun/nio/cs/UTF_8$Encoder encode ([CII[B)I' witness='sun/nio/cs/ArrayEncoder' stamp='0.381'/>
+<dependency_failed type='unique_concrete_method' ctxk='sun/nio/cs/ArrayEncoder' x='sun/nio/cs/UTF_8$Encoder encode ([CII[B)I' witness='sun/nio/cs/ArrayEncoder' stamp='0.381'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.597'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.597'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.597'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.597'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/io/DataInput' x='java/io/DataInputStream readUnsignedShort ()I' witness='java/io/DataInput' stamp='0.619'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/util/NamespaceSupport' witness='org/apache/xerces/impl/xs/SchemaNamespaceSupport' stamp='0.767'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/util/NamespaceSupport' witness='org/apache/xerces/impl/xs/SchemaNamespaceSupport' stamp='0.767'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/util/NamespaceSupport' witness='org/apache/xerces/impl/xs/SchemaNamespaceSupport' stamp='0.767'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.794'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.794'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.794'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.794'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.794'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.794'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.794'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.967'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.967'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.967'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.967'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.967'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.967'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.967'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.967'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.967'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.967'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.967'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.967'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getName ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='2.020'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getName ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='2.020'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getValue ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='2.020'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getName ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='2.020'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getValue ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='2.020'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getName ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='2.020'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/NamedNodeMap' x='org/apache/xerces/impl/xs/opti/NamedNodeMapImpl getLength ()I' witness='org/w3c/dom/NamedNodeMap' stamp='2.021'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/impl/validation/ValidationState' witness='org/apache/xerces/impl/validation/ConfigurableValidationState' stamp='2.195'/>
+<tty_done stamp='2.511'/>
+</tty>
+<hotspot_log_done stamp='2.511'/>
+</hotspot_log>

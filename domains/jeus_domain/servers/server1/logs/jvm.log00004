@@ -1,0 +1,326 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hotspot_log version='160 1' process='19359' time_ms='1734331329518'>
+<vm_version>
+<name>
+OpenJDK 64-Bit Server VM
+</name>
+<release>
+25.302-b08
+</release>
+<info>
+OpenJDK 64-Bit Server VM (25.302-b08) for linux-amd64 JRE (1.8.0_302-b08), built on Jul 16 2021 05:13:40 by &quot;openjdk&quot; with gcc 4.4.7 20120313 (Red Hat 4.4.7-23)
+</info>
+</vm_version>
+<vm_arguments>
+<args>
+-XX:+UseContainerSupport -XX:ActiveProcessorCount=1 -Dserver1 -Xmx1024m -XX:MaxMetaspaceSize=256m -Xbootclasspath/p:/workspace/jeus8-bpm6/lib/system/extension.jar -Djava.security.policy=/workspace/jeus8-bpm6/domains/jeus_domain/config/security/policy -Djava.library.path=/workspace/jeus8-bpm6/lib/system -Djava.endorsed.dirs=/workspace/jeus8-bpm6/lib/endorsed -Djeus.properties.replicate=jeus,sun.rmi,java.util,java.net -Djeus.jvm.version=hotspot -Djava.util.logging.config.file=/workspace/jeus8-bpm6/bin/logging.properties -Dsun.rmi.dgc.server.gcInterval=3600000 -Djava.util.logging.manager=jeus.util.logging.JeusLogManager -Djeus.home=/workspace/jeus8-bpm6 -Djava.net.preferIPv4Stack=true -Djeus.tm.checkReg=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Djeus.domain.name=jeus_domain -Djava.naming.factory.initial=jeus.jndi.JNSContextFactory -Djava.naming.factory.url.pkgs=jeus.jndi.jns.url -Djeus.server.protectmode=false -XX:+UnlockDiagnosticVMOptions -XX:+LogVMOutput -XX:LogFile=/workspace/jeus8-bpm6/domains/jeus_domain/servers/server1/logs/jvm.log 
+</args>
+<command>
+jeus.server.ServerBootstrapper -domain jeus_domain -server server1 -u admin
+</command>
+<launcher>
+SUN_STANDARD
+</launcher>
+<properties>
+java.vm.specification.name=Java Virtual Machine Specification
+java.vm.version=25.302-b08
+java.vm.name=OpenJDK 64-Bit Server VM
+java.vm.info=mixed mode, sharing
+java.ext.dirs=/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/ext:/usr/java/packages/lib/ext
+java.endorsed.dirs=/workspace/jeus8-bpm6/lib/endorsed
+sun.boot.library.path=/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/amd64
+java.library.path=/workspace/jeus8-bpm6/lib/system
+java.home=/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre
+java.class.path=/workspace/jeus8-bpm6/lib/system/bootstrap.jar
+sun.boot.class.path=/workspace/jeus8-bpm6/lib/system/extension.jar:/workspace/jeus8-bpm6/lib/endorsed/activation-1.1.1.jar:/workspace/jeus8-bpm6/lib/endorsed/javaee-annotation.jar:/workspace/jeus8-bpm6/lib/endorsed/jaxp-ri.jar:/workspace/jeus8-bpm6/lib/endorsed/jsr105-impl-1.0.2.jar:/workspace/jeus8-bpm6/lib/endorsed/serializer.jar:/workspace/jeus8-bpm6/lib/endorsed/xalan.jar:/workspace/jeus8-bpm6/lib/endorsed/xercesImpl.jar:/workspace/jeus8-bpm6/lib/endorsed/xml-apis.jar:/workspace/jeus8-bpm6/lib/endorsed/xsltc.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/resources.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/rt.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/sunrsasign.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/jsse.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/jce.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/charsets.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/lib/jfr.jar:/home/gitpod/.sdkman/candidates/java/8.0.302-open/jre/classes
+java.vm.specification.vendor=Oracle Corporation
+java.vm.specification.version=1.8
+java.vm.vendor=Oracle Corporation
+server1=
+java.security.policy=/workspace/jeus8-bpm6/domains/jeus_domain/config/security/policy
+jeus.properties.replicate=jeus,sun.rmi,java.util,java.net
+jeus.jvm.version=hotspot
+java.util.logging.config.file=/workspace/jeus8-bpm6/bin/logging.properties
+sun.rmi.dgc.server.gcInterval=3600000
+java.util.logging.manager=jeus.util.logging.JeusLogManager
+jeus.home=/workspace/jeus8-bpm6
+java.net.preferIPv4Stack=true
+jeus.tm.checkReg=true
+sun.rmi.dgc.client.gcInterval=3600000
+jeus.domain.name=jeus_domain
+java.naming.factory.initial=jeus.jndi.JNSContextFactory
+java.naming.factory.url.pkgs=jeus.jndi.jns.url
+jeus.server.protectmode=false
+sun.java.command=jeus.server.ServerBootstrapper -domain jeus_domain -server server1 -u admin
+sun.java.launcher=SUN_STANDARD
+</properties>
+</vm_arguments>
+<tty>
+<blob name='MethodHandlesAdapterBlob' size='32000'>
+<sect index='1' size='32000' free='31632'/>
+</blob>
+<writer thread='140663850886720'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/lang/ThreadLocal' x='java/lang/ThreadLocal getMap (Ljava/lang/Thread;)Ljava/lang/ThreadLocal$ThreadLocalMap;' witness='java/lang/InheritableThreadLocal' stamp='0.125'/>
+<dependency_failed type='unique_concrete_method' ctxk='sun/nio/cs/ArrayDecoder' x='sun/nio/cs/UTF_8$Decoder decode ([BII[C)I' witness='sun/nio/cs/ArrayDecoder' stamp='0.145'/>
+<dependency_failed type='unique_concrete_method' ctxk='sun/nio/cs/ArrayEncoder' x='sun/nio/cs/UTF_8$Encoder encode ([CII[B)I' witness='sun/nio/cs/ArrayEncoder' stamp='0.183'/>
+<dependency_failed type='unique_concrete_method' ctxk='sun/nio/cs/ArrayEncoder' x='sun/nio/cs/UTF_8$Encoder encode ([CII[B)I' witness='sun/nio/cs/ArrayEncoder' stamp='0.183'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.327'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.327'/>
+<dependency_failed type='leaf_type' ctxk='java/util/jar/JarFile' witness='sun/net/www/protocol/jar/URLJarFile' stamp='0.327'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/io/DataInput' x='java/io/DataInputStream readUnsignedShort ()I' witness='java/io/DataInput' stamp='0.346'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/util/NamespaceSupport' witness='org/apache/xerces/impl/xs/SchemaNamespaceSupport' stamp='0.428'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/util/NamespaceSupport' witness='org/apache/xerces/impl/xs/SchemaNamespaceSupport' stamp='0.428'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/util/NamespaceSupport' witness='org/apache/xerces/impl/xs/SchemaNamespaceSupport' stamp='0.428'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/util/NamespaceSupport' witness='org/apache/xerces/impl/xs/SchemaNamespaceSupport' stamp='0.428'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.454'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.454'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.454'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.454'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.454'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.454'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/xni/QName' witness='org/apache/xerces/impl/dv/xs/QNameDV$XQName' stamp='0.454'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.556'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.556'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.556'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.556'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.556'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.556'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.556'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.556'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.556'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.556'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.556'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList' witness='com/sun/istack/FinalArrayList' stamp='0.556'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getName ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='1.649'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getValue ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='1.649'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getName ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='1.649'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getValue ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='1.649'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/Attr' x='org/apache/xerces/impl/xs/opti/AttrImpl getName ()Ljava/lang/String;' witness='org/w3c/dom/Attr' stamp='1.649'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/w3c/dom/NamedNodeMap' x='org/apache/xerces/impl/xs/opti/NamedNodeMapImpl getLength ()I' witness='org/w3c/dom/NamedNodeMap' stamp='1.650'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/impl/validation/ValidationState' witness='org/apache/xerces/impl/validation/ConfigurableValidationState' stamp='1.865'/>
+<writer thread='140662980736576'/>
+<dependency_failed type='leaf_type' ctxk='java/nio/HeapByteBuffer' witness='java/nio/HeapByteBufferR' stamp='2.155'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/nio/HeapByteBuffer' x='java/nio/HeapByteBuffer _get (I)B' witness='java/nio/HeapByteBufferR' stamp='2.155'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/nio/HeapByteBuffer' x='java/nio/HeapByteBuffer _get (I)B' witness='java/nio/HeapByteBufferR' stamp='2.155'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/nio/HeapByteBuffer' x='java/nio/HeapByteBuffer _get (I)B' witness='java/nio/HeapByteBufferR' stamp='2.155'/>
+<dependency_failed type='leaf_type' ctxk='java/nio/HeapByteBuffer' witness='java/nio/HeapByteBufferR' stamp='2.155'/>
+<dependency_failed type='leaf_type' ctxk='java/nio/HeapByteBuffer' witness='java/nio/HeapByteBufferR' stamp='2.155'/>
+<dependency_failed type='leaf_type' ctxk='java/nio/HeapByteBuffer' witness='java/nio/HeapByteBufferR' stamp='2.155'/>
+<dependency_failed type='leaf_type' ctxk='java/nio/HeapByteBuffer' witness='java/nio/HeapByteBufferR' stamp='2.155'/>
+<writer thread='140663850886720'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/zip/InflaterInputStream' x='java/util/zip/InflaterInputStream read ([BII)I' witness='java/util/zip/ZipInputStream' stamp='2.263'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/zip/InflaterInputStream' x='java/util/zip/InflaterInputStream read ([BII)I' witness='java/util/zip/ZipInputStream' stamp='2.263'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/zip/InflaterInputStream' x='java/util/zip/InflaterInputStream read ([BII)I' witness='java/util/zip/ZipInputStream' stamp='2.263'/>
+<writer thread='140662980736576'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<dependency_failed type='leaf_type' ctxk='java/io/ObjectInputStream' witness='jeus/util/ObjectInputStreamWithLoader' stamp='2.426'/>
+<writer thread='140662959765056'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/ArrayList' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='2.444'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/ArrayList' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='2.444'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/ArrayList' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='2.444'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/ArrayList' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='2.444'/>
+<writer thread='140662957667904'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/WeakHashMap' x='java/util/WeakHashMap get (Ljava/lang/Object;)Ljava/lang/Object;' witness='com/sun/jmx/remote/opt/util/CacheMap' stamp='2.455'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/WeakHashMap' x='java/util/WeakHashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='com/sun/jmx/remote/opt/util/CacheMap' stamp='2.455'/>
+<writer thread='140663850886720'/>
+<dependency_failed type='unique_concrete_method' ctxk='javax/xml/bind/annotation/XmlRootElement' x='com/sun/xml/bind/v2/model/annotation/XmlRootElementQuick name ()Ljava/lang/String;' witness='javax/xml/bind/annotation/XmlRootElement' stamp='2.458'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList$Itr' witness='java/util/ArrayList$ListItr' stamp='2.643'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList$Itr' witness='java/util/ArrayList$ListItr' stamp='2.643'/>
+<dependency_failed type='leaf_type' ctxk='java/util/ArrayList$Itr' witness='java/util/ArrayList$ListItr' stamp='2.643'/>
+<writer thread='140663479952960'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/ArrayList' x='java/util/ArrayList add (Ljava/lang/Object;)Z' witness='javax/management/AttributeList' stamp='2.704'/>
+<writer thread='140663850886720'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='2.844'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='2.844'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='2.844'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='2.844'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='2.844'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='2.844'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='2.844'/>
+<dependency_failed type='abstract_with_unique_concrete_subtype' ctxk='java/lang/CharacterData' x='java/lang/CharacterDataLatin1' witness='java/lang/CharacterData00' stamp='2.844'/>
+<dependency_failed type='unique_concrete_method' ctxk='javax/xml/stream/events/Attribute' x='org/codehaus/stax2/ri/evt/AttributeEventImpl getName ()Ljavax/xml/namespace/QName;' witness='javax/xml/stream/events/Attribute' stamp='3.309'/>
+<dependency_failed type='leaf_type' ctxk='java/io/BufferedInputStream' witness='jeus/servlet/engine/io/ExtendedBufferedInputStream' stamp='3.390'/>
+<dependency_failed type='leaf_type' ctxk='java/io/BufferedInputStream' witness='jeus/servlet/engine/io/ExtendedBufferedInputStream' stamp='3.390'/>
+<dependency_failed type='leaf_type' ctxk='java/io/BufferedInputStream' witness='jeus/servlet/engine/io/ExtendedBufferedInputStream' stamp='3.390'/>
+<dependency_failed type='leaf_type' ctxk='java/io/BufferedInputStream' witness='jeus/servlet/engine/io/ExtendedBufferedInputStream' stamp='3.390'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/impl/xs/identity/XPathMatcher' x='org/apache/xerces/impl/xs/identity/XPathMatcher handleContent (Lorg/apache/xerces/xs/XSTypeDefinition;ZLjava/lang/Object;SLorg/apache/xerces/xs/ShortList;)V' witness='org/apache/xerces/impl/xs/identity/Field$Matcher' stamp='3.525'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/impl/xs/identity/XPathMatcher' x='org/apache/xerces/impl/xs/identity/XPathMatcher matched (Ljava/lang/Object;SLorg/apache/xerces/xs/ShortList;Z)V' witness='org/apache/xerces/impl/xs/identity/Field$Matcher' stamp='3.525'/>
+<writer thread='140660488271424'/>
+<dependency_failed type='leaf_type' ctxk='jeus/service/archive/ArchiveArrayClassLoader' witness='jeus/servlet/loader/ContextLoader' stamp='3.675'/>
+<dependency_failed type='unique_concrete_method' ctxk='jeus/thirdparty/asm504/ClassVisitor' x='jeus/thirdparty/asm504/ClassVisitor visitTypeAnnotation (ILjeus/thirdparty/asm504/TypePath;Ljava/lang/String;Z)Ljeus/thirdparty/asm504/AnnotationVisitor;' witness='jeus/thirdparty/asm504/ClassWriter' stamp='4.363'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/DocumentImpl' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='4.912'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/DocumentImpl' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='4.912'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/DocumentImpl' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='4.912'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/DocumentImpl' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='4.912'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/CoreDocumentImpl' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='4.912'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/CoreDocumentImpl' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='4.912'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ParentNode' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='4.912'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ParentNode' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='4.912'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ParentNode' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='4.912'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ParentNode' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='4.912'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ParentNode' x='org/apache/xerces/dom/ParentNode synchronizeChildren ()V' witness='org/apache/xerces/dom/DeferredDocumentImpl' stamp='4.912'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/ElementNSImpl' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='4.945'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/ElementNSImpl' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='4.945'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/ElementNSImpl' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='4.945'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/ElementNSImpl' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='4.945'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/ElementNSImpl' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='4.945'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ElementImpl' x='org/apache/xerces/dom/ElementImpl synchronizeData ()V' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='4.945'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/ElementImpl' x='org/apache/xerces/dom/ElementImpl synchronizeData ()V' witness='org/apache/xerces/dom/DeferredElementNSImpl' stamp='4.945'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/TextImpl' witness='org/apache/xerces/dom/DeferredTextImpl' stamp='4.962'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/TextImpl' witness='org/apache/xerces/dom/DeferredTextImpl' stamp='4.962'/>
+<dependency_failed type='leaf_type' ctxk='org/apache/xerces/dom/TextImpl' witness='org/apache/xerces/dom/DeferredTextImpl' stamp='4.962'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/dom/CharacterDataImpl' x='org/apache/xerces/dom/NodeImpl synchronizeData ()V' witness='org/apache/xerces/dom/DeferredTextImpl' stamp='4.962'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='5.475'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='5.475'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='5.475'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='5.475'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='5.475'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='5.475'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='5.475'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='5.475'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='5.475'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='5.475'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='5.475'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentHashMap' witness='javax/el/BeanELResolver$SoftConcurrentHashMap' stamp='5.475'/>
+<writer thread='140660508194368'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='jeus/workarea/UserWorkAreaPartition' stamp='59.452'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='jeus/workarea/UserWorkAreaPartition' stamp='59.452'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='jeus/workarea/UserWorkAreaPartition' stamp='59.452'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='jeus/workarea/UserWorkAreaPartition' stamp='59.452'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='jeus/workarea/UserWorkAreaPartition' stamp='59.452'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='jeus/workarea/UserWorkAreaPartition' stamp='59.452'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='jeus/workarea/UserWorkAreaPartition' stamp='59.452'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='jeus/workarea/UserWorkAreaPartition' stamp='59.452'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='jeus/workarea/UserWorkAreaPartition' stamp='59.452'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='jeus/workarea/UserWorkAreaPartition' stamp='59.452'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Stack' witness='jeus/workarea/UserWorkAreaPartition' stamp='59.452'/>
+<writer thread='140660502951488'/>
+<dependency_failed type='leaf_type' ctxk='org/xml/sax/helpers/AttributesImpl' witness='org/apache/jasper/util/UniqueAttributesImpl' stamp='89.511'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/nio/charset/CharsetDecoder' x='java/nio/charset/CharsetDecoder implReset ()V' witness='sun/nio/cs/ext/DoubleByte$Decoder' stamp='89.525'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/nio/charset/CharsetDecoder' x='java/nio/charset/CharsetDecoder implReset ()V' witness='sun/nio/cs/ext/DoubleByte$Decoder' stamp='89.525'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/nio/charset/CharsetDecoder' x='java/nio/charset/CharsetDecoder implReset ()V' witness='sun/nio/cs/ext/DoubleByte$Decoder' stamp='89.525'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/nio/charset/CharsetDecoder' x='java/nio/charset/CharsetDecoder implReset ()V' witness='sun/nio/cs/ext/DoubleByte$Decoder' stamp='89.526'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Vector$Itr' witness='java/util/Vector$ListItr' stamp='89.540'/>
+<dependency_failed type='leaf_type' ctxk='com/sun/tools/javac/parser/UnicodeReader' witness='com/sun/tools/javac/parser/JavadocTokenizer$DocReader' stamp='89.759'/>
+<dependency_failed type='leaf_type' ctxk='com/sun/tools/javac/parser/UnicodeReader' witness='com/sun/tools/javac/parser/JavadocTokenizer$DocReader' stamp='89.759'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol isLocal ()Z' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol packge ()Lcom/sun/tools/javac/code/Symbol$PackageSymbol;' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol outermostClass ()Lcom/sun/tools/javac/code/Symbol$ClassSymbol;' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol enclClass ()Lcom/sun/tools/javac/code/Symbol$ClassSymbol;' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol enclClass ()Lcom/sun/tools/javac/code/Symbol$ClassSymbol;' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol enclClass ()Lcom/sun/tools/javac/code/Symbol$ClassSymbol;' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol enclClass ()Lcom/sun/tools/javac/code/Symbol$ClassSymbol;' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol enclClass ()Lcom/sun/tools/javac/code/Symbol$ClassSymbol;' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol enclClass ()Lcom/sun/tools/javac/code/Symbol$ClassSymbol;' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol hasOuterInstance ()Z' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol enclClass ()Lcom/sun/tools/javac/code/Symbol$ClassSymbol;' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol enclClass ()Lcom/sun/tools/javac/code/Symbol$ClassSymbol;' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol enclClass ()Lcom/sun/tools/javac/code/Symbol$ClassSymbol;' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol enclClass ()Lcom/sun/tools/javac/code/Symbol$ClassSymbol;' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='com/sun/tools/javac/code/Symbol' x='com/sun/tools/javac/code/Symbol enclClass ()Lcom/sun/tools/javac/code/Symbol$ClassSymbol;' witness='com/sun/tools/javac/code/Symbol$DelegatedSymbol' stamp='90.157'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/net/URLStreamHandler' x='java/net/URLStreamHandler getDefaultPort ()I' witness='jeus/util/cnet/classftp/Handler' stamp='90.170'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/net/URLStreamHandler' x='java/net/URLStreamHandler getDefaultPort ()I' witness='jeus/util/cnet/classftp/Handler' stamp='90.170'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/net/URLStreamHandler' x='java/net/URLStreamHandler getDefaultPort ()I' witness='jeus/util/cnet/classftp/Handler' stamp='90.170'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/net/URLStreamHandler' x='java/net/URLStreamHandler getDefaultPort ()I' witness='jeus/util/cnet/classftp/Handler' stamp='90.170'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/net/URLStreamHandler' x='java/net/URLStreamHandler getDefaultPort ()I' witness='jeus/util/cnet/classftp/Handler' stamp='90.170'/>
+<writer thread='140663479952960'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/net/URLStreamHandler' x='java/net/URLStreamHandler getDefaultPort ()I' witness='jeus/util/cnet/classftp/Handler' stamp='90.206'/>
+<writer thread='140662949279296'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/CopyOnWriteArrayList' witness='ch/qos/logback/classic/spi/TurboFilterList' stamp='2463.904'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/CopyOnWriteArrayList' witness='ch/qos/logback/classic/spi/TurboFilterList' stamp='2463.904'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/CopyOnWriteArrayList' witness='ch/qos/logback/classic/spi/TurboFilterList' stamp='2463.904'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/CopyOnWriteArrayList' witness='ch/qos/logback/classic/spi/TurboFilterList' stamp='2463.904'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/CopyOnWriteArrayList' witness='ch/qos/logback/classic/spi/TurboFilterList' stamp='2463.904'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/CopyOnWriteArrayList' witness='ch/qos/logback/classic/spi/TurboFilterList' stamp='2463.904'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/CopyOnWriteArrayList' witness='ch/qos/logback/classic/spi/TurboFilterList' stamp='2463.904'/>
+<dependency_failed type='leaf_type' ctxk='java/lang/SecurityException' witness='java/security/AccessControlException' stamp='2463.977'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap isEmpty ()Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap isEmpty ()Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap size ()I' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap remove (Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/HashMap' x='java/util/HashMap put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' witness='org/apache/commons/collections/FastHashMap' stamp='2464.354'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Date' witness='java/sql/Date' stamp='2464.387'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Date' witness='java/sql/Date' stamp='2464.387'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Date' witness='java/sql/Date' stamp='2464.387'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Date' witness='java/sql/Date' stamp='2464.387'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Date' witness='java/sql/Date' stamp='2464.387'/>
+<writer thread='140663478900288'/>
+<dependency_failed type='leaf_type' ctxk='java/util/Date' witness='java/sql/Date' stamp='2464.388'/>
+<writer thread='140662957667904'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/Hashtable' x='java/util/Hashtable size ()I' witness='org/apache/commons/logging/impl/WeakHashtable' stamp='3574.292'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/Hashtable' x='java/util/Hashtable size ()I' witness='org/apache/commons/logging/impl/WeakHashtable' stamp='3574.292'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/Hashtable' x='java/util/Hashtable containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/logging/impl/WeakHashtable' stamp='3574.292'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/Hashtable' x='java/util/Hashtable rehash ()V' witness='org/apache/commons/logging/impl/WeakHashtable' stamp='3574.292'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/Hashtable' x='java/util/Hashtable rehash ()V' witness='org/apache/commons/logging/impl/WeakHashtable' stamp='3574.292'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/Hashtable' x='java/util/Hashtable containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/logging/impl/WeakHashtable' stamp='3574.292'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/Hashtable' x='java/util/Hashtable containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/logging/impl/WeakHashtable' stamp='3574.292'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/Hashtable' x='java/util/Hashtable containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/logging/impl/WeakHashtable' stamp='3574.292'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/Hashtable' x='java/util/Hashtable containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/logging/impl/WeakHashtable' stamp='3574.292'/>
+<dependency_failed type='unique_concrete_method' ctxk='java/util/Hashtable' x='java/util/Hashtable containsKey (Ljava/lang/Object;)Z' witness='org/apache/commons/logging/impl/WeakHashtable' stamp='3574.292'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentLinkedQueue' witness='org/apache/logging/log4j/status/StatusLogger$BoundedQueue' stamp='3574.322'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentLinkedQueue' witness='org/apache/logging/log4j/status/StatusLogger$BoundedQueue' stamp='3574.322'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentLinkedQueue' witness='org/apache/logging/log4j/status/StatusLogger$BoundedQueue' stamp='3574.322'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentLinkedQueue' witness='org/apache/logging/log4j/status/StatusLogger$BoundedQueue' stamp='3574.322'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentLinkedQueue' witness='org/apache/logging/log4j/status/StatusLogger$BoundedQueue' stamp='3574.322'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentLinkedQueue' witness='org/apache/logging/log4j/status/StatusLogger$BoundedQueue' stamp='3574.322'/>
+<dependency_failed type='leaf_type' ctxk='java/util/concurrent/ConcurrentLinkedQueue' witness='org/apache/logging/log4j/status/StatusLogger$BoundedQueue' stamp='3574.322'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/xni/NamespaceContext' x='org/apache/xerces/util/NamespaceSupport getPrefix (Ljava/lang/String;)Ljava/lang/String;' witness='org/apache/xerces/xinclude/MultipleScopeNamespaceSupport' stamp='3574.641'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/xni/NamespaceContext' x='org/apache/xerces/util/NamespaceSupport pushContext ()V' witness='org/apache/xerces/xinclude/XIncludeNamespaceSupport' stamp='3574.642'/>
+<dependency_failed type='unique_concrete_method' ctxk='org/apache/xerces/xni/NamespaceContext' x='org/apache/xerces/util/NamespaceSupport pushContext ()V' witness='org/apache/xerces/xinclude/XIncludeNamespaceSupport' stamp='3574.642'/>
+<dependency_failed type='leaf_type' ctxk='javax/management/MBeanAttributeInfo' witness='javax/management/openmbean/OpenMBeanAttributeInfoSupport' stamp='3574.733'/>
+<dependency_failed type='leaf_type' ctxk='javax/management/MBeanAttributeInfo' witness='javax/management/openm
